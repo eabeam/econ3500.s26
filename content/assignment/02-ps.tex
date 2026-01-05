@@ -1,0 +1,262 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\newenvironment{itemize*}%
+
+  
+\lhead{EC200 - Econometrics and Applications}
+
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+EC200: Econometrics and Applications\hfill \\
+
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Problem Set 2}}\\
+\end{center}
+\bigskip
+
+
+%{
+%\setcounter{tocdepth}{3}
+%\tableofcontents
+%}
+
+You can download the data file you need for question 4
+\href{https://ec200f22.netlify.app/assignment/collegedistance.dta}{here}.
+
+\hypertarget{what-do-i-submit}{%
+\section*{What do I submit?}\label{what-do-i-submit}}
+
+\begin{itemize}
+\tightlist
+\item
+  Your written up answers to exercise questions. If you work on a piece
+  of paper, please scan using some sort of phone software (like
+  Microsoft Lens or Adobe Scan) rather than just taking a picture. You
+  can also integrate your written answers into your do-file, just be
+  clear about it.
+\item
+  A do-file that runs your Stata analysis (for question 4).
+\item
+  A log file that includes the output from running your do-file (for
+  question 4).
+\end{itemize}
+
+\hypertarget{exercises}{%
+\section*{Exercises}\label{exercises}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  The following table shows, for eight vintages of delicious wine,
+  purchases per buyer (\(y\)) and the wine buyer's rating (\(x\)) in a
+  given year:
+
+  \begin{longtable}[]{@{}lcccccccc@{}}
+  \toprule
+  \(x\) & 3.6 & 3.3 & 2.8 & 2.3 & 2.7 & 2.9 & 2.0 & 2.4 \\
+  \midrule
+  \endhead
+  \(y\) & 24 & 21 & 22 & 20 & 18 & 13 & 9 & 16 \\
+  \bottomrule
+  \end{longtable}
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    Estimate \emph{by hand} the regression of purchases per buyer on the
+    buyer's rating.\\
+  \item
+    Interpret the slope of the estimated regression line.\\
+  \item
+    Interpret the intercept of the estimated regression line .\\
+  \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Suppose that a random sample of 200 20-year-old men is selected from a
+  population and that these men's height and weight are recorded. A
+  regression of weight (measured in pounds) on height (measured in
+  inches) yields
+\end{enumerate}
+
+\[\widehat{Weight}=-99.41 + 3.94 Height\]
+
+\(R^2 = 0.81\); \(SER = 10.2\)
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  What is the predicted weight for someone who is 72 inches tall? 66
+  inches tall?
+\item
+  One 20-year-old man has a late growth spurt and grows 1.5 inches over
+  the course of the year. What is the regression's prediction for the
+  increase in his weight?
+\item
+  Suppose that you want to translate the results of this equation into
+  centimeters and kilograms. What are the regression estimates from this
+  new regression? Give all results, including estimated coefficients,
+  \(R^2\), and \(SER\).
+\item
+  Interpret the \(R^2\) value. Does it indicate anything about whether
+  these estimates are likely to be biased? Explain.
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Consider the savings function:
+\end{enumerate}
+
+\[sav =  \beta_0 + \beta_1 inc + u, u = e\sqrt{inc}\]
+
+where \(e\) is a random variable with \(E(e) = 0\) and
+\(Var(e) = \sigma^2_e\). Assume that \(e\) is independent of \(inc\).
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Show that \(E(u|inc)=0\), so that the key zero conditional mean
+  assumptionis satisfied. {[}Hint: If \(e\) is independent of \(inc\),
+  then \(E(e|inc) = E(e)\){]}
+\item
+  Show that \(Var(u|inc) = \sigma^2_einc\), so that the homoskedasticity
+  assumption is violated. In particular, the variance of \(sav\)
+  increases with \(inc\). {[}Hint: \(Var(e|inc) = Var(e)\) if \(inc\)
+  and \(e\) are independent!{]}
+\item
+  Why might it be reasonable to assume that the variance of savings
+  increases with family income?
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  The data file
+  \href{../collegedistance.dta}{\texttt{collegedistance.dta}} contains
+  data from a random sample of high school seniors interviewed in 1980
+  and re-interviewed in 1986\footnote{These data were provided by
+    Professor Cecilia Rouse of Princeton University and were used in her
+    paper ``Democratization or Diversion? The Effect of Community
+    Colleges on Educational Attainment,'' Journal of Business and
+    Economic Statistics, April 1995, 12(2): 217--224.} Use these data to
+  investigate the relationship between the number of completed years of
+  education for young adults and the distance from each student's high
+  school to the nearest four-year college. (Proximity to college lowers
+  the cost of education, so that students who live closer to a four-year
+  college should, on average, complete more years of higher education.)
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  Run a regression of years of completed education (\(ED\)) on distance
+  to the nearest college (\(Dist\)), where \(Dist\) is measured in tens
+  of miles. (For example, \(Dist=2\) means that the distance is 20
+  miles.) You can regress a dependent variable \texttt{y} on an
+  independent variable \texttt{x} with the command
+  \texttt{regress\ y\ x}{]}. Write the equation you estimated in the
+  form \(\widehat{ED} = \beta_0 + \beta_1 Dist\)
+\item
+  How does the average value of years of completed schooling change when
+  colleges are built close to where students go to high school?
+\item
+  Bob's high school was 20 miles from the nearest college. Predict Bob's
+  years of completed education using the estimated regression. How would
+  the prediction change if Bob lived 10 miles from the nearest college?
+\item
+  Does distance to college explain a large fraction of the variance in
+  educational attainment across individuals? Explain.
+\item
+  Provide an example of a factor that might cause this model to violate
+  the zero conditional mean assumption. Explain your reasoning.
+\item
+  What is the value of the standard error of the regression?\footnote{There
+    are a few ways to find it in Stata's output. The easiest is to note
+    that ``root MSE'' is the square root of the SER} What are the units
+  for the standard error (meters, grams, years, dollars, cents, or
+  something else)?
+\item
+  Is the estimated regression slope coefficient statistically
+  significant at the 10\% level? What is the p-value associated with
+  coefficient's t-statistic?
+\item
+  Construct a 90\% confidence interval for the slope coefficient.
+\item
+  Estimate a regression that restricts the sample to men, and calculate
+  a 10\% confidence interval for the slope. Do the same, restricting the
+  sample to women. Does it look like the effect of distance on completed
+  years of education is different?\footnote{Note that we cannot make
+    claims about whether they are statistically different because the
+    estimates come from two different samples! A hypothesis test here
+    would be awesome, but we need to build a few more skills to do this.}
+\end{enumerate}
+\end{document}

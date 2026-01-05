@@ -1,0 +1,49 @@
+---------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/emilybeam/Documents/GitHub/ec200.f20/content/assignment/harold.log
+  log type:  text
+ opened on:   2 Oct 2020, 14:52:42
+
+. 
+. 
+. display 2 + 2
+4
+
+. display 5 + 7 
+12
+
+. 
+. 
+. use "/Users/emilybeam/Documents/GitHub/ec200.f20/content/assignment/collegedistance.dta"
+
+. 
+. regress ed dist, robust
+
+Linear regression                               Number of obs     =      3,796
+                                                F(1, 3794)        =      29.83
+                                                Prob > F          =     0.0000
+                                                R-squared         =     0.0074
+                                                Root MSE          =     1.8074
+
+------------------------------------------------------------------------------
+             |               Robust
+          ed |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        dist |  -.0733727   .0134334    -5.46   0.000    -.0997101   -.0470353
+       _cons |   13.95586   .0378112   369.09   0.000     13.88172    14.02999
+------------------------------------------------------------------------------
+
+. 
+. ** All my commands in here 
+. 
+. 
+. 
+. 
+. 
+. 
+. log close 
+      name:  <unnamed>
+       log:  /Users/emilybeam/Documents/GitHub/ec200.f20/content/assignment/harold.log
+  log type:  text
+ closed on:   2 Oct 2020, 14:52:42
+---------------------------------------------------------------------------------------------

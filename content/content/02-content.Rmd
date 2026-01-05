@@ -1,0 +1,103 @@
+---
+title: Week 2 - Statistics Review
+sitetitle: Week 2
+summary: "EC200 - Week 2 Statistics Review (SW Chapter 3)"
+
+date: "2021-08-25"
+start_date: "2022-01-24"
+end_date: "2022-01-28"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 3
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch3-slides.pdf
+thumb: /slides/ch3-slides.png
+
+
+
+---
+
+## Overview
+
+Welcome to Week 2! Statistical review continues apace. 
+
+As before, what you should do this final week before the exam depends on your background:
+
+### I took EC170/STAT141 recently and remember some stuff
+1. Read through SW, and dig deeper into anything that doesn't look familiar. 
+2. Watch the class videos and complete video quiz.
+3. Use the Khan Academy to clarify anything you feel a bit fuzzy on. 
+4. Make sure you can do the practice problems. 
+
+
+### Everyone else
+1. Start by reviewing the Khan Academy videos 
+2. Work through *all* the Khan Academy practice problems. 
+3. Watch the class videos and complete video quiz.
+4. Head into the practice problems, and review concepts where you are still stuck.
+
+
+## Reading Guide (Chapter 2)
+
+### SW 2.5 Random Sampling and the Distribution of the Sample Average 
+  - [ <i class="fas fa-tv"> </i> What is a sampling distribution?](https://www.khanacademy.org/math/ap-statistics/sampling-distribution-ap/what-is-sampling-distribution/v/introduction-to-sampling-distributions) *(just the one video)*
+  
+### SW 2.6 Large-sample approximations to sampling distributions
+  - *Get that central limit theorem!*
+  - [ <i class="fas fa-tv"> </i> Central Limit Theorem](https://www.khanacademy.org/math/ap-statistics/sampling-distribution-ap/what-is-sampling-distribution/v/central-limit-theorem)  *(just the one video)*
+  - [ <i class="fas fa-tv"> </i> Sampling distribution of a sample, part I  mean](https://www.khanacademy.org/math/ap-statistics/sampling-distribution-ap/what-is-sampling-distribution/v/sampling-distribution-of-the-sample-mean) and [part II](https://www.khanacademy.org/math/ap-statistics/sampling-distribution-ap/what-is-sampling-distribution/v/sampling-distribution-of-the-sample-mean-2) *(just the two videos, with a practice after)*
+
+## Reading Guide (Chapter 3)
+
+This is the material you should know,  along with supports from [Khan Academy (<i class="fas fa-tv"> </i>)](https://www.khanacademy.org/math/ap-statistics/). Remember that you don't need to memorize formulas! 
+
+
+
+### SW 3.1	Estimation of the population mean 
+  - Don’t worry too much about BLUE, we’ll come back to it. But make sure you get bias, consistency, and efficiency
+
+### SW 3.2	Hypothesis tests concerning the population mean
+  - *KA presents confidence intervals before hypothesis tests, so if following their curruculum, start w/ confidence intervals first*
+  -  [<i class="fas fa-tv"> </i> The idea behind significance tests](https://www.khanacademy.org/math/ap-statistics/xfb5d8e68:inference-categorical-proportions/idea-significance-tests/v/idea-behind-hypothesis-testing) 
+   -  [<i class="fas fa-tv"> </i> Introduction to confidence intervals](https://www.khanacademy.org/math/ap-statistics/xfb5d8e68:inference-quantitative-means/one-sample-t-interval-mean/v/introduction-to-t-statistics)
+  - [<i class="fas fa-tv"> </i> Setting up a test for a population mean](https://www.khanacademy.org/math/ap-statistics/xfb5d8e68:inference-quantitative-means/one-sample-t-test-mean/v/writing-hypotheses-for-significance-test-about-means) *(entire playlist)*
+  - [<i class="fas fa-tv"> </i> Carrying out a test for a population mean](https://www.khanacademy.org/math/ap-statistics/xfb5d8e68:inference-quantitative-means/xfb5d8e68:carrying-out-test-mean/v/when-to-use-z-or-t-statistics-in-significance-tests) *(entire playlist, except part about TI calculator)*
+  
+
+### SW 3.3	Confidence intervals for the population mean
+  -  [<i class="fas fa-tv"> </i> Constructing a confidence interval for a population mean](https://www.khanacademy.org/math/ap-statistics/xfb5d8e68:inference-quantitative-means/one-sample-t-interval-mean/v/introduction-to-t-statistics)
+
+
+### ~~SW 3.4 Comparing means from different populations~~ 
+**SKIP**
+
+~~**This is covered in updated slides and class, but *not* in the lecture video below)**~~
+
+  ~~Only the type of two-sample test we've been practicing - look at difference between two means where the standard deviation is unknown and   you do not assume that they come from the same underlying population distribution. **Make sure you can use formulas 3.19 and 3.20**~~
+  ~~[<i class="fas fa-tv"> </i> Testing for the differences of two population means](https://www.khanacademy.org/math/ap-statistics/xfb5d8e68:inference-categorical-proportions/idea-significance-tests/v/idea-behind-hypothesis-testing)~~
+
+### Skip SW 3.5/3.6
+
+### SW 3.7	Scatterplots, the sample covariance, and the sample correlation
+  - [<i class="fas fa-tv"> </i> Correlation coefficients](https://www.khanacademy.org/math/ap-statistics/bivariate-data-ap/correlation-coefficient-r/v/calculating-correlation-coefficient-r)
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+## Videos
+
+
+
+`r htmltools::HTML("{{< youtube dMFQw0DcOgU >}}")`
+
+

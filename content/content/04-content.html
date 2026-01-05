@@ -1,0 +1,134 @@
+---
+title: Week 4 - Linear Regression with One Regressor
+sitetitle: Week 4
+summary: "EC200 - Week 4 Linear Regression (CH4)"
+
+date: "2022-02-01"
+start_date: "2022-02-07"
+end_date: "2022-02-11"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 5
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch4-slides.pdf
+thumb: /slides/ch4-slides.png
+
+
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#reading-guide">Reading Guide</a></li>
+<li><a href="#note-on-causality">Note on causality</a></li>
+<li><a href="#slides">Slides</a></li>
+<li><a href="#videos">Videos</a>
+<ul>
+<li><a href="#video-linear-regression-w-one-variable"><span>Video: Linear Regression w/ One Variable</span></a></li>
+<li><a href="#video-derivation-of-hatbeta_0-and-hatbeta_1"><span>Video: Derivation of <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span></span></a></li>
+<li><a href="#video-building-intuition-around-the-ols-model"><span>Video: Building intuition around the OLS model</span></a></li>
+</ul></li>
+<li><a href="#in-class-exercise">In-class exercise</a></li>
+</ul>
+</div>
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>Welcome to Week 4! We are proceeding boldly into the world of <strong>linear regression.</strong> We’re starting by looking into the <em>linear</em> relationship between two variables.</p>
+<p>What we <em>won’t</em> be doing is controlling for other factors, nor conducting statistical inference. We won’t be looking at non-linear relationships yet either! Bah.</p>
+<p>Rather, we’re going to dive deep into what it means to look at how we can find a good estimate - nay, the best estimate! - of the relatonship between some <span class="math inline">\(X\)</span> and some <span class="math inline">\(Y\)</span>.</p>
+<p>This is where <em>Stock and Watson</em> really start to shine. I highly recommend basking in their expertise and conversational style.</p>
+</div>
+<div id="reading-guide" class="section level2">
+<h2>Reading Guide</h2>
+<p><strong>Chapter 4: Linear Regression with One Regressor</strong></p>
+<p><strong>SW 4.1</strong> - The Linear Regression Model</p>
+<p>This section is packed w/ good intuition and <strong>bolded</strong> vocabulary. Make sure you know it!</p>
+<p><strong>SW 4.2</strong> - Estimating the Coefficient of the Linear Regression Model?</p>
+<p>You should be able to estimate linear regression coefficients by hand :sleepy:.</p>
+<p><strong>SW 4.3</strong> Measures of Fit</p>
+<p>Know how to use and interpret <span class="math inline">\(R^2\)</span>, <span class="math inline">\(ESS\)</span>, <span class="math inline">\(TSS\)</span>, <span class="math inline">\(SSR\)</span> and <span class="math inline">\(SER\)</span>. You will also need to know how to find these from raw Stata output as well.</p>
+<p><strong>SW 4.4</strong> Least Squares Assumptions</p>
+<p>Known and understand the three least squares assumptions</p>
+<p><strong>SW 4.5</strong> Sampling Distribution of the OLS</p>
+<p>Discuss unbiasedness of estimators and effects of larger vs. smaller sample sizes on standard errors. We won’t calculate standard errors by hand.</p>
+</div>
+<div id="note-on-causality" class="section level2">
+<h2>Note on causality</h2>
+<p>At this stage, we are thinking about <em>making good model</em> of data, but not necessarily the <strong>data generating process</strong> behind that data. When we use the framing of an <strong>independent</strong> and <strong>dependent</strong> variables, it’s tempting to think that we’re examining whether the <strong>independent</strong> variable <em>causes</em> the <strong>dependent</strong> variable.</p>
+<p>At this point in the course, we’re looking at associations which <em>could</em> be causal … or they could not be!</p>
+<p>If you want to dig deeper, check out this great guide from EGAP:<a href="https://egap.org/resource/10-things-to-know-about-causal-inference/">10 things to know about causal inference</a>.
+{{% tweet "1308094245669081089" %}}</p>
+</div>
+<div id="slides" class="section level2">
+<h2>Slides</h2>
+<p>{{% slides %}}</p>
+</div>
+<div id="videos" class="section level2">
+<h2>Videos</h2>
+<div id="video-linear-regression-w-one-variable" class="section level3">
+<h3><a href="https://youtu.be/tB8ayLyMOgU">Video: Linear Regression w/ One Variable</a></h3>
+<p>{{< youtube tB8ayLyMOgU >}}</p>
+</div>
+<div id="video-derivation-of-hatbeta_0-and-hatbeta_1" class="section level3">
+<h3><a href="https://youtu.be/0jetwjxb-6w">Video: Derivation of <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span></a></h3>
+<p><em>Here, I work through how we derive estimates of <span class="math inline">\(\hat{\beta_0}\)</span> and <span class="math inline">\(\hat{\beta_1}\)</span> using our good friend, calculus.</em>
+{{< youtube 0jetwjxb-6w >}}</p>
+</div>
+<div id="video-building-intuition-around-the-ols-model" class="section level3">
+<h3><a href="https://youtu.be/rlrAeVlQusw">Video: Building intuition around the OLS model</a></h3>
+<p><em>You can play along with the <a href="https://phet.colorado.edu/sims/html/least-squares-regression/latest/least-squares-regression_en.html">same simulator!</a></em>
+{{< youtube rlrAeVlQusw >}}</p>
+</div>
+</div>
+<div id="in-class-exercise" class="section level2">
+<h2>In-class exercise</h2>
+<p>Link to pdf <a href="../practice/W4-02-in-class-exercise.pdf">here</a></p>
+<p>Consider a dataset on births to women in the United States. Two
+variables of interest are infant birth weight in ounces (<code>bwght</code>), and
+the average number of cigarettes the mother smoked per day during
+pregnancy (<code>cigs</code>). The following simple regression was estimated using
+data on 1,388 births.</p>
+<pre><code>  Source |       SS           df       MS      Number of obs   =     1,388
+-------------+----------------------------------   F(1, 1386)      =     32.24
+   Model |  13060.4194         1  13060.4194   Prob &gt; F        =    0.0000
+Residual |    561551.3     1,386  405.159668   R-squared       =    0.0227
+-------------+----------------------------------   Adj R-squared   =    0.0220
+   Total |   574611.72     1,387  414.283864   Root MSE        =    20.129
+
+------------------------------------------------------------------------------
+   bwght |      Coef.   Std. Err.      t    P&gt;|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    cigs |  -.5137721   .0904909    -5.68   0.000    -.6912861   -.3362581
+   _cons |   119.7719   .5723407   209.27   0.000     118.6492    120.8946
+------------------------------------------------------------------------------</code></pre>
+<p>These results can also be written in the following way:</p>
+<p><span class="math display">\[\widehat{bwght} = 119.77 - 0.514 cigs\]</span></p>
+<ol style="list-style-type: decimal">
+<li><p>What is the dependent variable? What is the independent variable?</p></li>
+<li><p>Write, in words, what the interpretation of <span class="math inline">\(0.514\)</span> is.</p></li>
+<li><p>What is the predicted birth weight among mothers who do not smoke?
+What about when <span class="math inline">\(cigs=20\)</span> (one pack per day)? Comment on the
+difference.</p></li>
+<li><p>Consider Prof. Beam, whose mother “cut back” to 10 cigarettes per
+day (it was the 80s) and was born weighing 9lb, 15 oz. What is her
+residual?</p></li>
+<li><p>Find <span class="math inline">\(R^2\)</span> in the raw regression output. What does it tell us?</p></li>
+<li><p>Are any least squares assumptions likely to be violated? Explain.</p></li>
+<li><p>Does this simple regression necessarily capture a causal
+relationship between the child’s birth weight and the mother’s
+smoking habits? Explain.</p></li>
+</ol>
+</div>

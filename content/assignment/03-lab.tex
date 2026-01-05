@@ -1,0 +1,302 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\newenvironment{itemize*}%
+
+  
+\lhead{EC200 - Econometrics and Applications}
+
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+EC200: Econometrics and Applications\hfill Fall 2021\\
+
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Lab 3: Linear Regression}}\\
+\end{center}
+\bigskip
+
+\hypertarget{materials}{%
+\section*{Materials}\label{materials}}
+\addcontentsline{toc}{subsubsection}{Materials}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://ec200f21.netlify.app/assignment/materials/graduation.dta}{\texttt{graduation.dta}}
+\item
+  Do-file template
+  \href{https://ec200f21.netlify.app/assignment/materials/labtemplate_f21.do}{\texttt{labtemplate\_f21.do}}
+\end{itemize}
+
+\hypertarget{objectives}{%
+\section*{Objectives}\label{objectives}}
+\addcontentsline{toc}{subsubsection}{Objectives}
+
+By the end of this tutorial you should be able to complete the following
+tasks in Stata:
+
+\begin{itemize}
+\item
+  Estimate and interpret a simple (two-variable) linear regression in
+  levels, using continuous and binary variables, and use
+  heteroskedasticity-robust standard errors.
+\item
+  Identify \(\hat{\beta_0}\), \(\hat{\beta_1}\), standard errors,
+  \(SST\), \(SSE\), \(SSR\), and \(R^2\) in Stata output and interpret
+  them
+\item
+  Calculate predicted values and residuals
+\item
+  Create scatter plots
+\item
+  Estimate a multivariate linear regression
+\end{itemize}
+
+\hypertarget{key-commands}{%
+\section*{Key commands}\label{key-commands}}
+\addcontentsline{toc}{subsubsection}{Key commands}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.56}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.44}}@{}}
+\toprule
+command & description \\
+\midrule
+\endhead
+Estimation commands & \\
+\texttt{regress\ var1\ var2} & Estimate a regression, with \texttt{var1}
+as the dependent variable and \texttt{var2} as the independent
+variable(s) \\
+\texttt{regress\ var1\ var2,\ robust} & Estimate a regression with
+heteroskedasticity-robust standard errors \\
+\texttt{correlate\ var1\ var2\ ...\ varn} & Calculate correlation
+coefficients of all listed variables, from \texttt{var1} to
+\texttt{varn}. \\
+\texttt{graph\ twoway\ scatter\ var1\ var2} & make a scatter plot with
+\texttt{var1} on the y-axis and \texttt{var2} on the x-axis. \\
+Post-estimation commands\footnote{Post-estimation commands must be run
+  \emph{immedately} after a regression, while the regression results are
+  still held in your local variables} & \\
+\texttt{predict\ newvar,\ xb} & Use estimated regression coefficients to
+predict \(\widehat{y}\). It will generate \texttt{newvar}\footnote{Here,
+  \texttt{newvar} equals
+  \(\widehat{newvar_i} = \widehat{y_i} = \widehat{\beta_0} + \widehat{\beta_1}x_i\)} \\
+\texttt{predict\ newvar,\ residuals} & Use estimated regression
+coefficients to predict residuals, generating
+\texttt{newvar}\footnote{Here, \texttt{newvar} equals
+  \(\widehat{newvar_i} = u_i = y_i - \widehat{\beta_0} + \widehat{\beta_1}x_i\)} \\
+Working with data, missing values & \\
+\texttt{count\ if\ var1\ ==\ 1} & count observations if the expression
+\texttt{var1\ ==\ 1} is true \\
+\texttt{count\ if\ !missing(var1)} & count observations if \texttt{var1}
+is not missing \\
+\texttt{drop\ if\ missing(var1)} & drop all observations where
+\texttt{var1} is missing \\
+\texttt{tab\ var1,\ missing} & Include missing values in tabulation \\
+\bottomrule
+\end{longtable}
+
+
+
+\hypertarget{lab-3-worksheet}{%
+\section*{Lab 3 Exercise}\label{lab-3-worksheet}}
+\addcontentsline{toc}{subsection}{Lab 3 Exercise}
+
+\hypertarget{what-do-i-submit}{%
+\subsection*{What do I submit?}\label{what-do-i-submit}}
+
+\begin{itemize}
+\tightlist
+\item
+  Your written up answers to exercise questions (1) - (13). This can be
+  typed or written out then scanned (or photographed), in any reasonable
+  format.
+\item
+  The do-file you've created that runs this analysis
+\item
+  A log file that contains the results from this exercise.
+\end{itemize}
+
+\hypertarget{questions}{%
+\subsection*{Questions}\label{questions}}
+
+%Today, we're going to look around at the graduation data set that we
+%discussed in class,
+%\href{../materials/graduation.dta}{\texttt{graduation.dta}}.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Download the do-file template and data files. Personalize the file
+  paths so that you can run it and open your \texttt{graduation.dta}
+  file. You can also work with a blank data file if you're more
+  comfortable - just make sure you remember to include commands to start
+  and close your log file.
+\item
+  Take a look at \texttt{graduation.dta}. How many observations are
+  there? What is the distribution of treatment arms?\footnote{There are
+    a few variables here, including \texttt{treatment\_arm}}
+\item
+  There are six \emph{continuous} food security variables\footnote{Not
+    \texttt{fsec7}, which is categorical, or \texttt{fsec} which is
+    always equal to 1}. You can look for them with \texttt{lookfor\ fs}.
+  Pick one variable and write out a population model to determine the
+  relationship assignment to graduation and food security. For the rest
+  of this lab, I refer to the variable you chose as
+  \texttt{foodsecurity}. If that's going to irritate you, you can rename
+  your variable like this: \texttt{rename\ fsec5\ foodsecurity}, using
+  the variable name that you've chosen in place of \texttt{fsec5}.
+\item
+  Tabulate your food security value and check for missing observations.
+  Drop any observations for which you have missing values of
+  \texttt{foodsecurity} (see above for how to do this). How many
+  observations are remaining?
+\item
+  Make a scatter plot of the relationship between your chosen food
+  security variable and graduation (Include this in your submitted
+  problem set). Is this easy to interpret? Calculate and report the
+  associated correlation coefficient.
+\item
+  Conduct a t-test of whether the mean of \texttt{foodsecurity} is
+  different between those who did and did not receive the graduation
+  program\footnote{Hint; \texttt{ttest\ var1,by(var2)} will run a t-test
+    of the mean of \texttt{var1} are equal for two groups determined by
+    \texttt{var2}.}
+\item
+  Estimate the relationship between your chosen food security variable,
+  \texttt{foodsecurity} and assignment to graduation,
+  \texttt{graduation} using simple linear regression, with standard
+  (homoskedasticity-assumed) standard errors. How do your t-statistics
+  compare to what you found in the previous t-test? What was the impact
+  of assignment to the graduation program on food security, based on
+  your regression?
+\item
+  Re-estimate your regression, and this time adjust your standard errors
+  to be heteroskedasticity-robust. Fill in the chart below with your
+  estimates.
+\end{enumerate}
+
+\begin{longtable}[]{@{}lrrr@{}}
+\toprule
+Variable & Estimate & Variable & Estimate \\
+\midrule
+\endhead
+\(\hat{\beta_0}\) & & \(\hat{\beta_1}\) & \\
+\(R^2\) & & \(TSS\) & \\
+\(ESS\) & & \(SSR\) & \\
+d.f. & & \(SER\) & \\
+\bottomrule
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{8}
+\item
+  After that regression estimate, generate a new variable,
+  \texttt{predict\_fs} equal to the predicted value of your food
+  security variable. Generate a second variable, \texttt{resid\_fs}
+  equal to the residual.
+\item
+  What is the mean of each variable? How does the mean of
+  \texttt{predict\_fs} compare to mean of \texttt{foodsecurity} in your
+  sample?\footnote{If they differ, you should make sure you have dropped
+    all missing values of \texttt{foodsecurity}! Try
+    \texttt{sum\ predict\_fs\ foodsecurity} to see if the sample sizes
+    are the same}
+\item
+  Examine the predicted value of your food security variable,
+  \texttt{predict\_fs}, for the \emph{youngest} person in your
+  sample.\footnote{Now is a good time to try out \texttt{lookfor\ age}}
+  What is its residual?
+\item
+  When we estimate a linear regression with no coefficients, sometimes
+  we'll say we are ``regressing on a constant.'' Regress
+  \texttt{foodsecurity} \emph{only} on a constant. What is
+  \(\hat{\beta_0}\), and how does it compare to overall mean?
+\item
+  For this final step, I'd like you to play around with the data. Pick
+  \textbf{one} continuous dependent variable and \textbf{one} continuous
+  \emph{or} binary independent variable.\footnote{Categorical variables
+    that take on a just few observations, like the identity of your head
+    of household, won't work here. You'll need to tabulate the variables
+    to see what you're working with} You can look at the correlation
+  between two variables, or you can look at the impact of one of the
+  program dimensions (group coaching, group livelihood, etc) on an
+  \emph{continuous} outcome of interest.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \tightlist
+  \item
+    Write a population model you want to estimate.
+  \item
+    Estimate it using OLS, adjusting your standard errors to be
+    heteroskedasticity robust. Write an equation that reflects your
+    estimated model in the form
+    \(\hat{y}=\hat{\beta_0} + \hat{\beta_1}x\), replacing \(y\) and
+    \(x\) with your chosen varables and replacing \(\hat{\beta_0}\) and
+    \(\hat{\beta_1}\) with your estimates.
+  \item
+    In 1-2 sentences, , what do your results tell you, collectively?
+  \end{enumerate}
+\end{enumerate}
+
+\end{document}

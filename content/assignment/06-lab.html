@@ -1,0 +1,146 @@
+---
+title: "Lab 6: Internal validity and LPM"
+linktitle: "Lab 6"
+date: "2022-03-28"
+due_date: "2022-04-07"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Labs
+    weight: 6
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#materials">Materials</a></li>
+<li><a href="#objectives">Objectives</a></li>
+<li><a href="#key-commands">Key commands</a></li>
+<li><a href="#lpm">Linear Probability Models</a></li>
+<li><a href="#lab-video">Lab Video</a></li>
+<li><a href="#lab-6-worksheet">Lab 6 Worksheet</a>
+<ul>
+<li><a href="#what-do-i-submit">What do I submit?</a></li>
+<li><a href="#exercises">Exercises</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p><strong><a href="../06-lab.pdf">Print-friendly pdf</a></strong></p>
+<div id="materials" class="section level2 unnumbered">
+<h2>Materials</h2>
+<ul>
+<li><a href="../materials/cps_2016.dta"><code>cps_2016.dta</code></a></li>
+<li>Do-file template <a href="../materials/labtemplate_f21.do"><code>labtemplate_f21.do</code></a></li>
+</ul>
+</div>
+<div id="objectives" class="section level2 unnumbered">
+<h2>Objectives</h2>
+<p>Today we’re going to keep working with <a href="../materials/cps_2016.dta"><code>cps_2016.dta</code></a>, which
+contains information from the <a href="https://cps.ipums.org/cps/">2016 Current Population Survey</a>.</p>
+<p>By the end of this lab, you should be able to complete the following
+tasks in Stata:</p>
+<ul>
+<li>Think about sample selection issues</li>
+<li>Estimate and interpret linear probability models</li>
+</ul>
+</div>
+<div id="key-commands" class="section level2 unnumbered">
+<h2>Key commands</h2>
+<table>
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">command</th>
+<th align="right">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>codebook var1</code></td>
+<td align="right">Look at key details for <code>var1</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>clonevar var1 =  var2</code></td>
+<td align="right">Make a new variable, <code>var1</code> that duplicates <code>var2</code> (including labels!)</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>_pctile hourwages,per(99)</code></td>
+<td align="right">Calcualte the 99th percentile of hourly wages, and store as a local variable</td>
+</tr>
+<tr class="even">
+<td align="left"><code>ret list</code></td>
+<td align="right">Show locally stored variables (handy!)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="lpm" class="section level2 unnumbered">
+<h2>Linear Probability Models</h2>
+<p>What happens when our dependent variable is binary? We can use it anyway! Using OLS with a binary dependent variable is called a <strong>linear probablity model</strong>. There is plenty of debate about whether (and when) this is an okay idea, as it can lead to predcitions that are below zero or greater than 1, and it violates homoskedasticity assumptions. We can fix the latter by estimating heteroskedasticity-robust standard errors, and the general consensus <em>seems</em> to be that usually, we’re okay using a LPM. (Though we can do better!)</p>
+<p>What about interpretation? We intrepret coefficients are in <strong>percentage points</strong> (not percents!)</p>
+<p>Consider the following to see:</p>
+<p><span class="math inline">\(Married_i = \beta_0 + \beta_1 age_i + \beta_2 educ_i + u_i\)</span></p>
+<p><span class="math inline">\(\beta_1\)</span> means that a 1-year increase in age is associated with a 100*<span class="math inline">\(\beta_1\)</span> <strong>percentage-point change</strong> in the probability of being married. So if <span class="math inline">\(\beta_1\)</span> is 0.05, that means that being one year older is associated with a 5 percentage point increase in the likelihood of being married.</p>
+<p>For great slides on this (and a deeper dive), check out <a href="https://nickch-k.github.io/EconometricsSlides/Week_08/Week_08_Limited_Dependent_Variables.html">this resource</a>!</p>
+</div>
+<div id="lab-video" class="section level2">
+<h2>Lab Video</h2>
+<p>{{< youtube tpYknYpmjRU >}}</p>
+</div>
+<div id="lab-6-worksheet" class="section level2">
+<h2>Lab 6 Worksheet</h2>
+<div id="what-do-i-submit" class="section level3">
+<h3>What do I submit?</h3>
+<ul>
+<li>Your written up answers to the exercise questions. This can be typed or written out then scanned (or photographed), in any reasonable format.</li>
+<li>The do-file you’ve created that runs this analysis</li>
+<li>A log file that contains the results from this exercise.</li>
+</ul>
+</div>
+<div id="exercises" class="section level3">
+<h3>Exercises</h3>
+<ol style="list-style-type: decimal">
+<li><p>Open Stata, start a new do-file (or bring in a template). Make sure
+you add code to start (and end) a log.</p></li>
+<li><p>Open <code>cps_2016.dta</code> and restrict the sample to adults (age 18+) who are married (spouse present or absent). Drop anyone who reports “NIU” (not in universe) for labor force status. Confirm that you have <strong>73,950</strong> observations</p></li>
+<li><p>Check work hours, weeks of work, and wage income for any weird recodes (that is, replace any 999999 values with missing values) for the following variables. Ensure you have the correct means and number of observations. You may want to use the <code>codebook</code> command to help (i.e. <code>codebook uhrsworkly</code>)</p></li>
+</ol>
+<pre><code>
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+    wkswork1 |     73,950     34.0054     23.5977          0         52
+  uhrsworkly |     51,921    40.19379    11.33071          1         99
+-------------+---------------------------------------------------------
+     incwage |     73,950    38947.58    64901.47          0    1259999
+
+</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Generate a binary variable <code>female</code> equal to one if <code>sex == 2</code>. Estimate the impact of <code>female</code> on wage income (<code>incwage</code>) among your sample of married individuals. What is the interpretaion on the coefficient?</p></li>
+<li><p>If our objective is to measure the impact of gender on wage income among married people, is sample selection bias likely to be important? Why or why not? Is measurement error likely to be important? Why or why not? If so, what is the likely impact of measurement error on your estimated coefficients?</p></li>
+<li><p>Create a binary variable <code>lf</code> equal to 1 if an individual is in the labor force, and 0 otherwise. Estimate the impact of gender on labor force status. What is the interpretation of the coefficient?</p></li>
+<li><p>What is the impact of being in the labor force on wage income? Based on this and the previous question, what is the implication for the direction of omitted variable bias when you estimated <span class="math inline">\(incwage = \beta_0 + \beta_1 female + u\)</span> without controlling for labor force participation status?</p></li>
+<li><p>Re-estimate the previous regression, including a control for <code>lf</code>: <span class="math inline">\(incwage = \beta_0 + \beta_1 female + \beta_2 lf + u\)</span>. Was your prediction in part (7) correct?</p></li>
+<li><p>Now, add your cleaned variable for usual hours worked to estimate <span class="math inline">\(incwage = \beta_0 + \beta_1 female + \beta_2 lf + \beta_3 uhrsworkly + u\)</span>. What is the interpretation of each coefficient?</p></li>
+<li><p>Why does your regression not include all 73,950 people? What type of bias might this introduce?</p></li>
+<li><p>Is measurement error likely to be important in the previous regression, and if so, for which variables? What is the likely impact of measurement error on your estimated coefficients?</p></li>
+<li><p>Generate a new variable <code>uhrsNZ</code> that recodes all missing work hours values as zeros. You can expedite this with the <code>clonevar</code> command, which retains variable lables. Re-estimate the impact of gender, labor force status and <code>uhrsNZ</code> on wage income (<code>incwage</code>). That is, you’re replacing <code>uhrsworkly</code> with <code>uhrsNZ</code>. What is the interpretation on <em>each</em> coefficient? Why did it change?</p></li>
+<li><p>Now, re-estimate but exclude <code>lf</code>: <span class="math inline">\(incwage = \beta_0 + \beta_1 female + \beta_3 uhrsNZ + u\)</span>. How do your results change? Conditional on including <code>female</code> and <code>uhrsNZ</code>, does it make sense to include <code>lf</code>?</p></li>
+<li><p>Create a new variable that estimates log wages: <code>l_incwage = log(incwage)</code>. Estimate the impact of gender on logged wage income, including a control for <code>uhrsworkly</code>. How does the sample size change, and why? What is the interpretation on each coefficient?</p></li>
+<li><p>Using the cleaned variables, calculate hourly wages, <code>hourwage</code>, based on <code>incwage</code> and <code>uhoursworkly</code>. Assume that people work 50 weeks in one year. What are mean hourly wages for men and women?</p></li>
+<li><p>Estimate the impact of gender on hourly wages for those with non-zero hourly wages, controlling for weekly work hours. Repeat to include all adults by replacing hourly wages with 0 for non-earners. How does the impact of gender on earnings compare between the two regressions?</p></li>
+<li><p>Do outliers affect your results? Exclude observations that exceed the 99th percentile in wages based on <code>incwage</code>, and re-estimate both equations. How do your results change?</p></li>
+<li><p>Is measurement error likely to affect your dependent variable, <code>hourwage</code>? Why or why not? If so, what are the implications?</p></li>
+</ol>
+</div>
+</div>

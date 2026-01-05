@@ -1,0 +1,409 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\newenvironment{itemize*}%
+
+  
+\lhead{EC200 - Econometrics and Applications}
+\rhead{Version: \today}
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+Version: \today \hfill Fall 2021\\
+EC200: Econometrics and Applications
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Lab 2: Introduction to Do-Files}}\\
+\end{center}
+\bigskip
+
+\hypertarget{materials}{%
+\subsection*{Materials}\label{materials}}
+\begin{itemize}
+\tightlist
+\item
+  \href{../materials/acs2014_all.dta}{\texttt{acs2014\_all.dta}}
+\item
+  Do-file template
+  \href{../materials/labtemplate_f20.do}{\texttt{labtemplate.do}}
+\end{itemize}
+
+\hypertarget{objectives}{%
+\subsection*{Objectives}\label{objectives}}
+\addcontentsline{toc}{subsubsection}{Objectives}
+
+By the end of this tutorial you should be able to complete the following
+tasks in Stata:
+
+\begin{itemize}
+\item
+  Create and save a do-file
+\item
+  Explore variables and generate new ones
+\item
+  Be able to find help with Stata issues - find new commands, check and
+  debug your work, etc.
+\end{itemize}
+
+\hypertarget{key-commands}{%
+\subsection*{Key commands}\label{key-commands}}
+\addcontentsline{toc}{subsubsection}{Key commands}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.56}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.44}}@{}}
+\toprule
+command & description \\
+\midrule
+\endhead
+Viewing data & \\
+\texttt{tab\ var1} & tabulate one variable, \texttt{var1} \\
+\texttt{tab\ var1,\ missing} & tabulate \texttt{var1}, include missing
+values \\
+\texttt{tab\ var1,\ nolabel} & tabulate \texttt{var1}, show values
+rather than labels (if applicable) \\
+& \\
+Summarizing data & \\
+\texttt{tabstat\ var1} & calculate mean of \texttt{var1} \\
+\texttt{tabstat\ var1,by(var2)} & calculate mean of \texttt{var1}
+separately for each value of \texttt{var2} \\
+\texttt{tabstat\ var1,by(var2)\ stat(mean\ count\ p25\ p50\ p75)} &
+calculate mean of \texttt{var1} separately for each value of
+\texttt{var2}, with added statistics \\
+Changing your data & \\
+\texttt{gen\ newvar\ =var1} & generate a new variable, \texttt{newvar},
+and set it equal to values of \texttt{var1} \\
+\texttt{gen\ newvar\ =1\ if\ var2\ ==\ {[}exp{]}} & generate a new
+variable, \texttt{newvar}, and set it equal to 1 if
+\texttt{var2\ equals\ some\ expression,\ and\ missing\ otherwise} \\
+\texttt{gen\ newvar\ =\ var2\ ==\ {[}exp{]}} & generate a new variable,
+\texttt{newvar}, and set it equal to 1 if
+\texttt{var2\ equals\ some\ expression,\ and\ 0\ otherwise} \\
+\texttt{drop\ var1\ var2} & drop the variables \texttt{var1} and
+\texttt{var2}. \\
+\texttt{drop\ if\ {[}exp{]}} & drop observations for which \texttt{exp}
+is true \\
+\texttt{keep\ var1\ var2} & drop everything but \texttt{var1} and
+\texttt{var2}. \\
+\texttt{keep\ if\ {[}exp{]}} & keep observations \emph{only} if
+\texttt{exp} is true \\
+Displaying your data & \\
+\texttt{graph\ twoway\ histogram\ var1} & make a histogram for
+\texttt{var1.} Check help files for more options \\
+\bottomrule
+\end{longtable}
+
+Looking for more examples? Check out these
+\href{https://geocenter.github.io/StataTraining/portfolio/01_resource/}{\textbf{Stata
+Cheat Sheets}}
+
+Suppose I asked you to recreate your analysis from our last lab. How
+long would it take you? If you used a do-file, you would just have to
+click a button, because your analysis would be replicable. We're going
+to learn about the glory of do-files and a few other descriptive
+statistics tricks.
+
+The instant gratification of the Command window is tempting, but getting
+comfortable with do-files will save you lots of time, make collaboration
+easier, and reduce errors!
+
+\hypertarget{aside-bad-documentation-big-problems}{%
+\subsubsection*{Aside: Bad documentation, big
+problems}\label{aside-bad-documentation-big-problems}}
+
+\begin{quote}
+For an economist, the ﬁve most terrifying words in the English language
+are: I can't replicate your results.But for economists Carmen Reinhart
+and Ken Rogoﬀ of Harvard, there are seven even more terrifying ones: I
+think you made an Excel error.
+
+--
+\href{https://www.theatlantic.com/business/archive/2013/04/forget-excel-this-was-reinhart-and-rogoffs-biggest-mistake/275088/}{Matthew
+O'Brien, The Atlantic (18 April 2013)}
+\end{quote}
+
+A summary from
+\href{https://theconversation.com/the-reinhart-rogoff-error-or-how-not-to-excel-at-economics-13646}{The
+Conversation, (22 April, 2013)}
+
+\begin{quote}
+Reinhart and Rogoff's work showed average real economic growth slows (a
+0.1\% decline) when a country's debt rises to more than 90\% of gross
+domestic product (GDP) -- and this 90\% figure was employed repeatedly
+in political arguments over high-profile austerity measures\ldots{}
+
+The most serious was that, in their Excel spreadsheet, Reinhart and
+Rogoff had not selected the entire row when averaging growth figures:
+they omitted data from Australia, Austria, Belgium, Canada and Denmark.
+
+In other words, they had accidentally only included 15 of the 20
+countries under analysis in their key calculation.
+
+When that error was corrected, the ``0.1\% decline'' data became a 2.2\%
+average increase in economic growth.
+
+So the key conclusion of a seminal paper, which has been widely quoted
+in political debates in North America, Europe Australia and elsewhere,
+was invalid.
+\end{quote}
+
+
+\hypertarget{do-files-and-the-do-file-editor}{%
+\subsubsection*{Do-files and the do-file
+editor}\label{do-files-and-the-do-file-editor}}
+
+You can get pretty far in Stata relying on the Command and Review
+window, but we may want a record of the commands we want to run for our
+analysis. One thing that makes Stata different from a program like Excel
+is that you can create do-files, essentially small programs that will
+run your analysis again and again, in exactly the same way. For
+econometric analysis this is CRUCIAL.
+
+A do-file can be written in any text file and then saved with the
+extension \texttt{.do}, but we'll use the do-file editor. You can start
+a new do-file by clicking on the do-file button. Or, you can open the
+do-file template.
+
+The do-file editor is where we will write our programs, and it has some
+nice color coding to help us avoid mistakes. For your problem sets and
+papers, you must ALWAYS submit a do-file along with your results. Some
+people will like to practice in the Command window and then copy the
+commands they're satisfied with to the do-file, while others will prefer
+to work entirely in the do-file. It's your call, though the second one
+is a little less risky.
+
+\hypertarget{comment-comment-comment}{%
+\paragraph{Comment, comment, comment}\label{comment-comment-comment}}
+
+Do-files are used to record your past work and possibly to share your
+work with others. It's important to properly \textbf{document} your work
+using comments. There are three ways to comment
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Comment the whole line with an asterisk
+\item
+  Comment the whole line or part of a line with two forward slashes
+  (\texttt{//})
+\item
+  Use slash-asterisk to open (\texttt{/*}) and close (\texttt{*/}) a
+  comment section
+\end{enumerate}
+
+The do-file editor will turn all your comments green so you don't get
+confused.
+
+\hypertarget{programming-tips}{%
+\subsubsection*{Programming tips}\label{programming-tips}}
+
+\begin{itemize}
+\item
+  \textbf{Put everything in a do-file!} An important feature of any good
+  research project is that the results should be reproducible. For Stata
+  the easiest way to do this is to create a text file that lists all
+  your commands in order, so anyone can re-run all your Stata work on a
+  project anytime. Such text files that are produced within Stata or
+  linked to Stata are called do-files, because they have an extension
+  .do (like \texttt{intro\_exercise.do}). These files feed commands
+  directly into Stata without you having to type or copy them into the
+  command window.
+
+  Imagine you're just about done with the analysis for your research
+  paper. While working on the final regression, you discover that one of
+  your variables wasn't cleaned properly, and you need to drop some
+  outliers from the data. Do you correct it and redo everything from
+  scratch? Could you even do that? How long would it take?
+
+  With a set of do-files, all you have to do is correct the variable
+  early in the code, and re-run everything. If your code is quick, it
+  will take just a few minutes. Easy!
+
+  An added bonus is that having do-files makes it very easy to fix your
+  typos, re-order commands, and create more complicated chains of
+  commands that wouldn't work otherwise. You can now quickly reproduce
+  your work, correct it, adjust it, and build on it.
+\item
+  \textbf{Log your results.} Maintaining logs can help you quickly
+  retrieve results and serve as a record of past work in case you
+  accidentally overwrite commands. Logs contain the commands \emph{and}
+  the results.
+\item
+  \textbf{Never overwrite your original files.} A good do-file structure
+  starts with your original, raw data, then cleans and analyzes it to
+  get your final results. A ``master'' do-file can piece all these
+  together.
+\item
+  \textbf{Replicability is key.} Your code should be replicable to
+  someone else who picks up your raw files and code.
+\item
+  \textbf{Comment, comment, comment!} Clear commenting is essential to
+  help others understand your code and to remember what you did.
+\end{itemize}
+
+\hypertarget{finding-new-commands}{%
+\subsubsection*{Finding new commands}\label{finding-new-commands}}
+
+One of the strengths of Stata is that complicated processes can be
+completed with simple commands. One of its weaknesses is that it's not
+always obvious what those specific commands are. In our problem sets and
+your research paper, you will (I promise) have to calculate or estimate
+something in a way we haven't covered.
+
+\begin{itemize}
+\item
+  Stata help file: \texttt{help\ command}
+\item
+  Search Stata documentation: \texttt{finidit\ keyword}
+\item
+  Google the thing you are trying to do: \emph{i.e.: make scatterplot
+  Stata, turn rows into columns Stata, cluster standard errors Stata,
+  etc.}
+\end{itemize}
+\clearpage
+\hypertarget{lab-2}{%
+\section*{Lab Exercise 2}\label{lab-2}}
+\addcontentsline{toc}{subsection}{Lab Exercise 2}
+
+\hypertarget{what-do-i-submit}{%
+\subsubsection*{What do I submit?}\label{what-do-i-submit}}
+
+\begin{itemize}
+\tightlist
+\item
+  Your written up answers to exercise questions (1) - (12). This can be
+  typed or written out then scanned (or photographed), in any reasonable
+  format.
+\item
+  The do-file you've created that runs this analysis and log file with results
+
+\end{itemize}
+\vspace{-0.35in}
+\hypertarget{questions}{%
+\subsubsection*{Questions}\label{questions}}
+\vspace{-0.15in}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Download \href{materials/acs2014_all.dta}{\texttt{acs2014\_all.dta}}
+  and \href{materials/labtemplate_f21.do}{\texttt{labtemplate.do}} by
+  clicking the links.
+\item
+  Move these files to wherever you store your class materials.
+\item
+  Open \texttt{labtemplate\_f21.do} and run it. Does it work? Probably
+  not! Fix it.
+\item
+  Drop some variables we don't need right now: \texttt{gq},
+  \texttt{serial}, and \texttt{hhwt}. How many variables remain?
+\item
+  What is the age distribution of the sample? Specifically, report the
+  mean, median, minimum, and maximum age of the sample.
+\item
+  Because very young workers might be still in school, drop anyone in
+  your sample who is less than 23 years old. (Maintain this sample
+  restriction for the rest of the lab). How many people are left in your
+  sample?
+\item
+  Generate a new variable, \texttt{lt35} that is equal to one if a
+  person is less than 35 years old and 0 otherwise. What is the mean of
+  \texttt{lt35,} and what is its interpretation?
+\item
+  Using the \texttt{tabstat} command, find the average income and wages
+  for those under age 35 and those at least age 35. How does it compare
+  to median income and wages for each group?
+\item
+  Using the \texttt{tabstat} command, find the average income and wages
+  for men and women.
+\item
+  There are several reasons why men might earn more than women. Suppose
+  you hypothesized that that men have completed more education than
+  women; and workers with higher education levels earn more. We will
+  test this in two ways.
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    First, generate a variable equal to one if a person has completed at
+    least some post-secondary education, and zero otherwise. What is the
+    mean of this variable?
+  \item
+    What share of men have at least some post-secondary education? What
+    about women?
+  \item
+    We can also see if gender-wage gaps are bigger for lower vs.
+    higher-educated workers. For those without post-secondary education,
+    what is the average wage gap? For those with post-secondary
+    education, what is the average wage gap?
+  \end{enumerate}
+\item
+  Name \textbf{two} additional reasons that may explain why men's income
+  is higher than women's income on average. How would you test each one?
+  \emph{You do not have to actually do this test, just describe in as
+  much detail as possible. You can assume you have additional data
+  beyond what is provided here.}
+\item
+  Make two histograms, one of the income distribution for men and one of
+  the income distribution for women. Make sure the y-axis indicates the
+  ``fraction'' of individuals, not the density. Copy and paste it into
+  your responses.
+\end{enumerate}
+
+\end{document}

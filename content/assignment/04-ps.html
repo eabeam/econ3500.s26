@@ -1,0 +1,105 @@
+---
+title: "Problem set 4"
+linktitle: "PS 4"
+date: "2022-03-20"
+due_date: "2022-03-31"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Problem Sets
+    weight: 4
+type: docs
+weight: 2
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="welcome" class="section level2">
+<h2>Welcome</h2>
+<p>Chapter 8 and 9 problems! Enjoy!</p>
+<p>See the exercises below, or you can <a href="../04-ps.pdf">download them as a pdf</a>.</p>
+</div>
+<div id="what-do-i-submit" class="section level2">
+<h2>What do I submit?</h2>
+<ul>
+<li>Your written up answers to exercise questions. If you work on a piece of paper, please scan using some sort of phone software (like Microsoft Lens or Adobe Scan) rather than just taking a picture.</li>
+<li>A do-file that runs your Stata analysis (for question 7).</li>
+<li>A log file that includes the output from running your do-file (for question 7).</li>
+</ul>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<!-- Wooldrdge 3.9 -->
+<ol style="list-style-type: decimal">
+<li>The following equation describes the median housing price in a community in terms of amount of pollution (<span class="math inline">\(nox\)</span> for nitrous oxide) and the average number of rooms in houses in the community (<span class="math inline">\(rooms\)</span>):</li>
+</ol>
+<p><span class="math inline">\(log(price) = \beta_0 = \beta_1log(nox) + \beta_2rooms + u\)</span></p>
+<ol style="list-style-type: lower-alpha">
+<li>What are the probable signs of <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_2\)</span>? What is the interpretation of <span class="math inline">\(\beta_1\)</span>? Explain.</li>
+<li>Why might <span class="math inline">\(nox\)</span> [or more precisely, <span class="math inline">\(log(nox)\)</span>] and <span class="math inline">\(rooms\)</span> be negatively correlated? If this is the case, does the simple regression of <span class="math inline">\(log(price)\)</span> on <span class="math inline">\(log(nox)\)</span> produce an upward or a downward biased estimator of <span class="math inline">\(\beta_1\)</span>?</li>
+<li>Using data, the following equations were estimated:</li>
+</ol>
+<p><span class="math inline">\(\widehat{log(price)} = 11.71 - 1.043 log(nox)\)</span>, <span class="math inline">\(n = 506\)</span>, <span class="math inline">\(R^2 = 0.264\)</span>
+<span class="math inline">\(\widehat{log(price)} = 9.23 - 0.718 log(nox) + 0.306 rooms\)</span>, <span class="math inline">\(n = 506\)</span>, <span class="math inline">\(R^2 = 0.514\)</span></p>
+<p>Is the relationship between the simple and multiple regression estimates of the elasticity of <span class="math inline">\(price\)</span> with respect to <span class="math inline">\(nox\)</span> what you would have predicted, given your answer in part (ii)? Does this mean that 0.718 is definitely closer to the true elasticity than 1.043?</p>
+<!-- Stock and watson 8.4  -->
+<ol start="2" style="list-style-type: decimal">
+<li>Read the box <em>“The Return to Education and the Gender Gap”</em> in Section 8.3.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Consider a man with 16 years of education and 2 years of experience. Use the results from column (4) of Table 8.1 and the method in Key Concept 8.1 to estimate the expected change in the logarithm of average hourly earnings (AHE) associated with an additional year of experience.</li>
+<li>Explain why your answer to (a) does not depend on the region he is from.</li>
+<li>Repeat (a), assuming 10 years of experience.</li>
+</ol>
+<!-- % Stock and Watson 8.6 -->
+<ol start="3" style="list-style-type: decimal">
+<li>To answer this question, refer to <em>Table 8.3: Nonlinear Regression Model of Test Scores</em> in your textbook:</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>A researcher suspects that the effect of % Eligible for subsidized lunch has a nonlinear effect on test scores. In particular, he conjectures that increases in this variable from 10% to 20% have little effect on test scores but that changes from 50% to 60% have a much larger effect.
+i. Describe a nonlinear specification that can be used to model this form of nonlinearity.
+ii. How would you test whether the researcher’s conjecture was better than the linear specification in column (7) of Table 8.3?</li>
+<li>A researcher suspects that the effect of income on test scores is different in districts with small classes than in districts with large classes.
+i. Describe a nonlinear specification that can be used to model this form of nonlinearity.</li>
+</ol>
+<!-- <!-- Stock and Watson 9.2 -->
+<!-- Consider the one-variable regression model $Y_i = \beta_0 = \beta_1 x_i + u_i$ and suppose it satisfies the least squares assumptions in Key Concept 4.3. Suppose $Y_i$ is measured with error, so the data are $\widetilde{Y_i} = Y_i + w_i$, where $w_i$ is the measurement error, which is i.i.d. and independent of $Y_i$ and $X_i$. Consider the population regression $Y$ using the mismeasured dependent variable, $\widetilde{Y}$. -->
+<!--   a.  Show that $v_i = u_i + w_i$ -->
+<!--   b. Show that the regression $\widetilde{Y_i} = \beta_0 + \beta_1X_i + v_i$ satisfies the least squares assumptions in Key Concept 4.3. Assume that $w_i$ is independent of $Y_j$ and $X_j$ for all values of $i$ and $j$ and has a finite fourth moment. -->
+<!--   c. Can confidence intervals be constructed in the usual way?  -->
+<!--   d. Evaluate these statements: “Measurement error in the X’s is a serious problem. Measurement error in Y is not.” -->
+<!-- 9.3, 9.5, 9.6, 9.10 (odd-numbered answers are online, but think through them carefully!) -->
+<!-- 2. Additional empirical exercise 9.1, -->
+<p><!-- Stock and Watson 9.3 --></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Labor economists studying the determinants of women’s earnings discovered a puzzling empirical result. Using randomly selected employed women, they regressed earnings on the women’s number of children and a set of control variables (age, education, occupation, and so forth). They found that women with more children had higher wages, controlling for these other factors. Explain how sample selection might be the cause of this result. (Hint: Notice that women who do not work outside the home are missing from the sample.) [This empirical puzzle motivated James Heckman’s research on sample selection that led to his 2000 Nobel Prize in Economics. See Heckman (1974)]</li>
+</ol>
+<!-- <!-- Stock and Watson 9.5 -->
+<ol start="5" style="list-style-type: decimal">
+<li>The demand for a commodity is given by <span class="math inline">\(Q = \beta_0 + \beta_1 P + u\)</span>, where <span class="math inline">\(Q\)</span> denotes quantity, <span class="math inline">\(P\)</span> denotes price, and <span class="math inline">\(u\)</span> denotes factors other than price that determine demand. Supply for the commodity is given by <span class="math inline">\(Q = \gamma_0 + \gamma_1P + v\)</span>, where <span class="math inline">\(v\)</span> denotes factors other than price that determine supply. Suppose <span class="math inline">\(u\)</span> and <span class="math inline">\(v\)</span> both have a mean of 0, have variances <span class="math inline">\(\sigma^2_u\)</span> and <span class="math inline">\(\sigma^2_v\)</span>, and are mutually uncorrelated.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Solve the two simultaneous equations to show how Q and P depend on u and v.</li>
+<li>Derive the means of P and Q.</li>
+<li>Derive the variance of P, the variance of Q, and the covariance between Q and P.
+<!-- d. A random sample of observations of $(Q_i, P_i)$ is collected, and $Q_i$ is regressed on $P_i$. (That is, $Q_i$ is the dependent variable, and $P_i$ is the independent variable) Suppose the sample is very large.  -->
+<!--   i. Use your answers to (b) and (c) to derive values of the regression coefficients. [Hint: Use Equations (4.7) and (4.8).]  -->
+<!--   ii. A researcher uses the slope of this regression as an estimate of the slope of the demand function ($\beta_1$). Is the estimated slope too large or too small? (Remember, demand curves slope down and supply curves slope up!) --></li>
+</ol>
+<!-- <!-- <!-- Stock and Watson 9.6 -->
+<!-- 4.  Suppose that $n = 100$ i.i.d. observations for $Y_i$, $X_i$ yield the following regres-sion results: -->
+<!-- $\widehat{Y} = 32.1 + 66.8X$, $SER = 15.1$, $R^2 = 0.81$., where $\widehat{SE(\beta_0)} =  115.12$ and $\widehat{SE(\beta_1)}= 112.22$ -->
+<!-- Another researcher is interested in the same regression, but he makes an error when he enters the data into his regression program: He enters each observation twice, so he has 200 observations (with observation 1 entered twice, observation 2 entered twice, and so forth). -->
+<!--   a. Using these 200 observations, what results will be produced by his regression program? (Hint: Write the “incorrect” values of the sample means, variances, and covariances of Y and X as functions of the “correct” values. Use these to determine the regression statistics.) -->
+<!--   $\widehat{Y} =$ ____ + ____ $X$, $SER = $____, $R^2 =$ ____,  -->
+<!--   $\widehat{SE(\beta_0)}$ =  ______ and $\widehat{SE(\beta_1)}$= ______ -->
+<!--   b. Which (if any) of the internal validity conditions are violated? -->
+<!-- Stock and Watson 9.10  -->
+<ol start="6" style="list-style-type: decimal">
+<li><p>Revisit the box <em>“The Return to Education and the Gender Gap”</em> in Section 8.3. Discuss the internal and external validity of the estimated effect of education on earning</p></li>
+<li><p>Complete <a href="https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/AEE/Stock_Watson_3U_AEE_8_2.pdf">Additional Empirical Exercise 8.2</a> using the dataset <a href="https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/CollegeDistance.dta"><code>CollegeDistance.dta</code></a></p></li>
+</ol>
+</div>

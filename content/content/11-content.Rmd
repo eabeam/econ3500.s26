@@ -1,0 +1,115 @@
+
+
+---
+title: Week 13 - Research Week
+sitetitle: Week 13
+summary: "EC200 - Week 13 Research Week"
+
+date: "2022-04-11"
+start_date: "2022-04-18"
+end_date: "2022-04-22"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 13
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/rweek-slides.pdf
+thumb: /slides/rweek-slides.png
+
+
+
+---
+
+# Writing Papers
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+## Presenting results
+
+
+### Empirical specification template
+
+*A helpful, five-step template!*[^1]
+
+[^1]: Use the template, but please do not plagarize the template.
+
+
+
+(1) First, I state what in broad terms type of model I am using (probably OLS!) and what I am going to do with it. If I'm using a fancy speciifcation like a difference-in-differences or panel data, now is a good time to mention this.
+
+> I use ordinary least squares to estimate the relationship between ice cream flavor consumed and risk aversion, using state-level fixed effects to control for time-invariant determinants of risk aversion that may vary by state. 
+
+
+
+(2) Then, I'm going to write the population model I am estimating in equation form. I'm going to use appropriate subscripts:
+
+$outcome_{is} = \beta_0 + \beta_1 VariableName_{is} + \beta_2 AnotherVariableName_{2,is} + f_s + u_{is}$
+
+- Use descriptive names (these don't actually have to be your variable names)
+- If you use fixed effects, you can notate these without having to expand them: 
+  - adding state fixed effects could be written as $ ... + f_s + ...$, for example
+  - or, you could add them this way: $\sum_{s=1}^{50}D_s$ for a set of 50 state-level fixed effects (with one omitted)
+- List covariates you include. If you have a ton of these, you could include a vector of individual-specific covariates ($X'\gamma$, for example) and then list them in paragraph form. However, this isn't likely for most papers.
+
+
+
+(3) Then, I'm going to define my independent and dependent variables in a list or paragraph form. I'm going to also describe what the subscripts are
+
+> Where $outcome_{is}$ is measured risk aversion for individual $i$ living in state $s$, following the scale described above. $VariableName_{is}$ is a measure of flavor intensity, standardized around Edy's French Vanilla ... 
+
+I'll want to include any controls and fixed effects. 
+
+
+
+(4) I'll mention any special things I do when coding (missing value flags, etc), and what types of standard errors I'm using 
+
+
+
+(5) Now, I write how I will interpret my coefficient of interest (causal, correlational, etc.) - what will the coefficients on my key indicator variables tell me? Are there any key identifying assumptions at play? 
+
+If you are using multiple specifications, then you have two options: 
+
+- If it's a matter of adding additional controls, then mention that you will also add them in a second model in part (3). 
+- If it's a fundamentally different population model, then include a second model, and define any terms that were not previously defined. Make sure to discuss how the interpretation of results would differ. 
+
+### Working with `outreg2`
+
+Download sample [code](../practice/EC200-12-02-example1.do), which uses [`graduation.dta`](../practice/graduation.dta)
+
+## Introductions and conclusions 
+
+### The introduction formula 
+Listen to Keith Head and follow ["The Introduction Formula"](http://blogs.ubc.ca/khead/research/research-advice/formula)
+
+
+
+### Links
+
+#### Introductions
+
+- [The Introduction Formula](http://blogs.ubc.ca/khead/research/research-advice/formula), Keith Head
+- [Writing Tips for Ph.D. Students](https://static1.squarespace.com/static/5e6033a4ea02d801f37e15bb/t/5f62a398731cc06411b39f48/1600299928487/phd_paper_writing.pdf), John Cochrane
+- [We need to talk MORE](https://macromomblog.com/2019/09/29/we-need-to-talk-more/) Claudia Sahm (general paper writing guidance), with special attention to introductions
+- [How to write the introduction of your development economics paper](https://www.cgdev.org/blog/how-write-introduction-your-development-economics-paper), Dave Evans surveys the structure of published papers
+
+
+#### Conclusions
+- [The Conclusion Formula](http://marcfbellemare.com/wordpress/12060), Marc Bellemare
+
+## General guidance for paper writing 
+- [Four steps to an applied micro paper](https://www.brown.edu/Research/Shapiro/pdfs/foursteps.pdf), Jesse Shapiro
+- [How to write applied papers in economics](http://marcfbellemare.com/wordpress/wp-content/uploads/2020/09/BellemareHowToPaperSeptember2020.pdf), Marc Bellemare
+- [*Economical Writing*](http://www.deirdremccloskey.com/docs/pdf/Article_86.pdf), Deidre McCloskey
+- [Writing papers: a checklist](https://static1.squarespace.com/static/55c143d9e4b0cb07521c6d17/t/5910bd1246c3c4fdbdf9976a/1494269202424/Kremer+on+writing+papers.pdf), Michael Kremer
+
+

@@ -1,0 +1,304 @@
+---
+title: "Lab 2: Do-files"
+linktitle: "Lab 2"
+date: "2021-09-13"
+due_date: "2021-09-22"
+due_time: "2:20 pm"
+toc: true
+menu:
+  assignment:
+    parent: Labs
+    weight: 2
+type: docs
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+
+</div>
+
+<div id="lab-content" class="section level2">
+<h2>Lab Content</h2>
+<p><strong><a href="../02-lab.pdf">Print-friendly pdf</a></strong></p>
+<div id="materials" class="section level3 unnumbered">
+<h3>Materials</h3>
+<ul>
+<li><a href="../materials/acs2014_all.dta"><code>acs2014_all.dta</code></a></li>
+<li>Do-file template <a href="../materials/labtemplate_f21.do"><code>labtemplate_f21.do</code></a></li>
+</ul>
+</div>
+<div id="objectives" class="section level3 unnumbered">
+<h3>Objectives</h3>
+<p>By the end of this tutorial you should be able to complete the following
+tasks in Stata:</p>
+<ul>
+<li><p>Create and save a do-file</p></li>
+<li><p>Explore variables and generate new ones</p></li>
+<li><p>Be able to find help with Stata issues - find new commands, check
+and debug your work, etc.</p></li>
+</ul>
+</div>
+<div id="key-commands" class="section level3 unnumbered">
+<h3>Key commands</h3>
+<table>
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">command</th>
+<th align="right">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Viewing data</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>tab var1</code></td>
+<td align="right">tabulate one variable, <code>var1</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>tab var1, missing</code></td>
+<td align="right">tabulate <code>var1</code>, include missing values</td>
+</tr>
+<tr class="even">
+<td align="left"><code>tab var1, nolabel</code></td>
+<td align="right">tabulate <code>var1</code>, show values rather than labels (if applicable)</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left">Summarizing data</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>tabstat var1</code></td>
+<td align="right">calculate mean of <code>var1</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>tabstat var1,by(var2)</code></td>
+<td align="right">calculate mean of <code>var1</code> separately for each value of <code>var2</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>tabstat var1,by(var2) stat(mean count p25 p50 p75)</code></td>
+<td align="right">calculate mean of <code>var1</code> separately for each value of <code>var2</code>, with added statistics</td>
+</tr>
+<tr class="even">
+<td align="left">Changing your data</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>gen newvar =var1</code></td>
+<td align="right">generate a new variable, <code>newvar</code>, and set it equal to values of <code>var1</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>gen newvar =1 if var2 == [exp]</code></td>
+<td align="right">generate a new variable, <code>newvar</code>, and set it equal to 1 if <code>var2 equals some expression, and missing otherwise</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>gen newvar = var2 == [exp]</code></td>
+<td align="right">generate a new variable, <code>newvar</code>, and set it equal to 1 if <code>var2 equals some expression, and 0 otherwise</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>drop var1 var2</code></td>
+<td align="right">drop the variables <code>var1</code> and <code>var2</code>.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>drop if [exp]</code></td>
+<td align="right">drop observations for which <code>exp</code> is true</td>
+</tr>
+<tr class="even">
+<td align="left"><code>keep var1 var2</code></td>
+<td align="right">drop everything but <code>var1</code> and <code>var2</code>.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>keep if [exp]</code></td>
+<td align="right">keep observations <em>only</em> if <code>exp</code> is true</td>
+</tr>
+<tr class="even">
+<td align="left">Displaying your data</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>graph twoway histogram var1</code></td>
+<td align="right">make a histogram for <code>var1.</code> Check help files for more options</td>
+</tr>
+</tbody>
+</table>
+<p>Looking for more examples? Check out these <a href="https://geocenter.github.io/StataTraining/portfolio/01_resource/"><strong>Stata Cheat Sheets</strong></a></p>
+<p>Suppose I asked you to recreate your analysis from our last lab. How
+long would it take you? If you used a do-file, you would just have to
+click a button, because your analysis would be replicable. We’re going
+to learn about the glory of do-files and a few other descriptive
+statistics tricks.</p>
+<p>The instant gratification of the Command window is tempting, but getting
+comfortable with do-files will save you lots of time, make collaboration
+easier, and reduce errors!</p>
+</div>
+<div id="aside-bad-documentation-big-problems" class="section level3">
+<h3>Aside: Bad documentation, big problems</h3>
+<blockquote>
+<p>For an economist, the ﬁve most terrifying words in the English language are: I can’t replicate your results.But for economists Carmen Reinhart and Ken Rogoﬀ of Harvard, there are seven even more terrifying ones: I think you made an Excel error.</p>
+<p>– <a href="https://www.theatlantic.com/business/archive/2013/04/forget-excel-this-was-reinhart-and-rogoffs-biggest-mistake/275088/">Matthew O’Brien, The Atlantic (18 April 2013)</a></p>
+</blockquote>
+<p>A summary from <a href="https://theconversation.com/the-reinhart-rogoff-error-or-how-not-to-excel-at-economics-13646">The Conversation, (22 April, 2013)</a></p>
+<blockquote>
+<p>Reinhart and Rogoff’s work showed average real economic growth slows (a 0.1% decline) when a country’s debt rises to more than 90% of gross domestic product (GDP) – and this 90% figure was employed repeatedly in political arguments over high-profile austerity measures…</p>
+<p>The most serious was that, in their Excel spreadsheet, Reinhart and Rogoff had not selected the entire row when averaging growth figures: they omitted data from Australia, Austria, Belgium, Canada and Denmark.</p>
+<p>In other words, they had accidentally only included 15 of the 20 countries under analysis in their key calculation.</p>
+<p>When that error was corrected, the “0.1% decline” data became a 2.2% average increase in economic growth.</p>
+<p>So the key conclusion of a seminal paper, which has been widely quoted in political debates in North America, Europe Australia and elsewhere, was invalid.</p>
+</blockquote>
+<p><code>{{&lt; figure library="true" src="reinhart-rogoff-error.png" width=400 title="[Excel error (Business Insider)](https://www.businessinsider.com/thomas-herndon-michael-ash-and-robert-pollin-on-reinhart-and-rogoff-2013-4)" &gt;}}</code></p>
+</div>
+<div id="do-files-and-the-do-file-editor" class="section level3">
+<h3>Do-files and the do-file editor</h3>
+<p>You can get pretty far in Stata relying on the Command and Review
+window, but we may want a record of the commands we want to run for our
+analysis. One thing that makes Stata different from a program like Excel
+is that you can create do-files, essentially small programs that will
+run your analysis again and again, in exactly the same way. For
+econometric analysis this is CRUCIAL.</p>
+<p>A do-file can be written in any text file and then saved with the
+extension <code>.do</code>, but we’ll use the do-file editor. You can start a new do-file by
+clicking on the do-file button. Or, you can open the do-file template.</p>
+<p>The do-file editor is where we will write our programs, and it has some
+nice color coding to help us avoid mistakes. For your problem sets and
+papers, you must ALWAYS submit a do-file along with your results. Some
+people will like to practice in the Command window and then copy the
+commands they’re satisfied with to the do-file, while others will prefer
+to work entirely in the do-file. It’s your call, though the second one
+is a little less risky.</p>
+<div id="comment-comment-comment" class="section level4">
+<h4>Comment, comment, comment</h4>
+<p>Do-files are used to record your past work and possibly to share your
+work with others. It’s important to properly <strong>document</strong> your work
+using comments. There are three ways to comment</p>
+<ol style="list-style-type: decimal">
+<li><p>Comment the whole line with an asterisk</p></li>
+<li><p>Comment the whole line or part of a line with two forward slashes (<code>//</code>)</p></li>
+<li><p>Use slash-asterisk to open (<code>/*</code>) and close (<code>*/</code>) a comment section</p></li>
+</ol>
+<p><code>{{&lt; figure library="true" src="stata-comment.png" width=400 title="" &gt;}}</code></p>
+<p>The do-file editor will turn all your comments green so you don’t get
+confused.</p>
+</div>
+</div>
+<div id="programming-tips" class="section level3">
+<h3>Programming tips</h3>
+<ul>
+<li><p><strong>Put everything in a do-file!</strong> An important feature of any good
+research project is that the results should be reproducible. For
+Stata the easiest way to do this is to create a text file that lists
+all your commands in order, so anyone can re-run all your Stata work
+on a project anytime. Such text files that are produced within Stata
+or linked to Stata are called do-files, because they have an
+extension .do (like <code>intro_exercise.do</code>). These files feed commands
+directly into Stata without you having to type or copy them into the
+command window.</p>
+<p>Imagine you’re just about done with the analysis for your research
+paper. While working on the final regression, you discover that one
+of your variables wasn’t cleaned properly, and you need to drop some
+outliers from the data. Do you correct it and redo everything from
+scratch? Could you even do that? How long would it take?</p>
+<p>With a set of do-files, all you have to do is correct the variable
+early in the code, and re-run everything. If your code is quick, it
+will take just a few minutes. Easy!</p>
+<p>An added bonus is that having do-files makes it very easy to fix
+your typos, re-order commands, and create more complicated chains of
+commands that wouldn’t work otherwise. You can now quickly reproduce
+your work, correct it, adjust it, and build on it.</p></li>
+<li><p><strong>Log your results.</strong> Maintaining logs can help you quickly retrieve
+results and serve as a record of past work in case you accidentally
+overwrite commands. Logs contain the commands <em>and</em> the results.</p></li>
+<li><p><strong>Never overwrite your original files.</strong> A good do-file structure
+starts with your original, raw data, then cleans and analyzes it to
+get your final results. A “master” do-file can piece all these
+together.</p></li>
+<li><p><strong>Replicability is key.</strong> Your code should be replicable to someone
+else who picks up your raw files and code.</p></li>
+<li><p><strong>Comment, comment, comment!</strong> Clear commenting is essential to help
+others understand your code and to remember what you did.</p></li>
+</ul>
+</div>
+<div id="finding-new-commands" class="section level3">
+<h3>Finding new commands</h3>
+<p>One of the strengths of Stata is that complicated processes can be
+completed with simple commands. One of its weaknesses is that it’s not
+always obvious what those specific commands are. In our problem sets and
+your research paper, you will (I promise) have to calculate or estimate
+something in a way we haven’t covered.</p>
+<ul>
+<li><p>Stata help file: <code>help command</code></p></li>
+<li><p>Search Stata documentation: <code>finidit keyword</code></p></li>
+<li><p>Google the thing you are trying to do: <em>i.e.: make scatterplot
+Stata, turn rows into columns Stata, cluster standard errors Stata,
+etc.</em></p></li>
+</ul>
+</div>
+</div>
+<div id="lab-2" class="section level2 unnumbered">
+<h2>Lab Exercise 2</h2>
+<div id="what-do-i-submit" class="section level3">
+<h3>What do I submit?</h3>
+<ul>
+<li>Your written up answers to exercise questions (1) - (12). This can be typed or written out then scanned (or photographed), in any reasonable format.</li>
+<li>The do-file you’ve created that runs this analysis</li>
+<li>A log file that contains the results from this exercise.</li>
+</ul>
+</div>
+<div id="questions" class="section level3">
+<h3>Questions</h3>
+<ol style="list-style-type: decimal">
+<li><p>Download <a href="materials/acs2014_all.dta"><code>acs2014_all.dta</code></a> and <a href="materials/labtemplate_f21.do"><code>labtemplate.do</code></a> by clicking the links.</p></li>
+<li><p>Move these files to wherever you store your class materials.</p></li>
+<li><p>Open <code>labtemplate_f21.do</code> and run it. Does it work? Probably not! Fix it.</p></li>
+<li><p>Drop some variables we don’t need right now: <code>gq</code>, <code>serial</code>, and <code>hhwt</code>. How
+many variables remain?</p></li>
+<li><p>What is the age distribution of the sample? Specifically, report the
+mean, median, minimum, and maximum age of the sample.</p></li>
+<li><p>Because very young workers might be still in school, drop anyone in
+your sample who is less than 23 years old. (Maintain this sample
+restriction for the rest of the lab). How many people are left in
+your sample?</p></li>
+<li><p>Generate a new variable, <code>lt35</code> that is equal to one if a person is
+less than 35 years old and 0 otherwise. What is the mean of <code>lt35,</code> and what is its interpretation?</p></li>
+<li><p>Using the <code>tabstat</code> command, find the average income and wages for those under age 35 and those at least age 35. How does it compare to median income and wages for each group?</p></li>
+<li><p>Using the <code>tabstat</code> command, find the average income and wages for men and women.</p></li>
+<li><p>There are several reasons why men might earn more than women. Suppose you hypothesized that
+that men have completed more education than women; and workers with higher education levels earn more. We will test this in two ways.</p>
+<ol style="list-style-type: decimal">
+<li><p>First, generate a variable equal to one if a person has
+completed at least some post-secondary education, and zero
+otherwise. What is the mean of this variable?</p></li>
+<li><p>What share of men have at least some post-secondary education?
+What about women?</p></li>
+<li><p>We can also see if gender-wage gaps are bigger for lower vs.
+higher-educated workers. For those without post-secondary
+education, what is the average wage gap? For those with
+post-secondary education, what is the average wage gap?</p></li>
+</ol></li>
+<li><p>Name <strong>two</strong> additional reasons that may explain why men’s
+income is higher than women’s income on average. How would you
+test each one? <em>You do not have to actually do this test, just
+describe in as much detail as possible. You can assume you have
+additional data beyond what is provided here.</em></p></li>
+<li><p>Make two histograms, one of the income distribution for men
+and one of the income distribution for women. Make sure the
+y-axis indicates the “fraction” of individuals, not the density.
+Copy and paste it into your responses.</p></li>
+</ol>
+</div>
+</div>
+<div id="video-recording" class="section level2">
+<h2>Video Recording</h2>
+<p>{{< youtube ssCWM4IE6i8 >}}</p>
+</div>

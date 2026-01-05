@@ -1,0 +1,8 @@
+{{ if .Page.Params.pdf}}
+<p><a href="{{ .Page.Params.pdf }}">Download this week's slides</a>.</p>
+<figure class="slide-thumb">
+    <a href="{{ .Page.Params.pdf }}"><img src="{{ .Page.Params.thumb }}" alt="First slide" /></a>
+</figure>
+{{ else }}
+<p>These slides should be posted by Friday night. If they're still missing, please message me!.</p>
+{{ end }}

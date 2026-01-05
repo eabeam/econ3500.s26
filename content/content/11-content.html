@@ -1,0 +1,143 @@
+---
+title: Week 13 - Research Week
+sitetitle: Week 13
+summary: "EC200 - Week 13 Research Week"
+
+date: "2022-04-11"
+start_date: "2022-04-18"
+end_date: "2022-04-22"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 13
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/rweek-slides.pdf
+thumb: /slides/rweek-slides.png
+
+
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#writing-papers">Writing Papers</a>
+<ul>
+<li><a href="#slides">Slides</a></li>
+<li><a href="#presenting-results">Presenting results</a>
+<ul>
+<li><a href="#empirical-specification-template">Empirical specification template</a></li>
+<li><a href="#working-with-outreg2">Working with <code>outreg2</code></a></li>
+</ul></li>
+<li><a href="#introductions-and-conclusions">Introductions and conclusions</a>
+<ul>
+<li><a href="#the-introduction-formula">The introduction formula</a></li>
+<li><a href="#links">Links</a></li>
+</ul></li>
+<li><a href="#general-guidance-for-paper-writing">General guidance for paper writing</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="writing-papers" class="section level1">
+<h1>Writing Papers</h1>
+<div id="slides" class="section level2">
+<h2>Slides</h2>
+<p>{{% slides %}}</p>
+</div>
+<div id="presenting-results" class="section level2">
+<h2>Presenting results</h2>
+<div id="empirical-specification-template" class="section level3">
+<h3>Empirical specification template</h3>
+<p><em>A helpful, five-step template!</em><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<ol style="list-style-type: decimal">
+<li>First, I state what in broad terms type of model I am using (probably OLS!) and what I am going to do with it. If I’m using a fancy speciifcation like a difference-in-differences or panel data, now is a good time to mention this.</li>
+</ol>
+<blockquote>
+<p>I use ordinary least squares to estimate the relationship between ice cream flavor consumed and risk aversion, using state-level fixed effects to control for time-invariant determinants of risk aversion that may vary by state.</p>
+</blockquote>
+<ol start="2" style="list-style-type: decimal">
+<li>Then, I’m going to write the population model I am estimating in equation form. I’m going to use appropriate subscripts:</li>
+</ol>
+<p><span class="math inline">\(outcome_{is} = \beta_0 + \beta_1 VariableName_{is} + \beta_2 AnotherVariableName_{2,is} + f_s + u_{is}\)</span></p>
+<ul>
+<li>Use descriptive names (these don’t actually have to be your variable names)</li>
+<li>If you use fixed effects, you can notate these without having to expand them:
+<ul>
+<li>adding state fixed effects could be written as $ … + f_s + …$, for example</li>
+<li>or, you could add them this way: <span class="math inline">\(\sum_{s=1}^{50}D_s\)</span> for a set of 50 state-level fixed effects (with one omitted)</li>
+</ul></li>
+<li>List covariates you include. If you have a ton of these, you could include a vector of individual-specific covariates (<span class="math inline">\(X&#39;\gamma\)</span>, for example) and then list them in paragraph form. However, this isn’t likely for most papers.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Then, I’m going to define my independent and dependent variables in a list or paragraph form. I’m going to also describe what the subscripts are</li>
+</ol>
+<blockquote>
+<p>Where <span class="math inline">\(outcome_{is}\)</span> is measured risk aversion for individual <span class="math inline">\(i\)</span> living in state <span class="math inline">\(s\)</span>, following the scale described above. <span class="math inline">\(VariableName_{is}\)</span> is a measure of flavor intensity, standardized around Edy’s French Vanilla …</p>
+</blockquote>
+<p>I’ll want to include any controls and fixed effects.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><p>I’ll mention any special things I do when coding (missing value flags, etc), and what types of standard errors I’m using</p></li>
+<li><p>Now, I write how I will interpret my coefficient of interest (causal, correlational, etc.) - what will the coefficients on my key indicator variables tell me? Are there any key identifying assumptions at play?</p></li>
+</ol>
+<p>If you are using multiple specifications, then you have two options:</p>
+<ul>
+<li>If it’s a matter of adding additional controls, then mention that you will also add them in a second model in part (3).</li>
+<li>If it’s a fundamentally different population model, then include a second model, and define any terms that were not previously defined. Make sure to discuss how the interpretation of results would differ.</li>
+</ul>
+</div>
+<div id="working-with-outreg2" class="section level3">
+<h3>Working with <code>outreg2</code></h3>
+<p>Download sample <a href="../practice/EC200-12-02-example1.do">code</a>, which uses <a href="../practice/graduation.dta"><code>graduation.dta</code></a></p>
+</div>
+</div>
+<div id="introductions-and-conclusions" class="section level2">
+<h2>Introductions and conclusions</h2>
+<div id="the-introduction-formula" class="section level3">
+<h3>The introduction formula</h3>
+<p>Listen to Keith Head and follow <a href="http://blogs.ubc.ca/khead/research/research-advice/formula">“The Introduction Formula”</a></p>
+</div>
+<div id="links" class="section level3">
+<h3>Links</h3>
+<div id="introductions" class="section level4">
+<h4>Introductions</h4>
+<ul>
+<li><a href="http://blogs.ubc.ca/khead/research/research-advice/formula">The Introduction Formula</a>, Keith Head</li>
+<li><a href="https://static1.squarespace.com/static/5e6033a4ea02d801f37e15bb/t/5f62a398731cc06411b39f48/1600299928487/phd_paper_writing.pdf">Writing Tips for Ph.D. Students</a>, John Cochrane</li>
+<li><a href="https://macromomblog.com/2019/09/29/we-need-to-talk-more/">We need to talk MORE</a> Claudia Sahm (general paper writing guidance), with special attention to introductions</li>
+<li><a href="https://www.cgdev.org/blog/how-write-introduction-your-development-economics-paper">How to write the introduction of your development economics paper</a>, Dave Evans surveys the structure of published papers</li>
+</ul>
+</div>
+<div id="conclusions" class="section level4">
+<h4>Conclusions</h4>
+<ul>
+<li><a href="http://marcfbellemare.com/wordpress/12060">The Conclusion Formula</a>, Marc Bellemare</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="general-guidance-for-paper-writing" class="section level2">
+<h2>General guidance for paper writing</h2>
+<ul>
+<li><a href="https://www.brown.edu/Research/Shapiro/pdfs/foursteps.pdf">Four steps to an applied micro paper</a>, Jesse Shapiro</li>
+<li><a href="http://marcfbellemare.com/wordpress/wp-content/uploads/2020/09/BellemareHowToPaperSeptember2020.pdf">How to write applied papers in economics</a>, Marc Bellemare</li>
+<li><a href="http://www.deirdremccloskey.com/docs/pdf/Article_86.pdf"><em>Economical Writing</em></a>, Deidre McCloskey</li>
+<li><a href="https://static1.squarespace.com/static/55c143d9e4b0cb07521c6d17/t/5910bd1246c3c4fdbdf9976a/1494269202424/Kremer+on+writing+papers.pdf">Writing papers: a checklist</a>, Michael Kremer</li>
+</ul>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Use the template, but please do not plagarize the template.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

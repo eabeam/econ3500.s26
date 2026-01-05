@@ -1,0 +1,48 @@
+---
+title: "Research Paper: Referee Report"
+linktitle: "05 Referee Report"
+date: "2022-04-11"
+due_date: "2022-04-14"
+due_time: "11:59 PM"
+menu:
+  assignment:
+    parent: Research Paper
+    weight: 6
+type: docs
+editor_options: 
+  chunk_output_type: console
+---
+## Purpose:
+
+- To practice generating constructive criticism for imperfect work
+- To link what we've learned in class to an original analysis
+- To generate useful feedback for your peers
+
+## Key Elements 
+1. Summary of the paper – to convey to the editor that you understand the paper.
+
+2. Major comments
+  - Big-picture things that the author could make to improve the paper
+  - 2-4 major comments is sufficient
+  - Not enough to criticize!
+  
+3.  Minor comments:
+  - Clarifying questions, areas that are unclear
+  - Small changes the author could make to improve the paper – add an additional covariate, try adjusting the specification, etc.
+  - Depending on paper, you could have just a few, or you could have a lot
+  - Don’t copy edit the paper!
+  
+## What should this look like? 
+
+- All the components above
+  - At least 2 major comments (substantial suggestions)
+  - At least 3 minor comments (minor suggestions)
+- Will probably be 1-2 pages 
+  - 3 pages = overkill, < 1 page, dig in deeper! 
+- Written in collegial tone
+
+## Submission 
+ - Upload on BB 
+ - *And* send directly to your partner 
+ 
+ Note that I'm assigning referee partners at an individual level, not at a paper level. If you are working with a partner, each of you will complete a referee report, and your paper will receive two reviews.

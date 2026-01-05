@@ -1,0 +1,60 @@
+---
+title: "Stata FAQ"
+sitetitle: Stata FAQ
+summary: Stata FAQ
+date: "2020-08-20"
+
+menu:
+  resources:
+    parent: Resources
+    weight: 3
+  
+  # Academic page type (do not modify).
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+# Stata FAQ 
+
+## Getting Started {#getting-started .unnumbered}
+
+### Downloading Stata using AppsAnywhere 
+
+`r htmltools::HTML("{{< youtube K4MXZlGPYtU >}}")`
+
+
+### Where is my home directory? {#home-directory .unnumbered}
+
+Stata needs a folder to work in, and you need to tell it where to look. This can be achieved by the `cd` command (change directory)
+
+`cd /Users/emilybeam/Dropbox/EC200` , where "/Users/emilybeam/Dropbox/EC200" is the **file path**
+
+But how do you know what your **file path** is? As our computers have gotten shinier, it's become harder to figure out. 
+
+## PC
+
+[General PC instructions from wikihow](https://www.wikihow.com/Find-a-File%27s-Path-on-Windows)
+ 
+Basically...
+
+1. Right click on the folder you put all your stuff in, and click on “properties.”
+1. Then you’ll see something called “Location: C:/Users/Emma/Documents/Folder” or something like that. 
+1. You’d then change directory in Stata by entering `“cd “C:/Users/Emma/Documents/Folder”`
+ 
+## Mac
+
+It's a very similar process! 
+
+1. Right click on the folder you put all your stuff in, and click on “info.”
+1. You’ll see something like “Where: iCloud Drive > Documents > Student > Folder,” with tiny black arrows. That will not look like a file path. 
+1. But, if you select it, copy it and paste it, it will paste as “/Users/Student/Documents/Folder” 
+1. You’d then change directory in Stata by entering `cd “/Users/Student/Documents/Folder”`
+ 
+**OR** 
+
+1. Right click on the folder you put all your stuff in, so a menu pops up
+2. Press the option key, and see how the menu now has an option that says "copy NAME as path". Select that option
+3. Paste it in Stata, so you enter  `cd "/Users/Student/Documents/Folder"`
+ 

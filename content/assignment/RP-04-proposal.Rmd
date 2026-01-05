@@ -1,0 +1,84 @@
+---
+title: "Research Paper: Research Proposal"
+linktitle: "04 Research Proposal"
+
+date: "2022-03-20"
+due_date: "2022-04-14"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Research Paper
+    weight: 5
+type: docs
+editor_options: 
+  chunk_output_type: console
+---
+
+## Objective {#objective .unnumbered}
+
+
+The goal of this submission is for you to translate your research idea and data set into the outline of a workable paper. You can think of your
+research proposal as "baby paper": a summary of what your question is, why it matters,
+and how you intend to solve it.
+
+For this assignment, **some basic data work is necessary.** However, you may find it helpful to explore some analyses to get a better sense of what empirical specifications are feasible.  
+
+## Components {#components .unnumbered}
+
+
+While our first two assignments were fairly informal, this is a formal paper - meaning that I will pay close attention to not only what ideas you present, but also *how* you present them. Your proposal should be **at least 1200 words** (excluding references) and include the following components:
+
+1.   Introduction that contains (1) a clearly stated research question. What hypotheses are you testing? (2) Motivation - why is this important/interesting? Include at least 2 sources.
+
+1.   Literature review: discussion of related literature and how your paper fits in. Include at least 4 peer-reviewed sources (different from introduction sources).
+
+1.   Data description: Description of data set - make sure you include the
+    sources! 
+    
+1.  A "summary statistics" table that includes the basic descriptive
+    statistics that will be relevant to your analysis. Ultimately, this
+    table will probably be the first table in your final paper. It
+    should be **formatted nicely** (i.e., not copied directly out of Stata)
+    with easy-to-interpret variables names and column headers, and it
+    will likely include the following:
+
+  -   Number of observations
+  -   Means and standard deviations of your dependent variable(s)
+  -   Means and standard deviations of your key independent
+      variable(s)
+  -   If you are comparing two (or more) groups, you will likely want
+      to report means separately for each group.
+  -   Any other details that might be relevant to your data (i.e.
+      number of states, number of years, number of households, etc.)
+
+5.   Empirical specification: You **must** include the empirical
+    specification of the regression(s) you are estimating, along with a
+    clear description of what each variable is.
+
+6.   Planned analysis: How will your results answer your research
+    question? What challenges/limitations will you face? This is a good
+    place to discuss any omitted variable bias, other possible
+    violations of our assumptions
+    
+
+7.   Bibliography - for any references cited in your proposal plus any
+    data sources
+
+8.   *(Optional)* Outline of tables: In as much detail
+    as possible, outline the tables you plan to include (no numbers
+    necessary)
+
+
+
+Your annotated bibliography will help you push forward your motivation and the literature review. 
+
+Keep in mind that the more detail you include, the better the feedback you'll receive! A classmate will provide a peer review of your proposal, providing feedback to help you turn your proposal into a final paper
+
+**Consult the [grading rubric](../materials/Proposal_Rubric.pdf) for additional guidance!**
+
+## Submission requirements {#submission-requirements .unnumbered}
+
+Your research proposal should be written in paragraph form (i.e. complete sentences, not bullet points), copy-edited for grammatical/spelling errors, and submitted as a word or PDF document.
+
+## Examples {#examples .unnumbered}
+See Blackboard for example proposals. These are not perfect, but they are all of high quality.

@@ -1,0 +1,70 @@
+---
+title: Week 10 - Assessing Studies
+sitetitle: Week 10
+summary: "EC200 - Week 10 Assessing Studies Based on Multiple Regression (CH9)"
+
+date: "2022-03-20"
+start_date: "2022-03-28"
+end_date: "2022-04-01"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 10
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch9-slides.pdf
+thumb: /slides/ch9-slides.png
+
+
+
+---
+
+## Overview
+
+Two big picture ideas: **internal validity** and **external validity**. Specifically, we're going to talk a little more about omitted variable bias, a lot about measurement error, and a little bit about simultaneity! 
+## Reading Guide
+
+#### **Chapter 9: Assessing Studies Based on Multiple Regression**
+
+#### **SW 9.1** Internal and External Validity 
+
+Get those definitions, and threats to external validity 
+
+#### **SW 9.2** Threats to Internal Validity of Multiple Regression Analysis 
+
+Five big threats. And how to handle them. 
+
+#### **SW 9.3** Internal and External Validity When the Regression is Used for Forcasting
+
+Optional  - worth giving some thought 
+
+
+#### **SW 9.4** Example: Test Score and Class Size
+
+No new content, but this is a really good walk-through of the 9.1 and 9.2 content. 
+
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+## Videos
+
+
+### [Video: Assessing Studies](https://youtu.be/zIx8kyPZSC0 )
+`r htmltools::HTML("{{< youtube zIx8kyPZSC0 >}}")`
+https://youtu.be/ 
+<!-- ### [Class Video](https://streaming.uvm.edu/media/embed/iM9eQzi/)  -->
+
+<!-- *You need to use your netid to log in - let me know if you have issues* -->
+
+
+<!--  <iframe src="https://streaming.uvm.edu/media/embed/iM9eQzi/" width="640" height="480" frameborder="0" allowfullscreen></iframe> -->
+

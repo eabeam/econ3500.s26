@@ -1,0 +1,93 @@
+---
+title: Week 14 - Instrumental Variables
+sitetitle: Week 14
+summary: "EC200 - Week 14 Instrumental Variables (CH12)"
+
+date: "2022-04-18"
+start_date: "2022-04-25"
+end_date: "2022-04-29"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 14
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch12-slides.pdf
+thumb: /slides/ch12-slides.png
+
+
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#reading-guide">Reading Guide</a></li>
+<li><a href="#other-resources">Other resources</a></li>
+<li><a href="#slides">Slides</a></li>
+<li><a href="#video-introduction-to-iv"><span>Video: Introduction to IV</span></a></li>
+</ul>
+</div>
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>Let’s wrap up with a final hurrah - one more empirical tool to help us identify <em>causal impacts</em>.</p>
+</div>
+<div id="reading-guide" class="section level2">
+<h2>Reading Guide</h2>
+<div id="chapter-12-instrumental-variables-regression" class="section level4">
+<h4><strong>Chapter 12: Instrumental Variables Regression</strong></h4>
+</div>
+<div id="sw-12.1-the-iv-estimator-with-a-single-regressor-and-a-single-instrument" class="section level4">
+<h4><strong>SW 12.1</strong> The IV Estimator with a Single Regressor and a Single Instrument</h4>
+<p>Make sure you understand the difference between <strong>endogeneous variables</strong> (correlated with error term <span class="math inline">\(u\)</span>) and <strong>exogenous variables</strong> (not correlated). The textbook covers two conditions for a valid instrument: <strong>relevance</strong> (<span class="math inline">\(corr(Z_i,X_i) \neq 0\)</span>) and <strong>exogeneity</strong> (<span class="math inline">\(corr(Z_i,u_i) = 0\)</span>). To make the assumptions of IV explicit, I prefer to include an <strong>exclusion</strong> assumption: that the instrument <span class="math inline">\(Z\)</span> affects <span class="math inline">\(Y\)</span> only through <span class="math inline">\(X\)</span>.
+If you come away from this section with the right vocabulary and a good intuition of what an instrument “does,” then you’re in good shape!</p>
+<p>I find the derivation (in the text and video) helpful, but it’s not something I’d test you on.</p>
+<p>{{% tweet "1298665911101136901" %}}</p>
+</div>
+<div id="sw-12.2-the-general-iv-regression-model" class="section level4">
+<h4><strong>SW 12.2</strong> The General IV Regression Model</h4>
+<p>Now we get a bit technical. The key important things here are the understanding of two-stage least squares - what it is and how it works, plus a good understanding of those assumptions.</p>
+</div>
+<div id="sw-12.3-checking-instrument-validity" class="section level4">
+<h4><strong>SW 12.3</strong> Checking Instrument Validity</h4>
+<p>Make sure you know what a <strong>weak instrument</strong> is, why it’s a problem, and how we identify it. Make sure you understand the logic behind whether an instrument violates it’s exogeneity assumption.</p>
+<p>{{% tweet "1466634426067075077" %}}</p>
+<p>{{% tweet "1428455696538882048" %}}</p>
+<p><strong>Skip the test of overidentifying restrictions</strong></p>
+</div>
+<div id="sw-12.4-12.6-the-other-stuff" class="section level4">
+<h4><strong>SW 12.4-12.6</strong> The Other Stuff</h4>
+<p>Good content and examples, but nothing new.</p>
+</div>
+</div>
+<div id="other-resources" class="section level2">
+<h2>Other resources</h2>
+<p>Getting your head around IV can be tricky! Here are a few resources if you want to get another take:</p>
+<ul>
+<li><a href="http://www.rebeccabarter.com/blog/2018-05-23-instrumental_variables/">Rebecca Barter: Understanding nstrumental variables</a>: Helpful diagrams!</li>
+<li><a href="http://pierrelouisvezina.weebly.com/uploads/2/3/4/2/2342194/ivs.pdf">Pierre-Louis Vézina:Instrumental Variables - an intuitive guide</a>: Overview plus a few more examples of IVs in the literature</li>
+<li>Nick Huntington-Klein has the best econometrics resources :fire: :fire:.
+<ul>
+<li>Check out his lecture slides on <a href="https://nickch-k.github.io/EconometricsSlides/Week_08/Week_08_Instrumental_Variables.html#1">instrumental variables</a>, an accompanying video lecture <a href="https://www.youtube.com/watch?v=6mFNeWHPMYs">here</a>.</li>
+<li>Also, some <a href="https://nickchk.com/causalgraphs.html#iv">fancy animations</a> to show what IV actually does w/ data</li>
+</ul></li>
+</ul>
+</div>
+<div id="slides" class="section level2">
+<h2>Slides</h2>
+<p>{{% slides %}}</p>
+</div>
+<div id="video-introduction-to-iv" class="section level2">
+<h2><a href="https://youtu.be/MeHHe303JuI">Video: Introduction to IV</a></h2>
+<p>{{< youtube MeHHe303JuI >}}</p>
+</div>

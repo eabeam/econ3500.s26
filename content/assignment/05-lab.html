@@ -1,0 +1,220 @@
+---
+title: "Lab 5: Merging and hypothesis tests"
+linktitle: "Lab 5"
+date: "2022-03-12"
+due_date: "2022-03-29"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Labs
+    weight: 5
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#materials">Materials</a></li>
+<li><a href="#objectives">Objectives</a></li>
+<li><a href="#key-commands">Key commands</a>
+<ul>
+<li><a href="#a-note-on-temporary-files-optional">A note on temporary files (optional)</a></li>
+</ul></li>
+<li><a href="#lab-5-worksheet">Lab 5 Worksheet</a>
+<ul>
+<li><a href="#what-do-i-submit">What do I submit?</a></li>
+<li><a href="#exercises">Exercises</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p><strong><a href="../05-lab.pdf">Print-friendly pdf</a></strong></p>
+<div id="materials" class="section level2 unnumbered">
+<h2>Materials</h2>
+<ul>
+<li><a href="../materials/cps_2016.dta"><code>cps_2016.dta</code></a></li>
+<li>Do-file template <a href="../materials/labtemplate_f21.do"><code>labtemplate_f21.do</code></a></li>
+</ul>
+</div>
+<div id="objectives" class="section level2 unnumbered">
+<h2>Objectives</h2>
+<p>Today we’re going to keep working with <a href="../materials/cps_2016.dta"><code>cps_2016.dta</code></a>, which
+contains information from the <a href="https://cps.ipums.org/cps/">2016 Current Population Survey</a>.</p>
+<p>We’re going to merge in county-level unemployment rates from the <a href="https://www.bls.gov/lau/tables.htm">BLS</a></p>
+<p>By the end of this lab, you should be able to complete the following
+tasks in Stata:</p>
+<ul>
+<li><p>Import data from Excel</p></li>
+<li><p>Merge data sets</p></li>
+<li><p>Test hypotheses for linear combinations of coefficients</p></li>
+<li><p>Test the general significance of a regression</p></li>
+</ul>
+</div>
+<div id="key-commands" class="section level2 unnumbered">
+<h2>Key commands</h2>
+<table>
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">command</th>
+<th align="right">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Importing data</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>import excel using “file1.xlsx”, firstrow clear</code></td>
+<td align="right">Import the data set file1.xlsx from excel into Stata. The <code>firstrow</code> option tells Stata to use the first row as the variable name. The <code>clear</code> option tells Stata to erase any data already in the set</td>
+</tr>
+<tr class="odd">
+<td align="left">Identifying duplicates</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>duplicates list var1 var2</code></td>
+<td align="right">List any observations that are duplicates on the listed variables, <em>var1</em> <code>var2</code>, etc.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>duplicates tag var1 var2, gen(d1)</code></td>
+<td align="right">Generate a new variable, <code>d1</code> that indicates which variables are duplicates for <code>var1</code> and <code>var2</code></td>
+</tr>
+<tr class="even">
+<td align="left">Merging datasets</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>merge 1:1 var1 var2 using file2</code></td>
+<td align="right">Perform a one-to-one merge based on <code>var1</code> and <code>var2</code>. There cannot be any duplicates on the variables you are using to merge</td>
+</tr>
+<tr class="even">
+<td align="left"><code>merge m:1 var1 var2 using file2</code></td>
+<td align="right">Perform a many-to-one merge based on <code>var1</code> and <code>var2</code>. There can be duplicate identifiers in the master data set (like if merging state data to individuals), but there should be no duplicates in the using data set</td>
+</tr>
+<tr class="odd">
+<td align="left">Converting between string and numeric variables</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>decode var1, gen(newvar)</code></td>
+<td align="right">Take a numeric variable with labels and generate a new string variable that is equal to the values of those labels. (You can do the opposite with <code>encode</code>).</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>destring var1, replace</code></td>
+<td align="right">Take a string variable, <code>var1</code> and convert it to a numeric variable, replacing the old variable</td>
+</tr>
+<tr class="even">
+<td align="left"><code>tostring var2, gen(string_var)</code></td>
+<td align="right">Take a numeric variable, <code>var2</code> and make it a string, but make that into a new variable called <code>string_var</code></td>
+</tr>
+<tr class="odd">
+<td align="left">Statistical tests</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td align="left"><code>test var1 = var2</code></td>
+<td align="right">Run after estimating a regression. Tests the null hypothesis that the coefficient on <code>var1</code> equals the coefficient on <code>var2</code>, against the two-sided alternative.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>testparm var1 var2 ...</code></td>
+<td align="right">Run after estimating a regression. Tests the whether all listed variables, <code>var1</code> , <code>var2</code>, etc., are jointly equal to zero, against the two-sided alternative.</td>
+</tr>
+</tbody>
+</table>
+<div id="a-note-on-temporary-files-optional" class="section level3">
+<h3>A note on temporary files (optional)</h3>
+<p>This exercise works by having two data sets stored on your hard drive, then running a <code>merge</code> command to unite them. You might notice that the workflow feels clunky and generates extra files - open a data set, save it, open another data set, then merge in the first data set.</p>
+<p>You can use temporary files to speed things up! Basically, you can save files in your local memory, and call those files the same way we called local variables. Everything has to be run in the do-file for this to work.</p>
+<p>A short example (you can paste this in a do-file and run it, as it uses Stata files) :</p>
+<pre><code>
+tempfile tempauto       // Declare tempfile (needs to run before you try to save)
+
+webuse autosize,clear
+
+save `tempauto&#39;, replace    // save to temp file t1
+
+webuse autoexpense, clear 
+
+merge 1:1 make using `tempauto&#39;   // call tempfile
+
+tab _merge    // check out merge
+
+list</code></pre>
+<!--
+## Lab Video 
+-->
+<p>{{< youtube 8yfXvk8QYy0 >}}</p>
+</div>
+</div>
+<div id="lab-5-worksheet" class="section level2">
+<h2>Lab 5 Worksheet</h2>
+<div id="what-do-i-submit" class="section level3">
+<h3>What do I submit?</h3>
+<ul>
+<li>Your written up answers to the exercise questions. This can be typed or written out then scanned (or photographed), in any reasonable format.</li>
+<li>The do-file you’ve created that runs this analysis</li>
+<li>A log file that contains the results from this exercise.</li>
+</ul>
+</div>
+<div id="exercises" class="section level3">
+<h3>Exercises</h3>
+<ol style="list-style-type: decimal">
+<li><p>Visit <a href="https://www.bls.gov/lau/tables.htm" class="uri">https://www.bls.gov/lau/tables.htm</a> to access 2016 annual <strong>county-level</strong> <em>annual</em> unemployment rates.</p>
+<ol style="list-style-type: decimal">
+<li><p>Download the appropriate table.</p></li>
+<li><p>Rename variables as needed, and delete any unnecessary cells. If you want your life to be easier, make the first row include your variable names, and then have the data start in second row.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p></li>
+<li><p>Save your revised file.</p></li>
+</ol></li>
+<li><p>Open Stata, start a new do-file (or bring in a template). Make sure
+you add code to start (and end) a log.</p></li>
+<li><p>Import your unemployment excel into Stata and save it as a data file, <code>unemp.dta</code>.</p></li>
+<li><p>Open <code>cps_2016.dta</code> and restrict the sample to adults (age 18+).</p></li>
+<li><p>Now, merge your unemployment data into <code>cps_2016.dta</code> by county. This may not be smooth. A few tips:</p>
+<ol style="list-style-type: decimal">
+<li><p>The FIPS codes are in different formats between the two data sets. A county code like this “55083” contins a state part (55) and a county part (083).</p></li>
+<li><p>You can convert a variable to and from a string using the commands <code>destring var1,replace</code> and <code>tostring var2,replace</code>, respecitvely.</p></li>
+<li><p>You can concatenate string variables by adding them like this: <code>gen newvar = string1 + string2</code></p></li>
+<li><p>Determine whether you need a one-to-one or many-to-one merge.</p></li>
+<li><p>You may get errors, and you’ll need to fix these to have a successful merge.</p></li>
+</ol></li>
+<li><p>You’ve done it! Tabulate the new variable <code>_merge</code>. What share of observations successfully merge?<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p></li>
+<li><p>Drop any unmatched observations (you can use <code>drop if</code>, as we’ll retain this restriction for the rest of the exercise.) What is the average unemployment rate for the entire sample - why would this be different than taking the average of county-level unemployment rates in your excel file?</p></li>
+<li><p>Why can’t we use education as a linear variable?</p></li>
+<li><p>Generate three dummy variables. These three variables should be mutually exclusive, and they should not be missing for any people.</p>
+<ul>
+<li><p><code>lesshs</code>, a variable equal to one if a person completed <em>less than</em> a high school diploma</p></li>
+<li><p><code>hsgrad</code>, a variable equal to one if a person completed at least a high school but less than a Bachelor’s degree</p></li>
+<li><p><code>colgrad</code>, a variable equal to one if a person completed a Bachelor’s degree or higher</p></li>
+</ul>
+<p><em>Note:</em> Education is coded with <strong>labels,</strong> which means that it is numeric data with a description of what each number means on top. These show up as blue in the Stata browser. To view variables without the labels, add the no-label option:<code>tab educ, nolabel</code>.</p></li>
+<li><p>What is the mean of <code>lesshs</code>, <code>hsgrad</code>, and <code>colgrad</code>?</p></li>
+<li><p>Estimate a regression of total personal income on education, usingthe binary variables you just created. Omit <code>lesshs</code>.</p></li>
+<li><p>Set up a hypothesis test for whether both <code>hsgrad</code> and <code>colgrad</code> are jointly significant. Report the null hypothesis, alternative hypothesis, test statistic, and conclusion.</p></li>
+<li><p>Set up a hypothesis test for whether the returns to being a high-school graduate are the same as the returns to being a college graduate. Report the null hypothesis, alternative hypothesis, test statistic, and conclusion.</p></li>
+<li><p>Is this regression significant overall? Explain how you know.</p></li>
+<li><p>Now add county-level unemployment rate to the previous equation. What is the interpretation of the coefficient on unemployment? Is it statistically significant?</p></li>
+<li><p>Estimate the same equation by regressing total personal income on the education binary variables and county-level unemployment, restricting to those who are currently in the labor force. How does this change the coefficient on unemployment?</p></li>
+<li><p>Identify three <em>state</em> or <em>county-level</em> variables that are likely to cause omitted variable bias if you want to know whether unemployment affects individual wages.</p></li>
+<li><p>For <em>one</em> of the variables you listed above, find the data online, import into Stata, and merge it in.</p></li>
+<li><p>Regress total personal income on the education binary variables, county-level unemployment, and the new variable you found. Restrict your sample to those who are currently in the labor force. How does the inclusion of your new variable affect the coefficient on unemployment?</p></li>
+</ol>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>You can also sort this out w/ Stata commands if you’d rather work with the raw, unedited file<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>To get a sense if you’ve done this right, about 40-45% of observations should match. This is because the CPS will withhold county-level identifiers for very small counties to protect confidentiality.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

@@ -1,0 +1,22 @@
+# Theme metadata
+name: "Plasma"
+
+# Is theme light or dark?
+light: true
+
+# Primary  was #E16462 D62751
+primary: "#D62751"
+
+# Links was #E16462
+link: "#D62751"
+link_hover: "#F6D645"
+
+# Menu menu_text was E16462
+menu_primary: "#fff"
+menu_text: "#D62751"
+menu_text_active: "#F89441"
+menu_title: "#494949"
+
+# Home sections
+home_section_odd: "rgb(255, 255, 255)"
+home_section_even: "rgb(247, 247, 247)"

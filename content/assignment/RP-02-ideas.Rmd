@@ -1,0 +1,72 @@
+---
+title: "Research Paper: Idea Proposal"
+linktitle: "02 Idea Proposal"
+date: "2022-01-11"
+due_date: "2022-02-24"
+due_time: "11:59 PM"
+menu:
+  assignment:
+    parent: Research Paper
+    weight: 4
+type: docs
+editor_options: 
+  chunk_output_type: console
+---
+
+
+## The assignment 
+
+1. Come up with three research ideas and give me a bit of detail. It should include the following, and will likely span 2-3  paragraphs per research idea: 
+
+ - A research question
+ - A hypothesis/hypotheses about that research question
+ - Proposed data set (within the [IPUMS](https://www.ipums.org/) universe).
+  - For example: "I will use the 1990 and 2000 U.S. Census, focusing on the Northeast." But not: "CPS." 
+  - Happy for you to propose a non-IPUMS research question, but you must include at least **one** IPUMS-based question.
+ - A rough plan of analysis. How will you answer your research question? What key varialbes will be important?
+ 
+ All ideas should meet the basic criteria in our [assignment overview](../RP-01#topic-selection) (relevant to economic theory, answerable using data, use cross-sectional or panel data)
+
+<!-- 
+2. [Set up a meeting using Calendly](https://calendly.com/emily-a-beam/15min) to meet with me to discuss your idea proposal. We need to meet within one week of the deadline (**October 7 at the latest**). 
+--> 
+
+## Coming up with an idea 
+
+For some of you, this may be **the best.** For me, being told, "think of an idea ... go!" is the WORST. That's okay! 
+
+So here's some advice. 
+
+1. Open up [IPUMS](https://www.ipums.org/) and start digging through variables and datasets. What looks interesting? 
+
+
+2. Read Nick Huntington-Klein's [excellent chapter on research questions](https://theeffectbook.net/ch-ResearchQuestions.html)^[The [rest](https://theeffectbook.net/) of it is great, too!]
+
+2. Jot down every question you can think of. If you need inspiration, open up a newspaper of your choice. I highly recommend the [NYTimes Upshot](https://www.nytimes.com/section/upshot), which has lots of data-driven, economics-linked questions. 
+
+<!-- 3. Browse through [data set possibilities](../../bonus/rp-datasets/) and see if they spark joy --> 
+
+4. Start with some [suggested research ideas](../../bonus/rp-resources#suggested-topics) and iterate from there. 
+
+
+
+## Other questions? 
+
+- *So I have a paper from another class ... *  If you've worked on a topic for another class, that's fine to keep working on it here. However, it's important that the work you do for EC200 be original and an additional contribution beyond what the work for your other class. So same topic = okay, but same paper = not okay. Reach out if it would help to talk more. 
+
+- *If I have a partner, what does this mean* If working with a partner, all assignments will be submitted jointly (aside from the referee report). So just one person needs to submit.
+
+
+## Rubric
+
+You will be graded on four criteria for each question (8 points per idea, 24 points total):
+
+||  	Does not meet |	Partially meets |	Fully meets|
+|--:|:---:|:---:|:---:|
+|Research question is clearly stated, specific, and answerable  |	0| 	1| 	2|
+|Hypothesis proposed and explained |	0 |	1 |	2|
+|Feasible data set(s) explicitly identified | 	0 |	1| 	2|
+|Rough description of how will test hypothesis to answer research question |	0 |	1 |	2|
+
+
+

@@ -1,0 +1,469 @@
+---
+title: "Research Paper: Overview"
+linktitle: "01 Overview"
+date: "2022-01-11"
+
+menu:
+  assignment:
+    parent: Research Paper
+    weight: 1
+type: docs
+
+output:
+  blogdown::html_page:
+    toc: true
+
+---
+
+One main product of the course is an original research paper you'll
+produce that incorporates econometric data using the methods we've
+learned in class. 
+
+**You can work alone or in pairs.^[No groups of three!]**
+
+## Learning objectives {#learning-objectives .unnumbered}
+
+-   Develop clear, answerable research questions and link them to
+    economic theory.
+
+-   Identify and apply appropriate econometric methods to answer
+    research question, recognizing necessary assumptions and limitations
+
+-   Conduct and interpret original data analysis using Stata
+
+-   Strengthen written and oral communication skills
+
+## Overview of requirements {#overview .unnumbered}
+
+All the nitty-gritty is below, but here's a general sense of what I'll ask you to do: 
+
+- You will write a journal-style paper in which you ask and answer an economic question, relying on regression analysis you conducte with cross-sectional or panel data. 
+- You'll apply the various econometric techniques we've worked on throughout the semester. 
+
+The assignment specifications depend on whether you are working alone or in pairs: 
+
+|---|Alone|Pairs|
+|---|---|---|
+|Word count | 2500-3500 | 3500-4500| 
+|Tables | 3-4| 4-5|
+
+If you work in pairs, you will submit all assignments jointly, except for your referee report. 
+
+## Topic selection {#topic-selection .unnumbered}
+
+Select a research question that is interesting to you and answerable
+with data that you can obtain. Your question should accomplish the
+following.
+
+-   It must have clear relevance to economic theory.
+
+-   It must be answerable using data (with a sample size of at least 100, ideally much higher!)
+
+-   It may not be an exact replication of previous work. It may,
+    however, be an extension.
+
+-   It must use *cross-sectional* or *panel* data. There are lots of  interesting time-series questions, but we will not cover these  topics in EC200. I highly, highly recommend that work with data from  [IPUMS](https://www.ipums.org/). I am open to other **large** data sets ($n>100$, ideally $n>1000$), but these require prior approval.
+
+
+<!-- **Where folks get into trouble:** The biggest problem I see is that people get very excited about an interesting question, but they don't necessarily have the data they need. In order for us to be able to have reasonable standard errors and good asymptotic properties, I recommend questions that (a) have a data set you can access and (b) have at least 100 observations. I would strongly discourage you from any country or state cross-sections that don't also have a time component. I also would be wary about studies predicting athlete performance - our methods work well, but the link to economics is often tenuous. --> 
+
+
+
+## Research paper process {#research-paper-process .unnumbered}
+
+### [Research ideas](../rp-02-ideas) {#research-ideas .unnumbered}
+
+Prepare a set of 3 research ideas. An "idea" only needs to consist of
+about 2-3 paragraphs, which should include a research question, a hypothesis, a
+proposed data set, and a rough plan of analysis for testing your hypothesis. 
+
+### [Annotated bibliography](../rp-03-annotated)  {#data-preparation .unnumbered}
+
+To make sure your question ties closely to the economic literature, you'll prepare an annotated bibliography that identifies useful papers and summarizes them in relation to your quesiton.
+
+<!-- In research, sometimes questions drive the data we choose, and sometimes
+the data we have drive the questions we ask. With only one semester to
+build a paper, you may need to let the data take the lead. 
+
+You'll prepare a [``data abstract''](../data-abstract) that includes your research question, a description of your data set, and a set of summary statistics. --> 
+
+### [Research proposal](../rp-04-proposal)  {#research-proposal .unnumbered}
+
+From the list of topics, choose and develop one research idea for your
+[research proposal](../rp-04-proposal). You'll write up research proposal of at least 1000 words. This proposal should provide as much detail as possible to help me and your classmates assess your plan and provide useful feedback.
+
+
+### [Peer review](../rp-05-referee) {#peer-review .unnumbered}
+A classmate will provide a [peer review](../rp-05-referee) of your proposal, providing
+feedback to help you turn your proposal into a final paper
+
+### [Rough draft (optional)](../rp-06-roughdraft)  {#rough-draft-optional .unnumbered}
+
+You may submit one [rough draft](../rp-06-roughdraft) to me for comments. This is optional, but
+I **highly recommend** you do it, because the early deadline can help
+you stay on track, and you'll have a chance to get an early sense of how
+things are going.
+
+### Presentation {#presentation .unnumbered}
+
+You'll make a brief (5-10 minute) [presentation](../rp-07-presentation) of your paper in the
+final week of class. I will provide specifics later.
+
+### Final submission 
+
+Your [final draft](../rp-08-final-submission) will be due on the same day as our final exam. Please make sure to review all the [requirements](#paper-components) carefully!
+
+## Paper components  {#paper-components .unnumbered}
+
+A number of excellent guides can help you put together an effective and
+interesting research paper. I've provided a set of [paper resources](/bonus/paper-resources).
+
+- Your paper should include the following elements. 
+  - [Title and Abstract](#abstract)
+  - [Introduction](#introduction)
+  - [Background/literature review](#background)
+  - [Methodology](#methodology)
+  - [Results](#results})
+  - [Conclusion](#conclusion)
+  - [References](#references)
+  - [Figures & Tables](#tables)
+  - [Do-file/log](#dofile)
+  
+  
+### Abstract & Title {#abstract .unnumbered}
+
+You'll need a title *and an abstract*
+
+-   Descriptive title
+
+-   Abstract that summarizes the paper and findings in **250 words or fewer**
+  
+
+### Introduction {#introduction .unnumbered}
+
+In an economics paper the **introduction stands alone!** 
+
+That is, a busy (or tired) person could read the introduction and understand what you did, what you found, and why it matters. Our papers are not mystery novels---there's no need for a plot twist on page 8! 
+
+I recommended following [introduction formula](http://blogs.ubc.ca/khead/research/research-advice/formula), which is written for folks writing a longer academic paper, but the principles are still solid. 
+
+
+
+#### Guidelines and structure
+
+-   Introduction reads like an academic article. Motivates, describes
+    what you do and what you find. (Almost like a mini-paper!)
+
+    -   Reader can infer all main points of paper just from introduction
+
+-   States your research question clearly
+
+-   Explains what economic theory says about the potential answers to
+    your questions, and/or defines clear hypotheses that you test
+
+-   Describes why your topic is important
+
+-   Describes what you do
+
+-   Describes what you find
+
+-   Describe how it contributes to our knowledge
+
+
+
+### Background/Literature Review {#background .unnumbered}
+
+-   What you include here depends on topic. Sometimes the reader needs
+    to know how your question links to economic theory. Sometimes it's
+    more important to know specific context first, and then to turn to
+    the literature. Sometimes it's most important to summarize what the
+    literature already knows. Your call.
+
+-   At the back of your mind, when motivating your paper, ask "what is
+    the link to economics"?
+
+    -   If studying discrimination, what does economic theory tell us
+        about why discrimination exists/persists
+
+    -   If studying stock market returns, what do economic models tell
+        us about our ability to predict returns?
+
+-   Includes papers that have answered your research question (or
+    similar research questions)
+
+-   Research results described in present tense ("Smith finds," not
+    "Smith found")
+
+-   Papers are put in context. That is, rather than just listing paper A
+    and finding, paper B and finding, etc, you link each one (or group)
+    to their contribution (as relates to your research question)
+
+
+### Methodology/Data {#methodology .unnumbered}
+
+-   Describe the data you use, where did it come from? If you didn't
+    create it, cite it
+
+-   What is the unit of observation? Is it people, households, states,
+    etc? Make sure the unit is appropriate to your question
+    
+    
+- If you're working with individual-level data, what is the age range you want in your sample? What years of data do you need?
+
+-  If dealing with labor force variables, do you want all people of working age, all those who are in the labor force, or all who are employed?
+
+  
+-   Describe your methodology. Are you estimating a model using OLS? If
+    so, say so.
+
+-   Clarify whether we are looking at causal estimates or something
+    else. What are the estimated parameters of interest. What do they
+    mean?
+
+-   Correct standard errors: robust? Clustered? Something else?
+
+
+
+
+#### Population model 
+Write out your population model!
+
+  - If you're using Word, use equation editor. Make it look nice.
+  - Don't forget the error term!
+  - Use proper equation notation ($\beta$, $u$, etc)
+  - Use appropriate subscripts ($i$, $t$, $y$, etc)
+  - All relevant variables explained/defined
+  - Use descriptive variable names when possible (ie use $female$ for women, not $w1$)
+  - Make sure your variables are written correctly - an equation like $wage = \alpha_0 + \alpha_1 race$ doesn't make sense - race isn't continuous! 
+  - If you are using a lot of categorical variables and find it awkward to write them out, you can simplify: 
+      - Showing that you have state fixed effects:
+      
+      $$y_{st} = \beta_0 + \beta_1 X_{st} + \beta_2 Z_t + ... + f_s + u_{st}$$
+      
+      and the in the text, "...where $f_s$ is a vector of state fixed effects"
+      
+      - Including a set of occupational dummy variables 
+      $$y_{st} = \beta_0 + \beta_1 X_{st} + \beta_2 Z_t + ... +\sum^K_{s=1}\delta_SD_s + u_{st}$$
+      
+      and in the text, "...where $D_k$ is a dummy variable for occupation $s$, from $s \in [1,S]$" *(or something in that general spirit)*
+
+
+
+### Results {#results .unnumbered}
+
+-   When using categorical/dummy variables, what is your omitted
+    category? Make sure you know and that it's clear.
+
+-   What are the units of your measures? Is that percent or percentage points?
+
+-   Discuss using a reasonable number of decimal places (usually only 1
+    or 2)
+
+#### Limitations or Discussion
+
+-   Include as a separate section or integrate into results
+
+-   What might us from making causal interpretations about our
+    coefficient of interest?
+
+    -   Omitted variable bias?
+
+    -   Reverse causality?
+
+    -   Measurement error?
+
+-   Are the results externally valid?
+
+-   What other considerations are important?
+
+### Conclusion {#conclusion .unnumbered}
+
+-   Brief summary of paper (yes, *another* summary)
+
+-   Limitations (summary of limitations/discussion section)
+
+-   Implications for policy (if relevant)
+
+-   Implications for future research
+
+### Tables {#tables .unnumbered}
+
+You will need the following tables: 
+
+1. Descriptive statistics: This will present key information about your datat set that we will need to understand your context. Choose relevant variables to describe, including key dependent and independent variables 
+2. Main regression results: This will be a table of your key specifications. You may have the results from a few regressions in the same table. It's this table that would be the "takeaway" table
+3. Secondary regression results: Results that help dig deeper, consider subgroups, consider related hypotheses or outcomes, etc. 
+
+How you arrange regressions between (2) and (3) will depend on how you structure your argument. 
+
+Additional tables (especially two-person papers) will extend your analysis through other modeling approaches, other dependent variables, additional displays of robustness. 
+
+You may also include figures, but they would not substitute for the required tables unless the figures themselves presents new results. 
+
+-   Please embed tables near the place where they are referenced (rather than at the end)
+
+-   Tables should be properly formatted. That is, they should be made in
+    Excel (or LaTeX) and NEVER copied and pasted out of Stata raw output
+
+-   Variables should be described using real words. That is, "number of
+    children," not `numchld.'
+
+-   Tables and figures should be numbered (Table 1, Table 2, etc...
+    Figure 1, Figure 2, etc.) and should also be given a title. Refer to
+    tables by their numbers in the text.
+
+-   Regression tables include standard errors. Use stars to indicate
+    statistical significance. (The Stata package `outreg2` is a big help!)
+
+-   In most contexts, about 3 places past the decimal point is right,
+    but it depends on the magnitudes. If you really want to be precise,
+    set and stick to a reasonable number of significant digits. There's
+    no place for a number like 0.05403823 or 0.0000000 in your tables.
+
+### References
+
+
+-   You'll use outside sources in your introduction and background/literature review, at a minimum. Make sure that you have (1) at least *5 academic sources* (published academic journals), and (2) at least *8 sources total* (could also include working papers, newspaper articles, policy papers, etc.)
+
+-   Make sure to cite your data (does not count for totals above) 
+
+-   Use footnotes, not endnotes
+
+-   At the end of your paper, include list of references cited
+
+-   You can format using APA, MLA, or Chicago style, but it must be a consistent style
+
+    -   Citation Owl or Google Scholar will do it for you
+    -   Microsoft Word's bibliography management system can be hard to work with. Beware!
+
+-   In-text, cite with author and year (Author, Year; Author, Year) or
+    (Author Year, Author Year)
+
+### Do-files/logs {#dofiles .unnumbered} 
+
+
+You must also submit the following: 
+
+1. Stata do-file that replicates your analysis
+2. Log-file that shows your results fron running your do-file
+
+These do not count toward your page limit, and they should be submitted as separate files.
+
+
+
+### Style
+
+-   Use present test and first-person active voice! (I estimate a regression, **NOT** "A
+    regression is estimated")
+
+    -   Single-authored paper first person singular, "I." (You're not
+        the queen!)
+
+    -   Joint-authored paper first person plural, "we."
+
+    -   Don't believe me? Check out any economics paper published in the
+        past 20 years. There's *some* variation in I vs. we, but a lot of active voice.
+
+-   Divide paper into numbered, labeled sections.
+
+-   A research paper is not an essay!
+
+    -   Personal opinions don't have a place
+
+    -   Sources should be primarily academic (peer-reviewed journals,
+        working papers, etc.), maybe some non-academic sources for
+        motivation only
+
+    -   Clear, labeled sections
+
+<!---
+## Parameters {#parameters .unnumbered}
+
+-   All paper elements -- idea proposal, paper proposal, first draft,
+    peer review forms, final research paper -- should be submitted
+    electronically via Blackboard in Word or PDF format.
+
+-   **Format your tables in Excel or comparable software.** Do not copy and
+    paste Stata output.
+
+-   Length requirements vary depending on the number of people in your
+    group and are based on the the text of your paper only. A one-person
+    project should be 2500-3500 words. A two-person project should be
+    3500-4500 words. These guidelines **exclude** the title,
+    abstract, references, figures, and tables.
+    
+
+
+-   No appendices. If it's important, include it in the paper. If it's
+    not, then don't include it.
+
+-   Formatting: 12 pt font, 1\" margins, double spacing, Times New
+    Roman. No spaces between paragraphs. Include page numbers.
+
+-   Please embed your figure/tables.
+
+    --> 
+    
+## Deadlines {#deadlines .unnumbered}
+
+See [course schedule](../../schedule) for deadlines. Submit materials by **11:59pm** on
+the deadline. Submit all assignments via Blackboard. (Late assignments without an extension
+will be penalized 10\% per day, and they may not receive detailed
+feedback.) 
+
+## Grading {#grading .unnumbered}
+
+I will provide formal or informal grading rubrics for each component, so
+you have a clear idea of how you'll be graded.
+
+
+| |||| 
+| :------------- | :----------: |  :----------: |  :----------: |  :----------: | 
+|  Process 	|                            	|  	|  30\%|
+|              		|Research ideas      	|5\% 	|   |
+|             		| Annotated bibliography         	 | 5\% 	|	|   
+ |           		|Research proposal 	|  10\%   ||
+|          		| Peer review        | 5\%    ||
+|         		| Rough draft        | 0\%    ||
+|        		| Presentation       | 5\%    ||
+|  Final draft	|                          |  | 70\%|
+
+
+## FAQ {#faq .unnumbered}
+
+
+-   *How does my group size affect grading?* The grading rubric is the
+    same regardless of your group sizes. However, I expect that in a
+    larger group, your analysis will go deeper, your review of the
+    literature will be more comprehensive, you'll have additional
+    robustness or placebo tests, etc. See the page requirements for a
+    guide. If you have questions, feel free to talk with me in more
+    detail.
+
+-   *Can I turn in a paper with 10 pages of text and 3 tables, or 10
+    pages of tables and 5 pages of text?* So long as the word and exhibit count are met, there's no "right" place to be in that! What
+    matters most is that your paper clearly addresses your research
+    question.
+
+-   *My results aren't statistically significant, should I start over?* NO. Remember that our goal her eisn't to find statistically significant relationships, it's to answer questions. Let the data speak for itself about what relationships are or are not there. 
+
+-   *How should I format my citations and bibliography?* Consistently.
+    APA, Chicago, or MLA is fine.
+
+-   *How much data analysis do I need to do?* You should incorporate
+    data analysis to answer your research question or test your
+    hypotheses. You may also use data to provide some descriptive
+    statistics, however that alone would not be sufficient. Exactly how
+    much analysis is involved will depend on the question you pose and
+    your approach to answering it.
+  
+- *Do I have to use Stata?* You can use an alternative programmable language like R or Python. Your analysis should not be conducted in Excel. My ability to support your programing in languages besides Stata is more limited. 
+
+- *Do I have to use IPUMS data?* I'm open to other possibilities, but it must be approved by me first. 
+
+- *What if I've worked on this topic for another class?* This can work, but first talk to me so we can figure out a plan that ensures you're building beyond what you're already doing. 
+
+## Recommendations {#recommendations .unnumbered}
+
+See [paper resources](/bonus/rp-resources) for dataset and topic suggestions.
+

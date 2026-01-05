@@ -1,0 +1,95 @@
+
+
+---
+title: Week 5 - Inference with One Regressor
+sitetitle: Week 5
+summary: "EC200 - Week 5 Inference (CH5)"
+
+date: "2022-02-08"
+start_date: "2022-02-14"
+end_date: "2022-02-18"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 5
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch5-slides.pdf
+thumb: /slides/ch5-slides.png
+
+
+
+---
+
+## Overview
+
+As we carry on into the wonderful world of statistical inference, expect flashbacks of our statistics review. That's what the review was for! It's all coming together  :relieved:.
+
+## Reading Guide
+
+**Chapter 5: Hypothesis Tests and Confidence Intervals**
+
+**SW 5.1**	Testing Hypotheses About One of the Regression Coefficients
+
+This is very important stuff. Again, don’t worry about calculating the variance of a beta coefficient by hand. However, note how similar this is to our hypothesis testing in Chapter 3!
+
+**SW 5.2**	Confidence intervals for a regression coefficient
+
+**SW 5.3**	Regression when X is a binary variable 
+
+We are going to use this ALL THE TIME. 
+
+**SW 5.4**	Heteroskedasticity and homoskedasticity 
+
+
+```{r echo=FALSE}
+blogdown::shortcode('tweet', '1316528345224343552')
+```
+
+
+Drop "heteroskedasticity" into any conversation and you're sure to delight. Just one more benefit of EC200. 
+The examples and implications of heteroskedasticity are important. 
+
+And, now you'll know to add `, robust` to all your Stata regressions. (*Quick, someone tell Nate Silver!*)
+
+```{r echo=FALSE}
+blogdown::shortcode('tweet', '1273493646969647105')
+```
+
+
+```{r echo=FALSE}
+blogdown::shortcode('tweet', '1274901353563934726')
+```
+
+
+
+**SW 5.5**	Theoretical foundations of OLS
+
+Know the Gauss-Markov theorem and related assumptions. Skip "regression estimators other than OLS." The appendix contains a proof of the Gauss-Markov theorm, but we will not cover that.
+
+~~**SW 5.6**~~ Skip this section!
+
+**SW 5.7**	Conclusion
+
+For the good times.
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+## Videos
+### [Video: Inference with One-Variable Linear Regression](https://youtu.be/DZo5m5q3bmA)
+`r htmltools::HTML("{{< youtube DZo5m5q3bmA >}}")`
+
+## Other resources 
+
+ - [EGAP: 10 things to know about hypothesis testing](https://egap.org/resource/10-things-to-know-about-hypothesis-testing/)
+ - [EGAP: 10 things to know about statistical power](https://egap.org/resource/10-things-to-know-about-statistical-power/) - gets a bit deeper than we go, but accessible and handy!
+ 

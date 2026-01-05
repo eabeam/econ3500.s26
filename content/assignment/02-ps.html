@@ -1,0 +1,131 @@
+---
+title: "Problem set 2"
+linktitle: "PS 2"
+date: "2022-02-03"
+due_date: "2022-02-17"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Problem Sets
+    weight: 3
+type: docs
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="welcome" class="section level2">
+<h2>Welcome</h2>
+<p>Make sure you submit your assignment on Blackboard by the deadline :point_up: :point_up:</p>
+<p>See the exercises below, or you can <a href="../02-ps.pdf">download them as a pdf</a>. You can download the data file you need for question 4 <a href="../collegedistance.dta">here</a>.</p>
+</div>
+<div id="what-do-i-submit" class="section level2">
+<h2>What do I submit?</h2>
+<ul>
+<li>Your written up answers to exercise questions. If you work on a piece of paper, please scan using some sort of phone software (like Microsoft Lens or Adobe Scan) rather than just taking a picture. You can also integrate your written answers into your do-file, just be clear about it.</li>
+<li>A do-file that runs your Stata analysis (for question 4).</li>
+<li>A log file that includes the output from running your do-file (for question 4).</li>
+</ul>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p>The following table shows, for eight vintages of delicious
+wine, purchases per buyer (<span class="math inline">\(y\)</span>) and the wine buyer’s rating (<span class="math inline">\(x\)</span>) in
+a given year:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><span class="math inline">\(x\)</span></th>
+<th align="center">3.6</th>
+<th align="center">3.3</th>
+<th align="center">2.8</th>
+<th align="center">2.3</th>
+<th align="center">2.7</th>
+<th align="center">2.9</th>
+<th align="center">2.0</th>
+<th align="center">2.4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(y\)</span></td>
+<td align="center">24</td>
+<td align="center">21</td>
+<td align="center">22</td>
+<td align="center">20</td>
+<td align="center">18</td>
+<td align="center">13</td>
+<td align="center">9</td>
+<td align="center">16</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: lower-alpha">
+<li><p>Estimate <em>by hand</em> the regression of purchases per buyer on the
+buyer’s rating.<br />
+</p></li>
+<li><p>Interpret the slope of the estimated regression line.<br />
+</p></li>
+<li><p>Interpret the intercept of the estimated regression line .<br />
+</p></li>
+</ol></li>
+</ol>
+<p><!-- (SW4.2) --></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Suppose that a random sample of 200
+20-year-old men is selected from a population and that these men’s
+height and weight are recorded. A regression of weight (measured in
+pounds) on height (measured in inches) yields</li>
+</ol>
+<p><span class="math display">\[\widehat{Weight}=-99.41 + 3.94 Height\]</span></p>
+<p><span class="math inline">\(R^2 = 0.81\)</span>; <span class="math inline">\(SER = 10.2\)</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>What is the predicted weight for someone who is 72 inches tall?
+66 inches tall?</p></li>
+<li><p>One 20-year-old man has a late growth spurt and grows 1.5 inches
+over the course of the year. What is the regression’s prediction
+for the increase in his weight?</p></li>
+<li><p>Suppose that you want to translate the results of this equation
+into centimeters and kilograms. What are the regression
+estimates from this new regression? Give all results, including
+estimated coefficients, <span class="math inline">\(R^2\)</span>, and <span class="math inline">\(SER\)</span>.</p></li>
+<li><p>Interpret the <span class="math inline">\(R^2\)</span> value. Does it indicate anything about
+whether these estimates are likely to be biased? Explain.</p></li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
+<li>Consider the savings function:</li>
+</ol>
+<p><span class="math display">\[sav =  \beta_0 + \beta_1 inc + u, u = e\sqrt{inc}\]</span></p>
+<p>where <span class="math inline">\(e\)</span> is a random variable with <span class="math inline">\(E(e) = 0\)</span> and <span class="math inline">\(Var(e) = \sigma^2_e\)</span>. Assume that <span class="math inline">\(e\)</span> is independent of <span class="math inline">\(inc\)</span>.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Show that <span class="math inline">\(E(u|inc)=0\)</span>, so that the key zero conditional mean assumptionis satisfied. [Hint: If <span class="math inline">\(e\)</span> is independent of <span class="math inline">\(inc\)</span>, then <span class="math inline">\(E(e|inc) = E(e)\)</span>]</li>
+<li>Show that <span class="math inline">\(Var(u|inc) = \sigma^2_einc\)</span>, so that the homoskedasticity assumption is violated. In
+particular, the variance of <span class="math inline">\(sav\)</span> increases with <span class="math inline">\(inc\)</span>. [Hint: <span class="math inline">\(Var(e|inc) = Var(e)\)</span> if <span class="math inline">\(inc\)</span> and <span class="math inline">\(e\)</span> are independent!]</li>
+<li>Why might it be reasonable to assume that the variance of savings increases with family income?</li>
+</ol>
+<ol start="4" style="list-style-type: decimal">
+<li>The data file <a href="../collegedistance.dta"><code>collegedistance.dta</code></a> contains data from a random sample of high school seniors interviewed in 1980 and re-interviewed in 1986<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Use these data to investigate the relationship between the number of completed years of education for young adults and the distance from each student’s high school to the nearest four-year college. (Proximity to college lowers the cost of education, so that students who live closer to a four-year college should, on average, complete more years of higher education.)</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>Run a regression of years of completed education (<span class="math inline">\(ED\)</span>) on distance to the nearest college (<span class="math inline">\(Dist\)</span>), where <span class="math inline">\(Dist\)</span> is measured in tens of miles. (For example, <span class="math inline">\(Dist=2\)</span> means that the distance is 20 miles.) You can regress a dependent variable <code>y</code> on an independent variable <code>x</code> with the command <code>regress y x</code>]. Write the equation you estimated in the form <span class="math inline">\(\widehat{ED} = \beta_0 + \beta_1 Dist\)</span></p></li>
+<li><p>How does the average value of years of completed schooling change when colleges are built close to where students go to high school?</p></li>
+<li><p>Bob’s high school was 20 miles from the nearest college. Predict Bob’s years of completed education using the estimated regression. How would the prediction change if Bob lived 10 miles from the nearest college?</p></li>
+<li><p>Does distance to college explain a large fraction of the variance in educational attainment across individuals? Explain.</p></li>
+<li><p>Provide an example of a factor that might cause this model to violate the zero conditional mean assumption. Explain your reasoning.</p></li>
+<li><p>What is the value of the standard error of the regression?<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> What are the units for the standard error (meters, grams, years, dollars, cents, or something else)?</p></li>
+<li><p>Is the estimated regression slope coefficient statistically significant at the 10% level? What is the p-value associated with coefficient’s t-statistic?</p></li>
+<li><p>Construct a 90% confidence interval for the slope coefficient.</p></li>
+<li><p>Estimate a regression that restricts the sample to men, and calculate a 10% confidence interval for the slope. Do the same, restricting the sample to women. Does it look like the effect of distance on completed years of education is different?<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p></li>
+</ol>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>These data were provided by Professor Cecilia Rouse of Princeton University and were used in her paper “Democratization or Diversion? The Effect of Community Colleges on Educational Attainment,” Journal of Business and Economic Statistics, April 1995, 12(2): 217–224.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>There are a few ways to find it in Stata’s output. The easiest is to note that “root MSE” is the square root of the SER <a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Note that we cannot make claims about whether they are statistically different because the estimates come from two different samples! A hypothesis test here would be awesome, but we need to build a few more skills to do this.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

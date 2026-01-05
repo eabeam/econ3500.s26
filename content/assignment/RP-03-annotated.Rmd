@@ -1,0 +1,92 @@
+---
+title: "Research Paper: Annotated Bibliography"
+linktitle: "03 Annotated Bibliography"
+
+date: "2022-02-24"
+due_date: "2022-03-24"
+due_time: "11:59 PM"
+menu:
+  assignment:
+    parent: Research Paper
+    weight: 4
+type: docs
+editor_options: 
+  chunk_output_type: console
+---
+
+**[Print-friendly PDF](../printfriendly/RP-03-annotated.pdf)**
+
+## Objective {#objective .unnumbered}
+
+The goal of this submission is to help you narrow and refine your question while situating your work in the broader economics literature. This will make writing your research paper much easier as well! 
+
+
+## What is an annotated bibliography?[^1] {#whatis .unnumbered} 
+
+[^1]: Pulled from [Purdue OWL](https://owl.purdue.edu/owl/general_writing/common_writing_assignments/annotated_bibliographies/index.html)
+
+> A bibliography is a list of sources (books, journals, Web sites, periodicals, etc.) one has used for researching a topic. Bibliographies are sometimes called "References" or "Works Cited" depending on the style format you are using. A bibliography usually just includes the bibliographic information (i.e., the author, title, publisher, etc.).
+
+> An annotation is a summary and/or evaluation. Therefore, an annotated bibliography includes a summary and/or evaluation of each of the sources. 
+
+## What do I need to do {#mission .unnumbered} 
+
+Pick the idea you proposed that is most promising. You may refine it based on feedback, further reflection, etc. 
+
+Based on that idea,  identify and annotate **six** sources that are relevant to your project. 
+  - At least **four** must be peer-reviewed, academic journal articles. 
+  - At least **two** must be from the list of economic journals included below. 
+  
+  
+  <img src="../materials/annotate_source.png" width=500  alt="8 total, 4 peer-reviewed, 2 econ journal">
+
+
+  For each one, include the following: 
+
+1. Full bibliographic information, following MLA, APA, or Chicago style. 
+2. The annotations, written as a paragraph or as bullet points. These will include a few things: 
+    a. Nature of source: peer-reviewed academic journal (what discipline), working paper, white paper (ie reports from major organizations), other 
+    b. Key findings or arguments of the source: It's in your interest to be quite detailed here (*I like to use these to draw on when I write my paper*)
+    c. Assessment: How does it compare to other sources? (findings support or contrast)? Is the source biased or objective? What is the goal of the source?
+    d. Reflection: Is this useful to your question? How does it help you shape your argument? How can you use this source in your project? (*Here I will sometimes add sample sentences I will write*)
+
+
+After this, write an expanded version of your idea proposal (just one the idea you've chosen) that states your refined research question and describes how your planned project fits into the literature you found. This will be 2-3 paragraphs. 
+
+
+**Consult the [grading rubric](#rubric) for additional guidance!**
+
+## Acceptable economics journals
+
+At least two article must come from a relevant economics journal in the **top 200** from the following [RePeC list](https://ideas.repec.org/top/top.journals.simple.html). If your topic is very specific, the **top 400** is also acceptable, but you need to get prior approval from me. 
+
+## Submission requirements {#submission-requirements .unnumbered}
+
+Submit the annotated bibliography plus summary as one document on Blackboard.
+
+If you are working in pairs, submit one bibliography for two people. 
+
+## Tips {#tips .unnumbered}
+
+- Search for your topic using [EconLit](http://library.uvm.edu/research/research_databases). If you at home, you can select ["Connect Off Campus"](http://library.uvm.edu/) from the main library page
+
+- When determining if an article might be useful, start by focusing on the abstract only. Among those that pass your abstract test, then just read the introduction to see if they are still going to help. 
+
+- When you've found an article or two that are useful, you can search forward and backward to find more! 
+  - Check the references section to find articles that were cited in your paper 
+  - Use [Google Scholar](https://scholar.google.com/) to find articles that cite your paper
+  
+  <img src="../materials/scholar_cited.png" width=500 alt="works cited">
+  
+
+- Note that working paper series are *not* peer-reviewed journal articles. [NBER Working Papers](https://www.nber.org/papers?page=1&perPage=50&sortBy=public_date), for example, are an excellent resoucre but not peer-reviewed. Most reports from large organizations are not peer reviewed.
+
+## Rubric {#rubric .unnumbered}
+
+You will receive up to 50 points on this assignment: 
+
+- Each source is worth 5 points (30 total), with one point per element listed above.
+- The idea summary is worth 10 points, with full credit granted if you present your research question, describe in words how you will answer it, and then describe how what you plan to do fits in with the literature you've reviewed. 
+- The final 10 points are for meeting the source selection critera (4 peer-reviewed, 2 top 200 economics journals)
+
+

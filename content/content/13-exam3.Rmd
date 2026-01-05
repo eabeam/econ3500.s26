@@ -1,0 +1,114 @@
+
+
+---
+title: Exam 3 - CH 8-12
+sitetitle: Exam 3 - Ch8-12
+summary: "EC200 - Exam 3 Prep (Ch8-12)"
+
+date: "2022-04-26"
+
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Exam prep
+    weight: 3
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+
+pdf: /slides/exam3-review.pdf
+thumb: /slides/exam3-review.png
+
+
+---
+
+## What should I know? 
+
+See the specific chapter guides from [Week 8](../08-content), [Week 9](../09-content), [Week 10](../10-content), and [Week 12](../12-content). You should understand all terms and definitions (be able to define and also apply them). You should also be comfortable interpreting regression output either written out in equation form or as Stata output. The level of PS4/PS5 problems is about right in terms of difficulty. 
+
+There will not be a Stata component to the exam. 
+
+### I need more practice!
+
+I recommend the following resources: 
+
+ - Odd-numbered problems from Stock and Watson - solutions are available [here](../../bonus/general-resources)
+ - [Practice exam](#practice-exam)
+
+
+## What is the structure of the exam? 
+
+The exam will be a lot like a math exam - solving some problems and showing your work. I would expect about 3 multi-part questions. There may be some questions that involve definitions and/or true-false.
+
+
+
+The exam is open book with a calculator allowed. 
+
+
+
+What is allowed?
+
+  - Paper notes
+  - Textbook
+  - Calculator (basic, scientific, graphing)
+  
+What is not allowed?
+
+  - ~~Phone~~ 
+  - ~~Tablet~~
+  - ~~Laptop~~
+
+## How can I prepare? 
+
+A few ideas, depending on where you're feeling least secure: 
+
+- Work through problem sets and prevous in-class exercises (posted in their respective [content](../../content) section). Do them without looking at your past work!
+- Make one-page chapter guides. These are handy resources for the exam and a good way to make sure you've thought about what's important
+- Make yourself a formula sheet. Useful to have, and also the act of creating it will help you
+- Watch videos/review slides when you have gaps. 
+
+
+<!--
+## In-class practice {#inclass-practice .unnumbered}
+
+We have several sets of in-class practice activities: 
+
+- [CH4 Practice (Week 4) - Single Linear Regression](../practice/W4-02-in-class-exercise.pdf)
+- [CH5 Practice (Week 5) - Inference](../practice/W5-05-03-in-class_inference.pdf)
+- [CH6 Practice (Week 6) - Multiple Linear Regression](../practice/W6-01-in-class-exercise.pdf)
+- [CH7 Practice (Week 7) - Inference with Multiple Linear Regression](../practice/W7-02-in-class-exercise.pdf)
+
+
+
+## Helpful materials {#helpful-materials}
+
+Two things that may be useful to you: 
+
+- [Standard Normal Distribution Table](../AppendixTable1_rev.pdf)
+
+- [Formula chart](../Formula-sheet_f20.pdf): Is this all the knowledge you need to know? Of course not! But, this should cover most of the formulas you might need. 
+--> 
+
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+
+## Fall 2020 in-class review
+
+**Start around 22-minute mark ** 
+
+<iframe src="https://streaming.uvm.edu/media/embed/ypKTzfH/" width="640" height="480" frameborder="0" allowfullscreen></iframe>
+
+## Past exams  {#practice-exam .unnumbered}
+
+Use these for additional practice and to get a sense of the level of questions. 
+
+- [Fall 2016 Practice Exam](../PracticeExams/unitquiz2-practicequestions-f16.pdf)
+- [Fall 2016 Practice Exam Solutions](../PracticeExams/unitquiz2-practicequestions-f16-soln.pdf) (*I strongly recommend doing the practice exam in its entirety before reviewing the solutions*)

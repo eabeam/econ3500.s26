@@ -1,0 +1,68 @@
+---
+title: "Research Paper: Presentation"
+linktitle: "07 Presentation"
+date: "2022-04-14"
+menu:
+  assignment:
+    parent: Research Paper
+    weight: 8
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+editor_options: 
+  
+  chunk_output_type: console
+pdf: /slides/rp-presentation-sample.pdf
+thumb: /slides/rp-presentation-sample.png
+---
+
+**Due date is rolling: your slides are due the day of your assigned presentation. Because we're running out of class, we can't do extensions!** 
+
+## Overview 
+
+Let's share our work! You'll prepare and deliver a 6-8 minute presentation of your paper, with accompanying slides. This will be one presentation per paper. If you are working with a partner, it should be one set of slides, with both members contributing to the creation and delivery. 
+
+
+Our objectives here are the following: 
+
+1. To communicate the key elements off your paper clearly and concisely (which, in turn, will help advance your paper)
+2. To share and receive feedback on areas of improvement before finalizing your papers
+3. To share with your peers and learn what each of you has been working on!
+
+
+
+## Guidelines for presentation
+
+Your presentation should cover the main elements of your paper: 
+
+  1. Introduction 
+  2. Research questions 
+  3. Background/motivation/related literature 
+  4. Data
+  5. Empirical strategy
+  6. Results 
+  7. Limitations/discussion 
+  8. Conclusion
+  
+- It doesn't need to be scripted, but you should have practiced, such that your presentation flows smoothly. 
+- Slides should serve as a guide, not a substitute for your narration, so you should avoid reading directly off your slides
+- It should be between 6 and 8 minutes. **I will cut you off at 8 minutes. I will do it.** 
+
+## Example 
+
+`r blogdown::shortcode("slides")`
+
+Additional student examples are available on Blackboard (see **Gated Resources**)
+
+## Deliverables and due dates
+
+Your due date is the day you signed up for via Doodle poll: **May 03 or May 05 at 2:50pm**
+
+ **On Blackboard:** Submit a copy of your slides **before** your presentation. 
+
+
+## Presentation rubric
+
+[**Printer-friendly PDF**](../materials/RP_presentation_rubric.pdf)
+

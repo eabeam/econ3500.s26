@@ -1,0 +1,312 @@
+---
+title: "Lab 4: Multivariate Regression"
+linktitle: "Lab 4"
+date: "2022-02-16"
+due_date: "2022-03-03"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Labs
+    weight: 4
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#materials">Materials</a></li>
+<li><a href="#objectives">Objectives</a></li>
+<li><a href="#key-commands">Key commands</a>
+<ul>
+<li><a href="#creating-binary-variables">Creating binary variables</a></li>
+<li><a href="#working-with-loops">Working with loops</a></li>
+<li><a href="#working-with-binary-independent-variables">Working with binary independent variables</a></li>
+</ul></li>
+<li><a href="#reading-regression-tables-reminder">Reading regression tables (reminder!)</a></li>
+<li><a href="#lab-4-worksheet">Lab 4 Worksheet</a>
+<ul>
+<li><a href="#what-do-i-submit">What do I submit?</a></li>
+<li><a href="#questions">Questions</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p><strong><a href="../04-lab.pdf">Print-friendly pdf</a></strong></p>
+<div id="materials" class="section level2 unnumbered">
+<h2>Materials</h2>
+<ul>
+<li><a href="../materials/cps_2016.dta"><code>cps_2016.dta</code></a></li>
+<li>Do-file template <a href="../materials/labtemplate_f21.do"><code>labtemplate.do</code></a></li>
+<li>Looping exercise <a href="../materials/loop_example.do"><code>loop_example.do</code></a>
+<!-- - Sample from class [`lab4_sample.do`](../materials/lab4_sample.do) --></li>
+</ul>
+</div>
+<div id="objectives" class="section level2 unnumbered">
+<h2>Objectives</h2>
+<p>Today we’re going to work with some new data, <code>cps_2016.dta</code>, which
+contains information from the <a href="https://cps.ipums.org/cps/">2016 Current Population Survey</a>.</p>
+<p>By the end of this lab, you should be able to complete the following
+tasks in Stata:</p>
+<ul>
+<li><p>Estimate and interpret multiple linear regression in levels, using continuous and binary independent variables, and use heteroskedasticity-robust standard errors.</p></li>
+<li><p>Interpret the results of multivariate linear regressions in terms of
+statistical and economic significance</p></li>
+<li><p>Practice generating binary variables from categorical measures</p></li>
+<li><p>Set up basic loops</p></li>
+<li><p>Use <code>xi</code> and <code>i.</code> prefix to include a lot of binary indicator variables at once.</p></li>
+</ul>
+</div>
+<div id="key-commands" class="section level2 unnumbered">
+<h2>Key commands</h2>
+<table>
+<colgroup>
+<col width="56%" />
+<col width="44%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">command</th>
+<th align="right">description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>regress var1 var2...</code></td>
+<td align="right">Estimate a regression, with <code>var1</code> as the dependent variable and all others as the independent</td>
+</tr>
+<tr class="even">
+<td align="left">variable(s)</td>
+<td align="right"></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>tabulate var1,nolabel</code></td>
+<td align="right">Tabulate variables <em>without</em> labels</td>
+</tr>
+<tr class="even">
+<td align="left"><code>replace var1 = . if var1 == 999999</code></td>
+<td align="right">Replace <code>var1</code> as missing (using a dot) if <code>var1</code> is equal to 999999. Can be replaced with any other values or logical expressions.</td>
+</tr>
+</tbody>
+</table>
+<div id="creating-binary-variables" class="section level3">
+<h3>Creating binary variables</h3>
+<p>Recall that there are two easy ways to make binary
+variables out of categorical or continuous variables. Consider the
+variable <code>race</code>, where 100 = White, 200 = Black, 300 = Native American,
+651 = Asian, etc. Suppose you want to generate a binary indicator for
+whether a person is White.</p>
+<ul>
+<li><p><code>gen white = race == 100</code>: generates a variable equal to 1 if <code>race</code>
+is 100, and 0 otherwise</p></li>
+<li><p><code>gen white = 1 if race == 100</code>: generates a variable equal to 1 if
+<code>race</code> is 100, and <strong>missing</strong> otherwise. To complete this you need
+two lines of code:<br />
+<code>gen white = 1 if race == 100</code><br />
+<code>replace white = 0 if race != 100</code></p></li>
+</ul>
+</div>
+<div id="working-with-loops" class="section level3">
+<h3>Working with loops</h3>
+<p>Loops can help us (1) avoid errors and (2) code super fast!</p>
+<p>I’ve uploaded a sample from our class <a href="../materials/lab4_sample.do"><code>here, as lab4_sample.do</code></a></p>
+<p>Stata has two types of looping setups, using the <code>forval</code> or <code>foreach</code> command. The first is simpler, and the second is more versatile. Recall that you can always use <code>help forval</code> or <code>help foreach</code> if your code isn’t working or if you have a vision you’re not sure how to realize.</p>
+<div id="looping-with-forval" class="section level4">
+<h4>Looping with <code>forval</code></h4>
+<pre><code>forvalues lname = range {
+                Stata commands referring to `lname&#39;
+        }</code></pre>
+<p>What does each component mean?</p>
+<ul>
+<li><code>forvalues</code>: this is the command. You can abbreviate it as <code>forval</code>.</li>
+<li><code>lname</code>: this is a variable you make up. Often, people will just use <code>i</code>, becuase we’re just counting. It will take on the values in <code>range</code> as it increments through the loop. It is a <strong>local</strong> variable, meaning that you have to call it using `lname’, and not as lname (need those punctuation marks!) and that it is only saved as long as your do-file is running.<br />
+</li>
+<li><code>range</code>: this is the set of values that the local variable will iterate over</li>
+<li>Brackets: Open bracket needs to be on same line as the <code>forval</code> command. Close bracket needs to be on its own line.</li>
+</ul>
+<pre><code>forval i = 0/2{
+gen labfor`i&#39; = labforce == `i&#39;
+}</code></pre>
+<p>What does this do? It creates a loop for which local variable `<code>i'</code> is first 0, then 1, then 2. Within the loop, it generates <code>labfor0</code>, which is equal to 1 if <code>labforce</code> equals 0 (not in universe), it generates <code>labfor1</code>, which is equal to 1 if <code>labforce</code> equals 1 (not in labor force), and it generates <code>labfor2</code>, which is equal to 1 if <code>labforce</code> equals 2 (in labor force).</p>
+<p>The choice of ranges can be done in other ways:</p>
+<ul>
+<li><code>forval i = 0/10</code>: hits every integer between 0 and 10 - 0, 1, 2, … 10</li>
+<li><code>forval i = 1(10)100</code>: starts at 1, then increments by 10, stopping at 100: 1, 11, 21, 31, … 91</li>
+<li><code>forvalues k = 5 10 to 300</code>: starts at 10, then increments by 5 until 300: 5, 10, 15, …</li>
+</ul>
+<p>See <code>help forval</code> for more options</p>
+</div>
+<div id="looping-with-foreach" class="section level4">
+<h4>Looping with <code>foreach</code></h4>
+<p>This command lets you loop through number lists (like above), but also through sets of variables, values, names, etc. You can approach it two ways:</p>
+<ul>
+<li>Do not specify the type of list, use <strong>in</strong>: <code>foreach lname in list</code>:</li>
+<li>Specify the type of list (<code>listtype</code>), use <strong>of</strong>: <code>foreach lname of listtype list</code></li>
+</ul>
+<p>This is confusing until we see examples:</p>
+<pre><code>foreach x in &quot;rice wheat corn rye barley oats&quot; {
+          display &quot;`x&#39;&quot;
+        }</code></pre>
+<p>This will start with <code>x</code> equal to the string “rice”. Then, it will run with <code>x</code> equal to “wheat”, etc.</p>
+<pre><code>    foreach num of numlist 1 4/8 13(2)21 103 {
+        display `num&#39;
+ }</code></pre>
+<p>This will loop over 1, 4, 5, 6, 7, 8, 13, 15, 17, …</p>
+<p>You can loop over variable names too!</p>
+<pre><code>foreach var of varlist inc* {
+      summarize `var&#39;,d
+        }</code></pre>
+<p>This summarizes (with detail) each variable that starts with <code>inc</code></p>
+</div>
+</div>
+<div id="working-with-binary-independent-variables" class="section level3">
+<h3>Working with binary independent variables</h3>
+<p>When you are representing a categorical variable with a set of binary variables, there is a slow way and a fast way to integrate them.</p>
+<ul>
+<li>Slow way: generate the binary variables you want, and include them. This is good when you want to be precise about your omitted variable, or when you want to create complicated binary categories</li>
+</ul>
+<pre><code>gen white_nh = race == 100 &amp; hisp == 0 
+gen black_nh = race == 200 &amp; hisp == 1
+gen hisp = hisp == 1
+gen other = white_nh == 0 &amp; black_nh == 0 &amp; hisp == 0 
+regress incwage black_nh hisp other</code></pre>
+<p>Here, white, non-Hispanic is the omitted “reference” category.</p>
+<ul>
+<li>Fast way: tell Stata to create a binary variable for each value of a categorical variable. This is good when you aren’t trying to do anything complicated and when you want to be quick - very useful if you want something like state-level dummies.</li>
+</ul>
+<pre><code>regress incwage i.statefip</code></pre>
+<p>Note that this will work only if your categorical variable is numeric. If it’s a string you’ll get an error. You can fix it by adding a <code>xi:</code> prefix, like so:</p>
+<pre><code>xi: regress incwage i.statefip</code></pre>
+<p>When we include a dummy variable for every value of a categorical variable, like above, we call those “fixed effects.” We’ll talk about these more soon.</p>
+</div>
+</div>
+<div id="reading-regression-tables-reminder" class="section level2">
+<h2>Reading regression tables (reminder!)</h2>
+<p><img src="../regression-label.png" alt="labeled Stata output"></p>
+</div>
+<div id="lab-4-worksheet" class="section level2 unnumbered">
+<h2>Lab 4 Worksheet</h2>
+<div id="what-do-i-submit" class="section level3">
+<h3>What do I submit?</h3>
+<ul>
+<li>Your written up answers to exercise questions (1) - (13). This can be typed or written out then scanned (or photographed), in any reasonable format.</li>
+<li>The do-file you’ve created that runs this analysis</li>
+<li>A log file that contains the results from this exercise.</li>
+</ul>
+</div>
+<div id="questions" class="section level3">
+<h3>Questions</h3>
+<p>Download the do-file template and data files. Personalize the file paths so that you can run it and open your <code>cps_2016.dta</code> file. You can also work with a blank data file if you’re more comfortable - just make sure you remember to include commands to start and close your log file.</p>
+<p><em>Use robust standard errors in all regressions</em></p>
+<ol style="list-style-type: decimal">
+<li><p>Let’s practice with loops! Download <a href="../materials/loop_example.do">loop_example.do</a> and paste the code into your sample. Run it and look at the output. In your do-file, write comments that describe what each loop is going.</p></li>
+<li><p>Now, go back to your <code>cps_2016.dta</code> file and do-file template. Adjust your do-file template so that it loads <code>cps_2016.dta</code> and starts a log.</p></li>
+<li><p>Restrict your sample to individuals ages 25-54.</p></li>
+<li><p>Create a new variable, <code>birthyr</code>, equal to each individual’s year of birth. Is there any potential imprecision or error in this variable?</p></li>
+<li><p>Then, write a loop to generate a dummy variable for each possible value of birth year.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p></li>
+</ol>
+<!-- Write a loop to generate a dummy variable for each possible value of public housing, `pubhous`. That is, you would have `_pubhous0`, a binary variable for whether `pubhouse == 0`, `_pubhous1`, a binary variable for whether `pubhouse == 1`, etc.^[There is a faster way to do this, using `xi i.pubhouse`, but we're learning about loops, so just go with it.] -->
+<ol start="6" style="list-style-type: decimal">
+<li><p>Look through the available list of data (note, <a href="https://cps.ipums.org/cps/">IPUMS</a> has full
+documentation of all variables). Based on this data, think of a
+research question for your lab of the form, “What is the
+relationship between .… and ...?”. Pick a dependent variable
+that is <strong>continuous</strong>. <em>(Because a later question asks you to
+explore race/ethnicity controls, please do not use a race/ethnicity
+variable for <span class="math inline">\(X\)</span>.)</em></p>
+<p>Research question:<br />
+</p>
+<p>Dependent variable (<span class="math inline">\(Y\)</span>):<br />
+</p>
+<p>Key independent variable (<span class="math inline">\(X\)</span>):<br />
+</p></li>
+<li><p>Using the data available, write a reasonable population model,
+including your key independent variable along with a set of likely
+relevant independent variables (somewhere between 2 and 5 additional
+variables). Before estimating your regression, you should tabulate
+each variable to make sure you are interpreting it correctly.</p></li>
+<li><p>In words, what exactly will your estimated regression tell us?</p></li>
+<li><p>What do you hypothesize the answer to your research question is?
+(i.e. strong positive, weak negative, none)</p></li>
+<li><p>Before you estimate your model, make sure you don’t have any N/A
+values coded. For example, if <code>incwage</code> is not applicable, it is
+coded as <code>9999999</code>. Tabulate or summarize your data to check for any
+values like this. Replace any values as missing if they are equal to
+some N/A code (see above).</p></li>
+<li><p>Estimate the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> using simple linear
+regression (excluding any other covariates). Write your results in
+equation form and report the <span class="math inline">\(R^2\)</span>. How many degrees of freedom do
+you have?</p></li>
+<li><p>Estimate the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> using multiple linear
+regression (including other covariates). That is, estimate the
+population model you wrote earlier. Write your results in equation
+form and report the <span class="math inline">\(R^2\)</span>. How many degrees of freedom do you have?</p></li>
+<li><p>Using your multivariate linear regression from the previous step, set up a
+hypothesis test for your parameter of interest, the <span class="math inline">\(\beta\)</span>
+associated with your key independent variable, <span class="math inline">\(X\)</span>. What do you
+find? What is the p-value? What is the interpretation?</p></li>
+<li><p>Besides your key independent variable, which other variables are
+statistically significant at the five-percent level?</p></li>
+<li><p>A lot of student research papers will look at differences in outcomes by
+gender and by racial/ethnic groups. U.S. surveys like the CPS, ACS, and Census treat race and
+ethnicity a little strangely, and it can take some practice to get
+comfortable.</p>
+<p>There are two variables commonly used to identify a person’s race
+and ethnicity: the <code>race</code> and the <code>hispan</code> variable.</p>
+<ol style="list-style-type: decimal">
+<li><p>What share of the sample is White, non-Hispanic?</p></li>
+<li><p>What share of the sample is Hispanic/Latino?</p></li>
+<li><p>A common way to summarize the racial/ethnic make-up of the U.S.
+is the following categories:</p>
+<ul>
+<li><p>White, non-Hispanic</p></li>
+<li><p>Black, non-Hispanic</p></li>
+<li><p>Hispanic/Latino</p></li>
+<li><p>Asian, non-Hispanic</p></li>
+<li><p>Other</p></li>
+</ul>
+<p>Make a table that shows the distribution of the population into
+these five groupings.</p></li>
+</ol></li>
+<li><p>Estimate your multiple linear regression model from
+earlier, but include the race/ethnicity variables that you created
+in the previous part. How
+do the inclusion of these factors affect your estimates of the
+relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>?</p></li>
+<li><p>Now, add “birth-year fixed effects” to your regression that you generated earlier. Because there is a set of binary 0/1 variables, one for each year of birth, they will essentially pull out any mean differences in your dependent variable at the birth-year level - so if your outcome variable is different for people born in 1971 vs 1971 on average, these variables will take care of it. What is the omitted birth year? How
+do the inclusion of these factors affect your estimates of the
+relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X\)</span>?</p></li>
+</ol>
+<!-- 
+
+## Video 
+    
+
+### [Video: Class Recording 06 October 2021](https://youtu.be/c8zSRqkS_SA)
+`{{< youtube I06HBd1Urec >}}`{=html}
+
+
+
+### A note on "well-behaved"" residuals {#residuals .unnumbered} 
+
+There are three characteristics of "well-behaved" residuals: 
+    
+1. The residuals "bounce randomly" around the 0 line. This suggests that the assumption that the relationship is linear is reasonable.
+2. The residuals roughly form a "horizontal band" around the 0 line. This suggests that the variances of the error terms are equal.
+3. No one residual "stands out" from the basic random pattern of residuals. This suggests that there are no outliers.
+
+We don't want to overweight the importance of this, but it can be a helpful diagnostic to look for outliers, strange patterns. 
+-->
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>There is a faster way to do this, using <code>xi i.birthyr</code>, but we’re learning about loops, so just go with it.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

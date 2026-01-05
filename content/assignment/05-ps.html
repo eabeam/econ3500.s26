@@ -1,0 +1,125 @@
+---
+title: "Problem set 5"
+linktitle: "PS 5"
+date: "2022-04-14"
+due_date: "2022-04-28"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Problem Sets
+    weight: 6
+type: docs
+weight: 2
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="welcome" class="section level2">
+<h2>Welcome</h2>
+<p>Our final problem set, :sob: covering chapters 10 and 12</p>
+<p>See the exercises below, or you can <a href="../06-ps.pdf">download them as a pdf</a>.</p>
+</div>
+<div id="what-do-i-submit" class="section level2">
+<h2>What do I submit?</h2>
+<ul>
+<li>Your written up answers to exercise questions. If you work on a piece of paper, please scan using some sort of phone software (like Microsoft Lens or Adobe Scan) rather than just taking a picture.</li>
+<li>A do-file that runs your Stata analysis.</li>
+<li>A log file that includes the output from running your do-file.</li>
+</ul>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<ol style="list-style-type: decimal">
+<li><p>In 1985, neither Florida nor Georgia had laws banning open alcohol
+containers in vehicle passenger compartments. By 1990, Florida had
+passed such a law, but Georgia had not.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Suppose you collect random samples of the driving-age population
+in both states, for 1985 and 1990. Let <span class="math inline">\(arrest\)</span> be a binary
+variable equal to one if a person was arrested for drunk driving
+during the year. Without controlling for any other factors,
+write down a linear probability model that allows you to test
+whether the open container law reduced the probability of being
+arrested for drunk driving. Which coefficient measures the
+effect of the law?</p></li>
+<li><p>Why might you want to control for other factors in the model?
+What might some of these factors be?</p></li>
+<li><p>Now, suppose that you can only collect data for 1985 and for
+1990 at the county level for the two states. The dependent
+variable would be the fraction of licensed drivers arrested for
+drunk driving during the year. How does this data structure
+differ from the individual-level data described in part (a)?
+What econometric method would you use?</p></li>
+</ol></li>
+<li><p>For this exercise, use <a href="../materials/JTRAIN.dta"><code>JTRAIN.dta</code></a> to determine the effect of a job
+training grant on hours of job training per employee. The basic
+model for the three years is the following: <span class="math display">\[\begin{split} 
+hrsemp_{it} &amp;= \beta_0 + \delta_1 d88_t + \delta_2 d89_t +\\
+&amp;  \beta_1 grant_{it} + \beta_2 grant_{i,t-1} + \beta_3 log(employ_{it}) + a_i + u_{it}
+\end{split}\]</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Estimate the equation using first differencing. How many firms
+are used in the estimation? How many total observations would be
+used if each firm had data on all variables (in particular,
+<span class="math inline">\(hrsemp\)</span>) for all three time periods?</p></li>
+<li><p>Interpret the coefficient on <span class="math inline">\(grant\)</span>, and comment on its
+significance.</p></li>
+<li><p>Is it surprising that <span class="math inline">\(grant_{-1}\)</span> is insignificant? Explain.</p></li>
+<li><p>Do larger firms train their employees more or less, on average?
+How big are the differences in training?</p></li>
+</ol></li>
+<li><p>Use <a href="../materials/CRIME4.dta"><code>CRIME4.dta</code></a> for this exercise, and see example 13.9 in this poor-quality scanned <a href="../materials/example-13.9.pdf">upload</a>.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Replicate the results in Example 13.9.</p></li>
+<li><p>Re-estimate the unobserved effects model for crime in Example
+13.9, but use fixed effects rather than differencing. Are there
+any notable sign or magnitude changes in the coefficients? What
+about statistical significance?</p></li>
+<li><p>Add the logs of each wage variable in the data set and estimate
+the model by fixed effects. How does including these variables
+affect the coefficient on the criminal justic variables in part
+(b)?</p></li>
+<li><p>Do the wage variables in part (c) have the expected sign? Are
+they jointly significant?</p>
+<!-- Stock and Watson: 12.6, --></li>
+</ol></li>
+<li><p><strong>SW-12.6</strong> In an instrumental variable regression model with one reressor, <span class="math inline">\(X_i\)</span>, and one instrument, <span class="math inline">\(Z_i\)</span>, the regression of <span class="math inline">\(X_i\)</span> onto <span class="math inline">\(Z_i\)</span> has <span class="math inline">\(R^2 = 0.05\)</span> and <span class="math inline">\(n = 100\)</span>. Is <span class="math inline">\(Z_i\)</span> a strong instrument?<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Would your answer change if <span class="math inline">\(R^2 = 0.05\)</span> and <span class="math inline">\(n = 500\)</span>?</p></li>
+</ol>
+<!-- 12.9, E12.2 (Skip part e)  -->
+<ol start="5" style="list-style-type: decimal">
+<li><strong>SW-12.9</strong> A researcher is interested in the effect of military service on human capital. She collects data from a random sample of 4000 workers aged 40 and runs the OLS regression <span class="math inline">\(Y_i = \beta_0 + \beta_1X_i + u_i\)</span>, where <span class="math inline">\(Y_i\)</span> is a worker’s annual earnings and <span class="math inline">\(X_i\)</span> is a binary variable equal to 1 if the person served in the military and is equal to 0 otherwise.
+<ol style="list-style-type: lower-alpha">
+<li>Explain why the OLS estimates are likely to be unreliable. (<em>Hint:</em> Which variables are omitted from the reression? Are they correlated with military service?)</li>
+<li>During the Vietnam war there was a draft in which priority for the draft was determined by a national lottery. The days of the year were randomly re-ordered 1 through 365. (Those whose birthdays were ordered first were drafted before those with birthdates ordered second, and so forth.) Explain how the lottery might be used as an instrument to estimate the effect of military service on earnings. For more about this issue, see Joshua D Angrish’s paper “Lifetime Earnings and the Vietnam Era Draft Lottery: Evidence from Social Security Administration Records,” <em>American Economic Review</em>, June 1990: 313–336.</li>
+</ol></li>
+</ol>
+<!-- E12.2 (Skip part e -->
+<ol start="6" style="list-style-type: decimal">
+<li><p><strong>SW-E12.2</strong> Does viewing a violent movie lead to violent behavior? If so the incidence of violent crimes, such as assault, should rise following the release of a violent movie that attracts many viewers. Alternatively, movie viewing may substitute for other activities, such as alcohol consumption, that lead to violent behavior, so that assaults should fall more when more viewers are attracted to the cinema. Use the data file <a href="../materials/Movies.dta"><code>Movies.dta</code></a>, which contains data on the number of assaults and movie attendance for 516 weekends from 1995 through 2004<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>. A detailed description is given <a href="../materials/movies_description.pdf">here</a>. The data set includes weekend US attendance for strongly violent movies (such as <em>Hannibal</em>), mildly violent movies (such as <em>Spiderman</em>), and non-violent movies (such as <em>Finding Nemo</em>). The data also includes the count of the number of assaults for the same weekend in a subset of counties in the United States. Finally, the data set includes indicators for year, month, whether the weekend is a holiday, and various measures of the weather.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Regress the logarithm of the number of assaults (<span class="math inline">\(ln\_assaults= ln(assaults)\)</span>) on the year and month indicators. Is there evidence of seasonality in assaults? That is, do there tend to be more assaults in some months than others? Explain.</p></li>
+<li><p>Now, regress total movie attendance (<span class="math inline">\(attend = attend\_v + attend\_m + attend\_n\)</span>) on the year and month indicators. Is there evidence of seasonality in movie attendance? Explain.</p></li>
+<li><p>Regress <span class="math inline">\(ln\_assaults\)</span> on <span class="math inline">\(attend\_v\)</span>, <span class="math inline">\(attend\_m\)</span>, <span class="math inline">\(attend\_n\)</span>, the year and month indicators, and the weather and holiday control variables available in the data set.</p>
+<ol style="list-style-type: decimal">
+<li>Based on the regression, does viewing a strongly violent movie increase or decrease assaults? By how much? Is the estimated affect statistically significant?</li>
+<li>Does attendance at strongly violent movies affect us all differently than attendance at moderately violent movies? Differently than attendance at non-violent movies?</li>
+<li>A strongly violent blockbuster movie is released and the weekends attendance is at strongly violent movies increases by 6 million; meanwhile, attendance falls by 2 million for moderately violent movies and by 1 million for non-violent movies. What is the predicted effect on assault? Construct a 95% confidence interval for the change in assault.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></li>
+</ol></li>
+<li><p>It is difficult to control for all the variables that affect assaults and that might be correlated with movie attendance. For example, the effect of the weather on assaults and movie attendance is only crudely approximated by the weather variables in the data set. However, the data set does include a set of instruments <span class="math inline">\(pr\_attend\_v\)</span>, <span class="math inline">\(pr\_attend\_m\)</span>, and <span class="math inline">\(pr\_attend\_n\)</span>, that are correlated with attendance but are (arguably) uncorrelated with weekend-specific factors such as the weather that affects both assaults add movie attendance. These instruments use historical attendance patterns, not information on a particular weekend, to predict a film’s attendance in a given weekend. For example, if a film’s attendance is high in the second week of its release, then this could be used to predict that attendance was also high in the first week of its release. The details of the construction of these instruments are available on in the <a href="https://eml.berkeley.edu//~sdellavi/wp/moviescrime08-08-01Forthc.pdf">Dahl and DellaVina paper</a>. Run the regression from part c, including year, month, holiday, and weather controls, but now using the instruments for attendance. Use this regression to now re-answer the questions from part c: c(1)- c(3).</p></li>
+<li><p>The intuition underlined the instruments in part 4 is that attendance in a given week is correlated with attendance and surrounding weeks. For each movie category, the data set includes attendance in surrounding weeks. Run the regression using the instruments <span class="math inline">\(attend\_v\_f\)</span>, <span class="math inline">\(attend\_m\_f\)</span>, <span class="math inline">\(attend\_n\_f\)</span>, <span class="math inline">\(attend\_v\_b\)</span>, <span class="math inline">\(attend\_m\_b\)</span>, and <span class="math inline">\(attend\_n\_b\)</span> instead of the instruments used in part d, then use this regression to answer part c: c(1)- c(3).</p></li>
+<li><p>Based on your analysis, what do you conclude about the effects of violent movies on short-run violent behavior?</p></li>
+</ol></li>
+</ol>
+<!-- AAE12.1 (skip for now) -->
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><em>Hint:</em> See equation 7.14 in your textbook.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>These are aggregated versions of data provided by Gordon Dahl and Stefano DellaVigna, used in their paper, <a href="https://eml.berkeley.edu//~sdellavi/wp/moviescrime08-08-01Forthc.pdf">“Does Movie Volence Increase Violent Crime?”</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><em>Hint:</em> Review section 7.3 and material surrounding equations 8.7 and 8.8<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

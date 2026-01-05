@@ -1,0 +1,69 @@
+---
+title: "Research Paper: Final Submission"
+linktitle: "08 Final"
+date: "2022-03-24"
+due_date: "2022-05-10"
+due_time: "11:59 PM"
+menu:
+  assignment:
+    parent: Research Paper
+    weight: 30
+type: docs
+editor_options: 
+  chunk_output_type: console
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+## Research Paper - Final Submission 
+
+
+Research papers are fairly formulaic, and that's a good thing - it helps readers know where to look for information, depending on what they want to get out of it. 
+
+
+## What should I submit? 
+
+Your paper is due at **11:59pm May 10**. *I can accept extensions only up to May 11*, as there are external grading deadlines I need to meet. 
+
+You should submit the following: 
+
+ - Final paper in pdf or docx format 
+ - Stata do-file with all analysis you conducted 
+ - Stata log file with results for analysis conducted in your do-file. 
+ 
+I will grade your papers following the rubric. If you would like me to share comments, you must *opt-in* by filling out the [feedback survey](https://forms.gle/kxGcNvFzzGtduGQ99). If you do not fill it out, you will not receive feedback! 
+
+Review the [research paper checklist](../../bonus/research-paper-checklist) for lots of suggestions.
+
+
+## Rubric 
+
+Download rubric [here](../materials/RP_Rubric_F20.pdf)
+
+| Total:   100 marks                      | 100 = Excellent                                                                                 | 80 = Adequate                                                                        | 60 = Marginal                                                                         | 40 = Poor                                                             |
+|-----------------------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| Motivation/Literature (18   marks)      |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
+| Introduction                            | Introduction   provides complete overview of paper, motivates research question using   sources | Introduction   provides some overiew of paper, motivation clear with limited sources | Introduction   vague; motivation minimal                                              | Incomplete   introduction, no motivation                              |
+| Research   question                     | Research   question well identified, specific                                                   | Research   question stated, not specific                                             | Research   question vague, not answerable                                             | Cannot   identify research question in paper                          |
+| Literature                              | Important   literature discussed and linked to topic                                            | Important   literature included, not linked to research question/paper               | Scattered   lit. discussion, poorly linked to topic (missing or irrelevant papers)    | Sparse   literature, not linked to topic                              |
+|                                         |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
+| Methodology/Analysis (30   marks)       |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
+| Data                                    | Clear   discussion of data sources and any data cleaning; data cleaned appropriately            | Data   sources referenced but incomplete discussion; some data issues overlooked     | Limited   discussion of data                                                          | No   discussion of data sources or cleaning                           |
+| Empirical   methods                     | Methodology   discussed and empirical methods applied correctly                                 | Methodology   generally correct, with some issues overlooked                         | Major   errors in empirical methods                                                   | Fundamental   misunderstanding of empirical methods/no microdata used |
+| Discussion of   results                 | Results   discussed and interpreted clearly                                                     | Results   discussed, but inadequate interpretation                                   | Results   presented without interpretation                                            | Poor   discussion of results, no interpretation                       |
+| Choice of   evidence                    | Presented   evidence addresses research question, is well utilized                              | Presented   evidence related, only partially addresses research question             | Evidence   related, but not directly relevant to research question.                   | Evidence   does not address research question                         |
+| Figures and   tables                    | Figures   and tables appropriate to analysis, easy to interpret                                 | Appropriate   figures/tables included, difficult to interpret                        | Irrelevant   figures/tables included or key figures/tables missing                    | Insufficient   figures/tables, poorly presented                       |
+|                                         |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
+| Limitations                             | Limitations   discussed and minimized through analysis                                          | Limitations   discussed, few steps to minimize                                       | Incomplete   discussion of limitations                                                | No   discussion of limitations                                        |
+| Conclusions/interpretation   (18 marks) |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
+| Conclusions                             | Clear   presentation of conclusions, qualifications, consequences, and contributions            | Conclusions   established, limited discussion implications and contributions         | Fails   to make clear conclusions, limited discussion of interpretation/contributions | Cannot   discern conclusions                                          |
+| Critical   thinking                     | Demonstrates   independent and critical thinking                                                | Demonstrates   some independent and critical thinking                                | Limited   evidence of independent and critical thinking                               | No   evidence of independent and critical thinking                    |
+| Argumentation                           | Assertions   are qualified and well supported                                                   | Most   assertions are qualified and well supported                                   | Assertions   are overly strong or unsupported                                         | Assertions   made in contrast to evidence or without evidence         |
+| Written   presentation (24 marks)       |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
+| Organization                            | Well   organized, easy to understand                                                            | Good   organization, some parts out of place                                         | Unclear   organization                                                                | Disorganized,   impedes understanding                                 |
+| Writing style                           | Clear   and easy to read                                                                        | Awkward   or wordy writing, clear planning                                           | Readable   but difficult to follow                                                    | Difficult   to understand                                             |
+| Grammar                                 | Few   grammatical and typographical errors                                                      | Some   grammatical and typographical errors, but do not impede understanding         | Moderate   grammatical errors/typos                                                   | Frequent   errors impede understanding                                |
+| Formatting                              | Meets   all formatting requirements                                                             | Minor   deviation from formatting requirements                                       | Exceeds   page limit/major deviation from formatting requirements                     | Formatting   requirements completely disregarded                      |
+| Replication   code (10 marks)           |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
+| Do-files and   log                      | Well-documented,   easy to read                                                                 | Detailed   documentation, somewhat confusing                                         | Unclear   documentation                                                               | Little   to no documentation                                          |

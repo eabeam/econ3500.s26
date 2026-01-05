@@ -1,0 +1,359 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\newenvironment{itemize*}%
+
+  
+\lhead{EC200 - Econometrics and Applications}
+\rhead{Version: \today}
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+Version: \today \hfill Fall 2021\\
+EC200: Econometrics and Applications
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Lab 8: Instrumental variables}}\\
+\end{center}
+\bigskip
+
+
+
+It's our final lab of the semester! 
+
+\hypertarget{materials}{%
+\section*{Materials}\label{materials}}
+\addcontentsline{toc}{subsection}{Materials}
+
+\begin{itemize}
+\item
+  \href{https://ec200f21.netlify.app/assignment/materials/voucher.dta}{\texttt{voucher.dta}}
+\item
+  Do-file template
+  \href{https://ec200f21.netlify.app/assignment/materials/labtemplate_f21.do}{\texttt{labtemplate.do}}
+\end{itemize}
+
+\hypertarget{objectives}{%
+\section*{Objectives}\label{objectives}}
+\addcontentsline{toc}{subsection}{Objectives}
+
+By the end of this lab, you should be able to complete the following
+tasks in Stata:
+
+\begin{itemize}
+\item
+  Estimate instrumental variable specifications and interpret them.
+\item
+  Output regression results using \texttt{outreg2}
+\end{itemize}
+
+\hypertarget{key-commands}{%
+\section*{Key commands}\label{key-commands}}
+\addcontentsline{toc}{subsection}{Key commands}
+
+\hypertarget{conducting-instrumental-variables-regressions-with-ivregress}{%
+\subsection*{\texorpdfstring{Conducting instrumental variables
+regressions with
+\texttt{ivregress}}{Conducting instrumental variables regressions with ivregress}}\label{conducting-instrumental-variables-regressions-with-ivregress}}
+
+We can estimate an instrumental variables regression with
+\texttt{ivregress}
+
+General form:
+
+\begin{verbatim}
+ivregress estimator depvar [varlist1] (varlist2 = varlist_iv) [if] [in] 
+      						 [weight] [, options]
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{estimator} is where we will type \texttt{2sls}
+\item
+  \texttt{depvar} is your dependent variable
+\item
+  You can include other explanatory variables before or after the
+  parentheses, `{[}varlist1{]}
+\item
+  In the parentheses, write you endogenous (\(x\)) then your instrument
+  (\(z\)) - these can be lists!
+\item
+  The rest of it is just as you're used to
+\end{itemize}
+
+Example:
+
+To estimate the following two-stage least squares equation:
+\[ rent = \beta_0 + \beta_1 \widehat{hsngval} + \beta_2 pcturban + u\]
+where \(\widehat{hsngval}\) is predicted from the following first-stage
+equation
+\[ hsngval = \alpha_0 + \alpha_1 faminc + \alpha_2 pcturban + v \]
+
+\begin{verbatim}
+webuse hsng2
+
+ivregress 2sls rent  (hsngval = faminc ) pcturban, robust
+\end{verbatim}
+
+You can add \texttt{,\ first} to report the first-stage results:
+
+\begin{verbatim}
+`ivregress 2sls rent  (hsngval = faminc ) pcturban, robust first`
+\end{verbatim}
+
+\hypertarget{outputting-your-results-with-outreg2}{%
+\subsection*{\texorpdfstring{Outputting your results with
+\texttt{outreg2}}{Outputting your results with outreg2}}\label{outputting-your-results-with-outreg2}}
+
+We are very good at reading raw Stata output. But, raw stata output has
+no place in our papers. How do we make it pretty? There are lots of
+ways, including \texttt{putexcel}, which lets you create customizable
+excel tables with your outputs (good for descriptive statistics), and
+\texttt{estout}, which does the same thing but is more regression
+oriented.
+
+Personally, I like \texttt{outreg2}, because it's easy to set up and
+use. So that's what we'll use!
+
+\texttt{outreg2} is a user-created package, which means you have to
+install it:
+
+\begin{verbatim}
+ssc install outreg2
+\end{verbatim}
+
+You only have to do this once.
+
+You'll run \texttt{outreg2} after estimating a regression. It takes your
+results and saves them to a table. You can run it multiple time and
+generate columns of results within the same excel sheet, which is pretty
+handy! The general format of outreg2 is this:
+
+\begin{verbatim}
+// You can copy and paste this into stata, and it should work! 
+//But note that it will save to your working directory
+
+sysuse auto,clear
+
+// Specification 1
+regress mpg foreign weight headroom trunk length turn displacement
+outreg2 using myfile.xls, replace 
+
+// Specification 2  (add on)
+regress mpg foreign weight headroom trunk length turn displacement,robust
+outreg2 using myfile.xls, append 
+\end{verbatim}
+
+You can customize, with lots of options! (see \texttt{help\ outreg2}, or
+check out \href{https://thedatahall.com/stata-outreg2-part1/}{these
+resources})
+
+What sort of things?
+
+\begin{itemize}
+\tightlist
+\item
+  Export directly to Word
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{outreg2\ using\ myfile,\ word\ replace}
+  \end{itemize}
+\item
+  Add summary statistics and p-values
+
+  \begin{itemize}
+  \tightlist
+  \item
+    See
+    \href{https://thedatahall.com/reporting-publication-style-regression-output-in-stata-part-2/}{here}
+    for more details
+  \end{itemize}
+\item
+  Add notes
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{outreg2\ using\ myfile,\ addnote(Dummy\ variables\ not\ shown)}
+  \end{itemize}
+\item
+  Report only some variables
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{outreg2\ using\ myfile,\ keep(mpg\ foreign)}
+  \end{itemize}
+\item
+  Modify number of decimal places
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{outreg2\ using\ myfile,\ dec(5)}
+  \end{itemize}
+\item
+  You can use a loop to make a whole set of columns!
+\end{itemize}
+
+An example:
+
+\begin{verbatim}
+ sysuse auto,clear
+ local r "replace"
+   forval num=1/5 {
+       regress mpg weight headroom if rep78==`num'
+       sum mpg if rep78 == `num'
+       local mean = `r(mean)'
+       outreg2 using myfile.xls, `r' keep(headroom) title("Sample Graph") 
+       			nocons addtext("Rep78", `num') addstat("Mean", `mean') auto(2) bracket
+   
+   local r "append"
+   }
+\end{verbatim}
+
+\hypertarget{exercises}{%
+\section*{Exercises}\label{exercises}}
+
+Today we're going to work with
+\href{../materials/voucher.dta}{\texttt{voucher.dta}}, a data set of
+student performance from Rouse (1998). She measures the impact of
+private school vouchers on student achievement. The final measure of
+student performance we're interested in is \texttt{mnce}, their math
+test scores in 1994 (after up to four years in the private school). We
+also have some measures of baseline performance, their math test score
+in 1990 (\texttt{mnce90}). The variable \texttt{choiceyrs} is the number
+of years enrolled in a private school, and \texttt{selectyrs} is the
+number of years a student was \emph{selected} to receive a voucher to
+fund enrolling in a private school.\\
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  In your do-file, start a log and open \texttt{voucher.dta}.
+\item
+  Summarize your data. Of the 990 students in the sample, how many were
+  never awarded a voucher? How many had a voucher for all four years?
+  How many actually attended a choice school for four years?
+\item
+  Predict the relationship between choice school attendance and math
+  scores by regressing math scores \texttt{mnce} (dependent variable) on
+  number of years enrolled in a choice school \texttt{choiceyrs}
+  (independent variable). What do you find? Is this what you expect?
+  What happens if you add in the variables \texttt{black},
+  \texttt{hispanic}, and \texttt{female}? Write your results in equation
+  form.
+\item
+  Why might \texttt{choiceyrs} be endogenous? Explain:
+\item
+  Now, estimate a regression of \(choiceyrs\) (dependent variable) on
+  \(selectyrs\) (independent variable), including race/ethnicity and
+  gender controls. Why is this a reasonable choice of an instrument?
+  What is the F-statistic on \texttt{selectyrs}? (\emph{Hint: You can
+  use the \texttt{testparm} command for a hypothesis test with just one
+  coefficient})
+\item
+  Based on the previous regression, use the \texttt{predict} command to
+  generate a predicted \(\widehat{choiceyrs}\). Estimate the regression
+  of \(mnce\) on \(\widehat{choiceyrs}\), including race/ethnicity and
+  gender controls. Write the estimated equation. How does your result
+  compare to your OLS estimate?)
+\item
+  Re-estimate a regression of \(mnce\) (dependent variable) on
+  \(choiceyrs\) (independent variable) using \(selectyrs\) as an
+  instrument for \(choiceyrs\). However, this time, estimate the
+  equation in one command line using \texttt{ivregress\ 2sls}. How do
+  your results change, if at all?
+\item
+  Repeat your IV analysis, but this time include a control for baseline
+  achievement by adding \(mnce90\). Write the results in equation form
+  below. Do you find these results convincing? Explain.
+\item
+  We can also use multiple instruments for multiple endogenous
+  variables. The variables \(choiceyrs1\), \(choiceyrs2\), etc. are
+  dummy variables indicating the different number of years a student
+  could have been in a choice school. Similarly, \(selectyrs1\),
+  \(selectyrs2\), etc. have a similar definition, but for being selected
+  from the lottery.
+
+  Estimate the following equation using IV. \[\begin{split}
+   mnce &= \beta_0 + \beta_1 choiceyrs_1 + \beta_2 choiceyrs_2 + \beta_3 choiceyrs_3 + \beta_4 choiceyrs_4 + \\
+   &  \beta_5 black + \beta_6 hispanic + \beta_7 female + \beta_8 mnce90 + u
+   \end{split}\]
+\item
+  Finally, go back through your regressions in your do-file. After each
+  regression (there should be six: OLS without controls, OLS with
+  controls, IV by hand, IV using \texttt{ivregress}, IV with \(mnce90\),
+  and IV with multiple instruments), add a line of code to output the
+  results to a word or excel file using \texttt{outreg2}.
+
+  \textbf{Include a table with your results with your submission} -
+  there should be six columns in one table. \emph{Note that you can use
+  the \texttt{append} option to add each regression as a new column,
+  rather than a new file.}
+\end{enumerate}
+
+References: Rouse, Cecilia Elena (1998), ``Private School Vouchers and
+Student Achievement: An Evaluation of the Milwaukee Parental Choice
+Program,'' \emph{The Quarterly Journal of Economics} 113(2), 553-602.
+
+\end{document}

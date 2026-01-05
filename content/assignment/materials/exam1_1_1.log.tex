@@ -1,0 +1,68 @@
+. regress emailhr childs age hsgrad somecol college postgrad 
+{\smallskip}
+      Source {\VBAR}       SS           df       MS      Number of obs   =     1,410
+\HLI{13}{\PLUS}\HLI{34}   F(6, 1403)      =     13.55
+       Model {\VBAR}  10708.9133         6  1784.81888   Prob > F        =    0.0000
+    Residual {\VBAR}   184794.92     1,403  131.714127   R-squared       =    0.0548
+\HLI{13}{\PLUS}\HLI{34}   Adj R-squared   =    0.0507
+       Total {\VBAR}  195503.833     1,409  138.753608   Root MSE        =    11.477
+{\smallskip}
+\HLI{13}{\TOPT}\HLI{64}
+     emailhr {\VBAR}      Coef.   Std. Err.      t    P>|t|     [95\% Conf. Interval]
+\HLI{13}{\PLUS}\HLI{64}
+      childs {\VBAR}   .0477113   .2083668     0.23   0.819    -.3610327    .4564554
+         age {\VBAR}  -.0654925   .0192602    -3.40   0.001    -.1032743   -.0277106
+      hsgrad {\VBAR}   1.970668   1.143132     1.72   0.085    -.2717642      4.2131
+     somecol {\VBAR}   3.620887   1.159198     3.12   0.002     1.346939    5.894835
+     college {\VBAR}   7.565025   1.220929     6.20   0.000     5.169982    9.960067
+    postgrad {\VBAR}   7.322089   1.278366     5.73   0.000     4.814375    9.829804
+       _cons {\VBAR}   6.127687   1.296195     4.73   0.000     3.584998    8.670375
+\HLI{13}{\BOTT}\HLI{64}
+{\smallskip}
+. test hsgrad=somecol
+{\smallskip}
+ ( 1)  hsgrad - somecol = 0
+{\smallskip}
+       F(  1,  1403) =    4.03
+            Prob > F =    0.0448
+{\smallskip}
+. test hsgrad=somecol=0
+{\smallskip}
+ ( 1)  hsgrad - somecol = 0
+ ( 2)  hsgrad = 0
+{\smallskip}
+       F(  2,  1403) =    5.29
+            Prob > F =    0.0051
+{\smallskip}
+. test college=postgrad
+{\smallskip}
+ ( 1)  college - postgrad = 0
+{\smallskip}
+       F(  1,  1403) =    0.05
+            Prob > F =    0.8167
+{\smallskip}
+. test college=postgrad=0 
+{\smallskip}
+ ( 1)  college - postgrad = 0
+ ( 2)  college = 0
+{\smallskip}
+       F(  2,  1403) =   21.71
+            Prob > F =    0.0000
+{\smallskip}
+. regress emailhr childs age  
+{\smallskip}
+      Source {\VBAR}       SS           df       MS      Number of obs   =     1,410
+\HLI{13}{\PLUS}\HLI{34}   F(2, 1407)      =      4.74
+       Model {\VBAR}  1309.67915         2  654.839575   Prob > F        =    0.0088
+    Residual {\VBAR}  194194.154     1,407   138.02001   R-squared       =    0.0067
+\HLI{13}{\PLUS}\HLI{34}   Adj R-squared   =    0.0053
+       Total {\VBAR}  195503.833     1,409  138.753608   Root MSE        =    11.748
+{\smallskip}
+\HLI{13}{\TOPT}\HLI{64}
+     emailhr {\VBAR}      Coef.   Std. Err.      t    P>|t|     [95\% Conf. Interval]
+\HLI{13}{\PLUS}\HLI{64}
+      childs {\VBAR}  -.2399636   .2088007    -1.15   0.251    -.6495578    .1696306
+         age {\VBAR}  -.0438551   .0194919    -2.25   0.025    -.0820915   -.0056187
+       _cons {\VBAR}   9.732497   .9346207    10.41   0.000     7.899097     11.5659
+\HLI{13}{\BOTT}\HLI{64}
+{\smallskip}

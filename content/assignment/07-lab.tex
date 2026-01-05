@@ -1,0 +1,287 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\newenvironment{itemize*}%
+
+  
+\lhead{EC200 - Econometrics and Applications}
+\rhead{Version: \today}
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+Version: \today \hfill Fall 2021\\
+EC200: Econometrics and Applications
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Lab 7: Difference in differences and panel data}}\\
+\end{center}
+\bigskip
+
+
+
+\hypertarget{objectives}{%
+\section*{Objectives}\label{objectives}}
+\addcontentsline{toc}{subsection}{Objectives}
+
+There are two separate parts to this lab - a set of data for working
+with difference-in-differences models, and another set for working with
+fixed-effects models
+
+By the end of this lab, you should be able to complete the following
+tasks in Stata:
+
+\begin{itemize}
+\item
+  Estimate and interpret difference-in-differences models
+\item
+  Estimate panel data models using dummy variables
+\item
+  Interpret panel data models
+\end{itemize}
+
+\hypertarget{key-commands}{%
+\section*{Key commands}\label{key-commands}}
+\addcontentsline{toc}{subsection}{Key commands}
+
+\hypertarget{using-xtset-and-xtreg}{%
+\subsection*{\texorpdfstring{Using \texttt{xtset} and
+\texttt{xtreg}:}{Using xtset and xtreg:}}\label{using-xtset-and-xtreg}}
+
+The \texttt{xtset} command will tell Stata that you have panel data. For
+example, if you have state and year data, then you would enter
+\texttt{xtset\ state\ year}, or whatever the appropriate variable names
+are.
+
+General format: \texttt{xtset\ panelvar\ timevar}
+
+After declaring your panel with \texttt{xtset}:
+
+\begin{itemize}
+\tightlist
+\item
+  Ask Stata to do a panel-regression by using xtreg instead of regress.
+  Everything else proceeds as normal.
+\item
+  You have to tell Stata that you want to estimate a ﬁxed eﬀects model,
+  so you add ,fe as an ``option''
+\end{itemize}
+
+For example, something like this: \texttt{xtreg\ income\ education,fe}
+would regress income on education, and include ﬁxed effects, where the
+fixed effects are the \texttt{panelvar} variable you declared.
+
+\hypertarget{adding-other-fixed-effects}{%
+\subsection*{Adding other fixed
+effects:}\label{adding-other-fixed-effects}}
+
+You can add fixed effects to a model more generally with the \texttt{i.}
+prefix or \texttt{areg}. A few examples:
+
+\begin{verbatim}
+xi: reg income i.educ i.bpl, robust     
+reg income i.educ i.bpl, robust 
+
+areg income i.educ,robust abosrb(bpl)
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{xi:} this prefix is necessary for adding \texttt{i.} variables
+  if the variables are in string form. Of course, you can use it any
+  time! You can also use it to do fancier interactions with fixed
+  effects, like \texttt{xi:\ reg\ income\ i.educ*i.bpl,\ robust}
+\item
+  You can exclude the prefix and just do \texttt{i.var} to create a
+  bunch of indicator variables so long as your variable is
+  \emph{numeric}
+\item
+  You can use \texttt{areg} to ``absorb'' a set of fixed effects - they
+  will not be reported in your output, but they will be estimated. This
+  method is less efficient than \texttt{xtreg} becuase you're using up
+  degrees of freedom.
+\end{enumerate}
+
+\hypertarget{exercises}{%
+\section*{Exercises}\label{exercises}}
+
+\hypertarget{part-a-differences-in-differences}{%
+\subsection*{Part A:
+Differences-in-differences}\label{part-a-differences-in-differences}}
+
+This part of the lab looks at a simple difference-in-differences model
+based on Richardson and Troost (2009).\footnote{Based on Chapter 5 of
+  \emph{Mastering 'Metrics}}
+
+Mississippi is split between two Federal Reserve Districts. During the
+early years of the Great Depression, the each district took a different
+approach to bank runs. The Sixth District increased lending,while the
+Eighth District responded by restricting lending to threatened banks. We
+look at the impact of these policies on bank survival rates using
+difference-in-differences.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Start a new do-file and change directory to your working directory .
+\item
+  In your do-file, start a log and open
+  \href{../materials/banks.dta}{\texttt{banks.dta}}
+\item
+  Using pencil \& paper or electronic means of your choosin ( ie, you
+  don't need to do this in Stata), plot a graph of the number of banks
+  in business, by district, by year. Plot number of banks in business on
+  the y axis and the year on the x axis. Include only the years 1930 \&
+  1931. Draw separate lines for the numbers of banks in District 6 and
+  District 8. Draw a dotted ``counterfactual'' line based on your
+  understanding of the change in bank policies. Mark all (4) actual
+  values clearly
+\item
+  First, we're going to calculate a difference-in-difference estimator
+  by hand between 1930 and 1931. Using the \texttt{browse} command, fill
+  in \(x\) values from the following table:\\
+\end{enumerate}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+Number of banks in business & & & \\
+\midrule
+\endhead
+District & 1930 & 1931 & 1931-1930 \\
+District 6 & x & x & x \\
+District 8 & x & x & x \\
+& & & \\
+District 8 - District 6 & x & x & x \\
+\bottomrule
+\end{longtable}
+
+What is the difference-in-difference estimator?
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\item
+  Now, generate a variable \texttt{treat}, a binary variable equal to 1
+  for District 8 and 0 otherwise, and a variable \texttt{post}, a binary
+  variable equal to 1 for the year 1931 or greater. Generate
+  \texttt{treatXpost\ =\ treat*post}.
+\item
+  Using the above variables, estimate the impact of looser lending
+  restrictions on the number of banks using a difference-in-difference
+  estimator, restricting the sample to 1930 and 1931. Write your
+  estimates, in equation form.
+\item
+  Now estimate the same regression, but use all years. What is the
+  overall impact of looser lending restrictions on bank survival? Write
+  your estimates, in equation form.
+\item
+  State clearly the assumption needed to interpret these
+  difference-in-difference estimators as causal.
+\end{enumerate}
+
+\hypertarget{part-b---fixed-effects}{%
+\subsection*{Part B - Fixed effects}\label{part-b---fixed-effects}}
+
+Next, we're going to look at the relationship between marijuana use and
+employment based on the National Longitudinal Survey of Youth 1997
+Cohort (NSLY97).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Download the NSLY97 data files and save them to your working
+  directory.
+\item
+  Start a new do-file and change directory to your working directory .
+\item
+  In your do-file, start a log and open \texttt{nsly\_marijuana.dta}
+\item
+  How many individuals are in the data? How many years are they in the
+  data?
+\item
+  Estimate a regression of whether marijuana use affects income, with no
+  additional controls. Report your results in equation form.
+\item
+  Estimate a regression of whether marijuana use affects income, but add
+  any controls you deem important (from the relatively limited selection
+  I provide). How do the results change? Report your results in equation
+  form.
+\item
+  One way to estimate fixed effects models is to use \texttt{xtreg} with
+  the \texttt{,fe} option. Use \texttt{xtset} to tell Stata you have
+  panel data. Then, estimate a fixed-effects regression of whether
+  marijuana use affects income, with no additional controls. Include
+  both individual-level and year-level fixed effects. Cluster your
+  standard errors at the individual (\(id\)) level.
+\item
+  What is the coefficient on marijuana usage? What is the
+  interpretation?
+\item
+  After adding fixed effects, should you include controls for gender and
+  race/ethnicity to reduce omitted variable bias? Why or why not?
+\item
+  How do your results in part 9 using fixed effects compare to your
+  results in parts 5 and 6? Why do they differ?
+\item
+  Name one specific factor that would create omitted variable bias in
+  this regression.
+\end{enumerate}
+
+\end{document}

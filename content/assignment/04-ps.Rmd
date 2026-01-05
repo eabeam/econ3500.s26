@@ -1,0 +1,121 @@
+---
+title: "Problem set 4"
+linktitle: "PS 4"
+date: "2022-03-20"
+due_date: "2022-03-31"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Problem Sets
+    weight: 4
+type: docs
+weight: 2
+editor_options: 
+  chunk_output_type: console
+---
+
+## Welcome 
+
+Chapter 8 and 9  problems! Enjoy! 
+
+See the exercises below, or you can [download them as a pdf](../04-ps.pdf). 
+
+## What do I submit?
+
+   -  Your written up answers to exercise questions. If you work on a piece of paper, please scan using some sort of phone software (like Microsoft Lens or Adobe Scan) rather than just taking a picture.
+   -  A do-file that runs your Stata analysis (for question 7).
+  -   A log file that includes the output from running your do-file (for question 7).
+
+
+## Exercises
+
+<!-- Wooldrdge 3.9 -->
+
+1. The following equation describes the median housing price in a community in terms of amount of pollution ($nox$ for nitrous oxide) and the average number of rooms in houses in the community ($rooms$): 
+
+$log(price) = \beta_0 = \beta_1log(nox) + \beta_2rooms + u$ 
+
+  a. What are the probable signs of $\beta_1$ and $\beta_2$? What is the interpretation of $\beta_1$? Explain. 
+  b. Why might $nox$ [or more precisely, $log(nox)$] and $rooms$ be negatively correlated? If this is the case, does the simple regression of $log(price)$ on $log(nox)$ produce an upward or a downward biased estimator of $\beta_1$?
+  c. Using data, the following equations were estimated: 
+  
+  $\widehat{log(price)} = 11.71 - 1.043 log(nox)$, $n = 506$, $R^2 = 0.264$
+  $\widehat{log(price)} = 9.23 - 0.718 log(nox) + 0.306 rooms$, $n = 506$, $R^2 = 0.514$
+  
+  Is the relationship between the simple and multiple regression estimates of the elasticity of $price$ with respect to $nox$ what you would have predicted, given your answer in part (ii)? Does this mean that 0.718 is definitely closer to the true elasticity than 1.043?
+
+
+
+<!-- Stock and watson 8.4  -->
+
+2. Read the box *“The Return to Education and the Gender Gap”* in Section 8.3. 
+
+  a. Consider a man with 16 years of education and 2 years of experience. Use the results from column (4) of Table 8.1 and the method in Key Concept 8.1 to estimate the expected change in the logarithm of average hourly earnings (AHE) associated with an additional year of experience. 
+  b. Explain why your answer to (a) does not depend on the region he is from. 
+  c. Repeat (a), assuming 10 years of experience.
+
+<!-- % Stock and Watson 8.6 -->
+
+
+3. To answer this question, refer to *Table 8.3: Nonlinear Regression Model of Test Scores* in your textbook: 
+  a. A researcher suspects that the effect of % Eligible for subsidized lunch has a nonlinear effect on test scores. In particular, he conjectures that increases in this variable from 10% to 20% have little effect on test scores but that changes from 50% to 60% have a much larger effect. 
+    i. Describe a nonlinear specification that can be used to model this form of nonlinearity. 
+    ii. How would you test whether the researcher’s conjecture was better than the linear specification in column (7) of Table 8.3?
+  b. A researcher suspects that the effect of income on test scores is different in districts with small classes than in districts with large classes. 
+    i. Describe a nonlinear specification that can be used to model this form of nonlinearity. 
+
+
+<!-- <!-- Stock and Watson 9.2 --> 
+<!-- Consider the one-variable regression model $Y_i = \beta_0 = \beta_1 x_i + u_i$ and suppose it satisfies the least squares assumptions in Key Concept 4.3. Suppose $Y_i$ is measured with error, so the data are $\widetilde{Y_i} = Y_i + w_i$, where $w_i$ is the measurement error, which is i.i.d. and independent of $Y_i$ and $X_i$. Consider the population regression $Y$ using the mismeasured dependent variable, $\widetilde{Y}$. -->
+<!--   a.  Show that $v_i = u_i + w_i$ -->
+<!--   b. Show that the regression $\widetilde{Y_i} = \beta_0 + \beta_1X_i + v_i$ satisfies the least squares assumptions in Key Concept 4.3. Assume that $w_i$ is independent of $Y_j$ and $X_j$ for all values of $i$ and $j$ and has a finite fourth moment. -->
+<!--   c. Can confidence intervals be constructed in the usual way?  -->
+<!--   d. Evaluate these statements: “Measurement error in the X’s is a serious problem. Measurement error in Y is not.” -->
+
+
+<!-- 9.3, 9.5, 9.6, 9.10 (odd-numbered answers are online, but think through them carefully!) -->
+
+<!-- 2. Additional empirical exercise 9.1, -->
+
+
+ <!-- Stock and Watson 9.3 --> 
+ 
+4.  Labor economists studying the determinants of women’s earnings discovered a puzzling empirical result. Using randomly selected employed women, they regressed earnings on the women’s number of children and a set of control variables (age, education, occupation, and so forth). They found that women with more children had higher wages, controlling for these other factors. Explain how sample selection might be the cause of this result. (Hint: Notice that women who do not work outside the home are missing from the sample.) [This empirical puzzle motivated James Heckman’s research on sample selection that led to his 2000 Nobel Prize in Economics. See Heckman (1974)]
+ 
+ 
+ 
+<!-- <!-- Stock and Watson 9.5 --> 
+
+5. The demand for a commodity is given by $Q = \beta_0 + \beta_1 P + u$, where $Q$ denotes quantity, $P$ denotes price, and $u$ denotes factors other than price that determine demand. Supply for the commodity is given by $Q = \gamma_0 + \gamma_1P + v$, where $v$ denotes factors other than price that determine supply. Suppose $u$ and $v$ both have a mean of 0, have variances $\sigma^2_u$ and $\sigma^2_v$, and are mutually uncorrelated. 
+a. Solve the two simultaneous equations to show how Q and P depend on u and v. 
+b. Derive the means of P and Q. 
+c. Derive the variance of P, the variance of Q, and the covariance between Q and P. 
+<!-- d. A random sample of observations of $(Q_i, P_i)$ is collected, and $Q_i$ is regressed on $P_i$. (That is, $Q_i$ is the dependent variable, and $P_i$ is the independent variable) Suppose the sample is very large.  -->
+<!--   i. Use your answers to (b) and (c) to derive values of the regression coefficients. [Hint: Use Equations (4.7) and (4.8).]  -->
+<!--   ii. A researcher uses the slope of this regression as an estimate of the slope of the demand function ($\beta_1$). Is the estimated slope too large or too small? (Remember, demand curves slope down and supply curves slope up!) -->
+
+
+<!-- <!-- <!-- Stock and Watson 9.6 -->  
+
+<!-- 4.  Suppose that $n = 100$ i.i.d. observations for $Y_i$, $X_i$ yield the following regres-sion results: -->
+
+<!-- $\widehat{Y} = 32.1 + 66.8X$, $SER = 15.1$, $R^2 = 0.81$., where $\widehat{SE(\beta_0)} =  115.12$ and $\widehat{SE(\beta_1)}= 112.22$ -->
+
+<!-- Another researcher is interested in the same regression, but he makes an error when he enters the data into his regression program: He enters each observation twice, so he has 200 observations (with observation 1 entered twice, observation 2 entered twice, and so forth). -->
+
+<!--   a. Using these 200 observations, what results will be produced by his regression program? (Hint: Write the “incorrect” values of the sample means, variances, and covariances of Y and X as functions of the “correct” values. Use these to determine the regression statistics.) -->
+
+<!--   $\widehat{Y} =$ ____ + ____ $X$, $SER = $____, $R^2 =$ ____,  -->
+
+<!--   $\widehat{SE(\beta_0)}$ =  ______ and $\widehat{SE(\beta_1)}$= ______ -->
+
+<!--   b. Which (if any) of the internal validity conditions are violated? -->
+
+<!-- Stock and Watson 9.10  -->
+
+6.  Revisit the box *“The Return to Education and the Gender Gap”* in Section 8.3. Discuss the internal and external validity of the estimated effect of education on earning
+
+
+
+7. Complete [Additional Empirical Exercise 8.2](https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/AEE/Stock_Watson_3U_AEE_8_2.pdf) using the dataset [`CollegeDistance.dta`](https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/CollegeDistance.dta)
+

@@ -1,0 +1,124 @@
+---
+title: "Problem set 3"
+linktitle: "PS 3"
+date: "2022-02-28"
+due_date: "2022-03-15"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Problem Sets
+    weight: 3
+type: docs
+weight: 3
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="welcome" class="section level2">
+<h2>Welcome</h2>
+<p>We’ve been so busy with labs and research ideas that we have <em>three</em> chapters of coverage to work through! Note that this is your last problem set before the next exam</p>
+<p>See the exercises below, or you can <a href="../03-ps.pdf">download them as a pdf</a>. You can download the data file you need for question 6 <a href="../materials/growth.dta">here</a>, along with information on the variable definitions <a href="https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/Growth_Description.pdf">here</a></p>
+</div>
+<div id="what-do-i-submit" class="section level2">
+<h2>What do I submit?</h2>
+<ul>
+<li>Your written up answers to exercise questions. If you work on a piece of paper, please scan using some sort of phone software (like Microsoft Lens or Adobe Scan) rather than just taking a picture.</li>
+<li>A do-file that runs your Stata analysis (for question 6).</li>
+<li>A log file that includes the output from running your do-file (for question 6).</li>
+</ul>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<!-- % Wooldridge 6.8 -->
+<ol style="list-style-type: decimal">
+<li>Suppose that we want to estimate the effects of alcohol consumption (<span class="math inline">\(alcohol\)</span>) on college grade point average (<span class="math inline">\(colGPA\)</span>). In addition to collecting information on alcohol consumption and grade point averages, we also obtain attendance information (say, percentage of lectures attended, <span class="math inline">\(attend\)</span>). A standardized test score (say, <span class="math inline">\(SAT\)</span>) and high school GPA (<span class="math inline">\(hsGPA\)</span>) are also available.
+<ol style="list-style-type: lower-alpha">
+<li>Should we include <span class="math inline">\(attend\)</span> along with alcohol as explanatory variables in a multiple regression model? What would be the interpretation of <span class="math inline">\(\beta_{alcohol}\)</span> if we did?</li>
+<li>Should <span class="math inline">\(SAT\)</span> and <span class="math inline">\(hsGPA\)</span> be included as explanatory variables? Explain.
+<!-- SW 6.6 --></li>
+</ol></li>
+<li>A research plans to study the casual effect of police on crime, using data from a random sample of U.S. counties. She plans to regress the county’s crime rate on the (per capita) size of the county’s police force.
+<ol style="list-style-type: lower-alpha">
+<li><p>Explain why this regression is likely to suffer from omitted variable bias. Which variables would you add to the regression to control for important omitted variables?</p></li>
+<li><p>Use your answer to (a) and the expression for omitted variable bias (from the slides or textbook) to determine whether the regression will likely over- or underestimate the effect of police on the crime rate. (That is, is <span class="math inline">\(\hat{\beta_1}&gt;\beta_1\)</span>, or that <span class="math inline">\(\hat{\beta_1} &lt; \beta_1\)</span>?)</p></li>
+</ol></li>
+</ol>
+<!-- SW additional emirical exercise 7.2 -->
+<ol start="3" style="list-style-type: decimal">
+<li><p>Critique each of the following proposed research plans. Your critique should explain any problems with the proposed research and describe how the research plan might be improved. Include discussion of any additional data that needs to be collected, and the appropriate statistical techniques for analyzing those data.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>A researcher is interested in determining whether a large aerospace firm is guilty of gender bias in setting wages. To determine potential bias, the researcher collects salary and gender information for all of the firm’s engineers. The researcher then plans to conduct a “difference in means” test to determine whether the average salary for women is significantly less than the average salary for men <!-- SW 6.7 --></p></li>
+<li><p>A researcher is interested in determining whether time in prison has a permanent effect on a person’s wage rate. He collects data on a random sample of people who have been out of prison for at least 15 years. He collects similar data on a random sample of people who have never served time in prison. The data set includes information on each person’s current wage, education, age, ethnicity, gender, tenure (time in current job), occupation, and union status, as well as whether the person has ever been incarcerated. The researcher plans to estimated the effect of incarceration on wages by regressing wages on an indicator variable for incarceration, including in the regression the other potential determinants of wages such as education, tenure, union status, and so on.</p></li>
+</ol></li>
+<li><p>Consider a dataset that contains information on 4700 full-time full-year workers. The highest educational achievement for each worker was either a high school diploma or a bachelor’s degree. The worker’s ages ranged from 25 to 45 years. The data set also contains information on the region of the country where the person lived, marital status, and number of children. See below for variable definitions.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Is the college-high school earnings difference estimated from this regression statistically significant at the 5% level? Construct a 95% confidence interval of the difference.</li>
+<li>Do there appear to be important regional differences in hourly wearnings? Use an appropriate hypothesis test to explain your answer.</li>
+</ol></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AHE</td>
+<td>average hourly earnings (in 2005 dollars)</td>
+</tr>
+<tr class="even">
+<td>College</td>
+<td>1 if college, 0 if high school</td>
+</tr>
+<tr class="odd">
+<td>Female</td>
+<td>1 if female, 0 if male</td>
+</tr>
+<tr class="even">
+<td>Age</td>
+<td>age (in years)</td>
+</tr>
+<tr class="odd">
+<td>Ntheast</td>
+<td>1 if Region = Northeast, 0 otherwise</td>
+</tr>
+<tr class="even">
+<td>Midwest</td>
+<td>1 if Region = Midwest, 0 otherwise</td>
+</tr>
+<tr class="odd">
+<td>South</td>
+<td>1 if Region = South, 0 otherwise</td>
+</tr>
+<tr class="even">
+<td>West</td>
+<td>1 if Region = West, 0 otherwise</td>
+</tr>
+</tbody>
+</table>
+<p><img src = "../materials/sw7-3.png"></p>
+<!-- S@ 7.8 -->
+<ol start="5" style="list-style-type: decimal">
+<li>Consider the regression results below and do the following:
+<ol style="list-style-type: lower-alpha">
+<li>Construct the <span class="math inline">\(R^2\)</span> for each of the regressions</li>
+<li>Construct the homoskedasticity-only <span class="math inline">\(F\)</span>-statistic for testing <span class="math inline">\(\beta_3 = \beta_4 = 0\)</span> shown in column (5). Is the statistic significant at the 5% level?</li>
+<li>Construct a 99% confidence interval for <span class="math inline">\(\beta_1\)</span> for the regression in column (5)</li>
+</ol></li>
+</ol>
+<p><img src = "../materials/sw7-1.png"></p>
+<ol start="6" style="list-style-type: decimal">
+<li>Download the dataset <a href="../materials/growth.dta">growth.dta</a>, which contains data on average growth rates from 1960 through 1995 for 65 countries, along with variables that are potentially related to growth. You can download a detailed description of all variable names is available <a href="https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/Growth_Description.pdf">here</a>. For all questions, exclude Malta, which has an extremely high trade share. Estimate a regression of <code>growth</code> on <code>tradeshare</code>, <code>yearsschool</code>, <code>rev_coups</code>, <code>assassinations</code>, and <code>rgdp60</code>, with heteroskedasticity-robust standard errors.</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>What is the value of the coefficient on <code>rev_coups</code>? Interpret the value of this coefficient. Is it large or small in a real-world sense?</li>
+<li>Use the regression to predict the average annual growth rate for a country has average values for all regressors.</li>
+<li>Construct a 90% confidence interval for the coefficient on <code>tradeshare</code>. Is the coefficient statistically significant at the 10% level?</li>
+<li>Test whether the political variables <code>rev_coups</code> and <code>assassinations</code>, taken as a group, can be omitted from the regression. What is the p-value of the F-statistic?</li>
+</ol>
+</div>

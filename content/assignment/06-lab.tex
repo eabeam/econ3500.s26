@@ -1,0 +1,277 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\newenvironment{itemize*}%
+
+  
+\lhead{EC200 - Econometrics and Applications}
+\rhead{Version: \today}
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+
+EC200: Econometrics and Applications
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Lab 6: Internal Validity and LPM}}\\
+\end{center}
+\bigskip
+
+
+
+\hypertarget{materials}{%
+\subsection*{Materials}\label{materials}}
+\addcontentsline{toc}{subsection}{Materials}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://ec200f21.netlify.app/assignment/materials/cps_2016.dta}{\texttt{cps\_2016.dta}}
+\item
+  Do-file template
+  \href{https://ec200f21.netlify.app/assignment/materials/labtemplate_f21.do}{\texttt{labtemplate.do}}
+\end{itemize}
+
+\hypertarget{objectives}{%
+\section*{Objectives}\label{objectives}}
+\addcontentsline{toc}{subsection}{Objectives}
+
+Today we're going to keep working with
+\href{https://ec200f21.netlify.app/assignment/materials/cps_2016.dta}{\texttt{cps\_2016.dta}}, which contains
+information from the \href{https://cps.ipums.org/cps/}{2016 Current
+Population Survey}.
+
+By the end of this lab, you should be able to complete the following
+tasks in Stata:
+
+\begin{itemize}
+\tightlist
+\item
+  Think about sample selection issues
+\item
+  Estimate and interpret linear probability models
+\end{itemize}
+
+\hypertarget{key-commands}{%
+\section*{Key commands}\label{key-commands}}
+\addcontentsline{toc}{subsection}{Key commands}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.56}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.44}}@{}}
+\toprule
+command & description \\
+\midrule
+\endhead
+\texttt{codebook\ var1} & Look at key details for \texttt{var1} \\
+\texttt{clonevar\ var1\ =\ \ var2} & Make a new variable, \texttt{var1}
+that duplicates \texttt{var2} (including labels!) \\
+\texttt{\_pctile\ hourwages,per(99)} & Calcualte the 99th percentile of
+hourly wages, and store as a local variable \\
+\texttt{ret\ list} & Show locally stored variables (handy!) \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{lpm}{%
+\section*{Linear Probability Models}\label{lpm}}
+\addcontentsline{toc}{subsection}{Linear Probability Models}
+
+What happens when our dependent variable is binary? We can use it
+anyway! Using OLS with a binary dependent variable is called a
+\textbf{linear probablity model}. There is lots of debate about whether
+(and when) this is an okay idea, as it can lead to predcitions that are
+below zero or greater than 1, and it violates homoskedasticity
+assumptions. We can fix the latter by estimating
+heteroskedasticity-robust standard errors, and the general consensus
+\emph{seems} to be that usually, we're okay using a LPM. (Though we can
+do better!)
+
+What about interpretation? We intrepret coefficients are in
+\textbf{percentage points} (not percents!)
+
+Consider the following to see:
+
+\(Married_i = \beta_0 + \beta_1 age_i + \beta_2 educ_i + u_i\)
+
+\(\beta_1\) means that a 1-year increase in age is associated with a
+\(\beta_1\) \textbf{percentage-point change} in the probability of being
+married.
+
+For great slides on this (and a deeper dive), check out
+\href{https://nickch-k.github.io/EconometricsSlides/Week_08/Week_08_Limited_Dependent_Variables.html}{this
+resource}!
+
+\hypertarget{lab-6-worksheet}{%
+\section*{Lab 6 Worksheet}\label{lab-6-worksheet}}
+
+\hypertarget{what-do-i-submit}{%
+\subsection*{What do I submit?}\label{what-do-i-submit}}
+
+\begin{itemize}
+\tightlist
+\item
+  Your written up answers to the exercise questions. This can be typed
+  or written out then scanned (or photographed), in any reasonable
+  format.
+\item
+  The do-file you've created that runs this analysis
+\item
+  A log file that contains the results from this exercise.
+\end{itemize}
+
+\hypertarget{exercises}{%
+\subsection*{Exercises}\label{exercises}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Open Stata, start a new do-file (or bring in a template). Make sure
+  you add code to start (and end) a log.
+\item
+  Open \texttt{cps\_2016.dta} and restrict the sample to adults (age
+  18+) who are married (spouse present or absent). Drop anyone who
+  reports ``NIU'' (not in universe) for labor force status. Confirm that
+  you have \textbf{73,950} observations
+\item
+  Check work hours, weeks of work, and wage income for any weird recodes
+  (that is, replace any 999999 values with missing values) generate the
+  following variables, and ensure you have the correct means. You may
+  want to use the \texttt{codebook} command to help
+  (i.e.~\texttt{codebook\ uhrsworkly})
+\end{enumerate}
+
+\begin{verbatim}
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+    wkswork1 |     73,950     34.0054     23.5977          0         52
+  uhrsworkly |     51,921    40.19379    11.33071          1         99
+-------------+---------------------------------------------------------
+     incwage |     73,950    38947.58    64901.47          0    1259999
+
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\item
+  Generate a binary variable \texttt{female} equal to one if
+  \texttt{sex\ ==\ 2}. Estimate the impact of \texttt{female} on wage
+  income among married individuals. What is the interpretation on the
+  coefficient?
+\item
+  If our objective is to measure the impact of gender on wage income
+  among married individuals, is sample selection bias likely to be
+  important? Why?  Is measurement error likely to be important? Why or why not?  If so, what is the likely impact of measurement error on your
+  estimated coefficients?
+\item
+  Create a binary variable \texttt{lf} equal to 1 if an individual is in
+  the labor force, and 0 otherwise. Estimate the impact of gender on
+  labor force status. What is the interpretation of the coefficient?
+  Estimate the impact of
+\item
+  What is the impact of being in the labor force on wage income? Based
+  on this and the previous question, what is the implication for the
+  direction of omitted variable bias when you estimated
+  \(incwage = \beta_0 + \beta_1 female + u\) without controlling for
+  it?
+\item
+  Re-estimate, including a control for \texttt{lf}:
+  \(incwage = \beta_0 + \beta_1 female + \beta_2 lf + u\). Was your
+  estimate correct?
+\item
+  Now, add your cleaned variable for usual hours worked to estimate
+  \(incwage = \beta_0 + \beta_1 female + \beta_2 lf + \beta_3 uhrsworkly + u\).
+  What is the interpretation of each coefficient?
+\item
+  Why does your regression not include all 73,850 people? What type of
+  bias might this introduce?
+\item
+  Is measurement error likely to be important, and if so, for which
+  variables? What is the likely impact of measurement error on your
+  estimated coefficients?
+\item
+  Generate a new variable \texttt{uhrsNZ} that recodes all missing work
+  hours values as zeros. You can expedite this with the
+  \texttt{clonevar} command. Re-estimate the impact of gender, labor
+  force status and \texttt{uhrsNZ} on wage income. What is the
+  interpretation on \emph{each} coefficient? Why did it change?
+\item
+  Now, re-estimate but exclude \texttt{lf}:
+  \(incwage = \beta_0 + \beta_1 female + \beta_3 uhrsworkly + u\). How
+  do your results change? Conditional on including \texttt{female} and
+  \texttt{uhrsworkly}, does it make sense to include \texttt{lf}?
+\item
+ Create a new variable that estimates log wages: $l\_incwage = log(incwage)$ Estimate the impact of gender on logged wage income, including a control for $uhrsworkly$. How does the sample size change, and why? What is the interpretation on each coefficient?
+\item
+  Calculate hourly wages, based on the cleaned variables. What is mean
+  hourly wages for men and women?
+\item
+  Estimate the impact of gender on hourly wages for those with non-zero
+  hourly wages, controlling for weekly work hours. Repeat then repeat to
+  include all adults (Replace hourly wages with 0 for non-earners) How
+  does the impact of gender on earnings compare?
+\item
+  Are there outlier values of $incwage$? Exclude observations that exceed the 99th  percentile in wages and re-estimate both equations. How does this
+  affect your results?
+\item
+  Is measurement error likely to affect your dependent variable? Why or
+  why not? If so, what are the implications?
+\end{enumerate}
+
+\end{document}

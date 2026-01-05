@@ -1,0 +1,204 @@
+---
+title: "Lab 8: Instrumental variables"
+linktitle: "Lab 8"
+date: "2022-04-26"
+due_date: "2022-05-05"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Labs
+    weight: 7
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#materials">Materials</a></li>
+<li><a href="#objectives">Objectives</a></li>
+<li><a href="#key-commands">Key commands</a>
+<ul>
+<li><a href="#conducting-instrumental-variables-regressions-with-ivregress">Conducting instrumental variables regressions with <code>ivregress</code></a></li>
+<li><a href="#outputting-your-results-with-outreg2">Outputting your results with <code>outreg2</code></a></li>
+</ul></li>
+<li><a href="#exercises">Exercises</a></li>
+</ul>
+</div>
+
+<p><strong><a href="../08-lab.pdf">Print-friendly pdf</a></strong></p>
+<p>It’s our final lab of the semester! :raised_hands: :trophy: :dancer: :clap:</p>
+<div id="materials" class="section level2 unnumbered">
+<h2>Materials</h2>
+<ul>
+<li><p><a href="../materials/voucher.dta"><code>voucher.dta</code></a></p></li>
+<li><p>Do-file template <a href="../materials/labtemplate_f21.do"><code>labtemplate_f21.do</code></a></p></li>
+</ul>
+</div>
+<div id="objectives" class="section level2 unnumbered">
+<h2>Objectives</h2>
+<p>By the end of this lab, you should be able to complete the following
+tasks in Stata:</p>
+<ul>
+<li><p>Estimate instrumental variable specifications and interpret them.</p></li>
+<li><p>Output regression results using <code>outreg2</code></p></li>
+</ul>
+</div>
+<div id="key-commands" class="section level2 unnumbered">
+<h2>Key commands</h2>
+<div id="conducting-instrumental-variables-regressions-with-ivregress" class="section level3">
+<h3>Conducting instrumental variables regressions with <code>ivregress</code></h3>
+<p>We can estimate an instrumental variables regression with <code>ivregress</code></p>
+<p>General form:</p>
+<pre><code>ivregress estimator depvar [varlist1] (varlist2 = varlist_iv) [if] [in] [weight] [, options]</code></pre>
+<ul>
+<li><code>estimator</code> is where we will type <code>2sls</code></li>
+<li><code>depvar</code> is your dependent variable</li>
+<li>You can include other explanatory variables before or after the parentheses, `[varlist1]</li>
+<li>In the parentheses, write you endogenous (<span class="math inline">\(x\)</span>) then your instrument (<span class="math inline">\(z\)</span>) - these can be lists!</li>
+<li>The rest of it is just as you’re used to</li>
+</ul>
+<p>Example:</p>
+<p>To estimate the following two-stage least squares equation:
+<span class="math display">\[ rent = \beta_0 + \beta_1 \widehat{hsngval} + \beta_2 pcturban + u\]</span>
+where <span class="math inline">\(\widehat{hsngval}\)</span> is predicted from the following first-stage equation
+<span class="math display">\[ hsngval = \alpha_0 + \alpha_1 faminc + \alpha_2 pcturban + v \]</span></p>
+<pre><code>webuse hsng2
+
+ivregress 2sls rent  (hsngval = faminc ) pcturban, robust
+</code></pre>
+<p>You can add <code>, first</code> to report the first-stage results:</p>
+<pre><code>`ivregress 2sls rent  (hsngval = faminc ) pcturban, robust first`</code></pre>
+</div>
+<div id="outputting-your-results-with-outreg2" class="section level3">
+<h3>Outputting your results with <code>outreg2</code></h3>
+<p>We are very good at reading raw Stata output. But, raw stata output has no place in our papers. How do we make it pretty? There are lots of ways, including <code>putexcel</code>, which lets you create customizable excel tables with your outputs (good for descriptive statistics), and <code>estout</code>, which does the same thing but is more regression oriented.</p>
+<p>Personally, I like <code>outreg2</code>, because it’s easy to set up and use. So that’s what we’ll use!</p>
+<p><code>outreg2</code> is a user-created package, which means you have to install it:</p>
+<pre><code>ssc install outreg2</code></pre>
+<p>You only have to do this once.</p>
+<p>You’ll run <code>outreg2</code> after estimating a regression. It takes your results and saves them to a table. You can run it multiple time and generate columns of results within the same excel sheet, which is pretty handy! The general format of outreg2 is this:</p>
+<pre><code>// You can copy and paste this into stata, and it should work! But note that it will save to your working directory
+
+sysuse auto,clear
+
+// Specification 1
+regress mpg foreign weight headroom trunk length turn displacement
+outreg2 using myfile.xls, replace 
+
+// Specification 2  (add on)
+regress mpg foreign weight headroom trunk length turn displacement,robust
+outreg2 using myfile.xls, append </code></pre>
+<p>You can customize, with lots of options! (see <code>help outreg2</code>, or check out <a href="https://thedatahall.com/stata-outreg2-part1/">these resources</a>)</p>
+<p>What sort of things?</p>
+<ul>
+<li>Export directly to Word
+<ul>
+<li><code>outreg2 using myfile, word replace</code></li>
+</ul></li>
+<li>Add summary statistics and p-values
+<ul>
+<li>See <a href="https://thedatahall.com/reporting-publication-style-regression-output-in-stata-part-2/">here</a> for more details</li>
+</ul></li>
+<li>Add notes
+<ul>
+<li><code>outreg2 using myfile, addnote(Dummy variables not shown)</code></li>
+</ul></li>
+<li>Report only some variables
+<ul>
+<li><code>outreg2 using myfile, keep(mpg foreign)</code></li>
+</ul></li>
+<li>Modify number of decimal places
+<ul>
+<li><code>outreg2 using myfile, dec(5)</code></li>
+</ul></li>
+<li>You can use a loop to make a whole set of columns!</li>
+</ul>
+<p>An example:</p>
+<pre><code>
+ sysuse auto,clear
+ local r &quot;replace&quot;
+   forval num=1/5 {
+       regress mpg weight headroom if rep78==`num&#39;
+       sum mpg if rep78 == `num&#39;
+       local mean = `r(mean)&#39;
+       outreg2 using myfile.xls, `r&#39; keep(headroom) title(&quot;Sample Graph&quot;) nocons addtext(&quot;Rep78&quot;, `num&#39;) addstat(&quot;Mean&quot;, `mean&#39;) auto(2) bracket
+   
+   local r &quot;append&quot;
+   }
+</code></pre>
+<!-- ## Lab Video  -->
+<!-- <iframe src="https://streaming.uvm.edu/media/embed/d89ZdcD/" width="640" height="480" frameborder="0" allowfullscreen></iframe> -->
+</div>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<p>Today we’re going to work with <a href="../materials/voucher.dta"><code>voucher.dta</code></a>, a data set of student
+performance from Rouse (1998). She measures the impact of private school
+vouchers on student achievement. The final measure of student
+performance we’re interested in is <code>mnce</code>, their math test scores in
+1994 (after up to four years in the private school). We also have some
+measures of baseline performance, their math test score in 1990
+(<code>mnce90</code>). The variable <code>choiceyrs</code> is the number of years enrolled in
+a private school, and <code>selectyrs</code> is the number of years a student was
+<em>selected</em> to receive a voucher to fund enrolling in a private school.<br />
+</p>
+<ol style="list-style-type: decimal">
+<li><p>In your do-file, start a log and open <code>voucher.dta</code>.</p></li>
+<li><p>Summarize your data. Of the 990 students in the sample, how many were never awarded a
+voucher? How many had a voucher for all four years? How many
+actually attended a choice school for four years?</p></li>
+<li><p>Predict the relationship between choice school attendance and math
+scores by regressing math scores <code>mnce</code> (dependent variable) on
+number of years enrolled in a choice school <code>choiceyrs</code> (independent
+variable). What do you find? Is this what you expect? What happens
+if you add in the variables <code>black</code>, <code>hispanic</code>, and <code>female</code>? Write
+your results in equation form.</p></li>
+<li><p>Why might <code>choiceyrs</code> be endogenous? Explain:</p></li>
+<li><p>Now, estimate a regression of <span class="math inline">\(choiceyrs\)</span> (dependent variable) on
+<span class="math inline">\(selectyrs\)</span> (independent variable), including race/ethnicity and
+gender controls. Why is this a reasonable choice of an instrument?
+What is the F-statistic on <code>selectyrs</code>? (<em>Hint: You can use the
+<code>testparm</code> command for a hypothesis test with just one coefficient</em>)</p></li>
+<li><p>Based on the previous regression, use the <code>predict</code> command to
+generate a predicted <span class="math inline">\(\widehat{choiceyrs}\)</span>. Estimate the regression
+of <span class="math inline">\(mnce\)</span> on <span class="math inline">\(\widehat{choiceyrs}\)</span>, including race/ethnicity and
+gender controls. Write the estimated equation. How does your result
+compare to your OLS estimate?)</p></li>
+<li><p>Re-estimate a regression of <span class="math inline">\(mnce\)</span> (dependent variable) on
+<span class="math inline">\(choiceyrs\)</span> (independent variable) using <span class="math inline">\(selectyrs\)</span> as an
+instrument for <span class="math inline">\(choiceyrs\)</span>. However, this time, estimate the
+equation in one command line using <code>ivregress 2sls</code>. How do your
+results change, if at all?</p></li>
+<li><p>Repeat your IV analysis, but this time include a control for
+baseline achievement by adding <span class="math inline">\(mnce90\)</span>. Write the results in
+equation form below. Do you find these results convincing? Explain.</p></li>
+<li><p>We can also use multiple instruments for multiple endogenous
+variables. The variables <span class="math inline">\(choiceyrs1\)</span>, <span class="math inline">\(choiceyrs2\)</span>, etc. are dummy
+variables indicating the different number of years a student could
+have been in a choice school. Similarly, <span class="math inline">\(selectyrs1\)</span>, <span class="math inline">\(selectyrs2\)</span>,
+etc. have a similar definition, but for being selected from the
+lottery.</p>
+<p>Estimate the following equation using IV. <span class="math display">\[\begin{split}
+ mnce &amp;= \beta_0 + \beta_1 choiceyrs_1 + \beta_2 choiceyrs_2 + \beta_3 choiceyrs_3 + \beta_4 choiceyrs_4 + \\
+ &amp;  \beta_5 black + \beta_6 hispanic + \beta_7 female + \beta_8 mnce90 + u
+ \end{split}\]</span></p></li>
+<li><p>Finally, go back through your regressions in your do-file. After
+each regression (there should be six: OLS without controls, OLS with
+controls, IV by hand, IV using <code>ivregress</code>, IV with <span class="math inline">\(mnce90\)</span>, and IV
+with multiple instruments), add a line of code to output the results
+to a word or excel file using <code>outreg2</code>.</p>
+<p><strong>Include a table with your results with your submission</strong> - there
+should be six columns in one table. <em>Note that you can use the
+<code>append</code> option to add each regression as a new column, rather than
+a new file.</em></p></li>
+</ol>
+<p>References: Rouse, Cecilia Elena (1998), “Private School Vouchers and
+Student Achievement: An Evaluation of the Milwaukee Parental Choice
+Program,” <em>The Quarterly Journal of Economics</em> 113(2), 553-602.</p>
+</div>

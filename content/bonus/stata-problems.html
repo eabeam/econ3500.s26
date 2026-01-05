@@ -1,0 +1,77 @@
+---
+title: "Stata FAQ"
+sitetitle: Stata FAQ
+summary: Stata FAQ
+date: "2020-08-20"
+
+menu:
+  resources:
+    parent: Resources
+    weight: 3
+  
+  # Academic page type (do not modify).
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#stata-faq">Stata FAQ</a>
+<ul>
+<li><a href="#getting-started">Getting Started</a>
+<ul>
+<li><a href="#downloading-stata-using-appsanywhere">Downloading Stata using AppsAnywhere</a></li>
+<li><a href="#home-directory">Where is my home directory?</a></li>
+</ul></li>
+<li><a href="#pc">PC</a></li>
+<li><a href="#mac">Mac</a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="stata-faq" class="section level1">
+<h1>Stata FAQ</h1>
+<div id="getting-started" class="section level2 unnumbered">
+<h2>Getting Started</h2>
+<div id="downloading-stata-using-appsanywhere" class="section level3">
+<h3>Downloading Stata using AppsAnywhere</h3>
+{{< youtube K4MXZlGPYtU >}}
+</div>
+<div id="home-directory" class="section level3 unnumbered">
+<h3>Where is my home directory?</h3>
+<p>Stata needs a folder to work in, and you need to tell it where to look. This can be achieved by the <code>cd</code> command (change directory)</p>
+<p><code>cd /Users/emilybeam/Dropbox/EC200</code> , where “/Users/emilybeam/Dropbox/EC200” is the <strong>file path</strong></p>
+<p>But how do you know what your <strong>file path</strong> is? As our computers have gotten shinier, it’s become harder to figure out.</p>
+</div>
+</div>
+<div id="pc" class="section level2">
+<h2>PC</h2>
+<p><a href="https://www.wikihow.com/Find-a-File%27s-Path-on-Windows">General PC instructions from wikihow</a></p>
+<p>Basically…</p>
+<ol style="list-style-type: decimal">
+<li>Right click on the folder you put all your stuff in, and click on “properties.”</li>
+<li>Then you’ll see something called “Location: C:/Users/Emma/Documents/Folder” or something like that.</li>
+<li>You’d then change directory in Stata by entering <code>“cd “C:/Users/Emma/Documents/Folder”</code></li>
+</ol>
+</div>
+<div id="mac" class="section level2">
+<h2>Mac</h2>
+<p>It’s a very similar process!</p>
+<ol style="list-style-type: decimal">
+<li>Right click on the folder you put all your stuff in, and click on “info.”</li>
+<li>You’ll see something like “Where: iCloud Drive &gt; Documents &gt; Student &gt; Folder,” with tiny black arrows. That will not look like a file path.</li>
+<li>But, if you select it, copy it and paste it, it will paste as “/Users/Student/Documents/Folder”</li>
+<li>You’d then change directory in Stata by entering <code>cd “/Users/Student/Documents/Folder”</code></li>
+</ol>
+<p><strong>OR</strong></p>
+<ol style="list-style-type: decimal">
+<li>Right click on the folder you put all your stuff in, so a menu pops up</li>
+<li>Press the option key, and see how the menu now has an option that says “copy NAME as path”. Select that option</li>
+<li>Paste it in Stata, so you enter <code>cd "/Users/Student/Documents/Folder"</code></li>
+</ol>
+</div>
+</div>

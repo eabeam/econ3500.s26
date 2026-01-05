@@ -1,0 +1,100 @@
+
+
+---
+title: Exam 2 - CH 4-7
+sitetitle: Exam 2 - Ch4-7
+summary: "EC200 - Exam 2 Prep (Ch4-7)"
+
+date: "2022-03-01"
+
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Exam prep
+    weight: 3
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/Exam1_Review.pdf
+thumb: /slides/Exam1_Review.png
+
+
+
+---
+
+## What should I know? 
+
+See the specific chapter guides from [Week 4](../04-content), [Week 5](../05-content), [Week 6](../06-content), and [Week 7](../07-content). You should understand all terms and definitions (be able to define and also apply them). You should also be comfortable interpreting regression output either written out in equation form or as Stata output. The level of PS2/PS3 problems is about right in terms of difficulty. 
+
+There will not be a Stata component to the exam. 
+
+### I need more practice!
+
+I recommend the following resources: 
+
+ - Odd-numbered problems from Stock and Watson - solutions are available [here](../../bonus/general-resources)
+ - [Practice exam](#practice-exam)
+ - [In-class practice](#inclass-practice)
+
+## What is the structure of the exam? 
+
+The exam will be a lot like a math exam - solving some problems and showing your work. I would expect about 3 multi-part questions. There may be some questions that involve definitions and/or true-false.
+
+
+
+The exam is open book with a calculator allowed. 
+
+**I will provide the following F-distribution table (recreated from S&W): [F-table](../PracticeExams/f_distribution.pdf).**
+
+What is allowed?
+
+  - Paper notes
+  - Textbook
+  - Calculator (basic, scientific, graphing)
+  
+What is not allowed?
+
+  - ~~Phone~~ 
+  - ~~Tablet~~
+  - ~~Laptop~~
+
+
+
+
+## In-class practice {#inclass-practice .unnumbered}
+
+We have several sets of in-class practice activities: 
+
+- [CH4 Practice (Week 4) - Single Linear Regression](../practice/W4-02-in-class-exercise.pdf)
+- [CH5 Practice (Week 5) - Inference](../practice/W5-05-03-in-class_inference.pdf)
+- [CH6 Practice (Week 6) - Multiple Linear Regression](../practice/W6-01-in-class-exercise.pdf)
+- [CH7 Practice (Week 7) - Inference with Multiple Linear Regression](../practice/W7-02-in-class-exercise.pdf)
+
+<!--
+
+## Helpful materials {#helpful-materials}
+
+Two things that may be useful to you: 
+
+- [Standard Normal Distribution Table](../AppendixTable1_rev.pdf)
+
+- [Formula chart](../Formula-sheet_f20.pdf): Is this all the knowledge you need to know? Of course not! But, this should cover most of the formulas you might need. 
+--> 
+
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+
+## Past exam  {#practice-exam .unnumbered}
+
+
+[Spring 2017 Practice Exam](../PracticeExams/Unit1Quiz_spring2017_v1.pdf) - note that this exam asks you to interpret log coefficients, which *we have not yet covered!*
+
+[Spring 2017 Practice Exam Solutions](../PracticeExams/Unit1Quiz_spring2017_v1solution.pdf) (*I strongly recommend doing the practice exam in its entirety before reviewing the solutions*)

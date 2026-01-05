@@ -1,0 +1,84 @@
+---
+title: Week 7 - Hypothesis Tests with Multiple Regressions
+sitetitle: Week 7
+summary: "EC200 - Week 7 Hypothesis Testing with Multiple Regression (CH7)"
+
+date: "2022-02-22"
+start_date: "2022-02-28"
+end_date: "2022-03-04"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 7
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch7-slides.pdf
+thumb: /slides/ch7-slides.png
+
+
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#reading-guide">Reading Guide</a></li>
+<li><a href="#slides">Slides</a></li>
+<li><a href="#videos">Videos</a>
+<ul>
+<li><a href="#video-hypothesis-tests-with-multiple-linear-regression"><span>Video: Hypothesis Tests with Multiple Linear Regression</span></a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>And now, we’re back to hypothesis testing. The big thing we’re going to learn about is testing more complicated hypotheses, like whether two coefficients are equal, and whether a whole bunch of coefficients equal zero.</p>
+</div>
+<div id="reading-guide" class="section level2">
+<h2>Reading Guide</h2>
+<div id="chapter-7-hypothesis-tests-and-confidence-intervals-with-multiple-regressions" class="section level4">
+<h4><strong>Chapter 7: Hypothesis Tests and Confidence Intervals with Multiple Regressions</strong></h4>
+</div>
+<div id="sw-7.1-hypothesis-tests-and-confidence-intervals-for-a-single-coefficient" class="section level4">
+<h4><strong>SW 7.1</strong> Hypothesis Tests and Confidence Intervals for a Single Coefficient</h4>
+<p>Here, we want to test hypothesis of this form: <span class="math inline">\(H_0: \beta_j = \beta_{j,0}\)</span> vs. <span class="math inline">\(H_a: \beta_j \neq \beta_{j,0}\)</span></p>
+<p>If you want another take on hypothesis testing with regression coefficients, go ahead and read this. I’m not going to cover this in class, because we’ve hit this in Chapter 5.</p>
+</div>
+<div id="sw-7.2-tests-of-joint-hypotheses" class="section level4">
+<h4><strong>SW 7.2</strong> Tests of Joint Hypotheses</h4>
+<p>Here, we test hypothesis with lots of coefficients, of this form: <span class="math inline">\(H_0: \beta_j = \beta_{j,0}, \beta_m = \beta_{m,0}, ...\)</span>, for <span class="math inline">\(q\)</span> restrictions, vs <span class="math inline">\(H_a\)</span>: any one of those <span class="math inline">\(q\)</span> restrictions does not hold.</p>
+</div>
+<div id="sw-7.3-testing-single-restrictions-involving-multiple-coefficients" class="section level4">
+<h4><strong>SW 7.3</strong> Testing Single Restrictions Involving Multiple Coefficients</h4>
+<p>Here, we test one restriction, but with multiple coefficients, like this: <span class="math inline">\(H_0: \beta_j = \beta_m\)</span> vs. <span class="math inline">\(H_a: \beta_j \neq \beta_m\)</span></p>
+</div>
+<div id="thats-it" class="section level4">
+<h4>That’s it!</h4>
+<p>7.5 is a good review of things we’ve already discussed, and 7.6 walk us through an example. I encourage you to read them, but not mandatory. And we’re skipping 7.4</p>
+</div>
+</div>
+<div id="slides" class="section level2">
+<h2>Slides</h2>
+<p>{{% slides %}}</p>
+</div>
+<div id="videos" class="section level2">
+<h2>Videos</h2>
+<div id="video-hypothesis-tests-with-multiple-linear-regression" class="section level3">
+<h3><a href="https://youtu.be/qjgyS9u2EWM">Video: Hypothesis Tests with Multiple Linear Regression</a></h3>
+<p>{{< youtube qjgyS9u2EWM >}}</p>
+<p><em>Consider this week’s video as a supplement to our class practice - we will go through this content in detail during class!</em></p>
+<!-- [Class Video](https://streaming.uvm.edu/media/embed/LOJbHAa/)
+
+<iframe src="https://streaming.uvm.edu/media/embed/LOJbHAa/" width="640" height="480" frameborder="0" allowfullscreen></iframe> -->
+</div>
+</div>

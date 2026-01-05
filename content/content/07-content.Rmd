@@ -1,0 +1,76 @@
+
+
+---
+title: Week 7 - Hypothesis Tests with Multiple Regressions
+sitetitle: Week 7
+summary: "EC200 - Week 7 Hypothesis Testing with Multiple Regression (CH7)"
+
+date: "2022-02-22"
+start_date: "2022-02-28"
+end_date: "2022-03-04"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 7
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch7-slides.pdf
+thumb: /slides/ch7-slides.png
+
+
+
+---
+
+## Overview
+
+And now, we're back to hypothesis testing. The big thing we're going to learn about is testing more complicated hypotheses, like whether two coefficients are equal, and whether a whole bunch of coefficients equal zero. 
+
+
+## Reading Guide
+
+#### **Chapter 7: Hypothesis Tests and Confidence Intervals with Multiple Regressions**
+
+#### **SW 7.1** Hypothesis Tests and Confidence Intervals for a Single Coefficient
+
+Here, we want to test hypothesis of this form: $H_0: \beta_j = \beta_{j,0}$ vs. $H_a: \beta_j \neq \beta_{j,0}$
+
+If you want another take on hypothesis testing with regression coefficients, go ahead and read this. I'm not going to cover this in class, because we've hit this in Chapter 5. 
+
+
+#### **SW 7.2** Tests of Joint Hypotheses
+
+Here, we test hypothesis with lots of coefficients, of this form: $H_0: \beta_j = \beta_{j,0},  \beta_m = \beta_{m,0}, ...$, for $q$ restrictions, vs $H_a$: any one of those $q$ restrictions does not hold.
+
+#### **SW 7.3** Testing Single Restrictions Involving Multiple Coefficients
+
+Here, we test one restriction, but with multiple coefficients, like this: $H_0: \beta_j = \beta_m$ vs. $H_a: \beta_j \neq \beta_m$
+
+
+
+#### That's it! 
+
+7.5 is a good review of things we've already discussed, and 7.6 walk us through an example. I encourage you to read them, but not mandatory. And we're skipping 7.4
+
+
+
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+## Videos
+### [Video: Hypothesis Tests with Multiple Linear Regression](https://youtu.be/qjgyS9u2EWM )
+`r htmltools::HTML("{{< youtube qjgyS9u2EWM >}}")`
+
+*Consider this week's video as a supplement to our class practice - we will go through this content in detail during class!* 
+
+<!-- [Class Video](https://streaming.uvm.edu/media/embed/LOJbHAa/)
+
+<iframe src="https://streaming.uvm.edu/media/embed/LOJbHAa/" width="640" height="480" frameborder="0" allowfullscreen></iframe> --> 

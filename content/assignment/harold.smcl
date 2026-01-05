@@ -1,0 +1,30 @@
+{smcl}
+{txt}{sf}{ul off}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/emilybeam/Documents/GitHub/ec200.f20/content/assignment/harold.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res} 2 Oct 2020, 14:48:37
+{txt}
+{com}. 
+{txt}end of do-file
+
+{com}. do "/var/folders/d4/9ll_2jz51gq5tnvvhjk4hq800000gn/T//SD26648.000000"
+{txt}
+{com}. log using "harold.log",replace
+{err}log file already open
+{txt}{search r(604), local:r(604);}
+
+end of do-file
+
+{search r(604), local:r(604);}
+
+{com}. do "/var/folders/d4/9ll_2jz51gq5tnvvhjk4hq800000gn/T//SD26648.000000"
+{txt}
+{com}. log close 
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/emilybeam/Documents/GitHub/ec200.f20/content/assignment/harold.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res} 2 Oct 2020, 14:49:30
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}

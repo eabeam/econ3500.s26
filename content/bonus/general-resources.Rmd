@@ -1,0 +1,22 @@
+---
+title: "General resources"
+sitetitle: General resourcse
+summary: Suggested topics, tips for writing
+date: "2020-09-12"
+
+menu:
+  resources:
+    parent: Resources
+    weight: 3
+  
+  # Academic page type (do not modify).
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+[Stock and Watson Student Resources](https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/Stock-Watson-Student-Resources.htm) (note that some links are bad)
+  - [Solutions to odd-numbered exercises](https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/ExerciseSolutions/)
+
+[Standard Normal Distribution Probability Table](../AppendixTable1_rev.pdf)

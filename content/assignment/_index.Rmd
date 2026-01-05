@@ -1,0 +1,47 @@
+---
+title: Assignment overview
+menu:
+  assignment:
+    parent: Overview
+    weight: 1
+type: docs
+weight: 1
+date: "2020-09-01"
+
+output:
+  blogdown::html_page:
+    toc: true
+    
+---
+
+# Video quizzes {#video-quizzes .unnumbered}
+
+Each chapter includes a set of enthusiastic, but under-produced videos. After reviewing them, take the video quiz on [Blackboard](http://bb.uvm.edu) *before* coming to class. You can take as many attempts as you need, but you must score at least 80\% for  credit.
+
+# Problem sets {#problem-sets .unnumbered}
+
+You'll be assigned semi-weekly problem sets. Why? Practice! These will cover theoretical and applied problem - the non-stata part of the course. Problem sets are graded on completion. I will check to make
+sure you reasonably attempted the problems, and you'll score zero, one, or two points. 
+
+# Labs {#labs .unnumbered}
+
+We will have labs about once a week, as noted in the [class schedule](../schedule). Labs will give you a chance to apply your econometrics knowledge and build your Stata skills. We will review the data and key commands together in class, and then break to work through the problem sets. Bring any questions to our Friday Q \& A sessions. I strongly encourage you to work
+with others, but you need to submit your labs individually
+in
+Labs also will be graded on completion. I will check to make
+sure you reasonably attempted the problems, and you'll score zero, one, or two points. For full credit, you *must* include a log-file and do-file. 
+
+# Solutions {#solutions .unnumbered}
+
+Solutions to the problem sets and labs are posted within a few days after the due date. 
+
+# Research paper {#researchpaper .unnumbered}
+
+It's going to be great! In this class, you'll write a research paper on a topic of your choosing. There are lots of graded steps along the way. You can work individually or in pairs. Get all the details in our [first assignment sheet](/assignment/rp-01).
+
+# Submitting assignments {#submit-assignments .unnumbered}
+
+
+ **Please submit all assignments through Blackboard.** If you encounter technical issues, e-mail is a good last resort.
+ 
+You may prefer to hand write your problem sets and parts of your labs. I'm happy to accept assignments as typed or handwritten. You can use your phone to capture handwritten portions of your assignments, but please use a scanning app rather than just taking a picture. I recommend either [Adobe Scan](https://acrobat.adobe.com/us/en/mobile/scanner-app.html) or [Office Lens](https://www.microsoft.com/en-us/p/office-lens/9wzdncrfj3t8?activetab=pivot:overviewtab) - both are free!.

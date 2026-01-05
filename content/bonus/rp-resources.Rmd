@@ -1,0 +1,138 @@
+---
+title: "Research paper resources"
+sitetitle: Research paper resourcse
+summary: Suggested topics, tips for writing
+date: "2020-08-20"
+
+menu:
+  resources:
+    parent: Research paper
+    weight: 3
+  
+  # Academic page type (do not modify).
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+## Getting started with IPUMS 
+
+You will need an account to use IPUMS, and there can be some wait time for approval. So it's a good idea to set up your account *before* you need your data, so you don't get slowed down.
+
+
+`r htmltools::HTML("{{< youtube Dp8t3M6H9F0 >}}")`
+
+### Other resources
+
+IPUMS has also put together extensive set of [tutorials](https://www.youtube.com/user/MPCIPUMS)! 
+
+Here are some particularly handy ones: 
+
+ - [Data extract tutorial](https://youtu.be/tZR0aDwr91s)
+ - [Navigating variable descriptions](https://youtu.be/WmjNN2mbWoU)
+ - [Opening your data in Stata](https://youtu.be/Orif_kvhkMY)
+
+If you plan on doing your research paper in R, then I strongly recommend [`ipumsr`](https://tech.popdata.org/ipumsr/).
+
+## Writing a research paper 
+
+- [Writing Tips for Economics Research Papers](https://drive.google.com/file/d/1b9-A2aYKzObmqf0vm_KxSz5GFxrEQZvX/view?usp=sharing) (Plamen Nikolov) - This is very good, but it targeted for graduate students
+- [Structure of Economic Research Papers](http://www.nber.org/~nikolovp/studentresources/paper_structure.pdf) (Plamen Nikolov) - This is another, very good, take on how to structure an undergraduate economic research paper.
+
+## Suggested topics 
+
+Grab and go, or iterate from here.^[Asterisked questions draw from [Wooldridge's](http://econ.msu.edu/faculty/wooldridge/) Introductory Econometrics]
+
+- How has COVID-19 affected [mothers' labor supply](https://www.nytimes.com/interactive/2021/05/17/upshot/women-workforce-employment-covid.html) in the United States?^[With the usual caveats about causal identification] 
+
+- How do spouses negotiate in a crisis? Are there gender differences in how parents' labor supply changed in light of COVID-19, and did these changes differ in states with more or less intensive school closures? What does this tell us about household bargaining? 
+  
+- Did generous unemployment benefits keep Americans from returning to work post-COVID? You can consider state-level variation in unemployment benefit policies and unemployment rates using the CPS.
+
+
+- How did the Affordable Care Act affect access to health insurance in states with and without Medicaid expansions? (See [Courtemanche et al. (2016)](https://onlinelibrary.wiley.com/doi/full/10.1002/pam.21961), who use the ACS). 
+  - Relatedly, how did Medicaid expansion affect consumer health care expenditures? You could use the same distinction between states that did and did not participate in Medicaid expansions, but instead use the [MEPS](https://meps.ipums.org/meps/)
+  
+  
+
+- Minimum wages: What is the impact of minimum wages on *{something}*? For example: 
+
+  - **What is the effect of minimum wages on teen employment? For this, you would want state-level minimum wages over time. You can use the CPS to calculate teenage employment rates over time and get data on other factors that might affect employment. See Solon (1985) and  Castillo-Freeman and Freeman (1992).
+
+  - **Do minimum wages alleviate poverty? The ACS should have the information that you need. You would also need data on state-level minimum wages over time. See Neumark and Wascher (1995).
+  
+- ** What factors might explain racial/ethnic and gender differences in employment and wages? For example, Holzer (1991) reviewed the  evidence on the "spatial mismatch hypothesis" to explain differences   in employment rates between blacks and whites. Korenman and     Neumark (1992) examined the effects of childbearing on women's     wages, while Hersch and Stratton (1997) looked at the effects of     household responsibilities on men's and women's wages. *Push harder     than just identifying whether gender or racial/ethnic wage gaps     exist (they do!).*
+
+- ** Do parental consent laws increase the teenage birthrate? You can use
+    state level data for this: either a time series for a given state
+    or, even better, a panel data set of states. Do the same laws reduce
+    abortion rates among teenager? The *Statistical Abstract of the
+    United States* contains all kinds of state-level data. Levine,
+    Trainor, and Zimmerman (1996) studied the effects of abortion
+    funding restrictions on similar outcomes. Other factors, such as
+    access to abortions, may affect teen birth an abortion rate.
+
+  
+<!-- 
+### Adapted from Wooldridge
+The following suggested topics are taken from Wooldridge. These can be
+used as a starting point for your own idea generation. You can use these
+questions as is, you can focus on a specific aspect of a question, or
+you can add an additional subgroup or covariate to extend the analysis.
+
+--> 
+  <!-- **If you want to access the referenced data sets, just let me know.** --> 
+<!-- 
+1.  
+
+2.  Do your own "audit" study to test for discrimination in hiring (by
+    race, gender, some other dimension). Have pairs of equally qualified
+    friends, say, one male and one female, apply for local job openings
+    in local bars or restaurants. You can provide them with phony
+    resumes that give each the same experience and background, where the
+    only difference is gender (or race, or something else). Then, track
+    who gets the interviews (and/or job offers). Neumark (1996)
+    described one such study conducted in Philadelphia. A variant would
+    be to test whether general physical attractiveness or a specific
+    characteristic, such as being obese or having visible tattoos or
+    body piercings, plays a role in hiring decisions. You would want to
+    use the same gender in the matched pairs, and it may not be easy to
+    get volunteers for such a study.
+
+
+4. 
+
+
+
+    There is also recent interest in the effects of "abstinence only"
+    sex education curricula. one can again use state-level panel data,
+    or maybe even panel data at the school district level, to determine
+    the effects of abstinence-only approaches to sex education on
+    various outcomes, including rates of sexually transmitted diseases
+    and teen birth rates.
+
+6.  Do change in traffic laws affect traffic fatalities? McCarthy (1994)
+    contains an analysis of monthly time series data for the state of
+    California. A set of dummy variables can be used to indicate the
+    months in which certain laws were in effect. The file TRAFFIC2
+    contains the data used by McCarthy. An alternative is to obtain a
+    panel data set on states in the United States, where you can exploit
+    variation in laws across states, as well as across time.
+    Freeman (2007) is a good example of a state-level analysis, using 25
+    years of data that straddle changes in various state drunk driving,
+    seat belt, and speed limit laws.
+
+7.  Use panel data to study the effects of various economic policies on
+    regional economic growth. Studying the effects of taxes and spending
+    is natural, but other policies may be of interest. For example,
+    Craig, Jackson, and Thomson (2007) study the effects of Small
+    Business Association Loan Guarantee programs on per capita income
+    growth.
+
+8.  Do differences in tax codes across states affect the amount of
+    foreign direct investment? Hines (1996) studied the effects of state
+    corporate taxes, along with the ability to apply foreign tax
+    credits, on investment from outside the United States
+
+--> 

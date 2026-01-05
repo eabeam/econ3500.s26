@@ -1,0 +1,81 @@
+---
+title: Week 11/12 - Panel data
+sitetitle: Week 11/12
+summary: "EC200 - Week 11/12 Regression with Panel Data (CH10)"
+
+date: "2022-03-27"
+start_date: "2022-04-04"
+end_date: "2022-04-15"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 11
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch10-slides.pdf
+thumb: /slides/ch10-slides.png
+
+
+
+---
+
+## Overview
+
+We've complained a lot about challenges to obtaining causal estimation. Now, let's *do* something about it! :strong:
+
+Note that this week we're covering difference-in-differences estimation - it's not actually in Chapter 10^[Check out SW13.4 if you want to be precise.], but it fits here nicely. 
+
+## Reading Guide
+
+#### **Chapter 10: Regression with Panel Data**
+
+#### **SW 10.1** Panel data
+
+Make sure you know the difference between **cross-sectional**, **time-series**, and **panel** data. Also, what does it mean to be **balanced**?
+
+#### **SW 10.2** Panel data with two time periods: "Before and after" comparisons
+
+We can control for variables that are *constant* over time by differencing them out. Do you understand how this works? 
+
+#### **SW 10.3** Fixed effects regression
+
+Instead of differencing, let's include a bunch of entity-specific intercepts. What are we doing, why does it work? When is it like the before-after comparisons from before? 
+
+#### **SW 10.4** Regression with time fixed effects
+
+Just like we can control for unit-specific factors that remain constant over time, we can also control for factors that vary over time but are constant across units with **time fixed effects**. Neat! 
+
+Can we include both entity- *and* time-specific fixed effetcst? You bet we can! 
+
+#### **SW 10.5** The fixed effects regression assumptions and standard errors for fixed effects regressions
+
+How do our LS assumptions change when we move to panel data? 
+
+#### **SW ??** Difference-in-differences estimation 
+
+Set up and interpret difference-in-differences estimation. There's a decent discussion in **SW13.4**, but I think it's more appropriate to cover it here, since it's so closely linked to panel data. 
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+## Videos
+
+
+### [Video: Data types and difference-in-differences](https://youtu.be/hLEmPwd1R4E )
+`r htmltools::HTML("{{< youtube hLEmPwd1R4E >}}")`
+
+<!-- ### [Class Video](https://streaming.uvm.edu/media/embed/iM9eQzi/)  -->
+
+<!-- *You need to use your netid to log in - let me know if you have issues* -->
+
+
+<!--  <iframe src="https://streaming.uvm.edu/media/embed/iM9eQzi/" width="640" height="480" frameborder="0" allowfullscreen></iframe> -->
+

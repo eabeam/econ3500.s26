@@ -1,0 +1,342 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\newenvironment{itemize*}%
+
+  
+\lhead{EC200 - Econometrics and Applications}
+\rhead{Version: \today}
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+Version: \today \hfill Spring 2022\\
+EC200: Econometrics and Applications
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Lab 5: Merging and hypothesis tests}}\\
+\end{center}
+\bigskip
+
+
+%{
+%\setcounter{tocdepth}{3}
+%\tableofcontents
+%}
+
+\hypertarget{objectives}{%
+\subsection*{Objectives}\label{objectives}}
+\addcontentsline{toc}{subsection}{Objectives}
+
+Today we're going to keep working with
+\href{../materials/cps_2016.dta}{\texttt{cps\_2016.dta}}, which contains
+information from the \href{https://cps.ipums.org/cps/}{2016 Current
+Population Survey}.
+
+We're going to merge in county-level unemployment rates from the
+\href{https://www.bls.gov/lau/tables.htm}{BLS}
+
+By the end of this lab, you should be able to complete the following
+tasks in Stata:
+
+\begin{itemize}
+\item
+  Import data from Excel
+\item
+  Merge data sets
+\item
+  Test hypotheses for linear combinations of coefficients
+\item
+  Test the general significance of a regression
+\end{itemize}
+
+\hypertarget{key-commands}{%
+\subsection*{Key commands}\label{key-commands}}
+\addcontentsline{toc}{subsection}{Key commands}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.56}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.44}}@{}}
+\toprule
+command & description \\
+\midrule
+\endhead
+Importing data & \\
+\texttt{import\ excel\ using\ “file1.xlsx”,\ firstrow\ clear} & Import
+the data set file1.xlsx from excel into Stata. The \texttt{firstrow}
+option tells Stata to use the first row as the variable name. The
+\texttt{clear} option tells Stata to erase any data already in the
+set \\
+Identifying duplicates & \\
+\texttt{duplicates\ list\ var1\ var2} & List any observations that are
+duplicates on the listed variables, \emph{var1} \texttt{var2}, etc. \\
+\texttt{duplicates\ tag\ var1\ var2,\ gen(d1)} & Generate a new
+variable, \texttt{d1} that indicates which variables are duplicates for
+\texttt{var1} and \texttt{var2} \\
+Merging datasets & \\
+\texttt{merge\ 1:1\ var1\ var2\ using\ file2} & Perform a one-to-one
+merge based on \texttt{var1} and \texttt{var2}. There cannot be any
+duplicates on the variables you are using to merge \\
+\texttt{merge\ m:1\ var1\ var2\ using\ file2} & Perform a many-to-one
+merge based on \texttt{var1} and \texttt{var2}. There can be duplicate
+identifiers in the master data set (like if merging state data to
+individuals), but there should be no duplicates in the using data set \\
+Converting between string and numeric variables & \\
+\texttt{decode\ var1,\ gen(newvar)} & Take a numeric variable with
+labels and generate a new string variable that is equal to the values of
+those labels. (You can do the opposite with \texttt{encode}). \\
+\texttt{destring\ var1,\ replace} & Take a string variable,
+\texttt{var1} and convert it to a numeric variable, replacing the old
+variable \\
+\texttt{tostring\ var2,\ gen(string\_var)} & Take a numeric variable,
+\texttt{var2} and make it a string, but make that into a new variable
+called \texttt{string\_var} \\
+Statistical tests & \\
+\texttt{test\ var1\ =\ var2} & Run after estimating a regression. Tests
+the null hypothesis that the coefficient on \texttt{var1} equals the
+coefficient on \texttt{var2}, against the two-sided alternative. \\
+\texttt{testparm\ var1\ var2\ ...} & Run after estimating a regression.
+Tests the whether all listed variables, \texttt{var1} , \texttt{var2},
+etc., are jointly equal to zero, against the two-sided alternative. \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{a-note-on-temporary-files-optional}{%
+\subsubsection{A note on temporary files
+(optional)}\label{a-note-on-temporary-files-optional}}
+
+This exercise works by having two data sets stored on your hard drive,
+then running a \texttt{merge} command to unite them. You might notice
+that the workflow feels clunky and generates extra files - open a data
+set, save it, open another data set, then merge in the first data set.
+
+You can use temporary files to speed things up! Basically, you can save
+files in your local memory, and call those files the same way we called
+local variables. Everything has to be run in the do-file for this to
+work.
+
+A short example (you can paste this in a do-file and run it, as it uses
+Stata files) :
+
+\begin{verbatim}
+tempfile tempauto       // Declare tempfile (needs to run before you try to save)
+
+webuse autosize,clear
+
+save `tempauto', replace    // save to temp file t1
+
+webuse autoexpense, clear 
+
+merge 1:1 make using `tempauto'   // call tempfile
+
+tab _merge    // check out merge
+
+list
+\end{verbatim}
+
+\texttt{r\ htmltools::HTML("\{\{\textless{}\ youtube\ 8yfXvk8QYy0\ \textgreater{}\}\}")}
+
+\hypertarget{lab-5-worksheet}{%
+\subsection{Lab 5 Worksheet}\label{lab-5-worksheet}}
+
+\hypertarget{what-do-i-submit}{%
+\subsubsection{What do I submit?}\label{what-do-i-submit}}
+
+\begin{itemize}
+\tightlist
+\item
+  Your written up answers to the exercise questions. This can be typed
+  or written out then scanned (or photographed), in any reasonable
+  format.
+\item
+  The do-file you've created that runs this analysis
+\item
+  A log file that contains the results from this exercise.
+\end{itemize}
+
+\hypertarget{exercises}{%
+\subsubsection{Exercises}\label{exercises}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Visit \url{https://www.bls.gov/lau/tables.htm} to access 2016 annual
+  \textbf{county-level} \emph{annual} unemployment rates.
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    Download the appropriate table.
+  \item
+    Rename variables as needed, and delete any unnecessary cells. If you
+    want your life to be easier, make the first row include your
+    variable names, and then have the data start in second
+    row.\footnote{You can also sort this out w/ Stata commands if you'd
+      rather work with the raw, unedited file}
+  \item
+    Save your revised file.
+  \end{enumerate}
+\item
+  Open Stata, start a new do-file (or bring in a template). Make sure
+  you add code to start (and end) a log.
+\item
+  Import your unemployment excel into Stata and save it as a data file,
+  \texttt{unemp.dta}.
+\item
+  Open \texttt{cps\_2016.dta} and restrict the sample to adults (age
+  18+).
+\item
+  Now, merge your unemployment data into \texttt{cps\_2016.dta} by
+  county. This may not be smooth. A few tips:
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    The FIPS codes are in different formats between the two data sets. A
+    county code like this ``55083'' contins a state part (55) and a
+    county part (083).
+  \item
+    You can convert a variable to and from a string using the commands
+    \texttt{destring\ var1,replace} and \texttt{tostring\ var2,replace},
+    respecitvely.
+  \item
+    You can concatenate string variables by adding them like this:
+    \texttt{gen\ newvar\ =\ string1\ +\ string2}
+  \item
+    Determine whether you need a one-to-one or many-to-one merge.
+  \item
+    You may get errors, and you'll need to fix these to have a
+    successful merge.
+  \end{enumerate}
+\item
+  You've done it! Tabulate the new variable \texttt{\_merge}. What share
+  of observations successfully merge?\footnote{To get a sense if you've
+    done this right, about 40-45\% of observations should match. This is
+    because the CPS will withhold county-level identifiers for very
+    small counties to protect confidentiality.}
+\item
+  Drop any unmatched observations (you can use \texttt{drop\ if}, as
+  we'll retain this restriction for the rest of the exercise.) What is
+  the average unemployment rate for the entire sample - why would this
+  be different than taking the average of county-level unemployment
+  rates in your excel file?
+\item
+  Why can't we use education as a linear variable?
+\item
+  Generate three dummy variables. These three variables should be
+  mutually exclusive, and they should not be missing for any people.
+
+  \begin{itemize}
+  \item
+    \texttt{lesshs}, a variable equal to one if a person completed
+    \emph{less than} a high school diploma
+  \item
+    \texttt{hsgrad}, a variable equal to one if a person completed at
+    least a high school but less than a Bachelor's degree
+  \item
+    \texttt{colgrad}, a variable equal to one if a person completed a
+    Bachelor's degree or higher
+  \end{itemize}
+
+  \emph{Note:} Education is coded with \textbf{labels,} which means that
+  it is numeric data with a description of what each number means on
+  top. These show up as blue in the Stata browser. To view variables
+  without the labels, add the no-label
+  option:\texttt{tab\ educ,\ nolabel}.
+\item
+  What is the mean of \texttt{lesshs}, \texttt{hsgrad}, and
+  \texttt{colgrad}?
+\item
+  Estimate a regression of total personal income on education, usingthe
+  binary variables you just created. Omit \texttt{lesshs}.
+\item
+  Set up a hypothesis test for whether both \texttt{hsgrad} and
+  \texttt{colgrad} are jointly significant. Report the null hypothesis,
+  alternative hypothesis, test statistic, and conclusion.
+\item
+  Set up a hypothesis test for whether the returns to being a
+  high-school graduate are the same as the returns to being a college
+  graduate. Report the null hypothesis, alternative hypothesis, test
+  statistic, and conclusion.
+\item
+  Is this regression significant overall? Explain how you know.
+\item
+  Now add county-level unemployment rate to the previous equation. What
+  is the interpretation of the coefficient on unemployment? Is it
+  statistically significant?
+\item
+  Estimate the same equation by regressing total personal income on the
+  education binary variables and county-level unemployment, restricting
+  to those who are currently in the labor force. How does this change
+  the coefficient on unemployment?
+\item
+  Identify three \emph{state} or \emph{county-level} variables that are
+  likely to cause omitted variable bias if you want to know whether
+  unemployment affects individual wages.
+\item
+  For \emph{one} of the variables you listed above, find the data
+  online, import into Stata, and merge it in.
+\item
+  Regress total personal income on the education binary variables,
+  county-level unemployment, and the new variable you found. Restrict
+  your sample to those who are currently in the labor force. How does
+  the inclusion of your new variable affect the coefficient on
+  unemployment?
+\end{enumerate}
+
+\end{document}

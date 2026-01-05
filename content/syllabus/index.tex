@@ -1,0 +1,391 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\newenvironment{itemize*}%
+
+  
+\lhead{EC200 - Econometrics and Applications}
+\rhead{Version: \today}
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+Version: \today \hfill Fall 2021\\
+EC200: Econometrics and Applications
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Syllabus}}\\
+\end{center}
+\bigskip
+
+\begin{tabular}{l l l}
+  Dr. Emily Beam &    233 Old Mill &  emily.beam\at uvm.edu\\\\
+ Meetings& TTh   2:50–4:05 & Lafayette L407\\
+ Office hours: & T 4:10–5:10pm, W 2–3pm&  or schedule an appointment
+
+\end{tabular}
+
+
+%\texttt{r\ blogdown::shortcode("courseinfo")}
+
+\includegraphics[scale=0.7]{correlation.png}
+
+\hypertarget{course-description}{%
+\section*{Course description}\label{course-description}}
+\addcontentsline{toc}{section}{Course description}
+
+\textbf{Credits: 3}
+
+This course will provide a theoretical and practical background in basic
+econometric techniques. We will review probability and statistics before
+covering classical linear regression with two or more variables,
+estimation and hypothesis testing, and violations of classical
+assumptions. EC200 is a challenging course. If you are not interested in
+taking a challenging course, you should take a different course. The
+prerequisites are EC170, EC171, and EC172.
+
+The course will combine lectures, discussion, and lots of practice.
+Learning econometrics requires a healthy blend of theory and practice,
+so you will complete problem sets throughout the semester, and you will
+design and and write a short research paper that applies some of the
+techniques we've learned about to real-world data. We won't have enough
+course time to cover all the Stata preparation you'll need, but I'll
+cover the basics and you'll have to rely on other resources to figure
+out the rest.
+
+\hypertarget{learning-objectives}{%
+\section*{Learning objectives:}\label{learning-objectives}}
+\addcontentsline{toc}{section}{Learning objectives:}
+
+\begin{itemize}
+\item
+  To understand and apply foundational tools in econometric theory
+\item
+  To use econometric tools and statistical packages (Stata) to analyze
+  real-world data and interpret findings
+\item
+  To formulate, assess, and answer economic questions by selecting and
+  applying appropriate econometric techniques
+\end{itemize}
+
+\hypertarget{required-materials}{%
+\section*{Required materials}\label{required-materials}}
+\addcontentsline{toc}{section}{Required materials}
+
+\begin{itemize}
+\item
+  \textbf{Textbook:} Stock, James H. and Mark W. Watson.
+  \emph{Introduction to Econometrics}, 3rd edition (updated), Pearson.
+  ISBN-13: 978-0-13-348687-2.
+
+  \begin{itemize}
+  \item
+    \textbf{I recommend buying cheaper used copies online (\(\sim\)
+    \$20)} I am using the ``updated'' edition. International is fine,
+    but your problems/solutions may differ from mine. For exercises, I
+    will provide the full text of problems.
+  \item
+    There is a newer, 4th edition available. Do not purchase this!
+  \item
+    We are \textbf{not} using any digital Pearson tools.
+  \end{itemize}
+\item
+  \textbf{Stata}: We will use Stata extensively in this course,
+  including outside of class. It is compatible with Windows/MacOS/Linux.
+  You should download a copy at \url{https://www.uvm.edu/software/}.
+  Note that there is a link to a pdf file that contains the licensing
+  information.
+\end{itemize}
+
+\hypertarget{course-components}{%
+\section*{Course components}\label{course-components}}
+\addcontentsline{toc}{section}{Course components}
+
+\hypertarget{class-meetings-m}{%
+\subsection*{Embarking on the week}\label{class-meetings-m}}
+\addcontentsline{toc}{subsection}{Embarking on the week}
+
+If you come into class without preparing, things will feel bad! Check
+the calendar to see what you need to do. Before we start on a new unit,
+you should always read the associated chapters. There is usually an
+assigned or optional lecture video to get your prepared. If assigned,
+you'll also need to earn an 80\% on that week's lecture quiz.
+
+Our class meetings will be a combination of lecture, practice, and labs.
+
+We will not have labs every week, but when we do, they will be on
+Wednesdays. During labs you should bring a laptop to class. I will demo
+some concepts and commands and give you time to practice. A final
+version of your \href{/assignment\#labs}{lab} will be due one week
+later.
+
+\hypertarget{deadlines-and-extensions}{%
+\section*{Deadlines}\label{deadlines-and-extensions}}
+\addcontentsline{toc}{section}{Deadlines}
+
+\begin{itemize}
+\tightlist
+\item
+  With the exception of a handful of research paper assignments,
+  deadlines are at \textbf{2:50pm}.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    As a general rule, problem sets are due on Thursdays at 2:50pm.
+    Video quizzes are usually due Tuesdays, and final labs bounce around
+    depending on the schedule.
+  \end{itemize}
+\item
+  Please submit all assignments through Blackboard. If you encounter
+  technical issues, e-mail is a fine last resort.
+\item
+  Late problem sets and labs will be penalized 10\% per day. Late video
+  quizzes are not accepted.
+\item
+  Regarding \textbf{research papers intermediate elements \emph{only}},
+  I have an \emph{``extensions for all''} policy
+
+  \begin{itemize}
+  \tightlist
+  \item
+    If you need an extension, request it by e-mail \textbf{before} the
+    deadline and provide a proposed new deadline.
+  \item
+    Some assignments build on previous ones, so be careful when
+    requesting that you don't put yourself in a tricky position. I don't
+    need to know why you need the extension.
+  \item
+    If you exceed your revised deadline (or you request an extension
+    \emph{after} the due date), then I will start applying the 10\%
+    deduction per day.
+  \item
+    This does not apply to the final submission, which remains fixed.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{class-engagement-and-attendance}{%
+\section*{Class engagement and
+attendance}\label{class-engagement-and-attendance}}
+\addcontentsline{toc}{section}{Class engagement and attendance}
+
+This is a challenging course, and you'll get the most out of it if you
+engage with the material both during and outside of class. You are
+responsible for finding a classmate or checking Blackboard for any
+content you may miss during class.
+
+\hypertarget{what-if-im-sick}{%
+\subsection{What if I'm sick?}\label{what-if-im-sick}}
+
+Please stay home! I can stream you in to class if you give me a heads
+up.
+
+\hypertarget{grading}{%
+\section*{Grading}\label{grading}}
+\addcontentsline{toc}{section}{Grading}
+
+\hypertarget{assignment-weights}{%
+\subsection*{Assignment weights}\label{assignment-weights}}
+\addcontentsline{toc}{subsection}{Assignment weights}
+
+\begin{longtable}[]{@{}lc@{}}
+\toprule
+Assignment & Percent \\
+\midrule
+\endhead
+Attendance & 5\% \\
+Lecture video quizzes & 4\% \\
+Labs & 8\% \\
+Problem sets & 8\% \\
+Exams (3 quizzes at 5\%, 15\%, 15\%) & 35\% \\
+Research paper & 40\% \\
+\bottomrule
+\end{longtable}
+
+\emph{You can miss \textbf{two} classes without any penalty}
+
+\hypertarget{grading-distribution}{%
+\subsection*{Grading distribution}\label{grading-distribution}}
+\addcontentsline{toc}{subsection}{Grading distribution}
+
+\begin{longtable}[]{@{}lc@{}}
+\toprule
+Range & Grade \\
+\midrule
+\endhead
+93.0 - 100.0 & A/A+ \\
+90.0 - 92.99 & A- \\
+87.0 - 89.99 & B+ \\
+83.0 - 86.99 & B \\
+80.0 - 82.99 & B- \\
+77.0 - 79.99 & C+ \\
+73.0 - 76.99 & C \\
+70.0 - 72.99 & C- \\
+67.0 - 69.99 & D+ \\
+63.0 - 66.99 & D \\
+\(<\) 60.0 & F \\
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\item
+  I determine grades by a threshold - 93.01 is an A, and 92.97 is an A-.
+  In cases of very near misses of higher grades, however, I will take
+  into account class participation/attendance.
+\item
+  I will never curve quizzes down, but I may curve them up if the median
+  grade is less than a B-.
+\end{itemize}
+
+\hypertarget{quizzes}{%
+\section*{Quizzes}\label{quizzes}}
+\addcontentsline{toc}{section}{Quizzes}
+
+There are two unit exams (15\% each) and one stats exam (5\%). All exams
+are in-class and open note, but computers/tablets/phones are not
+permitted.
+
+Quizzes are not explicitly cumulative, but you'll need to master skills
+from earlier chapters to tackle the newer material.
+
+\hypertarget{frequently-asked-questions}{%
+\section*{FAQ}\label{frequently-asked-questions}}
+\addcontentsline{toc}{section}{FAQ}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \emph{I don't remember ANYTHING from statistics. Will I be able to
+  pass this class?} The stronger your stats background, the more useful
+  you'll find this class. Whether or not you can recall the formula for
+  a one-sample hypothesis test should have no bearing on your ability to
+  succeed (you can always look it up!) But to have a sense of what big
+  concepts mean will be very important. We'll review together at the
+  beginning of the term.
+\item
+  \emph{I am sick and need to miss class. Will I lose points? Do I need
+  to tell you?} You don't need to let me know if you will be missing
+  class. If you need an extension, though, I will need to know that in
+  advance of the deadline.
+\item
+  \emph{Do I really need to buy a textbook?} Yes. 3rd (updated edition),
+  used.
+\item
+  Do I need a computer for this class? You will need a computer for any
+  work with Stata. I \emph{think} there is a way to get Stata to run on
+  a Chromebook, but I can provide you with roughly zero technical
+  support for setting that up!
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \emph{Can I use open-source, glorious, R?} Sure. But I have many
+  caveats and warnings. (1) You will need to to be comfortable reading
+  and interpreting Stata output in order to be successful on exams. (2)
+  I will be teaching in Stata exclusively, and the technical support I
+  will be able to provide is limited.
+\end{enumerate}
+
+
+\hypertarget{i-am-in-college-and-having-some-problems}{%
+\section*{\texorpdfstring{\protect\hypertarget{i-am-having-some-problems}{}{I
+am in college and having some
+problems}}{I am in college and having some problems}}\label{i-am-in-college-and-having-some-problems}}
+
+Check out available \href{/bonus/ihaveproblems}{resources}.
+
+\hypertarget{student-responsibilities-and-rights}{%
+\section*{Student responsibilities and
+rights}\label{student-responsibilities-and-rights}}
+\addcontentsline{toc}{section}{Student responsibilities and rights}
+
+\textbf{Student learning accommodations} In keeping with University
+policy, any student with a documented disability interested in utilizing
+accommodations should contact ACCESS, the office of Disability Services
+on campus. ACCESS works with students to create reasonable and
+appropriate accommodations via an accommodation letter to their
+professors as early as possible each semester.
+
+Contact \href{http://www.uvm.edu}{ACCESS}: A170 Living/Learning Center;
+802-656-7753; access@uvm.edu;
+
+\href{http://www.uvm.edu/~uvmppg/ppg/student/disability.pdf}{UVM's
+policy on disability certification and student support}
+
+\href{http://www.uvm.edu/~uvmppg/ppg/student/acadintegrity.pdf}{\textbf{Academic
+integrity:}} Do not cheat, and do not plagiarize. Although you are
+permitted to work together on problem sets and labs, the work you submit
+should be \emph{your own}. This policy addresses plagiarism,
+fabrication, collusion, and cheating:
+
+\href{http://www.uvm.edu/~uvmppg/ppg/student/gradeappeals.pdf}{\textbf{Grade
+Appeals}} If you would like to contest a grade, please follow the
+procedures outlined in this policy.
+
+\href{http://www.uvm.edu/~uvmppg/ppg/student/studentcode.pdf}{\textbf{Code
+of Student Rights and Responsibilities}}
+
+\href{http://www.uvm.edu/~uvmppg/ppg/student/ferpa.pdf}{\textbf{FERPA
+Rights Disclosure}} The purpose of this policy is to communicate the
+rights of students regarding access to, and privacy of their student
+educational records as provided for in the Family Educational Rights and
+Privacy Act (FERPA) of 1974.
+
+\end{document}

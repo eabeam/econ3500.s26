@@ -1,0 +1,67 @@
+---
+title: Week 9 - Nonlinear Regression
+sitetitle: Week 9
+summary: "EC200 - Week 9 Hypothesis Testing with Multiple Regression (CH8)"
+
+date: "2022-03-11"
+start_date: "2022-03-21"
+end_date: "2022-03-25"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 9
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch8-slides.pdf
+thumb: /slides/ch8-slides.png
+
+
+
+---
+
+## Overview
+
+Let's make regressions faaaancy, with three new friends: **polynomials**, **logarithms**, and **interactions**! 
+
+## Reading Guide
+
+#### **Chapter 8: Nonlinear Regression Functions**
+
+#### **SW 8.1** A General Strategy for Modeling Nonlinear Regression Functons
+
+Key takeaway here - think about the economic theory and its application to determine the best approach to modeling! 
+
+
+#### **SW 8.2** Nonlinear Functions of a Single Independent Variable 
+
+Polynomials and logs. Note that this section includes only 3 ways of setting up equations: level-level, log-log, log-level. We'll also cover level-log, because, why not?
+
+#### **SW 8.3** Interactions Between Independent Variables
+
+Three types of interactions you should know: 
+
+1. Binary-binary
+2. Continuous-binary
+3. Contnuous-continuous
+
+
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+## Videos
+
+This video talks us through polynomial and logarithmic regressions. We will do interactions (SW 8.3) entirely in class. Don't forget to complete [VQ8 on Blackboard!](https://blackboard.uvm.edu)
+
+### [Video: Nonlinear Reression Functions](https://youtu.be/LAPKh9ib2Tg )
+`r htmltools::HTML("{{< youtube LAPKh9ib2Tg >}}")`
+
+

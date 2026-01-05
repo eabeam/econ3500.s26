@@ -1,0 +1,149 @@
+---
+title: "Research paper resources"
+sitetitle: Research paper resourcse
+summary: Suggested topics, tips for writing
+date: "2020-08-20"
+
+menu:
+  resources:
+    parent: Research paper
+    weight: 3
+  
+  # Academic page type (do not modify).
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#getting-started-with-ipums">Getting started with IPUMS</a>
+<ul>
+<li><a href="#other-resources">Other resources</a></li>
+</ul></li>
+<li><a href="#writing-a-research-paper">Writing a research paper</a></li>
+<li><a href="#suggested-topics">Suggested topics</a></li>
+</ul>
+</div>
+
+<div id="getting-started-with-ipums" class="section level2">
+<h2>Getting started with IPUMS</h2>
+<p>You will need an account to use IPUMS, and there can be some wait time for approval. So it’s a good idea to set up your account <em>before</em> you need your data, so you don’t get slowed down.</p>
+<p>{{< youtube Dp8t3M6H9F0 >}}</p>
+<div id="other-resources" class="section level3">
+<h3>Other resources</h3>
+<p>IPUMS has also put together extensive set of <a href="https://www.youtube.com/user/MPCIPUMS">tutorials</a>!</p>
+<p>Here are some particularly handy ones:</p>
+<ul>
+<li><a href="https://youtu.be/tZR0aDwr91s">Data extract tutorial</a></li>
+<li><a href="https://youtu.be/WmjNN2mbWoU">Navigating variable descriptions</a></li>
+<li><a href="https://youtu.be/Orif_kvhkMY">Opening your data in Stata</a></li>
+</ul>
+</div>
+</div>
+<div id="writing-a-research-paper" class="section level2">
+<h2>Writing a research paper</h2>
+<ul>
+<li><a href="https://drive.google.com/file/d/1b9-A2aYKzObmqf0vm_KxSz5GFxrEQZvX/view?usp=sharing">Writing Tips for Economics Research Papers</a> (Plamen Nikolov) - This is very good, but it targeted for graduate students</li>
+<li><a href="http://www.nber.org/~nikolovp/studentresources/paper_structure.pdf">Structure of Economic Research Papers</a> (Plamen Nikolov) - This is another, very good, take on how to structure an undergraduate economic research paper.</li>
+</ul>
+</div>
+<div id="suggested-topics" class="section level2">
+<h2>Suggested topics</h2>
+<p>Grab and go, or iterate from here.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<ul>
+<li><p>How has COVID-19 affected <a href="https://www.nytimes.com/interactive/2021/05/17/upshot/women-workforce-employment-covid.html">mothers’ labor supply</a> in the United States?<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p></li>
+<li><p>How do spouses negotiate in a crisis? Are there gender differences in how parents’ labor supply changed in light of COVID-19, and did these changes differ in states with more or less intensive school closures? What does this tell us about household bargaining?</p></li>
+<li><p>Did generous unemployment benefits keep Americans from returning to work post-COVID? You can consider state-level variation in unemployment benefit policies and unemployment rates using the CPS.</p></li>
+<li><p>How did the Affordable Care Act affect access to health insurance in states with and without Medicaid expansions? (See <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/pam.21961">Courtemanche et al. (2016)</a>, who use the ACS).</p>
+<ul>
+<li>Relatedly, how did Medicaid expansion affect consumer health care expenditures? You could use the same distinction between states that did and did not participate in Medicaid expansions, but instead use the <a href="https://meps.ipums.org/meps/">MEPS</a></li>
+</ul></li>
+<li><p>Minimum wages: What is the impact of minimum wages on <em>{something}</em>? For example:</p>
+<ul>
+<li><p>**What is the effect of minimum wages on teen employment? For this, you would want state-level minimum wages over time. You can use the CPS to calculate teenage employment rates over time and get data on other factors that might affect employment. See Solon (1985) and Castillo-Freeman and Freeman (1992).</p></li>
+<li><p>**Do minimum wages alleviate poverty? The ACS should have the information that you need. You would also need data on state-level minimum wages over time. See Neumark and Wascher (1995).</p></li>
+</ul></li>
+<li><p>** What factors might explain racial/ethnic and gender differences in employment and wages? For example, Holzer (1991) reviewed the evidence on the “spatial mismatch hypothesis” to explain differences in employment rates between blacks and whites. Korenman and Neumark (1992) examined the effects of childbearing on women’s wages, while Hersch and Stratton (1997) looked at the effects of household responsibilities on men’s and women’s wages. <em>Push harder than just identifying whether gender or racial/ethnic wage gaps exist (they do!).</em></p></li>
+<li><p>** Do parental consent laws increase the teenage birthrate? You can use
+state level data for this: either a time series for a given state
+or, even better, a panel data set of states. Do the same laws reduce
+abortion rates among teenager? The <em>Statistical Abstract of the
+United States</em> contains all kinds of state-level data. Levine,
+Trainor, and Zimmerman (1996) studied the effects of abortion
+funding restrictions on similar outcomes. Other factors, such as
+access to abortions, may affect teen birth an abortion rate.</p></li>
+</ul>
+<!-- 
+### Adapted from Wooldridge
+The following suggested topics are taken from Wooldridge. These can be
+used as a starting point for your own idea generation. You can use these
+questions as is, you can focus on a specific aspect of a question, or
+you can add an additional subgroup or covariate to extend the analysis.
+
+-->
+<p><!-- **If you want to access the referenced data sets, just let me know.** -->
+<!-- 
+1.  
+
+2.  Do your own "audit" study to test for discrimination in hiring (by
+    race, gender, some other dimension). Have pairs of equally qualified
+    friends, say, one male and one female, apply for local job openings
+    in local bars or restaurants. You can provide them with phony
+    resumes that give each the same experience and background, where the
+    only difference is gender (or race, or something else). Then, track
+    who gets the interviews (and/or job offers). Neumark (1996)
+    described one such study conducted in Philadelphia. A variant would
+    be to test whether general physical attractiveness or a specific
+    characteristic, such as being obese or having visible tattoos or
+    body piercings, plays a role in hiring decisions. You would want to
+    use the same gender in the matched pairs, and it may not be easy to
+    get volunteers for such a study.
+
+
+4. 
+
+
+
+    There is also recent interest in the effects of "abstinence only"
+    sex education curricula. one can again use state-level panel data,
+    or maybe even panel data at the school district level, to determine
+    the effects of abstinence-only approaches to sex education on
+    various outcomes, including rates of sexually transmitted diseases
+    and teen birth rates.
+
+6.  Do change in traffic laws affect traffic fatalities? McCarthy (1994)
+    contains an analysis of monthly time series data for the state of
+    California. A set of dummy variables can be used to indicate the
+    months in which certain laws were in effect. The file TRAFFIC2
+    contains the data used by McCarthy. An alternative is to obtain a
+    panel data set on states in the United States, where you can exploit
+    variation in laws across states, as well as across time.
+    Freeman (2007) is a good example of a state-level analysis, using 25
+    years of data that straddle changes in various state drunk driving,
+    seat belt, and speed limit laws.
+
+7.  Use panel data to study the effects of various economic policies on
+    regional economic growth. Studying the effects of taxes and spending
+    is natural, but other policies may be of interest. For example,
+    Craig, Jackson, and Thomson (2007) study the effects of Small
+    Business Association Loan Guarantee programs on per capita income
+    growth.
+
+8.  Do differences in tax codes across states affect the amount of
+    foreign direct investment? Hines (1996) studied the effects of state
+    corporate taxes, along with the ability to apply foreign tax
+    credits, on investment from outside the United States
+
+--></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Asterisked questions draw from <a href="http://econ.msu.edu/faculty/wooldridge/">Wooldridge’s</a> Introductory Econometrics<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>With the usual caveats about causal identification<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

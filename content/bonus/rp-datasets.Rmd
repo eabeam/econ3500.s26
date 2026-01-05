@@ -1,0 +1,66 @@
+---
+title: "Research paper data sets"
+sitetitle: Research paper data sets
+linktitle: Datasets
+summary: Data sets for research paper
+date: "2020-08-20"
+
+menu:
+  resources:
+    parent: Research paper
+    weight: 3
+  
+  # Academic page type (do not modify).
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+## Data sets 
+
+### Great data sets 
+
+-   [IPUMS](www.ipums.org): The Minnesota Population Center (MPC) has put together well-documented, free
+    microdata datasets available for the public. You need to fill out a brief form and wait up to 24 hours to get access
+    -   IPUMS - USA: US Census data (1950-present, decennial)
+    -   IPUMS - CPS: Current Population Survey (1962-present, annual
+        (sometimes monthly)) - data on wages, work, and other special
+        topics
+    -   IPUMS - International: International Census data from nearly 80
+        countries
+    -   ATUS: American Time Use Survey (2003-present, annual)
+    -   IDHS: Integrated Demographic and Health Series (18 countries,
+        1980s-present)
+    -   IHIS: Integrated Health Interview Series (US, annual,
+        1960s-present)
+    -   NAPP: North Atlantic Population Project (complete count Census
+        data from 1800s, select countries)
+- [General Social Survey](http://gss.norc.org/) - Annual
+    survey of US residents' attitudes towards a variety of social
+    issues, plus demographic characteristics. You can do state-level
+    comparisons with this data.
+
+- [World Values Survey](http://www.worldvaluessurvey.org/wvs.jsp)
+
+
+### Sets of data sets
+- [ICPSR](http://icpsr.umich.edu>): Source of wide range of data sets,
+    some very obscure! Well documented. UVM is a member institution of
+    ICPSR, so you should have full access to this resource. 
+- [Google dataset search](https://datasetsearch.research.google.com/) - searchable archive of of publicly accessible datasets 
+- [U.S. City Open Census Data](http://us-cities.survey.okfn.org/)
+- Data is plural [archive](https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0) - from [Jeremey Singer-Vine](https://twitter.com/jsvine), who runs a free [weekly newsletter](https://tinyletter.com/data-is-plural/) all about neat data. 
+- [Development economics datasets](https://dash.harvard.edu/bitstream/handle/1/13576366/development_datasets.pdf?sequence=1&isAllowed=y) - from Plamen Nikolov
+- Erik Gahner's [PolData](https://github.com/erikgahner/PolData) - A LOT of datasets related to politics
+- [DevEconData](http://devecondata.blogspot.com/)
+- Sebastian Tello-Trillo's [guide to finding datasets](https://dsebastiantello.files.wordpress.com/2019/08/where-to-find-data-a-primer.pdf)
+- [Kraggle](https://www.kaggle.com/datasets)- Just a lot of data
+
+
+### Timely data sets 
+- [NYTimes Covid-19 Data](https://github.com/nytimes/covid-19-data) - Regularly updated Covid-19 data at the state and county level, over time. Now with a bonus county-level [mask usage](https://github.com/nytimes/covid-19-data/tree/master/mask-use) data set! 
+- [Johns Hopkins Covid-19 Data](https://github.com/CSSEGISandData/COVID-19) - Regularly updated Covid-19 data at the state and county level, over time 
+- [Covid-19 School Response Dashboard](https://explaincovid.org/kids/nationwide-covid-19-school-dashboard/) Not available yet, as data collection is ongoing, but will (soon?) be a database of K-12 school opening policies 
+

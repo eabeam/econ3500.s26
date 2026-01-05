@@ -1,0 +1,522 @@
+---
+title: "Research Paper: Overview"
+linktitle: "01 Overview"
+date: "2022-01-11"
+
+menu:
+  assignment:
+    parent: Research Paper
+    weight: 1
+type: docs
+
+output:
+  blogdown::html_page:
+    toc: true
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#learning-objectives">Learning objectives</a></li>
+<li><a href="#overview">Overview of requirements</a></li>
+<li><a href="#topic-selection">Topic selection</a></li>
+<li><a href="#research-paper-process">Research paper process</a>
+<ul>
+<li><a href="#research-ideas"><span>Research ideas</span></a></li>
+<li><a href="#data-preparation"><span>Annotated bibliography</span></a></li>
+<li><a href="#research-proposal"><span>Research proposal</span></a></li>
+<li><a href="#peer-review"><span>Peer review</span></a></li>
+<li><a href="#rough-draft-optional"><span>Rough draft (optional)</span></a></li>
+<li><a href="#presentation">Presentation</a></li>
+<li><a href="#final-submission">Final submission</a></li>
+</ul></li>
+<li><a href="#paper-components">Paper components</a>
+<ul>
+<li><a href="#abstract">Abstract &amp; Title</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#background">Background/Literature Review</a></li>
+<li><a href="#methodology">Methodology/Data</a></li>
+<li><a href="#results">Results</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#tables">Tables</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#dofiles">Do-files/logs</a></li>
+<li><a href="#style">Style</a></li>
+</ul></li>
+<li><a href="#deadlines">Deadlines</a></li>
+<li><a href="#grading">Grading</a></li>
+<li><a href="#faq">FAQ</a></li>
+<li><a href="#recommendations">Recommendations</a></li>
+</ul>
+</div>
+
+<p>One main product of the course is an original research paper you’ll
+produce that incorporates econometric data using the methods we’ve
+learned in class.</p>
+<p><strong>You can work alone or in pairs.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></strong></p>
+<div id="learning-objectives" class="section level2 unnumbered">
+<h2>Learning objectives</h2>
+<ul>
+<li><p>Develop clear, answerable research questions and link them to
+economic theory.</p></li>
+<li><p>Identify and apply appropriate econometric methods to answer
+research question, recognizing necessary assumptions and limitations</p></li>
+<li><p>Conduct and interpret original data analysis using Stata</p></li>
+<li><p>Strengthen written and oral communication skills</p></li>
+</ul>
+</div>
+<div id="overview" class="section level2 unnumbered">
+<h2>Overview of requirements</h2>
+<p>All the nitty-gritty is below, but here’s a general sense of what I’ll ask you to do:</p>
+<ul>
+<li>You will write a journal-style paper in which you ask and answer an economic question, relying on regression analysis you conducte with cross-sectional or panel data.</li>
+<li>You’ll apply the various econometric techniques we’ve worked on throughout the semester.</li>
+</ul>
+<p>The assignment specifications depend on whether you are working alone or in pairs:</p>
+<table>
+<thead>
+<tr class="header">
+<th>—</th>
+<th>Alone</th>
+<th>Pairs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Word count</td>
+<td>2500-3500</td>
+<td>3500-4500</td>
+</tr>
+<tr class="even">
+<td>Tables</td>
+<td>3-4</td>
+<td>4-5</td>
+</tr>
+</tbody>
+</table>
+<p>If you work in pairs, you will submit all assignments jointly, except for your referee report.</p>
+</div>
+<div id="topic-selection" class="section level2 unnumbered">
+<h2>Topic selection</h2>
+<p>Select a research question that is interesting to you and answerable
+with data that you can obtain. Your question should accomplish the
+following.</p>
+<ul>
+<li><p>It must have clear relevance to economic theory.</p></li>
+<li><p>It must be answerable using data (with a sample size of at least 100, ideally much higher!)</p></li>
+<li><p>It may not be an exact replication of previous work. It may,
+however, be an extension.</p></li>
+<li><p>It must use <em>cross-sectional</em> or <em>panel</em> data. There are lots of interesting time-series questions, but we will not cover these topics in EC200. You should work with data from <a href="https://www.ipums.org/">IPUMS</a>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p></li>
+</ul>
+<!-- **Where folks get into trouble:** The biggest problem I see is that people get very excited about an interesting question, but they don't necessarily have the data they need. In order for us to be able to have reasonable standard errors and good asymptotic properties, I recommend questions that (a) have a data set you can access and (b) have at least 100 observations. I would strongly discourage you from any country or state cross-sections that don't also have a time component. I also would be wary about studies predicting athlete performance - our methods work well, but the link to economics is often tenuous. -->
+</div>
+<div id="research-paper-process" class="section level2 unnumbered">
+<h2>Research paper process</h2>
+<div id="research-ideas" class="section level3 unnumbered">
+<h3><a href="../rp-02-ideas">Research ideas</a></h3>
+<p>Prepare a set of 3 research ideas. An “idea” only needs to consist of
+about 2-3 paragraphs, which should include a research question, a hypothesis, a
+proposed data set, and a rough plan of analysis for testing your hypothesis.</p>
+</div>
+<div id="data-preparation" class="section level3 unnumbered">
+<h3><a href="../rp-03-annotated">Annotated bibliography</a></h3>
+<p>To make sure your question ties closely to the economic literature, you’ll prepare an annotated bibliography that identifies useful papers and summarizes them in relation to your quesiton.</p>
+<!-- In research, sometimes questions drive the data we choose, and sometimes
+the data we have drive the questions we ask. With only one semester to
+build a paper, you may need to let the data take the lead. 
+
+You'll prepare a [``data abstract''](../data-abstract) that includes your research question, a description of your data set, and a set of summary statistics. -->
+</div>
+<div id="research-proposal" class="section level3 unnumbered">
+<h3><a href="../rp-04-proposal">Research proposal</a></h3>
+<p>From the list of topics, choose and develop one research idea for your
+<a href="../rp-04-proposal">research proposal</a>. You’ll write up research proposal of at least 1000 words. This proposal should provide as much detail as possible to help me and your classmates assess your plan and provide useful feedback.</p>
+</div>
+<div id="peer-review" class="section level3 unnumbered">
+<h3><a href="../rp-05-referee">Peer review</a></h3>
+<p>A classmate will provide a <a href="../rp-05-referee">peer review</a> of your proposal, providing
+feedback to help you turn your proposal into a final paper</p>
+</div>
+<div id="rough-draft-optional" class="section level3 unnumbered">
+<h3><a href="../rp-06-roughdraft">Rough draft (optional)</a></h3>
+<p>You may submit one <a href="../rp-06-roughdraft">rough draft</a> to me for comments. This is optional, but
+I <strong>highly recommend</strong> you do it, because the early deadline can help
+you stay on track, and you’ll have a chance to get an early sense of how
+things are going.</p>
+</div>
+<div id="presentation" class="section level3 unnumbered">
+<h3>Presentation</h3>
+<p>You’ll make a brief (5-10 minute) <a href="../rp-07-presentation">presentation</a> of your paper in the
+final week of class. I will provide specifics later.</p>
+</div>
+<div id="final-submission" class="section level3">
+<h3>Final submission</h3>
+<p>Your <a href="../rp-08-final-submission">final draft</a> will be due on the same day as our final exam. Please make sure to review all the <a href="#paper-components">requirements</a> carefully!</p>
+</div>
+</div>
+<div id="paper-components" class="section level2 unnumbered">
+<h2>Paper components</h2>
+<p>A number of excellent guides can help you put together an effective and
+interesting research paper. I’ve provided a set of <a href="/bonus/paper-resources">paper resources</a>.</p>
+<ul>
+<li>Your paper should include the following elements.
+<ul>
+<li><a href="#abstract">Title and Abstract</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#background">Background/literature review</a></li>
+<li><a href="#methodology">Methodology</a></li>
+<li><a href="#results%7D">Results</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#tables">Figures &amp; Tables</a></li>
+<li><a href="#dofile">Do-file/log</a></li>
+</ul></li>
+</ul>
+<div id="abstract" class="section level3 unnumbered">
+<h3>Abstract &amp; Title</h3>
+<p>You’ll need a title <em>and an abstract</em></p>
+<ul>
+<li><p>Descriptive title</p></li>
+<li><p>Abstract that summarizes the paper and findings in <strong>250 words or fewer</strong></p></li>
+</ul>
+</div>
+<div id="introduction" class="section level3 unnumbered">
+<h3>Introduction</h3>
+<p>In an economics paper the <strong>introduction stands alone!</strong></p>
+<p>That is, a busy (or tired) person could read the introduction and understand what you did, what you found, and why it matters. Our papers are not mystery novels—there’s no need for a plot twist on page 8!</p>
+<p>I recommended following <a href="http://blogs.ubc.ca/khead/research/research-advice/formula">introduction formula</a>, which is written for folks writing a longer academic paper, but the principles are still solid.</p>
+<div id="guidelines-and-structure" class="section level4">
+<h4>Guidelines and structure</h4>
+<ul>
+<li><p>Introduction reads like an academic article. Motivates, describes
+what you do and what you find. (Almost like a mini-paper!)</p>
+<ul>
+<li>Reader can infer all main points of paper just from introduction</li>
+</ul></li>
+<li><p>States your research question clearly</p></li>
+<li><p>Explains what economic theory says about the potential answers to
+your questions, and/or defines clear hypotheses that you test</p></li>
+<li><p>Describes why your topic is important</p></li>
+<li><p>Describes what you do</p></li>
+<li><p>Describes what you find</p></li>
+<li><p>Describe how it contributes to our knowledge</p></li>
+</ul>
+</div>
+</div>
+<div id="background" class="section level3 unnumbered">
+<h3>Background/Literature Review</h3>
+<ul>
+<li><p>What you include here depends on topic. Sometimes the reader needs
+to know how your question links to economic theory. Sometimes it’s
+more important to know specific context first, and then to turn to
+the literature. Sometimes it’s most important to summarize what the
+literature already knows. Your call.</p></li>
+<li><p>At the back of your mind, when motivating your paper, ask “what is
+the link to economics”?</p>
+<ul>
+<li><p>If studying discrimination, what does economic theory tell us
+about why discrimination exists/persists</p></li>
+<li><p>If studying stock market returns, what do economic models tell
+us about our ability to predict returns?</p></li>
+</ul></li>
+<li><p>Includes papers that have answered your research question (or
+similar research questions)</p></li>
+<li><p>Research results described in present tense (“Smith finds,” not
+“Smith found”)</p></li>
+<li><p>Papers are put in context. That is, rather than just listing paper A
+and finding, paper B and finding, etc, you link each one (or group)
+to their contribution (as relates to your research question)</p></li>
+</ul>
+</div>
+<div id="methodology" class="section level3 unnumbered">
+<h3>Methodology/Data</h3>
+<ul>
+<li><p>Describe the data you use, where did it come from? If you didn’t
+create it, cite it</p></li>
+<li><p>What is the unit of observation? Is it people, households, states,
+etc? Make sure the unit is appropriate to your question</p></li>
+<li><p>If you’re working with individual-level data, what is the age range you want in your sample? What years of data do you need?</p></li>
+<li><p>If dealing with labor force variables, do you want all people of working age, all those who are in the labor force, or all who are employed?</p></li>
+<li><p>Describe your methodology. Are you estimating a model using OLS? If
+so, say so.</p></li>
+<li><p>Clarify whether we are looking at causal estimates or something
+else. What are the estimated parameters of interest. What do they
+mean?</p></li>
+<li><p>Correct standard errors: robust? Clustered? Something else?</p></li>
+</ul>
+<div id="population-model" class="section level4">
+<h4>Population model</h4>
+<p>Write out your population model!</p>
+<ul>
+<li><p>If you’re using Word, use equation editor. Make it look nice.</p></li>
+<li><p>Don’t forget the error term!</p></li>
+<li><p>Use proper equation notation (<span class="math inline">\(\beta\)</span>, <span class="math inline">\(u\)</span>, etc)</p></li>
+<li><p>Use appropriate subscripts (<span class="math inline">\(i\)</span>, <span class="math inline">\(t\)</span>, <span class="math inline">\(y\)</span>, etc)</p></li>
+<li><p>All relevant variables explained/defined</p></li>
+<li><p>Use descriptive variable names when possible (ie use <span class="math inline">\(female\)</span> for women, not <span class="math inline">\(w1\)</span>)</p></li>
+<li><p>Make sure your variables are written correctly - an equation like <span class="math inline">\(wage = \alpha_0 + \alpha_1 race\)</span> doesn’t make sense - race isn’t continuous!</p></li>
+<li><p>If you are using a lot of categorical variables and find it awkward to write them out, you can simplify:</p>
+<ul>
+<li>Showing that you have state fixed effects:</li>
+</ul>
+<p><span class="math display">\[y_{st} = \beta_0 + \beta_1 X_{st} + \beta_2 Z_t + ... + f_s + u_{st}\]</span></p>
+<p>and the in the text, “…where <span class="math inline">\(f_s\)</span> is a vector of state fixed effects”</p>
+<ul>
+<li>Including a set of occupational dummy variables
+<span class="math display">\[y_{st} = \beta_0 + \beta_1 X_{st} + \beta_2 Z_t + ... +\sum^K_{s=1}\delta_SD_s + u_{st}\]</span></li>
+</ul>
+<p>and in the text, “…where <span class="math inline">\(D_k\)</span> is a dummy variable for occupation <span class="math inline">\(s\)</span>, from <span class="math inline">\(s \in [1,S]\)</span>” <em>(or something in that general spirit)</em></p></li>
+</ul>
+</div>
+</div>
+<div id="results" class="section level3 unnumbered">
+<h3>Results</h3>
+<ul>
+<li><p>When using categorical/dummy variables, what is your omitted
+category? Make sure you know and that it’s clear.</p></li>
+<li><p>What are the units of your measures? Is that percent or percentage points?</p></li>
+<li><p>Discuss using a reasonable number of decimal places (usually only 1
+or 2)</p></li>
+</ul>
+<div id="limitations-or-discussion" class="section level4">
+<h4>Limitations or Discussion</h4>
+<ul>
+<li><p>Include as a separate section or integrate into results</p></li>
+<li><p>What might us from making causal interpretations about our
+coefficient of interest?</p>
+<ul>
+<li><p>Omitted variable bias?</p></li>
+<li><p>Reverse causality?</p></li>
+<li><p>Measurement error?</p></li>
+</ul></li>
+<li><p>Are the results externally valid?</p></li>
+<li><p>What other considerations are important?</p></li>
+</ul>
+</div>
+</div>
+<div id="conclusion" class="section level3 unnumbered">
+<h3>Conclusion</h3>
+<ul>
+<li><p>Brief summary of paper (yes, <em>another</em> summary)</p></li>
+<li><p>Limitations (summary of limitations/discussion section)</p></li>
+<li><p>Implications for policy (if relevant)</p></li>
+<li><p>Implications for future research</p></li>
+</ul>
+</div>
+<div id="tables" class="section level3 unnumbered">
+<h3>Tables</h3>
+<p>You will need the following tables:</p>
+<ol style="list-style-type: decimal">
+<li>Descriptive statistics: This will present key information about your datat set that we will need to understand your context. Choose relevant variables to describe, including key dependent and independent variables</li>
+<li>Main regression results: This will be a table of your key specifications. You may have the results from a few regressions in the same table. It’s this table that would be the “takeaway” table</li>
+<li>Secondary regression results: Results that help dig deeper, consider subgroups, consider related hypotheses or outcomes, etc.</li>
+</ol>
+<p>How you arrange regressions between (2) and (3) will depend on how you structure your argument.</p>
+<p>Additional tables (especially two-person papers) will extend your analysis through other modeling approaches, other dependent variables, additional displays of robustness.</p>
+<p>You may also include figures, but they would not substitute for the required tables unless the figures themselves presents new results.</p>
+<ul>
+<li><p>Please embed tables near the place where they are referenced (rather than at the end)</p></li>
+<li><p>Tables should be properly formatted. That is, they should be made in
+Excel (or LaTeX) and NEVER copied and pasted out of Stata raw output</p></li>
+<li><p>Variables should be described using real words. That is, “number of
+children,” not `numchld.’</p></li>
+<li><p>Tables and figures should be numbered (Table 1, Table 2, etc…
+Figure 1, Figure 2, etc.) and should also be given a title. Refer to
+tables by their numbers in the text.</p></li>
+<li><p>Regression tables include standard errors. Use stars to indicate
+statistical significance. (The Stata package <code>outreg2</code> is a big help!)</p></li>
+<li><p>In most contexts, about 3 places past the decimal point is right,
+but it depends on the magnitudes. If you really want to be precise,
+set and stick to a reasonable number of significant digits. There’s
+no place for a number like 0.05403823 or 0.0000000 in your tables.</p></li>
+</ul>
+</div>
+<div id="references" class="section level3">
+<h3>References</h3>
+<ul>
+<li><p>You’ll use outside sources in your introduction and background/literature review, at a minimum. Make sure that you have (1) at least <em>5 academic sources</em> (published academic journals), and (2) at least <em>8 sources total</em> (could also include working papers, newspaper articles, policy papers, etc.)</p></li>
+<li><p>Make sure to cite your data (does not count for totals above)</p></li>
+<li><p>Use footnotes, not endnotes</p></li>
+<li><p>At the end of your paper, include list of references cited</p></li>
+<li><p>You can format using APA, MLA, or Chicago style, but it must be a consistent style</p>
+<ul>
+<li>Citation Owl or Google Scholar will do it for you</li>
+<li>Microsoft Word’s bibliography management system can be hard to work with. Beware!</li>
+</ul></li>
+<li><p>In-text, cite with author and year (Author, Year; Author, Year) or
+(Author Year, Author Year)</p></li>
+</ul>
+</div>
+<div id="dofiles" class="section level3 unnumbered">
+<h3>Do-files/logs</h3>
+<p>You must also submit the following:</p>
+<ol style="list-style-type: decimal">
+<li>Stata do-file that replicates your analysis</li>
+<li>Log-file that shows your results fron running your do-file</li>
+</ol>
+<p>These do not count toward your page limit, and they should be submitted as separate files.</p>
+</div>
+<div id="style" class="section level3">
+<h3>Style</h3>
+<ul>
+<li><p>Use present test and first-person active voice! (I estimate a regression, <strong>NOT</strong> “A
+regression is estimated”)</p>
+<ul>
+<li><p>Single-authored paper first person singular, “I.” (You’re not
+the queen!)</p></li>
+<li><p>Joint-authored paper first person plural, “we.”</p></li>
+<li><p>Don’t believe me? Check out any economics paper published in the
+past 20 years. There’s <em>some</em> variation in I vs. we, but a lot of active voice.</p></li>
+</ul></li>
+<li><p>Divide paper into numbered, labeled sections.</p></li>
+<li><p>A research paper is not an essay!</p>
+<ul>
+<li><p>Personal opinions don’t have a place</p></li>
+<li><p>Sources should be primarily academic (peer-reviewed journals,
+working papers, etc.), maybe some non-academic sources for
+motivation only</p></li>
+<li><p>Clear, labeled sections</p></li>
+</ul></li>
+</ul>
+<!---
+## Parameters {#parameters .unnumbered}
+
+-   All paper elements -- idea proposal, paper proposal, first draft,
+    peer review forms, final research paper -- should be submitted
+    electronically via Blackboard in Word or PDF format.
+
+-   **Format your tables in Excel or comparable software.** Do not copy and
+    paste Stata output.
+
+-   Length requirements vary depending on the number of people in your
+    group and are based on the the text of your paper only. A one-person
+    project should be 2500-3500 words. A two-person project should be
+    3500-4500 words. These guidelines **exclude** the title,
+    abstract, references, figures, and tables.
+    
+
+
+-   No appendices. If it's important, include it in the paper. If it's
+    not, then don't include it.
+
+-   Formatting: 12 pt font, 1\" margins, double spacing, Times New
+    Roman. No spaces between paragraphs. Include page numbers.
+
+-   Please embed your figure/tables.
+
+    -->
+</div>
+</div>
+<div id="deadlines" class="section level2 unnumbered">
+<h2>Deadlines</h2>
+<p>See <a href="../../schedule">course schedule</a> for deadlines. Submit materials by <strong>11:59pm</strong> on
+the deadline. Submit all assignments via Blackboard. (Late assignments without an extension
+will be penalized 10% per day, and they may not receive detailed
+feedback.)</p>
+</div>
+<div id="grading" class="section level2 unnumbered">
+<h2>Grading</h2>
+<p>I will provide formal or informal grading rubrics for each component, so
+you have a clear idea of how you’ll be graded.</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">Process</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">30%</td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">Research ideas</td>
+<td align="center">5%</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">Annotated bibliography</td>
+<td align="center">5%</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">Research proposal</td>
+<td align="center">10%</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">Peer review</td>
+<td align="center">5%</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="center">Rough draft</td>
+<td align="center">0%</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="center">Presentation</td>
+<td align="center">5%</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="left">Final draft</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">70%</td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="faq" class="section level2 unnumbered">
+<h2>FAQ</h2>
+<ul>
+<li><p><em>How does my group size affect grading?</em> The grading rubric is the
+same regardless of your group sizes. However, I expect that in a
+larger group, your analysis will go deeper, your review of the
+literature will be more comprehensive, you’ll have additional
+robustness or placebo tests, etc. See the page requirements for a
+guide. If you have questions, feel free to talk with me in more
+detail.</p></li>
+<li><p><em>Can I turn in a paper with 10 pages of text and 3 tables, or 10
+pages of tables and 5 pages of text?</em> So long as the word and exhibit count are met, there’s no “right” place to be in that! What
+matters most is that your paper clearly addresses your research
+question.</p></li>
+<li><p><em>My results aren’t statistically significant, should I start over?</em> NO. Remember that our goal her eisn’t to find statistically significant relationships, it’s to answer questions. Let the data speak for itself about what relationships are or are not there.</p></li>
+<li><p><em>How should I format my citations and bibliography?</em> Consistently.
+APA, Chicago, or MLA is fine.</p></li>
+<li><p><em>How much data analysis do I need to do?</em> You should incorporate
+data analysis to answer your research question or test your
+hypotheses. You may also use data to provide some descriptive
+statistics, however that alone would not be sufficient. Exactly how
+much analysis is involved will depend on the question you pose and
+your approach to answering it.</p></li>
+<li><p><em>Do I have to use Stata?</em> You can use an alternative programmable language like R or Python. Your analysis should not be conducted in Excel. My ability to support your programing in languages besides Stata is more limited.</p></li>
+<li><p><em>Do I have to use IPUMS data?</em> I’m open to other possibilities, but it must be approved by me first.</p></li>
+<li><p><em>What if I’ve worked on this topic for another class?</em> This can work, but first talk to me so we can figure out a plan that ensures you’re building beyond what you’re already doing.</p></li>
+</ul>
+</div>
+<div id="recommendations" class="section level2 unnumbered">
+<h2>Recommendations</h2>
+<p>See <a href="/bonus/rp-resources">paper resources</a> for dataset and topic suggestions.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>No groups of three!<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>I am open to other <strong>large</strong> data sets, but these require prior approval.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

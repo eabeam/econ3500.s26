@@ -1,0 +1,181 @@
+---
+title: "Lab 7: Difference in differences"
+linktitle: "Lab 7"
+date: "2022-04-06"
+due_date: "2022-04-19"
+due_time: "2:50 PM"
+menu:
+  assignment:
+    parent: Labs
+    weight: 6
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#materials">Materials</a></li>
+<li><a href="#objectives">Objectives</a></li>
+<li><a href="#key-commands">Key commands</a>
+<ul>
+<li><a href="#using-xtset-and-xtreg">Using <code>xtset</code> and <code>xtreg</code>:</a></li>
+<li><a href="#adding-other-fixed-effects">Adding other fixed effects:</a></li>
+</ul></li>
+<li><a href="#exercises">Exercises</a>
+<ul>
+<li><a href="#part-a-differences-in-differences">Part A: Differences-in-differences</a></li>
+<li><a href="#part-b---fixed-effects">Part B - Fixed effects</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p><strong><a href="../07-lab.pdf">Print-friendly pdf</a></strong></p>
+<div id="materials" class="section level2 unnumbered">
+<h2>Materials</h2>
+<ul>
+<li><a href="../materials/banks.dta"><code>banks.dta</code></a></li>
+<li><a href="../materials/nsly_marijuana.dta"><code>nsly_marijuana.dta</code></a></li>
+<li>Do-file template <a href="../materials/labtemplate_f21.do"><code>labtemplate.do</code></a></li>
+</ul>
+</div>
+<div id="objectives" class="section level2 unnumbered">
+<h2>Objectives</h2>
+<p>There are two separate parts to this lab - a set of data for working with difference-in-differences models, and another set for working with fixed-effects models</p>
+<p>By the end of this lab, you should be able to complete the following
+tasks in Stata:</p>
+<ul>
+<li><p>Estimate and interpret difference-in-differences models</p></li>
+<li><p>Estimate panel data models using dummy variables</p></li>
+<li><p>Interpret panel data models</p></li>
+</ul>
+</div>
+<div id="key-commands" class="section level2 unnumbered">
+<h2>Key commands</h2>
+<div id="using-xtset-and-xtreg" class="section level3">
+<h3>Using <code>xtset</code> and <code>xtreg</code>:</h3>
+<p>The <code>xtset</code> command will tell Stata that you have panel data. For example, if you have state and year data, then you would enter <code>xtset state year</code>, or whatever the appropriate variable names are.</p>
+<p>General format: <code>xtset panelvar timevar</code></p>
+<p>After declaring your panel with <code>xtset</code>:</p>
+<ul>
+<li>Ask Stata to do a panel-regression by using xtreg instead of regress. Everything else proceeds as normal.</li>
+<li>You have to tell Stata that you want to estimate a ﬁxed eﬀects model, so you add ,fe as an “option”</li>
+</ul>
+<p>For example, something like this: <code>xtreg income education,fe</code> would regress income on education, and include ﬁxed effects, where the fixed effects are the <code>panelvar</code> variable you declared.</p>
+</div>
+<div id="adding-other-fixed-effects" class="section level3">
+<h3>Adding other fixed effects:</h3>
+<p>You can add fixed effects to a model more generally with the <code>i.</code> prefix or <code>areg</code>. A few examples:</p>
+<pre><code>xi: reg income i.educ i.bpl, robust     
+reg income i.educ i.bpl, robust 
+
+areg income i.educ,robust abosrb(bpl)</code></pre>
+<ol style="list-style-type: decimal">
+<li><code>xi:</code> this prefix is necessary for adding <code>i.</code> variables if the variables are in string form. Of course, you can use it any time! You can also use it to do fancier interactions with fixed effects, like <code>xi: reg income i.educ*i.bpl, robust</code></li>
+<li>You can exclude the prefix and just do <code>i.var</code> to create a bunch of indicator variables so long as your variable is <em>numeric</em></li>
+<li>You can use <code>areg</code> to “absorb” a set of fixed effects - they will not be reported in your output, but they will be estimated. This method is less efficient than <code>xtreg</code> becuase you’re using up degrees of freedom.</li>
+</ol>
+<!--
+## Video 
+
+
+### [Video: Class Recording 10 November 2021](https://youtu.be/-c1PtIZ7VCI)
+`{{< youtube -c1PtIZ7VCI >}}`{=html}
+-->
+</div>
+</div>
+<div id="exercises" class="section level2">
+<h2>Exercises</h2>
+<div id="part-a-differences-in-differences" class="section level3">
+<h3>Part A: Differences-in-differences</h3>
+<p>This part of the lab looks at a simple difference-in-differences model based on Richardson and Troost (2009).<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Mississippi is split between two Federal Reserve Districts. During the early years of the Great Depression, the each district took a different approach to bank runs. The Sixth District increased lending,while the Eighth District responded by restricting lending to threatened banks. We look at the impact of these policies on bank survival rates using difference-in-differences.</p>
+<ol style="list-style-type: decimal">
+<li><p>Start a new do-file and change directory to your working directory .</p></li>
+<li><p>In your do-file, start a log and open <a href="../materials/banks.dta"><code>banks.dta</code></a></p></li>
+<li><p>Using pencil &amp; paper or electronic means of your choosin ( ie, you don’t need to do this in Stata), plot a graph of the number of banks in business, by district, by year. Plot number of banks in business on the y axis and the year on the x axis. Include only the years 1930 &amp; 1931. Draw separate lines for the numbers of banks in District 6 and District 8. Draw a dotted “counterfactual” line based on your understanding of the change in bank policies. Mark all (4) actual values clearly</p></li>
+<li><p>First, we’re going to calculate a difference-in-difference estimator by hand between 1930 and 1931. Using the <code>browse</code> command, fill in <span class="math inline">\(x\)</span> values from the following table:<br />
+</p></li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th>Number of banks in business</th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>District</td>
+<td>1930</td>
+<td>1931</td>
+<td>1931-1930</td>
+</tr>
+<tr class="even">
+<td>District 6</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr class="odd">
+<td>District 8</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+<tr class="even">
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>District 8 - District 6</td>
+<td>x</td>
+<td>x</td>
+<td>x</td>
+</tr>
+</tbody>
+</table>
+<p>What is the difference-in-difference estimator?</p>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Now, generate a variable <code>treat</code>, a binary variable equal to 1 for District 8 and 0 otherwise, and a variable <code>post</code>, a binary variable
+equal to 1 for the year 1931 or greater. Generate <code>treatXpost = treat*post</code>.</p></li>
+<li><p>Using the above variables, estimate the impact of looser lending restrictions on the number of banks using a difference-in-difference
+estimator, restricting the sample to 1930 and 1931. Write your estimates, in equation form.</p></li>
+<li><p>Now estimate the same regression, but use all years. What is the overall impact of looser lending restrictions on bank survival?
+Write your estimates, in equation form.</p></li>
+<li><p>State clearly the assumption needed to interpret these difference-in-difference estimators as causal.</p></li>
+</ol>
+</div>
+<div id="part-b---fixed-effects" class="section level3">
+<h3>Part B - Fixed effects</h3>
+<p>Next, we’re going to look at the relationship between marijuana use and employment based on the National Longitudinal Survey of Youth 1997 Cohort (NSLY97).</p>
+<ol style="list-style-type: decimal">
+<li><p>Download the NSLY97 data files and save them to your working directory.</p></li>
+<li><p>Start a new do-file and change directory to your working directory .</p></li>
+<li><p>In your do-file, start a log and open <code>nsly_marijuana.dta</code></p></li>
+<li><p>How many individuals are in the data? How many years are they in the data?</p></li>
+<li><p>Estimate a regression of whether marijuana use affects income, with no additional controls. Report your results in equation form.</p></li>
+<li><p>Estimate a regression of whether marijuana use affects income, but add any controls you deem important (from the relatively limited selection I provide). How do the results change? Report your results in equation form.</p></li>
+<li><p>One way to estimate fixed effects models is to use <code>xtreg</code> with the <code>,fe</code> option. Use <code>xtset</code> to tell Stata you have panel data. Then, estimate a fixed-effects regression of whether marijuana use affects income, with no additional controls. Include both individual-level and year-level fixed effects. Cluster your standard errors at the individual (<span class="math inline">\(id\)</span>) level.</p></li>
+<li><p>What is the coefficient on marijuana usage? What is the interpretation?</p></li>
+<li><p>After adding fixed effects, should you include controls for gender and race/ethnicity to reduce omitted variable bias? Why or why not?</p></li>
+<li><p>How do your results in part 9 using fixed effects compare to your results in parts 5 and 6? Why do they differ?</p></li>
+<li><p>Name one specific factor that would create omitted variable bias in this regression.</p></li>
+</ol>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Based on Chapter 5 of <em>Mastering ’Metrics</em><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

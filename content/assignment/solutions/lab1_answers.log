@@ -1,0 +1,423 @@
+-----------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/emilybeam/Dropbox/Teaching/Teaching - U
+> VM/EC200/EC200 - Fall 2020/Stata Labs/Lab 1 - Introductio
+> n/lab1_answers.log
+  log type:  text
+ opened on:  11 Sep 2020, 14:17:00
+
+. 
+. 
+. * Open data file 
+. use "driving_2004",clear
+
+. 
+. 
+. 
+. 
+. ** Pre-exercises ** 
+. 
+. * Describe the data 
+. 
+. describe 
+
+Contains data from driving_2004.dta
+  obs:            48                          
+ vars:            56                          20 Jan 2017 1
+> 4:40
+-----------------------------------------------------------
+              storage   display    value
+variable name   type    format     label      variable labe
+> l
+-----------------------------------------------------------
+year            int     %8.0g                 1980 through
+                                       2004
+state           byte    %8.0g                 48
+                                       continental states,
+                                       alphabetical
+sl55            float   %9.0g                 speed limit
+                                       == 55
+sl65            float   %9.0g                 speed limit
+                                       == 65
+sl70            float   %9.0g                 speed limit
+                                       == 70
+sl75            float   %9.0g                 speed limit
+                                       == 75
+slnone          float   %9.0g                 no speed
+                                       limit
+seatbelt        byte    %8.0g                 =0 if none,
+                                       =1 if primary, =2 if
+                                       secondary
+minage          float   %9.0g                 minimum
+                                       drinking age
+zerotol         float   %9.0g                 zero
+                                       tolerance law
+gdl             float   %9.0g                 graduated
+                                       drivers license law
+bac10           float   %9.0g                 blood alcohol
+                                       limit .10
+bac08           float   %9.0g                 blood alcohol
+                                       limit .08
+perse           float   %9.0g                 administrativ
+                                       > e license
+                                       revocation (per se
+                                       law)
+totfat          int     %8.0g                 total traffic
+                                       fatalities
+nghtfat         int     %8.0g                 total
+                                       nighttime fatalities
+wkndfat         int     %8.0g                 total weekend
+                                       fatalities
+totfatpvm       float   %9.0g                 total
+                                       fatalities per 100
+                                       million miles
+nghtfatpvm      float   %9.0g                 nighttime
+                                       fatalities per 100
+                                       million miles
+wkndfatpvm      float   %9.0g                 weekend
+                                       fatalities per 100
+                                       million miles
+statepop        long    %12.0g                state
+                                       population
+totfatrte       float   %9.0g                 total
+                                       fatalities per
+                                       100,000 population
+nghtfatrte      float   %9.0g                 nighttime
+                                       fatalities per
+                                       100,000 population
+wkndfatrte      float   %9.0g                 weekend
+                                       accidents per
+                                       100,000 population
+vehicmiles      float   %9.0g                 vehicle miles
+                                       traveled, billions
+unem            float   %9.0g                 unemployment
+                                       rate, percent
+perc14_24       float   %9.0g                 percent
+                                       population aged 14
+                                       through 24
+sl70plus        float   %9.0g                 sl70 + sl75 +
+                                       slnone
+sbprim          byte    %9.0g                 =1 if primary
+                                       seatbelt law
+sbsecon         byte    %9.0g                 =1 if
+                                       secondary seatbelt
+                                       law
+d80             byte    %9.0g                 =1 if year ==
+                                       1980
+d81             byte    %9.0g                 
+d82             byte    %9.0g                 
+d83             byte    %9.0g                 
+d84             byte    %9.0g                 
+d85             byte    %9.0g                 
+d86             byte    %9.0g                 
+d87             byte    %9.0g                 
+d88             byte    %9.0g                 
+d89             byte    %9.0g                 
+d90             byte    %9.0g                 
+d91             byte    %9.0g                 
+d92             byte    %9.0g                 
+d93             byte    %9.0g                 
+d94             byte    %9.0g                 
+d95             byte    %9.0g                 
+d96             byte    %9.0g                 
+d97             byte    %9.0g                 
+d98             byte    %9.0g                 
+d99             byte    %9.0g                 
+d00             byte    %9.0g                 
+d01             byte    %9.0g                 
+d02             byte    %9.0g                 
+d03             byte    %9.0g                 
+d04             byte    %9.0g                 =1 if year ==
+                                       2004
+vehicmilespc    float   %9.0g                 
+-----------------------------------------------------------
+Sorted by: state  year
+
+. 
+. * Browse selected variables 
+. 
+. browse year sl70plus bac10 bac08 gdl
+
+. 
+. * look for a variable 
+. 
+. lookfor alcohol 
+
+              storage   display    value
+variable name   type    format     label      variable labe
+> l
+-----------------------------------------------------------
+bac10           float   %9.0g                 blood alcohol
+                                       limit .10
+bac08           float   %9.0g                 blood alcohol
+                                       limit .08
+
+. 
+. 
+. *****************************
+. *               Lab Exercises
+. 
+. *****************************
+. 
+. 
+. 
+. ***
+. * 1. How many states have graduated drivers license laws 
+> (GDLs)? How many states have speed limits of 70 mph or hi
+> gher (including no speed limit)?
+. ***
+. 
+. tab gdl                 // 40 states 
+
+  graduated |
+    drivers |
+license law |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |          8       16.67       16.67
+          1 |         40       83.33      100.00
+------------+-----------------------------------
+      Total |         48      100.00
+
+. 
+. 
+. tab sl70plus    // 29 states 
+
+sl70 + sl75 |
+   + slnone |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |         19       39.58       39.58
+          1 |         29       60.42      100.00
+------------+-----------------------------------
+      Total |         48      100.00
+
+. 
+. ***
+. * 2    What percentage of states with GDLs and with low s
+> peed limits (below 70 mph) have blood-alcohol limits of 0
+> .10 (the more lenient level)? Note that some states have 
+> blood-alcohol limit for a fraction of a year. If so, cons
+> ider having a limit of 0.10 in place for part of the year
+>  as having a limit
+. ***
+. 
+. 
+. tab bac10 if gdl == 1 & sl70plus == 0 //        1 state, 
+> or 5.88% of states with GDLs and speed limits below 70 pm
+> h.
+
+      blood |
+    alcohol |
+  limit .10 |      Freq.     Percent        Cum.
+------------+-----------------------------------
+          0 |         16       94.12       94.12
+         .5 |          1        5.88      100.00
+------------+-----------------------------------
+      Total |         17      100.00
+
+. 
+. ***
+. * 3.    What is the mean fatality rate per 100 million mi
+> les across all states? What is the standard deviation?
+. ***
+. 
+. sum totfatpvm   //  Mean = 1.514, sd = 0.41 --> The mean 
+> fatality rate is 1.51 deaths per 100 million miles, 
+
+    Variable |        Obs        Mean    Std. Dev.       Mi
+> n        Max
+-------------+---------------------------------------------
+> ------------
+   totfatpvm |         48    1.514792      .40706        .8
+> 7       2.28
+
+.                                 // with a standard deviat
+> ion of 0.41 fatalities. 
+. 
+. ***
+. * 4    What was the fatality rate (deaths per 100 million
+>  miles) in Vermont? (Vermont is state 46)
+. ***
+. 
+. sum totfatpvm if state == 46 // 1.25 fatalities per 100 m
+> illion miles 
+
+    Variable |        Obs        Mean    Std. Dev.       Mi
+> n        Max
+-------------+---------------------------------------------
+> ------------
+   totfatpvm |          1        1.25           .       1.2
+> 5       1.25
+
+. 
+. ***
+. *5.     Generate a variable Y equal to one if a state has
+>  a fatality rate per 100 million miles that is above the 
+> mean, and zero otherwise. What is E[X]?
+. ***
+. 
+. // Two potential approaches (let Y = highfatality)
+. 
+. gen highfatality = 0 
+
+.         replace highfatality = 1 if totfatpvm > 1.514
+(21 real changes made)
+
+.         
+. sum totfatpvm
+
+    Variable |        Obs        Mean    Std. Dev.       Mi
+> n        Max
+-------------+---------------------------------------------
+> ------------
+   totfatpvm |         48    1.514792      .40706        .8
+> 7       2.28
+
+. gen highfatality2 = totfatpvm > `r(mean)'       
+
+. 
+. ** Compare to show they are the same 
+. 
+. compare highfatality highfatality2 
+
+                                        ---------- differen
+> ce ----------
+                            count       minimum      averag
+> e                                                        
+>       maximum
+-----------------------------------------------------------
+> -------------
+highfat~y=highfat~2            48
+                       ----------
+jointly defined                48             0            
+> 0           0
+                       ----------
+total                          48
+
+. // OR 
+. 
+. assert highfatality == highfatality2    // returns error 
+> message if they are not the same 
+
+. 
+. sum highfatality        // mean = 0.4375. E[X] = 0.4375, 
+> meaning that 44% of states have a fatality rate that is a
+> bove the mean. (This isn't 50% because we're not looking 
+> at the median.) 
+
+    Variable |        Obs        Mean    Std. Dev.       Mi
+> n        Max
+-------------+---------------------------------------------
+> ------------
+highfatality |         48       .4375     .501328          
+> 0          1
+
+. 
+. 
+. 
+. 
+. 
+. ***
+. * 6. Write a joint probability distribution table for the
+>  following two random variables: X, a random variable equ
+> al to one if a state has a speed limit of 70 or greater a
+> nd zero otherwise (see sl70plus), and Y, the random varia
+> ble developed in the previous part.
+. 
+. // Tabulate variables 
+. tab highfatality sl70plus               
+
+highfatali | sl70 + sl75 + slnone
+        ty |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        18          9 |        27 
+         1 |         1         20 |        21 
+-----------+----------------------+----------
+     Total |        19         29 |        48 
+
+. // this is sufficient and you can figure out the probabil
+> iities. But instead, you can be fancier by asking it to r
+> eport the cell percentages 
+. 
+. 
+. tab highfatality sl70plus       ,cell   
+
++-----------------+
+| Key             |
+|-----------------|
+|    frequency    |
+| cell percentage |
++-----------------+
+
+highfatali | sl70 + sl75 + slnone
+        ty |         0          1 |     Total
+-----------+----------------------+----------
+         0 |        18          9 |        27 
+           |     37.50      18.75 |     56.25 
+-----------+----------------------+----------
+         1 |         1         20 |        21 
+           |      2.08      41.67 |     43.75 
+-----------+----------------------+----------
+     Total |        19         29 |        48 
+           |     39.58      60.42 |    100.00 
+
+.  
+.  /* This is a join probability table, where Y is high fat
+> ality and X is sl70plus
+>  highfatali | sl70 + sl75 + slnone
+>         ty |         0          1 |     Total
+> -----------+----------------------+----------
+>          0 |        18          9 |        27 
+>            |     37.50      18.75 |     56.25 
+> -----------+----------------------+----------
+>          1 |         1         20 |        21 
+>            |      2.08      41.67 |     43.75 
+> -----------+----------------------+----------
+>      Total |        19         29 |        48 
+>            |     39.58      60.42 |    100.00 
+> */ 
+. 
+. 
+. ***
+. *7. Look up the command correlate in the help files: What
+>  is the correlation coefficient between nighttime fatalit
+> ies per 100,000 population and weekend accidents per 100,
+> 000 population? Why might this correlation be so strong?
+. ***
+. 
+. 
+. 
+. corr wkndfatrte nghtfatrte                      
+(obs=48)
+
+             | wkndfa~e nghtfa~e
+-------------+------------------
+  wkndfatrte |   1.0000
+  nghtfatrte |   0.9707   1.0000
+
+
+. 
+. /*              | wkndfa~e nghtfa~e
+> -------------+------------------
+>   wkndfatrte |   1.0000
+>   nghtfatrte |   0.9707   1.0000
+> 
+> */ 
+. // r = 0.97. This is a very high correlation. Two possibi
+> tilies, though you may think of others. (1) An underlying
+>  variable is the amount people drive. States where people
+>  drive a lot (because they are more spread out) may have 
+> more fatalities and more accidents overall, so we'll see 
+> high rates in both variables. (2) If a lot of weekend acc
+> idents occur at night time, then we would see high rates 
+> of night fatalities when there are high rates of weekend 
+> accidents. 
+. 
+. 
+. log close 
+      name:  <unnamed>
+       log:  /Users/emilybeam/Dropbox/Teaching/Teaching - U
+> VM/EC200/EC200 - Fall 2020/Stata Labs/Lab 1 - Introductio
+> n/lab1_answers.log
+  log type:  text
+ closed on:  11 Sep 2020, 14:17:00
+-----------------------------------------------------------

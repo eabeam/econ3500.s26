@@ -1,0 +1,489 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\newenvironment{itemize*}%
+
+  
+\lhead{EC200 - Econometrics and Applications}
+\rhead{Version: \today}
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+Version: \today \hfill Fall 2021\\
+EC200: Econometrics and Applications
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Lab 4: Loops and Multivariate Regression}}\\
+\end{center}
+\bigskip
+
+
+%{
+%\setcounter{tocdepth}{3}
+%\tableofcontents
+%}
+
+\hypertarget{materials}{%
+\subsection*{Materials}\label{materials}}
+\addcontentsline{toc}{subsection}{Materials}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://ec200f21.netlify.app/assignment/materials/cps_2016.dta}{\texttt{cps\_2016.dta}}
+\item
+  Do-file template
+  \href{https://ec200f21.netlify.app/assignment/materials/labtemplate_f21.do}{\texttt{labtemplate.do}}
+\item
+  Looping exercise
+  \href{https://ec200f21.netlify.app/assignment/materials/loop_example.do}{\texttt{loop\_example.do}}
+\end{itemize}
+
+\hypertarget{objectives}{%
+\subsection*{Objectives}\label{objectives}}
+\addcontentsline{toc}{subsection}{Objectives}
+
+Today we're going to work with some new data, \texttt{cps\_2016.dta},
+which contains information from the
+\href{https://cps.ipums.org/cps/}{2016 Current Population Survey}.
+
+By the end of this lab, you should be able to complete the following
+tasks in Stata:
+
+\begin{itemize}
+\item
+  Estimate and interpret multiple linear regression in levels, using
+  continuous and binary independent variables, and use
+  heteroskedasticity-robust standard errors.
+\item
+  Interpret the results of multivariate linear regressions in terms of
+  statistical and economic significance
+\item
+  Practice generating binary variables from categorical measures
+\item
+  Set up basic loops
+\item
+  Use \texttt{xi} and \texttt{i.} prefix to include a lot of binary
+  indicator variables at once.
+\end{itemize}
+
+\hypertarget{key-commands}{%
+\subsection*{Key commands}\label{key-commands}}
+\addcontentsline{toc}{subsection}{Key commands}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.56}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.44}}@{}}
+\toprule
+command & description \\
+\midrule
+\endhead
+\texttt{regress\ var1\ var2...} & Estimate a regression, with
+\texttt{var1} as the dependent variable and all others as the
+independent \\
+variable(s) & \\
+\texttt{tabulate\ var1,nolabel} & Tabulate variables \emph{without}
+labels \\
+\texttt{replace\ var1\ =\ .\ if\ var1\ ==\ 999999} & Replace
+\texttt{var1} as missing (using a dot) if \texttt{var1} is equal to
+999999. Can be replaced with any other values or logical expressions. \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{creating-binary-variables}{%
+\subsection*{Creating binary
+variables}\label{creating-binary-variables}}
+
+Recall that there are two easy ways to make binary variables out of
+categorical or continuous variables. Consider the variable
+\texttt{race}, where 100 = White, 200 = Black, 300 = Native American,
+651 = Asian, etc. Suppose you want to generate a binary indicator for
+whether a person is White.
+
+\begin{itemize}
+\item
+  \texttt{gen\ white\ =\ race\ ==\ 100}: generates a variable equal to 1
+  if \texttt{race} is 100, and 0 otherwise
+\item
+  \texttt{gen\ white\ =\ 1\ if\ race\ ==\ 100}: generates a variable
+  equal to 1 if \texttt{race} is 100, and \textbf{missing} otherwise. To
+  complete this you need two lines of code:\\
+  \texttt{gen\ white\ =\ 1\ if\ race\ ==\ 100}~\\
+  \texttt{replace\ white\ =\ 0\ if\ race\ !=\ 100}
+\end{itemize}
+
+\hypertarget{working-with-loops}{%
+\subsection*{Working with loops}\label{working-with-loops}}
+
+Loops can help us (1) avoid errors and (2) code super fast!
+
+I've uploaded a sample from our class
+\href{https://ec200f21.netlify.app/assignment/materials/lab4_sample.do}{\texttt{here,\ as\ lab4\_sample.do}}
+
+Stata has two types of looping setups, using the \texttt{forval} or
+\texttt{foreach} command. The first is simpler, and the second is more
+versatile. Recall that you can always use \texttt{help\ forval} or
+\texttt{help\ foreach} if your code isn't working or if you have a
+vision you're not sure how to realize.
+
+\hypertarget{looping-with-forval}{%
+\paragraph{\texorpdfstring{Looping with
+\texttt{forval}}{Looping with forval}}\label{looping-with-forval}}
+
+\begin{verbatim}
+forvalues lname = range {
+                Stata commands referring to `lname'
+        }
+\end{verbatim}
+
+What does each component mean?
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{forvalues}: this is the command. You can abbreviate it as
+  \texttt{forval}.
+\item
+  \texttt{lname}: this is a variable you make up. Often, people will
+  just use \texttt{i}, becuase we're just counting. It will take on the
+  values in \texttt{range} as it increments through the loop. It is a
+  \textbf{local} variable, meaning that you have to call it using
+  `lname', and not as lname (need those punctuation marks!) and that it
+  is only saved as long as your do-file is running.\\
+\item
+  \texttt{range}: this is the set of values that the local variable will
+  iterate over
+\item
+  Brackets: Open bracket needs to be on same line as the \texttt{forval}
+  command. Close bracket needs to be on its own line.
+\end{itemize}
+
+\begin{verbatim}
+forval i = 0/2{
+gen labfor`i' = labforce == `i'
+}
+\end{verbatim}
+
+What does this do? It creates a loop for which local variable
+`\texttt{i\textquotesingle{}} is first 0, then 1, then 2. Within the
+loop, it generates \texttt{labfor0}, which is equal to 1 if
+\texttt{labforce} equals 0 (not in universe), it generates
+\texttt{labfor1}, which is equal to 1 if \texttt{labforce} equals 1 (not
+in labor force), and it generates \texttt{labfor2}, which is equal to 1
+if \texttt{labforce} equals 2 (in labor force).
+
+The choice of ranges can be done in other ways:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{forval\ i\ =\ 0/10}: hits every integer between 0 and 10 - 0,
+  1, 2, \ldots{} 10
+\item
+  \texttt{forval\ i\ =\ 1(10)100}: starts at 1, then increments by 10,
+  stopping at 100: 1, 11, 21, 31, \ldots{} 91
+\item
+  \texttt{forvalues\ k\ =\ 5\ 10\ to\ 300}: starts at 10, then
+  increments by 5 until 300: 5, 10, 15, \ldots{}
+\end{itemize}
+
+See \texttt{help\ forval} for more options
+
+\hypertarget{looping-with-foreach}{%
+\paragraph{\texorpdfstring{Looping with
+\texttt{foreach}}{Looping with foreach}}\label{looping-with-foreach}}
+
+This command lets you loop through number lists (like above), but also
+through sets of variables, values, names, etc. You can approach it two
+ways:
+
+\begin{itemize}
+\tightlist
+\item
+  Do not specify the type of list, use \textbf{in}:
+  \texttt{foreach\ lname\ in\ list}:
+\item
+  Specify the type of list (\texttt{listtype}), use \textbf{of}:
+  \texttt{foreach\ lname\ of\ listtype\ list}
+\end{itemize}
+
+This is confusing until we see examples:
+
+\begin{verbatim}
+foreach x in "rice wheat corn rye barley oats" {
+          display "`x'"
+        }
+\end{verbatim}
+
+This will start with \texttt{x} equal to the string ``rice''. Then, it
+will run with \texttt{x} equal to ``wheat'', etc.
+
+\begin{verbatim}
+    foreach num of numlist 1 4/8 13(2)21 103 {
+        display `num'
+ }
+\end{verbatim}
+
+This will loop over 1, 4, 5, 6, 7, 8, 13, 15, 17, \ldots{}
+
+You can loop over variable names too!
+
+\begin{verbatim}
+foreach var of varlist inc* {
+      summarize `var',d
+        }
+\end{verbatim}
+
+This summarizes (with detail) each variable that starts with
+\texttt{inc}
+
+\hypertarget{working-with-binary-independent-variables}{%
+\subsection*{Working with binary independent
+variables}\label{working-with-binary-independent-variables}}
+
+When you are representing a categorical variable with a set of binary
+variables, there is a slow way and a fast way to integrate them.
+
+\begin{itemize}
+\tightlist
+\item
+  Slow way: generate the binary variables you want, and include them.
+  This is good when you want to be precise about your omitted variable,
+  or when you want to create complicated binary categories
+\end{itemize}
+
+\begin{verbatim}
+gen white_nh = race == 100 & hisp == 0 
+gen black_nh = race == 200 & hisp == 1
+gen hisp = hisp == 1
+gen other = white_nh == 0 & black_nh == 0 & hisp == 0 
+regress incwage black_nh hisp other
+\end{verbatim}
+
+Here, white, non-Hispanic is the omitted ``reference'' category.
+
+\begin{itemize}
+\tightlist
+\item
+  Fast way: tell Stata to create a binary variable for each value of a
+  categorical variable. This is good when you aren't trying to do
+  anything complicated and when you want to be quick - very useful if
+  you want something like state-level dummies.
+\end{itemize}
+
+\begin{verbatim}
+regress incwage i.statefip
+\end{verbatim}
+
+Note that this will work only if your categorical variable is numeric.
+If it's a string you'll get an error. You can fix it by adding a
+\texttt{xi:} prefix, like so:
+
+\begin{verbatim}
+xi: regress incwage i.statefip
+\end{verbatim}
+
+When we include a dummy variable for every value of a categorical
+variable, like above, we call those ``fixed effects.'' We'll talk about
+these more soon.
+
+\hypertarget{reading-regression-tables-reminder}{%
+\section*{Reading regression tables
+(reminder!)}\label{reading-regression-tables-reminder}}
+
+\hypertarget{lab-4-worksheet}{%
+\subsection*{Lab 4 Worksheet}\label{lab-4-worksheet}}
+\addcontentsline{toc}{subsection}{Lab 4 Worksheet}
+
+Download the do-file template and data files. Personalize the file paths
+so that you can run it and open your \texttt{cps\_2016.dta} file. You
+can also work with a blank data file if you're more comfortable - just
+make sure you remember to include commands to start and close your log
+file.
+
+\emph{Use robust standard errors in all regressions}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Let's practice with loops! Download
+  \href{https://ec200f21.netlify.app/assignment/materials/loop_example.do}{loop\_example.do} and paste the
+  code into your sample. Run it and look at the output. In your do-file,
+  write comments that describe what each loop is going.
+\item
+  Now, go back to your \texttt{cps\_2016.dta} file and do-file template.
+  Adjust your do-file template so that it loads \texttt{cps\_2016.dta}
+  and starts a log.
+\item
+  Restrict your sample to individuals ages 25-54.
+\item
+  Create a new variable, \texttt{birthyr}, equal to each individual's
+  year of birth. Is there any potential imprecision or error in this
+  variable?
+\item
+  Then, write a loop to generate a dummy variable for each possible
+  value of birth year.\footnote{There is a faster way to do this, using
+    \texttt{xi\ i.birthyr}, but we're learning about loops, so just go
+    with it.}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\item
+  Look through the available list of data (note,
+  \href{https://cps.ipums.org/cps/}{IPUMS} has full documentation of all
+  variables). Based on this data, think of a research question for your
+  lab of the form, ``What is the relationship between .\ldots{} and
+  ...?''. Pick a dependent variable that is \textbf{continuous}.
+  \emph{(Because a later question asks you to explore race/ethnicity
+  controls, please do not use a race/ethnicity variable for \(X\).)}
+
+  Research question:\\
+
+  Dependent variable (\(Y\)):\\
+
+  Key independent variable (\(X\)):\\
+\item
+  Using the data available, write a reasonable population model,
+  including your key independent variable along with a set of likely
+  relevant independent variables (somewhere between 2 and 5 additional
+  variables). Before estimating your regression, you should tabulate
+  each variable to make sure you are interpreting it correctly.
+\item
+  In words, what exactly will your estimated regression tell us?
+\item
+  What do you hypothesize the answer to your research question is?
+  (i.e.~strong positive, weak negative, none)
+\item
+  Before you estimate your model, make sure you don't have any N/A
+  values coded. For example, if \texttt{incwage} is not applicable, it
+  is coded as \texttt{9999999}. Tabulate or summarize your data to check
+  for any values like this. Replace any values as missing if they are
+  equal to some N/A code (see above).
+\item
+  Estimate the relationship between \(X\) and \(Y\) using simple linear
+  regression (excluding any other covariates). Write your results in
+  equation form and report the \(R^2\). How many degrees of freedom do
+  you have?
+\item
+  Estimate the relationship between \(X\) and \(Y\) using multiple
+  linear regression (including other covariates). That is, estimate the
+  population model you wrote earlier. Write your results in equation
+  form and report the \(R^2\). How many degrees of freedom do you have?
+\item
+  Using your multivariate linear regression from the previous step, set
+  up a hypothesis test for your parameter of interest, the \(\beta\)
+  associated with your key independent variable, \(X\). What do you
+  find? What is the p-value? What is the interpretation?
+\item
+  Besides your key independent variable, which other variables are
+  statistically significant at the five-percent level?
+\item
+  A lot of student research papers will look at differences in outcomes
+  by gender and by racial/ethnic groups. U.S. surveys like the CPS, ACS,
+  and Census treat race and ethnicity a little strangely, and it can
+  take some practice to get comfortable.
+
+  There are two variables commonly used to identify a person's race and
+  ethnicity: the \texttt{race} and the \texttt{hispan} variable.
+
+  \begin{enumerate}
+  \def\labelenumii{\arabic{enumii}.}
+  \item
+    What share of the sample is White, non-Hispanic?
+  \item
+    What share of the sample is Hispanic/Latino?
+  \item
+    A common way to summarize the racial/ethnic make-up of the U.S. is
+    the following categories:
+
+    \begin{itemize}
+    \item
+      White, non-Hispanic
+    \item
+      Black, non-Hispanic
+    \item
+      Hispanic/Latino
+    \item
+      Asian, non-Hispanic
+    \item
+      Other
+    \end{itemize}
+
+    Make a table that shows the distribution of the population into
+    these five groupings.
+  \end{enumerate}
+\item
+  Estimate your multiple linear regression model from earlier, but
+  include the race/ethnicity variables that you created in the previous
+  part. How do the inclusion of these factors affect your estimates of
+  the relationship between \(Y\) and \(X\)?
+\item
+  Now, add ``birth-year fixed effects'' to your regression that you
+  generated earlier. Because there is a set of binary 0/1 variables, one
+  for each year of birth, they will essentially pull out any mean
+  differences in your dependent variable at the birth-year level - so if
+  your outcome variable is different for people born in 1971 vs 1971 on
+  average, these variables will take care of it. What is the omitted
+  birth cohort? How do the inclusion of these factors affect your
+  estimates of the relationship between \(Y\) and \(X\)?
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,235 @@
+\documentclass[11pt]{article}
+
+
+
+
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage{natbib}
+\usepackage[french,english]{babel}
+\usepackage{numprint}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{multicol}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\usepackage{color}
+\usepackage{calc}
+ \setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\usepackage[bottom]{footmisc}
+\pagestyle{fancy}
+\usepackage{titlesec}
+\usepackage{lipsum}
+\usepackage{cancel}
+\usepackage{multicol}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+  \titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+  \titlespacing{\subsection}{0pt}{6pt}{0pt}
+
+\lhead{EC200 - Econometrics and Applications}
+
+\setlength\parskip{0.10in}
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+
+Version: \today \hfill \\
+EC200: Econometrics and Applications
+%\vspace{1.5cm}
+\begin{center}
+\Large{\textbf{Problem Set 4}}\\
+\end{center}
+\bigskip
+
+
+\hypertarget{welcome}{%
+\section*{Welcome}\label{welcome}}
+
+Chapter 8 and 9 problems! Enjoy!
+
+See the exercises below, or you can \href{https://ec200f22.netlify.app/assignment/04-ps.pdf}{download them as
+a pdf}.
+
+\hypertarget{what-do-i-submit}{%
+\section*{What do I submit?}\label{what-do-i-submit}}
+
+\begin{itemize}
+\item
+  Your written up answers to exercise questions. If you work on a piece
+  of paper, please scan using some sort of phone software (like
+  Microsoft Lens or Adobe Scan) rather than just taking a picture.
+\item
+  A do-file that runs your Stata analysis (for question 7).
+\item
+  A log file that includes the output from running your do-file (for
+  question 7).
+\end{itemize}
+
+\hypertarget{exercises}{%
+\section*{Exercises}\label{exercises}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+
+\item
+  The following equation describes the median housing price in a
+  community in terms of amount of pollution (\(nox\) for nitrous oxide)
+  and the average number of rooms in houses in the community
+  (\(rooms\)):
+
+
+\(log(price) = \beta_0 = \beta_1log(nox) + \beta_2rooms + u\)
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+
+\item
+  What are the probable signs of \(\beta_1\) and \(\beta_2\)? What is
+  the interpretation of \(\beta_1\)? Explain.
+\item
+  Why might \(nox\) {[}or more precisely, \(log(nox)\){]} and \(rooms\)
+  be negatively correlated? If this is the case, does the simple
+  regression of \(log(price)\) on \(log(nox)\) produce an upward or a
+  downward biased estimator of \(\beta_1\)?
+\item
+  Using data, the following equations were estimated:
+\end{enumerate}
+
+\(\widehat{log(price)} = 11.71 - 1.043 log(nox)\), \(n = 506\),
+\(R^2 = 0.264\)
+
+\(\widehat{log(price)} = 9.23 - 0.718 log(nox) + 0.306 rooms\),
+\(n = 506\), \(R^2 = 0.514\)
+
+Is the relationship between the simple and multiple regression estimates
+of the elasticity of \(price\) with respect to \(nox\) what you would
+have predicted, given your answer in part (ii)? Does this mean that
+0.718 is definitely closer to the true elasticity than 1.043?
+
+
+\item   Read the box \emph{``The Return to Education and the Gender Gap''} in
+  Section 8.3.
+
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+
+\item
+  Consider a man with 16 years of education and 2 years of experience.
+  Use the results from column (4) of Table 8.1 and the method in Key
+  Concept 8.1 to estimate the expected change in the logarithm of
+  average hourly earnings (AHE) associated with an additional year of
+  experience.
+\item
+  Explain why your answer to (a) does not depend on the region he is
+  from.
+\item
+  Repeat (a), assuming 10 years of experience.
+\end{enumerate}
+
+
+\item
+  To answer this question, refer to \emph{Table 8.3: Nonlinear
+  Regression Model of Test Scores} in your textbook:
+
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+
+\item
+  A researcher suspects that the effect of \% Eligible for subsidized
+  lunch has a nonlinear effect on test scores. In particular, he
+  conjectures that increases in this variable from 10\% to 20\% have
+  little effect on test scores but that changes from 50\% to 60\% have a
+  much larger effect. i. Describe a nonlinear specification that can be
+  used to model this form of nonlinearity. ii. How would you test
+  whether the researcher's conjecture was better than the linear
+  specification in column (7) of Table 8.3?
+\item
+  A researcher suspects that the effect of income on test scores is
+  different in districts with small classes than in districts with large
+  classes. i. Describe a nonlinear specification that can be used to
+  model this form of nonlinearity.
+\end{enumerate}
+
+
+
+\item
+  Labor economists studying the determinants of women's earnings
+  discovered a puzzling empirical result. Using randomly selected
+  employed women, they regressed earnings on the women's number of
+  children and a set of control variables (age, education, occupation,
+  and so forth). They found that women with more children had higher
+  wages, controlling for these other factors. Explain how sample
+  selection might be the cause of this result. (Hint: Notice that women
+  who do not work outside the home are missing from the sample.) {[}This
+  empirical puzzle motivated James Heckman's research on sample
+  selection that led to his 2000 Nobel Prize in Economics. See Heckman
+  (1974){]}
+
+
+\item
+  The demand for a commodity is given by
+  \(Q = \beta_0 + \beta_1 P + u\), where \(Q\) denotes quantity, \(P\)
+  denotes price, and \(u\) denotes factors other than price that
+  determine demand. Supply for the commodity is given by
+  \(Q = \gamma_0 + \gamma_1P + v\), where \(v\) denotes factors other
+  than price that determine supply. Suppose \(u\) and \(v\) both have a
+  mean of 0, have variances \(\sigma^2_u\) and \(\sigma^2_v\), and are
+  mutually uncorrelated.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+
+\item
+  Solve the two simultaneous equations to show how Q and P depend on u
+  and v.
+\item
+  Derive the means of P and Q.
+\item
+  Derive the variance of P, the variance of Q, and the covariance
+  between Q and P.
+\end{enumerate}
+
+
+\item
+  Revisit the box \emph{``The Return to Education and the Gender Gap''}
+  in Section 8.3. Discuss the internal and external validity of the
+  estimated effect of education on earnings.
+\item
+  Complete
+  \href{https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/AEE/Stock_Watson_3U_AEE_8_2.pdf}{Additional
+  Empirical Exercise 8.2} using the dataset
+  \href{https://www.princeton.edu/~mwatson/Stock-Watson_3u/Students/EE_Datasets/CollegeDistance.dta}{\texttt{CollegeDistance.dta}}
+\end{enumerate}
+
+\end{document}

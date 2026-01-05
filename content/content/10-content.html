@@ -1,0 +1,98 @@
+---
+title: Week 11/12 - Panel data
+sitetitle: Week 11/12
+summary: "EC200 - Week 11/12 Regression with Panel Data (CH10)"
+
+date: "2022-03-27"
+start_date: "2022-04-04"
+end_date: "2022-04-15"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 11
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch10-slides.pdf
+thumb: /slides/ch10-slides.png
+
+
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#overview">Overview</a></li>
+<li><a href="#reading-guide">Reading Guide</a></li>
+<li><a href="#slides">Slides</a></li>
+<li><a href="#videos">Videos</a>
+<ul>
+<li><a href="#video-data-types-and-difference-in-differences"><span>Video: Data types and difference-in-differences</span></a></li>
+</ul></li>
+</ul>
+</div>
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>We’ve complained a lot about challenges to obtaining causal estimation. Now, let’s <em>do</em> something about it! :strong:</p>
+<p>Note that this week we’re covering difference-in-differences estimation - it’s not actually in Chapter 10<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, but it fits here nicely.</p>
+</div>
+<div id="reading-guide" class="section level2">
+<h2>Reading Guide</h2>
+<div id="chapter-10-regression-with-panel-data" class="section level4">
+<h4><strong>Chapter 10: Regression with Panel Data</strong></h4>
+</div>
+<div id="sw-10.1-panel-data" class="section level4">
+<h4><strong>SW 10.1</strong> Panel data</h4>
+<p>Make sure you know the difference between <strong>cross-sectional</strong>, <strong>time-series</strong>, and <strong>panel</strong> data. Also, what does it mean to be <strong>balanced</strong>?</p>
+</div>
+<div id="sw-10.2-panel-data-with-two-time-periods-before-and-after-comparisons" class="section level4">
+<h4><strong>SW 10.2</strong> Panel data with two time periods: “Before and after” comparisons</h4>
+<p>We can control for variables that are <em>constant</em> over time by differencing them out. Do you understand how this works?</p>
+</div>
+<div id="sw-10.3-fixed-effects-regression" class="section level4">
+<h4><strong>SW 10.3</strong> Fixed effects regression</h4>
+<p>Instead of differencing, let’s include a bunch of entity-specific intercepts. What are we doing, why does it work? When is it like the before-after comparisons from before?</p>
+</div>
+<div id="sw-10.4-regression-with-time-fixed-effects" class="section level4">
+<h4><strong>SW 10.4</strong> Regression with time fixed effects</h4>
+<p>Just like we can control for unit-specific factors that remain constant over time, we can also control for factors that vary over time but are constant across units with <strong>time fixed effects</strong>. Neat!</p>
+<p>Can we include both entity- <em>and</em> time-specific fixed effetcst? You bet we can!</p>
+</div>
+<div id="sw-10.5-the-fixed-effects-regression-assumptions-and-standard-errors-for-fixed-effects-regressions" class="section level4">
+<h4><strong>SW 10.5</strong> The fixed effects regression assumptions and standard errors for fixed effects regressions</h4>
+<p>How do our LS assumptions change when we move to panel data?</p>
+</div>
+<div id="sw-difference-in-differences-estimation" class="section level4">
+<h4><strong>SW ??</strong> Difference-in-differences estimation</h4>
+<p>Set up and interpret difference-in-differences estimation. There’s a decent discussion in <strong>SW13.4</strong>, but I think it’s more appropriate to cover it here, since it’s so closely linked to panel data.</p>
+</div>
+</div>
+<div id="slides" class="section level2">
+<h2>Slides</h2>
+<p>{{% slides %}}</p>
+</div>
+<div id="videos" class="section level2">
+<h2>Videos</h2>
+<div id="video-data-types-and-difference-in-differences" class="section level3">
+<h3><a href="https://youtu.be/hLEmPwd1R4E">Video: Data types and difference-in-differences</a></h3>
+<p>{{< youtube hLEmPwd1R4E >}}</p>
+<!-- ### [Class Video](https://streaming.uvm.edu/media/embed/iM9eQzi/)  -->
+<!-- *You need to use your netid to log in - let me know if you have issues* -->
+<!--  <iframe src="https://streaming.uvm.edu/media/embed/iM9eQzi/" width="640" height="480" frameborder="0" allowfullscreen></iframe> -->
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Check out SW13.4 if you want to be precise.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

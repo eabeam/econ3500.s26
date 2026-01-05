@@ -1,0 +1,133 @@
+---
+title: Week 1 - Probability Review
+sitetitle: Week 1
+summary: "EC200 - Week 1 Probability Review (SW Chapter 2)"
+
+date: "2021-08-25"
+start_date: "2022-01-17"
+end_date: "2022-01-21"
+menu:
+  content:
+    parent: Course content
+    weight: 1
+  
+  # Academic page type (do not modify).
+type: docs
+## Slides
+
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch2-slides.pdf
+thumb: /slides/ch2-slides.png
+
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+<ul>
+<li><a href="#overview">Overview</a>
+<ul>
+<li><a href="#i-took-ec170stat141-recently-and-remember-some-stuff">I took EC170/STAT141 recently and remember some stuff</a></li>
+<li><a href="#everyone-else">Everyone else</a></li>
+</ul></li>
+<li><a href="#reading-guide-for-week-1">Reading Guide for Week 1</a>
+<ul>
+<li><a href="#sw-2.1-random-variables-and-probability-distributions">SW 2.1 Random Variables and Probability Distributions</a></li>
+<li><a href="#sw-2.2-expected-values-mean-and-variance">SW 2.2 Expected Values, Mean, and Variance</a></li>
+<li><a href="#sw-2.3-two-random-variables">SW 2.3 Two Random Variables</a></li>
+<li><a href="#sw-2.4-the-normal-chi-squared-student-t-and-f-distributions">SW 2.4 The Normal, Chi-Squared, Student t, and F distributions</a></li>
+</ul></li>
+<li><a href="#slides">Slides</a></li>
+<li><a href="#videos">Videos</a></li>
+</ul>
+</div>
+
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>Welcome to Week 1! Our goal this week is to (1) help us sort out our varying technologies and workflows and (2) start reviewing statistics and probability. Basically, this the start of a three-week mini-bootcamp to get us ready for the glorious world of regressions!<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>What you should do for this three-week unit depends on your background:</p>
+<div id="i-took-ec170stat141-recently-and-remember-some-stuff" class="section level3">
+<h3>I took EC170/STAT141 recently and remember some stuff</h3>
+<ol style="list-style-type: decimal">
+<li>Read through SW, and dig deeper into anything that doesn’t look familiar.</li>
+<li>Watch the class videos and complete video quizzes</li>
+<li>Use the Khan Academy to clarify anything you feel a bit fuzzy on.</li>
+<li>Make sure you can do the practice problems.</li>
+</ol>
+</div>
+<div id="everyone-else" class="section level3">
+<h3>Everyone else</h3>
+<ol style="list-style-type: decimal">
+<li>Start by reviewing the Khan Academy videos</li>
+<li>Work through <em>all</em> the Khan Academy practice problems.</li>
+<li>Watch the class videos and complete video quizzes</li>
+<li>Head into the practice problems, and review concepts where you are still stuck.</li>
+</ol>
+</div>
+</div>
+<div id="reading-guide-for-week-1" class="section level2">
+<h2>Reading Guide for Week 1</h2>
+<p><strong>Chapter 2.1-2.4: Review of Probability</strong></p>
+<p>This is the material you should already know, along with supports from <a href="https://www.khanacademy.org/math/ap-statistics/">Khan Academy (<i class="fas fa-tv"> </i>)</a>. Remember that you don’t need to memorize formulas! <em>Note that most links take you a direct video, but there are also relevant videos in the accompanying playlist.</em></p>
+<div id="sw-2.1-random-variables-and-probability-distributions" class="section level3">
+<h3>SW 2.1 Random Variables and Probability Distributions</h3>
+<ul>
+<li><a href="https://www.khanacademy.org/math/ap-statistics/random-variables-ap/discrete-random-variables/v/discrete-probability-distribution"><i class="fas fa-tv"> </i> Introduction to random variables and probability distributions variables</a> <em>(entire playlist, starting with “Constructing a probability distribution for a random varible”)</em></li>
+<li><a href="https://www.khanacademy.org/math/ap-statistics/random-variables-ap/xfb5d8e68:mean-standard-deviation-random-variables/v/expected-value-of-a-discrete-random-variable"><i class="fas fa-tv"> </i> Mean and standard deviation of random variables</a> <em>(entire playlist)</em></li>
+<li><a href="https://www.khanacademy.org/math/ap-statistics/probability-ap/stats-conditional-probability/v/testing-independence-from-experimental-data"><i class="fas fa-tv"> </i> Conditional probability</a> <em>(entire playlist)</em></li>
+</ul>
+</div>
+<div id="sw-2.2-expected-values-mean-and-variance" class="section level3">
+<h3>SW 2.2 Expected Values, Mean, and Variance</h3>
+<ul>
+<li>You only need a general knowledge of kurtosis and skew.</li>
+<li><a href="https://www.khanacademy.org/math/ap-statistics/random-variables-ap/transforming-random-variables/v/impact-of-scaling-and-shifting-random-variables"><i class="fas fa-tv"> </i> Transforming random variables</a> <em>(entire playlist, just 3 videos)</em></li>
+</ul>
+</div>
+<div id="sw-2.3-two-random-variables" class="section level3">
+<h3>SW 2.3 Two Random Variables</h3>
+<ul>
+<li>Law of iterated expectations can be skimmed
+<ul>
+<li>Make sure that you’re good with key concept box 2.3!</li>
+</ul></li>
+<li><a href="https://www.khanacademy.org/math/ap-statistics/random-variables-ap/combining-random-variables/v/mean-of-sum-and-difference-of-random-variables"><i class="fas fa-tv"> </i> Combining random variables</a> <em>(entire playlist)</em></li>
+</ul>
+</div>
+<div id="sw-2.4-the-normal-chi-squared-student-t-and-f-distributions" class="section level3">
+<h3>SW 2.4 The Normal, Chi-Squared, Student t, and F distributions</h3>
+<ul>
+<li><strong>Normal distribution only</strong>, <del>but we’ll discuss t-distributions a little bit</del>. We won’t use chi-squared, and we’ll come back to F-distributions later. For any work we’ll be doing, our sample sizes will be greater than 100, so <span class="math inline">\(t \rightarrow z\)</span>.</li>
+<li><a href="https://www.khanacademy.org/math/ap-statistics/density-curves-normal-distribution-ap/measuring-position/v/z-score-introduction"><i class="fas fa-tv"> </i> Z-scores</a> <em>(entire playlist)</em></li>
+<li><a href="https://www.khanacademy.org/math/ap-statistics/density-curves-normal-distribution-ap/stats-normal-distributions/v/ck12-org-normal-distribution-problems-qualitative-sense-of-normal-distributions"><i class="fas fa-tv"> </i> Normal distributions and the empirical rule</a> <em>not explicitly covered, but extremely useful review for intuition</em></li>
+<li><a href="https://www.khanacademy.org/math/ap-statistics/density-curves-normal-distribution-ap/normal-distributions-calculations/v/z-table-for-proportion-below"><i class="fas fa-tv"> </i> Normal distribution calculations</a> <em>(entire playlist, walks through all the possible ways of working w/ normal tables)</em></li>
+<li>Note that if you’re relying on the videos I’ve posted below, they <em>do not cover this section</em></li>
+</ul>
+</div>
+</div>
+<div id="slides" class="section level2">
+<h2>Slides</h2>
+<p>{{% slides %}}</p>
+</div>
+<div id="videos" class="section level2">
+<h2>Videos</h2>
+<p><em>Note that there is no pre-recorded coverage of normal distributions</em></p>
+<ul>
+<li><a href="https://youtu.be/SYc3ccB872s">Probability Review - SW 2.1-2.3</a></li>
+</ul>
+<p><em>Sorry that the audio is bit fuzzy at the beginning - I was still learning!</em>
+{{< youtube SYc3ccB872s >}}</p>
+<ul>
+<li><a href="https://youtu.be/7CKOMFXqlXE">Conditional Probability Example</a>
+{{< youtube 7CKOMFXqlXE >}}</li>
+</ul>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Aside: This unit will pull from lots of resources. Things will be simpler once we get to chapter 4 and onward<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

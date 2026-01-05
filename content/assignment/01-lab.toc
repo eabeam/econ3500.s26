@@ -1,0 +1,7 @@
+\babel@toc {english}{}
+\contentsline {subsection}{Materials}{1}{Doc-Start}%
+\contentsline {subsection}{Objectives}{1}{Doc-Start}%
+\contentsline {subsubsection}{Key commands}{2}{section*.1}%
+\contentsline {subsubsection}{Logic statements}{2}{table.1}%
+\contentsline {subsection}{\numberline {0.1}Hey, Stata. It's nice to meet you}{3}{subsection.0.1}%
+\contentsline {subsection}{Lab Exercise 1}{5}{Item.6}%

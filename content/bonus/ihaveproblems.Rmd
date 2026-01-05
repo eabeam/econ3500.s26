@@ -1,0 +1,74 @@
+---
+title: "General problems you could face this semester"
+sitetitle: I have a problem
+summary: Sometimes you get sick. Or awful things happen. You’re not alone, and UVM has support for you.
+
+date: "2021-08-20"
+
+menu:
+  resources:
+    parent: Resources
+    weight: 1
+  
+  # Academic page type (do not modify).
+type: docs
+output:
+  blogdown::html_page:
+    toc: true
+---
+Sometimes you get sick. Or awful things happen. You’re not alone, and UVM has support for you.^[I collaborated on this guide with UVM English professor Holly Painter. This stuff is generally true for all of your classes. Everyone here wants you to succeed.] 
+
+# Problems 
+
+## I’m not feeling well
+Stay home or in your room and call [Student Health Services](https://www.uvm.edu/health/SHS) (802-656-3350). They’ll talk you through next steps. If it turns out it’s just a cold, get better and get some sleep. Skip class and rest. No matter what grade you’re going for, everyone can miss a few classes with no penalty. Your groupmates will catch you up on what you miss, and if you’re worried, you can always sign up for office hours and talk to me. 
+
+## I might have COVID 
+If you live on-campus and you’ve either tested positive for COVID or you’re awaiting results for COVID-like symptoms, you’ll be moved into isolation housing. If you live off-campus, [Student Health Services](https://www.uvm.edu/health/SHS) will give you guidance about how to isolate safely. Wherever you live, [Student Health Services](https://www.uvm.edu/health/SHS) will notify me (and you can also notify me), and we’ll make a plan. 
+
+## I don’t have COVID, but I do have another serious illness or injury 
+Please reach out to [Student Services](#studentservices) at your college. They will help you! A very common thing that happens is that you document your medical emergency with [Student Services](#studentservices), and they contact all your professors for you. Then, your professors can make accommodations to help you. You can reach out to me before or after you get in touch with Student Services. 
+
+## I’m experiencing a family emergency
+Same as above. Reach out to your college’s [Student Services](#studentservices) office. They’re here to help you.
+
+## I’m struggling with my mental health 
+Please consider reaching out to Counseling and Psychiatry Services (802-656-3340). They are free and confidential, and they have tele-health appointments for all students, including at-home students. If you need a same-day appointment, tell them, and they will help you right away. If you’re worried your mental health is affecting your school performance, your college’s [Student Services](#studentservices) office can help you arrange accommodations with your professors – this is very common!
+
+## I’m experiencing food/housing insecurity
+If you are facing problems securing food or housing, I strongly encourage you to contact your college’s [Student Services](#studentservices) office. You can also talk to me if you feel comfortable. UVM’s [Swipe Out Hunger](https://www.uvm.edu/health/food-insecurity-uvm) program provides short-term help with food in the form of 14 free meal swipes at the dining halls. You can’t self-refer into the program, but I can put through the request (as can any other UVM faculty/staff).
+
+## I’m worried about a friend
+Call the [Dean of Students Office](https://www.uvm.edu/deanofstudents) (802-656-3380). If you’d like to stay anonymous, you can submit a [C.A.R.E. form online](https://www.uvm.edu/deanofstudents/student_advocacy/care_form) and the C.A.R.E. team will follow up with your friend. If it’s an emergency, call 911 off campus or 802-656-3473 on campus. 
+
+## Someone has sexually assaulted or harassed me
+This is not your fault. UVM resources include [Student Health Services](https://www.uvm.edu/health/SHS), [Campus Victim’s Advocate](https://www.uvm.edu/wagecenter/campus-advocacy), [Counseling and Psychiatry Services](https://www.uvm.edu/health/CAPS), and the [Women & Gender Equity Center](https://www.uvm.edu/wagecenter). If you prefer to get support off campus, reach out to [HOPE Works](https://hopeworksvt.org/). 
+
+You don’t need to report assault or harassment to access medical or support services, but if you decide to report it, you can do so anytime. To file a criminal report, contact UVM Police (802-656-3473) or fill out this [form](https://www.uvm.edu/police/forms/report-crime). To start an internal (non-criminal) investigation of harassment, use this [form](https://cm.maxient.com/reportingform.php?UnivofVermontAAEO&layout_id=5). Please note that I am a mandated reporter, meaning that, if you write about or tell me about a sexual assault, I am legally required to report it to UVM Police Services, though I can do so without your name.
+
+<!-- ## UVM is sending everyone home
+If this happens, I will send out a plan by email. Although this is a remote class, so not much would change for the remainder of the semester, the process of moving back home is hugely disruptive, so I’ll build in a pause in the course while everyone gets settled.--> 
+
+## I’m falling behind academically
+Sign up for office hours and talk to me! 
+
+<!-- The Tutoring Center offers free tutoring in learning skills, subject area tutoring, and supplemental instruction. -->
+
+The [Undergraduate Writing Center provides](https://www.uvm.edu/undergradwriting) free writing support and feedback at any point in the writing process for any class and any type of assignment. 
+
+The research databases at Howe Library are invaluable resources. If you need research help in any course, UVM research librarians are at the ready. 
+
+If you have a documented disability and you’re interested in utilizing accommodations, contact [Student Accessibility Services](https://www.uvm.edu/academicsuccess/student_accessibility_services). You’re also strongly encouraged to discuss with your professors the accommodations you plan to use in each course. 
+
+
+
+# Student Services {#studentservices .unnumbered}
+For many of these situations, your first contact will be Student Services in your college:
+
+| | |
+|---|---|
+|CALS (Agriculture & Life Sciences) <br>email: calsstudentservices@uvm.edu	|		[CAS (Arts & Sciences)](https://www.uvm.edu/cas/student_services) <br>	email: cas@uvm.edu 		|
+CEMS (Engineering & Mathematical Sciences) <br>	email: cems.student.services@uvm.edu	|	CESS (Education & Social Services) <br>		email: cessstsv@uvm.edu|
+CNHS (Nursing & Health Sciences) <br>	email: cnhs@uvm.edu			|		Rubenstein (Environment / Nat. Resources) <br> 		email: marie.vea@uvm.edu (Asst. Dean)|
+Grossman (Business) <br> email: gsbcss@uvm.edu|
+

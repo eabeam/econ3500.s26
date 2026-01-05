@@ -1,0 +1,147 @@
+
+
+---
+title: Week 4 - Linear Regression with One Regressor
+sitetitle: Week 4
+summary: "EC200 - Week 4 Linear Regression (CH4)"
+
+date: "2022-02-01"
+start_date: "2022-02-07"
+end_date: "2022-02-11"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 5
+    
+output:
+  blogdown::html_page:
+    toc: true
+
+pdf: /slides/ch4-slides.pdf
+thumb: /slides/ch4-slides.png
+
+
+
+---
+
+## Overview
+
+Welcome to Week 4! We are proceeding boldly into the world of **linear regression.** We're starting by looking into the *linear* relationship between two variables. 
+
+What we *won't* be doing is controlling for other factors, nor conducting statistical inference. We won't be looking at non-linear relationships yet either! Bah. 
+
+Rather, we're going to dive deep into what it means to look at how we can find a good estimate - nay, the best estimate! - of the relatonship between some $X$ and some $Y$.
+
+
+This is where *Stock and Watson* really start to shine. I highly recommend basking in their expertise and conversational style. 
+
+## Reading Guide
+
+**Chapter 4: Linear Regression with One Regressor**
+
+**SW 4.1** - The Linear Regression Model 
+
+This section is packed w/ good intuition and **bolded** vocabulary. Make sure you know it! 
+
+**SW 4.2** - Estimating the Coefficient of the Linear Regression Model? 
+
+You should be able to estimate linear regression coefficients by hand :sleepy:. 
+
+**SW 4.3** Measures of Fit
+
+Know how to use and interpret $R^2$, $ESS$, $TSS$, $SSR$ and $SER$. You will also need to know how to find these from raw Stata output as well. 
+
+**SW 4.4** Least Squares Assumptions 
+
+Known and understand the three least squares assumptions 
+
+**SW 4.5**  Sampling Distribution of the OLS
+
+Discuss unbiasedness of estimators and effects of larger vs. smaller sample sizes on standard errors. We won't calculate standard errors by hand. 
+
+
+## Note on causality 
+
+At this stage, we are thinking about *making good model* of data, but not necessarily the **data generating process** behind that data. When we use the framing of an **independent** and **dependent** variables, it's tempting to think that we're examining whether the **independent** variable *causes* the **dependent** variable.
+
+At this point in the course, we're looking at associations which *could* be causal ... or they could not be! 
+
+If you want to dig deeper, check out this great guide from EGAP:[10 things to know about causal inference](https://egap.org/resource/10-things-to-know-about-causal-inference/).
+```{r echo=FALSE}
+blogdown::shortcode('tweet', '1308094245669081089')
+```
+
+## Slides
+
+`r blogdown::shortcode("slides")`
+
+## Videos
+### [Video: Linear Regression w/ One Variable](https://youtu.be/tB8ayLyMOgU)
+`r htmltools::HTML("{{< youtube tB8ayLyMOgU >}}")`
+
+### [Video: Derivation of $\hat{\beta_0}$ and $\hat{\beta_1}$](https://youtu.be/0jetwjxb-6w)
+
+*Here, I work through how we derive estimates of $\hat{\beta_0}$ and $\hat{\beta_1}$ using our good friend, calculus.*
+`r htmltools::HTML("{{< youtube 0jetwjxb-6w >}}")`
+
+### [Video: Building intuition around the OLS model](https://youtu.be/rlrAeVlQusw)
+
+*You can play along with the [same simulator!](https://phet.colorado.edu/sims/html/least-squares-regression/latest/least-squares-regression_en.html)*
+`r htmltools::HTML("{{< youtube rlrAeVlQusw >}}")`
+
+## In-class exercise 
+
+Link to pdf [here](../practice/W4-02-in-class-exercise.pdf)
+
+Consider a dataset on births to women in the United States. Two
+variables of interest are infant birth weight in ounces (`bwght`), and
+the average number of cigarettes the mother smoked per day during
+pregnancy (`cigs`). The following simple regression was estimated using
+data on 1,388 births.
+
+      Source |       SS           df       MS      Number of obs   =     1,388
+    -------------+----------------------------------   F(1, 1386)      =     32.24
+       Model |  13060.4194         1  13060.4194   Prob > F        =    0.0000
+    Residual |    561551.3     1,386  405.159668   R-squared       =    0.0227
+    -------------+----------------------------------   Adj R-squared   =    0.0220
+       Total |   574611.72     1,387  414.283864   Root MSE        =    20.129
+
+    ------------------------------------------------------------------------------
+       bwght |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+    -------------+----------------------------------------------------------------
+        cigs |  -.5137721   .0904909    -5.68   0.000    -.6912861   -.3362581
+       _cons |   119.7719   .5723407   209.27   0.000     118.6492    120.8946
+    ------------------------------------------------------------------------------
+
+
+
+
+These results can also be written in the following way:
+
+$$\widehat{bwght} = 119.77 - 0.514 cigs$$
+
+1.  What is the dependent variable? What is the independent variable?
+
+2.  Write, in words, what the interpretation of $0.514$ is.
+
+3.  What is the predicted birth weight among mothers who do not smoke?
+    What about when $cigs=20$ (one pack per day)? Comment on the
+    difference.
+
+4.  Consider Prof. Beam, whose mother "cut back" to 10 cigarettes per
+    day (it was the 80s) and was born weighing 9lb, 15 oz. What is her
+    residual?
+
+5.  Find $R^2$ in the raw regression output. What does it tell us?
+
+6.  Are any least squares assumptions likely to be violated? Explain.
+
+7.  Does this simple regression necessarily capture a causal
+    relationship between the child's birth weight and the mother's
+    smoking habits? Explain.
+
+
