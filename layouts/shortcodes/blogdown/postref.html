@@ -1,1 +1,3 @@
-{{ if eq (getenv "BLOGDOWN_POST_RELREF") "true" }}{{ .Page.RelPermalink }}{{ else }}{{ .Page.Permalink }}{{ end }}
+{{- /* blogdown/postref replacement that avoids getenv */ -}}
+{{- $p := .Get 0 -}}
+{{- relref .Page $p -}}

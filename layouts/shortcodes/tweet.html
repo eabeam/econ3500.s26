@@ -1,0 +1,11 @@
+{{- /* layouts/shortcodes/tweet.html : no build-time remote calls */ -}}
+{{- $id := .Get 0 -}}
+
+<blockquote class="twitter-tweet">
+  <a href="https://twitter.com/i/web/status/{{ $id }}"></a>
+</blockquote>
+
+{{- if not (.Page.Scratch.Get "twitter_widgets_loaded") -}}
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  {{- .Page.Scratch.Set "twitter_widgets_loaded" true -}}
+{{- end -}}
