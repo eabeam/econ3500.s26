@@ -3,7 +3,7 @@
 ---
 title: Exam 2 - CH 4-7
 sitetitle: Exam 2 - Ch4-7
-summary: "EC200 - Exam 2 Prep (Ch4-7)"
+summary: "ECON3500 - Exam 2 Prep (Ch4-7)"
 
 date: "2022-03-01"
 
@@ -46,22 +46,24 @@ I recommend the following resources:
 The exam will be a lot like a math exam - solving some problems and showing your work. I would expect about 3 multi-part questions. There may be some questions that involve definitions and/or true-false.
 
 
-
-The exam is open book with a calculator allowed. 
+The exam is closed book with a calculator allowed. You are allowed a formula sheet that you created! 
 
 **I will provide the following F-distribution table (recreated from S&W): [F-table](../PracticeExams/f_distribution.pdf).**
 
 What is allowed?
 
-  - Paper notes
-  - Textbook
+  - Pen or pencil
+  - One page formula sheet (double sided)
   - Calculator (basic, scientific, graphing)
+  - Drink and quiet snack
   
 What is not allowed?
 
   - ~~Phone~~ 
-  - ~~Tablet~~
-  - ~~Laptop~~
+  - ~~Other notes~~
+  - ~~Textbook~~
+  - ~~Tablet/Laptop~~
+  - ~~Earbuds/headphones~~
 
 
 

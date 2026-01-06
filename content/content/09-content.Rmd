@@ -1,11 +1,11 @@
 ---
 title: Week 10 - Assessing Studies
 sitetitle: Week 10
-summary: "EC200 - Week 10 Assessing Studies Based on Multiple Regression (CH9)"
+summary: "ECON3500 - Week 10 Assessing Studies Based on Multiple Regression (CH9)"
 
 date: "2022-03-20"
-start_date: "2022-03-28"
-end_date: "2022-04-01"
+start_date: "2026-03-23"
+end_date: "2026-03-27"
 
   
   # Academic page type (do not modify).

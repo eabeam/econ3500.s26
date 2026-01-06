@@ -1,11 +1,11 @@
 ---
 title: Week 2 - Statistics Review
 sitetitle: Week 2
-summary: "EC200 - Week 2 Statistics Review (SW Chapter 3)"
+summary: "ECON3500 - Week 2 Statistics Review (SW Chapter 3)"
 
 date: "2021-08-25"
-start_date: "2022-01-24"
-end_date: "2022-01-28"
+start_date: "2026-01-19"
+end_date: "2026-01-23"
 
   
   # Academic page type (do not modify).
@@ -32,7 +32,7 @@ Welcome to Week 2! Statistical review continues apace.
 
 As before, what you should do this final week before the exam depends on your background:
 
-### I took EC170/STAT141 recently and remember some stuff
+### I took STAT1410 recently and remember some stuff
 1. Read through SW, and dig deeper into anything that doesn't look familiar. 
 2. Watch the class videos and complete video quiz.
 3. Use the Khan Academy to clarify anything you feel a bit fuzzy on. 

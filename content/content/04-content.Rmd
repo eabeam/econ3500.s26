@@ -3,11 +3,11 @@
 ---
 title: Week 4 - Linear Regression with One Regressor
 sitetitle: Week 4
-summary: "EC200 - Week 4 Linear Regression (CH4)"
+summary: "ECON3500 - Week 4 Linear Regression (CH4)"
 
 date: "2022-02-01"
-start_date: "2022-02-07"
-end_date: "2022-02-11"
+start_date: "2026-02-02"
+end_date: "2026-02-06"
 
   
   # Academic page type (do not modify).

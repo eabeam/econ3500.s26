@@ -1,11 +1,11 @@
 ---
 title: Week 11/12 - Panel data
 sitetitle: Week 11/12
-summary: "EC200 - Week 11/12 Regression with Panel Data (CH10)"
+summary: "ECON3500 - Week 11/12 Regression with Panel Data (CH10)"
 
 date: "2022-03-27"
-start_date: "2022-04-04"
-end_date: "2022-04-15"
+start_date: "2026-03-30"
+end_date: "2026-04-10"
 
   
   # Academic page type (do not modify).

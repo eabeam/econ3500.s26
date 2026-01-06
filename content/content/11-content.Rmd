@@ -3,11 +3,11 @@
 ---
 title: Week 13 - Research Week
 sitetitle: Week 13
-summary: "EC200 - Week 13 Research Week"
+summary: "ECON3500 - Week 13 Research Week"
 
 date: "2022-04-11"
-start_date: "2022-04-18"
-end_date: "2022-04-22"
+start_date: "2026-04-13"
+end_date: "2026-04-17"
 
   
   # Academic page type (do not modify).
@@ -41,7 +41,7 @@ thumb: /slides/rweek-slides.png
 
 *A helpful, five-step template!*[^1]
 
-[^1]: Use the template, but please do not plagarize the template.
+[^1]: Use the template, but please do not plagiarize the template.
 
 
 

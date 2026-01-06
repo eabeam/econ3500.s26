@@ -1,10 +1,10 @@
 ---
 title: Week 3 - Stats Exam
 sitetitle: Week 3 - Stats Exam
-summary: "EC200 - Week 3 Exam 1 Prep (Statistics)"
+summary: "ECON3500 - Week 3 Exam 1 Prep (Statistics)"
 date: "2022-01-19"
-start_date: "2022-01-31"
-end_date: "2022-02-04"
+start_date: "2026-01-26"
+end_date: "2022-01-30"
   # Academic page type (do not modify).
 type: docs
 menu:
@@ -23,9 +23,9 @@ thumb: /slides/ch3-slides.png
 
 ## What should I know? 
 
-Make sure you are comfortable with the material chapter guides from [Week 1](../01-content) and  [Week 2](../02-content). What does comfortable mean? That you're familiar with definitions and terminology, and that you can work through problems at the level of PS1 (solutions on [Blackboard](http://bb.uvm.edu)).
+Make sure you are comfortable with the material chapter guides from [Week 1](../01-content) and  [Week 2](../02-content). What does comfortable mean? That you're familiar with definitions and terminology, and that you can work through problems at the level of PS1 (solutions on [Brightspace](http://brightspace.uvm.edu)).
 
-There will not be a Stata component to the exam. 
+There will *not* be a Stata component to the exam. 
 
 ## I need more practice!
 
@@ -40,19 +40,22 @@ I recommend the following resources:
 The exam will be a lot like a math exam - solving some problems and showing your work. I would expect about 3 multi-part questions. There may be some questions that involve definitions and/or true-false.
 
 
-The exam is open book with a calculator allowed. 
+The exam is closed book with a calculator allowed. You are allowed to bring a one-page formula sheet.
 
 What is allowed?
 
-  - Paper notes
-  - Textbook
+  - Pen or pencil
+  - One page formula sheet (double sided)
   - Calculator (basic, scientific, graphing)
+  - Drink and quiet snack
   
 What is not allowed?
 
   - ~~Phone~~ 
-  - ~~Tablet~~
-  - ~~Laptop~~
+  - ~~Other notes~~
+  - ~~Textbook~~
+  - ~~Tablet/Laptop~~
+  - ~~Earbuds/headphones~~
 
 
 
@@ -107,6 +110,7 @@ Two things that may be useful to you:
 
 ## Past exam  {#practice-exam .unnumbered}
 
+Yes, this exam is very old! Fortunately, the statistics don't change!
 
 [Fall 2018 Practice Exam](../PracticeExams/StatsQuiz_Spring2018_print.pdf)
 

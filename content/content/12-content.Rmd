@@ -3,11 +3,11 @@
 ---
 title: Week 14 - Instrumental Variables
 sitetitle: Week 14
-summary: "EC200 - Week 14 Instrumental Variables (CH12)"
+summary: "ECON3500 - Week 14 Instrumental Variables (CH12)"
 
 date: "2022-04-18"
-start_date: "2022-04-25"
-end_date: "2022-04-29"
+start_date: "2026-04-20"
+end_date: "2026-04-24"
 
   
   # Academic page type (do not modify).

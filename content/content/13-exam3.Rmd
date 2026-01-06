@@ -3,7 +3,7 @@
 ---
 title: Exam 3 - CH 8-12
 sitetitle: Exam 3 - Ch8-12
-summary: "EC200 - Exam 3 Prep (Ch8-12)"
+summary: "ECON3500 - Exam 3 Prep (Ch8-12)"
 
 date: "2022-04-26"
 
@@ -47,21 +47,24 @@ The exam will be a lot like a math exam - solving some problems and showing your
 
 
 
-The exam is open book with a calculator allowed. 
-
+The exam is closed book with a calculator allowed. You are allowed to bring your own one-page formula sheet.
 
 
 What is allowed?
 
-  - Paper notes
-  - Textbook
+  - Pen or pencil
+  - One page formula sheet (double sided)
   - Calculator (basic, scientific, graphing)
+  - Drink and quiet snack
   
 What is not allowed?
 
   - ~~Phone~~ 
-  - ~~Tablet~~
-  - ~~Laptop~~
+  - ~~Other notes~~
+  - ~~Textbook~~
+  - ~~Tablet/Laptop~~
+  - ~~Earbuds/headphones~~
+
 
 ## How can I prepare? 
 
