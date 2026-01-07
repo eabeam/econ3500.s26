@@ -1,9 +1,9 @@
 ---
 title: "Lab 1: Introduction to Stata"
 linktitle: "Lab 1"
-date: "2022-01-11"
-due_date: "2022-02-01"
-due_time: "2:50 pm"
+date: "2026-01-12"
+due_date: "2022-01-22"
+due_time: "1:15 pm"
 toc: true
 menu:
   assignment:

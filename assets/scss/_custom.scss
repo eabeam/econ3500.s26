@@ -93,8 +93,14 @@ code {
 }
 
 #hero img {
-    max-width: 70%;
+    max-width: 100%;
 }
+
+#hero {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+
 
 .hero-title {
     line-height: 1.2;

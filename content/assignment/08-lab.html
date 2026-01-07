@@ -16,18 +16,17 @@ editor_options:
   chunk_output_type: console
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#materials">Materials</a></li>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#key-commands">Key commands</a>
+<li><a href="#materials" id="toc-materials">Materials</a></li>
+<li><a href="#objectives" id="toc-objectives">Objectives</a></li>
+<li><a href="#key-commands" id="toc-key-commands">Key commands</a>
 <ul>
-<li><a href="#conducting-instrumental-variables-regressions-with-ivregress">Conducting instrumental variables regressions with <code>ivregress</code></a></li>
-<li><a href="#outputting-your-results-with-outreg2">Outputting your results with <code>outreg2</code></a></li>
+<li><a href="#conducting-instrumental-variables-regressions-with-ivregress" id="toc-conducting-instrumental-variables-regressions-with-ivregress">Conducting instrumental variables regressions with <code>ivregress</code></a></li>
+<li><a href="#outputting-your-results-with-outreg2" id="toc-outputting-your-results-with-outreg2">Outputting your results with <code>outreg2</code></a></li>
 </ul></li>
-<li><a href="#exercises">Exercises</a></li>
+<li><a href="#exercises" id="toc-exercises">Exercises</a></li>
 </ul>
 </div>
 
@@ -185,9 +184,9 @@ have been in a choice school. Similarly, <span class="math inline">\(selectyrs1\
 etc. have a similar definition, but for being selected from the
 lottery.</p>
 <p>Estimate the following equation using IV. <span class="math display">\[\begin{split}
- mnce &amp;= \beta_0 + \beta_1 choiceyrs_1 + \beta_2 choiceyrs_2 + \beta_3 choiceyrs_3 + \beta_4 choiceyrs_4 + \\
- &amp;  \beta_5 black + \beta_6 hispanic + \beta_7 female + \beta_8 mnce90 + u
- \end{split}\]</span></p></li>
+mnce &amp;= \beta_0 + \beta_1 choiceyrs_1 + \beta_2 choiceyrs_2 + \beta_3 choiceyrs_3 + \beta_4 choiceyrs_4 + \\
+&amp;  \beta_5 black + \beta_6 hispanic + \beta_7 female + \beta_8 mnce90 + u
+\end{split}\]</span></p></li>
 <li><p>Finally, go back through your regressions in your do-file. After
 each regression (there should be six: OLS without controls, OLS with
 controls, IV by hand, IV using <code>ivregress</code>, IV with <span class="math inline">\(mnce90\)</span>, and IV

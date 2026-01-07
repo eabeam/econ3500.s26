@@ -103,9 +103,13 @@ code {
 .docs-sidebar .nav>li {
     line-height: 1.2;
 }
+.hero {
+  background-size: 200% auto;
+  background-position: center center;
+}
 
 #hero img {
-    max-width: 60%;
+    max-width: 70%;
 }
 
 .hero-title {

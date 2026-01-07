@@ -15,8 +15,8 @@ hero_media: pexels-pixabay-326900.jpg
 design:
   background:
     # Background gradient
-    gradient_start: '#95A4A7'
-    gradient_end: '#65736A'
+    gradient_start: '#F2BC8D'
+    gradient_end: '#C0AC3B'
     
 
     # Text color (true=light or false=dark).

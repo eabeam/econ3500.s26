@@ -69,7 +69,7 @@ privacy_pack: false
 # Enable visitors to edit pages?
 #   `repo` defines the repository URL. `editable` defines which page types can be edited.
 edit_page:
-  repo_url: 'https://github.com/eabeam/ec200.s22'
+  repo_url: 'https://github.com/eabeam/ec3500.s26'
   content_dir: ''
   repo_branch: master
   editable:
@@ -100,12 +100,12 @@ instructor:
   name: Dr. Emily Beam
   email: "emily.beam@uvm.edu"
   twitter: emily_beam
-  office: "233 Old Mill"
+  office: "337 Old Mill"
 # Address
 # For country_code, use the 2-letter ISO code (see https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 )
 #address = {street = "450 Serra Mall", city = "Stanford", region = "CA", postcode = "94305", country = "United States", country_code = "US"}
 #address: {street = "233 Old Mill, 94 University Pl.", city = "Burlington", region = "VT", postcode = "05403", country = "United States", country_code = "US"}
-  contact_policy: "The best way to reach me is by e-mail or by MS Teams."
+  contact_policy: "The best way to reach me is by e-mail"
 # Geographic coordinates
 # To get your coordinates, right-click on Google Maps and choose "What's here?". The coords will show up at the bottom.
   coordinates: {latitude = "44.478067", longitude = "-73.198852"}
@@ -116,11 +116,11 @@ instructor:
 # directions = ""
 # Office hours
 # A list of your office hours. To remove, set to an empty list `[]`.
-  office_hours: "Tuesdays 4:10–5:10pm, Wednesdays 2–3pm"
+  office_hours: "Thursdays 2:30-4:30 PM"
 
 # Enter an optional link for booking appointments (e.g. calendly.com).
-  appointment_url: "https://calendly.com/emily-a-beam/meeting"
-
+  # appointment_url: "https://calendly.com/emily-a-beam/meeting"
+appointment_url: []
 # Contact links
 #   Set to `[]` to disable, or comment out unwanted lines with a hash `#`.
 #contact_links:   {icon = "microsoft", icon_pack = "fab", name = "Message me", link = "https://teams.microsoft.com/l/chat/0/0?users=<ebeam>"}
@@ -132,14 +132,14 @@ instructor:
 
 
 course:
-  number: "EC200"
-  semester: "Fall 2022"
+  number: "ECON3500"
+  semester: "Spring 2026"
   days: "TTH"
-  time: "2:50–4:05"
-  dates: "January 18 - May 5"
-  location: "Lafayette L407"
+  time: "1:15–2:30"
+  dates: "January 12 - May 8"
+  location: "Lafayette L205"
   #github: "andrewheiss/datavizs21.classes.andrewheiss.com"
-  copyrightYear: "2022"
+  copyrightYear: "2026"
  # slack: "https://gsudatavizs21.slack.com"
 
 university:

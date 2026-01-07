@@ -1,7 +1,7 @@
 ---
 title: "Lab 3: Regression"
 linktitle: "Lab 3"
-publishdate: "2022-02-09"
+date: "2022-02-09"
 due_date: "2022-02-17"
 due_time: "2:50 PM"
 menu:
@@ -17,21 +17,20 @@ editor_options:
   chunk_output_type: console
 ---
 
-<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 <div id="TOC">
 <ul>
-<li><a href="#lab-content">Lab Content</a>
+<li><a href="#lab-content" id="toc-lab-content">Lab Content</a>
 <ul>
-<li><a href="#materials">Materials</a></li>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#key-commands">Key commands</a></li>
-<li><a href="#reading-regression-tables">Reading regression tables</a></li>
+<li><a href="#materials" id="toc-materials">Materials</a></li>
+<li><a href="#objectives" id="toc-objectives">Objectives</a></li>
+<li><a href="#key-commands" id="toc-key-commands">Key commands</a></li>
+<li><a href="#reading-regression-tables" id="toc-reading-regression-tables">Reading regression tables</a></li>
 </ul></li>
-<li><a href="#lab-3-worksheet">Lab 3 Exercise</a>
+<li><a href="#lab-3-worksheet" id="toc-lab-3-worksheet">Lab 3 Exercise</a>
 <ul>
-<li><a href="#what-do-i-submit">What do I submit?</a></li>
-<li><a href="#questions">Questions</a></li>
+<li><a href="#what-do-i-submit" id="toc-what-do-i-submit">What do I submit?</a></li>
+<li><a href="#questions" id="toc-questions">Questions</a></li>
 </ul></li>
 </ul>
 </div>
@@ -231,12 +230,12 @@ We don't want to overweight the importance of this, but it can be a helpful diag
 -->
 </div>
 </div>
-<div class="footnotes">
+<div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
 <li id="fn1"><p>Post-estimation commands must be run <em>immedately</em> after a regression, while the regression results are still held in your local variables<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Here, <code>newvar</code> equals <span class="math inline">\(\widehat{newvar_i} = \widehat{y_i} = \widehat{\beta_0} + \widehat{\beta_1}x_i\)</span><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>Here, <code>newvar</code> equals <span class="math inline">\(\widehat{newvar_i} = u_i = y_i - \widehat{\beta_0} + \widehat{\beta_1}x_i\)</span><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Here, <code>newvar</code> equals <span class="math inline">\(\widehat{newvar_i} = u_i =  y_i - \widehat{\beta_0} + \widehat{\beta_1}x_i\)</span><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>There are a few variables here, including <code>treatment_arm</code><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p>Not <code>fsec7</code>, which is categorical, or <code>fsec</code> which is always equal to 1<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 <li id="fn6"><p>Hint; <code>ttest var1,by(var2)</code> will run a t-test of the mean of <code>var1</code> are equal for two groups determined by <code>var2</code>. <a href="#fnref6" class="footnote-back">↩︎</a></p></li>
