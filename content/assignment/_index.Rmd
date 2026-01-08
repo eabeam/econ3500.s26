@@ -49,4 +49,4 @@ It's going to be great! In this class, you'll write a research paper on a topic 
 
  **Please submit all assignments through Brightspace** If you encounter technical issues, e-mail is a good last resort.
  
-You may prefer to hand write your problem sets and parts of your labs. I'm happy to accept assignments as typed or handwritten. You can use your phone to capture handwritten portions of your assignments, but please use a scanning app rather than just taking a picture. I recommend either [Adobe Scan](https://acrobat.adobe.com/us/en/mobile/scanner-app.html) or [Office Lens](https://www.microsoft.com/en-us/p/office-lens/9wzdncrfj3t8?activetab=pivot:overviewtab) - both are free!.
+You may prefer to hand write your problem sets and parts of your labs. I'm happy to accept assignments as typed or handwritten. You can use your phone to capture handwritten portions of your assignments, but please use a scanning app rather than just taking a picture. I recommend either [Adobe Scan](https://www.adobe.com/acrobat/mobile/scanner-app.html) or [Office Lens](https://www.microsoft.com/en-us/p/office-lens/9wzdncrfj3t8?activetab=pivot:overviewtab) - both are free!.

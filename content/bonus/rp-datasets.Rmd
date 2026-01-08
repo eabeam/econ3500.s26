@@ -59,8 +59,8 @@ output:
 - [Kraggle](https://www.kaggle.com/datasets)- Just a lot of data
 
 
-### Timely data sets 
-- [NYTimes Covid-19 Data](https://github.com/nytimes/covid-19-data) - Regularly updated Covid-19 data at the state and county level, over time. Now with a bonus county-level [mask usage](https://github.com/nytimes/covid-19-data/tree/master/mask-use) data set! 
-- [Johns Hopkins Covid-19 Data](https://github.com/CSSEGISandData/COVID-19) - Regularly updated Covid-19 data at the state and county level, over time 
-- [Covid-19 School Response Dashboard](https://explaincovid.org/kids/nationwide-covid-19-school-dashboard/) Not available yet, as data collection is ongoing, but will (soon?) be a database of K-12 school opening policies 
+<!-- ### Timely data sets  -->
+<!-- - [NYTimes Covid-19 Data](https://github.com/nytimes/covid-19-data) - Regularly updated Covid-19 data at the state and county level, over time. Now with a bonus county-level [mask usage](https://github.com/nytimes/covid-19-data/tree/master/mask-use) data set!  -->
+<!-- - [Johns Hopkins Covid-19 Data](https://github.com/CSSEGISandData/COVID-19) - Regularly updated Covid-19 data at the state and county level, over time  -->
+<!-- - [Covid-19 School Response Dashboard](https://explaincovid.org/kids/nationwide-covid-19-school-dashboard/) Not available yet, as data collection is ongoing, but will (soon?) be a database of K-12 school opening policies  -->
 
