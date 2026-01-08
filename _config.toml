@@ -89,12 +89,10 @@ ignoreFiles = ["\\.ipynb$", ".ipynb_checkpoints$", "\\.Rmd$", "\\.Rmarkdown$", "
 
 
 
-
-    [params]
+[params]
   google_fonts = [
-    ["Fira Code", "400, 700"],
-    ["Fira Sans", "400, 400i, 700, 700i"]
+    ["Inter", "300,400,500,600,700"]
   ]
 
-  heading_font = "Fira Code"
-  body_font = "Fira Sans"
+  heading_font = "Inter"
+  body_font    = "Inter"

@@ -423,7 +423,7 @@ feedback.)
 ## Grading {#grading .unnumbered}
 
 I will provide formal or informal grading rubrics for each component, so
-you have a clear idea of how you'll be graded.
+you have a clear idea of how you'll be graded. As the [syllabus](../../syllabus#grading) shows, your total research paper score will account for 35% of your final grade. 
 
 
 | |||| 

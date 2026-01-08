@@ -56,6 +56,22 @@ Now we get a bit technical. The key important things here are the understanding 
 
 Make sure you know what a **weak instrument** is, why it's a problem, and how we identify it. Make sure you understand the logic behind whether an instrument violates it's exogeneity assumption. 
 
+> nobody will remember:
+>
+> - your salary
+>
+> - how “busy you were”
+>
+> - how many hours you worked
+>
+>
+> people will remember:
+>
+> - when your instrumental variable violated the exclusion restriction
+>
+> — @dggoldst.bsky.social  
+> <https://bsky.app/profile/dggoldst.bsky.social/post/3kzxkv76lds2v>
+
 
 
 <!-- ```{r echo=FALSE} -->
