@@ -1,9 +1,9 @@
 ---
 title: "Problem set 4"
 linktitle: "PS 4"
-date: "2022-03-20"
-due_date: "2022-03-31"
-due_time: "2:50 PM"
+date: "2026-03-18"
+due_date: "2026-03-26"
+due_time: "1:15 PM"
 menu:
   assignment:
     parent: Problem Sets

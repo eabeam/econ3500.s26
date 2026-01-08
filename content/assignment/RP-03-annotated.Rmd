@@ -1,9 +1,8 @@
 ---
 title: "Research Paper: Annotated Bibliography"
 linktitle: "03 Annotated Bibliography"
-
-date: "2022-02-24"
-due_date: "2022-03-24"
+date: "2026-02-25"
+due_date: "2026-03-19"
 due_time: "11:59 PM"
 menu:
   assignment:
@@ -62,7 +61,7 @@ At least two article must come from a relevant economics journal in the **top 20
 
 ## Submission requirements {#submission-requirements .unnumbered}
 
-Submit the annotated bibliography plus summary as one document on Blackboard.
+Submit the annotated bibliography plus summary as one document on Brightspace
 
 If you are working in pairs, submit one bibliography for two people. 
 

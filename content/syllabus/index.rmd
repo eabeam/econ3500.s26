@@ -44,7 +44,7 @@ course time to cover all the Stata preparation you'll need, but I'll
 cover the basics and you'll have to rely on other resources to figure
 out the rest.
 
-# Learning objectives:  {#learning-objectives .unnumbered}
+# Learning objectives  {#learning-objectives .unnumbered}
 
 -   To understand and apply foundational tools in econometric theory
 
@@ -75,18 +75,23 @@ out the rest.
 
 # Course components {#course-components .unnumbered}
 
-## Embarking on the week {#class-meetings-m .unnumbered}
+## Lecture time{#class-meetings-m .unnumbered}
 
-If you arrive at class without preparing, things could feel very fast! I generally will cover our lecture material in class, but I tend to move quickly. This  approach to lets us maximize in-class practice and feedback. Check the calendar to see what you need to do. 
+If you arrive at class without preparing, things could feel very fast! We will go through most course material in class, but I tend to move quickly so we have time for in-class practice and feedback. Check the calendar to see what you need to do. 
 
 <!-- Before we start on a new unit, you should:  -->
 <!-- 1. Always read the associated chapters -->
 <!-- 1. There is usually an assigned or optional lecture video to get your prepared. Watch it!  -->
 <!-- 1. If assigned, you'll also need to earn an 80% on that week's lecture quiz.  -->
 
-Our class meetings will generally be a combination of lecture and practice.
+## Assignments{#assignments .unnumbered}
 
-We will have eight labs throughout the class. To enable you to work at your own pace, these will be introduced through videos posted on our class website. I and our class TA will provide lots of extra support as needed. Your  [lab](/assignment#labs) videos and materials will be available one week before their due date.
+Our class [assignments](/assignment) consist of roughly five problems sets and eight labs, graded for completion and due before class. Make sure to check the [schedule](../schedule) for deadlines. Materials will be available at least one week before their due date. 
+
+### Post-assignment quizzes 
+
+On each assignments' due date, you *may* also have an in-class post-assignment quiz. These will be geared such that you'll do well if you worked hard on the assignment, and you'll do very well if you completed the assignment accurately.
+
 
 
 # Deadlines  {#deadlines-and-extensions .unnumbered}
@@ -94,12 +99,12 @@ We will have eight labs throughout the class. To enable you to work at your own 
 -   With the exception of a handful of research paper assignments, deadlines are before class at **1:15pm** 
     -   As a general rule, problem sets are due on Thursdays at 1:15pm. Labs will bounce around depending on the schedule.
 -   Please submit all assignments through Brightspace. If you encounter   technical issues, e-mail is a fine last resort.
--   Late problem sets and labs will be penalized 10\% per day. In-class problem set quizzes cannot be made up.
--   Regarding **research papers intermediate elements *only***, I have an *"extensions for all"* policy
+-   Late problem sets and labs will be penalized 10\% per day. In-class assignment quizzes cannot be made up.
+-   Regarding **research papers elements *only* **, I have an *"extensions for all"* policy
     - If you need an extension, request it by e-mail **before** the deadline and provide a proposed new deadline. 
     - Some assignments build on previous ones, so be careful when requesting that you don't put yourself in a tricky position. I don't need to know why you need the extension. 
     - If you exceed your revised deadline (or you request an extension *after* the due date), then I will start applying the 10\% deduction per day. 
-    - This does not apply to the final paper submission, which remains fixed.
+    - Some assignments will have restrictions on extensions.
 
 
 # Class engagement and attendance {#class-engagement-and-attendance .unnumbered}
@@ -120,13 +125,13 @@ Please stay home! Get notes from a classmate. Fill out this [Short-Term Acute Il
 |    Assignment    |   Percent
 | :------------- | :----------: | 
 | Attendance                   |           5%    |
-| Problem set    quizzes        |           4%    |
+| Assignment   quizzes        |           4%    |
 | Labs                              |      8%   |
 | Problem sets                      |      8%   |
 | Exams (3 exams at 5%, 15%, 15%)       |      35%   |
 | Research paper                           |     40%   |
 
-You can miss **one** classe without any penalty. I will drop your lowest problem-set quiz.
+You can miss **one** class without any penalty. I will drop your lowest assignmentt quiz.
 
 ## Grading distribution {#grading-distribution .unnumbered}
 
@@ -157,8 +162,7 @@ You can miss **one** classe without any penalty. I will drop your lowest problem
 
 There are two unit exams (15% each) and one stats exam (5%). All exams are in-class. You can use a single page formula sheet (double-sided is fine) that you prepare.
 
-These exams are not explicitly cumulative, but you'll need to master skills from earlier
-chapters to tackle the newer material.
+These exams are not explicitly cumulative, but you'll need to master skills from earlier chapters to tackle the newer material.
 
 # FAQ {#frequently-asked-questions .unnumbered}
 
@@ -173,17 +177,16 @@ chapters to tackle the newer material.
 
 1.  *I am sick and need to miss class. Will I lose points? Do I need to
     tell you?* You don't need to let me know if you will be missing
-    class. If you need an extension, though, I will need to know that in
+    class. If you're sick, fill out the [Short-Term Acute Illness Form form](https://forms.office.com/pages/responsepage.aspx?id=WHcXHGtN3EOq6zucQlYpZ5YlvVi7m2FOggf-Zh_-E_RUMDcyT0paSlo0SkkwS0hMUFpHSjY1QlhLMyQlQCN0PWcu&route=shorturl). 
+    
+    If you need an extension, though, I will need to know that in
     advance of the deadline.
 
 1.  *Do I really need to buy a textbook?* Yes. 4th edition. You can probably get by with a used 3rd updated edition. 
     
-1.  Do I need a computer for this class? You will need a computer for any work with Stata. I *think* there is a way to get Stata to run on a Chromebook, but I can provide you with roughly zero technical support for setting that up!
+1.  *Do I need a computer for this class?* You will need a computer for any work with Stata. I *think* there is a way to get Stata to run on a Chromebook, but I can provide you with roughly zero technical support for setting that up!
 
-<!-- 1.  *My computer is broken/missing/on fire and I cannot submit my 
-    assignment on time!* Give me a heads up prior to the deadline, and
-    we can work out an extension.
-    --> 
+ 1.  *My computer is broken/missing/on fire and I cannot submit my assignment on time!* Remember that [Howe has desktop computers](https://libraries.uvm.edu/visit/using-computers) and that [ETS can help with problems](/bonus/ihaveproblems/#my-computer-is-broken). But if you're really stuck, give me a heads up *prior* to the deadline, and    we can work out an extension. 
 
 1. *Can I use open-source, glorious, R?* Sure. But I have many caveats and warnings. (1) You will need to to be comfortable reading and interpreting Stata output in order to be successful on exams. (2) I will be teaching in Stata exclusively, and the technical support I will be able to provide is limited. 
 

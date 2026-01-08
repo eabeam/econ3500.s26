@@ -1,7 +1,7 @@
 ---
 title: "Research Paper: Presentation"
 linktitle: "07 Presentation"
-date: "2022-04-14"
+date: "2026-04-10"
 menu:
   assignment:
     parent: Research Paper
@@ -53,13 +53,13 @@ Your presentation should cover the main elements of your paper:
 
 `r blogdown::shortcode("slides")`
 
-Additional student examples are available on Blackboard (see **Gated Resources**)
+Additional student examples are available on Brightspace (see **Gated Resources**)
 
 ## Deliverables and due dates
 
-Your due date is the day you signed up for via Doodle poll: **May 03 or May 05 at 2:50pm**
+Your due date is the day you signed up for via Doodle poll: **April 28 or April 30 at 1:15pm**
 
- **On Blackboard:** Submit a copy of your slides **before** your presentation. 
+ **On Brightspace:** Submit a copy of your slides **before** your presentation. 
 
 
 ## Presentation rubric

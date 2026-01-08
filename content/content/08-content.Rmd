@@ -57,11 +57,11 @@ Three types of interactions you should know:
 
 `r blogdown::shortcode("slides")`
 
-## Videos
+<!-- ## Videos -->
 
-This video talks us through polynomial and logarithmic regressions. We will do interactions (SW 8.3) entirely in class. Don't forget to complete [VQ8 on Blackboard!](https://blackboard.uvm.edu)
+<!-- This video talks us through polynomial and logarithmic regressions. We will do interactions (SW 8.3) entirely in class. Don't forget to complete [VQ8 on Blackboard!](https://blackboard.uvm.edu) -->
 
-### [Video: Nonlinear Reression Functions](https://youtu.be/LAPKh9ib2Tg )
-`r htmltools::HTML("{{< youtube LAPKh9ib2Tg >}}")`
+<!-- ### [Video: Nonlinear Reression Functions](https://youtu.be/LAPKh9ib2Tg ) -->
+<!-- `r htmltools::HTML("{{< youtube LAPKh9ib2Tg >}}")` -->
 
 

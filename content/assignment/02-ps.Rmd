@@ -1,9 +1,9 @@
 ---
 title: "Problem set 2"
 linktitle: "PS 2"
-date: "2022-02-03"
-due_date: "2022-02-17"
-due_time: "2:50 PM"
+date: "2026-02-08"
+due_date: "2026-02-17"
+due_time: "1:15 PM"
 menu:
   assignment:
     parent: Problem Sets
@@ -15,7 +15,7 @@ editor_options:
 
 ## Welcome 
 
-Make sure you submit your assignment on Blackboard by the deadline :point_up: :point_up:
+Make sure you submit your assignment on Brightspace by the deadline :point_up: :point_up:
 
 See the exercises below, or you can [download them as a pdf](../02-ps.pdf). You can download the data file you need for question 4 [here](../collegedistance.dta).
 

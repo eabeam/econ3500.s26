@@ -1,8 +1,8 @@
 ---
 title: "Research Paper: Final Submission"
 linktitle: "08 Final"
-date: "2022-03-24"
-due_date: "2022-05-10"
+date: "2026-04-10"
+due_date: "2026-05-04"
 due_time: "11:59 PM"
 menu:
   assignment:
@@ -24,7 +24,7 @@ Research papers are fairly formulaic, and that's a good thing - it helps readers
 
 ## What should I submit? 
 
-Your paper is due at **11:59pm May 10**. *I can accept extensions only up to May 11*, as there are external grading deadlines I need to meet. 
+Your paper is due at **11:59pm May 04**. *I can accept extensions only up to May 05*, as there are external grading deadlines I need to meet. 
 
 You should submit the following: 
 

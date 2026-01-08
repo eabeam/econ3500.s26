@@ -73,7 +73,7 @@ The data abstract should consist of two things:
 
 ## Submission requirements {#submission-requirements .unnumbered}
 
-Submit to me the following through Blackboard (submissions folder)
+Submit to me the following through Brightspace (submissions folder)
 
 -   Data abstract (in Word or as a PDF) - write-up + summary table
 

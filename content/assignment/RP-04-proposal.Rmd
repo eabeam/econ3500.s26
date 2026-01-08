@@ -1,10 +1,9 @@
 ---
 title: "Research Paper: Research Proposal"
 linktitle: "04 Research Proposal"
-
-date: "2022-03-20"
-due_date: "2022-04-14"
-due_time: "2:50 PM"
+date: "2026-03-20"
+due_date: "2026-04-09"
+due_time: "1:15 PM"
 menu:
   assignment:
     parent: Research Paper
@@ -81,4 +80,4 @@ Keep in mind that the more detail you include, the better the feedback you'll re
 Your research proposal should be written in paragraph form (i.e. complete sentences, not bullet points), copy-edited for grammatical/spelling errors, and submitted as a word or PDF document.
 
 ## Examples {#examples .unnumbered}
-See Blackboard for example proposals. These are not perfect, but they are all of high quality.
+See Brightspace for example proposals. These are not perfect, but they are all of high quality.

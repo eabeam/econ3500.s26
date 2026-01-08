@@ -324,13 +324,13 @@ plugins_js  = []
     appointment_url="https://calendly.com/emily-a-beam/"
 
   [course]
-    number = " EC200"
-    semester= "Fall 2021"
-    days= " MWF"
-    time= " 2:20-3:10pm"
-    location= "127 Jeffords"
-    dates= " August 30–December 10, 2021"
-    copyrightYear= " 2021"
+    number = "ECON3500"
+    semester= "Spring 2026"
+    days= " TTh"
+    time= " 1:15–2:30pm"
+    location= "Lafayette L205"
+    dates= " January 12—May 082026"
+    copyrightYear= " 2026"
 
   [university]
     name="University of Vermont"

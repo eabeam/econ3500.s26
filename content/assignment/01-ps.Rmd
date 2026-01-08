@@ -1,23 +1,23 @@
 ---
 title: "Problem set 1"
 linktitle: "PS 1"
-date: "2022-01-19"
-due_date: "2022-02-03"
-due_time: "2:50 PM"
+date: "2026-01-19"
+due_date: "2026-01-27"
+due_time: "1:15 PM"
 menu:
   assignment:
     parent: Problem Sets
     weight: 1
 type: docs
 editor_options: 
+  
+  
+  
   chunk_output_type: console
-  
-  
-  
 ---
 ## Welcome
 
-Welcome to Problem Set 1! There are two "problem" exercises and one extended Stata exercise. You'll need to submit three things on Blackboard: a problem set, log file, *and* a do-file. 
+Welcome to Problem Set 1! There are two "problem" exercises and one extended Stata exercise. You'll need to submit three things on Brightspace: a problem set, log file, *and* a do-file. 
 
 Note that there are superscripted numbers^[See?! Neat! :)  ] throughout the page that provide additional information/suggestions to help you out. 
 

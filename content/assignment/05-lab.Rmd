@@ -1,9 +1,9 @@
 ---
 title: "Lab 5: Merging and hypothesis tests"
 linktitle: "Lab 5"
-date: "2022-03-12"
-due_date: "2022-03-29"
-due_time: "2:50 PM"
+date: "2026-03-09"
+due_date: "2026-03-17"
+due_time: "1:15 PM"
 menu:
   assignment:
     parent: Labs
