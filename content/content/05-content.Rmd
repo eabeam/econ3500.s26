@@ -5,7 +5,7 @@ title: Week 5 - Inference with One Regressor
 sitetitle: Week 5
 summary: "ECON3500 - Week 5 Inference (CH5)"
 
-date: "2022-02-08"
+date: "2026-02-01"
 start_date: "2026-02-09"
 end_date: "2026-02-13"
 

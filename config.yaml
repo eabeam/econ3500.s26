@@ -18,11 +18,11 @@ ignoreFiles:
   - \.Rhistory$
   - \.knit\.md$
   - \.utf8\.md$
-
-# No taxonomy
+# No taxonomy pages
 disableKinds:
   - taxonomy
-  - taxonomyTerm
+  - term
+
 
 imaging:
   anchor: smart
@@ -46,13 +46,14 @@ footnotereturnlinkcontents: <sup>^</sup>
 
 defaultContentLanguage: en
 copyright: ''
-enableGitInfo: no
-hasCJKLanguage: no
-defaultContentLanguageInSubdir: no
-removePathAccents: yes
+enableGitInfo: false
+hasCJKLanguage: false
+defaultContentLanguageInSubdir: false
+removePathAccents: true
 summaryLength: 30
-paginate: 10
-enableEmoji: yes
+pagination:
+  pagerSize: 10
+enableEmoji: true
 
 
 # ----------------
@@ -74,7 +75,7 @@ outputFormats:
   WebAppManifest:
     mediaType: application/manifest+json
     rel: manifest
-enableRobotsTXT: yes
+enableRobotsTXT: true
 
 taxonomies:
   author: authors

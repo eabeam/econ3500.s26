@@ -5,7 +5,7 @@ title: Exam 2 - CH 4-7
 sitetitle: Exam 2 - Ch4-7
 summary: "ECON3500 - Exam 2 Prep (Ch4-7)"
 
-date: "2022-03-01"
+date: "2026-02-20"
 
 
   

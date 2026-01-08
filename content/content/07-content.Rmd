@@ -5,7 +5,7 @@ title: Week 7 - Hypothesis Tests with Multiple Regressions
 sitetitle: Week 7
 summary: "ECON3500 - Week 7 Hypothesis Testing with Multiple Regression (CH7)"
 
-date: "2022-02-22"
+date: "2026-02-16"
 start_date: "2026-02-23"
 end_date: "2026-02-27"
 

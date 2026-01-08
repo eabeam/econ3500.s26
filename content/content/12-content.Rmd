@@ -5,7 +5,7 @@ title: Week 14 - Instrumental Variables
 sitetitle: Week 14
 summary: "ECON3500 - Week 14 Instrumental Variables (CH12)"
 
-date: "2022-04-18"
+date: "2026-04-12"
 start_date: "2026-04-20"
 end_date: "2026-04-24"
 
