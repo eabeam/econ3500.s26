@@ -198,12 +198,11 @@ These exams are not explicitly cumulative, but you'll need to master skills from
 <!--     responsible for any Stata-related questions that come up on quizzes. -->
 
 
+`r blogdown::shortcode('tweet', 'https://twitter.com/DBelardoMD/status/1482505999441227777')`
 
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1482505999441227777')
-```
 
 1. **Can't I just ChatGPT my way through this course?** Please don't. That would be a silly way to spend your [one wild and precious life](https://www.loc.gov/programs/poetry-and-literature/poet-laureate/poet-laureate-projects/poetry-180/all-poems/item/poetry-180-133/the-summer-day/) and many precious dollars. Also, it's unlikely to serve your grade very well. See our [GenAI policy](#gen-ai-policy) below!
+
 
 
 # Gen AI policy

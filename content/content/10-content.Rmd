@@ -66,11 +66,11 @@ Set up and interpret difference-in-differences estimation. There's a decent disc
 
 `r blogdown::shortcode("slides")`
 
-## Videos
+<!-- ## Videos -->
 
 
-### [Video: Data types and difference-in-differences](https://youtu.be/hLEmPwd1R4E )
-`r htmltools::HTML("{{< youtube hLEmPwd1R4E >}}")`
+<!-- ### [Video: Data types and difference-in-differences](https://youtu.be/hLEmPwd1R4E ) -->
+<!-- `r htmltools::HTML("{{< youtube hLEmPwd1R4E >}}")` -->
 
 <!-- ### [Class Video](https://streaming.uvm.edu/media/embed/iM9eQzi/)  -->
 

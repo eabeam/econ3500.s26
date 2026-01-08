@@ -1,7 +1,7 @@
 ---
 title: "Research Paper: Overview"
 linktitle: "01 Overview"
-date: "2026-01-11"
+date: "2026-01-06"
 
 menu:
   assignment:
@@ -21,6 +21,7 @@ output:
 <li><a href="#learning-objectives" id="toc-learning-objectives">Learning objectives</a></li>
 <li><a href="#overview" id="toc-overview">Overview of requirements</a></li>
 <li><a href="#topic-selection" id="toc-topic-selection">Topic selection</a></li>
+<li><a href="#a-quick-note-on-genai" id="toc-a-quick-note-on-genai">A quick note on GenAI</a></li>
 <li><a href="#research-paper-process" id="toc-research-paper-process">Research paper process</a>
 <ul>
 <li><a href="#research-ideas" id="toc-research-ideas">Research ideas</a></li>
@@ -41,7 +42,7 @@ output:
 <li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
 <li><a href="#tables" id="toc-tables">Tables</a></li>
 <li><a href="#references" id="toc-references">References</a></li>
-<li><a href="#dofiles" id="toc-dofiles">Do-files/logs</a></li>
+<li><a href="#replication" id="toc-replication">Replication package</a></li>
 <li><a href="#style" id="toc-style">Style</a></li>
 </ul></li>
 <li><a href="#deadlines" id="toc-deadlines">Deadlines</a></li>
@@ -70,7 +71,7 @@ research question, recognizing necessary assumptions and limitations</p></li>
 <h2>Overview of requirements</h2>
 <p>All the nitty-gritty is below, but here’s a general sense of what I’ll ask you to do:</p>
 <ul>
-<li>You will write a journal-style paper in which you ask and answer an economic question, relying on regression analysis you conducte with cross-sectional or panel data.</li>
+<li>You will write a journal-style paper in which you ask and answer an economic question, relying on regression analysis that you conduct with cross-sectional or panel data.</li>
 <li>You’ll apply the various econometric techniques we’ve worked on throughout the semester.</li>
 </ul>
 <p>The assignment specifications depend on whether you are working alone or in pairs:</p>
@@ -104,24 +105,27 @@ with data that you can obtain. Your question should accomplish the
 following.</p>
 <ul>
 <li><p>It must have clear relevance to economic theory.</p></li>
-<li><p>It must be answerable using data (with a sample size of at least 100, ideally much higher!)</p></li>
-<li><p>It may not be an exact replication of previous work. It may,
-however, be an extension.</p></li>
-<li><p>It must use <em>cross-sectional</em> or <em>panel</em> data. There are lots of interesting time-series questions, but we will not cover these topics in EC200. I highly, highly recommend that work with data from <a href="https://www.ipums.org/">IPUMS</a>. I am open to other <strong>large</strong> data sets (<span class="math inline">\(n&gt;100\)</span>, ideally <span class="math inline">\(n&gt;1000\)</span>), but these require prior approval.</p></li>
+<li><p>It must be answerable using data (with a sample size of at least 100, ideally much (much) higher!)</p></li>
+<li><p>It may not be an exact replication of previous work. It may, however, be an extension.</p></li>
+<li><p>It must use <em>cross-sectional</em> or <em>`panel</em> data. There are lots of interesting time-series questions, but we will not cover these topics in ECON350. I highly, highly recommend that work with data from <a href="https://www.ipums.org/">IPUMS</a>. I am open to other <strong>large</strong> data sets (<span class="math inline">\(n&gt;100\)</span>, ideally <span class="math inline">\(n&gt;1000\)</span>), but these require prior approval.</p></li>
+<li><p>A strong paper will make a <em>reasonable attempt</em> at causal identification.</p></li>
 </ul>
-<!-- **Where folks get into trouble:** The biggest problem I see is that people get very excited about an interesting question, but they don't necessarily have the data they need. In order for us to be able to have reasonable standard errors and good asymptotic properties, I recommend questions that (a) have a data set you can access and (b) have at least 100 observations. I would strongly discourage you from any country or state cross-sections that don't also have a time component. I also would be wary about studies predicting athlete performance - our methods work well, but the link to economics is often tenuous. -->
+<p><strong>Where folks get into trouble:</strong> The biggest problem I see is that people get very excited about an interesting question, but they don’t necessarily have the data they need. In order for us to be able to have reasonable standard errors and good asymptotic properties, I recommend questions that (a) have a data set you can access and (b) have at least 100 observations. I would strongly discourage you from any country or state cross-sections that don’t also have a time component. I also would be wary about studies predicting athlete performance - our methods work well, but the link to economics is often tenuous.</p>
+</div>
+<div id="a-quick-note-on-genai" class="section level2">
+<h2>A quick note on GenAI</h2>
+<p>Now is a good time to refer to our class <a href="../../syllabus/#gen-ai-policy">Gen AI policy</a>! <em>TLDR; ChatGPT can be your friend, but no more.</em></p>
 </div>
 <div id="research-paper-process" class="section level2 unnumbered">
 <h2>Research paper process</h2>
 <div id="research-ideas" class="section level3 unnumbered">
 <h3><a href="../rp-02-ideas">Research ideas</a></h3>
-<p>Prepare a set of 3 research ideas. An “idea” only needs to consist of
-about 2-3 paragraphs, which should include a research question, a hypothesis, a
+<p>Prepare a set of 3 research ideas. An “idea” only needs to consist of about 2-3 paragraphs, which should include a research question, a hypothesis, a
 proposed data set, and a rough plan of analysis for testing your hypothesis.</p>
 </div>
 <div id="data-preparation" class="section level3 unnumbered">
 <h3><a href="../rp-03-annotated">Annotated bibliography</a></h3>
-<p>To make sure your question ties closely to the economic literature, you’ll prepare an annotated bibliography that identifies useful papers and summarizes them in relation to your quesiton.</p>
+<p>To make sure your question ties closely to the economic literature, you’ll prepare an annotated bibliography that identifies useful papers and summarizes them in relation to your question.</p>
 <!-- In research, sometimes questions drive the data we choose, and sometimes
 the data we have drive the questions we ask. With only one semester to
 build a paper, you may need to let the data take the lead. 
@@ -130,8 +134,7 @@ You'll prepare a [``data abstract''](../data-abstract) that includes your resear
 </div>
 <div id="research-proposal" class="section level3 unnumbered">
 <h3><a href="../rp-04-proposal">Research proposal</a></h3>
-<p>From the list of topics, choose and develop one research idea for your
-<a href="../rp-04-proposal">research proposal</a>. You’ll write up research proposal of at least 1000 words. This proposal should provide as much detail as possible to help me and your classmates assess your plan and provide useful feedback.</p>
+<p>From the list of topics, choose and develop one research idea for your <a href="../rp-04-proposal">research proposal</a>. You’ll write up research proposal of at least 1000 words. This proposal should provide as much detail as possible to help me and your classmates assess your plan and provide useful feedback.</p>
 </div>
 <div id="peer-review" class="section level3 unnumbered">
 <h3><a href="../rp-05-referee">Peer review</a></h3>
@@ -152,7 +155,7 @@ final week of class. I will provide specifics later.</p>
 </div>
 <div id="final-submission" class="section level3">
 <h3>Final submission</h3>
-<p>Your <a href="../rp-08-final-submission">final draft</a> will be due on the same day as our final exam. Please make sure to review all the <a href="#paper-components">requirements</a> carefully!</p>
+<p>Your <a href="../rp-08-final-submission">final draft</a> will be due on May 04. Please make sure to review all the <a href="#paper-components">requirements</a> carefully!</p>
 </div>
 </div>
 <div id="paper-components" class="section level2 unnumbered">
@@ -170,7 +173,7 @@ interesting research paper. I’ve provided a set of <a href="/bonus/paper-resou
 <li><a href="#conclusion">Conclusion</a></li>
 <li><a href="#references">References</a></li>
 <li><a href="#tables">Figures &amp; Tables</a></li>
-<li><a href="#dofile">Do-file/log</a></li>
+<li><a href="#replication">Replication package</a></li>
 </ul></li>
 </ul>
 <div id="abstract" class="section level3 unnumbered">
@@ -241,7 +244,7 @@ etc? Make sure the unit is appropriate to your question</p></li>
 <li><p>Describe your methodology. Are you estimating a model using OLS? If
 so, say so.</p></li>
 <li><p>Clarify whether we are looking at causal estimates or something
-else. What are the estimated parameters of interest. What do they
+else. What are the estimated parameters of interest? What do they
 mean?</p></li>
 <li><p>Correct standard errors: robust? Clustered? Something else?</p></li>
 </ul>
@@ -348,14 +351,28 @@ no place for a number like 0.05403823 or 0.0000000 in your tables.</p></li>
 (Author Year, Author Year)</p></li>
 </ul>
 </div>
-<div id="dofiles" class="section level3 unnumbered">
-<h3>Do-files/logs</h3>
-<p>You must also submit the following:</p>
+<div id="replication" class="section level3 unnumbered">
+<h3>Replication package</h3>
+<p>You must also submit materials such that I can replicate your analysis easily. How you do this exactly is up to you, but it must include the following:</p>
 <ol style="list-style-type: decimal">
-<li>Stata do-file that replicates your analysis</li>
-<li>Log-file that shows your results fron running your do-file</li>
+<li>Stata do-file that replicates your analysis
+<ol style="list-style-type: lower-alpha">
+<li>This should be “push-button.” That is, I should be able to load it, adjust the main file path, and run it once to replicate all your results.</li>
+<li>The do-file should therefore declare one a file path at beginning of file rather than using local paths throughout</li>
+</ol></li>
+<li>Raw data file.</li>
+<li>Log file that shows your results fron running your do-file</li>
+<li>If anything might seem confusing to me, include a Readme file to tell me what to do!</li>
 </ol>
 <p>These do not count toward your page limit, and they should be submitted as separate files.</p>
+<div id="how-to-submit" class="section level4">
+<h4>How to submit?</h4>
+<ul>
+<li>Ideally, zip your files and then upload directly to Brightspace.</li>
+<li>If the file is too large, use <a href="https://filetransfer.uvm.edu/">UVM File Transfer</a></li>
+<li>I’m open to other options depending on your preferences - Github repository, shared Google folder, etc.</li>
+</ul>
+</div>
 </div>
 <div id="style" class="section level3">
 <h3>Style</h3>
@@ -411,7 +428,7 @@ motivation only</p></li>
 <div id="deadlines" class="section level2 unnumbered">
 <h2>Deadlines</h2>
 <p>See <a href="../../schedule">course schedule</a> for deadlines. Submit materials by <strong>11:59pm</strong> on
-the deadline. Submit all assignments via Brightspace. (Late assignments without an extension
+the deadline unless otherwise specificed. Submit all assignments via Brightspace. (Late assignments without an extension
 will be penalized 10% per day, and they may not receive detailed
 feedback.)</p>
 </div>
@@ -494,9 +511,9 @@ detail.</p></li>
 pages of tables and 5 pages of text?</em> So long as the word and exhibit count are met, there’s no “right” place to be in that! What
 matters most is that your paper clearly addresses your research
 question.</p></li>
-<li><p><em>My results aren’t statistically significant, should I start over?</em> NO. Remember that our goal her eisn’t to find statistically significant relationships, it’s to answer questions. Let the data speak for itself about what relationships are or are not there.</p></li>
+<li><p><em>My results aren’t statistically significant, should I start over?</em> NO. Remember that our goal here isn’t to find statistically significant relationships, it’s to answer questions. Let the data speak for itself about what relationships are or are not there.</p></li>
 <li><p><em>How should I format my citations and bibliography?</em> Consistently.
-APA, Chicago, or MLA is fine.</p></li>
+APA or Chicago is fine. MLA is not.</p></li>
 <li><p><em>How much data analysis do I need to do?</em> You should incorporate
 data analysis to answer your research question or test your
 hypotheses. You may also use data to provide some descriptive

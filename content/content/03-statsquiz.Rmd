@@ -59,46 +59,17 @@ What is not allowed?
 
 
 
-<!---### How do I submit? 
-Work through on paper, then scan a copy and upload it onto Blackboard. Please use something like [Adobe Scan](https://acrobat.adobe.com/us/en/mobile/scanner-app.html) so that you can submit **just one file in pdf form**. In the past, I've found that uploading photos yields huge files that are difficult to grade.
+<!-- ### In-class practice  -->
 
-#### Details: 
-
-What should you make sure you include? 
-
- - Just one file per person 
- - PDF version - review in advance to make sure the text is readable
- - Make sure your answers are numbered, but you don't need to write out the questions
- - Please make sure pages are in order
- - **YOU MUST SHOW YOUR WORK** for full credit. 
---->
-
-### In-class practice 
-
-[Here are the problems](../practice/EC200-03-01practice.pdf) we covered in class.
+<!-- [Here are the problems](../practice/EC200-03-01practice.pdf) we covered in class. -->
 
 
-And a video with solutions! I recommend working through the problems on your own **first**. 
+<!-- And a video with solutions! I recommend working through the problems on your own **first**.  -->
 
-`r htmltools::HTML("{{< youtube q_NbBSDWcpI >}}")`
+<!-- `r htmltools::HTML("{{< youtube q_NbBSDWcpI >}}")` -->
 
-Or, download a [pdf of the solutions](../practice/EC200-03-01practice_solutions.pdf)
+<!-- Or, download a [pdf of the solutions](../practice/EC200-03-01practice_solutions.pdf) -->
 
-<!---
-### Practice exam! (For logisitics)
-
-Just to make sure we're feeling good about logistics, I'll post a "practice exam" on Blackboard that will go live at **3:30pm on Friday, September 18** (after our optional meet up) with one question. You can download it, work through the problem, scan it and upload your exam.  It will be available until **11:59 pm Sunday.**
-
-I'll review your submission and make sure there aren't any problems with viewing your work.  
-
-Completion of the practice exam will be worth 2 points toward the exam (regardless of the accuracy of your answer).
-
- 
-
-## Practice 
-
-On Friday, I'll release an optional "practice" lock-down exam. It will have one practice questions, so we can all experience the glory of online testing. If you complete the pratice lock-down exam, you will earn 2 points toward the exam.
---> 
 
 ## Helpful materials {#helpful-materials}
 

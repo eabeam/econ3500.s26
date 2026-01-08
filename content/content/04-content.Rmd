@@ -71,22 +71,22 @@ At this stage, we are thinking about *making good model* of data, but not necess
 At this point in the course, we're looking at associations which *could* be causal ... or they could not be! 
 
 If you want to dig deeper, check out this great guide from EGAP:[10 things to know about causal inference](https://egap.org/resource/10-things-to-know-about-causal-inference/).
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1308094245669081089')
-```
+
+`r blogdown::shortcode('tweet', 'https://x.com/WhitesPhD/status/1308094245669081089')`
+
 
 ## Slides
 
 `r blogdown::shortcode("slides")`
 
-## Videos
-### [Video: Linear Regression w/ One Variable](https://youtu.be/tB8ayLyMOgU)
-`r htmltools::HTML("{{< youtube tB8ayLyMOgU >}}")`
+<!-- ## Videos -->
+<!-- ### [Video: Linear Regression w/ One Variable](https://youtu.be/tB8ayLyMOgU) -->
+<!-- `r htmltools::HTML("{{< youtube tB8ayLyMOgU >}}")` -->
 
-### [Video: Derivation of $\hat{\beta_0}$ and $\hat{\beta_1}$](https://youtu.be/0jetwjxb-6w)
+<!-- ### [Video: Derivation of $\hat{\beta_0}$ and $\hat{\beta_1}$](https://youtu.be/0jetwjxb-6w) -->
 
-*Here, I work through how we derive estimates of $\hat{\beta_0}$ and $\hat{\beta_1}$ using our good friend, calculus.*
-`r htmltools::HTML("{{< youtube 0jetwjxb-6w >}}")`
+<!-- *Here, I work through how we derive estimates of $\hat{\beta_0}$ and $\hat{\beta_1}$ using our good friend, calculus.* -->
+<!-- `r htmltools::HTML("{{< youtube 0jetwjxb-6w >}}")` -->
 
 ### [Video: Building intuition around the OLS model](https://youtu.be/rlrAeVlQusw)
 

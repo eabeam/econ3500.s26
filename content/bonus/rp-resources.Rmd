@@ -42,7 +42,7 @@ If you plan on doing your research paper in R, then I strongly recommend [`ipums
 
 ## Suggested topics 
 
-Grab and go, or iterate from here.^[Asterisked questions draw from [Wooldridge's](http://econ.msu.edu/faculty/wooldridge/) Introductory Econometrics]
+Grab and go, or iterate from here.^[Asterisked questions draw from [Wooldridge's](https://econ.msu.edu/about/directory/wooldridge-jeffrey) Introductory Econometrics]
 
 - How has COVID-19 affected [mothers' labor supply](https://www.nytimes.com/interactive/2021/05/17/upshot/women-workforce-employment-covid.html) in the United States?^[With the usual caveats about causal identification] 
 
@@ -58,7 +58,7 @@ Grab and go, or iterate from here.^[Asterisked questions draw from [Wooldridge's
 
 - Minimum wages: What is the impact of minimum wages on *{something}*? For example: 
 
-  - **What is the effect of minimum wages on teen employment? For this, you would want state-level minimum wages over time. You can use the CPS to calculate teenage employment rates over time and get data on other factors that might affect employment. See Solon (1985) and  Castillo-Freeman and Freeman (1992).
+  - ** What is the effect of minimum wages on teen employment? For this, you would want state-level minimum wages over time. You can use the CPS to calculate teenage employment rates over time and get data on other factors that might affect employment. See Solon (1985) and  Castillo-Freeman and Freeman (1992).
 
   - **Do minimum wages alleviate poverty? The ACS should have the information that you need. You would also need data on state-level minimum wages over time. See Neumark and Wascher (1995).
   

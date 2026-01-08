@@ -94,10 +94,10 @@ This is the material you should know,  along with supports from [Khan Academy (<
 
 `r blogdown::shortcode("slides")`
 
-## Videos
+<!-- ## Videos -->
 
 
 
-`r htmltools::HTML("{{< youtube dMFQw0DcOgU >}}")`
+<!-- `r htmltools::HTML("{{< youtube dMFQw0DcOgU >}}")` -->
 
 

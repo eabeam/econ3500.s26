@@ -65,12 +65,9 @@ Here, we test one restriction, but with multiple coefficients, like this: $H_0: 
 
 `r blogdown::shortcode("slides")`
 
-## Videos
-### [Video: Hypothesis Tests with Multiple Linear Regression](https://youtu.be/qjgyS9u2EWM )
-`r htmltools::HTML("{{< youtube qjgyS9u2EWM >}}")`
+<!-- ## Videos -->
+<!-- ### [Video: Hypothesis Tests with Multiple Linear Regression](https://youtu.be/qjgyS9u2EWM ) -->
+<!-- `r htmltools::HTML("{{< youtube qjgyS9u2EWM >}}")` -->
 
-*Consider this week's video as a supplement to our class practice - we will go through this content in detail during class!* 
+<!-- *Consider this week's video as a supplement to our class practice - we will go through this content in detail during class!*  -->
 
-<!-- [Class Video](https://streaming.uvm.edu/media/embed/LOJbHAa/)
-
-<iframe src="https://streaming.uvm.edu/media/embed/LOJbHAa/" width="640" height="480" frameborder="0" allowfullscreen></iframe> --> 

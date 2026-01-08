@@ -1,7 +1,7 @@
 ---
 title: "Research Paper: Overview"
 linktitle: "01 Overview"
-date: "2026-01-11"
+date: "2026-01-06"
 
 menu:
   assignment:
@@ -37,7 +37,7 @@ learned in class.
 
 All the nitty-gritty is below, but here's a general sense of what I'll ask you to do: 
 
-- You will write a journal-style paper in which you ask and answer an economic question, relying on regression analysis you conducte with cross-sectional or panel data. 
+- You will write a journal-style paper in which you ask and answer an economic question, relying on regression analysis that you conduct with cross-sectional or panel data. 
 - You'll apply the various econometric techniques we've worked on throughout the semester. 
 
 The assignment specifications depend on whether you are working alone or in pairs: 
@@ -57,29 +57,31 @@ following.
 
 -   It must have clear relevance to economic theory.
 
--   It must be answerable using data (with a sample size of at least 100, ideally much higher!)
+-   It must be answerable using data (with a sample size of at least 100, ideally much (much) higher!)
 
--   It may not be an exact replication of previous work. It may,
-    however, be an extension.
+-   It may not be an exact replication of previous work. It may,  however, be an extension.
 
--   It must use *cross-sectional* or *panel* data. There are lots of  interesting time-series questions, but we will not cover these  topics in EC200. I highly, highly recommend that work with data from  [IPUMS](https://www.ipums.org/). I am open to other **large** data sets ($n>100$, ideally $n>1000$), but these require prior approval.
+-   It must use *cross-sectional* or *`panel* data. There are lots of interesting time-series questions, but we will not cover these  topics in ECON350. I highly, highly recommend that work with data from  [IPUMS](https://www.ipums.org/). I am open to other **large** data sets ($n>100$, ideally $n>1000$), but these require prior approval.
 
-
-<!-- **Where folks get into trouble:** The biggest problem I see is that people get very excited about an interesting question, but they don't necessarily have the data they need. In order for us to be able to have reasonable standard errors and good asymptotic properties, I recommend questions that (a) have a data set you can access and (b) have at least 100 observations. I would strongly discourage you from any country or state cross-sections that don't also have a time component. I also would be wary about studies predicting athlete performance - our methods work well, but the link to economics is often tenuous. --> 
+-   A strong paper will make a *reasonable attempt* at causal identification.
 
 
+ **Where folks get into trouble:** The biggest problem I see is that people get very excited about an interesting question, but they don't necessarily have the data they need. In order for us to be able to have reasonable standard errors and good asymptotic properties, I recommend questions that (a) have a data set you can access and (b) have at least 100 observations. I would strongly discourage you from any country or state cross-sections that don't also have a time component. I also would be wary about studies predicting athlete performance - our methods work well, but the link to economics is often tenuous.
+
+## A quick note on GenAI 
+
+Now is a good time to refer to our class [Gen AI policy](../../syllabus/#gen-ai-policy)! *TLDR; ChatGPT can be your friend, but no more.*
 
 ## Research paper process {#research-paper-process .unnumbered}
 
 ### [Research ideas](../rp-02-ideas) {#research-ideas .unnumbered}
 
-Prepare a set of 3 research ideas. An "idea" only needs to consist of
-about 2-3 paragraphs, which should include a research question, a hypothesis, a
+Prepare a set of 3 research ideas. An "idea" only needs to consist of about 2-3 paragraphs, which should include a research question, a hypothesis, a
 proposed data set, and a rough plan of analysis for testing your hypothesis. 
 
 ### [Annotated bibliography](../rp-03-annotated)  {#data-preparation .unnumbered}
 
-To make sure your question ties closely to the economic literature, you'll prepare an annotated bibliography that identifies useful papers and summarizes them in relation to your quesiton.
+To make sure your question ties closely to the economic literature, you'll prepare an annotated bibliography that identifies useful papers and summarizes them in relation to your question.
 
 <!-- In research, sometimes questions drive the data we choose, and sometimes
 the data we have drive the questions we ask. With only one semester to
@@ -89,8 +91,7 @@ You'll prepare a [``data abstract''](../data-abstract) that includes your resear
 
 ### [Research proposal](../rp-04-proposal)  {#research-proposal .unnumbered}
 
-From the list of topics, choose and develop one research idea for your
-[research proposal](../rp-04-proposal). You'll write up research proposal of at least 1000 words. This proposal should provide as much detail as possible to help me and your classmates assess your plan and provide useful feedback.
+From the list of topics, choose and develop one research idea for your [research proposal](../rp-04-proposal). You'll write up research proposal of at least 1000 words. This proposal should provide as much detail as possible to help me and your classmates assess your plan and provide useful feedback.
 
 
 ### [Peer review](../rp-05-referee) {#peer-review .unnumbered}
@@ -111,7 +112,7 @@ final week of class. I will provide specifics later.
 
 ### Final submission 
 
-Your [final draft](../rp-08-final-submission) will be due on the same day as our final exam. Please make sure to review all the [requirements](#paper-components) carefully!
+Your [final draft](../rp-08-final-submission) will be due on May 04. Please make sure to review all the [requirements](#paper-components) carefully!
 
 ## Paper components  {#paper-components .unnumbered}
 
@@ -127,7 +128,7 @@ interesting research paper. I've provided a set of [paper resources](/bonus/pape
   - [Conclusion](#conclusion)
   - [References](#references)
   - [Figures & Tables](#tables)
-  - [Do-file/log](#dofile)
+  - [Replication package](#replication)
   
   
 ### Abstract & Title {#abstract .unnumbered}
@@ -217,7 +218,7 @@ I recommended following [introduction formula](http://blogs.ubc.ca/khead/researc
     so, say so.
 
 -   Clarify whether we are looking at causal estimates or something
-    else. What are the estimated parameters of interest. What do they
+    else. What are the estimated parameters of interest? What do they
     mean?
 
 -   Correct standard errors: robust? Clustered? Something else?
@@ -339,15 +340,23 @@ You may also include figures, but they would not substitute for the required tab
 -   In-text, cite with author and year (Author, Year; Author, Year) or
     (Author Year, Author Year)
 
-### Do-files/logs {#dofiles .unnumbered} 
+### Replication package {#replication .unnumbered} 
 
-
-You must also submit the following: 
+You must also submit materials such that I can replicate your analysis easily. How you do this exactly is up to you, but it must include the following:  
 
 1. Stata do-file that replicates your analysis
-2. Log-file that shows your results fron running your do-file
+     a. This should be "push-button." That is, I should be able to load it, adjust the main file path, and run it once to replicate all your results. 
+     b. The do-file should therefore declare one a file path at beginning of file rather than using local paths throughout
+2. Raw data file.
+3. Log file that shows your results fron running your do-file
+4. If anything might seem confusing to me, include a Readme file to tell me what to do!
 
 These do not count toward your page limit, and they should be submitted as separate files.
+
+#### How to submit? 
+- Ideally, zip your files and then upload directly to Brightspace.
+- If the file is too large, use [UVM File Transfer](https://filetransfer.uvm.edu/)
+- I'm open to other options depending on your preferences - Github repository, shared Google folder, etc. 
 
 
 
@@ -407,7 +416,7 @@ These do not count toward your page limit, and they should be submitted as separ
 ## Deadlines {#deadlines .unnumbered}
 
 See [course schedule](../../schedule) for deadlines. Submit materials by **11:59pm** on
-the deadline. Submit all assignments via Brightspace. (Late assignments without an extension
+the deadline unless otherwise specificed. Submit all assignments via Brightspace. (Late assignments without an extension
 will be penalized 10\% per day, and they may not receive detailed
 feedback.) 
 
@@ -445,10 +454,10 @@ you have a clear idea of how you'll be graded.
     matters most is that your paper clearly addresses your research
     question.
 
--   *My results aren't statistically significant, should I start over?* NO. Remember that our goal her eisn't to find statistically significant relationships, it's to answer questions. Let the data speak for itself about what relationships are or are not there. 
+-   *My results aren't statistically significant, should I start over?* NO. Remember that our goal here isn't to find statistically significant relationships, it's to answer questions. Let the data speak for itself about what relationships are or are not there. 
 
 -   *How should I format my citations and bibliography?* Consistently.
-    APA, Chicago, or MLA is fine.
+    APA or Chicago is fine. MLA is not. 
 
 -   *How much data analysis do I need to do?* You should incorporate
     data analysis to answer your research question or test your

@@ -1,8 +1,25 @@
-{{- /* layouts/shortcodes/tweet.html : no build-time remote calls */ -}}
-{{- $id := .Get 0 -}}
+{{- /* layouts/shortcodes/tweet.html */ -}}
+{{- $a0 := .Get 0 -}}
+{{- $url := "" -}}
+
+{{- if hasPrefix $a0 "http" -}}
+  {{- $url = $a0 -}}
+{{- else if ge (len .Params) 2 -}}
+  {{- $handle := $a0 -}}
+  {{- $id := .Get 1 -}}
+  {{- $url = printf "https://twitter.com/%s/status/%s" $handle $id -}}
+{{- else -}}
+  {{- /* Last-resort fallback (may not embed reliably for all tweets) */ -}}
+  {{- $url = printf "https://twitter.com/i/web/status/%s" $a0 -}}
+{{- end -}}
+
+{{- /* Normalize domains */ -}}
+{{- $url = replace $url "https://x.com/" "https://twitter.com/" -}}
+{{- $url = replace $url "http://x.com/" "https://twitter.com/" -}}
+{{- $url = replace $url "https://mobile.twitter.com/" "https://twitter.com/" -}}
 
 <blockquote class="twitter-tweet">
-  <a href="https://twitter.com/i/web/status/{{ $id }}"></a>
+  <a href="{{ $url }}"></a>
 </blockquote>
 
 {{- if not (.Page.Scratch.Get "twitter_widgets_loaded") -}}

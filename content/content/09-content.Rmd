@@ -55,16 +55,11 @@ No new content, but this is a really good walk-through of the 9.1 and 9.2 conten
 
 `r blogdown::shortcode("slides")`
 
-## Videos
+<!-- ## Videos -->
 
 
-### [Video: Assessing Studies](https://youtu.be/zIx8kyPZSC0 )
-`r htmltools::HTML("{{< youtube zIx8kyPZSC0 >}}")`
-https://youtu.be/ 
-<!-- ### [Class Video](https://streaming.uvm.edu/media/embed/iM9eQzi/)  -->
+<!-- ### [Video: Assessing Studies](https://youtu.be/zIx8kyPZSC0 ) -->
+<!-- `r htmltools::HTML("{{< youtube zIx8kyPZSC0 >}}")` -->
+<!-- https://youtu.be/  -->
 
-<!-- *You need to use your netid to log in - let me know if you have issues* -->
-
-
-<!--  <iframe src="https://streaming.uvm.edu/media/embed/iM9eQzi/" width="640" height="480" frameborder="0" allowfullscreen></iframe> -->
 

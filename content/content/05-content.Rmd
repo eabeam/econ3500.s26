@@ -49,24 +49,24 @@ We are going to use this ALL THE TIME.
 **SW 5.4**	Heteroskedasticity and homoskedasticity 
 
 
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1316528345224343552')
-```
+`r blogdown::shortcode('tweet', 'https://x.com/ChelseaParlett/status/1316528345224343552')`
 
 
 Drop "heteroskedasticity" into any conversation and you're sure to delight. Just one more benefit of EC200. 
 The examples and implications of heteroskedasticity are important. 
 
-And, now you'll know to add `, robust` to all your Stata regressions. (*Quick, someone tell Nate Silver!*)
+And, now you'll know to add `, robust` to all your Stata regressions. 
 
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1273493646969647105')
-```
+<!-- (*Quick, someone tell Nate Silver!*) -->
+
+<!-- ```{r echo=FALSE} -->
+<!-- blogdown::shortcode('tweet', '1273493646969647105') -->
+<!-- ``` -->
 
 
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1274901353563934726')
-```
+<!-- ```{r echo=FALSE} -->
+<!-- blogdown::shortcode('tweet', '1274901353563934726') -->
+<!-- ``` -->
 
 
 
@@ -84,9 +84,9 @@ For the good times.
 
 `r blogdown::shortcode("slides")`
 
-## Videos
-### [Video: Inference with One-Variable Linear Regression](https://youtu.be/DZo5m5q3bmA)
-`r htmltools::HTML("{{< youtube DZo5m5q3bmA >}}")`
+<!-- ## Videos -->
+<!-- ### [Video: Inference with One-Variable Linear Regression](https://youtu.be/DZo5m5q3bmA) -->
+<!-- `r htmltools::HTML("{{< youtube DZo5m5q3bmA >}}")` -->
 
 ## Other resources 
 

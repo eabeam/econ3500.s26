@@ -19,7 +19,7 @@ weight: 1
 ---
 
 Before each week, review the relevant materials here alongside the textbook before coming to class. 
-#For nearly all weeks, there are accompanying leture videos. Some videos are optional, and some videos are mandatory (see the [schedule](../schedule)). 
+<!-- For nearly all weeks, there are accompanying leture videos. Some videos are optional, and some videos are mandatory (see the [schedule](../schedule)).  -->
 
-#For the mandatory videos, make sure to also take the video quiz available on [Blackboard](http://bb.uvm.edu) before class!
+<!-- For the mandatory videos, make sure to also take the video quiz available on [Blackboard](http://bb.uvm.edu) before class! -->
 

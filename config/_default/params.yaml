@@ -134,7 +134,7 @@ appointment_url: []
 course:
   number: "ECON3500"
   semester: "Spring 2026"
-  days: "TTH"
+  days: "TTh"
   time: "1:15–2:30"
   dates: "January 12 - May 8"
   location: "Lafayette L205"
@@ -146,7 +146,11 @@ university:
   name: University of Vermont
   url: "https://www.uvm.edu"
 
-
+ta:
+  name: "Rae Tiffen"
+  email: "rae.tiffen@uvm.edu"
+  office: "TBD"
+  office_hours: "TBD"
 
 
 ############################

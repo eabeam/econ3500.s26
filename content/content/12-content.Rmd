@@ -1,13 +1,13 @@
 
 
 ---
-title: Week 14 - Instrumental Variables
-sitetitle: Week 14
-summary: "ECON3500 - Week 14 Instrumental Variables (CH12)"
+title: Week 13 - Instrumental Variables
+sitetitle: Week 13
+summary: "ECON3500 - Week 13 Instrumental Variables (CH12)"
 
 date: "2026-04-12"
-start_date: "2026-04-20"
-end_date: "2026-04-24"
+start_date: "2026-04-13"
+end_date: "2026-04-17"
 
   
   # Academic page type (do not modify).
@@ -15,7 +15,7 @@ type: docs
 menu:
   content:
     parent: Course content
-    weight: 14
+    weight: 13
     
 output:
   blogdown::html_page:
@@ -45,9 +45,7 @@ I find the derivation (in the text and video) helpful, but it's not something I'
 
 
 
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1298665911101136901')
-```
+`r blogdown::shortcode('tweet', 'https://x.com/lukestein/status/1298665911101136901')`
 
 
 #### **SW 12.2** The General IV Regression Model
@@ -60,13 +58,13 @@ Make sure you know what a **weak instrument** is, why it's a problem, and how we
 
 
 
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1466634426067075077')
-```
+<!-- ```{r echo=FALSE} -->
+<!-- blogdown::shortcode('tweet', '1466634426067075077') -->
+<!-- ``` -->
 
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1428455696538882048')
-```
+<!-- ```{r echo=FALSE} -->
+<!-- blogdown::shortcode('tweet', '1428455696538882048') -->
+<!-- ``` -->
 
 
 **Skip the test of overidentifying restrictions**
@@ -90,8 +88,8 @@ Getting your head around IV can be tricky! Here are a few resources if you want 
 
 `r blogdown::shortcode("slides")`
 
-##  [Video: Introduction to IV](https://youtu.be/MeHHe303JuI )
+<!-- ##  [Video: Introduction to IV](https://youtu.be/MeHHe303JuI ) -->
 
-`r htmltools::HTML("{{< youtube MeHHe303JuI >}}")`
+<!-- `r htmltools::HTML("{{< youtube MeHHe303JuI >}}")` -->
 
 

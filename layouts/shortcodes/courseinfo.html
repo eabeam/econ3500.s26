@@ -1,5 +1,20 @@
 <div class="row">
-    <div class="col-md-6">
+
+
+    <div class="col-md-4">
+        <h3>Course details</h3>
+
+        <ul class="icon-list">
+            <li><i class="far fa-calendar"></i> {{ .Site.Params.course.days }}</li>
+            <li><i class="far fa-calendar-alt"></i> {{ .Site.Params.course.dates }}</li>
+            <li><i class="far fa-clock"></i> {{ .Site.Params.course.time }}</li>
+            {{ if isset .Site.Params.course "location" }}<li><i class="fas fa-university"></i> {{ .Site.Params.course.location }}</li>{{end}}
+            {{ if isset .Site.Params.course "slack" }}<li><i class="fab fa-slack"></i> <a href="{{ .Site.Params.course.slack }}" target="_blank" rel="noopener">Slack</a></li>{{ end }}
+        </ul>
+    </div>
+
+    
+    <div class="col-md-4">
         <h3>Instructor</h3>
 
         <ul class="icon-list">
@@ -12,17 +27,21 @@
         </ul>
     </div>
 
-    <div class="col-md-6">
-        <h3>Course details</h3>
+    {{ with .Site.Params.ta }}
+    <div class="col-md-4">
+        <h3>Teaching Assistant</h3>
 
         <ul class="icon-list">
-            <li><i class="far fa-calendar"></i> {{ .Site.Params.course.days }}</li>
-            <li><i class="far fa-calendar-alt"></i> {{ .Site.Params.course.dates }}</li>
-            <li><i class="far fa-clock"></i> {{ .Site.Params.course.time }}</li>
-            {{ if isset .Site.Params.course "location" }}<li><i class="fas fa-university"></i> {{ .Site.Params.course.location }}</li>{{end}}
-            {{ if isset .Site.Params.course "slack" }}<li><i class="fab fa-slack"></i> <a href="{{ .Site.Params.course.slack }}" target="_blank" rel="noopener">Slack</a></li>{{ end }}
+            {{ if isset . "name" }}<li><i class="fas fa-user"></i> {{ .name }}</li>{{ end }}
+            {{ if isset . "office" }}<li><i class="fas fa-university"></i> {{ .office }}</li>{{ end }}
+            {{ if isset . "email" }}<li><i class="fas fa-envelope"></i> <a href="mailto:{{ .email }}">{{ .email }}</a></li>{{ end }}
+            {{ if isset . "office_hours" }}<li><i class="fas fa-calendar-check"></i> {{ .office_hours }}</li>{{ end }}
+            {{ if isset . "url" }}<li><i class="fas fa-link"></i> <a href="{{ .url }}" target="_blank" rel="noopener">Website</a></li>{{ end }}
         </ul>
     </div>
+    {{ end }}
+
+
 <!-- 
     <div class="col-md-4 contact-policy">
         <h3>Contacting me</h3>

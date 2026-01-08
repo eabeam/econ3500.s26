@@ -1,13 +1,13 @@
 
 
 ---
-title: Week 13 - Research Week
-sitetitle: Week 13
-summary: "ECON3500 - Week 13 Research Week"
+title: Week 14 - Research Week
+sitetitle: Week 14
+summary: "ECON3500 - Week 14 Research Week"
 
-date: "2026-04-05"
-start_date: "2026-04-13"
-end_date: "2026-04-17"
+date: "2026-04-12"
+start_date: "2026-04-20"
+end_date: "2026-04-24"
 
   
   # Academic page type (do not modify).
