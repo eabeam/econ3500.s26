@@ -418,7 +418,7 @@ These do not count toward your page limit, and they should be submitted as separ
 See [course schedule](../../schedule) for deadlines. Submit materials by **11:59pm** on
 the deadline unless otherwise specificed. Submit all assignments via Brightspace. (Late assignments without an extension
 will be penalized 10\% per day, and they may not receive detailed
-feedback.) 
+feedback.) cd .
 
 ## Grading {#grading .unnumbered}
 
