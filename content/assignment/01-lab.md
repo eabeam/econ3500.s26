@@ -1,7 +1,7 @@
 ---
 title: "Lab 1: Introduction to Stata"
 linktitle: "Lab 1"
-date: "2026-01-12"
+date: "2026-01-14"
 due_date: "2022-01-22"
 due_time: "1:15 pm"
 toc: true

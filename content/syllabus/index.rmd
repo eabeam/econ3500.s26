@@ -112,7 +112,7 @@ responsible for finding a classmate or checking Brightspace for any content you 
 
 ## What if I'm sick? 
 
-Please stay home! Get notes from a classmate. Fill out this [Short-Term Acute Illness Form form](https://forms.office.com/pages/responsepage.aspx?id=WHcXHGtN3EOq6zucQlYpZ5YlvVi7m2FOggf-Zh_-E_RUMDcyT0paSlo0SkkwS0hMUFpHSjY1QlhLMyQlQCN0PWcu&route=shorturl). I excuse all absences (and problem set quizzes) that are documented in this way. 
+Please stay home! Get notes from a classmate. Fill out this [Short-Term Acute Illness Form form](https://forms.office.com/pages/responsepage.aspx?id=WHcXHGtN3EOq6zucQlYpZ5YlvVi7m2FOggf-Zh_-E_RUMDcyT0paSlo0SkkwS0hMUFpHSjY1QlhLMyQlQCN0PWcu&route=shorturl). I excuse assignment quizzes that are documented in this way. 
 
 # Grading {#grading .unnumbered}
 
@@ -126,7 +126,7 @@ Please stay home! Get notes from a classmate. Fill out this [Short-Term Acute Il
 | Exams (3 exams at 5%, 20%, 20%)       |      45%   |
 | Research paper                        |     35%   |
 
-You can miss **one** class without any penalty. I will drop your lowest assignmentt quiz.
+I will drop your lowest assignment quiz.
 
 ## Grading distribution {#grading-distribution .unnumbered}
 
