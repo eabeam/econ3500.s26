@@ -1,7 +1,7 @@
 ---
 title: "Lab 1: Introduction to Stata"
 linktitle: "Lab 1"
-date: "2026-01-14"
+date: "2026-01-13"
 due_date: "2022-01-22"
 due_time: "1:15 pm"
 toc: true
@@ -26,22 +26,23 @@ By the end of this tutorial you should be able to complete the following
 tasks in Stata:
 
 -   Identify key areas of the Stata interface
-
 -   Open a data file
-
+-   Understand what a working directory is
 -   Summarize and tabulate data
-
+-   Make a variable
 -   Create and save a log file
-
 -   Open, view, and save a data file
-
--   How to get help with Stata
+-   Ask Stata for help
 
 If you need more help, check out [Stata Resources](/bonus/stata-resources).
 
 ## General command structure
 
 `do {something} ... with {variable(s) x}...if {something is true..}, options`
+
+
+**Note:** In this lab, you may type commands directly into the Command window. Later in the course, we will use *do-files*, which allow you to save and rerun your code. For now, your log file will serve as a record of your work.
+
 
 
 ### Key commands  {#key-commands .unnumbered}
@@ -159,6 +160,22 @@ easier for you to edit, cut and paste your log in any text editor.*
 
 Now that you have a log file open, we can start our STATA session.
 
+## Working directories (important!)
+
+Stata looks for data files in its *working directory*. To see your current
+working directory, type:
+
+`pwd`
+
+If your data file is not located there, Stata will not find it. You can
+change your working directory using:
+
+`cd "/path/to/your/folder"`
+
+Once you run this command, Stata will make this working directory its starting point, but only for the rest of the session. The next time you open Stata, you may need to repeat the process.
+
+I recommend creating a folder for this class (e.g., `econ3500/labs/`) and saving both your data and log files there.
+
 ## Opening data files
 
 Stata data files end with the extension `.dta`, and they can only be
@@ -175,9 +192,13 @@ There are three ways to open a data file:
     the command window, the `use` command appears. We'll use that one
     later.
 
-3.  Type `use filename.dta, clear` into the command window within Stata
+3.  Type `use filename.dta, clear` into the command window within Stata. The option `, clear` tells Stata to remove any data currently in memory.
+Stata can only hold one dataset at a time.[^3]
 
-Download [`driving_2004.dta`](../materials/driving_2004.dta) and open it. It is a
+[^3]: Yes, this is a pain.
+
+
+Download [`driving_2004.dta`](../materials/driving_2004.dta) and open it. I recommend moving it to your brand new class folder first. It is a
 file of driving laws, vehicle accidents, and fatalities in the United
 States in 2004.
 
@@ -249,6 +270,22 @@ When you are analyzing variables, you will want to think carefully about
 whether you should be looking at row percentages, column percentages, or
 cell percentages.
 
+## Creating new variables
+
+You can create new variables using the `generate` command. For example:
+
+`gen highfatal = fatal_rate > 1.5`
+
+This creates a variable equal to 1 when the condition is true, and 0 otherwise.
+
+You could create the same variable in a slightly different way: 
+
+```
+gen highfatal = 1         if fatal_rate > 1.5 
+  replace highfatal = 0   if fatal_rate < 1.5
+```
+
+
 ---
 
 ## Lab Exercise 1 {#lab-1 .unnumbered}
@@ -260,6 +297,8 @@ _First, work through the above steps. Then, work through the 7 questions below._
 
 1. Your written up answers to exercise questions (1) - (7). This can be typed or written out then scanned (or photographed), in any reasonable format 
 2.  A log file that contains the results from the steps prior to the exercise _and_ the exercise itself. 
+
+*If you struggled or explored, this might get excessively long! Three choices (1) submit it anyways, (2) open it in a text editor manually delete the nonsense, (3) close your log file and start a new one, and this time run through your code with less backtracking. Option (1) is completely fine.*
 
 ### Questions
 
@@ -295,5 +334,4 @@ _First, work through the above steps. Then, work through the 7 questions below._
 
 
 [^1]: If you are tired of dealing with the "more" issue, you can enable `set more off` into the command window to enable continuous scrolling for your session. If you're just done with it, try `set more off, perm` to enable continuous scrolling for this and all future sessions. 
-[^2]: This lab draws heavily on Anne Fitzpatrick's (UMass-Boston)
-    excellent materials.
+[^2]: This lab draws heavily on Anne Fitzpatrick's (UMass-Boston)   excellent materials.
