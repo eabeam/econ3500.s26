@@ -1,0 +1,91 @@
+title: "ECON3500: Econometrics and Applications"
+
+baseurl: "/"
+# ------------------
+# Building options
+# ------------------
+permalinks:
+  post: "/:year/:month/:day/:slug/"
+buildFuture: False
+
+ignoreFiles:
+  - \.ipynb$
+  - .ipynb_checkpoints$
+  - \.Rmd$
+  - \.Rmarkdown$
+  - _cache$
+  - \.Rproj.user$
+  - \.Rhistory$
+  - \.knit\.md$
+  - \.utf8\.md$
+# No taxonomy pages
+disableKinds:
+  - taxonomy
+  - term
+
+
+imaging:
+  anchor: smart
+  quality: 90
+  resampleFilter: lanczos
+
+# Markdown options
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    codeFences: true
+    guessSyntax: true
+    style: "monokai"
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+footnotereturnlinkcontents: <sup>^</sup>
+
+defaultContentLanguage: en
+copyright: ''
+enableGitInfo: false
+hasCJKLanguage: false
+defaultContentLanguageInSubdir: false
+removePathAccents: true
+summaryLength: 30
+pagination:
+  pagerSize: 10
+enableEmoji: true
+
+
+# ----------------
+# Output options
+# ----------------
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+    - WebAppManifest
+  section:
+    - HTML
+    - RSS
+mediaTypes:
+  application/manifest+json:
+    suffixes: webmanifest
+outputFormats:
+  WebAppManifest:
+    mediaType: application/manifest+json
+    rel: manifest
+enableRobotsTXT: true
+
+taxonomies:
+  author: authors
+  category: categories
+  publication_type: publication_types
+  tag: tags
+
+#theme: wowchemy-hugo-modules
+theme: academic
+
+#module:
+#  imports:
+#    - path: wowchemy-hugo-modules/wowchemy

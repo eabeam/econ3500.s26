@@ -1,0 +1,13 @@
+markup:
+  defaultMarkdownHandler: goldmark
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    codeFences: true
+    guessSyntax: false
+    noClasses: false
+    style: monokai
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4

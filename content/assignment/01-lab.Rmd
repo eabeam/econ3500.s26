@@ -4,15 +4,20 @@ linktitle: "Lab 1"
 date: "2026-01-13"
 due_date: "2022-01-22"
 due_time: "1:15 pm"
-toc: true
+
 menu:
   assignment:
     parent: Labs
     weight: 1
 type: docs
+output:
+  blogdown::html_page:
+    toc: true
 editor_options: 
   chunk_output_type: console
 ---
+
+
 
 [**Download print-friendly version (pdf)**](../01-lab.pdf)
 
@@ -35,6 +40,8 @@ tasks in Stata:
 -   Ask Stata for help
 
 If you need more help, check out [Stata Resources](/bonus/stata-resources).
+
+*For the hardcore R users in this class who prefer to use R throughout, you may complete this lab in R. But, it could also be fun to learn a little Stata!*
 
 ## General command structure
 
@@ -60,6 +67,8 @@ If you need more help, check out [Stata Resources](/bonus/stata-resources).
 | `tabulate var1 var2` | make a cross-tabulation of `var1` and ` var2`.|
 | `summarize var1 ` | descriptive statistics for `var1`.|
 | `summarize var1 , detail` | detailed descriptive statistics for `var1`.|
+| `gen var1 = binexp` | generates a variable `var1` equal to 1 if binary expression true, 0 otherwise|
+|`replace var1 = 0 if binexp`| replaces `var1` to be 0 if binary expression true, nothing otherwise|
 | `help command ` | open help files for `command`.|
 
 ### Logic statements  {#logic-statements .unnumbered}
@@ -108,26 +117,25 @@ But this is correct!
 Thanks, parentheses! 
 
 
-
-## Hey, Stata. It's nice to meet you
+## Guided instructions
+### Hey, Stata. It's nice to meet you
 
 Start by opening Stata. You should have a window that looks something
 like this (on a PC):
 
 
 
-`{{< figure library="true" src="stata1.png" title="" >}}`
+![](/img/stata1.png)
 
 You should now have the Stata window open. There is a set of pull down
 menus as well as 4 smaller windows: Review, Variables, Results, and
 Command.
 
-`{{< figure library="true" src="stata2.png" title="" >}}`
-
+![](/img/stata2.png)
 
 Also especially helpful are the following buttons:
 
-## Log files
+### Log files
 
 If you want to record anything that you do in a Stata session so that
 you can look at results or commands later, you need to open a log-file.
@@ -160,7 +168,7 @@ easier for you to edit, cut and paste your log in any text editor.*
 
 Now that you have a log file open, we can start our STATA session.
 
-## Working directories (important!)
+### Working directories (important!)
 
 Stata looks for data files in its *working directory*. To see your current
 working directory, type:
@@ -176,7 +184,7 @@ Once you run this command, Stata will make this working directory its starting p
 
 I recommend creating a folder for this class (e.g., `econ3500/labs/`) and saving both your data and log files there.
 
-## Opening data files
+### Opening data files
 
 Stata data files end with the extension `.dta`, and they can only be
 read by Stata. You can import text files and excel files into Stata, and
@@ -205,7 +213,7 @@ States in 2004.
 You should now see the list of variables appear in the Variables window,
 with the variable name, variable label, and some other information.
 
-## Looking at data
+### Looking at data
 
 Let's take a more detailed look at the variables in the dataset.
 
@@ -245,7 +253,7 @@ Note the following:
 
 > How many observations are there? What type of data set is this?
 
-## Examining variables
+### Examining variables
 
 Let's look at the variables that are included in the data set. There is
 an efficient way to find the names of variables you are interested in.
@@ -270,7 +278,7 @@ When you are analyzing variables, you will want to think carefully about
 whether you should be looking at row percentages, column percentages, or
 cell percentages.
 
-## Creating new variables
+### Creating new variables
 
 You can create new variables using the `generate` command. For example:
 
@@ -280,13 +288,11 @@ This creates a variable equal to 1 when the condition is true, and 0 otherwise.
 
 You could create the same variable in a slightly different way: 
 
-```
+```stata
 gen highfatal = 1         if fatal_rate > 1.5 
   replace highfatal = 0   if fatal_rate < 1.5
 ```
 
-
----
 
 ## Lab Exercise 1 {#lab-1 .unnumbered}
 

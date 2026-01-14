@@ -4,19 +4,45 @@ linktitle: "Lab 1"
 date: "2026-01-13"
 due_date: "2022-01-22"
 due_time: "1:15 pm"
-toc: true
+
 menu:
   assignment:
     parent: Labs
     weight: 1
 type: docs
+output:
+  blogdown::html_page:
+    toc: true
 editor_options: 
   chunk_output_type: console
 ---
 
 
 <div id="TOC">
-
+<ul>
+<li><a href="#materials" id="toc-materials">Materials</a></li>
+<li><a href="#objectives" id="toc-objectives">Objectives</a></li>
+<li><a href="#general-command-structure" id="toc-general-command-structure">General command structure</a>
+<ul>
+<li><a href="#key-commands" id="toc-key-commands">Key commands</a></li>
+<li><a href="#logic-statements" id="toc-logic-statements">Logic statements</a></li>
+</ul></li>
+<li><a href="#guided-instructions" id="toc-guided-instructions">Guided instructions</a>
+<ul>
+<li><a href="#hey-stata.-its-nice-to-meet-you" id="toc-hey-stata.-its-nice-to-meet-you">Hey, Stata. It’s nice to meet you</a></li>
+<li><a href="#log-files" id="toc-log-files">Log files</a></li>
+<li><a href="#working-directories-important" id="toc-working-directories-important">Working directories (important!)</a></li>
+<li><a href="#opening-data-files" id="toc-opening-data-files">Opening data files</a></li>
+<li><a href="#looking-at-data" id="toc-looking-at-data">Looking at data</a></li>
+<li><a href="#examining-variables" id="toc-examining-variables">Examining variables</a></li>
+<li><a href="#creating-new-variables" id="toc-creating-new-variables">Creating new variables</a></li>
+</ul></li>
+<li><a href="#lab-1" id="toc-lab-1">Lab Exercise 1</a>
+<ul>
+<li><a href="#what-do-i-submit" id="toc-what-do-i-submit">What do I submit?</a></li>
+<li><a href="#questions" id="toc-questions">Questions</a></li>
+</ul></li>
+</ul>
 </div>
 
 <p><a href="../01-lab.pdf"><strong>Download print-friendly version (pdf)</strong></a></p>
@@ -41,6 +67,7 @@ tasks in Stata:</p>
 <li>Ask Stata for help</li>
 </ul>
 <p>If you need more help, check out <a href="/bonus/stata-resources">Stata Resources</a>.</p>
+<p><em>For the hardcore R users in this class who prefer to use R throughout, you may complete this lab in R. But, it could also be fun to learn a little Stata!</em></p>
 </div>
 <div id="general-command-structure" class="section level2">
 <h2>General command structure</h2>
@@ -99,6 +126,14 @@ tasks in Stata:</p>
 <tr class="even">
 <td align="left"><code>summarize var1 , detail</code></td>
 <td align="right">detailed descriptive statistics for <code>var1</code>.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>gen var1 = binexp</code></td>
+<td align="right">generates a variable <code>var1</code> equal to 1 if binary expression true, 0 otherwise</td>
+</tr>
+<tr class="even">
+<td align="left"><code>replace var1 = 0 if binexp</code></td>
+<td align="right">replaces <code>var1</code> to be 0 if binary expression true, nothing otherwise</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>help command</code></td>
@@ -193,19 +228,21 @@ tasks in Stata:</p>
 <p>Thanks, parentheses!</p>
 </div>
 </div>
-<div id="hey-stata.-its-nice-to-meet-you" class="section level2">
-<h2>Hey, Stata. It’s nice to meet you</h2>
+<div id="guided-instructions" class="section level2">
+<h2>Guided instructions</h2>
+<div id="hey-stata.-its-nice-to-meet-you" class="section level3">
+<h3>Hey, Stata. It’s nice to meet you</h3>
 <p>Start by opening Stata. You should have a window that looks something
 like this (on a PC):</p>
-<p><code>{{&lt; figure library="true" src="stata1.png" title="" &gt;}}</code></p>
+<p><img src="/img/stata1.png" /></p>
 <p>You should now have the Stata window open. There is a set of pull down
 menus as well as 4 smaller windows: Review, Variables, Results, and
 Command.</p>
-<p><code>{{&lt; figure library="true" src="stata2.png" title="" &gt;}}</code></p>
+<p><img src="/img/stata2.png" /></p>
 <p>Also especially helpful are the following buttons:</p>
 </div>
-<div id="log-files" class="section level2">
-<h2>Log files</h2>
+<div id="log-files" class="section level3">
+<h3>Log files</h3>
 <p>If you want to record anything that you do in a Stata session so that
 you can look at results or commands later, you need to open a log-file.
 A log-file is simply a record of all the commands you enter into Stata
@@ -232,8 +269,8 @@ add it to the bottom of your old log file.</p></li>
 easier for you to edit, cut and paste your log in any text editor.</em></p>
 <p>Now that you have a log file open, we can start our STATA session.</p>
 </div>
-<div id="working-directories-important" class="section level2">
-<h2>Working directories (important!)</h2>
+<div id="working-directories-important" class="section level3">
+<h3>Working directories (important!)</h3>
 <p>Stata looks for data files in its <em>working directory</em>. To see your current
 working directory, type:</p>
 <p><code>pwd</code></p>
@@ -243,8 +280,8 @@ change your working directory using:</p>
 <p>Once you run this command, Stata will make this working directory its starting point, but only for the rest of the session. The next time you open Stata, you may need to repeat the process.</p>
 <p>I recommend creating a folder for this class (e.g., <code>econ3500/labs/</code>) and saving both your data and log files there.</p>
 </div>
-<div id="opening-data-files" class="section level2">
-<h2>Opening data files</h2>
+<div id="opening-data-files" class="section level3">
+<h3>Opening data files</h3>
 <p>Stata data files end with the extension <code>.dta</code>, and they can only be
 read by Stata. You can import text files and excel files into Stata, and
 you can export <code>.dta</code> files into text files or Excel files, but we’ll
@@ -265,8 +302,8 @@ States in 2004.</p>
 <p>You should now see the list of variables appear in the Variables window,
 with the variable name, variable label, and some other information.</p>
 </div>
-<div id="looking-at-data" class="section level2">
-<h2>Looking at data</h2>
+<div id="looking-at-data" class="section level3">
+<h3>Looking at data</h3>
 <p>Let’s take a more detailed look at the variables in the dataset.</p>
 <p>In the command window type: <code>describe</code></p>
 <p>At the top of the output you will see some overall features of the file,
@@ -296,8 +333,8 @@ variable is at the column heading.</p></li>
 <p>How many observations are there? What type of data set is this?</p>
 </blockquote>
 </div>
-<div id="examining-variables" class="section level2">
-<h2>Examining variables</h2>
+<div id="examining-variables" class="section level3">
+<h3>Examining variables</h3>
 <p>Let’s look at the variables that are included in the data set. There is
 an efficient way to find the names of variables you are interested in.
 Suppose you are interested in a variable related to alcohol laws. Type
@@ -314,15 +351,15 @@ observations. Use help for details:</p>
 whether you should be looking at row percentages, column percentages, or
 cell percentages.</p>
 </div>
-<div id="creating-new-variables" class="section level2">
-<h2>Creating new variables</h2>
+<div id="creating-new-variables" class="section level3">
+<h3>Creating new variables</h3>
 <p>You can create new variables using the <code>generate</code> command. For example:</p>
 <p><code>gen highfatal = fatal_rate &gt; 1.5</code></p>
 <p>This creates a variable equal to 1 when the condition is true, and 0 otherwise.</p>
 <p>You could create the same variable in a slightly different way:</p>
-<pre><code>gen highfatal = 1         if fatal_rate &gt; 1.5 
+<pre class="stata"><code>gen highfatal = 1         if fatal_rate &gt; 1.5 
   replace highfatal = 0   if fatal_rate &lt; 1.5</code></pre>
-<hr />
+</div>
 </div>
 <div id="lab-1" class="section level2 unnumbered">
 <h2>Lab Exercise 1</h2>
