@@ -1,0 +1,13 @@
+~
+.callout{
+  padding: 0.9rem 1rem;
+  margin: 1rem 0;
+  border-left: 0.35rem solid #999;
+  background: #f7f7f7;
+  border-radius: 0.35rem;
+}
+
+.callout-note{ border-left-color: #2b6cb0; }
+.callout-warning{ border-left-color: #b45309; background: #fff7ed; }
+.callout-tip{ border-left-color: #15803d; background: #f0fdf4; }
+

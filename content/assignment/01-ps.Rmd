@@ -1,7 +1,7 @@
 ---
 title: "Problem set 1"
 linktitle: "PS 1"
-date: "2026-01-19"
+date: "2026-01-16"
 due_date: "2026-01-27"
 due_time: "1:15 PM"
 menu:
@@ -17,7 +17,13 @@ editor_options:
 ---
 ## Welcome
 
-Welcome to Problem Set 1! There are two "problem" exercises and one extended Stata exercise. You'll need to submit three things on Brightspace: a problem set, log file, *and* a do-file. 
+Welcome to Problem Set 1! There are two "problem" exercises and one extended Stata exercise. You'll need to submit two things on Brightspace: a problem set and log file. If you have trouble with the Stata basics, head back to [Lab 1](../01-lab/).
+
+> *Tip: If, after doing these problems you still want more practice, the odd-numbered problems in Chapters 2 and 3 of Stock and Watson are quite useful, and solutions are available online.*
+
+::: {.callout .callout-note}
+**Note.** This is a call-out box. You can put *Markdown* in here.
+:::
 
 Note that there are superscripted numbers^[See?! Neat! :)  ] throughout the page that provide additional information/suggestions to help you out. 
 
@@ -33,26 +39,26 @@ Note that there are superscripted numbers^[See?! Neat! :)  ] throughout the page
     probability distribution:
 
     a.  *Draw* the probability distribution function and the cumulative
-        distribution function.
+        distribution function. (That is, you should make a figure/graph!)
 
     b.  What is the expected value of X? That is, what is $E[X]$?
 
     c.  What is the variance of X?
   <!-- 2.6 -->
   
-2.  The following table gives the joint probability distribution between employment status and college graduation among those either employed or looking for work (unemployed) in the working-age U.S. population for 2012: 
+2.  The following table gives the joint probability distribution between employment status and college graduation among those either employed or looking for work (unemployed) in the working-age U.S. population for 2017: 
 
 |                             | Unemployed ($Y=0$) | Employed ($Y=1$) | Total |
 | --------------------------- | ------------------ | --------------- | ----- |
-| Non-college grads ($X = 0$) | 0.053              | 0.586           | 0.639 |
-| College grads ($X = 1$)     | 0.015              | 0.346           | 0.361 |
-| **Total**                   | 0.068              | 0.932           | 1.000 |
+| Non-college grads ($X = 0$) | 0.026            | 0.576           | 0.602 |
+| College grads ($X = 1$)     | 0.009              | 0.389           | 0.398 |
+| **Total**                   | 0.035              | 0.965           | 1.000 |
 
   a. Compute $E[Y]$. 
   b. The unemployment rate is the fraction of the labor force that is unemployed. Show that the unemployment rate is given by $1 - E[Y]$.
   c. Calculate $E[Y|X=1]$ and $E[Y|X=0]$.
   d. Calculate the unemployment rate for college graduates and for non-college graduates
-  e. A randomly selected member of this population reports beign unemployed. What is the probability that this worker is a college graduate? A non-college graduate? 
+  e. A randomly selected member of this population reports being unemployed. What is the probability that this worker is a college graduate? A non-college graduate? 
     f. Are educational achievement and employment status independent? Explain. 
     
    <!-- 2.10 -->
@@ -98,13 +104,15 @@ Note that there are superscripted numbers^[See?! Neat! :)  ] throughout the page
   (ii) Is there statistically significant evidence that the prep course helped? 
       --> 
 
-**For the following question, make sure you submit your do-file and log-file alongside your answers!**
+**For the following question, make sure you submit your log-file alongside your answers!**
 
-3.  Download [`countymurders.dta`](../countymurders.dta) to answer this question. The variable
+3.  Download [`countymurders.dta`](../countymurders.dta) to answer this question.[^5] The variable
     $murders$ is the number of murders reported in the county. The
     variable $execs$ is the number of executions that took place of
     people sentenced to death in the given country. Most states in the
     United States have the death penalty, but several do not.
+    
+    [^5]: Remember to move this file into your [working directory](../01-lab/#working-directories-important)! 
 
     a.  Keep only data from the year 1996. How many counties are
         there in the data set? Of these, how many have zero murders.

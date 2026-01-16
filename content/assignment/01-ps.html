@@ -1,7 +1,7 @@
 ---
 title: "Problem set 1"
 linktitle: "PS 1"
-date: "2026-01-19"
+date: "2026-01-16"
 due_date: "2026-01-27"
 due_time: "1:15 PM"
 menu:
@@ -20,7 +20,13 @@ editor_options:
 
 <div id="welcome" class="section level2">
 <h2>Welcome</h2>
-<p>Welcome to Problem Set 1! There are two “problem” exercises and one extended Stata exercise. You’ll need to submit three things on Brightspace: a problem set, log file, <em>and</em> a do-file.</p>
+<p>Welcome to Problem Set 1! There are two “problem” exercises and one extended Stata exercise. You’ll need to submit two things on Brightspace: a problem set and log file. If you have trouble with the Stata basics, head back to <a href="../01-lab/">Lab 1</a>.</p>
+<blockquote>
+<p><em>Tip: If, after doing these problems you still want more practice, the odd-numbered problems in Chapters 2 and 3 of Stock and Watson are quite useful, and solutions are available online.</em></p>
+</blockquote>
+<div class="callout callout-note">
+<p><strong>Note.</strong> This is a call-out box. You can put <em>Markdown</em> in here.</p>
+</div>
 <p>Note that there are superscripted numbers<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> throughout the page that provide additional information/suggestions to help you out.</p>
 </div>
 <div id="exercises" class="section level2">
@@ -48,12 +54,12 @@ editor_options:
 probability distribution:</p>
 <ol style="list-style-type: lower-alpha">
 <li><p><em>Draw</em> the probability distribution function and the cumulative
-distribution function.</p></li>
+distribution function. (That is, you should make a figure/graph!)</p></li>
 <li><p>What is the expected value of X? That is, what is <span class="math inline">\(E[X]\)</span>?</p></li>
 <li><p>What is the variance of X?
 <!-- 2.6 --></p></li>
 </ol></li>
-<li><p>The following table gives the joint probability distribution between employment status and college graduation among those either employed or looking for work (unemployed) in the working-age U.S. population for 2012:</p></li>
+<li><p>The following table gives the joint probability distribution between employment status and college graduation among those either employed or looking for work (unemployed) in the working-age U.S. population for 2017:</p></li>
 </ol>
 <table>
 <colgroup>
@@ -73,20 +79,20 @@ distribution function.</p></li>
 <tbody>
 <tr class="odd">
 <td>Non-college grads (<span class="math inline">\(X = 0\)</span>)</td>
-<td>0.053</td>
-<td>0.586</td>
-<td>0.639</td>
+<td>0.026</td>
+<td>0.576</td>
+<td>0.602</td>
 </tr>
 <tr class="even">
 <td>College grads (<span class="math inline">\(X = 1\)</span>)</td>
-<td>0.015</td>
-<td>0.346</td>
-<td>0.361</td>
+<td>0.009</td>
+<td>0.389</td>
+<td>0.398</td>
 </tr>
 <tr class="odd">
 <td><strong>Total</strong></td>
-<td>0.068</td>
-<td>0.932</td>
+<td>0.035</td>
+<td>0.965</td>
 <td>1.000</td>
 </tr>
 </tbody>
@@ -96,7 +102,7 @@ distribution function.</p></li>
 <li>The unemployment rate is the fraction of the labor force that is unemployed. Show that the unemployment rate is given by <span class="math inline">\(1 - E[Y]\)</span>.</li>
 <li>Calculate <span class="math inline">\(E[Y|X=1]\)</span> and <span class="math inline">\(E[Y|X=0]\)</span>.</li>
 <li>Calculate the unemployment rate for college graduates and for non-college graduates</li>
-<li>A randomly selected member of this population reports beign unemployed. What is the probability that this worker is a college graduate? A non-college graduate?
+<li>A randomly selected member of this population reports being unemployed. What is the probability that this worker is a college graduate? A non-college graduate?
 f. Are educational achievement and employment status independent? Explain.</li>
 </ol>
 <p><!-- 2.10 --></p>
@@ -140,9 +146,9 @@ between 0.4 (40%) and 0.6 (60%)?</p></li>
     
   (ii) Is there statistically significant evidence that the prep course helped? 
       --></p>
-<p><strong>For the following question, make sure you submit your do-file and log-file alongside your answers!</strong></p>
+<p><strong>For the following question, make sure you submit your log-file alongside your answers!</strong></p>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Download <a href="../countymurders.dta"><code>countymurders.dta</code></a> to answer this question. The variable
+<li><p>Download <a href="../countymurders.dta"><code>countymurders.dta</code></a> to answer this question.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> The variable
 <span class="math inline">\(murders\)</span> is the number of murders reported in the county. The
 variable <span class="math inline">\(execs\)</span> is the number of executions that took place of
 people sentenced to death in the given country. Most states in the
@@ -154,11 +160,11 @@ What percentage of countries have zero executions?</p></li>
 <li><p>What is the largest number of murders in a county? What is the
 largest number of executions in a county?</p></li>
 <li><p>Compute the correlation coefficient <span class="math inline">\(r\)</span> between <code>murders</code> and
-<code>execs</code> and describe what you find. <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> Estimate the correlation coefficient between <code>murdrate</code> and <code>execrate</code>. Why do the two coefficients differ so much?</p></li>
+<code>execs</code> and describe what you find. <a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Estimate the correlation coefficient between <code>murdrate</code> and <code>execrate</code>. Why do the two coefficients differ so much?</p></li>
 <li><p>What are two characteristics in the data that are highly
-correlated with county murder rates?<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> What are their correlation
+correlated with county murder rates?<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> What are their correlation
 coefficients?</p></li>
-<li><p>What is median real per-capita income?<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p></li>
+<li><p>What is median real per-capita income?<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p></li>
 <li><p>Generate a variable, <code>highinc</code> that is equal to 1 if a county
 has above-median real per capita income, and 0 otherwise. What
 is <span class="math inline">\(E[rpcpersinc  | highinc =0]\)</span>? What is <span class="math inline">\(E[rpcpersinc | highinc =1]\)</span>?</p></li>
@@ -168,7 +174,7 @@ low (below median) real per-capita personal income. Assume the
 two samples are independent, with equal variances.</p>
 <ol style="list-style-type: lower-alpha">
 <li>First, write a null and alternative hypothesis</li>
-<li>Use Stata to conduct the hypothesis test. What is the relevant t-statistic?<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></li>
+<li>Use Stata to conduct the hypothesis test. What is the relevant t-statistic?<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></li>
 <li>Can you reject the null hypothesis at the 5% level?</li>
 </ol></li>
 <li><p>Generate a variable, <code>perc1029</code>, that is equal to the share of
@@ -203,9 +209,10 @@ Reports, and the Death Penalty Information Center.</em></p>
 <ol>
 <li id="fn1"><p>See?! Neat! :) <a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Remember that we conventionally <span class="math inline">\(N(\mu,\sigma^2)\)</span>, so the second term is the <em>variance</em>, not the standard deviation<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p>Remember, you can use <code>correlate var1 var2</code> to look at the correlation between two variables.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>If you want to look at the correlation between lots of variables, you can use <code>correlate var1 var2 ... var99</code>. If you want to refer to a lot of variables, an asterisk (*) can act as a “wild.” So if you use <code>correlate var*</code>, it you’ll receive a correlation matrix of every variable with a name that starts with “var.” If you use <code>correlate *var*</code>, it will give you a correlation matrix of every variable with the letters “var” somewhere in the name.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p><code>tabstat</code> is your friend!<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
-<li id="fn6"><p>The help file for <code>ttest</code> will be useful. Here we are conducting a two-sample t-test using groups. You will want to use the <code>highinc</code> variable you generated earlier.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Remember to move this file into your <a href="../01-lab/#working-directories-important">working directory</a>!<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Remember, you can use <code>correlate var1 var2</code> to look at the correlation between two variables.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>If you want to look at the correlation between lots of variables, you can use <code>correlate var1 var2 ... var99</code>. If you want to refer to a lot of variables, an asterisk (*) can act as a “wild.” So if you use <code>correlate var*</code>, it you’ll receive a correlation matrix of every variable with a name that starts with “var.” If you use <code>correlate *var*</code>, it will give you a correlation matrix of every variable with the letters “var” somewhere in the name.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><code>tabstat</code> is your friend!<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>The help file for <code>ttest</code> will be useful. Here we are conducting a two-sample t-test using groups. You will want to use the <code>highinc</code> variable you generated earlier.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>

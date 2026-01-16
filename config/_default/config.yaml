@@ -86,6 +86,10 @@ taxonomies:
 #theme: wowchemy-hugo-modules
 theme: academic
 
+params:
+  custom_css:
+    - css/custom.css
+
 #module:
 #  imports:
 #    - path: wowchemy-hugo-modules/wowchemy
