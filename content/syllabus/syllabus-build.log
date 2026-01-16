@@ -1,0 +1,43 @@
+=== Syllabus PDF Build Log ===
+Date: Fri Jan 16 10:49:16 EST 2026
+
+Command: Rscript -e "rmarkdown::render('syllabus-pdf.Rmd', output_file='syllabus.pdf')"
+
+=== Output ===
+
+
+processing file: syllabus-pdf.Rmd
+1/1
+output file: syllabus-pdf.knit.md
+
+/opt/homebrew/bin/pandoc +RTS -K512m -RTS syllabus-pdf.knit.md --to latex --from markdown+autolink_bare_uris+tex_math_single_backslash --output syllabus.tex --lua-filter /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/rmarkdown/rmarkdown/lua/pagebreak.lua --lua-filter /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library/rmarkdown/rmarkdown/lua/latex-div.lua --embed-resources --standalone --table-of-contents --toc-depth 2 --highlight-style tango --pdf-engine pdflatex --variable graphics --include-in-header /var/folders/7r/nd9d2cfx3wqcfr9ly0_r8gd40000gn/T//Rtmp6ggpUC/rmarkdown-str69e8b898e7d.html 
+[WARNING] Deprecated: --highlight-style. Use --syntax-highlighting instead.
+Warning: Package fancyhdr Warning: \headheight is too small (12.0pt): 
+Warning: (fancyhdr)                Make it at least 13.59999pt, for example:
+Warning: (fancyhdr)                \setlength{\headheight}{13.59999pt}.
+Warning: (fancyhdr)                You might also make \topmargin smaller to compensate:
+Warning: Package fancyhdr Warning: \headheight is too small (12.0pt): 
+Warning: (fancyhdr)                Make it at least 13.59999pt, for example:
+Warning: (fancyhdr)                \setlength{\headheight}{13.59999pt}.
+Warning: (fancyhdr)                You might also make \topmargin smaller to compensate:
+Warning: Package fancyhdr Warning: \headheight is too small (12.0pt): 
+Warning: (fancyhdr)                Make it at least 13.59999pt, for example:
+Warning: (fancyhdr)                \setlength{\headheight}{13.59999pt}.
+Warning: (fancyhdr)                You might also make \topmargin smaller to compensate:
+Warning: Package fancyhdr Warning: \headheight is too small (12.0pt): 
+Warning: (fancyhdr)                Make it at least 13.59999pt, for example:
+Warning: (fancyhdr)                \setlength{\headheight}{13.59999pt}.
+Warning: (fancyhdr)                You might also make \topmargin smaller to compensate:
+Warning: Package fancyhdr Warning: \headheight is too small (12.0pt): 
+Warning: (fancyhdr)                Make it at least 13.59999pt, for example:
+Warning: (fancyhdr)                \setlength{\headheight}{13.59999pt}.
+Warning: (fancyhdr)                You might also make \topmargin smaller to compensate:
+Warning: Package fancyhdr Warning: \headheight is too small (12.0pt): 
+Warning: (fancyhdr)                Make it at least 13.59999pt, for example:
+Warning: (fancyhdr)                \setlength{\headheight}{13.59999pt}.
+Warning: (fancyhdr)                You might also make \topmargin smaller to compensate:
+
+Output created: syllabus.pdf
+
+=== Build completed successfully ===
+Output file: syllabus.pdf
