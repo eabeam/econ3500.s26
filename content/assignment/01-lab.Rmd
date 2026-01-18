@@ -293,6 +293,16 @@ gen highfatal = 1         if fatal_rate > 1.5
 ```
 
 
+## Videos
+
+
+[Lab 1 Overview](https://youtu.be/uze1JNmFTq8)
+
+`r htmltools::HTML("{{< youtube uze1JNmFTq8 >}}")`
+
+
+
+
 ## Lab Exercise 1 {#lab-1 .unnumbered}
 
 _First, work through the above steps. Then, work through the 7 questions below._ 
