@@ -151,6 +151,9 @@ I will drop your lowest assignment quiz.
 
 -   I will never curve quizzes down, but I may curve them up if the
     median grade is less than a B-.
+    
+- Up to **two** flex points can be earned. Working sessions will provide “flex points” – up to two extra credit points on final grade. Other opportunities will be provided as well. For working sessions, our calculation is $min ((\# attended / (\# sessions – 2)) * 2, 1)$.
+
 
 # Quizzes {#quizzes .unnumbered}
 

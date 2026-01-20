@@ -72,24 +72,11 @@ This is the material you should already know, along with supports from [Khan Aca
   - [<i class="fas fa-tv"> </i> Z-scores](https://www.khanacademy.org/math/ap-statistics/density-curves-normal-distribution-ap/measuring-position/v/z-score-introduction)  *(entire playlist)*
   - [<i class="fas fa-tv"> </i> Normal distributions and the empirical rule](https://www.khanacademy.org/math/ap-statistics/density-curves-normal-distribution-ap/stats-normal-distributions/v/ck12-org-normal-distribution-problems-qualitative-sense-of-normal-distributions) *not explicitly covered, but extremely useful review for intuition*
   - [ <i class="fas fa-tv"> </i> Normal distribution calculations](https://www.khanacademy.org/math/ap-statistics/density-curves-normal-distribution-ap/normal-distributions-calculations/v/z-table-for-proportion-below) *(entire playlist, walks through all the possible ways of working w/ normal tables)*
-  - Note that if you're relying on the videos I've posted below, they *do not cover this section*
-    
+
 ## Slides
 
 `r blogdown::shortcode("slides")`
 
 
-<!-- ## Videos -->
-
-<!-- *Note that there is no pre-recorded coverage of normal distributions* -->
-
-<!-- - [Probability Review - SW 2.1-2.3](https://youtu.be/SYc3ccB872s) -->
-
-<!-- _Sorry that the audio is bit fuzzy at the beginning - I was still learning!_ -->
-<!-- `r htmltools::HTML("{{< youtube SYc3ccB872s >}}")` -->
-
-
-<!-- - [Conditional Probability Example](https://youtu.be/7CKOMFXqlXE) -->
-<!-- `r htmltools::HTML("{{< youtube 7CKOMFXqlXE >}}")` -->
 
 

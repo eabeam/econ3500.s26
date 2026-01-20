@@ -63,7 +63,7 @@ This is the material you should know,  along with supports from [Khan Academy (<
 
 
 ### SW 3.1	Estimation of the population mean 
-  - Don’t worry too much about BLUE, we’ll come back to it. But make sure you get bias, consistency, and efficiency
+  - Don’t worry about BLUE, we’ll come back to it. But make sure you get **bias**, **consistency**, and **efficiency**.
 
 ### SW 3.2	Hypothesis tests concerning the population mean
   - *KA presents confidence intervals before hypothesis tests, so if following their curruculum, start w/ confidence intervals first*
@@ -80,7 +80,6 @@ This is the material you should know,  along with supports from [Khan Academy (<
 ### ~~SW 3.4 Comparing means from different populations~~ 
 **SKIP**
 
-~~**This is covered in updated slides and class, but *not* in the lecture video below)**~~
 
   ~~Only the type of two-sample test we've been practicing - look at difference between two means where the standard deviation is unknown and   you do not assume that they come from the same underlying population distribution. **Make sure you can use formulas 3.19 and 3.20**~~
   ~~[<i class="fas fa-tv"> </i> Testing for the differences of two population means](https://www.khanacademy.org/math/ap-statistics/xfb5d8e68:inference-categorical-proportions/idea-significance-tests/v/idea-behind-hypothesis-testing)~~
