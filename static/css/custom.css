@@ -1,4 +1,37 @@
-~
+/* Code block styling - light lavender theme */
+pre code.hljs {
+  background: #f8f7fc;
+  border: 1px solid #e8e4f0;
+  border-radius: 4px;
+}
+
+/* Stata syntax highlighting - soft, readable colors */
+.hljs {
+  color: #334155;
+  background: #f8f7fc;
+}
+.hljs-keyword,
+.hljs-built_in {
+  color: #6d28d9;  /* soft purple for commands */
+}
+.hljs-string {
+  color: #0f766e;  /* teal for strings */
+}
+.hljs-number {
+  color: #0369a1;  /* blue for numbers */
+}
+.hljs-comment {
+  color: #64748b;  /* gray for comments */
+  font-style: italic;
+}
+.hljs-variable,
+.hljs-title {
+  color: #b45309;  /* amber for variables */
+}
+.hljs-literal {
+  color: #be185d;  /* pink for literals */
+}
+
 .callout{
   padding: 0.9rem 1rem;
   margin: 1rem 0;
