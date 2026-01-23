@@ -33,6 +33,8 @@ imaging:
 markup:
   defaultMarkdownHandler: goldmark
   goldmark:
+    extensions:
+      footnote: true
     renderer:
       unsafe: true
   highlight:

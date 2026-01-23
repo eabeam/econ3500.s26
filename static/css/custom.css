@@ -1,7 +1,7 @@
 /* Inline code styling - light lavender */
 :not(pre) > code {
-  background-color: #f3f0f9;
-  color: #4a4458;
+  background-color: #f3f0f9 !important;
+  color: #4a4458 !important;
   padding: 0.15em 0.4em;
   border-radius: 3px;
   font-size: 0.9em;
