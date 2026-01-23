@@ -6,3 +6,18 @@ resources/
 public/
 .Rproj.user
 .DS_Store
+
+# Build artifacts
+*.aux
+*.log
+*.synctex.gz
+*.out
+*.tex.bak
+
+# System files
+.DS_Store
+*.icloud
+
+# R/knitr artifacts (no longer needed)
+*_cache/
+*_files/

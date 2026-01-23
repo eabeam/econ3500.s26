@@ -1,0 +1,108 @@
+
+
+---
+title: Week 13 - Instrumental Variables
+sitetitle: Week 13
+summary: "ECON3500 - Week 13 Instrumental Variables (CH12)"
+
+date: "2026-04-12"
+start_date: "2026-04-13"
+end_date: "2026-04-17"
+
+  
+  # Academic page type (do not modify).
+type: docs
+menu:
+  content:
+    parent: Course content
+    weight: 13
+    
+
+pdf: /slides/ch12-slides.pdf
+thumb: /slides/ch12-slides.png
+
+
+
+---
+
+## Overview
+
+Let's wrap up with a final hurrah - one more empirical tool to help us identify *causal impacts*.  
+
+## Reading Guide
+
+#### **Chapter 12: Instrumental Variables Regression**
+
+#### **SW 12.1** The IV Estimator with a Single Regressor and a Single Instrument
+
+Make sure you understand the difference between **endogeneous variables** (correlated with error term $u$) and **exogenous variables** (not correlated). The textbook covers two conditions for a valid instrument: **relevance** ($corr(Z_i,X_i) \neq 0$) and **exogeneity** ($corr(Z_i,u_i) = 0$). To make the assumptions of IV explicit, I prefer to include an **exclusion** assumption: that the instrument $Z$ affects $Y$ only through $X$. 
+If you come away from this section with the right vocabulary and a good intuition of what an instrument "does," then you're in good shape!
+
+I find the derivation (in the text and video) helpful, but it's not something I'd test you on.
+
+
+
+{{< tweet "https://x.com/lukestein/status/1298665911101136901" >}}
+
+
+#### **SW 12.2** The General IV Regression Model
+
+Now we get a bit technical. The key important things here are the understanding of two-stage least squares - what it is and how it works, plus a good understanding of those assumptions. 
+
+#### **SW 12.3** Checking Instrument Validity 
+
+Make sure you know what a **weak instrument** is, why it's a problem, and how we identify it. Make sure you understand the logic behind whether an instrument violates it's exogeneity assumption. 
+
+> nobody will remember:
+>
+> - your salary
+>
+> - how “busy you were”
+>
+> - how many hours you worked
+>
+>
+> people will remember:
+>
+> - when your instrumental variable violated the exclusion restriction
+>
+> — @dggoldst.bsky.social  
+> <https://bsky.app/profile/dggoldst.bsky.social/post/3kzxkv76lds2v>
+
+
+
+<!-- ```{r echo=FALSE} -->
+<!-- blogdown::shortcode('tweet', '1466634426067075077') -->
+<!-- ``` -->
+
+<!-- ```{r echo=FALSE} -->
+<!-- blogdown::shortcode('tweet', '1428455696538882048') -->
+<!-- ``` -->
+
+
+**Skip the test of overidentifying restrictions**
+
+
+#### **SW 12.4-12.6** The Other Stuff
+
+Good content and examples, but nothing new. 
+
+## Other resources 
+
+Getting your head around IV can be tricky! Here are a few resources if you want to get another take: 
+
+- [Rebecca Barter: Understanding nstrumental variables](http://www.rebeccabarter.com/blog/2018-05-23-instrumental_variables/): Helpful diagrams!
+- [Pierre-Louis Vézina:Instrumental Variables - an intuitive guide](http://pierrelouisvezina.weebly.com/uploads/2/3/4/2/2342194/ivs.pdf): Overview plus a few more examples of IVs in the literature 
+- Nick Huntington-Klein has the best econometrics resources :fire: :fire:. 
+  - Check out his lecture slides on [instrumental variables](https://nickch-k.github.io/EconometricsSlides/Week_08/Week_08_Instrumental_Variables.html#1), an accompanying video lecture [here](https://www.youtube.com/watch?v=6mFNeWHPMYs). 
+  - Also, some [fancy animations](https://nickchk.com/causalgraphs.html#iv) to show what IV actually does w/ data
+
+## Slides
+
+{{< slides >}}
+
+<!-- ##  [Video: Introduction to IV](https://youtu.be/MeHHe303JuI ) -->
+
+<!-- {{< youtube MeHHe303JuI >}} -->
+
+

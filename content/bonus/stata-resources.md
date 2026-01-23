@@ -11,9 +11,6 @@ menu:
 toc: true
   # Academic page type (do not modify).
 type: docs
-output:
-  blogdown::html_page:
-    toc: true
 ---
 
 ## Stata Resources

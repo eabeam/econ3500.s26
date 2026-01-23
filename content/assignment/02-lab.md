@@ -10,8 +10,6 @@ menu:
     parent: Labs
     weight: 2
 type: docs
-editor_options: 
-  chunk_output_type: console
 ---
 
 ## Lab Content

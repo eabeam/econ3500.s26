@@ -1,0 +1,13 @@
+---
+title: Resources
+linktitle: "Overview"
+menu:
+  resources:
+    parent: Resources
+    weight: 1
+    
+date: "2020-08-20"
+  # Academic page type (do not modify).
+type: post
+
+---
