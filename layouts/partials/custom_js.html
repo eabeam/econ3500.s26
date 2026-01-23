@@ -2,6 +2,17 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/3.5.16/iframeResizer.min.js" type="text/javascript"></script>
 {{ end }}
 
+<!-- Highlight.js with Stata support -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/stata.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('pre code').forEach(function(block) {
+      hljs.highlightElement(block);
+    });
+  });
+</script>
+
 <script>
   window.addEventListener('load', function () {
     if (window.twttr && twttr.widgets) {

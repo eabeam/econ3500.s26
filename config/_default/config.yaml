@@ -37,7 +37,8 @@ markup:
       unsafe: true
   highlight:
     codeFences: true
-    guessSyntax: true
+    noClasses: false
+    guessSyntax: false
     style: "monokai"
   tableOfContents:
     startLevel: 2
