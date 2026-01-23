@@ -53,3 +53,8 @@ pre code.hljs {
 .callout-warning{ border-left-color: #b45309; background: #fff7ed; }
 .callout-tip{ border-left-color: #15803d; background: #f0fdf4; }
 
+/* Hero widget - add padding above title */
+.wg-hero .hero-title:first-of-type {
+  padding-top: 2rem;
+}
+

@@ -1,0 +1,37 @@
+{{/* Display upcoming assignment deadlines */}}
+{{- $today := now -}}
+{{- $assignments := slice -}}
+
+{{/* Collect all assignments with due dates */}}
+{{- range where .Site.RegularPages "Section" "assignment" -}}
+  {{- if .Params.due_date -}}
+    {{- $dueDate := time .Params.due_date -}}
+    {{- if ge $dueDate $today -}}
+      {{- $assignments = $assignments | append (dict "page" . "due" $dueDate "time" .Params.due_time) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/* Sort by due date */}}
+{{- $assignments = sort $assignments "due" -}}
+
+{{/* Limit to next 5 */}}
+{{- $assignments = first 5 $assignments -}}
+
+{{- if $assignments -}}
+<table>
+<thead>
+<tr><th>Due Date</th><th>Assignment</th></tr>
+</thead>
+<tbody>
+{{- range $assignments -}}
+<tr>
+<td>{{ .due.Format "Mon, Jan 2" }}{{ with .time }} · {{ . }}{{ end }}</td>
+<td><a href="{{ .page.RelPermalink }}">{{ .page.Title }}</a></td>
+</tr>
+{{- end -}}
+</tbody>
+</table>
+{{- else -}}
+<p><em>No upcoming deadlines.</em></p>
+{{- end -}}
