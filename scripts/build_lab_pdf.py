@@ -32,7 +32,11 @@ header-includes:
 
 """
 
-text = f"{front_matter}{text}"
+heading = """# ECON3500 Lab 2: Do-files
+
+"""
+
+text = f"{front_matter}{heading}{text}"
 
 def figure_repl(match):
     src = match.group("src")
