@@ -1,13 +1,12 @@
-/*		labtemplate_f21.do
-
-Last updated 12 September 2021 by Emily Beam
+/*		lecon3500_lab_template.do
 
 
-Use this template for any EC200 Stata Labs or any related assignments
+
+Use this template for any ECON3500 Stata Labs or any related assignments
 
 To make this work, you'll need the following: 
 	1. A folder where you want to store all your materials -- you'll need to know the file path for that folder
-	2. Your data file, saved into that folder. 
+	2. Your data file, saved into that folder.
 
 */ 
 
@@ -21,9 +20,9 @@ To make this work, you'll need the following:
 * cd means "change directory." it changes your working directory to wherever your files are. 
 *	Once you declare this, all files saved/opened in this do-file will look here.
 
-*cd "C:\My Documents\EC200\Lab"						// Sample lab directory for a Windows machine. Put your data file there. 
+*cd "C:\My Documents\ECON3500\labs"						// Sample lab directory for a Windows machine. Put your data file there. 
 
-cd "/Users/ebeam/Dropbox/EC200 - Stata/Lab"			// Sample lab directory for a Mac. This is my "home" directory. 
+cd "/Users/ebeam/Dropbox/ECON3500/labs"			// Sample lab directory for a Mac. This is my "home" directory. 
 
 
 	* When it comes to file paths ... 
@@ -35,7 +34,7 @@ cd "/Users/ebeam/Dropbox/EC200 - Stata/Lab"			// Sample lab directory for a Mac.
 ****************************************
 
 * use: open this data file.  the "clear" option erases any previous file from the memory 
-use "acs2014_all.dta",	clear		// Stata will look in your working directory only
+use "acs2024_2pct.dta",	clear		// Stata will look in your working directory only
 
 
 ****************************************

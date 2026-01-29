@@ -1,7 +1,7 @@
 ---
 title: "ECON3500: Econometrics and Applications"
 subtitle: "Syllabus | Spring 2026"
-date: "January 2026"
+date: 2026-01-12
 output:
   pdf_document:
     latex_engine: pdflatex

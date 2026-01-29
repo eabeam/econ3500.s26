@@ -79,7 +79,9 @@ areg income i.educ,robust abosrb(bpl)
 ### Part A: Differences-in-differences
 
 
-This part of the lab looks at a simple difference-in-differences model based on Richardson and Troost (2009).^[Based on Chapter 5 of *Mastering 'Metrics*]
+This part of the lab looks at a simple difference-in-differences model based on Richardson and Troost (2009).[^A1]
+
+[^A1]: Based on Chapter 5 of *Mastering 'Metrics*.
 
 Mississippi is split between two Federal Reserve Districts. During the early years of the Great Depression, the each district took a different approach to bank runs. The Sixth District increased lending,while the Eighth District responded by restricting lending to threatened banks. We look at the impact of these policies on bank survival rates using difference-in-differences.
 

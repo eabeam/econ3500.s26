@@ -105,11 +105,13 @@ list
 
 1.  Visit <https://www.bls.gov/lau/tables.htm> to access 2016 annual **county-level** *annual* unemployment rates.
 
-    1.  Download the appropriate table.
+   a. Download the appropriate table.
 
-    2.  Rename variables as needed, and delete any unnecessary cells. If you want your life to be easier, make the first row include your variable names, and then have the data start in second row.^[You can also sort this out w/ Stata commands if you'd rather work with the raw, unedited file]
+   b. Rename variables as needed, and delete any unnecessary cells. If you want your life to be easier, make the first row include your variable names, and then have the data start in second row.[^1b]
 
-    3.  Save your revised file.
+   c. Save your revised file.
+
+[^1b]: You can also sort this out w/ Stata commands if you'd rather work with the raw, unedited file.
 
 2.  Open Stata, start a new do-file (or bring in a template). Make sure
     you add code to start (and end) a log.
@@ -118,20 +120,22 @@ list
 
 4.  Open `cps_2016.dta` and restrict the sample to adults (age 18+).
 
-6.  Now, merge your unemployment data into `cps_2016.dta` by county. This may not be smooth. A few tips: 
+6. Now, merge your unemployment data into `cps_2016.dta` by county. This may not be smooth. A few tips:
 
-    1.  The FIPS codes are in different formats between the two data sets. A county code like this "55083" contins a state part (55) and a county part (083). 
-    
-    2. You can convert a variable to and from a string using the commands `destring var1,replace` and `tostring var2,replace`, respecitvely.
-    
-    3. You can concatenate string variables by adding them like this: `gen newvar = string1 + string2` 
+   a. The FIPS codes are in different formats between the two data sets. A county code like this "55083" contins a state part (55) and a county part (083).
 
-    3. Determine whether you need a one-to-one or many-to-one merge.
+   b. You can convert a variable to and from a string using the commands `destring var1,replace` and `tostring var2,replace`, respecitvely.
 
-    3. You may get errors, and you'll need to fix these to have a successful merge.
+   c. You can concatenate string variables by adding them like this: `gen newvar = string1 + string2`
+
+   d. Determine whether you need a one-to-one or many-to-one merge.
+
+   e. You may get errors, and you'll need to fix these to have a successful merge.
 
 
-7.  You've done it! Tabulate the new variable `_merge`. What share of observations successfully merge?^[To get a sense if you've done this right, about 40-45% of observations should match. This is because the CPS will withhold county-level identifiers for very small counties to protect confidentiality.]
+7. You've done it! Tabulate the new variable `_merge`. What share of observations successfully merge?[^7]
+
+[^7]: To get a sense if you've done this right, about 40-45% of observations should match. This is because the CPS will withhold county-level identifiers for very small counties to protect confidentiality.
 
 8.  Drop any unmatched observations (you can use `drop if`, as we'll retain this restriction for the rest of the exercise.) What is the average unemployment rate for the entire sample - why would this be different than taking the average of county-level unemployment rates in your excel file?
 

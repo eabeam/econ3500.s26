@@ -19,7 +19,7 @@ type: docs
 
  - [`driving_2004.dta`](../materials/driving_2004.dta)
 
-## Objectives[^2] {#objectives .unnumbered}
+## Objectives[^1] {#objectives .unnumbered}
 
 By the end of this tutorial you should be able to complete the following
 tasks in Stata:
@@ -217,7 +217,7 @@ At the top of the output you will see some overall features of the file,
 including the number of variables. Below that you will see a list of
 every variable, including the variable name, the "storage type" (byte,
 float, int, etc.) and the variable label. If you see `–more–` at the
-bottom of your screen, press the space bar to continue scrolling.[^1]
+bottom of your screen, press the space bar to continue scrolling.[^2]
 
 
 
@@ -343,5 +343,5 @@ _First, work through the above steps. Then, work through the 7 questions below._
     this correlation be so strong?
 
 
-[^1]: If you are tired of dealing with the "more" issue, you can enable `set more off` into the command window to enable continuous scrolling for your session. If you're just done with it, try `set more off, perm` to enable continuous scrolling for this and all future sessions. 
-[^2]: This lab draws heavily on Anne Fitzpatrick's (UMass-Boston)   excellent materials.
+[^1]: This lab draws heavily on Anne Fitzpatrick's (UMass-Boston) excellent materials.
+[^2]: If you are tired of dealing with the "more" issue, you can enable `set more off` into the command window to enable continuous scrolling for your session. If you're just done with it, try `set more off, perm` to enable continuous scrolling for this and all future sessions.

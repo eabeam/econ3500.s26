@@ -207,9 +207,11 @@ When we include a dummy variable for every value of a categorical variable, like
 
 4. Create a new variable, `birthyr`, equal to each individual's year of birth. Is there any potential imprecision or error in this variable? 
 
-5. Then, write a loop to generate a dummy variable for each possible value of birth year.^[There is a faster way to do this, using `xi i.birthyr`, but we're learning about loops, so just go with it.]  
+5. Then, write a loop to generate a dummy variable for each possible value of birth year.[^5]
 
-<!-- Write a loop to generate a dummy variable for each possible value of public housing, `pubhous`. That is, you would have `_pubhous0`, a binary variable for whether `pubhouse == 0`, `_pubhous1`, a binary variable for whether `pubhouse == 1`, etc.^[There is a faster way to do this, using `xi i.pubhouse`, but we're learning about loops, so just go with it.] --> 
+[^5]: There is a faster way to do this, using `xi i.birthyr`, but we're learning about loops, so just go with it.
+
+<!-- Write a loop to generate a dummy variable for each possible value of public housing, `pubhous`. That is, you would have `_pubhous0`, a binary variable for whether `pubhouse == 0`, `_pubhous1`, a binary variable for whether `pubhouse == 1`, etc. (There is a faster way to do this, using `xi i.pubhouse`, but we're learning about loops, so just go with it.) --> 
 
 6. Look through the available list of data (note, [IPUMS](https://cps.ipums.org/cps/) has full
     documentation of all variables). Based on this data, think of a
