@@ -30,14 +30,14 @@ Our Stata labs will get you started with Stata, but at some point you'll want to
 
 - [UCLA Stata Learning Modules](https://stats.idre.ucla.edu/stata/modules/) - Text walkthroughs of key commands and processes.  
 
-`{{< figure library="true" src="ucla-stata.png" title="" >}}`
+{{< figure library="true" src="ucla-stata.png" title="" >}}
 
 - [SSCC Introduction to Stata](https://ssc.wisc.edu/sscc/pubs/intro_stata/intro_stata1.htm) - Video + text walkthrough introduction
 
-`{{< figure library="true" src="sscc-stata-intro.png" title="" >}}`
+{{< figure library="true" src="sscc-stata-intro.png" title="" >}}
 
 - [SSCC Data Wrangling with Stata](https://ssc.wisc.edu/sscc/pubs/dws/data_wrangling_stata1.htm) - Video + text walkthrough, part II! 
-`{{< figure library="true" src="sscc-stata-data.png" title=""  >}}`
+{{< figure library="true" src="sscc-stata-data.png" title=""  >}}
 
 - [Stock and Watson Stata 14 Tutorial](https://www.princeton.edu/~mwatson/Stock-Watson_4E/Stock-Watson-Resources-4e.html) (At bottom of page)
 

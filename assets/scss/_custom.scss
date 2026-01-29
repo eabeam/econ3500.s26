@@ -451,6 +451,15 @@ div.warning:before {
     margin: 0 !important;
 }
 
+figure.tight-figure {
+    margin-top: 0.4rem !important;
+    margin-bottom: 0.4rem !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
 /* Space after plotly widgets */
 .widgetframe {
     margin-bottom: 2em;

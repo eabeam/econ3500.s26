@@ -1,20 +1,15 @@
 ---
-title: "Lab 2: Do-files"
-linktitle: "Lab 2"
-date: "2026-01-27"
-due_date: "2026-02-05"
-due_time: "1:15 pm"
-toc: true
-menu:
-  assignment:
-    parent: Labs
-    weight: 2
-type: docs
+geometry: margin=1in
+mainfont: "FiraSans"
+header-includes:
+  - \usepackage[sfdefault]{FiraSans}
+  - \usepackage{fancyhdr}
+  - \fancyhf{}
+  - \renewcommand{\headrulewidth}{0pt}
+  - \renewcommand{\footrulewidth}{0pt}
 ---
 
-## Lab Content
 
-**[Print-friendly pdf](../02-lab.pdf)**
 
 ### Materials {#materials .unnumbered}
 
@@ -25,7 +20,7 @@ Download these and save in your lab folder (perhaps you named it something like 
 
 :eye: If your do-file opens in a browser tab, you may want to instead Right click and select "Save Link As" :eye:
 
-{{< figure library="true" src="savelinkas.png" width=300 title="" class="tight-figure" >}}
+![savelinkas](../../static/media/savelinkas.png){width=50%}
 
 
 ### Objectives {#objectives .unnumbered}
@@ -97,7 +92,7 @@ A summary from [The Conversation, (22 April, 2013)](https://theconversation.com/
 >
 > So the key conclusion of a seminal paper, which has been widely quoted in political debates in North America, Europe Australia and elsewhere, was invalid. 
 
-{{< figure library="true" src="reinhart-rogoff-error.png" width=400 title="[Excel error (Business Insider)](https://www.businessinsider.com/thomas-herndon-michael-ash-and-robert-pollin-on-reinhart-and-rogoff-2013-4)" >}}
+![[Excel error (Business Insider)](https://www.businessinsider.com/thomas-herndon-michael-ash-and-robert-pollin-on-reinhart-and-rogoff-2013-4)](../../static/media/reinhart-rogoff-error.png){width=50%}
 
 
 ### Do-files and the do-file editor
@@ -127,7 +122,7 @@ using comments. There are three ways to comment
 
 3.   Use slash-asterisk to open (`/*`) and close (`*/`) a comment section
 
-{{< figure library="true" src="stata-comment.png" width=400 title="" >}}
+![stata-comment](../../static/media/stata-comment.png){width=50%}
 
 The do-file editor will turn all your comments green so you don't get
 confused.
@@ -242,9 +237,9 @@ something in a way we haven't covered.
 
 10. Name **two** additional reasons that may explain why men's income is higher than women's income on average. How would you test each one? _You do not have to actually do this test, just describe in as much detail as possible. You can assume you have additional data beyond what is provided here._
 
-11. Make two histograms, one of the income distribution for men and one of the income distribution for women. Make sure the y-axis indicates the "fraction" of individuals, not the density. Copy and paste it into your responses. 
+11. Make two histograms, one of the income distrition for men and one of the income distribution for women. Make sure the y-axis indicates the "fraction" of individuals, not the density. Copy and paste it into your responses. 
 
 
 ## Video Recording 
 
-{{< youtube ssCWM4IE6i8 >}}
+[YouTube video](https://www.youtube.com/watch?v=ssCWM4IE6i8)
