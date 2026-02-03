@@ -1,0 +1,14 @@
+# Quarto project config for ECON3500
+# Ensures render uses this directory as project root so image paths resolve.
+project:
+  type: default
+  post-render:
+    - ./post_render_fix.sh
+
+format:
+  revealjs:
+    # Global defaults for all decks
+    width: 1280
+    height: 720
+    pdf-separate-fragments: false
+    pdf-max-pages-per-slide: 1
