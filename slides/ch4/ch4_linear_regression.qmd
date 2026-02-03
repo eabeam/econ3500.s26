@@ -953,25 +953,27 @@ $$
 ## Misconception #1: "Correlation = Causation"
 
 ::: {.callout-warning}
-## Wrong Thinking
+## Misconception
 "Education and wages are correlated, so education *causes* higher wages."
 :::
 
 . . .
 
 ::: {.callout-tip}
-## Correct Thinking
+## Clarification
 Regression shows **association**, not necessarily causation.
 
+::: {.fragment}
 - Could be reverse causality (higher earners invest more in education)
+:::
 
-. . .
-
+::: {.fragment}
 - Could be omitted variable bias (ability affects both)
+:::
 
-. . .
-
+::: {.fragment}
 - Need experimental or quasi-experimental design for causal claims
+:::
 :::
 
 . . .
@@ -991,15 +993,17 @@ Regression shows **association**, not necessarily causation.
 ## Clarification
 R² depends on the context!
 
+::: {.fragment}
 - In physics: R² > 0.95 is common (physical laws are precise)
+:::
 
-. . .
-
+::: {.fragment}
 - In social sciences: R² = 0.30 can be excellent (human behavior is complex)
+:::
 
-. . .
-
+::: {.fragment}
 - R² measures *explained variance*, not *model validity*
+:::
 :::
 
 . . .
@@ -1023,15 +1027,17 @@ R² depends on the context!
 ## Clarification
 The intercept is often **not interpretable** in practice.
 
+::: {.fragment}
 - It's the predicted Y when X = 0
+:::
 
-. . .
-
+::: {.fragment}
 - But X = 0 may be outside the range of data (no one has 0 years of education)
+:::
 
-. . .
-
+::: {.fragment}
 - It's an *extrapolation*, not an actual prediction
+:::
 :::
 
 . . .
@@ -1051,11 +1057,13 @@ The intercept is often **not interpretable** in practice.
 ## Clarification
 They are **different** (and we never observe $u_i$!):
 
+::: {.fragment}
 - **Error** $u_i = Y_i - (\beta_0 + \beta_1 X_i)$ (population, unknown)
+:::
 
-. . .
-
+::: {.fragment}
 - **Residual** $\hat{u}_i = Y_i - (\hat{\beta}_0 + \hat{\beta}_1 X_i)$ (sample, observed)
+:::
 :::
 
 . . .
@@ -1078,15 +1086,17 @@ $$
 ## Clarification
 Only add variables that **belong** in the model:
 
+::: {.fragment}
 - Irrelevant variables increase standard errors (reduce precision)
+:::
 
-. . .
-
+::: {.fragment}
 - Can lead to multicollinearity problems
+:::
 
-. . .
-
+::: {.fragment}
 - Overfitting: model fits sample noise, not population relationship
+:::
 :::
 
 . . .
