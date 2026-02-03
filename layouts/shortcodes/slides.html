@@ -1,8 +1,19 @@
 {{ if .Page.Params.pdf}}
-<p><a href="{{ .Page.Params.pdf }}">Download this week's slides</a>.</p>
-<figure class="slide-thumb">
-    <a href="{{ .Page.Params.pdf }}"><img src="{{ .Page.Params.thumb }}" alt="First slide" /></a>
-</figure>
+<div class="slides-container">
+  {{ if .Page.Params.slides_html }}
+  <p>
+    <a href="{{ .Page.Params.slides_html }}" target="_blank" class="btn btn-primary">📊 View Slides Online (for presenting)</a>
+    <a href="{{ .Page.Params.pdf }}" class="btn btn-outline-primary">📥 Download PDF</a>
+  </p>
+  {{ else }}
+  <p><a href="{{ .Page.Params.pdf }}" class="btn btn-primary">📥 Download this week's slides</a></p>
+  {{ end }}
+  <figure class="slide-thumb">
+      <a href="{{ if .Page.Params.slides_html }}{{ .Page.Params.slides_html }}{{ else }}{{ .Page.Params.pdf }}{{ end }}" target="_blank">
+        <img src="{{ .Page.Params.thumb }}" alt="First slide" />
+      </a>
+  </figure>
+</div>
 {{ else }}
 <p>These slides should be posted by Friday night. If they're still missing, please message me!.</p>
 {{ end }}

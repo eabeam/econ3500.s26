@@ -1,0 +1,187 @@
+/* Additional custom styles for Econometria Quarto presentation */
+
+/* Ensure good spacing */
+.reveal .slides section {
+  text-align: left;
+  padding: 20px;
+}
+
+/* Better spacing for fragments */
+.reveal .fragment {
+  margin-top: 0.5em;
+}
+
+/* Improve callout spacing */
+.callout {
+  margin: 1em 0;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+.callout-title {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+/* Code block improvements */
+.reveal pre code {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Table styling enhancements */
+.reveal table {
+  font-size: 0.8em;
+}
+
+/* Math display improvements */
+.reveal .math.display {
+  margin: 1em 0;
+}
+
+/* Better list spacing */
+.reveal ul ul,
+.reveal ol ol {
+  margin-top: 0.3em;
+}
+
+/* Keep list bullets within slide bounds */
+.reveal ul,
+.reveal ol {
+  margin-left: 0;
+  padding-left: 1.4em;
+  list-style-position: outside;
+}
+
+/* Prevent slides from overflowing - general solution (normal mode only) */
+.reveal:not(.overview) .slides section {
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  max-height: 100% !important;
+  height: 100% !important;
+  /* Allow flex child to shrink so overflow scroll works */
+  min-height: 0 !important;
+}
+
+/* Auto-adjust slide content if it's too tall (normal mode only) */
+.reveal:not(.overview) .slides section.present {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 0 !important;
+}
+
+/* Aggressive fallback: scale down oversized content (normal mode only) */
+.reveal:not(.overview) .slides section.present {
+  transform-origin: top center;
+}
+
+@media screen {
+  .reveal .slides section > * {
+    max-width: 100%;
+  }
+}
+
+/* Make callouts more compact when needed */
+.reveal .callout {
+  margin: 0.8em 0;
+  padding: 0.8em;
+}
+
+/* Ensure code blocks in slides don't cause overflow */
+.reveal pre {
+  max-height: 450px;
+  font-size: 0.85em;
+}
+
+.reveal pre code {
+  max-height: 450px;
+}
+
+/* Roadmap and other scrollable slides: ensure content is visible and scrolls (normal mode only) */
+.reveal:not(.overview) .slides section.scrollable {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto !important;
+  min-height: 0 !important;
+}
+
+/* Overview mode: avoid scroll/flex styles hiding thumbnails or blocking clicks */
+.reveal.overview .slides section {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: initial !important;
+}
+
+.reveal.overview .slide {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+.reveal.overview .slides section.present {
+  display: block !important;
+}
+
+/* Force all slides visible in overview (including past/future + vertical stacks) */
+.reveal.overview .slides > section,
+.reveal.overview .slides > section > section {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Make section/header slide text readable in overview thumbnails */
+.reveal.overview .slide.level1,
+.reveal.overview .title-slide {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.reveal.overview .slide.level1 h1,
+.reveal.overview .title-slide h1 {
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1.05 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+
+/* Restore section backgrounds in overview thumbnails */
+.reveal.overview .slide.level1 {
+  background: linear-gradient(
+    135deg,
+    var(--quarto-scss-export-eco-navy, #19375f) 0%,
+    var(--quarto-scss-export-eco-teal, #008080) 100%
+  ) !important;
+  color: #fff !important;
+}
+
+/* Overview thumbnails should show fragment content */
+.reveal.overview .fragment {
+  opacity: 1 !important;
+  visibility: inherit !important;
+  transform: none !important;
+}
+
+.reveal.overview img {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure quarto figures still center when r-stretch is removed */
+.reveal .slide > img.quarto-figure-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reveal .slide > img.quarto-figure-left {
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.reveal .slide > img.quarto-figure-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}

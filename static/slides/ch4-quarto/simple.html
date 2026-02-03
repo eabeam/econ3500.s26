@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ch4 Image Smoke Test</title>
+    <style>
+      body { font-family: Arial, sans-serif; margin: 24px; background: #fafafa; color: #222; }
+      h1 { font-size: 20px; margin-bottom: 8px; }
+      .img { margin: 16px 0; }
+      img { max-width: 900px; width: 100%; height: auto; border: 1px solid #ddd; background: #fff; }
+      code { background: #eee; padding: 2px 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>Ch4 Image Smoke Test</h1>
+    <p>Absolute paths to avoid base URL issues.</p>
+
+    <div class="img">
+      <div><code>/slides/ch4-quarto/figures_temp/ch4_scatter_raw.png</code></div>
+      <img src="/slides/ch4-quarto/figures_temp/ch4_scatter_raw.png" alt="ch4_scatter_raw">
+    </div>
+
+    <div class="img">
+      <div><code>/slides/ch4-quarto/figures_temp/ch4_scatter.png</code></div>
+      <img src="/slides/ch4-quarto/figures_temp/ch4_scatter.png" alt="ch4_scatter">
+    </div>
+
+    <div class="img">
+      <div><code>/slides/ch4-quarto/figures_temp/ch4_residuals.png</code></div>
+      <img src="/slides/ch4-quarto/figures_temp/ch4_residuals.png" alt="ch4_residuals">
+    </div>
+  </body>
+</html>

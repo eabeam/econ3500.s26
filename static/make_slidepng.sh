@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-IN_DIR="slides"          # where your PDFs are
-OUT_DIR="slides/"  # where you want PNGs
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+IN_DIR="$SCRIPT_DIR/slides"          # where your PDFs are
+OUT_DIR="$SCRIPT_DIR/slides"         # where you want PNGs
 #mkdir -p "$OUT_DIR"
 
 for pdf in "$IN_DIR"/*.pdf; do

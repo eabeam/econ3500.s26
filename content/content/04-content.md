@@ -19,6 +19,7 @@ menu:
     
 
 pdf: /slides/ch4-slides.pdf
+slides_html: /slides/ch4-quarto/
 thumb: /slides/ch4-slides.png
 
 
