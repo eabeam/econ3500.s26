@@ -151,11 +151,11 @@ After you drop missing values, run `count` to confirm your new sample size. Keep
     compare to overall mean? 
 
 13. For this final step, I'd like you to play around with the data. Pick **one** continuous dependent variable and **one** continuous *or* binary independent variable.[^9] You can look at the correlation between two variables, or you can look at the impact of one of the program dimensions (group coaching, group livelihood, etc) on a continuous outcome of interest.
-     
+    
      a. Write a population model you want to estimate. 
-     
+    
      b. Estimate it using OLS, adjusting your standard errors to be heteroskedasticity-robust. Write an equation that reflects your estimated model in the form $\hat{y}=\hat{\beta_0} + \hat{\beta_1}x$, replacing $y$ and $x$ with your chosen variables and replacing $\hat{\beta_0}$ and $\hat{\beta_1}$ with your estimates.
-     
+    
      c. In 1-2 sentences, what do your results tell you, collectively?
 
 
@@ -165,10 +165,10 @@ After you drop missing values, run `count` to confirm your new sample size. Keep
 - Do-file with comments for each question
 - Log file that matches your do-file commands
 - `log close` at the end
-{{% /alert %}}
+  {{% /alert %}}
 
   <!--
-   
+  
 ### A note on "well-behaved"" residuals {#residuals .unnumbered} 
 
 There are three characteristics of "well-behaved" residuals: 
@@ -180,8 +180,7 @@ There are three characteristics of "well-behaved" residuals:
 We don't want to overweight the importance of this, but it can be a helpful diagnostic to look for outliers, strange patterns. 
 --> 
 
-<!--
+
 ## Video Recording
 
-{{< youtube ca_37XwU8og >}}
--->
+{{< youtube ShcIoFJWFRQ >}}
