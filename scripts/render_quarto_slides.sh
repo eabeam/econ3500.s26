@@ -80,8 +80,12 @@ if [ -n "$PDF_NAME" ]; then
   if [ -x "$REVEAL_PDF_SCRIPT" ]; then
     echo "Rendering slide PDF to: $PDF_OUT"
     "$REVEAL_PDF_SCRIPT" "$QMD" "$PDF_OUT"
-    echo "Refreshing slide thumbnails"
-    "$REPO_ROOT/static/make_slidepng.sh"
+    if [ "${UPDATE_THUMBS:-0}" = "1" ]; then
+      echo "Refreshing slide thumbnails"
+      "$REPO_ROOT/static/make_slidepng.sh"
+    else
+      echo "Skipping slide thumbnails (set UPDATE_THUMBS=1 to enable)"
+    fi
   else
     echo "PDF script not found/executable: $REVEAL_PDF_SCRIPT"
     echo "Skipped PDF and thumbnail generation."

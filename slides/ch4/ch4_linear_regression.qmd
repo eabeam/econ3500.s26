@@ -3,6 +3,8 @@ title: "Linear Regression with One Regressor"
 subtitle: "Chapter 4"
 author: "ECON3500: Econometrics and Applications"
 date: "2026-01-01"
+output-dir: ../../static/slides/ch4-quarto
+output-file: index.html
 format:
   revealjs:
     embed-resources: false
@@ -50,7 +52,7 @@ How do we move from observing [relationships]{.alert} in data to making [predict
 1. [The linear regression model](#the-linear-regression-model)
 2. [Estimating coefficients: ordinary least squares](#estimating-coefficients-ordinary-least-squares)
 3. [Measuring how well the model fits](#measuring-how-well-the-model-fits)
-4. [Assumptions for causal interpretation](#assumptions-for-causal-interpretation)
+4. [Assumptions for unbiased estimates](#assumptions-for-unbiased-estimates)
 5. [Sampling distributions and uncertainty](#sampling-distributions-and-uncertainty)
 6. [Common misconceptions and clarifications](#common-misconceptions-and-clarifications)
 7. [Implementing OLS in Stata](#implementing-ols-in-stata)
@@ -58,7 +60,7 @@ How do we move from observing [relationships]{.alert} in data to making [predict
 
 # The Linear Regression Model
 
-## Motivating Question {.smaller}
+## Motivating Question 
 
 ::: {.callout-note}
 ## Returns to education
@@ -652,9 +654,9 @@ Also called the "root mean squared error" (RMSE).
 
 **Example:** If SER = 7.9 in our education-wages regression, typical prediction error is about $7,900.
 
-# Assumptions for Causal Interpretation
+# Assumptions for Unbiased Estimates
 
-## A Cautionary Tale: High R² $\neq$ Causality {.smaller}
+## A Cautionary Tale: High R² $\neq$ Unbiasedness {.smaller}
 
 ::: {.callout-warning}
 ## Provocative Example
@@ -668,7 +670,7 @@ R² = 0.89 (very high fit!)
 
 . . .
 
-**Does ice cream *cause* drowning?**
+**Is this relationship meaningful, or just confounded?**
 
 . . .
 
@@ -679,7 +681,7 @@ R² = 0.89 (very high fit!)
 
 . . .
 
-**The lesson:** A model can fit the data well (high R²) but still fail to identify a causal effect. This is why we need [assumptions]{.alert}.
+**The lesson:** A model can fit the data well (high R²) but still yield biased estimates. This is why we need [assumptions]{.alert}.
 
 ## Unbiasedness: Getting the right answer
 
@@ -690,7 +692,7 @@ We've estimated $\hat{\beta}_1$, but is it correct? is $\hat{\beta}_1$ an **unbi
 
 . . .
 
-**Three least squares assumption**
+**Three least squares assumptions**
 
 . . .
 
