@@ -681,72 +681,166 @@ R² = 0.89 (very high fit!)
 
 **The lesson:** A model can fit the data well (high R²) but still fail to identify a causal effect. This is why we need [assumptions]{.alert}.
 
-## Why Assumptions Matter
+## Unbiasedness: Getting the right answer
 
 ::: {.callout-important}
 ## The Fundamental Question
-We've estimated $\hat{\beta}_1$, but does it estimate the [causal effect]{.alert} of $X$ on $Y$, or just an association?
+We've estimated $\hat{\beta}_1$, but is it correct? is $\hat{\beta}_1$ an **unbiased** estimator of $\beta_1$?
 :::
 
 . . .
 
-**To interpret $\beta_1$ causally, we need assumptions.**
+**Three least squares assumption**
 
 . . .
 
 **Three key assumptions for unbiased OLS:**
 
-1. [**Zero conditional mean**]{style="color: #19375F;"}: $E[u | X] = 0$
-
+1. [**Zero conditional mean**]{style="color: #19375F;"}: $E[u_i | X_i] = 0$
+     - Holds in RCT setting—we try to approximate this
+     - Same as saying that $u_i$ and X_i$ are uncorrelated
 . . .
 
 2. [**i.i.d. sampling**]{style="color: #19375F;"}: $(X_i, Y_i)$ are independent and identically distributed
 
 . . .
 
-3. [**Finite fourth moments**]{style="color: #19375F;"}: Large outliers are unlikely
+3. [**Finite fourth moments**]{style="color: #19375F;"}: Large outliers are unlikely (finite kurtosis)
 
-## Assumption 1: Zero Conditional Mean {.smaller}
+## Assumption 1: Zero Conditional Mean 
 
 ::: {.callout-note}
 ## Zero Conditional Mean
 $$
-E[u | X] = 0 \quad \text{for all values of } X
+E[u_i | X_i] = 0
 $$
-The expected value of the error term is zero, [regardless of $X$]{.alert}.
+The expected value of the error term is zero, [after conditioning on $X$]{.alert}.
 :::
 
 . . .
 
-**What this means:**
-
-- On average, $u$ is unrelated to $X$
+- Both $X$ and $u$ have distributions in the population
 
 . . .
 
-- Knowing $X$ doesn't help you predict $u$
+- If, for example, $X = education$, then we could (in principle) figure out its distribution in the population of adults
 
 . . .
 
-- All the systematic relationship between $X$ and $Y$ is captured by $\beta_0 + \beta_1 X$
+- Suppose (for simplicity), that $u$ is ability (or age or gender or martial status, etc.). $u$ will also have a distribution in the population 
 
 . . .
+
+- So we are restricting how $u$ and $X$ relate to each other in the population
+
+## Simplifying assumption: $E[u]=0$
+
+- First, we make a simplifying assumption without loss of generality: 
+
+$$E[u]=0$$ 
+
+where $E[\cdot]$ is the expected value operator 
+
+- Normalizing ability to be zero in the population should be harmless. It is.
+
+## Adjusting the intercept 
+
+- The presence of $\beta_0$ in 
+
+$$Y = \beta_0 + \beta_1 X + u$$ 
+
+allows us to assume that $E[u] = 0$. If the average of $u$ is different from zero, then we could jsut adjust the intercept, leaving the slope the same. 
+
+. . .
+
+If $\alpha_0 = E[u]$, then we can just add and subtract: 
+
+. . .
+
+$$Y = (\beta_0 + \alpha_0) + \beta_1 X + (u-\alpha_0)$$ 
+
+. . .
+
+- New intercept is $\beta_0 + \alpha_0$ Easy! But, our slope is unchanged. 
+
+
+## Definition of simple regression model 
+
+**KEY QUESTION:** How do we need to restrict the dependence between $u$ and $X$? 
+
+. . .
+
+- We could assume that $u$ and $x$ are uncorrelated in the population: 
+
+$$Corr(X,u) = 0$$ 
+
+. . .
+
+- Zero correlation works for many purposes, but it only implies that $u$ and $X$ are not **linearly** related. Ruling out only linear dependence can cause problems with interpretation and makes analysis more difficult. 
+
+
+## Definition of simple regression model 
+
+A better assumption involves the mean of the error term for each "slice" of the population determined by the values of X: 
+
+$$E[u|X] = E[u]\quad\text{for all values of }X $$ 
+
+Where $E[u|X]$ is "the expected value of $u$ given $X$."
+
+. . .
+
+- We say that $u$ is **mean independent** of x. 
+
+. . .
+
+- How realistic is this?
+
+## Definition of simple regression model 
+
+Suppose that $u$ is "ability" and $X$ is years of education. Then we need, for example: 
+
+$$E[ability|X = 8] = E[ability|X = 12] = E[ability|X = 16]$$ 
+
+. . .
+
+The average ability is the same in different portions of the population with an 8th grade education, 12th grad education, and four-year college education. 
+
+## Zero conditional mean assumption.  
+
+- When we combine this assumption with our normalization ($E[u]=0$), then we get
+
+$$E[u|X] = 0 \quad \text{for all values of }X$$ 
+
+- And this is the [zero conditional mean assumption]{.alert}
+
 
 ::: {.callout-warning}
 ## This is the KEY assumption
-If $E[u|X] \neq 0$, then $\hat{\beta}_1$ is [biased]{.alert} — it systematically estimates the wrong thing. This is called [**omitted variable bias**]{style="color: #19375F;"}.
+If $E[u|X] \neq 0$, then $\hat{\beta}_1$ is [biased]{.alert} — it systematically estimates the wrong thing. 
+
+This is called [**omitted variable bias**]{style="color: #19375F;"}.
 :::
 
 ## Visualizing Zero Conditional Mean {.smaller}
 
-![](./ch4_figures/ch4_zero_conditional_mean.png){width=65% fig-align="center"}
+![](./ch4_figures/ch4_zero_conditional_mean.png){width=55% height=auto fig-align="center"}
 
 **What this shows:**
 
 - Residuals (teal points) are evenly scattered above and below zero
 - Red diamonds show the **average residual** at each education level: $E[u|X]$
-- Notice: All red diamonds hover near zero — the assumption holds!
-- If the red line curved up or down, we'd have a problem (omitted variable bias)
+
+
+## Zero conditional mean assumption
+
+Because the expected value is a linear operator, then $E[u|X] = 0$ implies that 
+
+$$E[Y|X] = \beta_0 + \beta_1 X + E[u|X] = \beta_0 + \beta_1 X$$ 
+
+This shows that the [population regression function]{.alert} is a linear function of X! 
+
+Nice. 
+
 
 ## When Does Zero Conditional Mean Fail? {.smaller}
 
@@ -777,104 +871,69 @@ $$
 
 . . .
 
-- Result: $\hat{\beta}_1$ overestimates the causal effect of education (it picks up both education *and* ability)
+- Result: $\hat{\beta}_1$ **overestimates** the causal effect of education (it picks up both education *and* ability)
 
 ## Omitted Variable Bias (OVB) {.smaller}
 
-![](./ch4_figures/ch4_ovb.png){width=85% fig-align="center"}
+![](./ch4_figures/ch4_ovb.png){width=75% height=auto fig-align="center"}
 
-- **Dashed blue line:** true model (education + ability)
-- **Solid red line:** biased model (omits ability)
-- The gap between slopes is the **omitted variable bias**
+<!-- ## Assumption 2: i.i.d. Sampling  -->
 
-## Building Intuition: Mean Independence
+<!-- ::: {.callout-note} -->
+<!-- ## Independent and Identically Distributed (i.i.d.) -->
+<!-- The observations $(X_i, Y_i)$ are: -->
 
-**A weaker condition than zero conditional mean:**
+<!-- - [**Independent**]{style="color: #19375F;"}: One observation doesn't affect another -->
+<!-- - [**Identically distributed**]{style="color: #19375F;"}: All drawn from the same population -->
+<!-- ::: -->
 
-::: {.callout-note}
-## Mean Independence
-$$
-E[u | X] = E[u] \quad \text{for all } X
-$$
-The mean of $u$ is the same at every value of $X$.
-:::
+<!-- . . . -->
 
-. . .
+<!-- **Why this matters:** -->
 
-**Combine this with the normalization $E[u] = 0$:**
-$$
-E[u | X] = 0
-$$
+<!-- - Ensures our sample is representative -->
 
-. . .
+<!-- . . . -->
 
-**$\blacktriangleright$** This is our workhorse assumption. It implies the [**population regression function**]{style="color: #19375F;"} is linear: $E[Y|X] = \beta_0 + \beta_1 X$
+<!-- - Rules out things like: time series (where today depends on yesterday), clustering (where observations within groups are related) -->
 
-## Population Regression Function (PRF) {.smaller}
+<!-- . . . -->
 
-![](./ch4_figures/ch4_prf.png){width=70% fig-align="center"}
+<!-- - Allows us to apply the Law of Large Numbers and Central Limit Theorem -->
 
-- The line shows $E[Y|X] = \beta_0 + \beta_1 X$
-- Individual outcomes scatter around the conditional mean
-- Zero conditional mean ensures this is a *line* (not a curve)
+<!-- . . . -->
 
-## Assumption 2: i.i.d. Sampling {.smaller}
+<!-- **When violated:** -->
 
-::: {.callout-note}
-## Independent and Identically Distributed (i.i.d.)
-The observations $(X_i, Y_i)$ are:
+<!-- - Standard errors are wrong (we'll cover this in later chapters) -->
 
-- [**Independent**]{style="color: #19375F;"}: One observation doesn't affect another
-- [**Identically distributed**]{style="color: #19375F;"}: All drawn from the same population
-:::
+<!-- ## Assumption 3: No Extreme Outliers -->
 
-. . .
+<!-- ::: {.callout-note} -->
+<!-- ## Finite Fourth Moments -->
+<!-- $E[X^4] < \infty$ and $E[Y^4] < \infty$ -->
+<!-- ::: -->
 
-**Why this matters:**
+<!-- . . . -->
 
-- Ensures our sample is representative
+<!-- **In plain English:** -->
 
-. . .
+<!-- - Extremely large values of $X$ and $Y$ are unlikely -->
 
-- Rules out things like: time series (where today depends on yesterday), clustering (where observations within groups are related)
+<!-- . . . -->
 
-. . .
+<!-- - Ensures our estimators have well-defined variances -->
 
-- Allows us to apply the Law of Large Numbers and Central Limit Theorem
+<!-- . . . -->
 
-. . .
+<!-- - Almost always satisfied in practice with real data -->
 
-**When violated:**
+<!-- . . . -->
 
-- Standard errors are wrong (we'll cover this in later chapters)
+<!-- **Practical implication:** -->
 
-## Assumption 3: No Extreme Outliers
-
-::: {.callout-note}
-## Finite Fourth Moments
-$E[X^4] < \infty$ and $E[Y^4] < \infty$
-:::
-
-. . .
-
-**In plain English:**
-
-- Extremely large values of $X$ and $Y$ are unlikely
-
-. . .
-
-- Ensures our estimators have well-defined variances
-
-. . .
-
-- Almost always satisfied in practice with real data
-
-. . .
-
-**Practical implication:**
-
-- Watch out for extreme outliers that can distort the regression line
-- Use scatter plots and diagnostic tools to spot them
+<!-- - Watch out for extreme outliers that can distort the regression line -->
+<!-- - Use scatter plots and diagnostic tools to spot them -->
 
 # Sampling Distributions and Uncertainty
 
@@ -908,6 +967,8 @@ $E[X^4] < \infty$ and $E[Y^4] < \infty$
 
 - By the CLT, $\hat{\beta}_1$ is approximately normal for large $n$
 
+     - Usually, we are quite happy with $n > 100$
+
 ## Sampling Distribution Visualization {.smaller}
 
 ![](./ch4_figures/ch4_sampling.png){width=70% fig-align="center"}
@@ -923,11 +984,15 @@ $E[X^4] < \infty$ and $E[Y^4] < \infty$
 
 **Key takeaway:** Larger samples give more precise estimates (tighter confidence bands).
 
-## What Determines the Variance of $\hat{\beta}_1$? {.smaller}
+## What Determines the Variance of $\hat{\beta}_1$?
 
 **The variance of $\hat{\beta}_1$ is:**
 $$
-\text{Var}(\hat{\beta}_1) = \frac{\sigma^2_u}{n \cdot \text{Var}(X)}
+\sigma^2_{\hat{\beta}_1}
+=
+\frac{1}{n}
+\frac{\operatorname{Var}\!\left[(X_i - \mu_X) u_i\right]}
+{\operatorname{Var}(X_i)^2}
 $$
 
 . . .
@@ -948,7 +1013,27 @@ $$
 
 **$\blacktriangleright$** We'll use this in the next chapter for hypothesis testing and confidence intervals.
 
-# Common Misconceptions and Clarifications
+
+# Bringing It All Together
+
+## The Big Picture
+
+::: {.callout-important}
+## Key Takeaways
+
+1. We minimize the sum of squared residuations to estimate $\beta_1$ and $\beta_0$
+2. Slopes have precise interpretations: $\Delta Y$ per unit $\Delta X$, holding $u$ fixed
+3. $R^2$ and SER measure model fit, but don't relate to causality
+4. Zero conditional mean is THE critical assumption for unbiased estimation
+5. $\hat{\beta}_1$ has a sampling distribution — it's random, not fixed
+6. Larger samples and more variation in $X$ give more precise estimates
+:::
+
+. . .
+
+**Next chapter:** Hypothesis testing and confidence intervals — how to make formal inferences about $\beta_1$.
+
+# Bonus: Common Misconceptions and Clarifications
 
 ## Misconception #1: "Correlation = Causation"
 
@@ -1103,7 +1188,7 @@ Only add variables that **belong** in the model:
 
 **Principle:** Use [theory]{.alert} to guide variable selection, not just R².
 
-# Implementing OLS in Stata
+# Bonus: Implementing OLS in Stata
 
 ## Complete Stata Workflow {.smaller}
 
@@ -1180,67 +1265,14 @@ display "Check: TSS - (ESS + SSR) = " (TSS - (ESS + SSR))
 
 **Interpretation:** The check should equal zero (or very close), confirming $TSS = ESS + SSR$.
 
-## Diagnostic Plots in Stata {.smaller}
 
-```stata
-* Scatter with regression line
-scatter wages education || lfit wages education, ///
-    legend(off) title("OLS Regression Line")
-
-* Residual plot
-scatter residual wages_fitted, ///
-    yline(0) ///
-    title("Residual Plot") ///
-    ytitle("Residuals") xtitle("Fitted Values")
-
-* Histogram of residuals
-histogram residual, normal ///
-    title("Distribution of Residuals")
-```
-
-**Full walkthrough script:** `econ3500_ols_walkthrough.do`
-
-# Bringing It All Together
-
-## The Big Picture
-
-::: {.callout-important}
-## From Data to Inference
-Today's journey:
-
-1. [Observed]{.alert} relationships in scatter plots
-2. [Quantified]{.alert} them with OLS regression
-3. [Assessed]{.alert} fit with $R^2$, SER, and decomposition
-4. [Understood]{.alert} what assumptions let us interpret $\beta_1$ causally
-5. [Recognized]{.alert} $\hat{\beta}_1$ varies across samples (sampling distribution)
-:::
-
-**Next chapter:** Hypothesis testing and confidence intervals — how to make formal inferences about $\beta_1$.
-
-## Key Takeaways
-
-1. OLS gives the best linear fit by minimizing squared residuals
-2. Slopes have precise interpretations: $\Delta Y$ per unit $\Delta X$, holding $u$ fixed
-3. $R^2$ and SER measure fit, but don't prove causality
-4. Zero conditional mean is THE critical assumption for causal interpretation
-5. $\hat{\beta}_1$ has a sampling distribution — it's random, not fixed
-6. Larger samples and more variation in $X$ give more precise estimates
-
-## Practice & Resources
+# Practice & Resources
 
 **Recommended practice:**
 
-- Stock & Watson Chapter 4 exercises
-- [Work through:]{.alert} `econ3500_ols_walkthrough.do`
-- Try running regressions on the ACS data
+- Stock & Watson Chapter 4 odd-numbered exercises
+- Beyond our lab, practice running and interpreting regressions on the ACS data
 - Practice interpreting coefficients out loud
 
-**The Stata walkthrough includes:**
-
-- Complete worked example with education-wages data
-- Manual calculation of all fit statistics
-- Diagnostic plots
-- Real-world application with ACS wage data
-- Practice problems with solutions
 
 **Next session:** Hypothesis testing, $t$-statistics, and confidence intervals

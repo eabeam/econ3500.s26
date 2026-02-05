@@ -295,6 +295,10 @@ acs_pop <- acs %>%
   ) %>%
   mutate(wages = incwage / 1000)
 
+# "True" slope from the population used for sampling
+pop_model <- lm(wages ~ education, data = acs_pop, weights = perwt)
+true_beta1_pop <- coef(pop_model)["education"]
+
 draw_sample_and_estimate <- function(sample_size) {
   samp <- acs_pop %>%
     slice_sample(n = sample_size, weight_by = perwt, replace = TRUE)
@@ -303,7 +307,7 @@ draw_sample_and_estimate <- function(sample_size) {
 }
 
 # Fixed x-axis limits for all three panels
-xlim_range <- c(min(true_beta1 - 3, 0), max(true_beta1 + 3, 15))
+xlim_range <- c(min(true_beta1_pop - 3, 0), max(true_beta1_pop + 3, 15))
 
 # PANEL 1: n = 20
 set.seed(123)
@@ -313,9 +317,9 @@ df_est_20 <- data.frame(beta0 = estimates_20[,1], beta1 = estimates_20[,2])
 
 p6a <- ggplot(df_est_20, aes(x = beta1)) +
   geom_histogram(bins = 20, fill = eco_teal, color = "white", alpha = 0.7) +
-  geom_vline(xintercept = true_beta1, color = "red", linewidth = 1.5, linetype = "dashed") +
+  geom_vline(xintercept = true_beta1_pop, color = "red", linewidth = 1.5, linetype = "dashed") +
   geom_vline(xintercept = mean(df_est_20$beta1), color = eco_deep_blue, linewidth = 1) +
-  annotate("text", x = true_beta1 + 0.8, y = Inf, vjust = 1.5,
+  annotate("text", x = true_beta1_pop + 0.8, y = Inf, vjust = 1.5,
            label = "True β₁", color = "red", fontface = "bold", size = 3.5) +
   coord_cartesian(xlim = xlim_range) +
   labs(
@@ -332,9 +336,9 @@ df_est_200 <- data.frame(beta0 = estimates_200[,1], beta1 = estimates_200[,2])
 
 p6b <- ggplot(df_est_200, aes(x = beta1)) +
   geom_histogram(bins = 20, fill = eco_teal, color = "white", alpha = 0.7) +
-  geom_vline(xintercept = true_beta1, color = "red", linewidth = 1.5, linetype = "dashed") +
+  geom_vline(xintercept = true_beta1_pop, color = "red", linewidth = 1.5, linetype = "dashed") +
   geom_vline(xintercept = mean(df_est_200$beta1), color = eco_deep_blue, linewidth = 1) +
-  annotate("text", x = true_beta1 + 0.8, y = Inf, vjust = 1.5,
+  annotate("text", x = true_beta1_pop + 0.8, y = Inf, vjust = 1.5,
            label = "True β₁", color = "red", fontface = "bold", size = 3.5) +
   coord_cartesian(xlim = xlim_range) +
   labs(
@@ -351,9 +355,9 @@ df_est_2000 <- data.frame(beta0 = estimates_2000[,1], beta1 = estimates_2000[,2]
 
 p6c <- ggplot(df_est_2000, aes(x = beta1)) +
   geom_histogram(bins = 20, fill = eco_teal, color = "white", alpha = 0.7) +
-  geom_vline(xintercept = true_beta1, color = "red", linewidth = 1.5, linetype = "dashed") +
+  geom_vline(xintercept = true_beta1_pop, color = "red", linewidth = 1.5, linetype = "dashed") +
   geom_vline(xintercept = mean(df_est_2000$beta1), color = eco_deep_blue, linewidth = 1) +
-  annotate("text", x = true_beta1 + 0.8, y = Inf, vjust = 1.5,
+  annotate("text", x = true_beta1_pop + 0.8, y = Inf, vjust = 1.5,
            label = "True β₁", color = "red", fontface = "bold", size = 3.5) +
   coord_cartesian(xlim = xlim_range) +
   labs(
@@ -532,37 +536,7 @@ p9 <- ggplot(df_sizes, aes(x = education, y = wages)) +
 
 ggsave(file.path(fig_dir, "ch4_sample_size_comparison.png"), p9, width = 10, height = 8, dpi = 300, bg = "white")
 
-# FIGURE 10: Zero Conditional Mean
-df$educ_bins <- cut(df$education, breaks = c(7, 10, 12, 14, 16, 21),
-                    labels = c("8-10", "11-12", "13-14", "15-16", "17+"))
-
-mean_resid_by_bin <- df %>%
-  group_by(educ_bins) %>%
-  summarize(mean_resid = mean(residuals),
-            educ_mid = mean(education))
-
-p10 <- ggplot(df, aes(x = education, y = residuals)) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = eco_deep_blue, linewidth = 1) +
-  geom_point(color = eco_teal, alpha = 0.4, size = 2) +
-  geom_point(data = mean_resid_by_bin, aes(x = educ_mid, y = mean_resid),
-             color = "red", size = 5, shape = 18) +
-  geom_line(data = mean_resid_by_bin, aes(x = educ_mid, y = mean_resid),
-            color = "red", linewidth = 1.2) +
-  annotate("text", x = max(df$education) - 1, y = max(df$residuals) * 0.8,
-           label = "Red diamonds = E[u|X]\n(should be ≈ 0 for all X)",
-           color = "red", fontface = "bold", size = 3.5) +
-  labs(
-    title = "Zero Conditional Mean Assumption: E[u|X] = 0",
-    subtitle = "Average residual at each X level should be close to zero",
-    x = "Years of Education",
-    y = "Residuals"
-  ) +
-  theme_econometria()
-p10 <- p10 + coord_cartesian(ylim = c(min(df$residuals), 150))
-
-ggsave(file.path(fig_dir, "ch4_zero_conditional_mean.png"), p10, width = 8, height = 5, dpi = 300, bg = "white")
-
-# FIGURE 11: Omitted Variable Bias
+# Shared OVB dataset for Figures 10 and 11
 set.seed(3503)
 n_ovb <- 300
 
@@ -581,13 +555,17 @@ acs_ovb$ability <- acs_ovb$ability - mean(acs_ovb$ability)
 wage_base <- mean(acs_ovb$wages, na.rm = TRUE)
 acs_ovb$wages_true <- wage_base + 0.8 * acs_ovb$education +
                       0.25 * acs_ovb$ability + rnorm(n_ovb, 0, 8)
+acs_ovb$u_true <- acs_ovb$wages_true - (wage_base + 0.8 * acs_ovb$education)
+
 # Model 1: TRUE model (if we could observe ability)
 model_true <- lm(wages_true ~ education + ability, data = acs_ovb)
 beta_edu_true <- coef(model_true)["education"]
 
+
 # Model 2: BIASED model (omits ability)
 model_omit <- lm(wages_true ~ education, data = acs_ovb)
 beta_edu_omit <- coef(model_omit)["education"]
+acs_ovb$residuals_omit <- residuals(model_omit)
 
 # Color code by ability terciles
 acs_ovb$ability_group <- cut(acs_ovb$ability,
@@ -595,6 +573,39 @@ acs_ovb$ability_group <- cut(acs_ovb$ability,
                               labels = c("Low Ability", "Medium Ability", "High Ability"),
                               include.lowest = TRUE)
 
+# FIGURE 10: Zero Conditional Mean
+zcm_data <- acs_ovb %>%
+  mutate(educ_bins = cut(education, breaks = c(7, 10, 12, 14, 16, 21),
+                         labels = c("8-10", "11-12", "13-14", "15-16", "17+")))
+
+mean_u_by_bin <- zcm_data %>%
+  group_by(educ_bins) %>%
+  summarize(mean_u = mean(u_true),
+            educ_mid = mean(education),
+            .groups = "drop")
+
+p10 <- ggplot(zcm_data, aes(x = education, y = u_true)) +
+  geom_hline(yintercept = 0, linetype = "dashed", color = eco_deep_blue, linewidth = 1) +
+  geom_point(color = eco_teal, alpha = 0.4, size = 2) +
+  geom_point(data = mean_u_by_bin, aes(x = educ_mid, y = mean_u),
+             color = eco_deep_blue, size = 5, shape = 18) +
+  geom_line(data = mean_u_by_bin, aes(x = educ_mid, y = mean_u),
+            color = eco_deep_blue, linewidth = 1.2) +
+  annotate("text", x = max(zcm_data$education) - 1, y = 16,
+           label = "Blue diamonds = E[u|X]\n(should be ≈ 0 for all X)",
+           color = eco_deep_blue, fontface = "bold", size = 3.5) +
+  labs(
+    title = "Zero Conditional Mean Assumption: E[u|X] = 0",
+    subtitle = "Average true error at each X level should be close to zero",
+    x = "Years of Education",
+    y = "True Error (u)"
+  ) +
+  theme_econometria()
+p10 <- p10 + coord_cartesian(ylim = c(-20, 20))
+
+ggsave(file.path(fig_dir, "ch4_zero_conditional_mean.png"), p10, width = 8, height = 5, dpi = 300, bg = "white")
+
+# FIGURE 11: Omitted Variable Bias
 # Label positions (keep annotations inside plot)
 y_max_ovb <- max(acs_ovb$wages_true, na.rm = TRUE)
 y_min_ovb <- min(acs_ovb$wages_true, na.rm = TRUE)
@@ -626,6 +637,9 @@ p11 <- ggplot(acs_ovb, aes(x = education, y = wages_true)) +
   ) +
   theme_econometria() +
   scale_y_continuous(expand = expansion(mult = c(0.05, 0.12)))
+
+p11 <- p11 + coord_cartesian(ylim = c(min(zcm_data$residuals_omit), 150))
+
 
 ggsave(file.path(fig_dir, "ch4_ovb.png"), p11, width = 9, height = 6, dpi = 300, bg = "white")
 

@@ -965,8 +965,8 @@ SER = \sqrt{\frac{SSR}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}\hat{u}_i^2}{n-2}}
 <p><strong>The lesson:</strong> A model can fit the data well (high R²) but still fail to identify a causal effect. This is why we need <span class="alert">assumptions</span>.</p>
 </div>
 </section>
-<section id="why-assumptions-matter" class="slide level2 scrollable">
-<h2>Why Assumptions Matter</h2>
+<section id="unbiasedness-getting-the-right-answer" class="slide level2 scrollable">
+<h2>Unbiasedness: Getting the right answer</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -976,31 +976,31 @@ SER = \sqrt{\frac{SSR}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}\hat{u}_i^2}{n-2}}
 <p><strong>The Fundamental Question</strong></p>
 </div>
 <div class="callout-content">
-<p>We’ve estimated <span class="math inline">\(\hat{\beta}_1\)</span>, but does it estimate the <span class="alert">causal effect</span> of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>, or just an association?</p>
+<p>We’ve estimated <span class="math inline">\(\hat{\beta}_1\)</span>, but is it correct? is <span class="math inline">\(\hat{\beta}_1\)</span> an <strong>unbiased</strong> estimator of <span class="math inline">\(\beta_1\)</span>?</p>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><strong>To interpret <span class="math inline">\(\beta_1\)</span> causally, we need assumptions.</strong></p>
+<p><strong>Three least squares assumption</strong></p>
 </div>
 <div class="fragment">
 <p><strong>Three key assumptions for unbiased OLS:</strong></p>
 <ol type="1">
-<li><span style="color: #19375F;"><strong>Zero conditional mean</strong></span>: <span class="math inline">\(E[u | X] = 0\)</span></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
+<li><span style="color: #19375F;"><strong>Zero conditional mean</strong></span>: <span class="math inline">\(E[u_i | X_i] = 0\)</span>
+<ul>
+<li>Holds in RCT setting—we try to approximate this</li>
+<li>Same as saying that <span class="math inline">\(u_i\)</span> and X_i$ are uncorrelated . . .</li>
+</ul></li>
 <li><span style="color: #19375F;"><strong>i.i.d. sampling</strong></span>: <span class="math inline">\((X_i, Y_i)\)</span> are independent and identically distributed</li>
 </ol>
 </div>
 <div class="fragment">
 <ol start="3" type="1">
-<li><span style="color: #19375F;"><strong>Finite fourth moments</strong></span>: Large outliers are unlikely</li>
+<li><span style="color: #19375F;"><strong>Finite fourth moments</strong></span>: Large outliers are unlikely (finite kurtosis)</li>
 </ol>
 </div>
 </section>
-<section id="assumption-1-zero-conditional-mean" class="slide level2 smaller">
+<section id="assumption-1-zero-conditional-mean" class="slide level2">
 <h2>Assumption 1: Zero Conditional Mean</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1012,28 +1012,110 @@ SER = \sqrt{\frac{SSR}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}\hat{u}_i^2}{n-2}}
 </div>
 <div class="callout-content">
 <p><span class="math display">\[
-E[u | X] = 0 \quad \text{for all values of } X
-\]</span> The expected value of the error term is zero, <span class="alert">regardless of <span class="math inline">\(X\)</span></span>.</p>
+E[u_i | X_i] = 0
+\]</span> The expected value of the error term is zero, <span class="alert">after conditioning on <span class="math inline">\(X\)</span></span>.</p>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><strong>What this means:</strong></p>
 <ul>
-<li>On average, <span class="math inline">\(u\)</span> is unrelated to <span class="math inline">\(X\)</span></li>
+<li>Both <span class="math inline">\(X\)</span> and <span class="math inline">\(u\)</span> have distributions in the population</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Knowing <span class="math inline">\(X\)</span> doesn’t help you predict <span class="math inline">\(u\)</span></li>
+<li>If, for example, <span class="math inline">\(X = education\)</span>, then we could (in principle) figure out its distribution in the population of adults</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>All the systematic relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is captured by <span class="math inline">\(\beta_0 + \beta_1 X\)</span></li>
+<li>Suppose (for simplicity), that <span class="math inline">\(u\)</span> is ability (or age or gender or martial status, etc.). <span class="math inline">\(u\)</span> will also have a distribution in the population</li>
 </ul>
 </div>
 <div class="fragment">
+<ul>
+<li>So we are restricting how <span class="math inline">\(u\)</span> and <span class="math inline">\(X\)</span> relate to each other in the population</li>
+</ul>
+</div>
+</section>
+<section id="simplifying-assumption-eu0" class="slide level2">
+<h2>Simplifying assumption: <span class="math inline">\(E[u]=0\)</span></h2>
+<ul>
+<li>First, we make a simplifying assumption without loss of generality:</li>
+</ul>
+<p><span class="math display">\[E[u]=0\]</span></p>
+<p>where <span class="math inline">\(E[\cdot]\)</span> is the expected value operator</p>
+<ul>
+<li>Normalizing ability to be zero in the population should be harmless. It is.</li>
+</ul>
+</section>
+<section id="adjusting-the-intercept" class="slide level2">
+<h2>Adjusting the intercept</h2>
+<ul>
+<li>The presence of <span class="math inline">\(\beta_0\)</span> in</li>
+</ul>
+<p><span class="math display">\[Y = \beta_0 + \beta_1 X + u\]</span></p>
+<p>allows us to assume that <span class="math inline">\(E[u] = 0\)</span>. If the average of <span class="math inline">\(u\)</span> is different from zero, then we could jsut adjust the intercept, leaving the slope the same.</p>
+<div class="fragment">
+<p>If <span class="math inline">\(\alpha_0 = E[u]\)</span>, then we can just add and subtract:</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[Y = (\beta_0 + \alpha_0) + \beta_1 X + (u-\alpha_0)\]</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li>New intercept is <span class="math inline">\(\beta_0 + \alpha_0\)</span> Easy! But, our slope is unchanged.</li>
+</ul>
+</div>
+</section>
+<section id="definition-of-simple-regression-model" class="slide level2">
+<h2>Definition of simple regression model</h2>
+<p><strong>KEY QUESTION:</strong> How do we need to restrict the dependence between <span class="math inline">\(u\)</span> and <span class="math inline">\(X\)</span>?</p>
+<div class="fragment">
+<ul>
+<li>We could assume that <span class="math inline">\(u\)</span> and <span class="math inline">\(x\)</span> are uncorrelated in the population:</li>
+</ul>
+<p><span class="math display">\[Corr(X,u) = 0\]</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li>Zero correlation works for many purposes, but it only implies that <span class="math inline">\(u\)</span> and <span class="math inline">\(X\)</span> are not <strong>linearly</strong> related. Ruling out only linear dependence can cause problems with interpretation and makes analysis more difficult.</li>
+</ul>
+</div>
+</section>
+<section id="definition-of-simple-regression-model-1" class="slide level2">
+<h2>Definition of simple regression model</h2>
+<p>A better assumption involves the mean of the error term for each “slice” of the population determined by the values of X:</p>
+<p><span class="math display">\[E[u|X] = E[u]\quad\text{for all values of }X \]</span></p>
+<p>Where <span class="math inline">\(E[u|X]\)</span> is “the expected value of <span class="math inline">\(u\)</span> given <span class="math inline">\(X\)</span>.”</p>
+<div class="fragment">
+<ul>
+<li>We say that <span class="math inline">\(u\)</span> is <strong>mean independent</strong> of x.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>How realistic is this?</li>
+</ul>
+</div>
+</section>
+<section id="definition-of-simple-regression-model-2" class="slide level2">
+<h2>Definition of simple regression model</h2>
+<p>Suppose that <span class="math inline">\(u\)</span> is “ability” and <span class="math inline">\(X\)</span> is years of education. Then we need, for example:</p>
+<p><span class="math display">\[E[ability|X = 8] = E[ability|X = 12] = E[ability|X = 16]\]</span></p>
+<div class="fragment">
+<p>The average ability is the same in different portions of the population with an 8th grade education, 12th grad education, and four-year college education.</p>
+</div>
+</section>
+<section id="zero-conditional-mean-assumption." class="slide level2">
+<h2>Zero conditional mean assumption.</h2>
+<ul>
+<li>When we combine this assumption with our normalization (<span class="math inline">\(E[u]=0\)</span>), then we get</li>
+</ul>
+<p><span class="math display">\[E[u|X] = 0 \quad \text{for all values of }X\]</span></p>
+<ul>
+<li>And this is the <span class="alert">zero conditional mean assumption</span></li>
+</ul>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1043,8 +1125,8 @@ E[u | X] = 0 \quad \text{for all values of } X
 <p><strong>This is the KEY assumption</strong></p>
 </div>
 <div class="callout-content">
-<p>If <span class="math inline">\(E[u|X] \neq 0\)</span>, then <span class="math inline">\(\hat{\beta}_1\)</span> is <span class="alert">biased</span> — it systematically estimates the wrong thing. This is called <span style="color: #19375F;"><strong>omitted variable bias</strong></span>.</p>
-</div>
+<p>If <span class="math inline">\(E[u|X] \neq 0\)</span>, then <span class="math inline">\(\hat{\beta}_1\)</span> is <span class="alert">biased</span> — it systematically estimates the wrong thing.</p>
+<p>This is called <span style="color: #19375F;"><strong>omitted variable bias</strong></span>.</p>
 </div>
 </div>
 </div>
@@ -1052,13 +1134,18 @@ E[u | X] = 0 \quad \text{for all values of } X
 <section id="visualizing-zero-conditional-mean" class="slide level2 smaller">
 <h2>Visualizing Zero Conditional Mean</h2>
 
-<img src="./ch4_figures/ch4_zero_conditional_mean.png" class="quarto-figure quarto-figure-center " style="width:65.0%"><p><strong>What this shows:</strong></p>
+<img src="./ch4_figures/ch4_zero_conditional_mean.png" class="quarto-figure quarto-figure-center " style="width:55.0%"><p><strong>What this shows:</strong></p>
 <ul>
 <li>Residuals (teal points) are evenly scattered above and below zero</li>
 <li>Red diamonds show the <strong>average residual</strong> at each education level: <span class="math inline">\(E[u|X]\)</span></li>
-<li>Notice: All red diamonds hover near zero — the assumption holds!</li>
-<li>If the red line curved up or down, we’d have a problem (omitted variable bias)</li>
 </ul>
+</section>
+<section id="zero-conditional-mean-assumption" class="slide level2">
+<h2>Zero conditional mean assumption</h2>
+<p>Because the expected value is a linear operator, then <span class="math inline">\(E[u|X] = 0\)</span> implies that</p>
+<p><span class="math display">\[E[Y|X] = \beta_0 + \beta_1 X + E[u|X] = \beta_0 + \beta_1 X\]</span></p>
+<p>This shows that the <span class="alert">population regression function</span> is a linear function of X!</p>
+<p>Nice.</p>
 </section>
 <section id="when-does-zero-conditional-mean-fail" class="slide level2 smaller">
 <h2>When Does Zero Conditional Mean Fail?</h2>
@@ -1089,136 +1176,47 @@ E[u | X] = 0 \quad \text{for all values of } X
 </div>
 <div class="fragment">
 <ul>
-<li>Result: <span class="math inline">\(\hat{\beta}_1\)</span> overestimates the causal effect of education (it picks up both education <em>and</em> ability)</li>
+<li>Result: <span class="math inline">\(\hat{\beta}_1\)</span> <strong>overestimates</strong> the causal effect of education (it picks up both education <em>and</em> ability)</li>
 </ul>
 </div>
 </section>
 <section id="omitted-variable-bias-ovb" class="slide level2 smaller">
 <h2>Omitted Variable Bias (OVB)</h2>
 
-<img src="./ch4_figures/ch4_ovb.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><ul>
-<li><strong>Dashed blue line:</strong> true model (education + ability)</li>
-<li><strong>Solid red line:</strong> biased model (omits ability)</li>
-<li>The gap between slopes is the <strong>omitted variable bias</strong></li>
-</ul>
-</section>
-<section id="building-intuition-mean-independence" class="slide level2">
-<h2>Building Intuition: Mean Independence</h2>
-<p><strong>A weaker condition than zero conditional mean:</strong></p>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Mean Independence</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math display">\[
-E[u | X] = E[u] \quad \text{for all } X
-\]</span> The mean of <span class="math inline">\(u\)</span> is the same at every value of <span class="math inline">\(X\)</span>.</p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><strong>Combine this with the normalization <span class="math inline">\(E[u] = 0\)</span>:</strong> <span class="math display">\[
-E[u | X] = 0
-\]</span></p>
-</div>
-<div class="fragment">
-<p><strong><span class="math inline">\(\blacktriangleright\)</span></strong> This is our workhorse assumption. It implies the <span style="color: #19375F;"><strong>population regression function</strong></span> is linear: <span class="math inline">\(E[Y|X] = \beta_0 + \beta_1 X\)</span></p>
-</div>
-</section>
-<section id="population-regression-function-prf" class="slide level2 smaller">
-<h2>Population Regression Function (PRF)</h2>
-
-<img src="./ch4_figures/ch4_prf.png" class="quarto-figure quarto-figure-center " style="width:70.0%"><ul>
-<li>The line shows <span class="math inline">\(E[Y|X] = \beta_0 + \beta_1 X\)</span></li>
-<li>Individual outcomes scatter around the conditional mean</li>
-<li>Zero conditional mean ensures this is a <em>line</em> (not a curve)</li>
-</ul>
-</section>
-<section id="assumption-2-i.i.d.-sampling" class="slide level2 smaller">
-<h2>Assumption 2: i.i.d. Sampling</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Independent and Identically Distributed (i.i.d.)</strong></p>
-</div>
-<div class="callout-content">
-<p>The observations <span class="math inline">\((X_i, Y_i)\)</span> are:</p>
-<ul>
-<li><span style="color: #19375F;"><strong>Independent</strong></span>: One observation doesn’t affect another</li>
-<li><span style="color: #19375F;"><strong>Identically distributed</strong></span>: All drawn from the same population</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><strong>Why this matters:</strong></p>
-<ul>
-<li>Ensures our sample is representative</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Rules out things like: time series (where today depends on yesterday), clustering (where observations within groups are related)</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Allows us to apply the Law of Large Numbers and Central Limit Theorem</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>When violated:</strong></p>
-<ul>
-<li>Standard errors are wrong (we’ll cover this in later chapters)</li>
-</ul>
-</div>
-</section>
-<section id="assumption-3-no-extreme-outliers" class="slide level2">
-<h2>Assumption 3: No Extreme Outliers</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Finite Fourth Moments</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math inline">\(E[X^4] &lt; \infty\)</span> and <span class="math inline">\(E[Y^4] &lt; \infty\)</span></p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><strong>In plain English:</strong></p>
-<ul>
-<li>Extremely large values of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are unlikely</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Ensures our estimators have well-defined variances</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>Almost always satisfied in practice with real data</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Practical implication:</strong></p>
-<ul>
-<li>Watch out for extreme outliers that can distort the regression line</li>
-<li>Use scatter plots and diagnostic tools to spot them</li>
-</ul>
-</div>
-</section></section>
+<!-- ## Assumption 2: i.i.d. Sampling -->
+<!-- ::: {.callout-note} -->
+<!-- ## Independent and Identically Distributed (i.i.d.) -->
+<!-- The observations $(X_i, Y_i)$ are: -->
+<!-- - [**Independent**]{style="color: #19375F;"}: One observation doesn't affect another -->
+<!-- - [**Identically distributed**]{style="color: #19375F;"}: All drawn from the same population -->
+<!-- ::: -->
+<!-- . . . -->
+<!-- **Why this matters:** -->
+<!-- - Ensures our sample is representative -->
+<!-- . . . -->
+<!-- - Rules out things like: time series (where today depends on yesterday), clustering (where observations within groups are related) -->
+<!-- . . . -->
+<!-- - Allows us to apply the Law of Large Numbers and Central Limit Theorem -->
+<!-- . . . -->
+<!-- **When violated:** -->
+<!-- - Standard errors are wrong (we'll cover this in later chapters) -->
+<!-- ## Assumption 3: No Extreme Outliers -->
+<!-- ::: {.callout-note} -->
+<!-- ## Finite Fourth Moments -->
+<!-- $E[X^4] < \infty$ and $E[Y^4] < \infty$ -->
+<!-- ::: -->
+<!-- . . . -->
+<!-- **In plain English:** -->
+<!-- - Extremely large values of $X$ and $Y$ are unlikely -->
+<!-- . . . -->
+<!-- - Ensures our estimators have well-defined variances -->
+<!-- . . . -->
+<!-- - Almost always satisfied in practice with real data -->
+<!-- . . . -->
+<!-- **Practical implication:** -->
+<!-- - Watch out for extreme outliers that can distort the regression line -->
+<!-- - Use scatter plots and diagnostic tools to spot them -->
+<img src="./ch4_figures/ch4_ovb.png" class="quarto-figure quarto-figure-center " style="width:75.0%"></section></section>
 <section>
 <section id="sampling-distributions-and-uncertainty" class="title-slide slide level1 center">
 <h1>Sampling Distributions and Uncertainty</h1>
@@ -1255,7 +1253,10 @@ E[u | X] = 0
 </div>
 <div class="fragment">
 <ul>
-<li>By the CLT, <span class="math inline">\(\hat{\beta}_1\)</span> is approximately normal for large <span class="math inline">\(n\)</span></li>
+<li><p>By the CLT, <span class="math inline">\(\hat{\beta}_1\)</span> is approximately normal for large <span class="math inline">\(n\)</span></p>
+<ul>
+<li>Usually, we are quite happy with <span class="math inline">\(n &gt; 100\)</span></li>
+</ul></li>
 </ul>
 </div>
 </section>
@@ -1274,10 +1275,14 @@ E[u | X] = 0
 
 <img src="./ch4_figures/ch4_sample_size_comparison.png" class="quarto-figure quarto-figure-center " style="width:60.0%"><p><strong>Key takeaway:</strong> Larger samples give more precise estimates (tighter confidence bands).</p>
 </section>
-<section id="what-determines-the-variance-of-hatbeta_1" class="slide level2 smaller">
+<section id="what-determines-the-variance-of-hatbeta_1" class="slide level2">
 <h2>What Determines the Variance of <span class="math inline">\(\hat{\beta}_1\)</span>?</h2>
 <p><strong>The variance of <span class="math inline">\(\hat{\beta}_1\)</span> is:</strong> <span class="math display">\[
-\text{Var}(\hat{\beta}_1) = \frac{\sigma^2_u}{n \cdot \text{Var}(X)}
+\sigma^2_{\hat{\beta}_1}
+=
+\frac{1}{n}
+\frac{\operatorname{Var}\!\left[(X_i - \mu_X) u_i\right]}
+{\operatorname{Var}(X_i)^2}
 \]</span></p>
 <div class="fragment">
 <p><strong>Interpretation:</strong></p>
@@ -1297,6 +1302,37 @@ E[u | X] = 0
 </div>
 <div class="fragment">
 <p><strong><span class="math inline">\(\blacktriangleright\)</span></strong> We’ll use this in the next chapter for hypothesis testing and confidence intervals.</p>
+</div>
+</section></section>
+<section>
+<section id="bringing-it-all-together" class="title-slide slide level1 center">
+<h1>Bringing It All Together</h1>
+
+</section>
+<section id="the-big-picture" class="slide level2 scrollable">
+<h2>The Big Picture</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key Takeaways</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>We minimize the sum of squared residuations to estimate <span class="math inline">\(\beta_1\)</span> and <span class="math inline">\(\beta_0\)</span></li>
+<li>Slopes have precise interpretations: <span class="math inline">\(\Delta Y\)</span> per unit <span class="math inline">\(\Delta X\)</span>, holding <span class="math inline">\(u\)</span> fixed</li>
+<li><span class="math inline">\(R^2\)</span> and SER measure model fit, but don’t relate to causality</li>
+<li>Zero conditional mean is THE critical assumption for unbiased estimation</li>
+<li><span class="math inline">\(\hat{\beta}_1\)</span> has a sampling distribution — it’s random, not fixed</li>
+<li>Larger samples and more variation in <span class="math inline">\(X\)</span> give more precise estimates</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Next chapter:</strong> Hypothesis testing and confidence intervals — how to make formal inferences about <span class="math inline">\(\beta_1\)</span>.</p>
 </div>
 </section></section>
 <section>
@@ -1620,79 +1656,13 @@ E[u | X] = 0
 <span id="cb6-15"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> <span class="st">"Check: TSS - (ESS + SSR) = "</span> (TSS - (ESS + SSR))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Interpretation:</strong> The check should equal zero (or very close), confirming <span class="math inline">\(TSS = ESS + SSR\)</span>.</p>
 </section>
-<section id="diagnostic-plots-in-stata" class="slide level2 smaller">
-<h2>Diagnostic Plots in Stata</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a>* Scatter with regression <span class="kw">line</span></span>
-<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">scatter</span> wages education || <span class="kw">lfit</span> wages education, <span class="co">///</span></span>
-<span id="cb7-3"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="bn">legend</span>(<span class="kw">off</span>) <span class="bn">title</span>(<span class="st">"OLS Regression Line"</span>)</span>
-<span id="cb7-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="" aria-hidden="true" tabindex="-1"></a>* Residual plot</span>
-<span id="cb7-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">scatter</span> residual wages_fitted, <span class="co">///</span></span>
-<span id="cb7-7"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="kw">yline</span>(0) <span class="co">///</span></span>
-<span id="cb7-8"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="bn">title</span>(<span class="st">"Residual Plot"</span>) <span class="co">///</span></span>
-<span id="cb7-9"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="bn">ytitle</span>(<span class="st">"Residuals"</span>) <span class="bn">xtitle</span>(<span class="st">"Fitted Values"</span>)</span>
-<span id="cb7-10"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="" aria-hidden="true" tabindex="-1"></a>* Histogram <span class="kw">of</span> residuals</span>
-<span id="cb7-12"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">histogram</span> residual, <span class="fu">normal</span> <span class="co">///</span></span>
-<span id="cb7-13"><a href="" aria-hidden="true" tabindex="-1"></a> <span class="bn">title</span>(<span class="st">"Distribution of Residuals"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Full walkthrough script:</strong> <code>econ3500_ols_walkthrough.do</code></p>
-</section></section>
-<section>
-<section id="bringing-it-all-together" class="title-slide slide level1 center">
-<h1>Bringing It All Together</h1>
-
-</section>
-<section id="the-big-picture" class="slide level2 scrollable">
-<h2>The Big Picture</h2>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>From Data to Inference</strong></p>
-</div>
-<div class="callout-content">
-<p>Today’s journey:</p>
-<ol type="1">
-<li><span class="alert">Observed</span> relationships in scatter plots</li>
-<li><span class="alert">Quantified</span> them with OLS regression</li>
-<li><span class="alert">Assessed</span> fit with <span class="math inline">\(R^2\)</span>, SER, and decomposition</li>
-<li><span class="alert">Understood</span> what assumptions let us interpret <span class="math inline">\(\beta_1\)</span> causally</li>
-<li><span class="alert">Recognized</span> <span class="math inline">\(\hat{\beta}_1\)</span> varies across samples (sampling distribution)</li>
-</ol>
-</div>
-</div>
-</div>
-<p><strong>Next chapter:</strong> Hypothesis testing and confidence intervals — how to make formal inferences about <span class="math inline">\(\beta_1\)</span>.</p>
-</section>
-<section id="key-takeaways" class="slide level2 scrollable">
-<h2>Key Takeaways</h2>
-<ol type="1">
-<li>OLS gives the best linear fit by minimizing squared residuals</li>
-<li>Slopes have precise interpretations: <span class="math inline">\(\Delta Y\)</span> per unit <span class="math inline">\(\Delta X\)</span>, holding <span class="math inline">\(u\)</span> fixed</li>
-<li><span class="math inline">\(R^2\)</span> and SER measure fit, but don’t prove causality</li>
-<li>Zero conditional mean is THE critical assumption for causal interpretation</li>
-<li><span class="math inline">\(\hat{\beta}_1\)</span> has a sampling distribution — it’s random, not fixed</li>
-<li>Larger samples and more variation in <span class="math inline">\(X\)</span> give more precise estimates</li>
-</ol>
-</section>
 <section id="practice-resources" class="slide level2">
 <h2>Practice &amp; Resources</h2>
 <p><strong>Recommended practice:</strong></p>
 <ul>
-<li>Stock &amp; Watson Chapter 4 exercises</li>
-<li><span class="alert">Work through:</span> <code>econ3500_ols_walkthrough.do</code></li>
-<li>Try running regressions on the ACS data</li>
+<li>Stock &amp; Watson Chapter 4 odd-numbered exercises</li>
+<li>Beyond our lab, practice running and interpreting regressions on the ACS data</li>
 <li>Practice interpreting coefficients out loud</li>
-</ul>
-<p><strong>The Stata walkthrough includes:</strong></p>
-<ul>
-<li>Complete worked example with education-wages data</li>
-<li>Manual calculation of all fit statistics</li>
-<li>Diagnostic plots</li>
-<li>Real-world application with ACS wage data</li>
-<li>Practice problems with solutions</li>
 </ul>
 <p><strong>Next session:</strong> Hypothesis testing, <span class="math inline">\(t\)</span>-statistics, and confidence intervals</p>
 
