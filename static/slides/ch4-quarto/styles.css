@@ -102,6 +102,9 @@
 .reveal pre code {
   max-height: 500px;
   overflow-y: auto;
+  white-space: pre;
+  tab-size: 4;
+  font-variant-ligatures: none;
 }
 
 /* Table styling enhancements */
@@ -114,18 +117,17 @@
   margin: 1em 0;
 }
 
-/* Make equations larger (inside and outside callouts) */
-.reveal .math,
+/* Make display equations larger; keep inline math at normal size */
 .reveal .math.display,
-.reveal .katex,
-.reveal .katex-display {
+.reveal .katex-display,
+.reveal .MathJax_Display {
   font-size: 36px !important;
 }
 
-.reveal .callout .math,
-.reveal .callout .katex,
-.reveal .callout .katex-display {
-  font-size: 36px !important;
+.reveal .math:not(.display),
+.reveal .katex,
+.reveal .MathJax {
+  font-size: 1em !important;
 }
 
 /* Better list spacing */
