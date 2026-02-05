@@ -6,9 +6,14 @@
   padding: 20px;
 }
 
-/* Better spacing for fragments */
+/* Base font sizing */
+.reveal {
+  font-size: 26px;
+}
+
+/* Better spacing for fragments (tighter for lists) */
 .reveal .fragment {
-  margin-top: 0.5em;
+  margin-top: 0.15em;
 }
 
 /* Improve callout spacing */
@@ -21,6 +26,76 @@
 .callout-title {
   font-weight: bold;
   margin-bottom: 0.5em;
+}
+
+/* Match callout header to body color (slightly darker) */
+.reveal .callout.callout-note.callout-style-default .callout-title {
+  background-color: #cfe9e2 !important;
+}
+
+.reveal .callout.callout-important.callout-style-default .callout-title {
+  background-color: #f0d9a5 !important;
+}
+
+.reveal .callout.callout-important.callout-style-default .callout-title p {
+  background-color: transparent !important;
+}
+
+.reveal .callout.callout-tip.callout-style-default .callout-title {
+  background-color: #cfe8d2 !important;
+}
+
+.reveal .callout.callout-warning.callout-style-default .callout-title {
+  background-color: #f5d2a8 !important;
+}
+
+.reveal .callout.callout-caution.callout-style-default .callout-title {
+  background-color: #f3d6b8 !important;
+}
+
+.reveal .callout.callout-style-default .callout-title p {
+  background-color: transparent !important;
+}
+
+/* Larger callout text for projection readability */
+.reveal .callout {
+  font-size: 26px !important;
+  line-height: 1.2;
+  margin: 0.5em 0;
+  padding: 0.35em 0.6em;
+}
+
+/* Keep title slightly larger than callout body */
+.reveal .callout .callout-title {
+  font-size: 1.05em;
+  margin-bottom: 0.2em;
+}
+
+.reveal .callout p,
+.reveal .callout li {
+  line-height: 1.2;
+  margin: 0.2em 0;
+}
+
+/* Size helpers (relative to base 24px) */
+.reveal .small {
+  font-size: 0.9em;
+}
+
+.reveal .smaller {
+  font-size: 0.85em;
+}
+
+.reveal .tiny {
+  font-size: 0.75em;
+}
+
+.reveal .large {
+  font-size: 1.15em;
+}
+
+.reveal .larger {
+  font-size: 1.3em;
 }
 
 /* Code block improvements */
@@ -39,6 +114,20 @@
   margin: 1em 0;
 }
 
+/* Make equations larger (inside and outside callouts) */
+.reveal .math,
+.reveal .math.display,
+.reveal .katex,
+.reveal .katex-display {
+  font-size: 36px !important;
+}
+
+.reveal .callout .math,
+.reveal .callout .katex,
+.reveal .callout .katex-display {
+  font-size: 36px !important;
+}
+
 /* Better list spacing */
 .reveal ul ul,
 .reveal ol ol {
@@ -51,6 +140,20 @@
   margin-left: 0;
   padding-left: 1.4em;
   list-style-position: outside;
+}
+
+/* Tighter list line spacing (especially for fragments) */
+.reveal ul,
+.reveal ol {
+  line-height: 1.2;
+}
+
+.reveal li {
+  margin-bottom: 0.2em;
+}
+
+.reveal li.fragment {
+  margin-top: 0.1em;
 }
 
 /* Prevent slides from overflowing - general solution (normal mode only) */

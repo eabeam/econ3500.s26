@@ -24,6 +24,12 @@ BASE="$(basename "$QMD" .qmd)"
 
 mkdir -p "$DEST_ROOT"
 
+STATA_RUN_ALL="$SRC_DIR/stata/run_all.do"
+if [ -f "$STATA_RUN_ALL" ] && [ "${SKIP_STATA:-0}" != "1" ]; then
+  echo "Running Stata logs: $STATA_RUN_ALL"
+  /Applications/StataNow/StataSE.app/Contents/MacOS/StataSE -b do "$STATA_RUN_ALL" "$REPO_ROOT" "$SRC_DIR"
+fi
+
 echo "Rendering: $QMD"
 pushd "$SRC_DIR" >/dev/null
 quarto render "$(basename "$QMD")"
