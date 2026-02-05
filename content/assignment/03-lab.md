@@ -3,10 +3,10 @@ title: "Lab 3: Regression"
 linktitle: "Lab 3"
 date: "2026-02-04"
 due_date: "2026-02-12"
-due_time: "1:15 PM"
+due_time: "1:15 pm"
+toc: true
 menu:
   assignment:
-    
     parent: Labs
     weight: 3
 type: docs
@@ -20,7 +20,18 @@ type: docs
 ### Materials {#materials .unnumbered}
 
 - [`graduation.dta`](../materials/graduation.dta)
-- Do-file template [`labtemplate_f21.do`](../materials/labtemplate_f21.do) 
+- Do-file template [`econ3500_lab_template.do`](../materials/econ3500_lab_template.do) 
+
+Download these and save in your lab folder (perhaps you named it something like `econ3500/labs`?)
+
+:eye: If your do-file opens in a browser tab, you may want to instead Right click and select "Save Link As" :eye:
+
+{{% alert note %}}
+**Before you start**
+1. Set your working directory in Stata to the folder where you saved the data and template.
+2. Start a log file right away: `log using lab3.log, replace`
+3. Make sure you can open the dataset with `use graduation.dta, clear`.
+{{% /alert %}}
 
 
 ### Objectives {#objectives .unnumbered}
@@ -43,23 +54,23 @@ tasks in Stata:
 
 |command|description|
 | :------------- | ----------: |
-|Estimation commands|
- |`regress var1 var2`| Estimate a regression, with `var1` as the dependent variable and `var2` as the independent variable(s)|
- |`regress var1 var2, robust`| Estimate a regression with heteroskedasticity-robust standard errors|
+|Estimation commands| |
+|`regress var1 var2`| Estimate a regression, with `var1` as the dependent variable and `var2` as the independent variable(s)|
+|`regress var1 var2, robust`| Estimate a regression with heteroskedasticity-robust standard errors|
 |`correlate var1 var2 ... varn`|Calculate correlation coefficients of all listed variables, from `var1` to `varn`.|
-| `graph twoway scatter var1 var2 `| make a scatter plot with `var1` on the y-axis and `var2` on the x-axis.|
-|Post-estimation commands[^1] |
-| `predict newvar, xb `| Use estimated regression coefficients to predict $\widehat{y}$. It will generate `newvar`[^2]
-| `predict newvar, residuals` | Use estimated regression coefficients to predict residuals, generating `newvar`[^3]|
-|Working with data, missing values |
+|`graph twoway scatter var1 var2`| make a scatter plot with `var1` on the y-axis and `var2` on the x-axis.|
+|Post-estimation commands[^1]| |
+|`predict newvar, xb`| Use estimated regression coefficients to predict $\widehat{y}$. It will generate `newvar`[^2]
+|`predict newvar, residuals`| Use estimated regression coefficients to predict residuals, generating `newvar`[^3]|
+|Working with data, missing values| |
 |`count if var1 == 1`| count observations if the expression `var1 == 1` is true|
-|`count if !missing(var1)` |count observations if `var1` is not missing|
-| `drop if missing(var1)` | drop all observations where `var1` is missing|
-| `tab var1, missing` | Include missing values in tabulation|
+|`count if !missing(var1)`| count observations if `var1` is not missing|
+|`drop if missing(var1)`| drop all observations where `var1` is missing|
+|`tab var1, missing`| Include missing values in tabulation|
 
 [^1]: Post-estimation commands must be run *immediately* after a regression, while the regression results are still held in your local variables.
 [^2]: Here, `newvar` equals $\widehat{newvar_i} = \widehat{y_i} = \widehat{\beta_0} + \widehat{\beta_1}x_i$
-[^3]: Here, `newvar` equals $\widehat{newvar_i} = u_i =  y_i - \widehat{\beta_0} + \widehat{\beta_1}x_i$
+[^3]: Here, `newvar` equals $\widehat{newvar_i} = \widehat{u_i} =  y_i - \left(\widehat{\beta_0} + \widehat{\beta_1}x_i\right)$
 [^4]: There are a few variables here, including `treatment_arm`
 [^5]: Not `fsec7`, which is categorical, or `fsec` which is always equal to 1
 [^6]: Hint: `ttest var1, by(var2)` will run a t-test of the mean of `var1` are equal for two groups determined by `var2`.
@@ -69,6 +80,15 @@ tasks in Stata:
 
 ### Reading regression tables 
 <img src="../regression-label.png" width=500 alt="labelled Stata output">
+
+
+
+{{% alert warning %}}
+**Quick reminders**
+- The coefficient estimates do **not** change when you add `, robust`.
+- The standard errors **do** change when you add `, robust`.
+- Run `predict` immediately after your regression. If you run another command in between, Stata will overwrite the stored model.
+{{% /alert %}}
 
 ## Lab 3 Exercise {#lab-3-worksheet .unnumbered}
 
@@ -88,27 +108,32 @@ Today, we're going to look around at the graduation data set that we discussed i
 
 2.  Take a look at `graduation.dta`. How many observations are there? What is the distribution of treatment arms?[^4]
 
-3.  There are six *continuous* food security variables[^5]. You can look for them with `lookfor fs`. Pick one variable and write out a population model to determine the relationship assignment to graduation and food security. For the rest of this lab, I refer to the variable you chose as `foodsecurity`. If that's going to irritate you, you can rename your variable like this: `rename fsec5 foodsecurity`, using the variable name that you've chosen in place of `fsec5`.
+3.  There are six *continuous* food security variables[^5]. You can look for them with `lookfor fs`. Pick one variable and write out a population model to determine the relationship between assignment to the graduation program and food security. For the rest of this lab, I refer to the variable you chose as `foodsecurity`. If that's going to irritate you, you can rename your variable like this: `rename fsec5 foodsecurity`, using the variable name that you've chosen in place of `fsec5`.
 
-3. Tabulate your food security value and check for missing observations. Drop any observations for which you have missing values of `foodsecurity` (see above for how to do this). How many observations are remaining? 
+4. Tabulate your food security value and check for missing observations. Drop any observations for which you have missing values of `foodsecurity` (see above for how to do this). How many observations are remaining? 
 
-4.  Make a scatter plot of the relationship between your chosen food security variable and
+{{% alert note %}}
+**Hint**
+After you drop missing values, run `count` to confirm your new sample size. Keep that number consistent for the rest of the lab.
+{{% /alert %}}
+
+5.  Make a scatter plot of the relationship between your chosen food security variable and
     graduation (Include this in your submitted problem set). Is this easy to interpret? Calculate and report
     the associated correlation coefficient.
     
-5. Conduct a t-test of whether the mean of `foodsecurity`  is different between those who did and did not receive the graduation program[^6]
+6. Conduct a t-test of whether the mean of `foodsecurity` is different between those who did and did not receive the graduation program[^6]
 
-5.  Estimate the relationship between your chosen food security variable, `foodsecurity` and assignment to graduation, `graduation` using simple linear regression, with standard (homoskedasticity-assumed) standard errors. How do your t-statistics compare to what you found in the previous t-test? What was the impact of assignment to the graduation program on food security, based on your regression? 
+7.  Estimate the relationship between your chosen food security variable, `foodsecurity` and assignment to the graduation program, `graduation` using simple linear regression, with standard (homoskedasticity-assumed) standard errors. How do your t-statistics compare to what you found in the previous t-test? What was the impact of assignment to the graduation program on food security, based on your regression? 
     
-6. Re-estimate your regression, and this time adjust your standard errors to be heteroskedasticity-robust. Fill in the chart below with your estimates.
+8. Re-estimate your regression, and this time adjust your standard errors to be heteroskedasticity-robust. Fill in the chart below with your estimates.
 
 
 |Variable|Estimate|Variable|Estimate|
-| :------------- | ----------: |   ----------: |  ----------: |  
-  |  $\hat{\beta_0}$ ||$\hat{\beta_1}$ ||
-  |  $R^2$ || $TSS$||
-  |  $ESS$ || $SSR$ ||
-  |  d.f. || $SER$||
+| :------------- | ----------: |   ----------: |  ----------: |
+|$\hat{\beta_0}$||$\hat{\beta_1}$||
+|$R^2$||$TSS$||
+|$ESS$||$SSR$||
+|d.f.||$SER$||
 
 9.  After that regression estimate, generate a new variable, `predict_fs` equal to the predicted
     value of your food security variable.  Generate a second variable, `resid_fs` equal to the
@@ -125,10 +150,22 @@ Today, we're going to look around at the graduation data set that we discussed i
     *only* on a constant. What is $\hat{\beta_0}$, and how does it
     compare to overall mean? 
 
-13. For this final step, I'd like you to play around with the data. Pick **one** continuous dependent variable and **one** continuous *or* binary independent variable.[^9] You can look at the correlation between two variables, or you can look at the impact of one of the program dimensions (group coaching, group livelihood, etc) on an *continuous* outcome of interest.
-    a. Write a population model you want to estimate. 
-    b. Estimate it using OLS, adjusting your standard errors to be heteroskedasticity robust. Write an equation that reflects your estimated model in the form $\hat{y}=\hat{\beta_0} + \hat{\beta_1}x$, replacing $y$ and $x$ with your chosen varables and replacing $\hat{\beta_0}$ and $\hat{\beta_1}$ with your estimates.
-    c. In 1-2 sentences, , what do your results tell you, collectively? 
+13. For this final step, I'd like you to play around with the data. Pick **one** continuous dependent variable and **one** continuous *or* binary independent variable.[^9] You can look at the correlation between two variables, or you can look at the impact of one of the program dimensions (group coaching, group livelihood, etc) on a continuous outcome of interest.
+     
+     a. Write a population model you want to estimate. 
+     
+     b. Estimate it using OLS, adjusting your standard errors to be heteroskedasticity-robust. Write an equation that reflects your estimated model in the form $\hat{y}=\hat{\beta_0} + \hat{\beta_1}x$, replacing $y$ and $x$ with your chosen variables and replacing $\hat{\beta_0}$ and $\hat{\beta_1}$ with your estimates.
+     
+     c. In 1-2 sentences, what do your results tell you, collectively?
+
+
+{{% alert note %}}
+**Submission checklist**
+- Answers file (with your scatter plot and any tables you used)
+- Do-file with comments for each question
+- Log file that matches your do-file commands
+- `log close` at the end
+{{% /alert %}}
 
   <!--
    
