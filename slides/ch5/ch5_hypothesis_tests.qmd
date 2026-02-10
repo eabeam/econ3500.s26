@@ -122,7 +122,7 @@ $$
 
 ## Decision Rule: When to Reject $H_0$
 
-![Rejection regions for one- and two-sided tests](./ch5_figures/ch5_rejection_regions.png){width=65% height=auto}
+![](./ch5_figures/ch5_rejection_regions.png){width=65% height=auto}
 
 **Reject $H_0$ at significance level $\alpha$ if:**
 
@@ -167,7 +167,7 @@ $$
 
 ## One-Tailed vs Two-Tailed Tests
 
-![One- vs two-tailed tests](./ch5_figures/ch5_one_vs_two_tailed.png){width=95%}
+![](./ch5_figures/ch5_one_vs_two_tailed.png){width=95%}
 
 **Which to use?**
 
@@ -263,7 +263,7 @@ We typically fix $\alpha$ and try to increase power by increasing $n$.
 
 ## Statistical Power
 
-![Power curve](./ch5_figures/ch5_power_curve.png){width=75%}
+![](./ch5_figures/ch5_power_curve.png){width=75%}
 
 Power increases with:
 
@@ -273,7 +273,7 @@ Power increases with:
 
 ## Understanding $p$-Values
 
-![p-value illustration](./ch5_figures/ch5_pvalue.png){width=85%}
+![](./ch5_figures/ch5_pvalue.png){width=85%}
 
 **$p$-value interpretation**
 
@@ -449,7 +449,7 @@ $$
 
 ## Comparing Confidence Levels
 
-![Comparing confidence levels](./ch5_figures/ch5_multiple_ci_levels.png){width=75%}
+![](./ch5_figures/ch5_multiple_ci_levels.png){width=75%}
 
 - Same estimate $\hat\beta_1$, but different interval widths
 - 99% CI is widest (most conservative)
@@ -457,7 +457,7 @@ $$
 
 ## How Sample Size Affects Precision
 
-![Effect of sample size on CI width](./ch5_figures/ch5_sample_size_ci.png){width=75%}
+![](./ch5_figures/ch5_sample_size_ci.png){width=75%}
 
 **Key insight:** SE shrinks as $n$ increases, making CIs narrower and inference more precise.
 
@@ -681,7 +681,7 @@ Homoskedastic-only standard errors are unbiased only under homoskedasticity. We 
 
 ## Comparing Homoskedastic and Robust SEs
 
-![SE comparison](./ch5_figures/ch5_se_comparison.png){width=60%}
+![](./ch5_figures/ch5_se_comparison.png){width=60%}
 
 - In this example with heteroskedasticity, robust SE is larger
 - But this isn't always the case – it can go either way
