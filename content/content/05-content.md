@@ -9,7 +9,7 @@ date: "2026-02-01"
 start_date: "2026-02-09"
 end_date: "2026-02-13"
 
-  
+
   # Academic page type (do not modify).
 type: docs
 menu:
@@ -19,6 +19,9 @@ menu:
     
 
 pdf: /slides/ch5-slides.pdf
+
+slides_html: /slides/ch5-quarto/
+
 thumb: /slides/ch5-slides.png
 
 
@@ -89,4 +92,4 @@ For the good times.
 
  - [EGAP: 10 things to know about hypothesis testing](https://egap.org/resource/10-things-to-know-about-hypothesis-testing/)
  - [EGAP: 10 things to know about statistical power](https://egap.org/resource/10-things-to-know-about-statistical-power/) - gets a bit deeper than we go, but accessible and handy!
- 
+
