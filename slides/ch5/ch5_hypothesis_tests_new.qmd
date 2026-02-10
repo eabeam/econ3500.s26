@@ -150,7 +150,7 @@ $$
 
 ## One-Tailed vs Two-Tailed Tests
 
-![One- vs two-tailed tests](Lab/figures/ch5_one_vs_two_tailed.png){width=95%}
+![](Lab/figures/ch5_one_vs_two_tailed.png){width=95%}
 
 **Which to use?**
 
