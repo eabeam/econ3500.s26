@@ -1,5 +1,16 @@
 /* Additional custom styles for Econometria Quarto presentation */
 
+/* Preserve spacing in code: HTML collapses spaces without this */
+pre, code {
+  font-family: Menlo, Consolas, "Liberation Mono", monospace;
+  white-space: pre;
+}
+
+pre {
+  overflow-x: auto;
+  line-height: 1.2;
+}
+
 /* Ensure good spacing */
 .reveal .slides section {
   text-align: left;
@@ -297,8 +308,77 @@
   margin-right: 0;
 }
 
-/* Preserve image aspect ratio when scaling (width=70%, etc.) */
+/* Allow manual width/height control on images
+   Quarto converts {width=X%} to inline styles; ensure they're respected */
 .reveal .slides section img {
-  height: auto !important;
+  max-width: 100%;
   object-fit: contain;
+}
+
+/* Respect inline width specifications and auto-calculate height */
+.reveal .slides section img[width],
+.reveal .slides section img[style*="width"] {
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* For figure elements (Quarto wraps images in figures) */
+.reveal .slides section figure {
+  margin: 0 auto;
+}
+
+.reveal .slides section figure img {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Utility classes for common figure sizes */
+.reveal .slides section img.fig-small {
+  width: 40% !important;
+  height: auto !important;
+}
+
+.reveal .slides section img.fig-medium {
+  width: 60% !important;
+  height: auto !important;
+}
+
+.reveal .slides section img.fig-large {
+  width: 80% !important;
+  height: auto !important;
+}
+
+.reveal .slides section img.fig-full {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Stata output: use raw HTML block so spaces are preserved (see slides README) */
+.reveal .sourceCode.stata-output pre,
+.reveal pre.stata-output {
+  font-family: Menlo, Consolas, "Liberation Mono", monospace !important;
+  white-space: pre !important;
+  overflow-x: auto;
+  line-height: 1.2;
+  font-size: 0.5em;
+  tab-size: 8;
+  -moz-tab-size: 8;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 0.75em 1em;
+  text-align: left;
+  margin: 0.5em 0;
+}
+
+.reveal .sourceCode.stata-output pre code,
+.reveal pre.stata-output code {
+  font-family: inherit !important;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre !important;
+  background: transparent;
+  padding: 0;
+  display: block;
+  color: #333;
 }

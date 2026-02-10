@@ -1,0 +1,353 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Problem set 1},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Problem set 1}
+\author{}
+\date{2026-01-16}
+
+\begin{document}
+\maketitle
+
+\subsection{Welcome}\label{welcome}
+
+Welcome to Problem Set 1! There are some ``problem'' exercises and one
+extended Stata exercise. You'll need to submit two things on
+Brightspace: a problem set and log file. If you have trouble with the
+Stata basics, head back to \href{../01-lab/}{Lab 1}.
+
+\begin{quote}
+\emph{Tip: If, after doing these problems, you still want more practice,
+the odd-numbered Exercises (not Empirical Exercises) in Chapters 2 and 3
+of Stock and Watson are quite useful, and solutions are available
+online.}
+\end{quote}
+
+Note that there are superscripted numbers\footnote{See?! Neat! :)}
+throughout the page that provide additional information/suggestions to
+help you out.
+
+\subsection{Exercises}\label{exercises}
+
+{\def\LTcaptype{} % do not increment counter
+\begin{longtable}[]{@{}rrrrr@{}}
+\toprule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+X & -1 & 0 & 1 & 4 \\
+\(P(X=x)\) & 0.25 & 0.30 & 0.40 & 0.05 \\
+\end{longtable}
+}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Consider the above random variable, \(X\), with its associated
+  probability distribution:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    \emph{Draw} the probability distribution function and the cumulative
+    distribution function. (That is, you should make a figure/graph!)
+  \item
+    What is the expected value of X? That is, what is \(E[X]\)?
+  \item
+    What is the variance of X?
+  \end{enumerate}
+\item
+  The following table gives the joint probability distribution between
+  employment status and college graduation among those either employed
+  or looking for work (unemployed) in the working-age U.S. population
+  for 2017:
+
+  {\def\LTcaptype{} % do not increment counter
+  \begin{longtable}[]{@{}
+    >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.4154}}
+    >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2769}}
+    >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2308}}
+    >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.0769}}@{}}
+  \toprule\noalign{}
+  \begin{minipage}[b]{\linewidth}\raggedright
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Unemployed (\(Y=0\))
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Employed (\(Y=1\))
+  \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+  Total
+  \end{minipage} \\
+  \midrule\noalign{}
+  \endhead
+  \bottomrule\noalign{}
+  \endlastfoot
+  Non-college grads (\(X = 0\)) & 0.026 & 0.576 & 0.602 \\
+  College grads (\(X = 1\)) & 0.009 & 0.389 & 0.398 \\
+  \textbf{Total} & 0.035 & 0.965 & 1.000 \\
+  \end{longtable}
+  }
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    Compute \(E[Y]\).
+  \item
+    The unemployment rate is the fraction of the labor force that is
+    unemployed. Show that the unemployment rate is given by
+    \(1 - E[Y]\).
+  \item
+    Calculate \(E[Y|X=1]\) and \(E[Y|X=0]\).
+  \item
+    Calculate the unemployment rate for college graduates and for
+    non-college graduates
+  \item
+    A randomly selected member of this population reports being
+    unemployed. What is the probability that this worker is a college
+    graduate? A non-college graduate?
+  \end{enumerate}
+
+  \hspace{0pt} f.~Are educational achievement and employment status
+  independent? Explain.
+\item
+  Compute the following probabilities\footnote{Remember that we
+    conventionally write \(N(\mu,\sigma^2)\), so the second term is the
+    \emph{variance}, not the standard deviation.}:
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    If \(Y\) is distributed \(N(1,4)\), find \(Pr(Y \leq 3)\)
+  \item
+    If \(Y\) is distributed \(N(3,9)\), find \(Pr(Y >0 )\)
+  \item
+    If \(Y\) is distributed \(N(50,25)\), find \(Pr(40 \leq Y \leq 52)\)
+  \item
+    If \(Y\) is distributed \(N(5,2)\), find \(Pr(6 \leq Y \leq 8)\)
+  \end{enumerate}
+\item
+  For a randomly selected county in the United States, let \(X\)
+  represent the proportion of adults over age 65 who are employed (the
+  elderly employment rate). Then, \(X\) is restricted to a value between
+  zero and one. Suppose that the cumulative distribution function for
+  \(X\) is given by \(F(x) = 3x^2 - 2x^3\) for \(0 \leq x \leq 1\).
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    What is the probability that the elderly employment rate is at least
+    0.5 (50\%)?
+  \item
+    What is the probability that the elderly employment rate is between
+    0.4 (40\%) and 0.6 (60\%)?
+  \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\item
+  In any year, the weather can inflict storm damage to a home. From year
+  to year, the damage is random. Let \(Y\) denote the dollar value of
+  damage in any given year. Suppose that in 95\% of the years, there is
+  no damage (\(Y=0\)), but that in 5\% of the years, \(Y = 20000\).
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    What are the mean and standard deviation of the damage in any year?
+  \item
+    Consider an ``insurance pool'' of 100 people whose homes are
+    sufficiently dispersed so that, in any year, the damange to
+    different homes can be viewed as inddependently distributed random
+    variables. Let \(\bar{Y}\) denote the average damage to these 100
+    homes in a year (i) What is \(E[\bar{Y}]\)? (i) What is the
+    probability that \(\bar{Y}\) exceeds \$2000?
+  \end{enumerate}
+\end{enumerate}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\item
+  Grades on a standardized test are known to have a mean of 1000 for
+  students in the United States. The test is administered to 453
+  randomly selected students in Florida; in this sample, the mean is
+  1013 and the standard deviation (\(s\)) is 108.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    Construct a 95\% confidence interval for the average test score for
+    Florida students
+  \item
+    Is there statistically significant evidence that Florida students
+    perform differently than other students in the United States? How do
+    you know?
+  \end{enumerate}
+\end{enumerate}
+
+\textbf{For the following question, make sure you submit your log-file
+alongside your answers!}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\item
+  Download \href{../countymurders.dta}{\texttt{countymurders.dta}} to
+  answer this question.\footnote{Remember to move this file into your
+    \href{../01-lab/\#working-directories-important}{working directory}!}
+  The variable \(murders\) is the number of murders reported in the
+  county. The variable \(execs\) is the number of executions that took
+  place of people sentenced to death in the given country. Most states
+  in the United States have the death penalty, but several do not.
+
+  \begin{enumerate}
+  \def\labelenumii{\alph{enumii}.}
+  \item
+    Keep only data from the year 1996. How many counties are there in
+    the data set? Of these, how many have zero murders. What percentage
+    of countries have zero executions?
+  \item
+    What is the largest number of murders in a county? What is the
+    largest number of executions in a county?
+  \item
+    Compute the correlation coefficient \(r\) between \texttt{murders}
+    and \texttt{execs} and describe what you find.\footnote{Remember,
+      you can use \texttt{correlate\ var1\ var2} to look at the
+      correlation between two variables.} Estimate the correlation
+    coefficient between \texttt{murdrate} and \texttt{execrate}. Why do
+    the two coefficients differ so much?
+  \item
+    What are two characteristics in the data that are highly correlated
+    with county murder rates?\footnote{If you want to look at the
+      correlation between lots of variables, you can use
+      \texttt{correlate\ var1\ var2\ ...\ var99}. If you want to refer
+      to a lot of variables, an asterisk (*) can act as a ``wild.'' So
+      if you use \texttt{correlate\ var*}, you'll receive a correlation
+      matrix of every variable with a name that starts with ``var.'' If
+      you use \texttt{correlate\ *var*}, it will give you a correlation
+      matrix of every variable with the letters ``var'' somewhere in the
+      name.} What are their correlation coefficients?
+  \item
+    What is median real per-capita income?\footnote{\texttt{tabstat} is
+      your friend!}
+  \item
+    Generate a variable, \texttt{highinc} that is equal to 1 if a county
+    has above-median real per capita income, and 0 otherwise. What is
+    \(E[rpcpersinc  | highinc =0]\)? What is
+    \(E[rpcpersinc | highinc =1]\)?
+  \item
+    Consider a two-sided hypothesis test of whether murder rates are
+    different between counties with high (above median) vs low (below
+    median) real per-capita personal income. Assume the two samples are
+    independent, with equal variances.
+
+    \begin{enumerate}
+    \def\labelenumiii{\alph{enumiii}.}
+    \tightlist
+    \item
+      First, write a null and alternative hypothesis
+    \item
+      Use Stata to conduct the hypothesis test. What is the relevant
+      t-statistic?\footnote{The help file for \texttt{ttest} will be
+        useful. Here we are conducting a two-sample t-test using groups.
+        You will want to use the \texttt{highinc} variable you generated
+        earlier.}
+    \item
+      Can you reject the null hypothesis at the 5\% level?
+    \end{enumerate}
+  \item
+    Generate a variable, \texttt{perc1029}, that is equal to the share
+    of the population between the ages of 10 and 29. What is the median
+    share of the population by county that is ages \textbf{10-29}?
+  \item
+    Generate a variable, \texttt{young}, that is equal to 1 if a county
+    has an above-median share of the population that is age 10-29, and 0
+    otherwise. What is \(E[perc1029| young = 0]\)? What is
+    \(E[perc1029| young =1]\)?
+  \item
+    Consider a two-sided hypothesis test of whether murder rates are
+    different between states with a high (above-median) share of the
+    population ages \textbf{10-29} versus a low share. Assume the two
+    samples are independent, with equal variances.
+
+    \begin{enumerate}
+    \def\labelenumiii{\alph{enumiii}.}
+    \tightlist
+    \item
+      First, write a null and alternative hypothesis
+    \item
+      Use Stata to conduct the hypothesis test. What is the relevant
+      t-statistic?
+    \item
+      Can you reject the null hypothesis at the 5\% level?
+    \end{enumerate}
+  \end{enumerate}
+\end{enumerate}
+
+\subsection*{Sources}\label{sources}
+\addcontentsline{toc}{subsection}{Sources}
+
+\href{../countymurders.dta}{\texttt{countymurders.dta}}
+
+\emph{Source: Compiled by J. Monroe Gamble for a Summer Research
+Opportunities Program (SROP) at Michigan State University, Summer 2014.
+Monroe obtained data from the U.S. Census Bureau, the FBI Uniform Crime
+Reports, and the Death Penalty Information Center.}
+
+\end{document}

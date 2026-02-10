@@ -50,6 +50,10 @@ p_hetero <- ggplot(data_hetero, aes(x = x, y = y)) +
 
 out_dir <- "/Users/ebeam/Dropbox/GitHub/econ3500.s26/slides/ch5/ch5_figures"
 
+if (!dir.exists(out_dir)) {
+  dir.create(out_dir, recursive = TRUE)
+}
+
 png(file.path(out_dir, "homoskedasticity-pic.png"), width = 1200, height = 800, res = 150)
 print(p_homo)
 dev.off()

@@ -7,28 +7,7 @@ output-dir: ../../static/slides/ch4-quarto
 output-file: index.html
 format:
   revealjs:
-    embed-resources: false
-    width: 1280
-    height: 720
-    date-format: "Spring YYYY"
-    pdf-separate-fragments: false
-    pdf-max-pages-per-slide: 1
-    theme: [default, custom-econometria.scss]
-    slide-number: true
-    chalkboard: true
-    preview-links: false
-    css: styles.css
-    include-after-body: lazyload-fix.html
     footer: "ECON3500 | Linear Regression"
-    transition: fade
-    background-transition: fade
-    smaller: false
-    scrollable: true
-    incremental: false
-    code-line-numbers: false
-    highlight-style: github
-    fig-align: center
-    fig-cap-location: bottom
 ---
 
 ## Learning Roadmap {.scrollable}

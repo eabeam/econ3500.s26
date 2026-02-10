@@ -1,5 +1,6 @@
-# Quarto project config for ECON3500
+# Quarto project config for ECON3500 Slides
 # Ensures render uses this directory as project root so image paths resolve.
+
 project:
   type: default
   post-render:
@@ -7,8 +8,34 @@ project:
 
 format:
   revealjs:
-    # Global defaults for all decks
+    # Global defaults for all slide decks
+    embed-resources: false
     width: 1280
     height: 720
+    date-format: "Spring YYYY"
     pdf-separate-fragments: false
     pdf-max-pages-per-slide: 1
+    
+    # Global theme and styles (relative to slides/ root)
+    theme: [default, _styles/custom-econometria.scss]
+    css: _styles/styles.css
+    include-after-body: _styles/lazyload-fix.html
+    
+    # Presentation settings
+    slide-number: true
+    chalkboard: true
+    preview-links: false
+    transition: fade
+    background-transition: fade
+    smaller: false
+    scrollable: true
+    incremental: false
+    
+    # Code settings
+    code-line-numbers: false
+    highlight-style: github
+    code-overflow: scroll
+    
+    # Figure settings
+    fig-align: center
+    fig-cap-location: bottom

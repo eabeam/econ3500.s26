@@ -5,28 +5,7 @@ author: "ECON3500: Econometrics and Applications"
 date: "2026-01-01"
 format:
   revealjs:
-    embed-resources: false
-    width: 1280
-    height: 720
-    date-format: "Spring YYYY"
-    pdf-separate-fragments: false
-    pdf-max-pages-per-slide: 1
-    theme: [default, custom-econometria.scss]
-    slide-number: true
-    chalkboard: true
-    preview-links: false
-    css: styles.css
-    include-after-body: lazyload-fix.html
     footer: "ECON3500 | Hypothesis Tests and Confidence Intervals"
-    transition: fade
-    background-transition: fade
-    smaller: false
-    scrollable: true
-    incremental: false
-    code-line-numbers: false
-    highlight-style: github
-    fig-align: center
-    fig-cap-location: bottom
 ---
 
 ## Learning Objectives
@@ -52,9 +31,21 @@ We want to learn about the slope of the population regression line. We have data
 
 # 5.1 Testing Hypotheses About One Regression Coefficient
 
-## The Sampling Distribution of $\hat{\beta}_1$
 
-Under the Least Squares Assumptions, for $n$ large, $\hat{\beta}_1$ is approximately distributed:
+## The challenge: Sampling uncertainty
+
+Recall that $\hat\beta_1$ is a random variable with its own sampling distribution.
+
+- We estimated the regression coefficient ($\hat{\beta_1}$) of education on wages.
+- But this is just **one sample** from the population
+- If we drew a different sample, we'd get a different $\hat{\beta_1}$
+- **Question:** How confident can we be that the true $\beta_1 \neq 0$)?
+
+
+
+## Review: The Sampling Distribution of $\hat{\beta}_1$
+
+Recall: under the Least Squares Assumptions, for $n$ large, $\hat{\beta}_1$ is approximately distributed:
 
 ::: {.callout-note}
 $$
@@ -64,40 +55,49 @@ $$
 
 *Note: We won’t compute variances by hand, but the intuition is useful.*
 
+**Key insight:**
+
+- Under 3 LS assumptions, $\hat\beta_1$ is centered at the true $\beta_1$ (unbiased)
+- The spread (variance) depends on sample size $n$, variation in $X$, and error variance ($\sigma_v^2$)
+- CLT $\Rightarrow$ $\hat\beta_1$ is approximately normal in large samples
+
+
 ## Hypothesis Testing: General Setup
 
-- Null hypothesis and **two-sided** alternative:
 
 ::: {.callout-note}
+## Null hypothesis and **two-sided** alternative:
 $$
 H_0: \beta_1 = \beta_{1,0}\quad \text{vs}\quad H_1: \beta_1 \neq \beta_{1,0}
 $$
 :::
 
-- Null hypothesis and **one-sided** alternative:
+-
 
 ::: {.callout-note}
+## Null hypothesis and **one-sided** alternative:
 $$
 H_0: \beta_1 = \beta_{1,0}\quad \text{vs}\quad H_1: \beta_1 < \beta_{1,0}
 $$
 :::
 
-*where $\beta_{1,0}$ is the hypothesized value of $\beta_1$ under the null.*
+*where $\beta_{1,0}$ is the hypothesized value of $\beta_1$ under the null (usually 0).*
 
 ## General Approach
 
-- In general:
 
 ::: {.callout-note}
+## General formula for any hypothesis test:
 $$
  t = \frac{\text{estimator} - \text{hypothesized value}}{SE(\text{estimator})}
 $$
 :::
 
-- For testing $\bar{Y}$: $t = \frac{\bar{Y}-\mu_{Y,0}}{s_y/\sqrt{n}}$
-- For testing $\beta_1$:
+- For testing $\mu$: $t = \frac{\bar{Y}-\mu_{Y,0}}{s_y/\sqrt{n}}$
+
 
 ::: {.callout-note}
+## For testing $\beta_1$:
 $$
  t = \frac{\hat{\beta}_1-\beta_{1,0}}{SE(\hat{\beta}_1)}
 $$
@@ -105,17 +105,32 @@ $$
 
 ## Testing $H_0: \beta_{1,0}=0$
 
-- Construct your $t$-statistic:
 
 ::: {.callout-note}
+## Construct your $t$-statistic:
+
 $$
  t = \frac{\hat{\beta}_1-\beta_{1,0}}{SE(\hat{\beta}_1)}
 $$
 :::
 
-- Reject at level $\alpha$ if $|t| > c_{\alpha/2}$
+
+- Measures how many standard errors $\hat\beta_1$ is away from $\beta_{1,0}$
+- If $|t|$ is large, $\hat\beta_1$ is far from $\beta_{1,0}$ $\Rightarrow$ evidence against $H_0$
+- Under $H_0$, $t \sim N(0,1)$ in large samples (rule of thumb: $n>30$)
+
+
+## Decision Rule: When to Reject $H_0$
+
+![Rejection regions for one- and two-sided tests](./ch5_figures/ch5_rejection_regions.png){width=65% height=auto}
+
+**Reject $H_0$ at significance level $\alpha$ if:**
+
+- Two-tailed: $|t| > c_{\alpha/2}$
+- One-tailed (upper): $t > c_{\alpha}$
+- One-tailed (lower): $t < -c_{\alpha}$
+
 - In practice, almost always two-tailed tests
-- Relies on large-$n$ normal approximation (rule of thumb: $n>30$)
 
 **Common critical values:**
 
@@ -139,77 +154,426 @@ $$
 - **Power** = $1-\beta$ (probability of rejecting a false null)
 - Tradeoff between significance ($\alpha$) and power ($\beta$)
 
-## Conducting a Hypothesis Test {.smaller}
+
+## Decision Rule: When to Reject $H_0$
+
+![Rejection regions for one- and two-sided tests](./ch5_figures/ch5_rejection_regions.png){width=85%}
+
+**Reject $H_0$ at significance level $\alpha$ if:**
+
+- Two-tailed: $|t| > c_{\alpha/2}$
+- One-tailed (upper): $t > c_{\alpha}$
+- One-tailed (lower): $t < -c_{\alpha}$
+
+## One-Tailed vs Two-Tailed Tests
+
+![One- vs two-tailed tests](./ch5_figures/ch5_one_vs_two_tailed.png){width=95%}
+
+**Which to use?**
+
+- Two-tailed: Most common in economics (test for any effect)
+- One-tailed: When theory strongly predicts a direction
+
+## Critical Values for Common Significance Levels
+
+| **Significance level $\alpha$** | **Two-tailed $c_{\alpha/2}$** | **One-tailed $c_{\alpha}$** |
+| --- | ---: | ---: |
+| 10% | 1.645 | 1.28 |
+| 5%  | 1.96  | 1.645 |
+| 1%  | 2.58  | 2.33 |
+
+**Rule of thumb:** For two-tailed tests at 5%, reject if $|t| > 2$.
+
+## Knowledge Check: Calculate the $t$-Statistic
+
+**Question**
+
+You estimate $\hat\beta_1 = 3.5$ with $\operatorname{SE}(\hat\beta_1) = 1.2$.
+Test $H_0: \beta_1 = 0$ vs $H_1: \beta_1 \neq 0$ at 5% level.
+
+1. What is the $t$-statistic?
+2. What is your decision?
+
+. . .
+
+::: {.callout-tip}
+## Answer
+
+1. {.fragment} $t = \dfrac{3.5 - 0}{1.2} = 2.92$
+2. {.fragment} Critical value: $c_{\alpha/2} = 1.96$
+3. {.fragment} Since $|2.92| > 1.96$, **reject $H_0$** at 5% level.
+   {.fragment} Conclusion: strong evidence that $\beta_1 \neq 0$.
+:::
+
+## Type I and Type II Errors
+
+![Type I and Type II errors](./ch5_figures/ch5_type_errors.png){width=85%}
+
+- **Type I error ($\alpha$)**: Reject $H_0$ when it's true (false positive)
+- **Type II error ($\beta$)**: Fail to reject $H_0$ when it's false (false negative)
+- **Power $(1-\beta)$**: Probability of correctly rejecting false $H_0$
+
+## Knowledge Check: Type I and Type II Errors
+
+Consider the following scenarios. For each, decide whether it is a **Type I error**, a **Type II error**, or **neither**:
+
+1. A new medication does **not** actually help patients, but your study concludes that it **does**. What type of error (if any) has occurred?
+
+. . .
+
+2. The new medication **does** help patients, but your study fails to find evidence and concludes that it **doesn't work**. What type of error is this?
+
+. . .
+
+3. In a wage experiment, there is **no true effect** of a job training program on wages, but your study finds a statistically significant increase. What error (if any) is this?
+
+. . .
+
+4. There **is** a real positive effect of the training program on wages, but your study finds no statistically significant difference. What type of error is this?
+
+. . .
+
+::: {.callout-tip}
+## Answers
+
+1. **Type I error** (False positive: you concluded there was an effect when there wasn't)
+2. **Type II error** (False negative: you missed a real effect)
+3. **Type I error** (False positive: finding an effect that's not really there)
+4. **Type II error** (False negative: failing to detect a real effect)
+
+:::
+
+
+
+## Choosing a Significance Level
+
+**Why $\alpha = 0.05$ is conventional**
+
+- We tolerate a 5% chance of false positives
+- Balances Type I and Type II errors
+- Widely accepted standard in social sciences
+
+**The tradeoff**
+
+- Smaller $\alpha$ $\Rightarrow$ fewer false positives, but **more** false negatives (lower power)
+- Larger $\alpha$ $\Rightarrow$ more false positives, but **fewer** false negatives (higher power)
+- You cannot minimize both at once.
+
+We typically fix $\alpha$ and try to increase power by increasing $n$.
+
+## Statistical Power
+
+![Power curve](./ch5_figures/ch5_power_curve.png){width=75%}
+
+Power increases with:
+
+- Larger true effect size $|\beta_1|$
+- Larger sample size $n$
+- Smaller error variance $\sigma^2_u$
+
+## Understanding $p$-Values
+
+![p-value illustration](./ch5_figures/ch5_pvalue.png){width=85%}
+
+**$p$-value interpretation**
+
+- Probability of observing a $t$-statistic this extreme (or more) if $H_0$ is true
+- Smaller $p$-value $\Rightarrow$ stronger evidence against $H_0$
+- Reject $H_0$ if $p\text{-value} < \alpha$
+
+## Hypothesis Testing in Stata
+
+**Testing $H_0: \beta_1 = 0$**
+
+![](./ch5_figures/reg-bwght-cigs.png){width=60%}
+
+Stata output automatically shows:
+
+- Coefficient estimate $\hat\beta_1$
+- Standard error $\operatorname{SE}(\hat\beta_1)$
+- $t$-statistic $t = \hat\beta_1 / \operatorname{SE}(\hat\beta_1)$
+- $p$-value: probability of observing $|t|$ this large if $H_0$ is true
+
+**Decision rule using $p$-value**
+
+- Reject $H_0$ if $p$-value < $\alpha$
+- Equivalent to checking if $|t| > c_{\alpha/2}$
+
+## Testing $H_0: \beta_1 = a$ (Non-Zero Null)
+
+**What if we want to test a different null value?**
+
+Suppose we hypothesize that an extra year of education increases wage by exactly \$3/hour:
+
+$$
+H_0: \beta_1 = 3 \quad \text{vs} \quad H_1: \beta_1 \neq 3.
+$$
+
+Modified $t$-statistic:
+
+$$
+t = \frac{\hat\beta_1 - 3}{\operatorname{SE}(\hat\beta_1)}.
+$$
+
+**Example**
+
+- If $\hat\beta_1 = 2.5$ and $\operatorname{SE}(\hat\beta_1) = 0.4$, then $t = (2.5 - 3)/0.4 = -1.25$
+- Since $|-1.25| < 1.96$, **fail to reject** $H_0: \beta_1 = 3$
+- Not enough evidence to say the effect differs from \$3
+
+## Economic vs Statistical Significance
+
+::: {.callout-warning}
+## Critical distinction
+
+**Statistical significance** $\neq$ **economic significance**.
+:::
+
+**Scenario 1: Statistically significant but economically trivial**
+
+- $\hat\beta_1 = 0.05$, $\operatorname{SE}(\hat\beta_1) = 0.01$, $t = 5$ (highly significant!)
+- An extra year of education increases wage by 5 cents/hour
+- Technically significant, but economically negligible
+
+**Scenario 2: Economically important but statistically insignificant**
+
+- $\hat\beta_1 = 8$, $\operatorname{SE}(\hat\beta_1) = 10$, $t = 0.8$ (not significant)
+- Small sample $\Rightarrow$ high uncertainty
+- Effect could be large, but we can't be confident
+
+**Takeaway:** Always examine both statistical significance **and** magnitude.
+
+
+## Conducting a Hypothesis Test
 
 Is mother’s education associated with birthweight?
 
-<div class=\"stata-log\">\n<pre><code class=\"language-stata\">{{< include stata/inference.log >}}</code></pre>\n</div>
+. . .
+
+![](./ch5_figures/reg-bwght-motheduc.png){width=80%}
 
 ## Testing $H_0: \beta_1 = a$
 
-- More general hypotheses:
-  - $H_0: \beta_1 = a$
-  - Adjust the $t$-statistic
+$$H_0: \beta_1 = a$$
+$$H_1: \beta_1 \neq a$$
+
 
 ::: {.callout-note}
+## Adjust the $t$-statistic
 $$
  t = \frac{\hat{\beta}_1 - a}{SE(\hat{\beta}_1)}
 $$
 :::
 
-## Economic vs. Statistical Significance
-
-- If statistically significant, examine magnitude
-- Statistical significance $\neq$ economic importance
-- Wrong sign? Model may be misspecified
-- If insignificant, you *might* exclude—but be cautious with small samples
 
 # 5.2 Confidence Intervals for $\beta_1$
 
-## Confidence Intervals for $\beta_1$
 
-Recall, a 95% confidence interval is:
 
-- The set of values that cannot be rejected at the 5% significance level
-- A set-valued function of the data that contains the true parameter 95% of the time
+## From Hypothesis Tests to Confidence Intervals
 
-Because the $t$-statistic is approximately $N(0,1)$ in large samples:
+- **Hypothesis test:** Is $\beta_1$ equal to a specific value?
+- **Confidence interval:** What is a **plausible range** for $\beta_1$?
 
 ::: {.callout-note}
+## 95% Confidence Interval
+
+A random interval that contains the true parameter 95% of the time in repeated samples.
+:::
+
+Two equivalent interpretations:
+
+1. The set of all null values we **cannot reject** at 5% level
+2. An interval constructed from the data that **covers the truth** 95% of the time
+
+## Constructing a 95% Confidence Interval {.smaller}
+
+Since for large samples,
+
 $$
-\text{95% CI for } \beta_1: \quad \hat{\beta}_1 \pm 1.96\,SE(\hat{\beta}_1)
+t = \frac{\hat\beta_1 - \beta_1}{\operatorname{SE}(\hat\beta_1)} \sim N(0,1)
+$$
+
+. . .
+
+$$
+P\left( -1.96 < \frac{\hat\beta_1 - \beta_1}{\operatorname{SE}(\hat\beta_1)} < 1.96 \right) = 0.95.
+$$
+
+. . .
+
+Rearranging,
+
+$$
+P\left( \hat\beta_1 - 1.96\cdot \operatorname{SE}(\hat\beta_1) < \beta_1 < \hat\beta_1 + 1.96 \cdot \operatorname{SE}(\hat\beta_1) \right) = 0.95.
+$$
+
+::: {.callout-note}
+## 95% Confidence Interval Formula
+
+$$
+\hat\beta_1 \pm 1.96 \cdot \operatorname{SE}(\hat\beta_1).
 $$
 :::
+
+## Visualizing Confidence Intervals
+
+![Many repeated 95% confidence intervals](./ch5_figures/ch5_confidence_intervals.png){width=55%}
+
+- Each horizontal line is a 95% CI from a different sample
+- Teal intervals contain true $\beta_1$; gold ones miss
+- In the long run, **95% of CIs** will contain the truth
+
+
+
+## Confidence Intervals for Other Confidence Levels
+
+**General formula**
+
+$$
+\hat\beta_1 \pm c_{\alpha/2} \cdot \operatorname{SE}(\hat\beta_1).
+$$
+
+**Common choices**
+
+| **Confidence level** | **$\alpha$** | **Critical value $c_{\alpha/2}$** |
+| --- | ---: | ---: |
+| 90% | 0.10 | 1.645 |
+| 95% | 0.05 | 1.96  |
+| 99% | 0.01 | 2.58  |
+
+**Tradeoff**
+
+- Higher confidence $\Rightarrow$ wider interval (less precise)
+- Lower confidence $\Rightarrow$ narrower interval (more precise but less reliable)
+
+## Comparing Confidence Levels
+
+![Comparing confidence levels](./ch5_figures/ch5_multiple_ci_levels.png){width=75%}
+
+- Same estimate $\hat\beta_1$, but different interval widths
+- 99% CI is widest (most conservative)
+- 90% CI is narrowest (least conservative)
+
+## How Sample Size Affects Precision
+
+![Effect of sample size on CI width](./ch5_figures/ch5_sample_size_ci.png){width=75%}
+
+**Key insight:** SE shrinks as $n$ increases, making CIs narrower and inference more precise.
+
+## Animated: Adding Data Shrinks the CI {.smaller}
+
+::: {.r-stack}
+![](./ch5_figures/ch5_ci_animation_1.png){.fragment width=80%}
+
+![](./ch5_figures/ch5_ci_animation_2.png){.fragment width=80%}
+
+![](./ch5_figures/ch5_ci_animation_3.png){.fragment width=80%}
+
+![](./ch5_figures/ch5_ci_animation_4.png){.fragment width=80%}
+
+![](./ch5_figures/ch5_ci_animation_5.png){.fragment width=80%}
+:::
+
+**As sample size increases, the confidence interval shrinks.**
+
+## Confidence Intervals in Stata
+
+![](./ch5_figures/reg-bwght-motheduc.png){width=80%}
+
+**Interpretation**
+
+- The 95% confidence interval for the effect of mother's education on birthweight is between 0.14 and 1.04 ounces.
+- The interval does not contain 0 $\Rightarrow$ reject $H_0: \beta_1 = 0$ at 5% level.
+
+## The Link Between CIs and Hypothesis Tests
+
+**Key relationship**
+
+- If $\beta_{1,0}$ is **inside** the 95% CI, we **fail to reject** $H_0: \beta_1 = \beta_{1,0}$ at 5% level.
+- If $\beta_{1,0}$ is **outside** the 95% CI, we **reject** $H_0: \beta_1 = \beta_{1,0}$ at 5% level.
+
+. . .
+
+**Example**
+
+- 95% CI: $[1.8, 6.6]$
+
+. . .
+
+- $H_0: \beta_1 = 0$
+    - 0 not in CI $\Rightarrow$ reject
+
+. . .
+
+- $H_0: \beta_1 = 4$
+    - 4 is in CI $\Rightarrow$ fail to reject
+
+. . .
+
+
+**Takeaway:** CIs provide more information than hypothesis tests—they show a range of plausible values.
+
+
 
 # 5.3 Regression When $X$ Is Binary
 
 ## Regression When $X$ Is Binary
+Often, our regressor takes only two values:
 
-Sometimes a regressor is **binary**:
+- $X = 1$ if small class, $X = 0$ if large class
+- $X = 1$ if treated, $X = 0$ if control
+- $X = 1$ if college degree, $X = 0$ if no degree
+- $X = 1$ if female, $X = 0$ if male
 
-- $X=1$ if small class size, $X=0$ otherwise
-- $X=1$ if female, $X=0$ if male
-- $X=1$ if treated, $X=0$ otherwise
+These are called **binary variables**, **dummy variables**, or **indicator variables**.
 
-Binary regressors are called **dummy variables**.
+**Terminology**
+
+- $X = 1$: “treatment group” or “category of interest”
+- $X = 0$: “control group” or “reference category”
 
 *Gender is not binary, but it is recorded as binary in many datasets—data availability shapes our understanding of the world.*
 
-## Interpreting a Binary $X$ (1)
+## Interpreting a Binary $X$
 
 Population model: $Y_i = \beta_0 + \beta_1 X_i + u_i$
 
 When $X_i=0$:
 
-- $Y_i = \beta_0 + u_i$
-- $E[Y_i\mid X_i=0]=\beta_0$
+. . .
+
+ $Y_i = \beta_0 + \beta_1 * 0+ u_i$
+
+. . .
+
+$Y_i = \beta_0 + u_i$
+
+. . .
+
+$E[Y_i\mid X_i=0]=E[\beta_0 + u_i]=E[\beta_0] + E[u_i]= \beta_0$
+
+. . .
 
 When $X_i=1$:
 
-- $Y_i = \beta_0 + \beta_1 + u_i$
-- $E[Y_i\mid X_i=1]=\beta_0 + \beta_1$
+. . .
 
-## Interpreting a Binary $X$ (2)
+$Y_i = \beta_0 + \beta_1 + u_i$
+
+. . .
+
+ $Y_i = \beta_0 + \beta_1 * 1+ u_i$
+
+. . .
+
+ $Y_i = \beta_0 + \beta_1 + u_i$
+
+. . .
+
+ $E[Y_i\mid X_i=1]=E[\beta_0 + \beta_1 + u_i]=E[\beta_0] + E[\beta_1] + E[u_i]= \beta_0 + \beta_1$
+
+## Interpreting a Binary $X$
 
 Therefore:
 
@@ -225,7 +589,8 @@ So $\beta_1$ is the population difference in group means.
 
 Is sex associated with birthweight?
 
-<div class=\"stata-log\">\n<pre><code class=\"language-stata\">{{< include stata/binary.log >}}</code></pre>\n</div>
+
+![](./ch5_figures/reg-bwght-male.png){width=80%}
 
 ## Interpreting a Binary $X$ (Example)
 
@@ -233,7 +598,12 @@ Is sex associated with birthweight?
 
 $$\hat{bwght} = 117.17 + 2.94\,male$$
 
+. . .
+
 - Average birthweight of female babies: $E[bwght\mid male=0] = 117.17$ ounces
+
+. . .
+
 - Average birthweight of male babies: $E[bwght\mid male=1] = 117.17 + 2.94 = 120.11$ ounces
 
 # 5.4 Heteroskedasticity and Homoskedasticity
@@ -252,14 +622,24 @@ Otherwise, $u$ is **heteroskedastic**.
 
 ![](./ch5_figures/homoskedasticity-pic.png){width=60%}
 
+. . .
+
 - The variance of $u$ is constant
+
+. . .
+
 - The variance of $u$ does not depend on $X$
 
 ## Heteroskedasticity in a Picture
 
 ![](./ch5_figures/heteroskedasticity-pic.png){width=60%}
 
+. . .
+
 - The variance of $u$ is not constant
+
+. . .
+
 - The variance of $u$ **does** depend on $X$
 
 ## Does Heteroskedasticity Affect $\hat{\beta}_1$?
@@ -282,21 +662,43 @@ But it **does** affect your standard errors.
 
 Homoskedastic-only standard errors are unbiased only under homoskedasticity. We adjust using **heteroskedasticity-robust** standard errors.
 
-## Heteroskedasticity-Robust Standard Errors (Stata) {.smaller}
+## Heteroskedasticity-Robust Standard Errors (Stata)
+![](./ch5_figures/reg-bwght-cigs.png){width=80%}
 
-<div class=\"stata-log\">\n<pre><code class=\"language-stata\">{{< include stata/homo1.log >}}</code></pre>\n</div>
+## Heteroskedasticity-Robust Standard Errors (Stata)
+![](./ch5_figures/reg-bwght-cigs-robust.png){width=80%}
 
-## Heteroskedasticity-Robust Standard Errors (Stata) {.smaller}
 
-<div class=\"stata-log\">\n<pre><code class=\"language-stata\">{{< include stata/homo2.log >}}</code></pre>\n</div>
-
+<!--
 ## Heteroskedasticity: The Bottom Line
 
 - If errors are homoskedastic or heteroskedastic **and** you use robust SEs, you’re OK
 - If errors are heteroskedastic and you use homoskedastic-only SEs, your SEs are wrong
   - Could be too big or too small
 - The two formulas coincide (large $n$) only under homoskedasticity
-- So: **always use heteroskedasticity-robust SEs**
+- So: **always use heteroskedasticity-robust SEs** -->
+
+
+## Comparing Homoskedastic and Robust SEs
+
+![SE comparison](./ch5_figures/ch5_se_comparison.png){width=60%}
+
+- In this example with heteroskedasticity, robust SE is larger
+- But this isn't always the case – it can go either way
+- **Always use robust SEs as a precaution**
+
+## Heteroskedasticity: The Bottom Line
+
+| **Situation**                     | **Homoskedastic SE** | **Robust SE** |
+| --------------------------------- | -------------------- | ------------- |
+| Errors are homoskedastic         | Correct              | Correct       |
+| Errors are heteroskedastic       | Wrong                | Correct       |
+
+::: {.callout-important}
+## Always use robust standard errors.
+
+No downside if errors are homoskedastic, protects you if they're not.
+:::
 
 # 5.5 Gauss–Markov Theorem
 
@@ -316,7 +718,11 @@ Plus one more:
 
 Under these four extended LS assumptions, $\hat{\beta}_1$ has the smallest variance among **all linear estimators**.
 
+. . .
+
 This is the **Gauss–Markov Theorem**.
+
+. . .
 
 Under GM, OLS estimators are **BLUE**:
 
@@ -342,27 +748,3 @@ Under GM, OLS estimators are **BLUE**:
 - Interpreting binary regressors
 - Why heteroskedasticity matters for standard errors
 - The Gauss–Markov conditions and what BLUE means
-
-# Practice Problems
-
-## Practice Problem (S&W-style): Tests and CI
-
-An OLS regression reports $\hat\beta_1=1.5$ with $SE(\hat\beta_1)=0.4$. The sample size is $n=60$.
-
-- Test $H_0: \beta_1=1$ at the 5% level (two-sided)
-- Compute the 95% CI for $\beta_1$
-
-## Practice Problem: Walkthrough {.smaller}
-
-- $t=(1.5-1)/0.4=1.25$ with $df=58$
-- Two-sided $p$-value $=2\,P(T_{58}>|1.25|)$
-- 95% CI: $1.5 \pm t_{0.975,58}\times 0.4$
-
-**Stata:**
-
-```stata
-display (1.5-1)/0.4
-display 2*ttail(58,abs((1.5-1)/0.4))
-display 1.5 - invttail(58,0.025)*0.4
-display 1.5 + invttail(58,0.025)*0.4
-```

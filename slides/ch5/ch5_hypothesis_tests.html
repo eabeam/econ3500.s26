@@ -28,75 +28,9 @@
  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
  vertical-align: middle;
  }
- /* CSS for syntax highlighting */
- html { -webkit-text-size-adjust: 100%; }
- pre > code.sourceCode { white-space: pre; position: relative; }
- pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
- pre > code.sourceCode > span:empty { height: 1.2em; }
- .sourceCode { overflow: visible; }
- code.sourceCode > span { color: inherit; text-decoration: inherit; }
- div.sourceCode { margin: 1em 0; }
- pre.sourceCode { margin: 0; }
- @media screen {
- div.sourceCode { overflow: auto; }
- }
- @media print {
- pre > code.sourceCode { white-space: pre-wrap; }
- pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
- }
- pre.numberSource code
- { counter-reset: source-line 0; }
- pre.numberSource code > span
- { position: relative; left: -4em; counter-increment: source-line; }
- pre.numberSource code > span > a:first-child::before
- { content: counter(source-line);
- position: relative; left: -1em; text-align: right; vertical-align: baseline;
- border: none; display: inline-block;
- -webkit-touch-callout: none; -webkit-user-select: none;
- -khtml-user-select: none; -moz-user-select: none;
- -ms-user-select: none; user-select: none;
- padding: 0 4px; width: 4em;
- }
- pre.numberSource { margin-left: 3em; padding-left: 4px; }
- div.sourceCode
- { color: #24292e; }
- @media screen {
- pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
- }
- code span { color: #24292e; } /* Normal */
- code span.al { color: #ff5555; font-weight: bold; } /* Alert */
- code span.an { color: #6a737d; } /* Annotation */
- code span.at { color: #d73a49; } /* Attribute */
- code span.bn { color: #005cc5; } /* BaseN */
- code span.bu { color: #d73a49; } /* BuiltIn */
- code span.cf { color: #d73a49; } /* ControlFlow */
- code span.ch { color: #032f62; } /* Char */
- code span.cn { color: #005cc5; } /* Constant */
- code span.co { color: #6a737d; } /* Comment */
- code span.cv { color: #6a737d; } /* CommentVar */
- code span.do { color: #6a737d; } /* Documentation */
- code span.dt { color: #d73a49; } /* DataType */
- code span.dv { color: #005cc5; } /* DecVal */
- code span.er { color: #ff5555; text-decoration: underline; } /* Error */
- code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
- code span.fl { color: #005cc5; } /* Float */
- code span.fu { color: #6f42c1; } /* Function */
- code span.im { color: #032f62; } /* Import */
- code span.in { color: #6a737d; } /* Information */
- code span.kw { color: #d73a49; } /* Keyword */
- code span.op { color: #24292e; } /* Operator */
- code span.ot { color: #6f42c1; } /* Other */
- code span.pp { color: #d73a49; } /* Preprocessor */
- code span.re { color: #6a737d; } /* RegionMarker */
- code span.sc { color: #005cc5; } /* SpecialChar */
- code span.ss { color: #032f62; } /* SpecialString */
- code span.st { color: #032f62; } /* String */
- code span.va { color: #e36209; } /* Variable */
- code span.vs { color: #032f62; } /* VerbatimString */
- code span.wa { color: #ff5555; } /* Warning */
  </style>
  <link rel="stylesheet" href="ch5_hypothesis_tests_files/libs/revealjs/dist/theme/quarto-f6ff266a00026af0db213e5461a2bde6.css">
- <link rel="stylesheet" href="styles.css">
+ <link rel="stylesheet" href="../_styles/styles.css">
  <link href="ch5_hypothesis_tests_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
  <link href="ch5_hypothesis_tests_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
  <link href="ch5_hypothesis_tests_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -238,9 +172,19 @@ ECON3500: Econometrics and Applications
 <h1>5.1 Testing Hypotheses About One Regression Coefficient</h1>
 
 </section>
-<section id="the-sampling-distribution-of-hatbeta_1" class="slide level2">
-<h2>The Sampling Distribution of <span class="math inline">\(\hat{\beta}_1\)</span></h2>
-<p>Under the Least Squares Assumptions, for <span class="math inline">\(n\)</span> large, <span class="math inline">\(\hat{\beta}_1\)</span> is approximately distributed:</p>
+<section id="the-challenge-sampling-uncertainty" class="slide level2">
+<h2>The challenge: Sampling uncertainty</h2>
+<p>Recall that <span class="math inline">\(\hat\beta_1\)</span> is a random variable with its own sampling distribution.</p>
+<ul>
+<li>We estimated the regression coefficient (<span class="math inline">\(\hat{\beta_1}\)</span>) of education on wages.</li>
+<li>But this is just <strong>one sample</strong> from the population</li>
+<li>If we drew a different sample, we’d get a different <span class="math inline">\(\hat{\beta_1}\)</span></li>
+<li><strong>Question:</strong> How confident can we be that the true <span class="math inline">\(\beta_1 \neq 0\)</span>)?</li>
+</ul>
+</section>
+<section id="review-the-sampling-distribution-of-hatbeta_1" class="slide level2">
+<h2>Review: The Sampling Distribution of <span class="math inline">\(\hat{\beta}_1\)</span></h2>
+<p>Recall: under the Least Squares Assumptions, for <span class="math inline">\(n\)</span> large, <span class="math inline">\(\hat{\beta}_1\)</span> is approximately distributed:</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -257,19 +201,22 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 <p><em>Note: We won’t compute variances by hand, but the intuition is useful.</em></p>
+<p><strong>Key insight:</strong></p>
+<ul>
+<li>Under 3 LS assumptions, <span class="math inline">\(\hat\beta_1\)</span> is centered at the true <span class="math inline">\(\beta_1\)</span> (unbiased)</li>
+<li>The spread (variance) depends on sample size <span class="math inline">\(n\)</span>, variation in <span class="math inline">\(X\)</span>, and error variance (<span class="math inline">\(\sigma_v^2\)</span>)</li>
+<li>CLT <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\hat\beta_1\)</span> is approximately normal in large samples</li>
+</ul>
 </section>
 <section id="hypothesis-testing-general-setup" class="slide level2">
 <h2>Hypothesis Testing: General Setup</h2>
-<ul>
-<li>Null hypothesis and <strong>two-sided</strong> alternative:</li>
-</ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<p><strong>Null hypothesis and <strong>two-sided</strong> alternative:</strong></p>
 </div>
 <div class="callout-content">
 <p><span class="math display">\[
@@ -279,7 +226,7 @@ H_0: \beta_1 = \beta_{1,0}\quad \text{vs}\quad H_1: \beta_1 \neq \beta_{1,0}
 </div>
 </div>
 <ul>
-<li>Null hypothesis and <strong>one-sided</strong> alternative:</li>
+<li></li>
 </ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -287,7 +234,7 @@ H_0: \beta_1 = \beta_{1,0}\quad \text{vs}\quad H_1: \beta_1 \neq \beta_{1,0}
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<p><strong>Null hypothesis and <strong>one-sided</strong> alternative:</strong></p>
 </div>
 <div class="callout-content">
 <p><span class="math display">\[
@@ -296,20 +243,17 @@ H_0: \beta_1 = \beta_{1,0}\quad \text{vs}\quad H_1: \beta_1 &lt; \beta_{1,0}
 </div>
 </div>
 </div>
-<p><em>where <span class="math inline">\(\beta_{1,0}\)</span> is the hypothesized value of <span class="math inline">\(\beta_1\)</span> under the null.</em></p>
+<p><em>where <span class="math inline">\(\beta_{1,0}\)</span> is the hypothesized value of <span class="math inline">\(\beta_1\)</span> under the null (usually 0).</em></p>
 </section>
 <section id="general-approach" class="slide level2">
 <h2>General Approach</h2>
-<ul>
-<li>In general:</li>
-</ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<p><strong>General formula for any hypothesis test:</strong></p>
 </div>
 <div class="callout-content">
 <p><span class="math display">\[
@@ -319,8 +263,7 @@ t = \frac{\text{estimator} - \text{hypothesized value}}{SE(\text{estimator})}
 </div>
 </div>
 <ul>
-<li>For testing <span class="math inline">\(\bar{Y}\)</span>: <span class="math inline">\(t = \frac{\bar{Y}-\mu_{Y,0}}{s_y/\sqrt{n}}\)</span></li>
-<li>For testing <span class="math inline">\(\beta_1\)</span>:</li>
+<li>For testing <span class="math inline">\(\mu\)</span>: <span class="math inline">\(t = \frac{\bar{Y}-\mu_{Y,0}}{s_y/\sqrt{n}}\)</span></li>
 </ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -328,7 +271,7 @@ t = \frac{\text{estimator} - \text{hypothesized value}}{SE(\text{estimator})}
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<p><strong>For testing <span class="math inline">\(\beta_1\)</span>:</strong></p>
 </div>
 <div class="callout-content">
 <p><span class="math display">\[
@@ -340,16 +283,13 @@ t = \frac{\hat{\beta}_1-\beta_{1,0}}{SE(\hat{\beta}_1)}
 </section>
 <section id="testing-h_0-beta_100" class="slide level2">
 <h2>Testing <span class="math inline">\(H_0: \beta_{1,0}=0\)</span></h2>
-<ul>
-<li>Construct your <span class="math inline">\(t\)</span>-statistic:</li>
-</ul>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<p><strong>Construct your <span class="math inline">\(t\)</span>-statistic:</strong></p>
 </div>
 <div class="callout-content">
 <p><span class="math display">\[
@@ -359,9 +299,20 @@ t = \frac{\hat{\beta}_1-\beta_{1,0}}{SE(\hat{\beta}_1)}
 </div>
 </div>
 <ul>
-<li>Reject at level <span class="math inline">\(\alpha\)</span> if <span class="math inline">\(|t| &gt; c_{\alpha/2}\)</span></li>
-<li>In practice, almost always two-tailed tests</li>
-<li>Relies on large-<span class="math inline">\(n\)</span> normal approximation (rule of thumb: <span class="math inline">\(n&gt;30\)</span>)</li>
+<li>Measures how many standard errors <span class="math inline">\(\hat\beta_1\)</span> is away from <span class="math inline">\(\beta_{1,0}\)</span></li>
+<li>If <span class="math inline">\(|t|\)</span> is large, <span class="math inline">\(\hat\beta_1\)</span> is far from <span class="math inline">\(\beta_{1,0}\)</span> <span class="math inline">\(\Rightarrow\)</span> evidence against <span class="math inline">\(H_0\)</span></li>
+<li>Under <span class="math inline">\(H_0\)</span>, <span class="math inline">\(t \sim N(0,1)\)</span> in large samples (rule of thumb: <span class="math inline">\(n&gt;30\)</span>)</li>
+</ul>
+</section>
+<section id="decision-rule-when-to-reject-h_0" class="slide level2">
+<h2>Decision Rule: When to Reject <span class="math inline">\(H_0\)</span></h2>
+
+<img src="./ch5_figures/ch5_rejection_regions.png" style="width:65.0%" class=" quarto-figure-center"><p class="caption">Rejection regions for one- and two-sided tests</p><p><strong>Reject <span class="math inline">\(H_0\)</span> at significance level <span class="math inline">\(\alpha\)</span> if:</strong></p>
+<ul>
+<li><p>Two-tailed: <span class="math inline">\(|t| &gt; c_{\alpha/2}\)</span></p></li>
+<li><p>One-tailed (upper): <span class="math inline">\(t &gt; c_{\alpha}\)</span></p></li>
+<li><p>One-tailed (lower): <span class="math inline">\(t &lt; -c_{\alpha}\)</span></p></li>
+<li><p>In practice, almost always two-tailed tests</p></li>
 </ul>
 <p><strong>Common critical values:</strong></p>
 <table class="caption-top">
@@ -409,31 +360,256 @@ t = \frac{\hat{\beta}_1-\beta_{1,0}}{SE(\hat{\beta}_1)}
 <li>Tradeoff between significance (<span class="math inline">\(\alpha\)</span>) and power (<span class="math inline">\(\beta\)</span>)</li>
 </ul>
 </section>
-<section id="conducting-a-hypothesis-test" class="slide level2 smaller">
+<section id="decision-rule-when-to-reject-h_0-1" class="slide level2">
+<h2>Decision Rule: When to Reject <span class="math inline">\(H_0\)</span></h2>
+
+<img src="./ch5_figures/ch5_rejection_regions.png" style="width:85.0%" class=" quarto-figure-center"><p class="caption">Rejection regions for one- and two-sided tests</p><p><strong>Reject <span class="math inline">\(H_0\)</span> at significance level <span class="math inline">\(\alpha\)</span> if:</strong></p>
+<ul>
+<li>Two-tailed: <span class="math inline">\(|t| &gt; c_{\alpha/2}\)</span></li>
+<li>One-tailed (upper): <span class="math inline">\(t &gt; c_{\alpha}\)</span></li>
+<li>One-tailed (lower): <span class="math inline">\(t &lt; -c_{\alpha}\)</span></li>
+</ul>
+</section>
+<section id="one-tailed-vs-two-tailed-tests" class="slide level2">
+<h2>One-Tailed vs Two-Tailed Tests</h2>
+
+<img src="./ch5_figures/ch5_one_vs_two_tailed.png" style="width:95.0%" class=" quarto-figure-center"><p class="caption">One- vs two-tailed tests</p><p><strong>Which to use?</strong></p>
+<ul>
+<li>Two-tailed: Most common in economics (test for any effect)</li>
+<li>One-tailed: When theory strongly predicts a direction</li>
+</ul>
+</section>
+<section id="critical-values-for-common-significance-levels" class="slide level2">
+<h2>Critical Values for Common Significance Levels</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Significance level <span class="math inline">\(\alpha\)</span></strong></th>
+<th style="text-align: right;"><strong>Two-tailed <span class="math inline">\(c_{\alpha/2}\)</span></strong></th>
+<th style="text-align: right;"><strong>One-tailed <span class="math inline">\(c_{\alpha}\)</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10%</td>
+<td style="text-align: right;">1.645</td>
+<td style="text-align: right;">1.28</td>
+</tr>
+<tr class="even">
+<td>5%</td>
+<td style="text-align: right;">1.96</td>
+<td style="text-align: right;">1.645</td>
+</tr>
+<tr class="odd">
+<td>1%</td>
+<td style="text-align: right;">2.58</td>
+<td style="text-align: right;">2.33</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rule of thumb:</strong> For two-tailed tests at 5%, reject if <span class="math inline">\(|t| &gt; 2\)</span>.</p>
+</section>
+<section id="knowledge-check-calculate-the-t-statistic" class="slide level2 scrollable">
+<h2>Knowledge Check: Calculate the <span class="math inline">\(t\)</span>-Statistic</h2>
+<p><strong>Question</strong></p>
+<p>You estimate <span class="math inline">\(\hat\beta_1 = 3.5\)</span> with <span class="math inline">\(\operatorname{SE}(\hat\beta_1) = 1.2\)</span>. Test <span class="math inline">\(H_0: \beta_1 = 0\)</span> vs <span class="math inline">\(H_1: \beta_1 \neq 0\)</span> at 5% level.</p>
+<ol type="1">
+<li>What is the <span class="math inline">\(t\)</span>-statistic?</li>
+<li>What is your decision?</li>
+</ol>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Answer</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li>{.fragment} <span class="math inline">\(t = \dfrac{3.5 - 0}{1.2} = 2.92\)</span></li>
+<li>{.fragment} Critical value: <span class="math inline">\(c_{\alpha/2} = 1.96\)</span></li>
+<li>{.fragment} Since <span class="math inline">\(|2.92| &gt; 1.96\)</span>, <strong>reject <span class="math inline">\(H_0\)</span></strong> at 5% level. {.fragment} Conclusion: strong evidence that <span class="math inline">\(\beta_1 \neq 0\)</span>.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="type-i-and-type-ii-errors" class="slide level2">
+<h2>Type I and Type II Errors</h2>
+
+<img src="./ch5_figures/ch5_type_errors.png" style="width:85.0%" class=" quarto-figure-center"><p class="caption">Type I and Type II errors</p><ul>
+<li><strong>Type I error (<span class="math inline">\(\alpha\)</span>)</strong>: Reject <span class="math inline">\(H_0\)</span> when it’s true (false positive)</li>
+<li><strong>Type II error (<span class="math inline">\(\beta\)</span>)</strong>: Fail to reject <span class="math inline">\(H_0\)</span> when it’s false (false negative)</li>
+<li><strong>Power <span class="math inline">\((1-\beta)\)</span></strong>: Probability of correctly rejecting false <span class="math inline">\(H_0\)</span></li>
+</ul>
+</section>
+<section id="knowledge-check-type-i-and-type-ii-errors" class="slide level2 scrollable">
+<h2>Knowledge Check: Type I and Type II Errors</h2>
+<p>Consider the following scenarios. For each, decide whether it is a <strong>Type I error</strong>, a <strong>Type II error</strong>, or <strong>neither</strong>:</p>
+<ol type="1">
+<li>A new medication does <strong>not</strong> actually help patients, but your study concludes that it <strong>does</strong>. What type of error (if any) has occurred?</li>
+</ol>
+<div class="fragment">
+<ol start="2" type="1">
+<li>The new medication <strong>does</strong> help patients, but your study fails to find evidence and concludes that it <strong>doesn’t work</strong>. What type of error is this?</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>In a wage experiment, there is <strong>no true effect</strong> of a job training program on wages, but your study finds a statistically significant increase. What error (if any) is this?</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li>There <strong>is</strong> a real positive effect of the training program on wages, but your study finds no statistically significant difference. What type of error is this?</li>
+</ol>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Answers</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><strong>Type I error</strong> (False positive: you concluded there was an effect when there wasn’t)</li>
+<li><strong>Type II error</strong> (False negative: you missed a real effect)</li>
+<li><strong>Type I error</strong> (False positive: finding an effect that’s not really there)</li>
+<li><strong>Type II error</strong> (False negative: failing to detect a real effect)</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="choosing-a-significance-level-1" class="slide level2">
+<h2>Choosing a Significance Level</h2>
+<p><strong>Why <span class="math inline">\(\alpha = 0.05\)</span> is conventional</strong></p>
+<ul>
+<li>We tolerate a 5% chance of false positives</li>
+<li>Balances Type I and Type II errors</li>
+<li>Widely accepted standard in social sciences</li>
+</ul>
+<p><strong>The tradeoff</strong></p>
+<ul>
+<li>Smaller <span class="math inline">\(\alpha\)</span> <span class="math inline">\(\Rightarrow\)</span> fewer false positives, but <strong>more</strong> false negatives (lower power)</li>
+<li>Larger <span class="math inline">\(\alpha\)</span> <span class="math inline">\(\Rightarrow\)</span> more false positives, but <strong>fewer</strong> false negatives (higher power)</li>
+<li>You cannot minimize both at once.</li>
+</ul>
+<p>We typically fix <span class="math inline">\(\alpha\)</span> and try to increase power by increasing <span class="math inline">\(n\)</span>.</p>
+</section>
+<section id="statistical-power" class="slide level2">
+<h2>Statistical Power</h2>
+
+<img src="./ch5_figures/ch5_power_curve.png" style="width:75.0%" class=" quarto-figure-center"><p class="caption">Power curve</p><p>Power increases with:</p>
+<ul>
+<li>Larger true effect size <span class="math inline">\(|\beta_1|\)</span></li>
+<li>Larger sample size <span class="math inline">\(n\)</span></li>
+<li>Smaller error variance <span class="math inline">\(\sigma^2_u\)</span></li>
+</ul>
+</section>
+<section id="understanding-p-values" class="slide level2">
+<h2>Understanding <span class="math inline">\(p\)</span>-Values</h2>
+
+<img src="./ch5_figures/ch5_pvalue.png" style="width:85.0%" class=" quarto-figure-center"><p class="caption">p-value illustration</p><p><strong><span class="math inline">\(p\)</span>-value interpretation</strong></p>
+<ul>
+<li>Probability of observing a <span class="math inline">\(t\)</span>-statistic this extreme (or more) if <span class="math inline">\(H_0\)</span> is true</li>
+<li>Smaller <span class="math inline">\(p\)</span>-value <span class="math inline">\(\Rightarrow\)</span> stronger evidence against <span class="math inline">\(H_0\)</span></li>
+<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(p\text{-value} &lt; \alpha\)</span></li>
+</ul>
+</section>
+<section id="hypothesis-testing-in-stata" class="slide level2">
+<h2>Hypothesis Testing in Stata</h2>
+<p><strong>Testing <span class="math inline">\(H_0: \beta_1 = 0\)</span></strong></p>
+
+<img src="./ch5_figures/reg-bwght-cigs.png" style="width:60.0%" class=""><p>Stata output automatically shows:</p>
+<ul>
+<li>Coefficient estimate <span class="math inline">\(\hat\beta_1\)</span></li>
+<li>Standard error <span class="math inline">\(\operatorname{SE}(\hat\beta_1)\)</span></li>
+<li><span class="math inline">\(t\)</span>-statistic <span class="math inline">\(t = \hat\beta_1 / \operatorname{SE}(\hat\beta_1)\)</span></li>
+<li><span class="math inline">\(p\)</span>-value: probability of observing <span class="math inline">\(|t|\)</span> this large if <span class="math inline">\(H_0\)</span> is true</li>
+</ul>
+<p><strong>Decision rule using <span class="math inline">\(p\)</span>-value</strong></p>
+<ul>
+<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(p\)</span>-value &lt; <span class="math inline">\(\alpha\)</span></li>
+<li>Equivalent to checking if <span class="math inline">\(|t| &gt; c_{\alpha/2}\)</span></li>
+</ul>
+</section>
+<section id="testing-h_0-beta_1-a-non-zero-null" class="slide level2">
+<h2>Testing <span class="math inline">\(H_0: \beta_1 = a\)</span> (Non-Zero Null)</h2>
+<p><strong>What if we want to test a different null value?</strong></p>
+<p>Suppose we hypothesize that an extra year of education increases wage by exactly $3/hour:</p>
+<p><span class="math display">\[
+H_0: \beta_1 = 3 \quad \text{vs} \quad H_1: \beta_1 \neq 3.
+\]</span></p>
+<p>Modified <span class="math inline">\(t\)</span>-statistic:</p>
+<p><span class="math display">\[
+t = \frac{\hat\beta_1 - 3}{\operatorname{SE}(\hat\beta_1)}.
+\]</span></p>
+<p><strong>Example</strong></p>
+<ul>
+<li>If <span class="math inline">\(\hat\beta_1 = 2.5\)</span> and <span class="math inline">\(\operatorname{SE}(\hat\beta_1) = 0.4\)</span>, then <span class="math inline">\(t = (2.5 - 3)/0.4 = -1.25\)</span></li>
+<li>Since <span class="math inline">\(|-1.25| &lt; 1.96\)</span>, <strong>fail to reject</strong> <span class="math inline">\(H_0: \beta_1 = 3\)</span></li>
+<li>Not enough evidence to say the effect differs from $3</li>
+</ul>
+</section>
+<section id="economic-vs-statistical-significance" class="slide level2">
+<h2>Economic vs Statistical Significance</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Critical distinction</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Statistical significance</strong> <span class="math inline">\(\neq\)</span> <strong>economic significance</strong>.</p>
+</div>
+</div>
+</div>
+<p><strong>Scenario 1: Statistically significant but economically trivial</strong></p>
+<ul>
+<li><span class="math inline">\(\hat\beta_1 = 0.05\)</span>, <span class="math inline">\(\operatorname{SE}(\hat\beta_1) = 0.01\)</span>, <span class="math inline">\(t = 5\)</span> (highly significant!)</li>
+<li>An extra year of education increases wage by 5 cents/hour</li>
+<li>Technically significant, but economically negligible</li>
+</ul>
+<p><strong>Scenario 2: Economically important but statistically insignificant</strong></p>
+<ul>
+<li><span class="math inline">\(\hat\beta_1 = 8\)</span>, <span class="math inline">\(\operatorname{SE}(\hat\beta_1) = 10\)</span>, <span class="math inline">\(t = 0.8\)</span> (not significant)</li>
+<li>Small sample <span class="math inline">\(\Rightarrow\)</span> high uncertainty</li>
+<li>Effect could be large, but we can’t be confident</li>
+</ul>
+<p><strong>Takeaway:</strong> Always examine both statistical significance <strong>and</strong> magnitude.</p>
+</section>
+<section id="conducting-a-hypothesis-test" class="slide level2">
 <h2>Conducting a Hypothesis Test</h2>
 <p>Is mother’s education associated with birthweight?</p>
-<div class="\&quot;stata-log\&quot;">
-
-<pre><code class="\&quot;language-stata\&quot;">{{&lt; include stata/inference.log &gt;}}</code></pre>
-
+<div class="fragment">
+<p><img src="./ch5_figures/reg-bwght-motheduc.png" style="width:80.0%"></p>
 </div>
 </section>
 <section id="testing-h_0-beta_1-a" class="slide level2">
 <h2>Testing <span class="math inline">\(H_0: \beta_1 = a\)</span></h2>
-<ul>
-<li>More general hypotheses:
-<ul>
-<li><span class="math inline">\(H_0: \beta_1 = a\)</span></li>
-<li>Adjust the <span class="math inline">\(t\)</span>-statistic</li>
-</ul></li>
-</ul>
+<p><span class="math display">\[H_0: \beta_1 = a\]</span> <span class="math display">\[H_1: \beta_1 \neq a\]</span></p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<p><strong>Adjust the <span class="math inline">\(t\)</span>-statistic</strong></p>
 </div>
 <div class="callout-content">
 <p><span class="math display">\[
@@ -442,43 +618,188 @@ t = \frac{\hat{\beta}_1 - a}{SE(\hat{\beta}_1)}
 </div>
 </div>
 </div>
-</section>
-<section id="economic-vs.-statistical-significance" class="slide level2">
-<h2>Economic vs.&nbsp;Statistical Significance</h2>
-<ul>
-<li>If statistically significant, examine magnitude</li>
-<li>Statistical significance <span class="math inline">\(\neq\)</span> economic importance</li>
-<li>Wrong sign? Model may be misspecified</li>
-<li>If insignificant, you <em>might</em> exclude—but be cautious with small samples</li>
-</ul>
 </section></section>
 <section>
 <section id="confidence-intervals-for-beta_1" class="title-slide slide level1 center">
 <h1>5.2 Confidence Intervals for <span class="math inline">\(\beta_1\)</span></h1>
 
 </section>
-<section id="confidence-intervals-for-beta_1-1" class="slide level2">
-<h2>Confidence Intervals for <span class="math inline">\(\beta_1\)</span></h2>
-<p>Recall, a 95% confidence interval is:</p>
+<section id="from-hypothesis-tests-to-confidence-intervals" class="slide level2 scrollable">
+<h2>From Hypothesis Tests to Confidence Intervals</h2>
 <ul>
-<li>The set of values that cannot be rejected at the 5% significance level</li>
-<li>A set-valued function of the data that contains the true parameter 95% of the time</li>
+<li><strong>Hypothesis test:</strong> Is <span class="math inline">\(\beta_1\)</span> equal to a specific value?</li>
+<li><strong>Confidence interval:</strong> What is a <strong>plausible range</strong> for <span class="math inline">\(\beta_1\)</span>?</li>
 </ul>
-<p>Because the <span class="math inline">\(t\)</span>-statistic is approximately <span class="math inline">\(N(0,1)\)</span> in large samples:</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Note</strong></p>
+<p><strong>95% Confidence Interval</strong></p>
+</div>
+<div class="callout-content">
+<p>A random interval that contains the true parameter 95% of the time in repeated samples.</p>
+</div>
+</div>
+</div>
+<p>Two equivalent interpretations:</p>
+<ol type="1">
+<li>The set of all null values we <strong>cannot reject</strong> at 5% level</li>
+<li>An interval constructed from the data that <strong>covers the truth</strong> 95% of the time</li>
+</ol>
+</section>
+<section id="constructing-a-95-confidence-interval" class="slide level2 smaller">
+<h2>Constructing a 95% Confidence Interval</h2>
+<p>Since for large samples,</p>
+<p><span class="math display">\[
+t = \frac{\hat\beta_1 - \beta_1}{\operatorname{SE}(\hat\beta_1)} \sim N(0,1)
+\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[
+P\left( -1.96 &lt; \frac{\hat\beta_1 - \beta_1}{\operatorname{SE}(\hat\beta_1)} &lt; 1.96 \right) = 0.95.
+\]</span></p>
+</div>
+<div class="fragment">
+<p>Rearranging,</p>
+<p><span class="math display">\[
+P\left( \hat\beta_1 - 1.96\cdot \operatorname{SE}(\hat\beta_1) &lt; \beta_1 &lt; \hat\beta_1 + 1.96 \cdot \operatorname{SE}(\hat\beta_1) \right) = 0.95.
+\]</span></p>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>95% Confidence Interval Formula</strong></p>
 </div>
 <div class="callout-content">
 <p><span class="math display">\[
-\text{95% CI for } \beta_1: \quad \hat{\beta}_1 \pm 1.96\,SE(\hat{\beta}_1)
+\hat\beta_1 \pm 1.96 \cdot \operatorname{SE}(\hat\beta_1).
 \]</span></p>
 </div>
 </div>
+</div>
+</div>
+</section>
+<section id="visualizing-confidence-intervals" class="slide level2">
+<h2>Visualizing Confidence Intervals</h2>
+
+<img src="./ch5_figures/ch5_confidence_intervals.png" style="width:55.0%" class=" quarto-figure-center"><p class="caption">Many repeated 95% confidence intervals</p><ul>
+<li>Each horizontal line is a 95% CI from a different sample</li>
+<li>Teal intervals contain true <span class="math inline">\(\beta_1\)</span>; gold ones miss</li>
+<li>In the long run, <strong>95% of CIs</strong> will contain the truth</li>
+</ul>
+</section>
+<section id="confidence-intervals-for-other-confidence-levels" class="slide level2">
+<h2>Confidence Intervals for Other Confidence Levels</h2>
+<p><strong>General formula</strong></p>
+<p><span class="math display">\[
+\hat\beta_1 \pm c_{\alpha/2} \cdot \operatorname{SE}(\hat\beta_1).
+\]</span></p>
+<p><strong>Common choices</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Confidence level</strong></th>
+<th style="text-align: right;"><strong><span class="math inline">\(\alpha\)</span></strong></th>
+<th style="text-align: right;"><strong>Critical value <span class="math inline">\(c_{\alpha/2}\)</span></strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>90%</td>
+<td style="text-align: right;">0.10</td>
+<td style="text-align: right;">1.645</td>
+</tr>
+<tr class="even">
+<td>95%</td>
+<td style="text-align: right;">0.05</td>
+<td style="text-align: right;">1.96</td>
+</tr>
+<tr class="odd">
+<td>99%</td>
+<td style="text-align: right;">0.01</td>
+<td style="text-align: right;">2.58</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tradeoff</strong></p>
+<ul>
+<li>Higher confidence <span class="math inline">\(\Rightarrow\)</span> wider interval (less precise)</li>
+<li>Lower confidence <span class="math inline">\(\Rightarrow\)</span> narrower interval (more precise but less reliable)</li>
+</ul>
+</section>
+<section id="comparing-confidence-levels" class="slide level2">
+<h2>Comparing Confidence Levels</h2>
+
+<img src="./ch5_figures/ch5_multiple_ci_levels.png" style="width:75.0%" class=" quarto-figure-center"><p class="caption">Comparing confidence levels</p><ul>
+<li>Same estimate <span class="math inline">\(\hat\beta_1\)</span>, but different interval widths</li>
+<li>99% CI is widest (most conservative)</li>
+<li>90% CI is narrowest (least conservative)</li>
+</ul>
+</section>
+<section id="how-sample-size-affects-precision" class="slide level2">
+<h2>How Sample Size Affects Precision</h2>
+
+<img src="./ch5_figures/ch5_sample_size_ci.png" style="width:75.0%" class=" quarto-figure-center"><p class="caption">Effect of sample size on CI width</p><p><strong>Key insight:</strong> SE shrinks as <span class="math inline">\(n\)</span> increases, making CIs narrower and inference more precise.</p>
+</section>
+<section id="animated-adding-data-shrinks-the-ci" class="slide level2 smaller">
+<h2>Animated: Adding Data Shrinks the CI</h2>
+<div class="r-stack">
+<p><img src="./ch5_figures/ch5_ci_animation_1.png" class="fragment" style="width:80.0%"></p>
+<p><img src="./ch5_figures/ch5_ci_animation_2.png" class="fragment" style="width:80.0%"></p>
+<p><img src="./ch5_figures/ch5_ci_animation_3.png" class="fragment" style="width:80.0%"></p>
+<p><img src="./ch5_figures/ch5_ci_animation_4.png" class="fragment" style="width:80.0%"></p>
+<p><img src="./ch5_figures/ch5_ci_animation_5.png" class="fragment" style="width:80.0%"></p>
+</div>
+<p><strong>As sample size increases, the confidence interval shrinks.</strong></p>
+</section>
+<section id="confidence-intervals-in-stata" class="slide level2">
+<h2>Confidence Intervals in Stata</h2>
+
+<img src="./ch5_figures/reg-bwght-motheduc.png" style="width:80.0%" class=""><p><strong>Interpretation</strong></p>
+<ul>
+<li>The 95% confidence interval for the effect of mother’s education on birthweight is between 0.14 and 1.04 ounces.</li>
+<li>The interval does not contain 0 <span class="math inline">\(\Rightarrow\)</span> reject <span class="math inline">\(H_0: \beta_1 = 0\)</span> at 5% level.</li>
+</ul>
+</section>
+<section id="the-link-between-cis-and-hypothesis-tests" class="slide level2">
+<h2>The Link Between CIs and Hypothesis Tests</h2>
+<p><strong>Key relationship</strong></p>
+<ul>
+<li>If <span class="math inline">\(\beta_{1,0}\)</span> is <strong>inside</strong> the 95% CI, we <strong>fail to reject</strong> <span class="math inline">\(H_0: \beta_1 = \beta_{1,0}\)</span> at 5% level.</li>
+<li>If <span class="math inline">\(\beta_{1,0}\)</span> is <strong>outside</strong> the 95% CI, we <strong>reject</strong> <span class="math inline">\(H_0: \beta_1 = \beta_{1,0}\)</span> at 5% level.</li>
+</ul>
+<div class="fragment">
+<p><strong>Example</strong></p>
+<ul>
+<li>95% CI: <span class="math inline">\([1.8, 6.6]\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(H_0: \beta_1 = 0\)</span>
+<ul>
+<li>0 not in CI <span class="math inline">\(\Rightarrow\)</span> reject</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(H_0: \beta_1 = 4\)</span>
+<ul>
+<li>4 is in CI <span class="math inline">\(\Rightarrow\)</span> fail to reject</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Takeaway:</strong> CIs provide more information than hypothesis tests—they show a range of plausible values.</p>
 </div>
 </section></section>
 <section>
@@ -488,31 +809,52 @@ t = \frac{\hat{\beta}_1 - a}{SE(\hat{\beta}_1)}
 </section>
 <section id="regression-when-x-is-binary-1" class="slide level2">
 <h2>Regression When <span class="math inline">\(X\)</span> Is Binary</h2>
-<p>Sometimes a regressor is <strong>binary</strong>:</p>
+<p>Often, our regressor takes only two values:</p>
 <ul>
-<li><span class="math inline">\(X=1\)</span> if small class size, <span class="math inline">\(X=0\)</span> otherwise</li>
-<li><span class="math inline">\(X=1\)</span> if female, <span class="math inline">\(X=0\)</span> if male</li>
-<li><span class="math inline">\(X=1\)</span> if treated, <span class="math inline">\(X=0\)</span> otherwise</li>
+<li><span class="math inline">\(X = 1\)</span> if small class, <span class="math inline">\(X = 0\)</span> if large class</li>
+<li><span class="math inline">\(X = 1\)</span> if treated, <span class="math inline">\(X = 0\)</span> if control</li>
+<li><span class="math inline">\(X = 1\)</span> if college degree, <span class="math inline">\(X = 0\)</span> if no degree</li>
+<li><span class="math inline">\(X = 1\)</span> if female, <span class="math inline">\(X = 0\)</span> if male</li>
 </ul>
-<p>Binary regressors are called <strong>dummy variables</strong>.</p>
+<p>These are called <strong>binary variables</strong>, <strong>dummy variables</strong>, or <strong>indicator variables</strong>.</p>
+<p><strong>Terminology</strong></p>
+<ul>
+<li><span class="math inline">\(X = 1\)</span>: “treatment group” or “category of interest”</li>
+<li><span class="math inline">\(X = 0\)</span>: “control group” or “reference category”</li>
+</ul>
 <p><em>Gender is not binary, but it is recorded as binary in many datasets—data availability shapes our understanding of the world.</em></p>
 </section>
-<section id="interpreting-a-binary-x-1" class="slide level2">
-<h2>Interpreting a Binary <span class="math inline">\(X\)</span> (1)</h2>
+<section id="interpreting-a-binary-x" class="slide level2">
+<h2>Interpreting a Binary <span class="math inline">\(X\)</span></h2>
 <p>Population model: <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_i + u_i\)</span></p>
 <p>When <span class="math inline">\(X_i=0\)</span>:</p>
-<ul>
-<li><span class="math inline">\(Y_i = \beta_0 + u_i\)</span></li>
-<li><span class="math inline">\(E[Y_i\mid X_i=0]=\beta_0\)</span></li>
-</ul>
+<div class="fragment">
+<p><span class="math inline">\(Y_i = \beta_0 + \beta_1 * 0+ u_i\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(Y_i = \beta_0 + u_i\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(E[Y_i\mid X_i=0]=E[\beta_0 + u_i]=E[\beta_0] + E[u_i]= \beta_0\)</span></p>
+</div>
+<div class="fragment">
 <p>When <span class="math inline">\(X_i=1\)</span>:</p>
-<ul>
-<li><span class="math inline">\(Y_i = \beta_0 + \beta_1 + u_i\)</span></li>
-<li><span class="math inline">\(E[Y_i\mid X_i=1]=\beta_0 + \beta_1\)</span></li>
-</ul>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(Y_i = \beta_0 + \beta_1 + u_i\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(Y_i = \beta_0 + \beta_1 * 1+ u_i\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(Y_i = \beta_0 + \beta_1 + u_i\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(E[Y_i\mid X_i=1]=E[\beta_0 + \beta_1 + u_i]=E[\beta_0] + E[\beta_1] + E[u_i]= \beta_0 + \beta_1\)</span></p>
+</div>
 </section>
-<section id="interpreting-a-binary-x-2" class="slide level2">
-<h2>Interpreting a Binary <span class="math inline">\(X\)</span> (2)</h2>
+<section id="interpreting-a-binary-x-1" class="slide level2">
+<h2>Interpreting a Binary <span class="math inline">\(X\)</span></h2>
 <p>Therefore:</p>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -534,20 +876,22 @@ t = \frac{\hat{\beta}_1 - a}{SE(\hat{\beta}_1)}
 <section id="interpreting-a-binary-x-stata-output" class="slide level2 smaller">
 <h2>Interpreting a Binary <span class="math inline">\(X\)</span>: Stata Output</h2>
 <p>Is sex associated with birthweight?</p>
-<div class="\&quot;stata-log\&quot;">
 
-<pre><code class="\&quot;language-stata\&quot;">{{&lt; include stata/binary.log &gt;}}</code></pre>
-
-</div>
-</section>
+<img src="./ch5_figures/reg-bwght-male.png" style="width:80.0%" class=""></section>
 <section id="interpreting-a-binary-x-example" class="slide level2">
 <h2>Interpreting a Binary <span class="math inline">\(X\)</span> (Example)</h2>
 <p>Is sex associated with birthweight?</p>
 <p><span class="math display">\[\hat{bwght} = 117.17 + 2.94\,male\]</span></p>
+<div class="fragment">
 <ul>
 <li>Average birthweight of female babies: <span class="math inline">\(E[bwght\mid male=0] = 117.17\)</span> ounces</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Average birthweight of male babies: <span class="math inline">\(E[bwght\mid male=1] = 117.17 + 2.94 = 120.11\)</span> ounces</li>
 </ul>
+</div>
 </section></section>
 <section>
 <section id="heteroskedasticity-and-homoskedasticity" class="title-slide slide level1 center">
@@ -567,18 +911,30 @@ t = \frac{\hat{\beta}_1 - a}{SE(\hat{\beta}_1)}
 <section id="homoskedasticity-in-a-picture" class="slide level2">
 <h2>Homoskedasticity in a Picture</h2>
 
-<img src="./ch5_figures/homoskedasticity-pic.png" style="width:60.0%" class=""><ul>
+<img src="./ch5_figures/homoskedasticity-pic.png" style="width:60.0%" class=""><div class="fragment">
+<ul>
 <li>The variance of <span class="math inline">\(u\)</span> is constant</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>The variance of <span class="math inline">\(u\)</span> does not depend on <span class="math inline">\(X\)</span></li>
 </ul>
+</div>
 </section>
 <section id="heteroskedasticity-in-a-picture" class="slide level2">
 <h2>Heteroskedasticity in a Picture</h2>
 
-<img src="./ch5_figures/heteroskedasticity-pic.png" style="width:60.0%" class=""><ul>
+<img src="./ch5_figures/heteroskedasticity-pic.png" style="width:60.0%" class=""><div class="fragment">
+<ul>
 <li>The variance of <span class="math inline">\(u\)</span> is not constant</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>The variance of <span class="math inline">\(u\)</span> <strong>does</strong> depend on <span class="math inline">\(X\)</span></li>
 </ul>
+</div>
 </section>
 <section id="does-heteroskedasticity-affect-hatbeta_1" class="slide level2 scrollable">
 <h2>Does Heteroskedasticity Affect <span class="math inline">\(\hat{\beta}_1\)</span>?</h2>
@@ -597,33 +953,72 @@ t = \frac{\hat{\beta}_1 - a}{SE(\hat{\beta}_1)}
 <p>But it <strong>does</strong> affect your standard errors.</p>
 <p>Homoskedastic-only standard errors are unbiased only under homoskedasticity. We adjust using <strong>heteroskedasticity-robust</strong> standard errors.</p>
 </section>
-<section id="heteroskedasticity-robust-standard-errors-stata" class="slide level2 smaller">
+<section id="heteroskedasticity-robust-standard-errors-stata" class="slide level2">
 <h2>Heteroskedasticity-Robust Standard Errors (Stata)</h2>
-<div class="\&quot;stata-log\&quot;">
 
-<pre><code class="\&quot;language-stata\&quot;">{{&lt; include stata/homo1.log &gt;}}</code></pre>
-
-</div>
-</section>
-<section id="heteroskedasticity-robust-standard-errors-stata-1" class="slide level2 smaller">
+<img src="./ch5_figures/reg-bwght-cigs.png" style="width:80.0%" class=""></section>
+<section id="heteroskedasticity-robust-standard-errors-stata-1" class="slide level2">
 <h2>Heteroskedasticity-Robust Standard Errors (Stata)</h2>
-<div class="\&quot;stata-log\&quot;">
 
-<pre><code class="\&quot;language-stata\&quot;">{{&lt; include stata/homo2.log &gt;}}</code></pre>
+<!--
+## Heteroskedasticity: The Bottom Line
 
-</div>
+- If errors are homoskedastic or heteroskedastic **and** you use robust SEs, you’re OK
+- If errors are heteroskedastic and you use homoskedastic-only SEs, your SEs are wrong
+ - Could be too big or too small
+- The two formulas coincide (large $n$) only under homoskedasticity
+- So: **always use heteroskedasticity-robust SEs** -->
+<img src="./ch5_figures/reg-bwght-cigs-robust.png" style="width:80.0%" class=""></section>
+<section id="comparing-homoskedastic-and-robust-ses" class="slide level2">
+<h2>Comparing Homoskedastic and Robust SEs</h2>
+
+<img src="./ch5_figures/ch5_se_comparison.png" style="width:60.0%" class=" quarto-figure-center"><p class="caption">SE comparison</p><ul>
+<li>In this example with heteroskedasticity, robust SE is larger</li>
+<li>But this isn’t always the case – it can go either way</li>
+<li><strong>Always use robust SEs as a precaution</strong></li>
+</ul>
 </section>
 <section id="heteroskedasticity-the-bottom-line" class="slide level2">
 <h2>Heteroskedasticity: The Bottom Line</h2>
-<ul>
-<li>If errors are homoskedastic or heteroskedastic <strong>and</strong> you use robust SEs, you’re OK</li>
-<li>If errors are heteroskedastic and you use homoskedastic-only SEs, your SEs are wrong
-<ul>
-<li>Could be too big or too small</li>
-</ul></li>
-<li>The two formulas coincide (large <span class="math inline">\(n\)</span>) only under homoskedasticity</li>
-<li>So: <strong>always use heteroskedasticity-robust SEs</strong></li>
-</ul>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 30%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Situation</strong></th>
+<th><strong>Homoskedastic SE</strong></th>
+<th><strong>Robust SE</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Errors are homoskedastic</td>
+<td>Correct</td>
+<td>Correct</td>
+</tr>
+<tr class="even">
+<td>Errors are heteroskedastic</td>
+<td>Wrong</td>
+<td>Correct</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Always use robust standard errors.</strong></p>
+</div>
+<div class="callout-content">
+<p>No downside if errors are homoskedastic, protects you if they’re not.</p>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="gaussmarkov-theorem" class="title-slide slide level1 center">
@@ -646,7 +1041,10 @@ t = \frac{\hat{\beta}_1 - a}{SE(\hat{\beta}_1)}
 <section id="gaussmarkov-theorem-1" class="slide level2">
 <h2>Gauss–Markov Theorem</h2>
 <p>Under these four extended LS assumptions, <span class="math inline">\(\hat{\beta}_1\)</span> has the smallest variance among <strong>all linear estimators</strong>.</p>
+<div class="fragment">
 <p>This is the <strong>Gauss–Markov Theorem</strong>.</p>
+</div>
+<div class="fragment">
 <p>Under GM, OLS estimators are <strong>BLUE</strong>:</p>
 <ul>
 <li>Best</li>
@@ -654,6 +1052,7 @@ t = \frac{\hat{\beta}_1 - a}{SE(\hat{\beta}_1)}
 <li>Unbiased</li>
 <li>Estimators</li>
 </ul>
+</div>
 </section>
 <section id="ols-limitations" class="slide level2">
 <h2>OLS Limitations</h2>
@@ -674,32 +1073,6 @@ t = \frac{\hat{\beta}_1 - a}{SE(\hat{\beta}_1)}
 <li>Why heteroskedasticity matters for standard errors</li>
 <li>The Gauss–Markov conditions and what BLUE means</li>
 </ul>
-</section></section>
-<section>
-<section id="practice-problems" class="title-slide slide level1 center">
-<h1>Practice Problems</h1>
-
-</section>
-<section id="practice-problem-sw-style-tests-and-ci" class="slide level2">
-<h2>Practice Problem (S&amp;W-style): Tests and CI</h2>
-<p>An OLS regression reports <span class="math inline">\(\hat\beta_1=1.5\)</span> with <span class="math inline">\(SE(\hat\beta_1)=0.4\)</span>. The sample size is <span class="math inline">\(n=60\)</span>.</p>
-<ul>
-<li>Test <span class="math inline">\(H_0: \beta_1=1\)</span> at the 5% level (two-sided)</li>
-<li>Compute the 95% CI for <span class="math inline">\(\beta_1\)</span></li>
-</ul>
-</section>
-<section id="practice-problem-walkthrough" class="slide level2 smaller">
-<h2>Practice Problem: Walkthrough</h2>
-<ul>
-<li><span class="math inline">\(t=(1.5-1)/0.4=1.25\)</span> with <span class="math inline">\(df=58\)</span></li>
-<li>Two-sided <span class="math inline">\(p\)</span>-value <span class="math inline">\(=2\,P(T_{58}&gt;|1.25|)\)</span></li>
-<li>95% CI: <span class="math inline">\(1.5 \pm t_{0.975,58}\times 0.4\)</span></li>
-</ul>
-<p><strong>Stata:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> (1.5-1)/0.4</span>
-<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> 2*<span class="fu">ttail</span>(58,<span class="fu">abs</span>((1.5-1)/0.4))</span>
-<span id="cb1-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> 1.5 - <span class="fu">invttail</span>(58,0.025)*0.4</span>
-<span id="cb1-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> 1.5 + <span class="fu">invttail</span>(58,0.025)*0.4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
 </section></section>
  </div>
