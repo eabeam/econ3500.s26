@@ -42,6 +42,11 @@ fi
 
 echo "Syncing HTML + assets to: $DEST_ROOT"
 cp "$SRC_DIR/$BASE.html" "$DEST_ROOT/index.html"
+# Fix stylesheet path if Quarto wrote ../_styles/styles.css (so fragments and custom styles work)
+if grep -q '_styles/styles.css' "$DEST_ROOT/index.html" 2>/dev/null; then
+  perl -i -pe 's|../_styles/styles\.css|styles.css|g' "$DEST_ROOT/index.html"
+  echo "Fixed styles.css link in index.html"
+fi
 
 if [ -d "$SRC_DIR/${BASE}_files" ]; then
   rsync -a --delete "$SRC_DIR/${BASE}_files/" "$DEST_ROOT/${BASE}_files/"

@@ -199,10 +199,18 @@ Test $H_0: \beta_1 = 0$ vs $H_1: \beta_1 \neq 0$ at 5% level.
 ::: {.callout-tip}
 ## Answer
 
-1. {.fragment} $t = \dfrac{3.5 - 0}{1.2} = 2.92$
-2. {.fragment} Critical value: $c_{\alpha/2} = 1.96$
-3. {.fragment} Since $|2.92| > 1.96$, **reject $H_0$** at 5% level.
-   {.fragment} Conclusion: strong evidence that $\beta_1 \neq 0$.
+1. ::: {.fragment}
+   $t = \dfrac{3.5 - 0}{1.2} = 2.92$
+   :::
+2. ::: {.fragment}
+   Critical value: $c_{\alpha/2} = 1.96$
+   :::
+3. ::: {.fragment}
+   Since $|2.92| > 1.96$, **reject $H_0$** at 5% level.
+   :::
+   ::: {.fragment}
+   Conclusion: strong evidence that $\beta_1 \neq 0$.
+   :::
 :::
 
 ## Type I and Type II Errors
