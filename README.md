@@ -1,46 +1,127 @@
-<p align="center"><a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener"><img src="https://sourcethemes.com/academic/img/logo_200px.png" alt="Academic logo"></a></p>
+# ECON3500 — Econometrics and Applications (Spring 2026)
 
-# Academic Kickstart: The Template for [Academic Website Builder](https://sourcethemes.com/academic/)
+Course website for ECON3500. Built with [Hugo](https://gohugo.io/) and the Academic theme.
 
-[**Academic**](https://github.com/gcushen/hugo-academic) makes it easy to create a beautiful website for free using Markdown, Jupyter, or RStudio. Customize anything on your site with widgets, themes, and language packs. [Check out the latest demo](https://academic-demo.netlify.app/) of what you'll get in less than 10 minutes, or [view the showcase](https://sourcethemes.com/academic/#expo).
+## Preview locally
 
-**Academic Kickstart** provides a minimal template to kickstart your new website.
+```bash
+hugo server
+```
 
-- 👉 [**Get Started**](#install)
-- 📚 [View the **documentation**](https://sourcethemes.com/academic/docs/)
-- 💬 [Chat with the **Academic community**](https://spectrum.chat/academic) or [**Hugo community**](https://discourse.gohugo.io)
-- 🐦 Twitter: [@source_themes](https://twitter.com/source_themes) [@GeorgeCushen](https://twitter.com/GeorgeCushen) [#MadeWithAcademic](https://twitter.com/search?q=%23MadeWithAcademic&src=typd)
-- 💡 [Request a **feature** or report a **bug**](https://github.com/gcushen/hugo-academic/issues)
-- ⬆️ **Updating?** View the [Update Guide](https://sourcethemes.com/academic/docs/update/) and [Release Notes](https://sourcethemes.com/academic/updates/)
-- :heart: **Support development** of Academic:
-  - ☕️ [**Donate a coffee**](https://paypal.me/cushen)
-  - 💵 [Become a backer on **Patreon** and **unlock rewards**](https://www.patreon.com/cushen)
-  - 🖼️ [Decorate your laptop or journal with an Academic **sticker**](https://www.redbubble.com/people/neutreno/works/34387919-academic)
-  - 👕 [Wear the **T-shirt**](https://academic.threadless.com/)
-  - :woman_technologist: [**Contribute**](https://sourcethemes.com/academic/docs/contribute/)
+Or use the included script:
 
-[![Screenshot](https://raw.githubusercontent.com/gcushen/hugo-academic/master/academic.png)](https://github.com/gcushen/hugo-academic/)
+```bash
+./view.sh
+```
 
-## Install
+Then open http://localhost:1313 in your browser.
 
-You can choose from one of the following four methods to install:
+## Repository structure
 
-* [**one-click install using your web browser (recommended)**](https://sourcethemes.com/academic/docs/install/#install-with-web-browser)
-* [install on your computer using **Git** with the Command Prompt/Terminal app](https://sourcethemes.com/academic/docs/install/#install-with-git)
-* [install on your computer by downloading the **ZIP files**](https://sourcethemes.com/academic/docs/install/#install-with-zip)
-* [install on your computer with **RStudio**](https://sourcethemes.com/academic/docs/install/#install-with-rstudio)
+```
+content/
+├── _index.md        # Course materials index
+├── 404.md           # Custom 404 page
+├── assignment/     # Labs (01-lab.md …), problem sets (01-ps.md …), research paper (RP-01.md …)
+│   ├── materials/   # Data files (.dta), do-files, templates, rubrics
+│   ├── solutions/   # Solution images/PDFs (e.g. ps4)
+│   └── printfriendly/  # Print-friendly versions (e.g. RP-03)
+├── bonus/           # Resources, FAQ, Stata/research-paper help
+├── content/         # Weekly course content (01-content.md … 13-exam3.md)
+├── home/            # Homepage widgets (hero, announcements, outline)
+├── schedule/        # Course schedule (_index.md)
+└── syllabus/        # Syllabus (index.md, syllabus-pdf.md), syllabus images
 
-Then [personalize your new site](https://sourcethemes.com/academic/docs/get-started/).
+config/
+├── _default/        # Active config
+│   ├── config.yaml  # Main Hugo config
+│   ├── params.yaml  # Course details, instructor info, edit URL
+│   ├── menus.toml   # Navigation structure
+│   ├── languages.toml
+│   ├── markup.yaml
+│   └── security.toml
+└── _archive/        # Disabled configs (.disabled.toml / .disabled.yaml)
 
-## Ecosystem
+layouts/
+├── _default/        # baseof.html
+├── docs/            # single.html for content pages
+├── partials/        # custom_head, custom_js, site_footer
+└── shortcodes/      # slides, courseinfo, tweet, announcements, schedule, etc.
 
-* **[Academic Admin](https://github.com/sourcethemes/academic-admin):** An admin tool to import publications from BibTeX or import assets for an offline site
-* **[Academic Scripts](https://github.com/sourcethemes/academic-scripts):** Scripts to help migrate content to new versions of Academic
+static/              # Served as-is at site root (Hugo does not process these)
+├── slides/          # BUILT slide output: chN-quarto/ (HTML), chN-slides.pdf, chN-slides.png
+├── img/             # Site images, favicons, assignment/ and guides/ subdirs
+├── media/           # Hero image, 404, course images
+├── css/             # custom.css
+├── admin/           # Netlify CMS (optional)
+└── make_slidepng.sh # Script to generate slide thumbnails from PDFs
 
-## License
+scripts/             # Build and maintenance (run from repo root)
+├── build_lab_pdf*.py    # Build lab PDFs from TeX
+├── render_quarto_slides.sh
+├── publish_slides.sh
+├── external_check.sh
+└── update_academic.sh
 
-Copyright 2017-present [George Cushen](https://georgecushen.com).
+slides/              # SOURCE for lecture slides (Quarto Reveal.js); you edit here
+├── ch4/, ch5/       # Chapter QMD, chN_figures/, R scripts, optional stata/
+├── ch6/, ch7/, ch8/ # Chapter folders with chN_figures/ (QMDs to be added)
+├── _styles/         # Econometria theme, custom CSS
+├── render_reveal_pdf.sh
+└── post_render_fix.sh
+# Rendered output goes to static/slides/ (see "slides/ vs static/slides/" below)
 
-Released under the [MIT](https://github.com/sourcethemes/academic-kickstart/blob/master/LICENSE.md) license.
+data/                # Hugo data (fonts, themes) — theme-related
+assets/              # SCSS and images processed by Hugo (theme customization)
+themes/academic/     # Hugo Academic theme (submodule)
+```
 
-[![Analytics](https://ga-beacon.appspot.com/UA-78646709-2/academic-kickstart/readme?pixel)](https://github.com/igrigorik/ga-beacon)
+## How the slide setup works
+
+Lecture slides are **Quarto Reveal.js** decks. You edit source in `slides/`; the built HTML and PDF end up in `static/slides/` so the site can serve them.
+
+### slides/ vs static/slides/
+
+| Where | What it is |
+|-------|------------|
+| **slides/** | **Source.** You edit here: QMD files, `chN_figures/`, R scripts, Stata. Hugo does not use this folder. |
+| **static/slides/** | **Built output.** Hugo serves this as `/slides/` on the site. Do not edit these files by hand. |
+
+When you run `quarto render` on a chapter (e.g. ch4), Quarto writes the built Reveal.js site into a subfolder of `static/slides/`. For ch4 the QMD is set to output there directly, so the folder is named **`static/slides/ch4-quarto/`** — that’s just the output folder for the ch4 deck (HTML, copied figures, CSS, JS). Similarly **ch5-quarto/** is the built ch5 deck. So:
+
+- **slides/ch4/** = ch4 source (`.qmd`, `ch4_figures/`, R script).
+- **static/slides/ch4-quarto/** = built ch4 interactive HTML (generated by `quarto render`).
+- **static/slides/ch4-slides.pdf** = ch4 PDF (from `render_reveal_pdf.sh` or similar).
+- **static/slides/ch4-slides.png** = thumbnail for ch4 PDF (from `static/make_slidepng.sh`).
+
+Other items in `static/slides/` (e.g. ch2–ch3, ch6–ch12 PDFs, exam reviews) may come from other builds or legacy Beamer; only the `chN-quarto/` folders and the `ch4/ch5-slides.pdf` + `.png` pairs are from the current Quarto workflow.
+
+### Per-chapter layout (in slides/)
+
+- Each chapter has its own folder: `slides/ch4/` … `slides/ch8/`.
+- Inside a chapter folder you have:
+  - **QMD file** — e.g. `ch4_linear_regression.qmd` (slide content). ch6–ch8 have figure folders only for now.
+  - **Figures folder** — `ch4_figures/`, `ch5_figures/`, …, `ch8_figures/`. All figure images for that chapter go in that chapter’s folder.
+  - **R script (optional)** — e.g. `generate_regression_figures_education_wages_real.R`, `generate_ch5_figures.R`. Run from the chapter directory; it writes PNGs into that chapter’s `chN_figures/` folder.
+  - **Stata (optional)** — e.g. `ch5/stata/` for do-files and log output used in slides.
+
+### Scripts
+
+- **Render HTML:** from repo root, `quarto render slides/ch4/ch4_linear_regression.qmd` (or from `slides/`, `quarto render ch4/ch4_linear_regression.qmd`). Ch4’s QMD outputs to `static/slides/ch4-quarto/`; other chapters may need copying via the scripts below.
+- **Render PDF:** `slides/render_reveal_pdf.sh` (e.g. `./slides/render_reveal_pdf.sh ch4/ch4_linear_regression.qmd`).
+- **Copy to site:** `scripts/render_quarto_slides.sh` / `scripts/publish_slides.sh` copy built HTML (and optionally PDF) into `static/slides/`. Thumbnails: `static/make_slidepng.sh`.
+
+### Images and R
+
+- Figures live in **`slides/chN/chN_figures/`** (e.g. `slides/ch6/ch6_figures/`). Use the chapter prefix in filenames (e.g. `ch6_ovb_sign.png`).
+- In the QMD, reference them with a relative path: `./ch6_figures/ch6_ovb_sign.png`.
+- An **R script** in the chapter folder should set its output directory to `./chN_figures/` and write PNGs there. Run from the chapter directory: `cd slides/ch5 && Rscript generate_ch5_figures.R`.
+
+### Full details
+
+- **slides/README.md** — Creating new chapters, figure conventions, R/Stata workflow, styling, rendering.
+- **SLIDES_INTEGRATION_GUIDE.md** — How built slides are wired into the site (PDF + HTML, shortcode, content front matter).
+
+## Development and editing
+
+For full instructions (content dates, shortcodes, adding assignments, building, troubleshooting), see **[DEVELOPMENT.md](DEVELOPMENT.md)**.

@@ -68,6 +68,8 @@ menu:
 
 pdf: /slides/ch5-slides.pdf
 thumb: /slides/ch5-slides.png
+# Optional: interactive HTML version (see SLIDES_INTEGRATION_GUIDE.md)
+slides_html: /slides/ch5-quarto/
 ---
 ```
 
@@ -82,28 +84,9 @@ predict yhat, xb
 ```
 ~~~
 
-## File Organization
+## File organization
 
-```
-content/
-├── assignment/      # Labs, problem sets, research paper
-│   └── materials/   # Data files (.dta), do-files, templates
-├── bonus/           # Resources, FAQ, supplementary material
-├── content/         # Weekly course content
-├── home/            # Homepage widgets
-├── schedule/        # Course schedule
-└── syllabus/        # Syllabus
-
-static/
-├── slides/          # Lecture PDFs and thumbnails
-├── img/             # Site images, icons
-└── media/           # Hero image, other media
-
-config/_default/
-├── config.yaml      # Main Hugo config
-├── params.yaml      # Course details, instructor info
-└── menus.toml       # Navigation structure
-```
+See **[README.md](README.md#repository-structure)** for the full directory tree. Summary: `content/` holds assignment, bonus, weekly content, home, schedule, syllabus; `config/_default/` has site and course settings; `layouts/` has templates and shortcodes; `static/` holds slides, images, and media; `scripts/` and `slides/` are for building lab PDFs and lecture slides.
 
 ## Updating Course Info
 
@@ -140,12 +123,14 @@ Netlify builds automatically on push to master.
 
 | Task | Command/Location |
 |------|------------------|
-| Preview site | `hugo server --buildFuture` |
+| Preview site | `hugo server --buildFuture` or `./view.sh` |
 | Add new week | Create `content/content/XX-content.md` |
-| Add assignment | Create `content/assignment/XX-lab.md` |
+| Add lab | Create `content/assignment/XX-lab.md` (and .tex if building PDF) |
+| Add problem set | Create `content/assignment/XX-ps.md` |
 | Update schedule | Edit `content/schedule/_index.md` |
 | Change nav menu | Edit `config/_default/menus.toml` |
-| Add slide PDF | Put in `static/slides/`, reference in front matter |
+| Add lecture slides | Put PDF (and optional HTML) in `static/slides/`, set `pdf` and optional `slides_html` in content front matter. Build slides from `slides/` with Quarto (see `slides/README.md`, `SLIDES_INTEGRATION_GUIDE.md`) |
+| Rebuild lab PDFs | `scripts/build_lab_pdf.py` etc. |
 
 ## Troubleshooting
 
