@@ -10,7 +10,7 @@
  <meta name="generator" content="quarto-1.8.26">
 
  <meta name="author" content="ECON3500: Econometrics and Applications">
- <title>Multiple Regression</title>
+ <title>Linear Regression with Multiple Regressors</title>
  <meta name="apple-mobile-web-app-capable" content="yes">
  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -197,8 +197,8 @@
  <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
- <h1 class="title">Multiple Regression</h1>
- <p class="subtitle">Holding Other Factors Constant</p>
+ <h1 class="title">Linear Regression with Multiple Regressors</h1>
+ <p class="subtitle">SW Chapter 6</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -212,10 +212,55 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="roadmap" class="slide level2 scrollable">
 <h2>Roadmap</h2>
-<p>[TOC]</p>
+<h3 id="roadmap-1">Roadmap</h3>
+<ol type="1">
+<li><strong>Why Multiple Regression?</strong>
+<ul>
+<li>Motivation and limitations of simple regression</li>
+</ul></li>
+<li><strong>The Multiple Regression Model</strong>
+<ul>
+<li>Definition, OLS estimation, matrix form</li>
+</ul></li>
+<li><strong>Interpreting Coefficients</strong>
+<ul>
+<li>Ceteris paribus interpretation</li>
+<li>Examples and knowledge checks</li>
+</ul></li>
+<li><strong>Omitted Variable Bias</strong>
+<ul>
+<li>Derivation, formula, examples</li>
+<li>General cases</li>
+</ul></li>
+<li><strong>Measures of Fit</strong>
+<ul>
+<li><span class="math inline">\(R^2\)</span> and Adjusted <span class="math inline">\(R^2\)</span></li>
+<li>Model comparison</li>
+</ul></li>
+<li><strong>Least Squares Assumptions</strong>
+<ul>
+<li>Four assumptions for multiple regression</li>
+<li>Perfect multicollinearity</li>
+</ul></li>
+<li><strong>Multicollinearity</strong>
+<ul>
+<li>Perfect vs.&nbsp;imperfect</li>
+<li>Diagnosis and solutions</li>
+</ul></li>
+<li><strong>Implementing Multiple Regression in Stata</strong>
+<ul>
+<li>Syntax, detecting multicollinearity</li>
+<li>Partial regression plots</li>
+</ul></li>
+<li><strong>Bringing It All Together</strong>
+<ul>
+<li>Workflow, common pitfalls, formulas</li>
+<li>Looking ahead</li>
+</ul></li>
+</ol>
 </section>
-<section id="what-youll-learn-today" class="slide level2 scrollable">
-<h2>What You’ll Learn Today</h2>
+<section id="learning-objectives" class="slide level2 scrollable">
+<h2>Learning Objectives</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -233,9 +278,9 @@ ECON3500: Econometrics and Applications
 <ol type="1">
 <li>Estimate and interpret <span class="kw">multiple regression</span> models</li>
 <li>Understand <span class="kw">omitted variable bias</span> deeply</li>
-<li>Use <span class="kw">adjusted R²</span> to compare models</li>
+<li>Calculate and interpret a new measure of fit, the <span class="kw">adjusted R²</span></li>
 <li>Recognize and handle <span class="kw">multicollinearity</span></li>
-<li>Master <span class="kw">ceteris paribus</span> reasoning</li>
+<li>Update our knowledge of the LS assumptions and sampling distributions of the OLS estimators when we have multiple regressors.</li>
 </ol>
 </section>
 <section>
@@ -275,7 +320,7 @@ wage_i = \beta_0 + \beta_1 \cdot education_i + u_i
 </ul></li>
 <li><strong>More flexible functional forms</strong>
 <ul>
-<li>Include <span class="math inline">\(X\)</span> and <span class="math inline">\(X^2\)</span> for nonlinear relationships</li>
+<li>Include <span class="math inline">\(X^2\)</span> and log-transformed variables for nonlinear relationships</li>
 <li>Interaction terms: <span class="math inline">\(X_1 \cdot X_2\)</span></li>
 </ul></li>
 <li><strong>Better predictions</strong>
@@ -283,6 +328,27 @@ wage_i = \beta_0 + \beta_1 \cdot education_i + u_i
 <li>More information <span class="math inline">\(\Rightarrow\)</span> better forecasts</li>
 </ul></li>
 </ol>
+</section>
+<section id="example-wage-equation" class="slide level2">
+<h2>Example: Wage Equation</h2>
+<p><span class="math display">\[
+wage_i = \beta_0 + \beta_1 \cdot education_i + \beta_2 \cdot experience_i + u_i
+\]</span></p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\beta_1\)</span>: the effect of education on wage, holding experience constant</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(\beta_2\)</span>: the effect of experience on wage, holding education constant</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(u_i\)</span>: error term - what we can’t explain with education and experience</li>
+</ul>
+</div>
 </section></section>
 <section>
 <section id="the-multiple-regression-model" class="title-slide slide level1 center">
@@ -327,25 +393,6 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + u_i
 <div class="fragment">
 <p><strong>In practice:</strong> We use statistical software (Stata, R, Python) to compute <span class="math inline">\(\hat{\beta}_0, \ldots, \hat{\beta}_k\)</span></p>
 </div>
-</section>
-<section id="ols-estimation-in-matrix-form-advanced" class="slide level2 smaller">
-<h2>OLS Estimation in Matrix Form [Advanced]</h2>
-<p><strong>For mathematically inclined students:</strong></p>
-<p>Define:</p>
-<ul>
-<li><span class="math inline">\(\mathbf{Y}\)</span>: <span class="math inline">\(n \times 1\)</span> vector of outcomes</li>
-<li><span class="math inline">\(\mathbf{X}\)</span>: <span class="math inline">\(n \times (k+1)\)</span> matrix of regressors (includes column of 1s for intercept)</li>
-<li><span class="math inline">\(\boldsymbol{\beta}\)</span>: <span class="math inline">\((k+1) \times 1\)</span> vector of coefficients</li>
-</ul>
-<div class="fragment">
-<p><strong>OLS solution:</strong></p>
-<p><span class="math display">\[
-\hat{\boldsymbol{\beta}} = (\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{Y}
-\]</span></p>
-</div>
-<div class="fragment">
-<p><strong>Why perfect multicollinearity breaks OLS:</strong> If columns of <span class="math inline">\(\mathbf{X}\)</span> are linearly dependent, then <span class="math inline">\(\mathbf{X}'\mathbf{X}\)</span> is singular (not invertible)!</p>
-</div>
 </section></section>
 <section>
 <section id="interpreting-coefficients" class="title-slide slide level1 center">
@@ -386,7 +433,7 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + u_i
 <h2>Visualizing Ceteris Paribus</h2>
 
 <img src="./ch6_figures/ch6_ceteris_paribus.png" style="width:85.0%" class=" quarto-figure-center"><p class="caption">Within each <span class="math inline">\(X_2\)</span> group, the slope shows the effect of <span class="math inline">\(X_1\)</span> holding <span class="math inline">\(X_2\)</span> fixed.</p></section>
-<section id="example-wage-equation" class="slide level2">
+<section id="example-wage-equation-1" class="slide level2">
 <h2>Example: Wage Equation</h2>
 <p><strong>Estimated model:</strong></p>
 <pre><code>wage = 5.2 + 2.1*education + 0.6*experience</code></pre>
@@ -444,15 +491,50 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + u_i
 </div>
 </div>
 </div>
+</section>
+<section id="example-determinants-of-college-gpa" class="slide level2">
+<h2>Example: Determinants of College GPA</h2>
+<p>Let’s look at the relationship between high school and college GPA, controlling for test scores (<em>MSU students in Fall 1994</em>).</p>
+<p><img src="./ch6_figures/ch6_scattergpa_a.png" style="width:45.0%" alt="Scatter plots of college GPA vs high school GPA and ACT"> <img src="./ch6_figures/ch6_scattergpa_b.png" style="width:45.0%" alt="Scatter plots of college GPA vs high school GPA and ACT"></p>
+<p>What predicts college GPA?</p>
+</section>
+<section id="example-determinants-of-college-gpa-1" class="slide level2">
+<h2>Example: Determinants of College GPA</h2>
+<p>We can set up the following <span class="alert">population multiple regression model</span></p>
+<p><span class="math display">\[
+colGPA_i = \beta_0 + \beta_1 hsGPA_i + \beta_2 ACT_i + u_i
+\]</span></p>
+</section>
+<section id="example-determinants-of-college-gpa-2" class="slide level2">
+<h2>Example: Determinants of College GPA</h2>
+
+<img src="./ch6_figures/ch6_gpa_regression_output.png" class=" quarto-figure-center"><p class="caption">Stata regression output for college GPA</p></section>
+<section id="example-determinants-of-college-gpa-3" class="slide level2">
+<h2>Example: Determinants of College GPA</h2>
+<p>Estimated equation (or <span class="alert">OLS regression line</span>):</p>
+<p><span class="math display">\[
+\widehat{colGPA} = 1.29 + 0.453 \cdot hsGPA + 0.0094 \cdot ACT
+\]</span></p>
+<div class="fragment">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>Holding ACT fixed, an additional point in high school GPA is associated with 0.453 points higher in college GPA</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Or: If we compare two students with the same ACT, but the <span class="math inline">\(hsGPA\)</span> of student A is one point higher, we predict student A to have a <span class="math inline">\(colGPA\)</span> that is 0.453 points higher than that of student B</li>
+</ul>
+</div>
 </section></section>
 <section>
 <section id="omitted-variable-bias" class="title-slide slide level1 center">
 <h1>Omitted Variable Bias</h1>
 
 </section>
-<section id="the-setup" class="slide level2">
-<h2>The Setup</h2>
-<p><strong>True population model:</strong></p>
+<section id="omitting-relevant-variables-the-simple-case" class="slide level2">
+<h2>Omitting relevant variables: the simple case</h2>
+<p>Let’s work through some theory! <strong>True population model:</strong></p>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i
 \]</span></p>
@@ -487,11 +569,28 @@ X_{2i} = \delta_0 + \delta_1 X_{1i} + v_i
 \]</span></p>
 <div class="fragment">
 <p>Substitute into the true model:</p>
+<p><strong>Step 1:</strong> Start with the true model:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2 X_{2i}} + u_i
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 2:</strong> Replace <span class="math inline">\(X_{2i}\)</span> with its relationship to <span class="math inline">\(X_1\)</span>:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2}(\delta_0 + \delta_1 X_{1i} + v_i) + u_i
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 3:</strong> Distribute <span class="math inline">\(\textcolor{teal}{\beta_2}\)</span>:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2}\delta_0 + \textcolor{teal}{\beta_2}\delta_1 X_{1i} + \textcolor{teal}{\beta_2}v_i + u_i
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 4:</strong> Collect like terms:</p>
 <p><span class="math display">\[
 \begin{aligned}
-Y_i &amp;= \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i \\
- &amp;= \beta_0 + \beta_1 X_{1i} + \beta_2(\delta_0 + \delta_1 X_{1i} + v_i) + u_i \\
- &amp;= (\beta_0 + \beta_2\delta_0) + (\beta_1 + \beta_2\delta_1) X_{1i} + (\beta_2 v_i + u_i)
+Y_i &amp;= (\beta_0 + \textcolor{teal}{\beta_2}\delta_0) + (\beta_1 + \textcolor{teal}{\beta_2}\delta_1) X_{1i} + (\textcolor{teal}{\beta_2}v_i + u_i)
 \end{aligned}
 \]</span></p>
 </div>
@@ -546,22 +645,34 @@ E[\tilde{\beta}_1] = \beta_1 + \beta_2 \delta_1
 <h2>Example: Returns to Education</h2>
 <p><strong>True model:</strong></p>
 <p><span class="math display">\[
-wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot ability + u
+wage = \beta_0 + \beta_1 \cdot educ + \textcolor{teal}{\beta_2 \cdot abil} + u
 \]</span></p>
 <p>But ability is unobserved!</p>
 <div class="fragment">
-<p><strong>Omitted model:</strong></p>
+<p><strong>Relationship between ability and education:</strong></p>
 <p><span class="math display">\[
-wage = \tilde{\beta}_0 + \tilde{\beta}_1 \cdot education + \tilde{u}
+\textcolor{teal}{abil} = \textcolor{teal}{\delta_0 + \delta_1 \cdot educ + v}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Substitute into the true model:</strong></p>
+<p><span class="math display">\[
+\begin{aligned}
+wage &amp;= \beta_0 + \beta_1 \cdot educ + \textcolor{teal}{\beta_2}(\textcolor{teal}{\delta_0 + \delta_1 \cdot educ + v}) + u \\
+ &amp;= (\beta_0 + \textcolor{teal}{\beta_2\delta_0}) + (\beta_1 + \textcolor{teal}{\beta_2\delta_1}) \cdot educ + (\textcolor{teal}{\beta_2v} + u)
+\end{aligned}
 \]</span></p>
 </div>
 <div class="fragment">
 <p><strong>What’s the bias?</strong></p>
 <ul>
 <li><span class="math inline">\(\beta_2 &gt; 0\)</span> (higher ability <span class="math inline">\(\Rightarrow\)</span> higher wage)</li>
-<li><span class="math inline">\(\text{Corr}(education, ability) &gt; 0\)</span> (smarter people get more education)</li>
-<li>Therefore: <span class="alert">Positive bias</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\tilde{\beta}_1\)</span> overstates true return to education</li>
+<li><span class="math inline">\(\delta_1 &gt; 0\)</span> (smarter people get more education) <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\textcolor{teal}{\beta_2\delta_1 &gt; 0}\)</span></li>
+<li>The return to education <span class="math inline">\(\beta_1\)</span> will be <span class="alert">overestimated</span> because <span class="math inline">\(\textcolor{teal}{\beta_2\delta_1 &gt; 0}\)</span></li>
 </ul>
+</div>
+<div class="fragment">
+<p>It will look as if people with many years of education earn very high wages, but this is partly due to the fact that people with more education are also more able on average.</p>
 </div>
 </section>
 <section id="knowledge-check-ovb-direction" class="slide level2 smaller">
@@ -578,9 +689,13 @@ wage = \tilde{\beta}_0 + \tilde{\beta}_1 \cdot education + \tilde{u}
 <p>You’re studying the effect of police officers (<span class="math inline">\(X_1\)</span>) on crime (<span class="math inline">\(Y\)</span>).</p>
 <p>True model: <span class="math inline">\(crime = \beta_0 + \beta_1 \cdot police + \beta_2 \cdot poverty + u\)</span></p>
 <p>You omit poverty. What’s the likely direction of bias on <span class="math inline">\(\hat{\beta}_1\)</span>?</p>
+<p>. . .</p>
 <p>Hints:</p>
 <ul>
 <li>Does poverty increase crime? (sign of <span class="math inline">\(\beta_2\)</span>?)</li>
+</ul>
+<p>. . .</p>
+<ul>
 <li>Do high-poverty areas have more police? (sign of correlation?)</li>
 </ul>
 </div>
@@ -598,13 +713,40 @@ wage = \tilde{\beta}_0 + \tilde{\beta}_1 \cdot education + \tilde{u}
 <div class="callout-content">
 <ul>
 <li><span class="math inline">\(\beta_2 &gt; 0\)</span> (poverty increases crime)</li>
+</ul>
+<p>. . .</p>
+<ul>
 <li><span class="math inline">\(\text{Corr}(police, poverty) &gt; 0\)</span> (more police where poverty is high)</li>
+</ul>
+<p>. . .</p>
+<ul>
 <li>Bias = <span class="math inline">\(\beta_2 \times \delta_1 &gt; 0\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="alert">Positive bias</span></li>
 </ul>
+<p>. . .</p>
 <p>Omitting poverty makes it look like police <em>cause</em> crime (reverse causality illusion)!</p>
 </div>
 </div>
 </div>
+</div>
+</section>
+<section id="ovb-more-general-cases" class="slide level2">
+<h2>OVB: More General Cases</h2>
+<p>We can extend this intuition when we add more independent variables:</p>
+<p><span class="math display">\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + u
+\]</span></p>
+<div class="fragment">
+<p><strong>But we estimate:</strong></p>
+<p><span class="math display">\[
+\widetilde{y} = \widetilde{\beta_0} + \widetilde{\beta_1} x_1 + \widetilde{\beta_2} x_2
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Key points:</strong></p>
+<ul>
+<li>No general statements possible about direction of bias</li>
+<li>Can assume one regressor uncorrelated with others to make analysis tractable</li>
+</ul>
 </div>
 </section></section>
 <section>
@@ -657,6 +799,10 @@ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSR}{TSS}
 </ul>
 </div>
 </section>
+<section id="r²-vs-adjusted-r²" class="slide level2">
+<h2>R² vs Adjusted R²</h2>
+
+<img src="./ch6_figures/ch6_r2_vs_adj_r2.png" style="width:85.0%" class=" quarto-figure-center"><p class="caption">R² always increases with <span class="math inline">\(k\)</span>; adjusted R² can decrease</p></section>
 <section id="knowledge-check-calculating-adjusted-r²" class="slide level2 smaller">
 <h2>Knowledge Check: Calculating Adjusted R²</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -684,22 +830,45 @@ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSR}{TSS}
 <p><strong>Answer</strong></p>
 </div>
 <div class="callout-content">
-<p><span class="math display">\[
-\bar{R}^2 = 1 - \frac{n-1}{n-k-1} \cdot \frac{SSR}{TSS} = 1 - \frac{99}{96} \cdot \frac{200}{500}
-\]</span></p>
-<p><span class="math display">\[
-= 1 - 1.03125 \times 0.4 = 1 - 0.4125 = 0.5875
-\]</span></p>
-<p>Note: <span class="math inline">\(R^2 = 1 - \frac{200}{500} = 0.6\)</span>, so <span class="math inline">\(\bar{R}^2 &lt; R^2\)</span> as expected.</p>
+<p><span class="math inline">\(\bar{R}^2 = 0.5875\)</span></p>
+<p>Note: <span class="math inline">\(R^2 = 0.6\)</span>, so <span class="math inline">\(\bar{R}^2 &lt; R^2\)</span> as expected.</p>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="r²-vs-adjusted-r²" class="slide level2">
-<h2>R² vs Adjusted R²</h2>
-
-<img src="./ch6_figures/ch6_r2_vs_adj_r2.png" style="width:85.0%" class=" quarto-figure-center"><p class="caption">R² always increases with <span class="math inline">\(k\)</span>; adjusted R² can decrease</p></section>
+<section id="knowledge-check-calculating-adjusted-r²---step-by-step" class="slide level2">
+<h2>Knowledge Check: Calculating Adjusted R² - Step by Step</h2>
+<p><strong>Given:</strong> <span class="math inline">\(n = 100\)</span>, <span class="math inline">\(k = 3\)</span>, <span class="math inline">\(SSR = 200\)</span>, <span class="math inline">\(TSS = 500\)</span></p>
+<p><strong>Step 1:</strong> Write the formula:</p>
+<p><span class="math display">\[
+\bar{R}^2 = 1 - \frac{n-1}{n-k-1} \cdot \frac{SSR}{TSS}
+\]</span></p>
+<div class="fragment">
+<p><strong>Step 2:</strong> Plug in the values:</p>
+<p><span class="math display">\[
+\bar{R}^2 = 1 - \frac{100-1}{100-3-1} \cdot \frac{200}{500}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 3:</strong> Simplify:</p>
+<p><span class="math display">\[
+\bar{R}^2 = 1 - \frac{99}{96} \cdot \frac{200}{500}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 4:</strong> Calculate:</p>
+<p><span class="math display">\[
+\bar{R}^2 = 1 - 1.03125 \times 0.4
+\]</span></p>
+<p><span class="math display">\[
+= 1 - 0.4125 = 0.5875
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Check:</strong> <span class="math inline">\(R^2 = 1 - \frac{200}{500} = 0.6\)</span>, so <span class="math inline">\(\bar{R}^2 &lt; R^2\)</span> as expected.</p>
+</div>
+</section>
 <section id="using-adjusted-r²-in-practice" class="slide level2">
 <h2>Using Adjusted R² in Practice</h2>
 <p><strong>Model 1:</strong></p>
@@ -725,12 +894,17 @@ R² = 0.351, Adjusted R² = 0.339</code></pre>
 </section>
 <section id="the-four-ls-assumptions-for-multiple-regression" class="slide level2 scrollable">
 <h2>The Four LS Assumptions for Multiple Regression</h2>
+<p>We add one more assumption as we upgrade to the multiple regression model</p>
 <ol type="1">
 <li><p><strong>Zero conditional mean:</strong> <span class="math inline">\(E[u_i | X_{1i}, \ldots, X_{ki}] = 0\)</span></p></li>
 <li><p><strong>i.i.d. sampling:</strong> <span class="math inline">\((X_{1i}, \ldots, X_{ki}, Y_i)\)</span> are independently and identically distributed</p></li>
 <li><p><strong>Large outliers rare:</strong> <span class="math inline">\(X\)</span>s and <span class="math inline">\(Y\)</span> have finite fourth moments</p></li>
-<li><p><strong>No perfect multicollinearity:</strong> No <span class="math inline">\(X\)</span> is a perfect linear combination of others</p></li>
 </ol>
+<div class="fragment">
+<ol start="4" type="1">
+<li><strong>No perfect multicollinearity:</strong> No <span class="math inline">\(X\)</span> is a perfect linear combination of others</li>
+</ol>
+</div>
 </section>
 <section id="assumption-1-zero-conditional-mean-extended" class="slide level2">
 <h2>Assumption 1: Zero Conditional Mean (Extended)</h2>
@@ -741,8 +915,25 @@ E[u_i | X_{1i}, \ldots, X_{ki}] = 0
 <p><strong>Same interpretation as before, but now:</strong></p>
 <ul>
 <li>Error is uncorrelated with <span class="alert">all</span> regressors</li>
-<li>Failure <span class="math inline">\(\Rightarrow\)</span> omitted variable bias</li>
+<li>Failure <span class="math inline">\(\Rightarrow\)</span> omitted variable bias
+<ul>
+<li>If an omitted variable belongs in the equation (and is in <span class="math inline">\(u\)</span>) and it is correlated with an included <span class="math inline">\(X\)</span>, then this condition fails!</li>
+</ul></li>
 <li>Best solution: include the omitted variable!</li>
+</ul>
+</div>
+</section>
+<section id="assumptions-2-and-3" class="slide level2">
+<h2>Assumptions 2 and 3</h2>
+<p><strong>Assumption 2 (<span class="math inline">\(X\)</span>s and <span class="math inline">\(Y\)</span> are i.i.d.):</strong></p>
+<ul>
+<li>Satisfied automatically if the data are collected by simple random sampling</li>
+</ul>
+<div class="fragment">
+<p><strong>Assumption 3: Large outliers are rare:</strong></p>
+<ul>
+<li>Same as before: <span class="math inline">\(X\)</span>s and <span class="math inline">\(Y\)</span> have finite fourth moments</li>
+<li>Check your data (scatterplots!) to make sure no crazy values</li>
 </ul>
 </div>
 </section>
@@ -764,20 +955,40 @@ E[u_i | X_{1i}, \ldots, X_{ki}] = 0
 <div class="fragment">
 <p><strong>Examples:</strong></p>
 <ul>
-<li><span class="math inline">\(X_2 = 3X_1 + 5\)</span></li>
+<li><span class="math inline">\(F = \frac{9}{5}C + 32\)</span></li>
 <li>Including height in inches AND height in centimeters</li>
-<li>Dummy variable trap: including all categories + intercept</li>
+<li><strong>Dummy variable trap</strong>: including all categories + intercept</li>
 </ul>
 </div>
 <div class="fragment">
 <p><strong>What happens?</strong> OLS cannot be computed (infinite solutions)</p>
-<p><strong>What Stata does:</strong> Automatically drops one of the collinear variables</p>
+<p><strong>What Stata does:</strong> Automatically drops one of the collinear variables (but which one will it be?)</p>
 </div>
 </section>
 <section id="perfect-multicollinearity-1" class="slide level2">
 <h2>Perfect Multicollinearity</h2>
 
-<img src="./ch6_figures/ch6_perfect_multicollinearity.png" style="width:70.0%" class=" quarto-figure-center"><p class="caption"><span class="math inline">\(X_2\)</span> is an exact linear function of <span class="math inline">\(X_1\)</span></p></section></section>
+<img src="./ch6_figures/ch6_perfect_multicollinearity.png" style="width:70.0%" class=""></section>
+<section id="perfect-multicollinearity-2" class="slide level2">
+<h2>Perfect Multicollinearity</h2>
+
+<img src="./ch6_figures/ch6_multicol_1.png" style="width:70.0%" class=""></section>
+<section id="perfect-multicollinearity-3" class="slide level2">
+<h2>Perfect Multicollinearity</h2>
+
+<img src="./ch6_figures/ch6_multicol_2.png" style="width:70.0%" class=""></section>
+<section id="perfect-multicollinearity---dummy-variable-trap" class="slide level2">
+<h2>Perfect Multicollinearity - Dummy Variable Trap</h2>
+<p>Here we have a <span class="kw">dummy variable trap</span>:</p>
+<p><span class="math display">\[
+colGPA = \beta_0 + \beta_1 fresh + \beta_2 soph + \beta_3 junior \\
+\qquad\quad +\ \beta_4 senior + \beta_5 hsGPA + u
+\]</span></p>
+</section>
+<section id="perfect-multicollinearity---dummy-variable-trap-1" class="slide level2">
+<h2>Perfect Multicollinearity - Dummy Variable Trap</h2>
+
+<img src="./ch6_figures/ch6_multicol_3.png" style="width:70.0%" class=""></section></section>
 <section>
 <section id="multicollinearity" class="title-slide slide level1 center">
 <h1>Multicollinearity</h1>
@@ -803,14 +1014,14 @@ E[u_i | X_{1i}, \ldots, X_{ki}] = 0
 <ul>
 <li>Correlation <span class="math inline">\(\approx 0.85\)</span> (high, but not 1.0)</li>
 <li>Both can stay in the model</li>
-<li>But estimates will be imprecise</li>
+<li>But estimates will be imprecise <!--
+## Imperfect Multicollinearity
+
+![](./ch6_figures/ch6_imperfect_multicollinearity.png){width=70%}
+
+High correlation (e.g., $\text{Corr}(X_1, X_2) \approx 0.9$) makes it hard to disentangle their separate effects --></li>
 </ul>
 </div>
-</section>
-<section id="imperfect-multicollinearity-2" class="slide level2">
-<h2>Imperfect Multicollinearity</h2>
-
-<img src="./ch6_figures/ch6_imperfect_multicollinearity.png" style="width:70.0%" class=" quarto-figure-center"><p class="caption">High correlation makes it hard to disentangle separate effects</p><p>High correlation (e.g., <span class="math inline">\(\text{Corr}(X_1, X_2) \approx 0.9\)</span>) makes it hard to disentangle their separate effects</p>
 </section>
 <section id="why-is-imperfect-multicollinearity-a-problem" class="slide level2">
 <h2>Why Is Imperfect Multicollinearity a Problem?</h2>
@@ -883,30 +1094,34 @@ E[u_i | X_{1i}, \ldots, X_{ki}] = 0
 <h2>Detecting Multicollinearity in Stata</h2>
 <p><strong>Check correlations:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a>correlate X1 X2 X3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<p><strong>Variance Inflation Factor (VIF):</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> Y X1 X2 X3, <span class="kw">robust</span></span>
-<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">vif</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="fragment">
-<p><strong>Rule of thumb:</strong></p>
-<ul>
-<li>VIF <span class="math inline">\(&lt;\)</span> 5: No serious multicollinearity</li>
-<li>VIF <span class="math inline">\(&gt;\)</span> 10: High multicollinearity, consider action</li>
-</ul>
-<p><strong>Full walkthrough script:</strong> <code>econ3500_multiple_regression_walkthrough.do</code></p>
-</div>
-</section>
-<section id="partial-regression-plot" class="slide level2 scrollable">
-<h2>Partial Regression Plot</h2>
+<p>. . . <!--
+**Variance Inflation Factor (VIF):**
 
-<img src="./ch6_figures/ch6_partial_regression.png" style="width:75.0%" class=" quarto-figure-center"><p class="caption">Partial regression: residuals of <span class="math inline">\(Y\)</span> on <span class="math inline">\(X_2\)</span> vs residuals of <span class="math inline">\(X_1\)</span> on <span class="math inline">\(X_2\)</span>; slope = <span class="math inline">\(\hat{\beta}_1\)</span></p><p><strong>Construction:</strong></p>
-<ol type="1">
-<li>Regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(X_2\)</span>, obtain residuals <span class="math inline">\(\tilde{Y}\)</span> (part of <span class="math inline">\(Y\)</span> not explained by <span class="math inline">\(X_2\)</span>)</li>
-<li>Regress <span class="math inline">\(X_1\)</span> on <span class="math inline">\(X_2\)</span>, obtain residuals <span class="math inline">\(\tilde{X}_1\)</span> (part of <span class="math inline">\(X_1\)</span> not explained by <span class="math inline">\(X_2\)</span>)</li>
-<li>Plot <span class="math inline">\(\tilde{Y}\)</span> vs <span class="math inline">\(\tilde{X}_1\)</span> — slope = <span class="math inline">\(\hat{\beta}_1\)</span> from full regression</li>
-</ol>
-<p>Shows relationship between <span class="math inline">\(Y\)</span> and <span class="math inline">\(X_1\)</span> <span class="alert">after removing</span> the influence of <span class="math inline">\(X_2\)</span> from both</p>
+```stata
+regress Y X1 X2 X3, robust
+vif
+```
+
+. . .
+
+**Rule of thumb:**
+
+- VIF $<$ 5: No serious multicollinearity
+- VIF $>$ 10: High multicollinearity, consider action
+
+**Full walkthrough script:** `econ3500_multiple_regression_walkthrough.do`
+
+## Partial Regression Plot
+
+![Partial regression: residuals of $Y$ on $X_2$ vs residuals of $X_1$ on $X_2$; slope = $\hat{\beta}_1$](./ch6_figures/ch6_partial_regression.png){width=75%}
+
+**Construction:**
+
+1. Regress $Y$ on $X_2$, obtain residuals $\tilde{Y}$ (part of $Y$ not explained by $X_2$)
+2. Regress $X_1$ on $X_2$, obtain residuals $\tilde{X}_1$ (part of $X_1$ not explained by $X_2$)
+3. Plot $\tilde{Y}$ vs $\tilde{X}_1$ — slope = $\hat{\beta}_1$ from full regression
+
+Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence of $X_2$ from both --></p>
 </section></section>
 <section>
 <section id="bringing-it-all-together" class="title-slide slide level1 center">
@@ -995,7 +1210,6 @@ E[u_i | X_{1i}, \ldots, X_{ki}] = 0
 </ul>
 </div>
 <div class="fragment">
-<p><strong>Master ceteris paribus thinking — it’s the heart of econometrics!</strong></p>
 
 </div>
 </section></section>

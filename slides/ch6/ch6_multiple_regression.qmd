@@ -1,6 +1,6 @@
 ---
-title: "Multiple Regression"
-subtitle: "Holding Other Factors Constant"
+title: "Linear Regression with Multiple Regressors"
+subtitle: "SW Chapter 6"
 author: "ECON3500: Econometrics and Applications"
 date: "2026-01-01"
 output-dir: ../../static/slides/ch6-quarto
@@ -12,9 +12,44 @@ format:
 
 ## Roadmap {.scrollable}
 
-[TOC]
+### Roadmap
 
-## What You'll Learn Today
+1. **Why Multiple Regression?**
+   - Motivation and limitations of simple regression
+
+2. **The Multiple Regression Model**
+   - Definition, OLS estimation, matrix form
+
+3. **Interpreting Coefficients**
+   - Ceteris paribus interpretation
+   - Examples and knowledge checks
+
+4. **Omitted Variable Bias**
+   - Derivation, formula, examples
+   - General cases
+
+5. **Measures of Fit**
+   - $R^2$ and Adjusted $R^2$
+   - Model comparison
+
+6. **Least Squares Assumptions**
+   - Four assumptions for multiple regression
+   - Perfect multicollinearity
+
+7. **Multicollinearity**
+   - Perfect vs. imperfect
+   - Diagnosis and solutions
+
+8. **Implementing Multiple Regression in Stata**
+   - Syntax, detecting multicollinearity
+   - Partial regression plots
+
+9. **Bringing It All Together**
+   - Workflow, common pitfalls, formulas
+   - Looking ahead
+
+
+## Learning Objectives
 
 ::: {.callout-important}
 ## Central Question
@@ -25,9 +60,9 @@ How do we estimate the effect of $X_1$ on $Y$ while [holding other factors const
 
 1. Estimate and interpret [multiple regression]{.kw} models
 2. Understand [omitted variable bias]{.kw} deeply
-3. Use [adjusted R²]{.kw} to compare models
+3. Calculate and interpret a new measure of fit, the [adjusted R²]{.kw}
 4. Recognize and handle [multicollinearity]{.kw}
-5. Master [ceteris paribus]{.kw} reasoning
+5. Update our knowledge of the LS assumptions and sampling distributions of the OLS estimators when we have multiple regressors.
 
 # Why Multiple Regression?
 
@@ -62,11 +97,35 @@ If any of these are [correlated with education]{.alert}, then $\hat{\beta}_1$ su
    - Get closer to causal effects
 
 2. **More flexible functional forms**
-   - Include $X$ and $X^2$ for nonlinear relationships
+   - Include $X^2$ and log-transformed variables for nonlinear relationships
    - Interaction terms: $X_1 \cdot X_2$
+
 
 3. **Better predictions**
    - More information $\Rightarrow$ better forecasts
+
+## Example: Wage Equation
+
+$$
+wage_i = \beta_0 + \beta_1 \cdot education_i + \beta_2 \cdot experience_i + u_i
+$$
+
+. . .
+
+
+- $\beta_1$: the effect of education on wage, holding experience constant
+
+. . .
+
+- $\beta_2$: the effect of experience on wage, holding education constant
+
+. . .
+
+- $u_i$: error term - what we can't explain with education and experience
+
+
+
+
 
 # The Multiple Regression Model
 
@@ -104,28 +163,6 @@ $$
 . . .
 
 **In practice:** We use statistical software (Stata, R, Python) to compute $\hat{\beta}_0, \ldots, \hat{\beta}_k$
-
-## OLS Estimation in Matrix Form [Advanced] {.smaller}
-
-**For mathematically inclined students:**
-
-Define:
-
-- $\mathbf{Y}$: $n \times 1$ vector of outcomes
-- $\mathbf{X}$: $n \times (k+1)$ matrix of regressors (includes column of 1s for intercept)
-- $\boldsymbol{\beta}$: $(k+1) \times 1$ vector of coefficients
-
-. . .
-
-**OLS solution:**
-
-$$
-\hat{\boldsymbol{\beta}} = (\mathbf{X}'\mathbf{X})^{-1}\mathbf{X}'\mathbf{Y}
-$$
-
-. . .
-
-**Why perfect multicollinearity breaks OLS:** If columns of $\mathbf{X}$ are linearly dependent, then $\mathbf{X}'\mathbf{X}$ is singular (not invertible)!
 
 # Interpreting Coefficients
 
@@ -203,10 +240,54 @@ Difference = $0.45 \times (4.0 - 3.5) = 0.45 \times 0.5 = 0.225$
 Student B is predicted to have a college GPA 0.225 points higher, [holding ACT constant]{.alert}.
 :::
 
+## Example: Determinants of College GPA
+
+Let's look at the relationship between high school and college GPA, controlling for test scores (*MSU students in Fall 1994*).
+
+![Scatter plots of college GPA vs high school GPA and ACT](./ch6_figures/ch6_scattergpa_a.png){width=45%} ![Scatter plots of college GPA vs high school GPA and ACT](./ch6_figures/ch6_scattergpa_b.png){width=45%}
+
+
+What predicts college GPA?
+
+
+
+
+
+## Example: Determinants of College GPA
+
+We can set up the following [population multiple regression model]{.alert}
+
+$$
+colGPA_i = \beta_0 + \beta_1 hsGPA_i + \beta_2 ACT_i + u_i
+$$
+
+## Example: Determinants of College GPA
+
+![Stata regression output for college GPA](./ch6_figures/ch6_gpa_regression_output.png)
+
+## Example: Determinants of College GPA
+
+Estimated equation (or [OLS regression line]{.alert}):
+
+$$
+\widehat{colGPA} = 1.29 + 0.453 \cdot hsGPA + 0.0094 \cdot ACT
+$$
+
+. . .
+
+**Interpretation:**
+
+- Holding ACT fixed, an additional point in high school GPA is associated with 0.453 points higher in college GPA
+
+. . .
+
+- Or: If we compare two students with the same ACT, but the $hsGPA$ of student A is one point higher, we predict student A to have a $colGPA$ that is 0.453 points higher than that of student B
+
 # Omitted Variable Bias
 
-## The Setup
+## Omitting relevant variables: the simple case
 
+Let's work through some theory!
 **True population model:**
 
 $$
@@ -242,11 +323,35 @@ $$
 
 Substitute into the true model:
 
+**Step 1:** Start with the true model:
+
+$$
+Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2 X_{2i}} + u_i
+$$
+
+. . .
+
+**Step 2:** Replace $X_{2i}$ with its relationship to $X_1$:
+
+$$
+Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2}(\delta_0 + \delta_1 X_{1i} + v_i) + u_i
+$$
+
+. . .
+
+**Step 3:** Distribute $\textcolor{teal}{\beta_2}$:
+
+$$
+Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2}\delta_0 + \textcolor{teal}{\beta_2}\delta_1 X_{1i} + \textcolor{teal}{\beta_2}v_i + u_i
+$$
+
+. . .
+
+**Step 4:** Collect like terms:
+
 $$
 \begin{aligned}
-Y_i &= \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i \\
-    &= \beta_0 + \beta_1 X_{1i} + \beta_2(\delta_0 + \delta_1 X_{1i} + v_i) + u_i \\
-    &= (\beta_0 + \beta_2\delta_0) + (\beta_1 + \beta_2\delta_1) X_{1i} + (\beta_2 v_i + u_i)
+Y_i &= (\beta_0 + \textcolor{teal}{\beta_2}\delta_0) + (\beta_1 + \textcolor{teal}{\beta_2}\delta_1) X_{1i} + (\textcolor{teal}{\beta_2}v_i + u_i)
 \end{aligned}
 $$
 
@@ -295,17 +400,28 @@ $$
 **True model:**
 
 $$
-wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot ability + u
+wage = \beta_0 + \beta_1 \cdot educ + \textcolor{teal}{\beta_2 \cdot abil} + u
 $$
 
 But ability is unobserved!
 
 . . .
 
-**Omitted model:**
+**Relationship between ability and education:**
 
 $$
-wage = \tilde{\beta}_0 + \tilde{\beta}_1 \cdot education + \tilde{u}
+\textcolor{teal}{abil} = \textcolor{teal}{\delta_0 + \delta_1 \cdot educ + v}
+$$
+
+. . .
+
+**Substitute into the true model:**
+
+$$
+\begin{aligned}
+wage &= \beta_0 + \beta_1 \cdot educ + \textcolor{teal}{\beta_2}(\textcolor{teal}{\delta_0 + \delta_1 \cdot educ + v}) + u \\
+     &= (\beta_0 + \textcolor{teal}{\beta_2\delta_0}) + (\beta_1 + \textcolor{teal}{\beta_2\delta_1}) \cdot educ + (\textcolor{teal}{\beta_2v} + u)
+\end{aligned}
 $$
 
 . . .
@@ -313,8 +429,12 @@ $$
 **What's the bias?**
 
 - $\beta_2 > 0$ (higher ability $\Rightarrow$ higher wage)
-- $\text{Corr}(education, ability) > 0$ (smarter people get more education)
-- Therefore: [Positive bias]{.alert} $\Rightarrow$ $\tilde{\beta}_1$ overstates true return to education
+- $\delta_1 > 0$ (smarter people get more education) $\Rightarrow$ $\textcolor{teal}{\beta_2\delta_1 > 0}$
+- The return to education $\beta_1$ will be [overestimated]{.alert} because $\textcolor{teal}{\beta_2\delta_1 > 0}$
+
+. . .
+
+It will look as if people with many years of education earn very high wages, but this is partly due to the fact that people with more education are also more able on average.
 
 ## Knowledge Check: OVB Direction {.smaller}
 
@@ -326,9 +446,14 @@ True model: $crime = \beta_0 + \beta_1 \cdot police + \beta_2 \cdot poverty + u$
 
 You omit poverty. What's the likely direction of bias on $\hat{\beta}_1$?
 
+. . .
+
 Hints:
 
 - Does poverty increase crime? (sign of $\beta_2$?)
+
+. . .
+
 - Do high-poverty areas have more police? (sign of correlation?)
 :::
 
@@ -337,11 +462,43 @@ Hints:
 ::: {.callout-important}
 ## Answer
 - $\beta_2 > 0$ (poverty increases crime)
+
+. . .
+
 - $\text{Corr}(police, poverty) > 0$ (more police where poverty is high)
+
+. . .
+
 - Bias = $\beta_2 \times \delta_1 > 0$ $\Rightarrow$ [Positive bias]{.alert}
+
+
+. . .
 
 Omitting poverty makes it look like police *cause* crime (reverse causality illusion)!
 :::
+
+## OVB: More General Cases
+
+We can extend this intuition when we add more independent variables:
+
+$$
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + u
+$$
+
+. . .
+
+**But we estimate:**
+
+$$
+\widetilde{y} = \widetilde{\beta_0} + \widetilde{\beta_1} x_1 + \widetilde{\beta_2} x_2
+$$
+
+. . .
+
+**Key points:**
+
+- No general statements possible about direction of bias
+- Can assume one regressor uncorrelated with others to make analysis tractable
 
 # Measures of Fit
 
@@ -385,6 +542,13 @@ where $k$ is the number of regressors (not including intercept).
 - If new variable is irrelevant: $\bar{R}^2$ decreases (or barely changes)
 - $\bar{R}^2 < R^2$ always
 
+
+
+## R² vs Adjusted R²
+
+![R² always increases with $k$; adjusted R² can decrease](./ch6_figures/ch6_r2_vs_adj_r2.png){width=85%}
+
+
 ## Knowledge Check: Calculating Adjusted R² {.smaller}
 
 ::: {.callout-tip}
@@ -401,20 +565,52 @@ Calculate the adjusted $R^2$.
 ::: {.callout-important}
 ## Answer
 
-$$
-\bar{R}^2 = 1 - \frac{n-1}{n-k-1} \cdot \frac{SSR}{TSS} = 1 - \frac{99}{96} \cdot \frac{200}{500}
-$$
+$\bar{R}^2 = 0.5875$
 
-$$
-= 1 - 1.03125 \times 0.4 = 1 - 0.4125 = 0.5875
-$$
-
-Note: $R^2 = 1 - \frac{200}{500} = 0.6$, so $\bar{R}^2 < R^2$ as expected.
+Note: $R^2 = 0.6$, so $\bar{R}^2 < R^2$ as expected.
 :::
 
-## R² vs Adjusted R²
+## Knowledge Check: Calculating Adjusted R² - Step by Step
 
-![R² always increases with $k$; adjusted R² can decrease](./ch6_figures/ch6_r2_vs_adj_r2.png){width=85%}
+**Given:** $n = 100$, $k = 3$, $SSR = 200$, $TSS = 500$
+
+**Step 1:** Write the formula:
+
+$$
+\bar{R}^2 = 1 - \frac{n-1}{n-k-1} \cdot \frac{SSR}{TSS}
+$$
+
+. . .
+
+**Step 2:** Plug in the values:
+
+$$
+\bar{R}^2 = 1 - \frac{100-1}{100-3-1} \cdot \frac{200}{500}
+$$
+
+. . .
+
+**Step 3:** Simplify:
+
+$$
+\bar{R}^2 = 1 - \frac{99}{96} \cdot \frac{200}{500}
+$$
+
+. . .
+
+**Step 4:** Calculate:
+
+$$
+\bar{R}^2 = 1 - 1.03125 \times 0.4
+$$
+
+$$
+= 1 - 0.4125 = 0.5875
+$$
+
+. . .
+
+**Check:** $R^2 = 1 - \frac{200}{500} = 0.6$, so $\bar{R}^2 < R^2$ as expected.
 
 ## Using Adjusted R² in Practice
 
@@ -445,11 +641,15 @@ R² = 0.351, Adjusted R² = 0.339
 
 ## The Four LS Assumptions for Multiple Regression
 
+We add one more assumption as we upgrade to the multiple regression model
+
 1. **Zero conditional mean:** $E[u_i | X_{1i}, \ldots, X_{ki}] = 0$
 
 2. **i.i.d. sampling:** $(X_{1i}, \ldots, X_{ki}, Y_i)$ are independently and identically distributed
 
 3. **Large outliers rare:** $X$s and $Y$ have finite fourth moments
+
+. . .
 
 4. **No perfect multicollinearity:** No $X$ is a perfect linear combination of others
 
@@ -465,7 +665,27 @@ $$
 
 - Error is uncorrelated with [all]{.alert} regressors
 - Failure $\Rightarrow$ omitted variable bias
+    - If an omitted variable belongs in the equation (and is in $u$) and it is correlated with an included $X$, then this condition fails!
 - Best solution: include the omitted variable!
+
+## Assumptions 2 and 3
+
+**Assumption 2 ($X$s and $Y$ are i.i.d.):**
+
+- Satisfied automatically if the data are collected by simple random sampling
+
+. . .
+
+**Assumption 3: Large outliers are rare:**
+
+- Same as before: $X$s and $Y$ have finite fourth moments
+- Check your data (scatterplots!) to make sure no crazy values
+
+
+
+
+
+
 
 ## Assumption 4: No Perfect Multicollinearity (New!)
 
@@ -478,19 +698,41 @@ One regressor is an [exact]{.alert} linear function of one or more other regress
 
 **Examples:**
 
-- $X_2 = 3X_1 + 5$
+- $F = \frac{9}{5}C + 32$
 - Including height in inches AND height in centimeters
-- Dummy variable trap: including all categories + intercept
+- **Dummy variable trap**: including all categories + intercept
 
 . . .
 
 **What happens?** OLS cannot be computed (infinite solutions)
 
-**What Stata does:** Automatically drops one of the collinear variables
+**What Stata does:** Automatically drops one of the collinear variables (but which one will it be?)
 
 ## Perfect Multicollinearity
 
-![$X_2$ is an exact linear function of $X_1$](./ch6_figures/ch6_perfect_multicollinearity.png){width=70%}
+![](./ch6_figures/ch6_perfect_multicollinearity.png){width=70%}
+
+## Perfect Multicollinearity
+
+![](./ch6_figures/ch6_multicol_1.png){width=70%}
+
+## Perfect Multicollinearity
+
+![](./ch6_figures/ch6_multicol_2.png){width=70%}
+
+## Perfect Multicollinearity - Dummy Variable Trap
+
+Here we have a [dummy variable trap]{.kw}:
+
+$$
+colGPA = \beta_0 + \beta_1 fresh + \beta_2 soph + \beta_3 junior \\
+\qquad\quad +\ \beta_4 senior + \beta_5 hsGPA + u
+$$
+
+
+## Perfect Multicollinearity - Dummy Variable Trap
+
+![](./ch6_figures/ch6_multicol_3.png){width=70%}
 
 # Multicollinearity
 
@@ -508,12 +750,12 @@ Two or more regressors are [highly]{.alert} (but not perfectly) correlated.
 - Correlation $\approx 0.85$ (high, but not 1.0)
 - Both can stay in the model
 - But estimates will be imprecise
-
+<!--
 ## Imperfect Multicollinearity
 
-![High correlation makes it hard to disentangle separate effects](./ch6_figures/ch6_imperfect_multicollinearity.png){width=70%}
+![](./ch6_figures/ch6_imperfect_multicollinearity.png){width=70%}
 
-High correlation (e.g., $\text{Corr}(X_1, X_2) \approx 0.9$) makes it hard to disentangle their separate effects
+High correlation (e.g., $\text{Corr}(X_1, X_2) \approx 0.9$) makes it hard to disentangle their separate effects -->
 
 ## Why Is Imperfect Multicollinearity a Problem?
 
@@ -586,7 +828,7 @@ correlate X1 X2 X3
 ```
 
 . . .
-
+<!--
 **Variance Inflation Factor (VIF):**
 
 ```stata
@@ -613,7 +855,7 @@ vif
 2. Regress $X_1$ on $X_2$, obtain residuals $\tilde{X}_1$ (part of $X_1$ not explained by $X_2$)
 3. Plot $\tilde{Y}$ vs $\tilde{X}_1$ — slope = $\hat{\beta}_1$ from full regression
 
-Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence of $X_2$ from both
+Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence of $X_2$ from both -->
 
 # Bringing It All Together
 
@@ -667,4 +909,4 @@ Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence 
 
 . . .
 
-**Master ceteris paribus thinking — it's the heart of econometrics!**
+
