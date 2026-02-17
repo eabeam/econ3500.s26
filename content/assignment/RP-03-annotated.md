@@ -1,7 +1,7 @@
 ---
 title: "Research Paper: Annotated Bibliography"
 linktitle: "03 Annotated Bibliography"
-date: "2026-02-27"
+date: "2026-02-16"
 due_date: "2026-03-19"
 due_time: "11:59 PM"
 menu:
