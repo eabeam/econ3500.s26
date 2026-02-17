@@ -2,18 +2,19 @@
 
 Use this document when developing or revising lecture slides for chapters not yet in the current Quarto Reveal.js format. It focuses on **conceptual work and content**; **do not** design new templates or themes. 
 
-**Remaining chapters:** 10, 12, 13–14 blend, 15.
-**Completed:** 4, 5, 6, 7, 8, 9.
+**Remaining chapters:** 13–14 blend, 15.
+**Completed:** 4, 5, 6, 7, 8, 9, 10, 12.
 
 ---
 
 ## 1. Source Materials and Output Format
 
-### Source (Beamer .tex)
+### Source (Beamer .tex, PDF, or PPTX)
 
-- **Location:**  
+- **Location:**
   `'/Users/ebeam/Library/CloudStorage/OneDrive-UniversityofVermont(2)/UVM-Teaching/UVM-EC200/ECON3500-Spring_2026/00_ECON3500_Shared/03 Lecture Slides'`
-- These are the original .tex decks. Use them for subject matter, learning points, presentation style, and pedagogy.
+- These are the original decks. Use them for subject matter, learning points, presentation style, and pedagogy.
+- **Not all chapters have .tex files.** Some chapters (e.g. Ch12) only have PDF or PPTX. Read the PDF page by page to extract content and structure. The same conversion workflow applies regardless of source format.
 
 ### Output (Quarto Reveal.js)
 
@@ -25,6 +26,8 @@ Use this document when developing or revising lecture slides for chapters not ye
   - **Ch7:** `ch7/ch7_hypothesis_tests_multiple.qmd`
   - **Ch8:** `ch8/ch8_nonlinear_relationships.qmd`
   - **Ch9:** `ch9/ch9_assessing_studies.qmd` *(conceptual chapter — no Stata output)*
+  - **Ch10:** `ch10/ch10_panel_data.qmd` *(panel data with Stata do-file)*
+  - **Ch12:** `ch12/ch12_instrumental_variables.qmd` *(IV — built from PDF, Stata code blocks)*
 - Mirror their YAML (title, subtitle, author, date, `format.revealjs.footer`).
 - **Do not** use `output-dir` or `output-file` in per-file YAML — the `_quarto.yml` project config overrides them. Output lands in the chapter folder (e.g. `slides/ch7/`).
 - Follow **README.md** (this directory) for directory layout, figure naming, R/Stata workflow, and styling (callouts, `.smaller`, `.scrollable`, etc.).
@@ -76,8 +79,9 @@ Use this document when developing or revising lecture slides for chapters not ye
 
 - Whenever students **see code and interpret regression results**, use **Stata** only.
 - Embed Stata code in the QMD with ` ```stata ` code blocks.
-- For **Stata regression output** (tables, diagnostics), prefer **Stata screenshot images** over `stata-output` HTML blocks. The `<pre class="stata-output">` pattern has known spacing/alignment issues in Reveal.js. Screenshot images placed in `chN/ch7_figures/` render more reliably.
-  - If you do use `stata-output` blocks, see **README.md** (this directory) for the raw HTML pattern.
+- For **Stata regression output** (tables, diagnostics), prefer **Stata screenshot images** over `stata-output` HTML blocks. The `<pre class="stata-output">` pattern has known spacing/alignment issues in Reveal.js. Screenshot images placed in `chN/chN_figures/` render more reliably.
+  - **Fallback:** When screenshots are not available (e.g. building from a PDF source without access to run Stata), ` ```stata ` code blocks with the output pasted in are acceptable. They render cleanly and can be swapped for screenshots later.
+  - If you do use `stata-output` HTML blocks, see **README.md** (this directory) for the raw HTML pattern.
 - Provide **accompanying Stata do-files** so you can do walkthroughs and students can run the same commands. Keep do-files (and logs) in `chN/stata/` (e.g. `run_all.do`, or topic-specific do-files). The slides should reference or mirror these scripts.
 - **Not every chapter needs Stata.** Conceptual chapters (e.g. Ch9: Assessing Studies) may have no regression output at all. Only create `stata/` directories and do-files when the chapter includes regression demonstrations.
 
@@ -167,7 +171,7 @@ Use a **multi-agent** workflow: one agent builds and compiles; a second reviews 
 - [ ] YAML has `format.revealjs.footer` but **no** `output-dir` or `output-file`.
 - [ ] Instructor style: reasoning over memorization; proofs in appendix as needed; animations/Plotly where helpful; precise language; chances to test understanding and the *why*.
 - [ ] R for demos/illustrations (figures); Stata for regression code and output students see (if applicable — not all chapters need Stata).
-- [ ] Stata output shown as **screenshot images** (preferred) or `stata-output` HTML blocks. Stata do-files in `chN/stata/` when applicable.
+- [ ] Stata output shown as **screenshot images** (preferred), ` ```stata ` code blocks (fallback), or `stata-output` HTML blocks. Stata do-files in `chN/stata/` when applicable.
 - [ ] Causality language checked against repo root README.md.
 - [ ] Knowledge checks and/or practice problems added.
 - [ ] R figures generated first; paths `./chN_figures/chN_*.png`.

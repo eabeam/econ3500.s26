@@ -22,6 +22,10 @@ slides/
 │   ├── ch5_figures/
 │   ├── generate_ch5_figures.R
 │   └── stata/
+├── ch7/                     # Chapter 7: Hypothesis Tests (Multiple Regression)
+├── ch9/                     # Chapter 9: Assessing Studies (no Stata)
+├── ch10/                    # Chapter 10: Panel Data
+├── ch12/                    # Chapter 12: Instrumental Variables
 ├── render_reveal_pdf.sh     # Script to render PDFs
 └── post_render_fix.sh       # Post-render cleanup script
 ```
