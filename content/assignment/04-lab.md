@@ -1,7 +1,7 @@
 ---
 title: "Lab 4: Multivariate Regression"
 linktitle: "Lab 4"
-date: "2026-02-16"
+date: "2026-02-19"
 due_date: "2026-02-24"
 due_time: "2:50 PM"
 menu:

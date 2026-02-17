@@ -1,7 +1,7 @@
 ---
 title: "Research Paper: Annotated Bibliography"
 linktitle: "03 Annotated Bibliography"
-date: "2026-02-25"
+date: "2026-02-27"
 due_date: "2026-03-19"
 due_time: "11:59 PM"
 menu:
@@ -11,7 +11,7 @@ menu:
 type: docs
 ---
 
-**[Print-friendly PDF](../printfriendly/RP-03-annotated.pdf)**
+**[Print-friendly PDF](../RP-03-annotated.pdf)**
 
 ## Objective {#objective .unnumbered}
 

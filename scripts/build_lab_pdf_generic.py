@@ -1,4 +1,9 @@
 #!/usr/bin/env python3
+"""Build a PDF from any assignment markdown file in content/assignment/
+(e.g. 03-lab.md, 03-ps.md, RP-03-annotated.md). Usage:
+  python scripts/build_lab_pdf_generic.py 03-ps.md
+  python scripts/build_lab_pdf_generic.py RP-03-annotated.md
+"""
 import os
 import re
 import subprocess
@@ -6,19 +11,20 @@ import sys
 from pathlib import Path
 
 
-def normalize_lab_arg(arg: str) -> str:
+def normalize_arg(arg: str) -> str:
+    """Normalize to an assignment .md filename (content/assignment/*.md)."""
     arg = arg.strip()
     if not arg:
         return arg
     if arg.isdigit():
         return f"{int(arg):02d}-lab.md"
-    if arg.lower().startswith("lab") and arg[3:].isdigit():
+    if arg.lower().startswith("lab") and len(arg) > 3 and arg[3:].isdigit():
         return f"{int(arg[3:]):02d}-lab.md"
     if arg.endswith("-lab"):
         return f"{arg}.md"
     if arg.endswith(".md"):
         return arg
-    return arg
+    return f"{arg}.md"
 
 
 def extract_title(front_matter: str) -> str | None:
@@ -36,19 +42,19 @@ def main() -> int:
     if len(sys.argv) > 1:
         raw_arg = sys.argv[1]
     else:
-        raw_arg = input("Lab markdown file (e.g., 03-lab.md or 3): ")
+        raw_arg = input("Assignment markdown file (e.g., 03-lab.md, 03-ps.md, RP-03-annotated.md): ")
 
-    lab_arg = normalize_lab_arg(raw_arg)
-    if not lab_arg:
-        print("No lab file provided.")
+    norm = normalize_arg(raw_arg)
+    if not norm:
+        print("No file provided.")
         return 1
 
-    source_md = Path(lab_arg)
+    source_md = Path(norm)
     if not source_md.is_absolute():
         source_md = assignment_dir / source_md.name
 
     if not source_md.exists():
-        print(f"Lab markdown not found: {source_md}")
+        print(f"Assignment markdown not found: {source_md}")
         return 1
 
     temp_md = source_md.with_name(f"{source_md.stem}-pandoc.md")
