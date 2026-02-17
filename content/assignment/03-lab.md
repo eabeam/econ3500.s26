@@ -24,7 +24,7 @@ type: docs
 
 Download these and save in your lab folder (perhaps you named it something like `econ3500/labs`?)
 
-:eye: If your do-file opens in a browser tab, you may want to instead Right click and select "Save Link As" :eye:
+:eye: If your do-file opens in a browser tab, you may want to instead right click and select "Save Link As" :eye:
 
 {{% alert note %}}
 **Before you start**
@@ -73,7 +73,7 @@ tasks in Stata:
 [^3]: Here, `newvar` equals $\widehat{newvar_i} = \widehat{u_i} =  y_i - \left(\widehat{\beta_0} + \widehat{\beta_1}x_i\right)$
 [^4]: There are a few variables here, including `treatment_arm`
 [^5]: Not `fsec7`, which is categorical, or `fsec` which is always equal to 1
-[^6]: Hint: `ttest var1, by(var2)` will run a t-test of the mean of `var1` are equal for two groups determined by `var2`.
+[^6]: Hint: `ttest var1, by(var2)` will run a t-test of whether the mean of `var1` is equal for two groups determined by `var2`.
 [^7]: If they differ, you should make sure you have dropped all missing values of `foodsecurity`! Try `sum predict_fs foodsecurity` to see if the sample sizes are the same
 [^8]: Now is a good time to try out `lookfor age`
 [^9]: Categorical variables that take on a just few observations, like the identity of your head of household, won't work here. You'll need to tabulate the variables to see what you're working with 
@@ -95,7 +95,7 @@ tasks in Stata:
 
 ### What do I submit?
 
-   -  Your written up answers to exercise questions (1) - (13). This can be typed or written out then scanned (or photographed), in any reasonable format.
+   -  Your written answers to exercise questions (1) - (13). This can be typed or written out then scanned (or photographed), in any reasonable format.
    - The do-file you've created that runs this analysis 
    - A log file that contains the results from this exercise.
 
