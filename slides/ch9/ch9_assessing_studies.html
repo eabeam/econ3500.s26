@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="ch9_assessing_studies_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ch9_assessing_studies_files/libs/quarto-html/tabby.min.js"></script>
+<script src="ch9_assessing_studies_files/libs/quarto-html/popper.min.js"></script>
+<script src="ch9_assessing_studies_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="ch9_assessing_studies_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ch9_assessing_studies_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="ch9_assessing_studies_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+ <meta name="generator" content="quarto-1.8.26">
+
+ <meta name="author" content="ECON3500: Econometrics and Applications">
+ <title>Assessing Studies Based on Multiple Regression</title>
+ <meta name="apple-mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+ <link rel="stylesheet" href="ch9_assessing_studies_files/libs/revealjs/dist/reset.css">
+ <link rel="stylesheet" href="ch9_assessing_studies_files/libs/revealjs/dist/reveal.css">
+ <style>
+ code{white-space: pre-wrap;}
+ span.smallcaps{font-variant: small-caps;}
+ div.columns{display: flex; gap: min(4vw, 1.5em);}
+ div.column{flex: auto; overflow-x: auto;}
+ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ ul.task-list{list-style: none;}
+ ul.task-list li input[type="checkbox"] {
+ width: 0.8em;
+ margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+ vertical-align: middle;
+ }
+ </style>
+ <link rel="stylesheet" href="ch9_assessing_studies_files/libs/revealjs/dist/theme/quarto-f6ff266a00026af0db213e5461a2bde6.css">
+ <link rel="stylesheet" href="../_styles/styles.css">
+ <link href="ch9_assessing_studies_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+ <link href="ch9_assessing_studies_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+ <link href="ch9_assessing_studies_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+ <link href="ch9_assessing_studies_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+ <link href="ch9_assessing_studies_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+ <link href="ch9_assessing_studies_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+ <style type="text/css">
+ .reveal div.sourceCode {
+ margin: 0;
+ overflow: auto;
+ }
+ .reveal div.hanging-indent {
+ margin-left: 1em;
+ text-indent: -1em;
+ }
+ .reveal .slide:not(.center) {
+ height: 100%;
+ overflow-y: auto;
+ }
+ .reveal .slide.scrollable {
+ overflow-y: auto;
+ }
+ .reveal .footnotes {
+ height: 100%;
+ overflow-y: auto;
+ }
+ .reveal .slide .absolute {
+ position: absolute;
+ display: block;
+ }
+ .reveal .footnotes ol {
+ counter-reset: ol;
+ list-style-type: none; 
+ margin-left: 0;
+ }
+ .reveal .footnotes ol li:before {
+ counter-increment: ol;
+ content: counter(ol) ". "; 
+ }
+ .reveal .footnotes ol li > p:first-child {
+ display: inline-block;
+ }
+ .reveal .slide ul,
+ .reveal .slide ol {
+ margin-bottom: 0.5em;
+ }
+ .reveal .slide ul li,
+ .reveal .slide ol li {
+ margin-top: 0.4em;
+ margin-bottom: 0.2em;
+ }
+ .reveal .slide ul[role="tablist"] li {
+ margin-bottom: 0;
+ }
+ .reveal .slide ul li > *:first-child,
+ .reveal .slide ol li > *:first-child {
+ margin-block-start: 0;
+ }
+ .reveal .slide ul li > *:last-child,
+ .reveal .slide ol li > *:last-child {
+ margin-block-end: 0;
+ }
+ .reveal .slide .columns:nth-child(3) {
+ margin-block-start: 0.8em;
+ }
+ .reveal blockquote {
+ box-shadow: none;
+ }
+ .reveal .tippy-content>* {
+ margin-top: 0.2em;
+ margin-bottom: 0.7em;
+ }
+ .reveal .tippy-content>*:last-child {
+ margin-bottom: 0.2em;
+ }
+ .reveal .slide > img.stretch.quarto-figure-center,
+ .reveal .slide > img..quarto-figure-center {
+ display: block;
+ margin-left: auto;
+ margin-right: auto; 
+ }
+ .reveal .slide > img.stretch.quarto-figure-left,
+ .reveal .slide > img..quarto-figure-left {
+ display: block;
+ margin-left: 0;
+ margin-right: auto; 
+ }
+ .reveal .slide > img.stretch.quarto-figure-right,
+ .reveal .slide > img..quarto-figure-right {
+ display: block;
+ margin-left: auto;
+ margin-right: 0; 
+ }
+ </style>
+</head>
+<body class="quarto-light">
+ <div class="reveal">
+ <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+ <h1 class="title">Assessing Studies Based on Multiple Regression</h1>
+ <p class="subtitle">SW Chapter 9</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+ECON3500: Econometrics and Applications 
+</div>
+</div>
+</div>
+
+ <p class="date">Spring 2026</p>
+</section>
+<section id="learning-objectives" class="slide level2 scrollable">
+<h2>Learning Objectives</h2>
+<p>By the end of this chapter, you will be able to:</p>
+<ol type="1">
+<li>Define <span class="kw">internal validity</span> and <span class="kw">external validity</span></li>
+<li>Identify five threats to internal validity</li>
+<li>Explain how each threat causes bias or incorrect inference</li>
+<li>Propose solutions to each threat</li>
+<li>Distinguish between <span class="kw">causal inference</span> and <span class="kw">forecasting</span> objectives</li>
+</ol>
+</section>
+<section>
+<section id="internal-and-external-validity" class="title-slide slide level1 center">
+<h1>Internal and External Validity</h1>
+
+</section>
+<section id="what-is-validity" class="slide level2">
+<h2>What Is Validity?</h2>
+<p><span class="kw">Validity</span> = Do we believe the results of our estimation?</p>
+<div class="fragment">
+<p>Did we learn what we set out to learn?</p>
+<ul>
+<li>Did we estimate the causal impact of class size on test scores?</li>
+<li>Did we correctly measure the association between marital status and wages?</li>
+</ul>
+</div>
+<div class="fragment">
+<p>We need a <span class="kw">framework</span> for evaluating whether a study is useful for answering a particular question.</p>
+<p>What are the <span class="alert">threats to validity</span>?</p>
+</div>
+</section>
+<section id="two-dimensions-of-validity" class="slide level2">
+<h2>Two Dimensions of Validity</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Internal Validity</strong></p>
+</div>
+<div class="callout-content">
+<p>The statistical inferences about causal effects are valid <span class="alert">for the population being studied</span>.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>External Validity</strong></p>
+</div>
+<div class="callout-content">
+<p>The statistical inferences can be <span class="alert">generalized</span> from the population and setting studied to other populations and settings.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>“Setting” = the legal, policy, and physical environment and related salient features.</p>
+</div>
+</section>
+<section id="threats-to-external-validity" class="slide level2">
+<h2>Threats to External Validity</h2>
+<p>Assessing external validity requires <span class="kw">detailed substantive knowledge</span> and judgment on a case-by-case basis.</p>
+<div class="fragment">
+<p><strong>Example:</strong> How far can we generalize class size results from California?</p>
+<ul>
+<li><span class="kw">Differences in populations</span>
+<ul>
+<li>California in 2011? Massachusetts in 2011? Mexico in 2011?</li>
+</ul></li>
+<li><span class="kw">Differences in settings</span>
+<ul>
+<li>Different legal requirements (e.g., special education)</li>
+<li>Different treatment of bilingual education</li>
+</ul></li>
+<li><span class="kw">Differences in inputs</span>
+<ul>
+<li>Teacher characteristics, school resources, curricula</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<p>There is no mechanical test for external validity — it requires <span class="alert">judgment</span>.</p>
+</div>
+</section>
+<section id="internal-validity-two-requirements" class="slide level2 scrollable">
+<h2>Internal Validity: Two Requirements</h2>
+<p>Estimates are internally valid if:</p>
+<ol type="1">
+<li>The estimator is <span class="kw">consistent</span> (or unbiased)</li>
+<li>Confidence intervals have <span class="kw">correct coverage</span> — in at least 95% of samples, the 95% CI contains the true parameter</li>
+</ol>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Rest of This Chapter</strong></p>
+</div>
+<div class="callout-content">
+<p>We focus on threats to <span class="alert">internal validity</span>: things that can make our regression estimates misleading for the population we’re studying.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="five-threats-to-internal-validity" class="title-slide slide level1 center">
+<h1>Five Threats to Internal Validity</h1>
+
+</section>
+<section id="overview" class="slide level2 smaller scrollable">
+<h2>Overview</h2>
+<p>Five threats to the internal validity of regression studies:</p>
+<ol type="1">
+<li><span class="kw">Omitted variable bias</span></li>
+<li><span class="kw">Wrong functional form</span></li>
+<li><span class="kw">Errors-in-variables bias</span> (measurement error)</li>
+<li><span class="kw">Sample selection bias</span></li>
+<li><span class="kw">Simultaneous causality bias</span></li>
+</ol>
+<div class="fragment">
+<p>All five imply that <span class="math inline">\(E(u_i | X_{1i}, \ldots, X_{ki}) \neq 0\)</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Conditional mean independence fails</p>
+<p><span class="math inline">\(\Rightarrow\)</span> OLS is <span class="alert">biased and inconsistent</span></p>
+</div>
+</section>
+<section id="three-categories-of-threats" class="slide level2 smaller">
+<h2>Three Categories of Threats</h2>
+<p>When you encounter a potential threat, classify it:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 44%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>What goes wrong</th>
+<th>Severity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Affects <span class="alert">consistency</span> of <span class="math inline">\(\hat{\beta}\)</span></td>
+<td>Estimator converges to wrong value</td>
+<td>Most serious</td>
+</tr>
+<tr class="even">
+<td>2. Affects <span class="alert">inference</span> but not consistency</td>
+<td>CIs have wrong coverage; <span class="math inline">\(\hat{\beta}\)</span> is still consistent</td>
+<td>Serious</td>
+</tr>
+<tr class="odd">
+<td>3. Increases <span class="kw">imprecision</span> only</td>
+<td>Larger SEs, but <span class="math inline">\(\hat{\beta}\)</span> unbiased and CIs correct</td>
+<td>Least serious</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<ul>
+<li>Categories 1 and 2 are <span class="alert">actual threats</span> to validity</li>
+<li>Category 3 makes estimates imprecise but standard errors properly reflect that imprecision</li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Knowledge Check</strong></p>
+</div>
+<div class="callout-content">
+<p>A researcher drops half the sample at random due to a data processing error. Which category is this?</p>
+<p>. . .</p>
+<p>Category 3 — smaller sample means larger SEs, but no bias. (This is like Case 1 of missing data, which we’ll see shortly.)</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="threat-1-omitted-variable-bias" class="title-slide slide level1 center">
+<h1>Threat 1: Omitted Variable Bias</h1>
+
+</section>
+<section id="ovb-we-know-this-one" class="slide level2 scrollable">
+<h2>OVB: We Know This One!</h2>
+<p>Omitted variable bias arises if an omitted variable is both:</p>
+<ol type="1">
+<li>A <span class="kw">determinant of <span class="math inline">\(Y\)</span></span>, and</li>
+<li><span class="kw">Correlated with</span> at least one included regressor</li>
+</ol>
+<div class="fragment">
+<p><strong>The question to ask:</strong></p>
+<p>With control variables included, are there <span class="alert">still</span> omitted factors that are:</p>
+<ul>
+<li>Not adequately controlled for?</li>
+<li>Correlated with the variable of interest?</li>
+</ul>
+</div>
+</section>
+<section id="solutions-to-ovb" class="slide level2 scrollable">
+<h2>Solutions to OVB</h2>
+<ol type="1">
+<li>If the omitted variable <span class="kw">can be measured</span>: include it as an additional regressor</li>
+<li>If you have <span class="kw">adequate controls</span> (conditional mean independence plausibly holds): include them</li>
+<li>Run a <span class="kw">randomized controlled experiment</span>
+<ul>
+<li>If <span class="math inline">\(X\)</span> is randomly assigned, then <span class="math inline">\(X\)</span> is distributed independently of <span class="math inline">\(u\)</span>, so <span class="math inline">\(E(u|X) = 0\)</span></li>
+</ul></li>
+</ol>
+<div class="fragment">
+<p><strong>Coming later in this course:</strong></p>
+<ul>
+<li>Use <span class="kw">panel data</span> where each entity is observed more than once</li>
+<li>Use <span class="kw">instrumental variables</span> regression</li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="threat-2-wrong-functional-form" class="title-slide slide level1 center">
+<h1>Threat 2: Wrong Functional Form</h1>
+
+</section>
+<section id="functional-form-misspecification" class="slide level2">
+<h2>Functional Form Misspecification</h2>
+<p>Arises if the functional form is incorrect — for example, an interaction term or quadratic is incorrectly omitted.</p>
+<div class="fragment">
+<p><strong>Solutions:</strong></p>
+<ul>
+<li><span class="kw">Continuous <span class="math inline">\(Y\)</span></span>: Use appropriate nonlinear specifications (logarithms, quadratics, interactions — Ch8)</li>
+<li><span class="kw">Discrete <span class="math inline">\(Y\)</span></span> (e.g., binary): Use probit or logit (beyond ECON3500)</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Perspective</strong></p>
+</div>
+<div class="callout-content">
+<p>Functional form misspecification is rarely the <span class="alert">biggest</span> problem in regression analysis. It matters, but OVB and measurement error are usually more concerning.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="threat-3-errors-in-variables-bias" class="title-slide slide level1 center">
+<h1>Threat 3: Errors-in-Variables Bias</h1>
+
+</section>
+<section id="measurement-error-in-economic-data" class="slide level2">
+<h2>Measurement Error in Economic Data</h2>
+<p>So far we’ve assumed <span class="math inline">\(X\)</span> is measured without error. In reality, economic data often have measurement error:</p>
+<div class="fragment">
+<ul>
+<li><span class="kw">Data entry errors</span> in administrative data</li>
+<li><span class="kw">Recollection errors</span> in surveys (“When did you start your current job?”)</li>
+<li><span class="kw">Ambiguous questions</span> (“What was your income last year?” — before or after tax?)</li>
+<li><span class="kw">Intentionally false responses</span> (“What is the current value of your financial assets?” “How often do you drink and drive?”)</li>
+</ul>
+</div>
+</section>
+<section id="where-and-what-kind" class="slide level2 smaller">
+<h2>Where and What Kind?</h2>
+<p>Measurement error can occur in the <span class="kw">dependent variable</span> or <span class="kw">independent variables</span>.</p>
+<p>And it can be <span class="kw">classical</span> (random) or <span class="kw">non-classical</span> (systematic).</p>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Classical (random)</th>
+<th>Non-classical (systematic)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Dependent variable</strong></td>
+<td>Minor problem — larger variance</td>
+<td>Serious problem — bias</td>
+</tr>
+<tr class="even">
+<td><strong>Independent variable</strong></td>
+<td><span class="alert">Attenuation bias</span></td>
+<td>Serious problem — bias</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Classical Errors-in-Variables (CEV) Assumption</strong></p>
+</div>
+<div class="callout-content">
+<p>The measurement error is uncorrelated with the true value: <span class="math inline">\(\text{Cov}(w_i, X^*_i) = 0\)</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="measurement-error-in-y" class="slide level2 smaller">
+<h2>Measurement Error in <span class="math inline">\(Y\)</span></h2>
+<p>Suppose we observe <span class="math inline">\(y_i\)</span> but the true value is <span class="math inline">\(y^*_i\)</span>:</p>
+<p><span class="math display">\[y_i = y^*_i + e_0\]</span></p>
+<div class="fragment">
+<p>The population regression is:</p>
+<p><span class="math display">\[y^*_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k + u_i\]</span></p>
+</div>
+<div class="fragment">
+<p>What we actually estimate:</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k + \underbrace{(u_i + e_0)}_{\text{new error term}}\]</span></p>
+</div>
+<div class="fragment">
+<p>If <span class="math inline">\(e_0\)</span> is uncorrelated with the <span class="math inline">\(X\)</span>’s, the <span class="kw">coefficients are still unbiased</span> — the error term just has more variance, so standard errors are larger.</p>
+<p><strong>Measurement error in <span class="math inline">\(Y\)</span> under CEV: not a big deal.</strong></p>
+</div>
+</section>
+<section id="measurement-error-in-x-setup" class="slide level2 smaller">
+<h2>Measurement Error in <span class="math inline">\(X\)</span>: Setup</h2>
+<p>The true model is:</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X^*_i + u_i\]</span></p>
+<p>We observe <span class="math inline">\(X_i = X^*_i + w_i\)</span> instead of <span class="math inline">\(X^*_i\)</span>, where <span class="math inline">\(E[w_i] = 0\)</span>.</p>
+<div class="fragment">
+<p><strong>Assumptions (classical errors-in-variables):</strong></p>
+<ul>
+<li><span class="math inline">\(\text{Cov}(w_i, u_i) = 0\)</span> — measurement error uncorrelated with other omitted factors</li>
+<li><span class="math inline">\(\text{Cov}(w_i, X^*_i) = 0\)</span> — measurement error uncorrelated with the true value <span class="alert">← the CEV assumption</span></li>
+<li><span class="math inline">\(\text{Cov}(X^*_i, u_i) = 0\)</span> — no traditional OVB</li>
+</ul>
+</div>
+</section>
+<section id="why-is-this-a-problem" class="slide level2 smaller">
+<h2>Why Is This a Problem?</h2>
+<p>The key insight: even though <span class="math inline">\(\text{Cov}(w_i, X^*_i) = 0\)</span>, the measurement error <span class="math inline">\(w_i\)</span> <span class="alert">is</span> correlated with the observed <span class="math inline">\(X_i\)</span>.</p>
+<div class="fragment">
+<p><span class="math display">\[\text{Cov}(X_i, w_i) = \text{Cov}(X^*_i + w_i, \; w_i)\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[= \underbrace{\text{Cov}(X^*_i, w_i)}_{= \; 0 \text{ by CEV}} + \text{Cov}(w_i, w_i)\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[= \text{Var}(w_i) = \sigma^2_w\]</span></p>
+</div>
+<div class="fragment">
+<p>The observed regressor <span class="math inline">\(X_i\)</span> is correlated with the measurement error, which is part of the composite error term. This <span class="alert">violates conditional mean independence</span>.</p>
+</div>
+</section>
+<section id="derivation-of-attenuation-bias" class="slide level2 smaller scrollable">
+<h2>Derivation of Attenuation Bias</h2>
+<p><span class="math display">\[\hat{\beta}_1 \xrightarrow{p} \frac{\text{Cov}(X_i, Y_i)}{\text{Var}(X_i)}\]</span></p>
+<div class="fragment">
+<p><span class="math display">\[= \frac{\text{Cov}(X^*_i + w_i, \; \beta_0 + \beta_1 X^* + u_i)}{\text{Var}(X^*_i + w_i)}\]</span></p>
+</div>
+<div class="fragment">
+<p>Expanding the numerator:</p>
+<p><span class="math display">\[= \frac{\text{Cov}(X^*_i, \beta_0) + \text{Cov}(X^*_i, \beta_1 X^*_i) + \text{Cov}(w_i, \beta_0) + \text{Cov}(w_i, \beta_1 X^*) + \text{Cov}(w_i, u_i)}{\text{Var}(X^*_i) + \text{Var}(w_i) + 2\text{Cov}(X^*_i, w_i)}\]</span></p>
+</div>
+<div class="fragment">
+<p>Applying our assumptions (<span class="math inline">\(\text{Cov}(w, X^*) = 0\)</span>, <span class="math inline">\(\text{Cov}(w, u) = 0\)</span>):</p>
+<p><span class="math display">\[= \frac{0 + \beta_1 \text{Var}(X^*_i) + 0 + 0 + 0}{\text{Var}(X^*_i) + \text{Var}(w_i) + 0}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[= \beta_1 \cdot \frac{\text{Var}(X^*_i)}{\text{Var}(X^*_i) + \text{Var}(w_i)}\]</span></p>
+</div>
+</section>
+<section id="attenuation-bias-the-result" class="slide level2 smaller">
+<h2>Attenuation Bias: The Result</h2>
+<p><span class="math display">\[\hat{\beta}_1 \xrightarrow{p} \beta_1 \cdot \frac{\text{Var}(X^*_i)}{\text{Var}(X^*_i) + \text{Var}(w_i)}\]</span></p>
+<div class="fragment">
+<p>The fraction on the right is <span class="alert">between 0 and 1</span>. So:</p>
+<ul>
+<li>If <span class="math inline">\(\beta_1 &gt; 0\)</span>: estimate is biased <span class="kw">toward zero</span> (too small)</li>
+<li>If <span class="math inline">\(\beta_1 &lt; 0\)</span>: estimate is biased <span class="kw">toward zero</span> (too close to zero)</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Attenuation Bias</strong></p>
+</div>
+<div class="callout-content">
+<p>Classical measurement error in a regressor always biases the coefficient <span class="alert">toward zero</span> — making the estimated effect look <span class="kw">smaller</span> than it truly is.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="attenuation-bias-intuition" class="slide level2">
+<h2>Attenuation Bias: Intuition</h2>
+<p>Why does this happen?</p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(X_i\)</span> has a <span class="kw">higher variance</span> than the true <span class="math inline">\(X^*_i\)</span> (the noise adds spread)</li>
+<li>When <span class="math inline">\(X_i\)</span> moves, <span class="math inline">\(Y\)</span> doesn’t always respond — because <span class="math inline">\(Y\)</span> only responds to movements in <span class="math inline">\(X^*\)</span></li>
+<li>The regression sees changes in <span class="math inline">\(X\)</span> that are <span class="alert">not related to <span class="math inline">\(Y\)</span></span></li>
+<li>It concludes: “the effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> must be small”</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Practical implication:</strong> If we think there’s measurement error in <span class="math inline">\(X\)</span>, our estimate is a <span class="kw">lower bound</span> on the true magnitude.</p>
+</div>
+</section>
+<section id="what-if-cev-doesnt-hold" class="slide level2 smaller">
+<h2>What If CEV Doesn’t Hold?</h2>
+<p>Sometimes the classical assumption is unlikely:</p>
+<ul>
+<li>People with high incomes <span class="alert">under-report</span> and people with low incomes over-report
+<ul>
+<li><span class="math inline">\(\Rightarrow \text{Cov}(\text{income}, \text{error}) \neq 0\)</span></li>
+</ul></li>
+<li>People are less accurate about their age as they get older
+<ul>
+<li><span class="math inline">\(\Rightarrow \text{Cov}(\text{age}, \text{error}) \neq 0\)</span></li>
+</ul></li>
+</ul>
+<div class="fragment">
+<p>When CEV fails:</p>
+<ul>
+<li>The direction of bias is <span class="alert">ambiguous</span> — no longer necessarily toward zero</li>
+<li>Interpreting the impact is more complicated (beyond ECON3500)</li>
+</ul>
+</div>
+</section>
+<section id="living-with-measurement-error" class="slide level2">
+<h2>Living with Measurement Error</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Practical Advice</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Dependent variable (classical):</strong> Don’t worry too much — estimates still unbiased</li>
+<li><strong>Independent variable (classical):</strong> We can still sign our magnitudes
+<ul>
+<li>e.g., “Returns to education are <span class="kw">at least</span> 10%”</li>
+</ul></li>
+<li><strong>Non-classical:</strong> More serious — consider better data or instrumental variables</li>
+</ul>
+<div class="fragment">
+<p><strong>Better data always helps!</strong></p>
+<p>Use administrative records instead of survey self-reports when possible.</p>
+</div>
+</section></section>
+<section>
+<section id="threat-4-sample-selection-bias" class="title-slide slide level1 center">
+<h1>Threat 4: Sample Selection Bias</h1>
+
+</section>
+<section id="missing-data-three-cases" class="slide level2 smaller">
+<h2>Missing Data: Three Cases</h2>
+<p>Data are often missing. Whether this introduces bias depends on <span class="alert">why</span> the data are missing:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Case</th>
+<th>Data missing because of…</th>
+<th style="text-align: center;">Bias?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td><span class="kw">Random chance</span></td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td><span class="kw">Values of <span class="math inline">\(X\)</span></span></td>
+<td style="text-align: center;">No</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td><span class="alert">Values of <span class="math inline">\(Y\)</span> or <span class="math inline">\(u\)</span></span></td>
+<td style="text-align: center;"><span class="alert">Yes</span></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<ul>
+<li>Cases 1 and 2: standard errors are larger, but <span class="math inline">\(\hat{\beta}\)</span> is <span class="kw">unbiased</span></li>
+<li>Case 3: introduces <span class="alert">sample selection bias</span></li>
+</ul>
+</div>
+</section>
+<section id="case-1-missing-at-random" class="slide level2">
+<h2>Case 1: Missing at Random</h2>
+<p>Suppose you survey 100 workers and record answers on paper — but your dog eats 20 response sheets (selected at random) before you enter them.</p>
+<div class="fragment">
+<p>This is equivalent to having a random sample of 80 workers.</p>
+<p>Your dog didn’t introduce any bias!</p>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Knowledge Check</strong></p>
+</div>
+<div class="callout-content">
+<p>A server crash deletes 30% of your dataset at random. Should you worry about bias?</p>
+<p>. . .</p>
+<p>No — this is Case 1. You lose precision (larger SEs) but no bias.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="case-2-missing-based-on-x" class="slide level2">
+<h2>Case 2: Missing Based on <span class="math inline">\(X\)</span></h2>
+<p>In the test score application, suppose you restrict analysis to districts with <span class="math inline">\(STR &lt; 20\)</span>.</p>
+<div class="fragment">
+<ul>
+<li>You can’t say anything about districts with large class sizes</li>
+<li>But focusing on small-class districts <span class="kw">doesn’t introduce bias</span></li>
+<li>This is equivalent to having missing data where data are missing if <span class="math inline">\(STR &gt; 20\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<p>More generally: if data are missing based <span class="kw">only on values of <span class="math inline">\(X\)</span></span>, the missing data don’t bias OLS.</p>
+</div>
+</section>
+<section id="case-3-missing-based-on-y-or-u" class="slide level2 smaller scrollable">
+<h2>Case 3: Missing Based on <span class="math inline">\(Y\)</span> or <span class="math inline">\(u\)</span></h2>
+<p>This <span class="alert">does</span> introduce bias. This is <span class="kw">sample selection bias</span>.</p>
+<div class="fragment">
+<p>Sample selection bias arises when a selection process:</p>
+<ol type="1">
+<li>Influences the <span class="kw">availability of data</span>, and</li>
+<li>Is <span class="alert">related to the dependent variable</span></li>
+</ol>
+</div>
+</section>
+<section id="example-height-of-undergraduates" class="slide level2">
+<h2>Example: Height of Undergraduates</h2>
+<p>You want to estimate the mean height of undergraduates.</p>
+<p>You collect data by standing outside the <span class="alert">basketball team’s locker room</span> and recording the height of undergraduates who enter.</p>
+<div class="fragment">
+<ul>
+<li>Is this a good design?</li>
+<li>You’ve sampled individuals in a way that is <span class="alert">related to the outcome <span class="math inline">\(Y\)</span></span> (height)</li>
+<li>This results in bias — your estimate will be too high</li>
+</ul>
+</div>
+</section>
+<section id="example-mutual-fund-performance" class="slide level2 smaller">
+<h2>Example: Mutual Fund Performance</h2>
+<p><strong>Question:</strong> Do actively managed mutual funds outperform “hold-the-market” index funds?</p>
+<div class="fragment">
+<p><strong>Design:</strong></p>
+<ul>
+<li>Sample: mutual funds available to the public <span class="alert">today</span></li>
+<li>Data: returns for the preceding 10 years</li>
+<li>Compare: average 10-year return vs.&nbsp;S&amp;P 500</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Is there sample selection bias?</strong></p>
+</div>
+<div class="fragment">
+<p><span class="alert">Yes</span> — funds that performed poorly <span class="kw">went out of business</span> and are not in today’s sample.</p>
+<p>The surviving funds are the “basketball players” of mutual funds.</p>
+<p>This is called <span class="kw">survivorship bias</span>.</p>
+</div>
+</section>
+<section id="example-returns-to-education" class="slide level2 smaller">
+<h2>Example: Returns to Education</h2>
+<p><strong>Question:</strong> What is the return to an additional year of education among college graduates?</p>
+<div class="fragment">
+<p><strong>Design:</strong></p>
+<ul>
+<li>Sample: <span class="alert">employed</span> college graduates (so we have wage data)</li>
+<li>Regress: <span class="math inline">\(\ln(\text{earnings})\)</span> on years of education</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Is there sample selection bias?</strong></p>
+</div>
+<div class="fragment">
+<p><span class="alert">Yes</span> — we only observe wages for people who are <span class="kw">employed</span>. Employment is related to the outcome (wages/earnings potential), so the sample is not representative.</p>
+</div>
+</section>
+<section id="solutions-to-sample-selection-bias" class="slide level2 scrollable">
+<h2>Solutions to Sample Selection Bias</h2>
+<ol type="1">
+<li><p><span class="kw">Collect data properly</span> — design sampling to avoid selection</p>
+<ul>
+<li><em>Basketball:</em> true random sample from enrollment records</li>
+<li><em>Mutual funds:</em> sample funds available at the <span class="alert">beginning</span> of the period (include failed funds)</li>
+<li><em>Returns to education:</em> sample college graduates, not just employed workers</li>
+</ul></li>
+<li><p><span class="kw">Randomized controlled experiment</span></p></li>
+<li><p>Model the selection process and estimate it (advanced — not in ECON3500)</p></li>
+</ol>
+</section></section>
+<section>
+<section id="threat-5-simultaneous-causality-bias" class="title-slide slide level1 center">
+<h1>Threat 5: Simultaneous Causality Bias</h1>
+
+</section>
+<section id="when-y-causes-x-too" class="slide level2">
+<h2>When <span class="math inline">\(Y\)</span> Causes <span class="math inline">\(X\)</span> Too</h2>
+<p>So far we’ve assumed <span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span>. But what if <span class="alert"><span class="math inline">\(Y\)</span> also causes <span class="math inline">\(X\)</span></span>?</p>
+<p>This is <span class="kw">simultaneous causality</span> (or “reverse causality”).</p>
+<div class="fragment">
+<p><strong>Example: Class size effect</strong></p>
+<ul>
+<li>Low STR <span class="math inline">\(\rightarrow\)</span> better test scores (the effect we want)</li>
+<li>But: districts with <span class="alert">low test scores</span> may receive extra resources <span class="math inline">\(\rightarrow\)</span> also get low STR (political process)</li>
+</ul>
+</div>
+<div class="fragment">
+<p>What does this mean for a regression of TestScore on STR?</p>
+<p>The coefficient on STR reflects <span class="alert">both</span> directions of causality — it’s biased.</p>
+</div>
+</section>
+<section id="solutions-to-simultaneous-causality-bias" class="slide level2 scrollable">
+<h2>Solutions to Simultaneous Causality Bias</h2>
+<ol type="1">
+<li><p><span class="kw">Randomized controlled experiment</span> — because <span class="math inline">\(X_i\)</span> is chosen at random, there is no feedback from <span class="math inline">\(Y\)</span> to <span class="math inline">\(X\)</span> (assuming perfect compliance)</p></li>
+<li><p><span class="kw">Develop a complete model</span> of both directions of causality — this is the approach behind large macroeconomic models (e.g., Federal Reserve). <span class="alert">Extremely difficult in practice.</span></p></li>
+<li><p><span class="kw">Instrumental variables</span> regression — estimate the causal effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> while ignoring the feedback from <span class="math inline">\(Y\)</span> to <span class="math inline">\(X\)</span> (coming later!)</p></li>
+</ol>
+</section></section>
+<section>
+<section id="putting-it-all-together" class="title-slide slide level1 center">
+<h1>Putting It All Together</h1>
+
+</section>
+<section id="summary-five-threats-to-internal-validity" class="slide level2 smaller scrollable">
+<h2>Summary: Five Threats to Internal Validity</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 29%">
+<col style="width: 29%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Threat</th>
+<th>What Happens</th>
+<th>Consequence</th>
+<th>Solutions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. <span class="kw">OVB</span></td>
+<td>Omitted variable correlated with <span class="math inline">\(X\)</span> and determines <span class="math inline">\(Y\)</span></td>
+<td>Biased, inconsistent</td>
+<td>Add controls, RCT, IV, panel data</td>
+</tr>
+<tr class="even">
+<td>2. <span class="kw">Wrong functional form</span></td>
+<td>Incorrect specification (missing interactions, nonlinearities)</td>
+<td>Biased</td>
+<td>Logs, quadratics, interactions (Ch8)</td>
+</tr>
+<tr class="odd">
+<td>3. <span class="kw">Measurement error</span></td>
+<td><span class="math inline">\(X\)</span> or <span class="math inline">\(Y\)</span> measured with error</td>
+<td>Attenuation bias (classical); ambiguous bias (non-classical)</td>
+<td>Better data, IV</td>
+</tr>
+<tr class="even">
+<td>4. <span class="kw">Sample selection</span></td>
+<td>Data missing based on <span class="math inline">\(Y\)</span> or <span class="math inline">\(u\)</span></td>
+<td>Biased, inconsistent</td>
+<td>Better sampling design, RCT</td>
+</tr>
+<tr class="odd">
+<td>5. <span class="kw">Simultaneous causality</span></td>
+<td><span class="math inline">\(Y\)</span> causes <span class="math inline">\(X\)</span> and <span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span></td>
+<td>Biased, inconsistent</td>
+<td>RCT, IV</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Common Thread</strong></p>
+</div>
+<div class="callout-content">
+<p>All five threats cause <span class="math inline">\(E(u_i | X_{1i}, \ldots, X_{ki}) \neq 0\)</span> — conditional mean independence fails, and OLS is biased.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="decision-tree-is-missing-data-a-problem" class="slide level2 smaller">
+<h2>Decision Tree: Is Missing Data a Problem?</h2>
+<p><strong>Step 1:</strong> Why are the data missing?</p>
+<div class="fragment">
+<ul>
+<li><span class="kw">Random chance</span> (server crash, lost surveys, random attrition)
+<ul>
+<li><span class="math inline">\(\rightarrow\)</span> <strong>No bias.</strong> Smaller sample <span class="math inline">\(\rightarrow\)</span> larger SEs. Proceed.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="kw">Based on <span class="math inline">\(X\)</span> values</span> (restricted sample, subgroup analysis)
+<ul>
+<li><span class="math inline">\(\rightarrow\)</span> <strong>No bias</strong> for the subpopulation. Can’t generalize beyond it (external validity concern).</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="alert">Based on <span class="math inline">\(Y\)</span> or <span class="math inline">\(u\)</span></span> (survivorship, employment requirement, self-selection)
+<ul>
+<li><span class="math inline">\(\rightarrow\)</span> <strong>Sample selection bias!</strong> Redesign sampling or use specialized methods.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Key Question</strong></p>
+</div>
+<div class="callout-content">
+<p>Ask yourself: “Would the <span class="alert">reason</span> someone is missing from my data be correlated with the <span class="alert">outcome</span> I’m trying to measure?”</p>
+<p>If yes <span class="math inline">\(\rightarrow\)</span> sample selection bias.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="forecasting-vs.-causal-inference" class="title-slide slide level1 center">
+<h1>Forecasting vs.&nbsp;Causal Inference</h1>
+
+</section>
+<section id="two-very-different-objectives" class="slide level2 smaller">
+<h2>Two Very Different Objectives</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Causal Inference</th>
+<th>Forecasting</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Goal</strong></td>
+<td>Estimate effect of changing <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span></td>
+<td>Predict <span class="math inline">\(Y\)</span> given observed <span class="math inline">\(X\)</span>’s</td>
+</tr>
+<tr class="even">
+<td><strong>What matters most</strong></td>
+<td>Unbiased <span class="math inline">\(\hat{\beta}\)</span></td>
+<td>Good fit (<span class="math inline">\(\bar{R}^2\)</span>)</td>
+</tr>
+<tr class="odd">
+<td><strong>OVB</strong></td>
+<td><span class="alert">Critical problem</span></td>
+<td>Not a problem!</td>
+</tr>
+<tr class="even">
+<td><strong>Coefficient interpretation</strong></td>
+<td>Very important</td>
+<td>Not important</td>
+</tr>
+<tr class="odd">
+<td><strong>External validity</strong></td>
+<td>Important for generalization</td>
+<td><span class="alert">Paramount</span> — model must hold in new data</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="forecasting-a-different-mindset" class="slide level2">
+<h2>Forecasting: A Different Mindset</h2>
+<p>When the goal is <span class="kw">forecasting</span>:</p>
+<ul>
+<li><span class="math inline">\(\bar{R}^2\)</span> matters — a lot!</li>
+<li>Omitted variable bias <span class="kw">isn’t a problem</span> — we don’t care about the causal interpretation of individual coefficients</li>
+<li>The important thing is a <span class="kw">good fit</span> and a model you can “trust” in your application</li>
+</ul>
+<div class="fragment">
+<p>But <span class="alert">external validity is paramount</span>: the model estimated using historical data must hold into the (near) future.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Don’t Confuse the Two</strong></p>
+</div>
+<div class="callout-content">
+<p>A model with high <span class="math inline">\(R^2\)</span> and biased coefficients might be great for forecasting but useless for policy. A model with unbiased coefficients and low <span class="math inline">\(R^2\)</span> might be ideal for causal inference but poor for prediction.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="knowledge-check-identify-the-threat" class="slide level2 smaller">
+<h2>Knowledge Check: Identify the Threat</h2>
+<p>For each scenario, identify the primary threat to internal validity:</p>
+<div class="fragment">
+<p><strong>1.</strong> A study of returns to education uses IQ as a proxy for ability, but IQ tests are noisy measures of true ability.</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\rightarrow\)</span> <span class="kw">Errors-in-variables bias</span> (measurement error in <span class="math inline">\(X\)</span>) — attenuation bias on the IQ coefficient</p>
+</div>
+<div class="fragment">
+<p><strong>2.</strong> A study of the effect of police on crime finds that cities with more police have more crime.</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\rightarrow\)</span> <span class="kw">Simultaneous causality</span> — high-crime cities hire more police</p>
+</div>
+<div class="fragment">
+<p><strong>3.</strong> A study of job training effects on wages only observes wages for people who are employed after training.</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\rightarrow\)</span> <span class="kw">Sample selection bias</span> — employment status is related to the outcome (wages)</p>
+</div>
+</section>
+<section id="key-takeaways" class="slide level2 scrollable">
+<h2>Key Takeaways</h2>
+<ol type="1">
+<li><p><span class="kw">Internal validity</span> = inferences are correct for the population studied; <span class="kw">external validity</span> = results generalize to other settings</p></li>
+<li><p>Five threats all cause the same fundamental problem: <span class="math inline">\(E(u|X) \neq 0\)</span></p></li>
+<li><p><span class="kw">Measurement error in <span class="math inline">\(X\)</span></span> (classical) causes attenuation bias — estimates are too small in magnitude</p></li>
+<li><p><span class="kw">Sample selection bias</span> arises when data are missing because of <span class="math inline">\(Y\)</span>, not because of <span class="math inline">\(X\)</span> or random chance</p></li>
+<li><p><span class="kw">Simultaneous causality</span> is hard to solve without experiments or instrumental variables</p></li>
+<li><p><span class="kw">Forecasting and causal inference</span> have different validity concerns — don’t confuse them</p></li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Looking Ahead</strong></p>
+</div>
+<div class="callout-content">
+<p>Many of these threats will motivate the methods we learn next: <span class="kw">panel data</span> (Ch10) and <span class="kw">instrumental variables</span> (Ch12) are direct responses to OVB and simultaneous causality.</p>
+</div>
+</div>
+</div>
+
+</section></section>
+ </div>
+ <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>ECON3500 | Chapter 9</p>
+</div>
+</div></div>
+
+ <script>window.backupDefine = window.define; window.define = undefined;</script>
+ <script src="ch9_assessing_studies_files/libs/revealjs/dist/reveal.js"></script>
+ <!-- reveal.js plugins -->
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+ 
+
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/notes/notes.js"></script>
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/search/search.js"></script>
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+ <script src="ch9_assessing_studies_files/libs/revealjs/plugin/math/math.js"></script>
+ <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+ <script>
+
+ // Full list of configuration options available at:
+ // https://revealjs.com/config/
+ Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'pdfMaxPagesPerSlide': 1,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+ // Display controls in the bottom right corner
+ controls: false,
+
+ // Help the user learn the controls by providing hints, for example by
+ // bouncing the down arrow when they first encounter a vertical slide
+ controlsTutorial: false,
+
+ // Determines where controls appear, "edges" or "bottom-right"
+ controlsLayout: 'edges',
+
+ // Visibility rule for backwards navigation arrows; "faded", "hidden"
+ // or "visible"
+ controlsBackArrows: 'faded',
+
+ // Display a presentation progress bar
+ progress: true,
+
+ // Display the page number of the current slide
+ slideNumber: 'c/t',
+
+ // 'all', 'print', or 'speaker'
+ showSlideNumber: 'all',
+
+ // Add the current slide number to the URL hash so that reloading the
+ // page/copying the URL will return you to the same slide
+ hash: true,
+
+ // Start with 1 for the hash rather than 0
+ hashOneBasedIndex: false,
+
+ // Flags if we should monitor the hash and change slides accordingly
+ respondToHashChanges: true,
+
+ // Push each slide change to the browser history
+ history: true,
+
+ // Enable keyboard shortcuts for navigation
+ keyboard: true,
+
+ // Enable the slide overview mode
+ overview: true,
+
+ // Disables the default reveal.js slide layout (scaling and centering)
+ // so that you can use custom CSS layout
+ disableLayout: false,
+
+ // Vertical centering of slides
+ center: false,
+
+ // Enables touch navigation on devices with touch input
+ touch: true,
+
+ // Loop the presentation
+ loop: false,
+
+ // Change the presentation direction to be RTL
+ rtl: false,
+
+ // see https://revealjs.com/vertical-slides/#navigation-mode
+ navigationMode: 'linear',
+
+ // Randomizes the order of slides each time the presentation loads
+ shuffle: false,
+
+ // Turns fragments on and off globally
+ fragments: true,
+
+ // Flags whether to include the current fragment in the URL,
+ // so that reloading brings you to the same fragment position
+ fragmentInURL: false,
+
+ // Flags if the presentation is running in an embedded mode,
+ // i.e. contained within a limited portion of the screen
+ embedded: false,
+
+ // Flags if we should show a help overlay when the questionmark
+ // key is pressed
+ help: true,
+
+ // Flags if it should be possible to pause the presentation (blackout)
+ pause: true,
+
+ // Flags if speaker notes should be visible to all viewers
+ showNotes: false,
+
+ // Global override for autoplaying embedded media (null/true/false)
+ autoPlayMedia: null,
+
+ // Global override for preloading lazy-loaded iframes (null/true/false)
+ preloadIframes: null,
+
+ // Number of milliseconds between automatically proceeding to the
+ // next slide, disabled when set to 0, this value can be overwritten
+ // by using a data-autoslide attribute on your slides
+ autoSlide: 0,
+
+ // Stop auto-sliding after user input
+ autoSlideStoppable: true,
+
+ // Use this method for navigation when auto-sliding
+ autoSlideMethod: null,
+
+ // Specify the average time in seconds that you think you will spend
+ // presenting each slide. This is used to show a pacing timer in the
+ // speaker view
+ defaultTiming: null,
+
+ // Enable slide navigation via mouse wheel
+ mouseWheel: false,
+
+ // The display mode that will be used to show slides
+ display: 'block',
+
+ // Hide cursor if inactive
+ hideInactiveCursor: true,
+
+ // Time before the cursor is hidden (in ms)
+ hideCursorTime: 5000,
+
+ // Opens links in an iframe preview overlay
+ previewLinks: false,
+
+ // Transition style (none/fade/slide/convex/concave/zoom)
+ transition: 'fade',
+
+ // Transition speed (default/fast/slow)
+ transitionSpeed: 'default',
+
+ // Transition style for full page slide backgrounds
+ // (none/fade/slide/convex/concave/zoom)
+ backgroundTransition: 'fade',
+
+ // Number of slides away from the current that are visible
+ viewDistance: 3,
+
+ // Number of slides away from the current that are visible on mobile
+ // devices. It is advisable to set this to a lower number than
+ // viewDistance in order to save resources.
+ mobileViewDistance: 2,
+
+ // The "normal" size of the presentation, aspect ratio will be preserved
+ // when the presentation is scaled to fit different resolutions. Can be
+ // specified using percentage units.
+ width: 1280,
+
+ height: 720,
+
+ // Factor of the display size that should remain empty around the content
+ margin: 0.1,
+
+ math: {
+ mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+ config: 'TeX-AMS_HTML-full',
+ tex2jax: {
+ inlineMath: [['\\(','\\)']],
+ displayMath: [['\\[','\\]']],
+ balanceBraces: true,
+ processEscapes: false,
+ processRefs: true,
+ processEnvironments: true,
+ preview: 'TeX',
+ skipTags: ['script','noscript','style','textarea','pre','code'],
+ ignoreClass: 'tex2jax_ignore',
+ processClass: 'tex2jax_process'
+ },
+ },
+
+ // reveal.js plugins
+ plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+ RevealMath,
+ RevealNotes,
+ RevealSearch,
+ RevealZoom
+ ]
+ });
+ </script>
+ <script>
+ (function () {
+ function ensureSrc() {
+ document.querySelectorAll("img[data-src]").forEach(function (img) {
+ if (!img.getAttribute("src")) {
+ img.setAttribute("src", img.getAttribute("data-src"));
+ }
+ });
+ document.querySelectorAll("source[data-src]").forEach(function (source) {
+ if (!source.getAttribute("src")) {
+ source.setAttribute("src", source.getAttribute("data-src"));
+ }
+ });
+ }
+
+ function relayout() {
+ if (window.Reveal && typeof window.Reveal.layout === "function") {
+ window.Reveal.layout();
+ }
+ }
+
+ function hookReveal() {
+ if (window.Reveal && typeof window.Reveal.on === "function") {
+ window.Reveal.on("ready", function () {
+ ensureSrc();
+ relayout();
+ });
+ window.Reveal.on("slidechanged", relayout);
+ window.Reveal.on("overviewshown", function () {
+ ensureSrc();
+ relayout();
+ });
+ window.Reveal.on("overviewhidden", relayout);
+ return true;
+ }
+ return false;
+ }
+
+ document.addEventListener("DOMContentLoaded", function () {
+ ensureSrc();
+ relayout();
+
+ var imgs = document.querySelectorAll(".reveal img");
+ var pending = 0;
+ imgs.forEach(function (img) {
+ if (!img.complete) {
+ pending += 1;
+ img.addEventListener(
+ "load",
+ function () {
+ pending -= 1;
+ if (pending === 0) {
+ relayout();
+ }
+ },
+ { once: true }
+ );
+ }
+ });
+ if (pending === 0) {
+ relayout();
+ }
+ });
+
+ window.addEventListener("load", relayout);
+
+ if (!hookReveal()) {
+ var tries = 0;
+ var t = window.setInterval(function () {
+ tries += 1;
+ if (hookReveal() || tries > 20) {
+ window.clearInterval(t);
+ }
+ }, 250);
+ }
+ })();
+ </script>
+ <script id="quarto-html-after-body" type="application/javascript">
+ window.document.addEventListener("DOMContentLoaded", function (event) {
+ const tabsets = window.document.querySelectorAll(".panel-tabset-tabby")
+ tabsets.forEach(function(tabset) {
+ const tabby = new Tabby('#' + tabset.id);
+ });
+ const isCodeAnnotation = (el) => {
+ for (const clz of el.classList) {
+ if (clz.startsWith('code-annotation-')) { 
+ return true;
+ }
+ }
+ return false;
+ }
+ const onCopySuccess = function(e) {
+ // button target
+ const button = e.trigger;
+ // don't keep focus
+ button.blur();
+ // flash "checked"
+ button.classList.add('code-copy-button-checked');
+ var currentTitle = button.getAttribute("title");
+ button.setAttribute("title", "Copied!");
+ let tooltip;
+ if (window.bootstrap) {
+ button.setAttribute("data-bs-toggle", "tooltip");
+ button.setAttribute("data-bs-placement", "left");
+ button.setAttribute("data-bs-title", "Copied!");
+ tooltip = new bootstrap.Tooltip(button, 
+ { trigger: "manual", 
+ customClass: "code-copy-button-tooltip",
+ offset: [0, -8]});
+ tooltip.show(); 
+ }
+ setTimeout(function() {
+ if (tooltip) {
+ tooltip.hide();
+ button.removeAttribute("data-bs-title");
+ button.removeAttribute("data-bs-toggle");
+ button.removeAttribute("data-bs-placement");
+ }
+ button.setAttribute("title", currentTitle);
+ button.classList.remove('code-copy-button-checked');
+ }, 1000);
+ // clear code selection
+ e.clearSelection();
+ }
+ const getTextToCopy = function(trigger) {
+ const outerScaffold = trigger.parentElement.cloneNode(true);
+ const codeEl = outerScaffold.querySelector('code');
+ for (const childEl of codeEl.children) {
+ if (isCodeAnnotation(childEl)) {
+ childEl.remove();
+ }
+ }
+ return codeEl.innerText;
+ }
+ const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+ text: getTextToCopy
+ });
+ clipboard.on('success', onCopySuccess);
+ if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+ const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+ text: getTextToCopy,
+ container: window.document.getElementById('quarto-embedded-source-code-modal')
+ });
+ clipboardModal.on('success', onCopySuccess);
+ }
+ var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+ var mailtoRegex = new RegExp(/^mailto:/);
+ var filterRegex = new RegExp('/' + window.location.host + '/');
+ var isInternal = (href) => {
+ return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+ }
+ // Inspect non-navigation links and adorn them if external
+ var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ for (var i=0; i<links.length; i++) {
+ const link = links[i];
+ if (!isInternal(link.href)) {
+ // undo the damage that might have been done by quarto-nav.js in the case of
+ // links that we want to consider external
+ if (link.dataset.originalHref !== undefined) {
+ link.href = link.dataset.originalHref;
+ }
+ }
+ }
+ function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+ const config = {
+ allowHTML: true,
+ maxWidth: 500,
+ delay: 100,
+ arrow: false,
+ appendTo: function(el) {
+ return el.closest('section.slide') || el.parentElement;
+ },
+ interactive: true,
+ interactiveBorder: 10,
+ theme: 'light-border',
+ placement: 'bottom-start',
+ };
+ if (contentFn) {
+ config.content = contentFn;
+ }
+ if (onTriggerFn) {
+ config.onTrigger = onTriggerFn;
+ }
+ if (onUntriggerFn) {
+ config.onUntrigger = onUntriggerFn;
+ }
+ config['offset'] = [0,0];
+ config['maxWidth'] = 700;
+ window.tippy(el, config); 
+ }
+ const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+ for (var i=0; i<noterefs.length; i++) {
+ const ref = noterefs[i];
+ tippyHover(ref, function() {
+ // use id or data attribute instead here
+ let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+ try { href = new URL(href).hash; } catch {}
+ const id = href.replace(/^#\/?/, "");
+ const note = window.document.getElementById(id);
+ if (note) {
+ return note.innerHTML;
+ } else {
+ return "";
+ }
+ });
+ }
+ const findCites = (el) => {
+ const parentEl = el.parentElement;
+ if (parentEl) {
+ const cites = parentEl.dataset.cites;
+ if (cites) {
+ return {
+ el,
+ cites: cites.split(' ')
+ };
+ } else {
+ return findCites(el.parentElement)
+ }
+ } else {
+ return undefined;
+ }
+ };
+ var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+ for (var i=0; i<bibliorefs.length; i++) {
+ const ref = bibliorefs[i];
+ const citeInfo = findCites(ref);
+ if (citeInfo) {
+ tippyHover(citeInfo.el, function() {
+ var popup = window.document.createElement('div');
+ citeInfo.cites.forEach(function(cite) {
+ var citeDiv = window.document.createElement('div');
+ citeDiv.classList.add('hanging-indent');
+ citeDiv.classList.add('csl-entry');
+ var biblioDiv = window.document.getElementById('ref-' + cite);
+ if (biblioDiv) {
+ citeDiv.innerHTML = biblioDiv.innerHTML;
+ }
+ popup.appendChild(citeDiv);
+ });
+ return popup.innerHTML;
+ });
+ }
+ }
+ });
+ </script>
+ 
+
+</body></html>

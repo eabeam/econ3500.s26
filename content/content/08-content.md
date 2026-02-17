@@ -18,6 +18,7 @@ menu:
 
 pdf: /slides/ch8-slides.pdf
 thumb: /slides/ch8-slides.png
+slides_html: /slides/ch8-quarto/
 
 
 

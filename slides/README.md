@@ -57,12 +57,30 @@ format:
 Content here...
 ```
 
+> **Important:** Do **not** add `output-dir` or `output-file` to per-file YAML.
+> The `_quarto.yml` project config controls the output location, and per-file
+> overrides are silently ignored. Rendered HTML will appear in the chapter
+> folder (e.g. `slides/ch6/ch6_topic.html`).
+
 ### 3. Add figures, R scripts, and Stata logs as needed (see below)
+
+Not every chapter needs all of these. Conceptual chapters (e.g. Ch9) may have no R figures or Stata output.
 
 ### 4. Render
 
 ```bash
 quarto render ch6/ch6_topic.qmd
+```
+
+### 5. Copy to site
+
+Rendered output must be manually copied to `static/slides/` for the Hugo site:
+
+```bash
+mkdir -p ../static/slides/ch6-quarto
+cp ch6/ch6_topic.html ../static/slides/ch6-quarto/index.html
+cp -r ch6/ch6_topic_files ../static/slides/ch6-quarto/
+cp -r ch6/ch6_figures ../static/slides/ch6-quarto/
 ```
 
 ---
@@ -204,7 +222,13 @@ ch6/
     └── diagnostics.log
 ```
 
-### The `stata-output` block (preserves column alignment)
+### Preferred: Stata screenshot images
+
+For regression tables and diagnostics, **Stata screenshot images** are preferred over HTML blocks. They render more reliably in Reveal.js with correct column alignment and spacing. Place screenshots in `chN/chN_figures/` with the chapter prefix (e.g. `ch7_stata_regression_base.png`).
+
+### Alternative: The `stata-output` block
+
+> **Known issue:** The `stata-output` HTML blocks have spacing and alignment problems in some Reveal.js configurations. Use screenshot images when possible.
 
 Column alignment is only preserved if the output is **not** run through Markdown (which collapses spaces). Use a **raw HTML block** and the class `stata-output`:
 
@@ -424,9 +448,11 @@ See `_styles/README.md` for:
 
 - [ ] Create chapter directory: `ch#/`
 - [ ] Create figures directory: `ch#/ch#_figures/`
-- [ ] Create QMD file with minimal YAML header
-- [ ] Create R script for figures: `generate_ch#_figures.R`
-- [ ] Create Stata directory if needed: `ch#/stata/`
+- [ ] If `ch#_figures/` already exists, check for stale files from prior attempts
+- [ ] Create QMD file with minimal YAML header (**no** `output-dir` or `output-file`)
+- [ ] Create R script for figures if needed: `generate_ch#_figures.R`
+- [ ] Create Stata directory if needed: `ch#/stata/` (not all chapters need Stata)
 - [ ] Generate figures before rendering
 - [ ] Test render: `quarto preview ch#/ch#_topic.qmd`
 - [ ] Final render: `quarto render ch#/ch#_topic.qmd`
+- [ ] Copy rendered output to `static/slides/ch#-quarto/` (see step 5 above)

@@ -1,0 +1,1513 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="ch8_nonlinear_relationships_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ch8_nonlinear_relationships_files/libs/quarto-html/tabby.min.js"></script>
+<script src="ch8_nonlinear_relationships_files/libs/quarto-html/popper.min.js"></script>
+<script src="ch8_nonlinear_relationships_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="ch8_nonlinear_relationships_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ch8_nonlinear_relationships_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="ch8_nonlinear_relationships_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+ <meta name="generator" content="quarto-1.8.26">
+
+ <meta name="author" content="ECON3500: Econometrics and Applications">
+ <title>Nonlinear Relationships</title>
+ <meta name="apple-mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+ <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/reset.css">
+ <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/reveal.css">
+ <style>
+ code{white-space: pre-wrap;}
+ span.smallcaps{font-variant: small-caps;}
+ div.columns{display: flex; gap: min(4vw, 1.5em);}
+ div.column{flex: auto; overflow-x: auto;}
+ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ ul.task-list{list-style: none;}
+ ul.task-list li input[type="checkbox"] {
+ width: 0.8em;
+ margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+ vertical-align: middle;
+ }
+ /* CSS for syntax highlighting */
+ html { -webkit-text-size-adjust: 100%; }
+ pre > code.sourceCode { white-space: pre; position: relative; }
+ pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+ pre > code.sourceCode > span:empty { height: 1.2em; }
+ .sourceCode { overflow: visible; }
+ code.sourceCode > span { color: inherit; text-decoration: inherit; }
+ div.sourceCode { margin: 1em 0; }
+ pre.sourceCode { margin: 0; }
+ @media screen {
+ div.sourceCode { overflow: auto; }
+ }
+ @media print {
+ pre > code.sourceCode { white-space: pre-wrap; }
+ pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+ }
+ pre.numberSource code
+ { counter-reset: source-line 0; }
+ pre.numberSource code > span
+ { position: relative; left: -4em; counter-increment: source-line; }
+ pre.numberSource code > span > a:first-child::before
+ { content: counter(source-line);
+ position: relative; left: -1em; text-align: right; vertical-align: baseline;
+ border: none; display: inline-block;
+ -webkit-touch-callout: none; -webkit-user-select: none;
+ -khtml-user-select: none; -moz-user-select: none;
+ -ms-user-select: none; user-select: none;
+ padding: 0 4px; width: 4em;
+ }
+ pre.numberSource { margin-left: 3em; padding-left: 4px; }
+ div.sourceCode
+ { color: #24292e; }
+ @media screen {
+ pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+ }
+ code span { color: #24292e; } /* Normal */
+ code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+ code span.an { color: #6a737d; } /* Annotation */
+ code span.at { color: #d73a49; } /* Attribute */
+ code span.bn { color: #005cc5; } /* BaseN */
+ code span.bu { color: #d73a49; } /* BuiltIn */
+ code span.cf { color: #d73a49; } /* ControlFlow */
+ code span.ch { color: #032f62; } /* Char */
+ code span.cn { color: #005cc5; } /* Constant */
+ code span.co { color: #6a737d; } /* Comment */
+ code span.cv { color: #6a737d; } /* CommentVar */
+ code span.do { color: #6a737d; } /* Documentation */
+ code span.dt { color: #d73a49; } /* DataType */
+ code span.dv { color: #005cc5; } /* DecVal */
+ code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+ code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+ code span.fl { color: #005cc5; } /* Float */
+ code span.fu { color: #6f42c1; } /* Function */
+ code span.im { color: #032f62; } /* Import */
+ code span.in { color: #6a737d; } /* Information */
+ code span.kw { color: #d73a49; } /* Keyword */
+ code span.op { color: #24292e; } /* Operator */
+ code span.ot { color: #6f42c1; } /* Other */
+ code span.pp { color: #d73a49; } /* Preprocessor */
+ code span.re { color: #6a737d; } /* RegionMarker */
+ code span.sc { color: #005cc5; } /* SpecialChar */
+ code span.ss { color: #032f62; } /* SpecialString */
+ code span.st { color: #032f62; } /* String */
+ code span.va { color: #e36209; } /* Variable */
+ code span.vs { color: #032f62; } /* VerbatimString */
+ code span.wa { color: #ff5555; } /* Warning */
+ </style>
+ <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/theme/quarto-f6ff266a00026af0db213e5461a2bde6.css">
+ <link rel="stylesheet" href="../_styles/styles.css">
+ <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+ <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+ <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+ <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+ <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+ <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+ <style type="text/css">
+ .reveal div.sourceCode {
+ margin: 0;
+ overflow: auto;
+ }
+ .reveal div.hanging-indent {
+ margin-left: 1em;
+ text-indent: -1em;
+ }
+ .reveal .slide:not(.center) {
+ height: 100%;
+ overflow-y: auto;
+ }
+ .reveal .slide.scrollable {
+ overflow-y: auto;
+ }
+ .reveal .footnotes {
+ height: 100%;
+ overflow-y: auto;
+ }
+ .reveal .slide .absolute {
+ position: absolute;
+ display: block;
+ }
+ .reveal .footnotes ol {
+ counter-reset: ol;
+ list-style-type: none; 
+ margin-left: 0;
+ }
+ .reveal .footnotes ol li:before {
+ counter-increment: ol;
+ content: counter(ol) ". "; 
+ }
+ .reveal .footnotes ol li > p:first-child {
+ display: inline-block;
+ }
+ .reveal .slide ul,
+ .reveal .slide ol {
+ margin-bottom: 0.5em;
+ }
+ .reveal .slide ul li,
+ .reveal .slide ol li {
+ margin-top: 0.4em;
+ margin-bottom: 0.2em;
+ }
+ .reveal .slide ul[role="tablist"] li {
+ margin-bottom: 0;
+ }
+ .reveal .slide ul li > *:first-child,
+ .reveal .slide ol li > *:first-child {
+ margin-block-start: 0;
+ }
+ .reveal .slide ul li > *:last-child,
+ .reveal .slide ol li > *:last-child {
+ margin-block-end: 0;
+ }
+ .reveal .slide .columns:nth-child(3) {
+ margin-block-start: 0.8em;
+ }
+ .reveal blockquote {
+ box-shadow: none;
+ }
+ .reveal .tippy-content>* {
+ margin-top: 0.2em;
+ margin-bottom: 0.7em;
+ }
+ .reveal .tippy-content>*:last-child {
+ margin-bottom: 0.2em;
+ }
+ .reveal .slide > img.stretch.quarto-figure-center,
+ .reveal .slide > img..quarto-figure-center {
+ display: block;
+ margin-left: auto;
+ margin-right: auto; 
+ }
+ .reveal .slide > img.stretch.quarto-figure-left,
+ .reveal .slide > img..quarto-figure-left {
+ display: block;
+ margin-left: 0;
+ margin-right: auto; 
+ }
+ .reveal .slide > img.stretch.quarto-figure-right,
+ .reveal .slide > img..quarto-figure-right {
+ display: block;
+ margin-left: auto;
+ margin-right: 0; 
+ }
+ </style>
+</head>
+<body class="quarto-light">
+ <div class="reveal">
+ <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+ <h1 class="title">Nonlinear Relationships</h1>
+ <p class="subtitle">Beyond the Straight Line</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+ECON3500: Econometrics and Applications 
+</div>
+</div>
+</div>
+
+ <p class="date">Spring 2026</p>
+</section>
+<section id="roadmap" class="slide level2 scrollable">
+<h2>Roadmap</h2>
+<p>[TOC]</p>
+</section>
+<section id="what-youll-learn-today" class="slide level2 scrollable">
+<h2>What You’ll Learn Today</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Central Question</strong></p>
+</div>
+<div class="callout-content">
+<p>What if the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> is <span class="alert">not</span> a straight line?</p>
+</div>
+</div>
+</div>
+<p><strong>By the end of this chapter, you will:</strong></p>
+<ol type="1">
+<li>Model <span class="kw">polynomial relationships</span> (quadratic, cubic)</li>
+<li>Compute and interpret <span class="kw">marginal effects</span></li>
+<li>Estimate <span class="kw">interaction effects</span> between variables</li>
+<li>Use <span class="kw">logarithmic transformations</span> effectively</li>
+<li><span class="kw">Test functional form</span> with Ramsey RESET</li>
+<li>Apply these tools in Stata</li>
+</ol>
+</section>
+<section>
+<section id="why-nonlinear" class="title-slide slide level1 center">
+<h1>Why Nonlinear?</h1>
+
+</section>
+<section id="the-linear-assumption" class="slide level2">
+<h2>The Linear Assumption</h2>
+<p>So far, we’ve assumed relationships are linear:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + u_i
+\]</span></p>
+<div class="fragment">
+<p><strong>Interpretation:</strong> A one-unit increase in <span class="math inline">\(X\)</span> changes <span class="math inline">\(Y\)</span> by <span class="math inline">\(\beta_1\)</span> units, <span class="alert">regardless of <span class="math inline">\(X\)</span>’s current value</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>But is this realistic?</strong></p>
+<ul>
+<li>Does the first year of education have the same effect as the 20th?</li>
+<li>Does doubling advertising from $1K to $2K have the same effect as doubling from $100K to $200K?</li>
+<li>Does the effect of training depend on whether the worker is already skilled?</li>
+</ul>
+</div>
+</section>
+<section id="real-world-examples-of-nonlinearity" class="slide level2">
+<h2>Real-World Examples of Nonlinearity</h2>
+<p><strong>Diminishing returns:</strong></p>
+<ul>
+<li>Fertilizer on crop yield (eventually toxic!)</li>
+<li>Study hours on test scores (exhaustion sets in)</li>
+<li>Experience on wages (plateaus after 30+ years)</li>
+</ul>
+<div class="fragment">
+<p><strong>Increasing returns:</strong></p>
+<ul>
+<li>Network effects (social media value)</li>
+<li>Learning curves (skills compound)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Interactions:</strong></p>
+<ul>
+<li>Effect of education may depend on ability</li>
+<li>Effect of experience may differ by gender</li>
+</ul>
+</div>
+</section>
+<section id="three-tools-for-nonlinearity" class="slide level2 scrollable">
+<h2>Three Tools for Nonlinearity</h2>
+<ol type="1">
+<li><p><strong>Polynomial regression</strong> — Add <span class="math inline">\(X^2\)</span>, <span class="math inline">\(X^3\)</span>, etc. to model curvature</p></li>
+<li><p><strong>Interaction terms</strong> — Include <span class="math inline">\(X_1 \cdot X_2\)</span> to allow effects to vary</p></li>
+<li><p><strong>Logarithmic transformations</strong> — Use <span class="math inline">\(\log(Y)\)</span> or <span class="math inline">\(\log(X)\)</span> for percentage changes</p></li>
+</ol>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key Insight</strong></p>
+</div>
+<div class="callout-content">
+<p>All three remain <span class="alert">linear in parameters</span> — we can still use OLS!</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="polynomial-regression" class="title-slide slide level1 center">
+<h1>Polynomial Regression</h1>
+
+</section>
+<section id="the-quadratic-model" class="slide level2">
+<h2>The Quadratic Model</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Quadratic Regression Model</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Why quadratic?</strong></p>
+<ul>
+<li>Allows for <span class="alert">curvature</span> in the relationship</li>
+<li>Can capture diminishing or increasing returns</li>
+<li>Flexible, but not too flexible (avoids overfitting)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Still linear in parameters:</strong> We estimate <span class="math inline">\(\beta_0, \beta_1, \beta_2\)</span> via OLS!</p>
+</div>
+</section>
+<section id="visualizing-quadratic-relationships" class="slide level2">
+<h2>Visualizing Quadratic Relationships</h2>
+
+<img src="./ch8_figures/ch8_quadratic_relationship.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">U-shaped (β₂ &gt; 0) or inverted-U (β₂ &lt; 0)</p></section>
+<section id="interpreting-quadratic-coefficients" class="slide level2">
+<h2>Interpreting Quadratic Coefficients</h2>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i
+\]</span></p>
+<div class="fragment">
+<p><strong>Key point:</strong> The effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> is <span class="alert">no longer constant</span>!</p>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Marginal Effect in Quadratic Model</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[
+\frac{\partial Y}{\partial X} = \beta_1 + 2\beta_2 X
+\]</span></p>
+<p>The marginal effect <span class="alert">depends on the value of <span class="math inline">\(X\)</span></span>!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>At <span class="math inline">\(X = 0\)</span>: marginal effect is <span class="math inline">\(\beta_1\)</span></li>
+<li>At <span class="math inline">\(X = 10\)</span>: marginal effect is <span class="math inline">\(\beta_1 + 20\beta_2\)</span></li>
+<li>The marginal effect changes by <span class="math inline">\(2\beta_2\)</span> for each unit increase in <span class="math inline">\(X\)</span></li>
+</ul>
+</div>
+</section>
+<section id="example-earnings-and-experience" class="slide level2">
+<h2>Example: Earnings and Experience</h2>
+<p><strong>Model:</strong></p>
+<p><span class="math display">\[
+\log(wage) = \beta_0 + \beta_1 \cdot experience + \beta_2 \cdot experience^2 + u
+\]</span></p>
+<div class="fragment">
+<p><strong>Estimated coefficients:</strong></p>
+<pre><code>log(wage) = 1.5 + 0.08*experience - 0.0012*experience^2</code></pre>
+</div>
+<div class="fragment">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><span class="math inline">\(\hat{\beta}_1 = 0.08 &gt; 0\)</span>: wages initially increase with experience</li>
+<li><span class="math inline">\(\hat{\beta}_2 = -0.0012 &lt; 0\)</span>: inverted-U shape (diminishing returns)</li>
+<li>Marginal effect = <span class="math inline">\(0.08 - 2(0.0012) \times experience\)</span></li>
+</ul>
+</div>
+</section>
+<section id="calculating-marginal-effects" class="slide level2">
+<h2>Calculating Marginal Effects</h2>
+<p><strong>Estimated model:</strong></p>
+<p><span class="math display">\[
+\log(wage) = 1.5 + 0.08 \cdot exper - 0.0012 \cdot exper^2
+\]</span></p>
+<div class="fragment">
+<p>At <span class="math inline">\(exper = 10\)</span> years:</p>
+<p><span class="math display">\[
+\frac{\partial \log(wage)}{\partial exper} = 0.08 - 2(0.0012)(10) = 0.08 - 0.024 = 0.056
+\]</span></p>
+</div>
+<div class="fragment">
+<p>At <span class="math inline">\(exper = 30\)</span> years:</p>
+<p><span class="math display">\[
+\frac{\partial \log(wage)}{\partial exper} = 0.08 - 2(0.0012)(30) = 0.08 - 0.072 = 0.008
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Interpretation:</strong> The wage boost from an additional year of experience falls from 5.6% (at 10 years) to 0.8% (at 30 years).</p>
+</div>
+</section>
+<section id="finding-the-turning-point" class="slide level2">
+<h2>Finding the Turning Point</h2>
+<p>For an inverted-U relationship, where does the maximum occur?</p>
+<div class="fragment">
+<p><strong>Set the marginal effect to zero:</strong></p>
+<p><span class="math display">\[
+\beta_1 + 2\beta_2 X^* = 0 \quad \Rightarrow \quad X^* = -\frac{\beta_1}{2\beta_2}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Example:</strong> <span class="math inline">\(\log(wage) = 1.5 + 0.08 \cdot exper - 0.0012 \cdot exper^2\)</span></p>
+<p><span class="math display">\[
+exper^* = -\frac{0.08}{2(-0.0012)} = \frac{0.08}{0.0024} \approx 33.3 \text{ years}
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Interpretation:</strong> Wages peak at about 33 years of experience, then decline.</p>
+</div>
+</section>
+<section id="visualizing-marginal-effects" class="slide level2">
+<h2>Visualizing Marginal Effects</h2>
+
+<img src="./ch8_figures/ch8_marginal_effect_quadratic.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">Marginal effect decreases linearly with <span class="math inline">\(X\)</span> when <span class="math inline">\(\beta_2 &lt; 0\)</span></p></section>
+<section id="knowledge-check-quadratic-model" class="slide level2 smaller scrollable">
+<h2>Knowledge Check: Quadratic Model</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>You estimate: <span class="math inline">\(sales = 100 + 15 \cdot price - 0.5 \cdot price^2\)</span></p>
+<ol type="1">
+<li>What is the marginal effect of price on sales at <span class="math inline">\(price = 10\)</span>?</li>
+<li>At what price are sales maximized?</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Answer</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Part 1:</strong> Marginal effect <span class="math inline">\(= 15 - 2(0.5)(10) = 15 - 10 = 5\)</span>. At $10, raising price by $1 increases sales by 5 units.</p>
+<p><strong>Part 2:</strong> Turning point: <span class="math inline">\(price^* = -\frac{15}{2(-0.5)} = 15\)</span>. Sales are maximized at <span class="math inline">\(price = 15\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="cubic-and-higher-order-polynomials" class="slide level2">
+<h2>Cubic and Higher-Order Polynomials</h2>
+<p><strong>Cubic model:</strong></p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \beta_3 X_i^3 + u_i
+\]</span></p>
+<div class="fragment">
+<p><strong>Marginal effect:</strong></p>
+<p><span class="math display">\[
+\frac{\partial Y}{\partial X} = \beta_1 + 2\beta_2 X + 3\beta_3 X^2
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>When to use:</strong> Multiple turning points, S-shaped patterns.</p>
+</div>
+<div class="fragment">
+<p><strong>Warning:</strong> Higher-order polynomials can <span class="alert">overfit</span> and behave erratically at extremes. Use sparingly!</p>
+</div>
+</section>
+<section id="stata-implementation-polynomial-regression" class="slide level2 smaller">
+<h2>Stata Implementation: Polynomial Regression</h2>
+<p><strong>Create polynomial terms:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> experience2 = experience^2</span>
+<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> experience3 = experience^3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Estimate model:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> log_wage education experience experience2, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Compute marginal effect at mean experience:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span> experience</span>
+<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">scalar</span> exper_mean = <span class="fu">r</span>(<span class="kw">mean</span>)</span>
+<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> <span class="st">"Marginal effect = "</span> _b[experience] + 2*_b[experience2]*exper_mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Shortcut using margins:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(experience) <span class="fu">at</span>(experience=10)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section></section>
+<section>
+<section id="interaction-effects" class="title-slide slide level1 center">
+<h1>Interaction Effects</h1>
+
+</section>
+<section id="what-are-interactions" class="slide level2">
+<h2>What Are Interactions?</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Interaction Effect</strong></p>
+</div>
+<div class="callout-content">
+<p>The effect of <span class="math inline">\(X_1\)</span> on <span class="math inline">\(Y\)</span> <span class="alert">depends on</span> the value of <span class="math inline">\(X_2\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Examples:</strong></p>
+<ul>
+<li>Effect of education on wages may differ by gender</li>
+<li>Effect of advertising may depend on product quality</li>
+<li>Effect of fertilizer may depend on rainfall</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Mathematical representation:</strong></p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \times X_{2i}) + u_i
+\]</span></p>
+<p>The <span class="alert">interaction term</span> is <span class="math inline">\(X_1 \times X_2\)</span>.</p>
+</div>
+</section>
+<section id="continuous-continuous-interaction" class="slide level2">
+<h2>Continuous × Continuous Interaction</h2>
+<p><strong>Model:</strong></p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \cdot X_{2i}) + u_i
+\]</span></p>
+<div class="fragment">
+<p><strong>Marginal effect of <span class="math inline">\(X_1\)</span>:</strong></p>
+<p><span class="math display">\[
+\frac{\partial Y}{\partial X_1} = \beta_1 + \beta_3 X_2
+\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>When <span class="math inline">\(X_2 = 0\)</span>: effect of <span class="math inline">\(X_1\)</span> is <span class="math inline">\(\beta_1\)</span></li>
+<li>When <span class="math inline">\(X_2 = 10\)</span>: effect of <span class="math inline">\(X_1\)</span> is <span class="math inline">\(\beta_1 + 10\beta_3\)</span></li>
+<li>The effect of <span class="math inline">\(X_1\)</span> changes by <span class="math inline">\(\beta_3\)</span> for each unit increase in <span class="math inline">\(X_2\)</span></li>
+</ul>
+</div>
+</section>
+<section id="example-education-and-experience-interaction" class="slide level2">
+<h2>Example: Education and Experience Interaction</h2>
+<p><strong>Question:</strong> Does the return to education depend on experience?</p>
+<p><strong>Model:</strong></p>
+<p><span class="math display">\[
+wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot experience + \beta_3 (education \times experience) + u
+\]</span></p>
+<p><strong>Estimated:</strong></p>
+<pre><code>wage = 2.0 + 1.5*education + 0.3*experience + 0.05*(education*experience)</code></pre>
+<div class="fragment">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>For someone with 0 years experience: return to education = $1.50/year</li>
+<li>For someone with 10 years experience: return = $1.50 + 0.05(10) = $2.00/year</li>
+<li>Education becomes more valuable as you gain experience!</li>
+</ul>
+</div>
+</section>
+<section id="visualizing-continuous-continuous-interactions" class="slide level2">
+<h2>Visualizing Continuous × Continuous Interactions</h2>
+
+<img src="./ch8_figures/ch8_interaction_continuous.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">Different slopes for different values of <span class="math inline">\(X_2\)</span></p></section>
+<section id="binary-continuous-interaction" class="slide level2">
+<h2>Binary × Continuous Interaction</h2>
+<p><strong>Model:</strong></p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 D_i + \beta_3 (X_i \cdot D_i) + u_i
+\]</span></p>
+<p>where <span class="math inline">\(D_i\)</span> is a dummy variable (0 or 1).</p>
+<div class="fragment">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>When <span class="math inline">\(D = 0\)</span>: <span class="math inline">\(Y = \beta_0 + \beta_1 X\)</span> (baseline group)</li>
+<li>When <span class="math inline">\(D = 1\)</span>: <span class="math inline">\(Y = (\beta_0 + \beta_2) + (\beta_1 + \beta_3) X\)</span> (treatment group)</li>
+<li><span class="math inline">\(\beta_2\)</span>: intercept shift | <span class="math inline">\(\beta_3\)</span>: slope shift</li>
+</ul>
+</div>
+</section>
+<section id="example-gender-wage-gap" class="slide level2">
+<h2>Example: Gender Wage Gap</h2>
+<p><strong>Model:</strong></p>
+<p><span class="math display">\[
+wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (education \times female) + u
+\]</span></p>
+<p><strong>Estimated:</strong></p>
+<pre><code>wage = 3.0 + 2.0*education - 1.5*female - 0.3*(education*female)</code></pre>
+<div class="fragment">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li><strong>Men</strong> (<span class="math inline">\(female = 0\)</span>): <span class="math inline">\(wage = 3.0 + 2.0 \cdot education\)</span></li>
+<li><strong>Women</strong> (<span class="math inline">\(female = 1\)</span>): <span class="math inline">\(wage = 1.5 + 1.7 \cdot education\)</span></li>
+<li>Women earn $1.50 less at 0 education; $0.30 less per year of education. Gap widens with education!</li>
+</ul>
+</div>
+</section>
+<section id="visualizing-binary-continuous-interactions" class="slide level2">
+<h2>Visualizing Binary × Continuous Interactions</h2>
+
+<img src="./ch8_figures/ch8_interaction_binary.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">Parallel lines ⇒ no interaction. Different slopes ⇒ interaction present!</p></section>
+<section id="knowledge-check-interaction-effects" class="slide level2 smaller scrollable">
+<h2>Knowledge Check: Interaction Effects</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>You estimate: <span class="math inline">\(price = 50 + 10 \cdot quality + 5 \cdot advertising + 2 \cdot (quality \times advertising)\)</span></p>
+<ol type="1">
+<li>What is the marginal effect of advertising when quality = 5?</li>
+<li>What is the marginal effect of advertising when quality = 10?</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Answer</strong></p>
+</div>
+<div class="callout-content">
+<p>Marginal effect of advertising = <span class="math inline">\(5 + 2 \times quality\)</span></p>
+<p><strong>Part 1:</strong> At quality = 5: effect = <span class="math inline">\(5 + 2(5) = 15\)</span></p>
+<p><strong>Part 2:</strong> At quality = 10: effect = <span class="math inline">\(5 + 2(10) = 25\)</span></p>
+<p>Advertising is more effective for higher-quality products!</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="stata-implementation-interactions" class="slide level2">
+<h2>Stata Implementation: Interactions</h2>
+<p><strong>Method 1: Create interaction manually</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> educ_exper = education * experience</span>
+<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage education experience educ_exper, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Method 2: Factor variable notation</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##c.experience, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>For dummy × continuous:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##i.female, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Compute marginal effects at different values:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(education) <span class="fu">at</span>(experience=(0 10 20 30))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="common-mistakes-with-interactions" class="slide level2 scrollable">
+<h2>Common Mistakes with Interactions</h2>
+<ol type="1">
+<li><p><span class="alert">Including interaction but not main effects</span> — Always include <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> when you include <span class="math inline">\(X_1 \times X_2\)</span>!</p></li>
+<li><p><span class="alert">Interpreting <span class="math inline">\(\beta_1\)</span> as “the” effect of <span class="math inline">\(X_1\)</span></span> — With interactions, the effect depends on other variables; <span class="math inline">\(\beta_1\)</span> is only the effect when <span class="math inline">\(X_2 = 0\)</span>.</p></li>
+<li><p><span class="alert">Forgetting to center variables</span> — Centering makes <span class="math inline">\(\beta_1\)</span> interpretable as effect at average <span class="math inline">\(X_2\)</span>.</p></li>
+<li><p><span class="alert">Testing wrong hypothesis</span> — Test <span class="math inline">\(H_0: \beta_3 = 0\)</span> to check if interaction is significant.</p></li>
+</ol>
+</section></section>
+<section>
+<section id="logarithmic-specifications" class="title-slide slide level1 center">
+<h1>Logarithmic Specifications</h1>
+
+</section>
+<section id="why-logarithms" class="slide level2 scrollable">
+<h2>Why Logarithms?</h2>
+<p><strong>Three key advantages:</strong></p>
+<ol type="1">
+<li><strong>Percentage interpretation</strong> — Coefficients represent <span class="alert">percentage changes</span>, not unit changes</li>
+<li><strong>Diminishing returns automatically</strong> — <span class="math inline">\(\log(X)\)</span> is concave (built-in curvature!)</li>
+<li><strong>Elasticities</strong> — Direct estimates of elasticity in log-log models</li>
+</ol>
+<div class="fragment">
+<p><strong>Important:</strong> Can only take log of <span class="alert">positive</span> variables!</p>
+</div>
+</section>
+<section id="four-logarithmic-models" class="slide level2">
+<h2>Four Logarithmic Models</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 29%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Equation</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Level-level</strong></td>
+<td><span class="math inline">\(Y = \beta_0 + \beta_1 X\)</span></td>
+<td><span class="math inline">\(\Delta Y = \beta_1 \Delta X\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Log-level</strong></td>
+<td><span class="math inline">\(\log Y = \beta_0 + \beta_1 X\)</span></td>
+<td><span class="math inline">\(\%\Delta Y = 100\beta_1 \Delta X\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Level-log</strong></td>
+<td><span class="math inline">\(Y = \beta_0 + \beta_1 \log X\)</span></td>
+<td><span class="math inline">\(\Delta Y = (\beta_1/100) \%\Delta X\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Log-log</strong></td>
+<td><span class="math inline">\(\log Y = \beta_0 + \beta_1 \log X\)</span></td>
+<td><span class="math inline">\(\%\Delta Y = \beta_1 \%\Delta X\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Key insight:</strong> Each log transforms a unit change into a percentage change!</p>
+</div>
+</section>
+<section id="level-level-baseline" class="slide level2">
+<h2>Level-Level (Baseline)</h2>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + u_i
+\]</span></p>
+<p><strong>Interpretation:</strong> A one-unit increase in <span class="math inline">\(X\)</span> is associated with a <span class="math inline">\(\beta_1\)</span>-unit change in <span class="math inline">\(Y\)</span>.</p>
+<p><strong>Example:</strong> <span class="math inline">\(wage = 5 + 2.5 \cdot education\)</span> — Each additional year of education increases wages by $2.50/hour.</p>
+</section>
+<section id="log-level" class="slide level2">
+<h2>Log-Level</h2>
+<p><span class="math display">\[
+\log(Y_i) = \beta_0 + \beta_1 X_i + u_i
+\]</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Log-Level Interpretation</strong></p>
+</div>
+<div class="callout-content">
+<p>A one-unit increase in <span class="math inline">\(X\)</span> is associated with a <span class="math inline">\(100\beta_1\)</span>% change in <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+</div>
+<p><strong>Example:</strong> <span class="math inline">\(\log(wage) = 1.5 + 0.08 \cdot education\)</span> — Each additional year of education increases wages by 8%.</p>
+</section>
+<section id="level-log" class="slide level2">
+<h2>Level-Log</h2>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
+\]</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Level-Log Interpretation</strong></p>
+</div>
+<div class="callout-content">
+<p>A 1% increase in <span class="math inline">\(X\)</span> is associated with a <span class="math inline">\(\beta_1/100\)</span> unit change in <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+</div>
+<p><strong>Example:</strong> <span class="math inline">\(wage = 2 + 5 \log(experience)\)</span> — A 1% increase in experience increases wages by $0.05/hour. Doubling experience (100% increase) raises wages by $5/hour.</p>
+</section>
+<section id="log-log-elasticity" class="slide level2">
+<h2>Log-Log (Elasticity)</h2>
+<p><span class="math display">\[
+\log(Y_i) = \beta_0 + \beta_1 \log(X_i) + u_i
+\]</span></p>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Log-Log Interpretation</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(\beta_1\)</span> is the <span class="alert">elasticity</span> of <span class="math inline">\(Y\)</span> with respect to <span class="math inline">\(X\)</span>. A 1% increase in <span class="math inline">\(X\)</span> leads to a <span class="math inline">\(\beta_1\)</span>% change in <span class="math inline">\(Y\)</span>.</p>
+</div>
+</div>
+</div>
+<p><strong>Example:</strong> <span class="math inline">\(\log(quantity) = 2.5 - 1.2 \log(price)\)</span> — A 1% increase in price leads to a 1.2% decrease in quantity (price elasticity of demand).</p>
+</section>
+<section id="visualizing-log-specifications" class="slide level2">
+<h2>Visualizing Log Specifications</h2>
+
+<img src="./ch8_figures/ch8_log_specifications.png" style="width:75.0%" class=" quarto-figure-center"><p class="caption"><span class="math inline">\(\log\)</span> transformations create natural curvature</p></section>
+<section id="log-log-specification-in-detail" class="slide level2">
+<h2>Log-Log Specification in Detail</h2>
+
+<img src="./ch8_figures/ch8_loglog_specification.png" style="width:75.0%" class=" quarto-figure-center"><p class="caption">On log-log scale, relationship is linear with slope = elasticity</p></section>
+<section id="knowledge-check-log-specifications" class="slide level2 smaller scrollable">
+<h2>Knowledge Check: Log Specifications</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Question</strong></p>
+</div>
+<div class="callout-content">
+<p>Match each estimated model to its interpretation:</p>
+<ol type="a">
+<li><p><span class="math inline">\(wage = 5 + 0.3 \cdot experience\)</span><br>
+</p></li>
+<li><p><span class="math inline">\(\log(wage) = 1.2 + 0.04 \cdot experience\)</span><br>
+</p></li>
+<li><p><span class="math inline">\(wage = 8 + 2.5 \log(experience)\)</span><br>
+</p></li>
+<li><p><span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span></p></li>
+<li><p>Each year of experience raises wages by $0.30<br>
+</p></li>
+</ol>
+<ol start="2" type="i">
+<li>Each year of experience raises wages by 4%<br>
+</li>
+<li>A 1% increase in experience raises wages by 0.15%<br>
+</li>
+<li>Doubling experience raises wages by $2.50</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Answer</strong></p>
+</div>
+<div class="callout-content">
+<ol type="a">
+<li>→ i) (level-level), b) → ii) (log-level), c) → iv) (level-log), d) → iii) (log-log)</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretation-guide-summary" class="slide level2">
+<h2>Interpretation Guide Summary</h2>
+
+<img src="./ch8_figures/ch8_interpretation_guide.png" style="width:90.0%" class=" quarto-figure-center"><p class="caption">Summary of log model interpretations</p></section>
+<section id="stata-implementation-logs" class="slide level2">
+<h2>Stata Implementation: Logs</h2>
+<p><strong>Generate log variables:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> log_wage = <span class="fu">log</span>(wage)</span>
+<span id="cb12-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> log_sales = <span class="fu">log</span>(sales)</span>
+<span id="cb12-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> log_price = <span class="fu">log</span>(price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Estimate different specifications:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a>* Log-<span class="dv">level</span></span>
+<span id="cb13-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> log_wage education experience, <span class="kw">robust</span></span>
+<span id="cb13-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="" aria-hidden="true" tabindex="-1"></a>* Level-<span class="fu">log</span></span>
+<span id="cb13-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage log_experience log_sales, <span class="kw">robust</span></span>
+<span id="cb13-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="" aria-hidden="true" tabindex="-1"></a>* Log-<span class="fu">log</span></span>
+<span id="cb13-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> log_quantity log_price log_income, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Important:</strong> Always use natural log (<code>log</code> in Stata), not log10 or log2!</p>
+</section></section>
+<section>
+<section id="testing-functional-form" class="title-slide slide level1 center">
+<h1>Testing Functional Form</h1>
+
+</section>
+<section id="how-do-we-know-which-model-to-use" class="slide level2 scrollable">
+<h2>How Do We Know Which Model to Use?</h2>
+<p><strong>We have many choices:</strong> Linear vs quadratic vs cubic? Logs or levels? Interactions or no interactions?</p>
+<div class="fragment">
+<p><strong>Three approaches:</strong></p>
+<ol type="1">
+<li><strong>Theory</strong> — What does economic theory suggest?</li>
+<li><strong>Visualization</strong> — Plot the data and residuals</li>
+<li><strong>Formal tests</strong> — Ramsey RESET test</li>
+</ol>
+</div>
+</section>
+<section id="the-ramsey-reset-test" class="slide level2 scrollable">
+<h2>The Ramsey RESET Test</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Ramsey RESET (Regression Specification Error Test)</strong></p>
+</div>
+<div class="callout-content">
+<p>Tests whether nonlinear functions of fitted values help explain <span class="math inline">\(Y\)</span>. Detects <span class="alert">omitted variables</span> or <span class="alert">incorrect functional form</span>.</p>
+</div>
+</div>
+</div>
+<p><strong>Procedure:</strong></p>
+<ol type="1">
+<li>Estimate original model, obtain fitted values <span class="math inline">\(\hat{Y}\)</span></li>
+<li>Estimate augmented model: <span class="math inline">\(Y = \beta_0 + \beta_1 X + \gamma_1 \hat{Y}^2 + \gamma_2 \hat{Y}^3 + u\)</span></li>
+<li>Test <span class="math inline">\(H_0: \gamma_1 = \gamma_2 = 0\)</span> (F-test)</li>
+<li>If reject <span class="math inline">\(H_0\)</span>: functional form is misspecified</li>
+</ol>
+</section>
+<section id="interpreting-reset-results" class="slide level2">
+<h2>Interpreting RESET Results</h2>
+<p><strong>If we reject <span class="math inline">\(H_0\)</span> (p-value &lt; 0.05):</strong> Current model is misspecified; try adding polynomial terms, logs, or interactions; re-run RESET after adjusting.</p>
+<p><strong>If we fail to reject <span class="math inline">\(H_0\)</span>:</strong> No strong evidence against current specification (but doesn’t prove it’s correct!).</p>
+</section>
+<section id="visualizing-functional-form-tests" class="slide level2">
+<h2>Visualizing Functional Form Tests</h2>
+
+<img src="./ch8_figures/ch8_testing_functional_form.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">Good fit: residuals randomly scattered. Bad fit: systematic pattern</p></section>
+<section id="stata-implementation-reset-test" class="slide level2">
+<h2>Stata Implementation: RESET Test</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="" aria-hidden="true" tabindex="-1"></a>* Estimate <span class="kw">model</span></span>
+<span id="cb14-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage education experience, <span class="kw">robust</span></span>
+<span id="cb14-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="" aria-hidden="true" tabindex="-1"></a>* Run RESET <span class="kw">test</span></span>
+<span id="cb14-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">ovtest</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Example output:</strong> Ramsey RESET test using powers of fitted values; <span class="math inline">\(H_0\)</span>: Model has no omitted variables; if Prob &gt; F = 0.0000, we reject — try adding quadratic terms or logs!</p>
+</section></section>
+<section>
+<section id="bringing-it-all-together" class="title-slide slide level1 center">
+<h1>Bringing It All Together</h1>
+
+</section>
+<section id="the-nonlinear-toolkit" class="slide level2">
+<h2>The Nonlinear Toolkit</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 22%">
+<col style="width: 37%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tool</th>
+<th>Use When</th>
+<th>Gives You</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Polynomial</td>
+<td>Curved relationships, turning points</td>
+<td>Marginal effects that vary with <span class="math inline">\(X\)</span></td>
+</tr>
+<tr class="even">
+<td>Interactions</td>
+<td>Effect depends on another variable</td>
+<td>Different slopes for different groups</td>
+</tr>
+<tr class="odd">
+<td>Logarithms</td>
+<td>Wide ranges, percentage interpretation</td>
+<td>Elasticities, diminishing returns</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Key principle:</strong> All remain <span class="alert">linear in parameters</span> — we can use OLS and all our inference tools!</p>
+</div>
+</section>
+<section id="key-formulas-summary" class="slide level2">
+<h2>Key Formulas Summary</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Marginal Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Quadratic</td>
+<td><span class="math inline">\(\frac{\partial Y}{\partial X} = \beta_1 + 2\beta_2 X\)</span></td>
+</tr>
+<tr class="even">
+<td>Interaction</td>
+<td><span class="math inline">\(\frac{\partial Y}{\partial X_1} = \beta_1 + \beta_3 X_2\)</span></td>
+</tr>
+<tr class="odd">
+<td>Log-level</td>
+<td><span class="math inline">\(\frac{\%\Delta Y}{\Delta X} = 100\beta_1\)</span></td>
+</tr>
+<tr class="even">
+<td>Level-log</td>
+<td><span class="math inline">\(\frac{\Delta Y}{\%\Delta X} = \beta_1/100\)</span></td>
+</tr>
+<tr class="odd">
+<td>Log-log (elasticity)</td>
+<td><span class="math inline">\(\frac{\%\Delta Y}{\%\Delta X} = \beta_1\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Turning point:</strong> <span class="math inline">\(X^* = -\frac{\beta_1}{2\beta_2}\)</span> (quadratic model)</p>
+</section>
+<section id="looking-ahead" class="slide level2">
+<h2>Looking Ahead</h2>
+<p><strong>What we’ve learned:</strong> How to model curved relationships (polynomials), varying effects (interactions), and percentage/elasticity interpretation (logs); how to test and choose functional forms.</p>
+<div class="fragment">
+<p><strong>Next chapter:</strong> Hypothesis Testing and Confidence Intervals — formal inference, t-tests and F-tests, confidence intervals, joint hypothesis tests.</p>
+</div>
+<div class="fragment">
+<p><strong>The real world is nonlinear — now you can model it!</strong></p>
+
+</div>
+</section></section>
+ </div>
+ <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>ECON3500 | Chapter 8</p>
+</div>
+</div></div>
+
+ <script>window.backupDefine = window.define; window.define = undefined;</script>
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/dist/reveal.js"></script>
+ <!-- reveal.js plugins -->
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+ 
+
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/notes/notes.js"></script>
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/search/search.js"></script>
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+ <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/math/math.js"></script>
+ <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+ <script>
+
+ // Full list of configuration options available at:
+ // https://revealjs.com/config/
+ Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'pdfMaxPagesPerSlide': 1,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+ // Display controls in the bottom right corner
+ controls: false,
+
+ // Help the user learn the controls by providing hints, for example by
+ // bouncing the down arrow when they first encounter a vertical slide
+ controlsTutorial: false,
+
+ // Determines where controls appear, "edges" or "bottom-right"
+ controlsLayout: 'edges',
+
+ // Visibility rule for backwards navigation arrows; "faded", "hidden"
+ // or "visible"
+ controlsBackArrows: 'faded',
+
+ // Display a presentation progress bar
+ progress: true,
+
+ // Display the page number of the current slide
+ slideNumber: 'c/t',
+
+ // 'all', 'print', or 'speaker'
+ showSlideNumber: 'all',
+
+ // Add the current slide number to the URL hash so that reloading the
+ // page/copying the URL will return you to the same slide
+ hash: true,
+
+ // Start with 1 for the hash rather than 0
+ hashOneBasedIndex: false,
+
+ // Flags if we should monitor the hash and change slides accordingly
+ respondToHashChanges: true,
+
+ // Push each slide change to the browser history
+ history: true,
+
+ // Enable keyboard shortcuts for navigation
+ keyboard: true,
+
+ // Enable the slide overview mode
+ overview: true,
+
+ // Disables the default reveal.js slide layout (scaling and centering)
+ // so that you can use custom CSS layout
+ disableLayout: false,
+
+ // Vertical centering of slides
+ center: false,
+
+ // Enables touch navigation on devices with touch input
+ touch: true,
+
+ // Loop the presentation
+ loop: false,
+
+ // Change the presentation direction to be RTL
+ rtl: false,
+
+ // see https://revealjs.com/vertical-slides/#navigation-mode
+ navigationMode: 'linear',
+
+ // Randomizes the order of slides each time the presentation loads
+ shuffle: false,
+
+ // Turns fragments on and off globally
+ fragments: true,
+
+ // Flags whether to include the current fragment in the URL,
+ // so that reloading brings you to the same fragment position
+ fragmentInURL: false,
+
+ // Flags if the presentation is running in an embedded mode,
+ // i.e. contained within a limited portion of the screen
+ embedded: false,
+
+ // Flags if we should show a help overlay when the questionmark
+ // key is pressed
+ help: true,
+
+ // Flags if it should be possible to pause the presentation (blackout)
+ pause: true,
+
+ // Flags if speaker notes should be visible to all viewers
+ showNotes: false,
+
+ // Global override for autoplaying embedded media (null/true/false)
+ autoPlayMedia: null,
+
+ // Global override for preloading lazy-loaded iframes (null/true/false)
+ preloadIframes: null,
+
+ // Number of milliseconds between automatically proceeding to the
+ // next slide, disabled when set to 0, this value can be overwritten
+ // by using a data-autoslide attribute on your slides
+ autoSlide: 0,
+
+ // Stop auto-sliding after user input
+ autoSlideStoppable: true,
+
+ // Use this method for navigation when auto-sliding
+ autoSlideMethod: null,
+
+ // Specify the average time in seconds that you think you will spend
+ // presenting each slide. This is used to show a pacing timer in the
+ // speaker view
+ defaultTiming: null,
+
+ // Enable slide navigation via mouse wheel
+ mouseWheel: false,
+
+ // The display mode that will be used to show slides
+ display: 'block',
+
+ // Hide cursor if inactive
+ hideInactiveCursor: true,
+
+ // Time before the cursor is hidden (in ms)
+ hideCursorTime: 5000,
+
+ // Opens links in an iframe preview overlay
+ previewLinks: false,
+
+ // Transition style (none/fade/slide/convex/concave/zoom)
+ transition: 'fade',
+
+ // Transition speed (default/fast/slow)
+ transitionSpeed: 'default',
+
+ // Transition style for full page slide backgrounds
+ // (none/fade/slide/convex/concave/zoom)
+ backgroundTransition: 'fade',
+
+ // Number of slides away from the current that are visible
+ viewDistance: 3,
+
+ // Number of slides away from the current that are visible on mobile
+ // devices. It is advisable to set this to a lower number than
+ // viewDistance in order to save resources.
+ mobileViewDistance: 2,
+
+ // The "normal" size of the presentation, aspect ratio will be preserved
+ // when the presentation is scaled to fit different resolutions. Can be
+ // specified using percentage units.
+ width: 1280,
+
+ height: 720,
+
+ // Factor of the display size that should remain empty around the content
+ margin: 0.1,
+
+ math: {
+ mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+ config: 'TeX-AMS_HTML-full',
+ tex2jax: {
+ inlineMath: [['\\(','\\)']],
+ displayMath: [['\\[','\\]']],
+ balanceBraces: true,
+ processEscapes: false,
+ processRefs: true,
+ processEnvironments: true,
+ preview: 'TeX',
+ skipTags: ['script','noscript','style','textarea','pre','code'],
+ ignoreClass: 'tex2jax_ignore',
+ processClass: 'tex2jax_process'
+ },
+ },
+
+ // reveal.js plugins
+ plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+ RevealMath,
+ RevealNotes,
+ RevealSearch,
+ RevealZoom
+ ]
+ });
+ </script>
+ <script>
+ (function () {
+ function ensureSrc() {
+ document.querySelectorAll("img[data-src]").forEach(function (img) {
+ if (!img.getAttribute("src")) {
+ img.setAttribute("src", img.getAttribute("data-src"));
+ }
+ });
+ document.querySelectorAll("source[data-src]").forEach(function (source) {
+ if (!source.getAttribute("src")) {
+ source.setAttribute("src", source.getAttribute("data-src"));
+ }
+ });
+ }
+
+ function relayout() {
+ if (window.Reveal && typeof window.Reveal.layout === "function") {
+ window.Reveal.layout();
+ }
+ }
+
+ function hookReveal() {
+ if (window.Reveal && typeof window.Reveal.on === "function") {
+ window.Reveal.on("ready", function () {
+ ensureSrc();
+ relayout();
+ });
+ window.Reveal.on("slidechanged", relayout);
+ window.Reveal.on("overviewshown", function () {
+ ensureSrc();
+ relayout();
+ });
+ window.Reveal.on("overviewhidden", relayout);
+ return true;
+ }
+ return false;
+ }
+
+ document.addEventListener("DOMContentLoaded", function () {
+ ensureSrc();
+ relayout();
+
+ var imgs = document.querySelectorAll(".reveal img");
+ var pending = 0;
+ imgs.forEach(function (img) {
+ if (!img.complete) {
+ pending += 1;
+ img.addEventListener(
+ "load",
+ function () {
+ pending -= 1;
+ if (pending === 0) {
+ relayout();
+ }
+ },
+ { once: true }
+ );
+ }
+ });
+ if (pending === 0) {
+ relayout();
+ }
+ });
+
+ window.addEventListener("load", relayout);
+
+ if (!hookReveal()) {
+ var tries = 0;
+ var t = window.setInterval(function () {
+ tries += 1;
+ if (hookReveal() || tries > 20) {
+ window.clearInterval(t);
+ }
+ }, 250);
+ }
+ })();
+ </script>
+ <script id="quarto-html-after-body" type="application/javascript">
+ window.document.addEventListener("DOMContentLoaded", function (event) {
+ const tabsets = window.document.querySelectorAll(".panel-tabset-tabby")
+ tabsets.forEach(function(tabset) {
+ const tabby = new Tabby('#' + tabset.id);
+ });
+ const isCodeAnnotation = (el) => {
+ for (const clz of el.classList) {
+ if (clz.startsWith('code-annotation-')) { 
+ return true;
+ }
+ }
+ return false;
+ }
+ const onCopySuccess = function(e) {
+ // button target
+ const button = e.trigger;
+ // don't keep focus
+ button.blur();
+ // flash "checked"
+ button.classList.add('code-copy-button-checked');
+ var currentTitle = button.getAttribute("title");
+ button.setAttribute("title", "Copied!");
+ let tooltip;
+ if (window.bootstrap) {
+ button.setAttribute("data-bs-toggle", "tooltip");
+ button.setAttribute("data-bs-placement", "left");
+ button.setAttribute("data-bs-title", "Copied!");
+ tooltip = new bootstrap.Tooltip(button, 
+ { trigger: "manual", 
+ customClass: "code-copy-button-tooltip",
+ offset: [0, -8]});
+ tooltip.show(); 
+ }
+ setTimeout(function() {
+ if (tooltip) {
+ tooltip.hide();
+ button.removeAttribute("data-bs-title");
+ button.removeAttribute("data-bs-toggle");
+ button.removeAttribute("data-bs-placement");
+ }
+ button.setAttribute("title", currentTitle);
+ button.classList.remove('code-copy-button-checked');
+ }, 1000);
+ // clear code selection
+ e.clearSelection();
+ }
+ const getTextToCopy = function(trigger) {
+ const outerScaffold = trigger.parentElement.cloneNode(true);
+ const codeEl = outerScaffold.querySelector('code');
+ for (const childEl of codeEl.children) {
+ if (isCodeAnnotation(childEl)) {
+ childEl.remove();
+ }
+ }
+ return codeEl.innerText;
+ }
+ const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+ text: getTextToCopy
+ });
+ clipboard.on('success', onCopySuccess);
+ if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+ const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+ text: getTextToCopy,
+ container: window.document.getElementById('quarto-embedded-source-code-modal')
+ });
+ clipboardModal.on('success', onCopySuccess);
+ }
+ var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+ var mailtoRegex = new RegExp(/^mailto:/);
+ var filterRegex = new RegExp('/' + window.location.host + '/');
+ var isInternal = (href) => {
+ return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+ }
+ // Inspect non-navigation links and adorn them if external
+ var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ for (var i=0; i<links.length; i++) {
+ const link = links[i];
+ if (!isInternal(link.href)) {
+ // undo the damage that might have been done by quarto-nav.js in the case of
+ // links that we want to consider external
+ if (link.dataset.originalHref !== undefined) {
+ link.href = link.dataset.originalHref;
+ }
+ }
+ }
+ function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+ const config = {
+ allowHTML: true,
+ maxWidth: 500,
+ delay: 100,
+ arrow: false,
+ appendTo: function(el) {
+ return el.closest('section.slide') || el.parentElement;
+ },
+ interactive: true,
+ interactiveBorder: 10,
+ theme: 'light-border',
+ placement: 'bottom-start',
+ };
+ if (contentFn) {
+ config.content = contentFn;
+ }
+ if (onTriggerFn) {
+ config.onTrigger = onTriggerFn;
+ }
+ if (onUntriggerFn) {
+ config.onUntrigger = onUntriggerFn;
+ }
+ config['offset'] = [0,0];
+ config['maxWidth'] = 700;
+ window.tippy(el, config); 
+ }
+ const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+ for (var i=0; i<noterefs.length; i++) {
+ const ref = noterefs[i];
+ tippyHover(ref, function() {
+ // use id or data attribute instead here
+ let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+ try { href = new URL(href).hash; } catch {}
+ const id = href.replace(/^#\/?/, "");
+ const note = window.document.getElementById(id);
+ if (note) {
+ return note.innerHTML;
+ } else {
+ return "";
+ }
+ });
+ }
+ const findCites = (el) => {
+ const parentEl = el.parentElement;
+ if (parentEl) {
+ const cites = parentEl.dataset.cites;
+ if (cites) {
+ return {
+ el,
+ cites: cites.split(' ')
+ };
+ } else {
+ return findCites(el.parentElement)
+ }
+ } else {
+ return undefined;
+ }
+ };
+ var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+ for (var i=0; i<bibliorefs.length; i++) {
+ const ref = bibliorefs[i];
+ const citeInfo = findCites(ref);
+ if (citeInfo) {
+ tippyHover(citeInfo.el, function() {
+ var popup = window.document.createElement('div');
+ citeInfo.cites.forEach(function(cite) {
+ var citeDiv = window.document.createElement('div');
+ citeDiv.classList.add('hanging-indent');
+ citeDiv.classList.add('csl-entry');
+ var biblioDiv = window.document.getElementById('ref-' + cite);
+ if (biblioDiv) {
+ citeDiv.innerHTML = biblioDiv.innerHTML;
+ }
+ popup.appendChild(citeDiv);
+ });
+ return popup.innerHTML;
+ });
+ }
+ }
+ });
+ </script>
+ 
+
+</body></html>

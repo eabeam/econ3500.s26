@@ -34,3 +34,47 @@ if [ -f "$CH4_HTML" ] && [ -f "$CH4_QMD" ]; then
     fi
   fi
 fi
+
+# Same for ch6 (HTML may live in slides/ch6/ or static/slides/ch6-quarto/)
+CH6_HTML="$REPO_ROOT/static/slides/ch6-quarto/index.html"
+CH6_HTML_ALT="$ROOT_DIR/ch6/index.html"
+CH6_PDF="$REPO_ROOT/static/slides/ch6-slides.pdf"
+CH6_QMD="$REPO_ROOT/slides/ch6/ch6_multiple_regression.qmd"
+
+if [ -f "$CH6_QMD" ]; then
+  if [ -f "$CH6_HTML" ] || [ -f "$CH6_HTML_ALT" ]; then
+    REF="$CH6_HTML"
+    [ -f "$REF" ] || REF="$CH6_HTML_ALT"
+    if [ ! -f "$CH6_PDF" ] || [ "$REF" -nt "$CH6_PDF" ]; then
+      if ! "$REPO_ROOT/slides/render_reveal_pdf.sh" "$CH6_QMD" "$CH6_PDF"; then
+        echo "Warning: PDF render failed for $CH6_QMD"
+      else
+        if [ -x "$REPO_ROOT/static/make_slidepng.sh" ]; then
+          "$REPO_ROOT/static/make_slidepng.sh"
+        fi
+      fi
+    fi
+  fi
+fi
+
+# Ch8 (HTML may be in slides/ch8/ or static/slides/ch8-quarto/)
+CH8_HTML="$REPO_ROOT/static/slides/ch8-quarto/index.html"
+CH8_HTML_ALT="$ROOT_DIR/ch8/index.html"
+CH8_PDF="$REPO_ROOT/static/slides/ch8-slides.pdf"
+CH8_QMD="$REPO_ROOT/slides/ch8/ch8_nonlinear_relationships.qmd"
+
+if [ -f "$CH8_QMD" ]; then
+  if [ -f "$CH8_HTML" ] || [ -f "$CH8_HTML_ALT" ]; then
+    REF="$CH8_HTML"
+    [ -f "$REF" ] || REF="$CH8_HTML_ALT"
+    if [ ! -f "$CH8_PDF" ] || [ "$REF" -nt "$CH8_PDF" ]; then
+      if ! "$REPO_ROOT/slides/render_reveal_pdf.sh" "$CH8_QMD" "$CH8_PDF"; then
+        echo "Warning: PDF render failed for $CH8_QMD"
+      else
+        if [ -x "$REPO_ROOT/static/make_slidepng.sh" ]; then
+          "$REPO_ROOT/static/make_slidepng.sh"
+        fi
+      fi
+    fi
+  fi
+fi

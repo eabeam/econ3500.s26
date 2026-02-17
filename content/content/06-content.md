@@ -20,6 +20,7 @@ menu:
 
 pdf: /slides/ch6-slides.pdf
 thumb: /slides/ch6-slides.png
+slides_html: /slides/ch6-quarto/
 
 
 

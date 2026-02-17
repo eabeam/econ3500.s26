@@ -43,8 +43,8 @@ What's the plan?
 |  | 12 Feb | Th |[Hypothesis testing](/content/05-content) ||  [<i class="fas fa-laptop-code"></i> Lab 3 due](/assignment/03-lab)|
 | ||||  | |
 | 6|||**Multiple linear regression (CH6)**   | | |
-|  | 17 Feb | Tu | [Multiple linear regression](/content/06-content/) |[ Read CH6](/content/06-content/) | [<i class="fas fa-pencil-alt"></i> PS2 due](/assignment/02-ps)|
-|  | 19 Feb | Th|[Multiple linear regression](/content/06-content/)  |  | [<i class="fas fa-dragon"></i> Idea proposal due](/assignment/rp-02-ideas) |
+|  | 17 Feb | Tu | [Multiple linear regression](/content/06-content/) |[ Read CH6](/content/06-content/) |  |
+|  | 19 Feb | Th|[Multiple linear regression](/content/06-content/)  |  | [<i class="fas fa-pencil-alt"></i> PS2 due](/assignment/02-ps) <br> [<i class="fas fa-dragon"></i> Idea proposal due](/assignment/rp-02-ideas) |
 | ||||  | |
 | 7||| **MLR: Hypothesis tests (CH7)**   | | |
 |  | 24 Feb | Tu | [MLR: Hypothesis tests](/content/07-content) |[Read CH7](/content/07-content/) |[<i class="fas fa-laptop-code"></i> Lab 4 due](/assignment/04-lab)|

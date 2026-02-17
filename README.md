@@ -122,6 +122,15 @@ Other items in `static/slides/` (e.g. ch2–ch3, ch6–ch12 PDFs, exam reviews) 
 - **slides/README.md** — Creating new chapters, figure conventions, R/Stata workflow, styling, rendering.
 - **SLIDES_INTEGRATION_GUIDE.md** — How built slides are wired into the site (PDF + HTML, shortcode, content front matter).
 
+## Slide reviewing and content preparation
+
+When reviewing or preparing slides and other course content:
+
+- **Textbook as source of truth.** The course textbook is **Stock and Watson**. Use it as the authoritative reference for econometric theory. Other explanations (articles, notes, other texts) may be useful, but **flag anything that conflicts with Stock and Watson** so it can be reconciled or corrected.
+- **Causality.** We are very careful about false claims of causality and follow best practices in applied microeconomics. In particular:
+  - The **three least squares assumptions** are the criteria for **unbiasedness** of the OLS estimator. They are **not** the criteria for a **causal interpretation** of a regression.
+  - Approach causal claims conservatively; do not treat “unbiased under the assumptions” as equivalent to “causal.”
+
 ## Development and editing
 
 For full instructions (content dates, shortcodes, adding assignments, building, troubleshooting), see **[DEVELOPMENT.md](DEVELOPMENT.md)**.

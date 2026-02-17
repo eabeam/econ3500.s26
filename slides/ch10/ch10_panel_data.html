@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="ch10_panel_data_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ch10_panel_data_files/libs/quarto-html/tabby.min.js"></script>
+<script src="ch10_panel_data_files/libs/quarto-html/popper.min.js"></script>
+<script src="ch10_panel_data_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="ch10_panel_data_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ch10_panel_data_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="ch10_panel_data_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+ <meta name="generator" content="quarto-1.8.26">
+
+ <meta name="author" content="ECON3500: Econometrics and Applications">
+ <title>Regression with Panel Data</title>
+ <meta name="apple-mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+ <link rel="stylesheet" href="ch10_panel_data_files/libs/revealjs/dist/reset.css">
+ <link rel="stylesheet" href="ch10_panel_data_files/libs/revealjs/dist/reveal.css">
+ <style>
+ code{white-space: pre-wrap;}
+ span.smallcaps{font-variant: small-caps;}
+ div.columns{display: flex; gap: min(4vw, 1.5em);}
+ div.column{flex: auto; overflow-x: auto;}
+ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ ul.task-list{list-style: none;}
+ ul.task-list li input[type="checkbox"] {
+ width: 0.8em;
+ margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+ vertical-align: middle;
+ }
+ /* CSS for syntax highlighting */
+ html { -webkit-text-size-adjust: 100%; }
+ pre > code.sourceCode { white-space: pre; position: relative; }
+ pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+ pre > code.sourceCode > span:empty { height: 1.2em; }
+ .sourceCode { overflow: visible; }
+ code.sourceCode > span { color: inherit; text-decoration: inherit; }
+ div.sourceCode { margin: 1em 0; }
+ pre.sourceCode { margin: 0; }
+ @media screen {
+ div.sourceCode { overflow: auto; }
+ }
+ @media print {
+ pre > code.sourceCode { white-space: pre-wrap; }
+ pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+ }
+ pre.numberSource code
+ { counter-reset: source-line 0; }
+ pre.numberSource code > span
+ { position: relative; left: -4em; counter-increment: source-line; }
+ pre.numberSource code > span > a:first-child::before
+ { content: counter(source-line);
+ position: relative; left: -1em; text-align: right; vertical-align: baseline;
+ border: none; display: inline-block;
+ -webkit-touch-callout: none; -webkit-user-select: none;
+ -khtml-user-select: none; -moz-user-select: none;
+ -ms-user-select: none; user-select: none;
+ padding: 0 4px; width: 4em;
+ }
+ pre.numberSource { margin-left: 3em; padding-left: 4px; }
+ div.sourceCode
+ { color: #24292e; }
+ @media screen {
+ pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+ }
+ code span { color: #24292e; } /* Normal */
+ code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+ code span.an { color: #6a737d; } /* Annotation */
+ code span.at { color: #d73a49; } /* Attribute */
+ code span.bn { color: #005cc5; } /* BaseN */
+ code span.bu { color: #d73a49; } /* BuiltIn */
+ code span.cf { color: #d73a49; } /* ControlFlow */
+ code span.ch { color: #032f62; } /* Char */
+ code span.cn { color: #005cc5; } /* Constant */
+ code span.co { color: #6a737d; } /* Comment */
+ code span.cv { color: #6a737d; } /* CommentVar */
+ code span.do { color: #6a737d; } /* Documentation */
+ code span.dt { color: #d73a49; } /* DataType */
+ code span.dv { color: #005cc5; } /* DecVal */
+ code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+ code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+ code span.fl { color: #005cc5; } /* Float */
+ code span.fu { color: #6f42c1; } /* Function */
+ code span.im { color: #032f62; } /* Import */
+ code span.in { color: #6a737d; } /* Information */
+ code span.kw { color: #d73a49; } /* Keyword */
+ code span.op { color: #24292e; } /* Operator */
+ code span.ot { color: #6f42c1; } /* Other */
+ code span.pp { color: #d73a49; } /* Preprocessor */
+ code span.re { color: #6a737d; } /* RegionMarker */
+ code span.sc { color: #005cc5; } /* SpecialChar */
+ code span.ss { color: #032f62; } /* SpecialString */
+ code span.st { color: #032f62; } /* String */
+ code span.va { color: #e36209; } /* Variable */
+ code span.vs { color: #032f62; } /* VerbatimString */
+ code span.wa { color: #ff5555; } /* Warning */
+ </style>
+ <link rel="stylesheet" href="ch10_panel_data_files/libs/revealjs/dist/theme/quarto-f6ff266a00026af0db213e5461a2bde6.css">
+ <link rel="stylesheet" href="../_styles/styles.css">
+ <link href="ch10_panel_data_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+ <link href="ch10_panel_data_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+ <link href="ch10_panel_data_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+ <link href="ch10_panel_data_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+ <link href="ch10_panel_data_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+ <link href="ch10_panel_data_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+ <style type="text/css">
+ .reveal div.sourceCode {
+ margin: 0;
+ overflow: auto;
+ }
+ .reveal div.hanging-indent {
+ margin-left: 1em;
+ text-indent: -1em;
+ }
+ .reveal .slide:not(.center) {
+ height: 100%;
+ overflow-y: auto;
+ }
+ .reveal .slide.scrollable {
+ overflow-y: auto;
+ }
+ .reveal .footnotes {
+ height: 100%;
+ overflow-y: auto;
+ }
+ .reveal .slide .absolute {
+ position: absolute;
+ display: block;
+ }
+ .reveal .footnotes ol {
+ counter-reset: ol;
+ list-style-type: none; 
+ margin-left: 0;
+ }
+ .reveal .footnotes ol li:before {
+ counter-increment: ol;
+ content: counter(ol) ". "; 
+ }
+ .reveal .footnotes ol li > p:first-child {
+ display: inline-block;
+ }
+ .reveal .slide ul,
+ .reveal .slide ol {
+ margin-bottom: 0.5em;
+ }
+ .reveal .slide ul li,
+ .reveal .slide ol li {
+ margin-top: 0.4em;
+ margin-bottom: 0.2em;
+ }
+ .reveal .slide ul[role="tablist"] li {
+ margin-bottom: 0;
+ }
+ .reveal .slide ul li > *:first-child,
+ .reveal .slide ol li > *:first-child {
+ margin-block-start: 0;
+ }
+ .reveal .slide ul li > *:last-child,
+ .reveal .slide ol li > *:last-child {
+ margin-block-end: 0;
+ }
+ .reveal .slide .columns:nth-child(3) {
+ margin-block-start: 0.8em;
+ }
+ .reveal blockquote {
+ box-shadow: none;
+ }
+ .reveal .tippy-content>* {
+ margin-top: 0.2em;
+ margin-bottom: 0.7em;
+ }
+ .reveal .tippy-content>*:last-child {
+ margin-bottom: 0.2em;
+ }
+ .reveal .slide > img.stretch.quarto-figure-center,
+ .reveal .slide > img..quarto-figure-center {
+ display: block;
+ margin-left: auto;
+ margin-right: auto; 
+ }
+ .reveal .slide > img.stretch.quarto-figure-left,
+ .reveal .slide > img..quarto-figure-left {
+ display: block;
+ margin-left: 0;
+ margin-right: auto; 
+ }
+ .reveal .slide > img.stretch.quarto-figure-right,
+ .reveal .slide > img..quarto-figure-right {
+ display: block;
+ margin-left: auto;
+ margin-right: 0; 
+ }
+ </style>
+</head>
+<body class="quarto-light">
+ <div class="reveal">
+ <div class="slides">
+
+<section id="title-slide" class="quarto-title-block center">
+ <h1 class="title">Regression with Panel Data</h1>
+ <p class="subtitle">SW Chapter 10</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+ECON3500: Econometrics and Applications 
+</div>
+</div>
+</div>
+
+ <p class="date">Spring 2026</p>
+</section>
+<section id="learning-objectives" class="slide level2 scrollable">
+<h2>Learning Objectives</h2>
+<p>By the end of this chapter, you will be able to:</p>
+<ol type="1">
+<li>Distinguish <span class="kw">cross-sectional</span>, <span class="kw">time-series</span>, and <span class="kw">panel</span> data</li>
+<li>Estimate and interpret <span class="kw">difference-in-differences</span> regressions</li>
+<li>Understand the <span class="kw">first-difference</span> estimator and why fixed effects drop out</li>
+<li>Estimate regressions with <span class="kw">entity</span> and <span class="kw">time fixed effects</span></li>
+<li>Explain when <span class="kw">clustered standard errors</span> are needed</li>
+</ol>
+</section>
+<section>
+<section id="types-of-data" class="title-slide slide level1 center">
+<h1>Types of Data</h1>
+
+</section>
+<section id="cross-sectional-data" class="slide level2">
+<h2>Cross-Sectional Data</h2>
+<p>A random sample of units observed at <span class="kw">one point in time</span>.</p>
+<div class="fragment">
+<p><strong>This is what we’ve been using so far!</strong></p>
+<ul>
+<li>Relationship between hours worked and wages</li>
+<li>How CEO tenure relates to compensation</li>
+<li>Test scores and class size across California districts</li>
+</ul>
+</div>
+</section>
+<section id="cross-sectional-data-1" class="slide level2">
+<h2>Cross-Sectional Data</h2>
+
+<img src="./ch10_figures/ch10_crosssection_data.png" style="width:70.0%" class=" quarto-figure-center"><p class="caption">Stata data browser: each row is a different individual, observed once</p></section>
+<section id="time-series-data" class="slide level2">
+<h2>Time-Series Data</h2>
+<p>Observations on <span class="kw">one unit over time</span>.</p>
+<div class="fragment">
+<ul>
+<li>Stock-market dividends for Apple over the past 10 years</li>
+<li>GDP growth over time</li>
+<li>Annual infant mortality rates for the U.S.</li>
+</ul>
+</div>
+</section>
+<section id="time-series-data-1" class="slide level2">
+<h2>Time-Series Data</h2>
+
+<img src="./ch10_figures/ch10_timeseries_data.png" style="width:60.0%" class=" quarto-figure-center"><p class="caption">Stata data browser: each row is a different year for one country</p></section>
+<section id="panel-longitudinal-data" class="slide level2 smaller">
+<h2>Panel (Longitudinal) Data</h2>
+<p><span class="kw">Multiple units</span> observed across <span class="kw">multiple time periods</span> — cross-sections over time.</p>
+<div class="fragment">
+<ul>
+<li>Track how individuals’ earnings change over time</li>
+<li>Crime rates by city over time</li>
+<li><span class="alert">Very useful for policy analysis!</span></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Panel vs.&nbsp;Pooled Cross-Sections</strong></p>
+</div>
+<div class="callout-content">
+<p>A <span class="kw">panel</span> tracks the <span class="alert">same units</span> over time (Bob in 1990 and Bob in 1991).</p>
+<p>A <span class="kw">pooled cross-section</span> draws <span class="alert">different units</span> each period (Bob in 1990, Jane in 1991) — like multiple waves of the ACS.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="panel-data" class="slide level2">
+<h2>Panel Data</h2>
+
+<img src="./ch10_figures/ch10_panel_data.png" style="width:55.0%" class=" quarto-figure-center"><p class="caption">Stata data browser: same entities tracked across time periods</p></section>
+<section id="panel-vs.-repeated-cross-sections" class="slide level2 smaller">
+<h2>Panel vs.&nbsp;Repeated Cross-Sections</h2>
+<p><strong>Repeated (pooled) cross-sections:</strong></p>
+<ul>
+<li>Draw randomly from a large population at various points in time</li>
+<li>Observations are <span class="kw">independent</span> over time</li>
+<li>Independence <span class="math inline">\(\Rightarrow\)</span> inference is straightforward</li>
+</ul>
+<div class="fragment">
+<p><strong>Panel data:</strong></p>
+<ul>
+<li>Track the <span class="alert">same</span> population over time</li>
+<li>Population may be independent at first draw: Bob in 1990 is independent of Jane in 1990</li>
+<li>But <span class="alert">dependence over time</span>: Bob in 1990 is related to Bob in 1991</li>
+<li>Detroit will probably have high crime rates next year too</li>
+</ul>
+</div>
+<div class="fragment">
+<p>This dependence has important implications for <span class="kw">standard errors</span> (more on this later).</p>
+</div>
+</section></section>
+<section>
+<section id="difference-in-differences" class="title-slide slide level1 center">
+<h1>Difference-in-Differences</h1>
+
+</section>
+<section id="motivating-example-garbage-incinerator" class="slide level2 smaller">
+<h2>Motivating Example: Garbage Incinerator</h2>
+<p><strong>Question:</strong> What is the effect of a garbage incinerator on nearby housing prices?</p>
+<div class="fragment">
+<p><strong>After</strong> the incinerator was built:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="./ch10_figures/ch10_rprice_after.png" class="quarto-figure quarto-figure-center" style="width:55.0%"></p>
+</figure>
+</div>
+<p><span class="math display">\[\widehat{rprice} = 101{,}308 - 30{,}688 \cdot nearinc\]</span></p>
+<p>Houses near the incinerator sell for ~$30k less. Did the incinerator cause this?</p>
+</div>
+</section>
+<section id="not-so-fast" class="slide level2 smaller">
+<h2>Not So Fast…</h2>
+<p>Look at the relationship <strong>before</strong> the incinerator was built:</p>
+
+<img src="./ch10_figures/ch10_rprice_before.png" class="quarto-figure quarto-figure-center " style="width:55.0%"><p><span class="math display">\[\widehat{rprice} = 82{,}517 - 18{,}824 \cdot nearinc\]</span></p>
+<div class="fragment">
+<p>The incinerator was built in a place where housing prices were <span class="alert">already depressed</span>!</p>
+<p>The $30k gap reflects both the incinerator effect <span class="alert">and</span> pre-existing differences.</p>
+</div>
+</section>
+<section id="the-before-and-after-picture" class="slide level2">
+<h2>The Before-and-After Picture</h2>
+
+<img src="./ch10_figures/ch10_rprice_beforeafter.png" class="quarto-figure quarto-figure-center " style="width:50.0%"></section>
+<section id="the-difference-in-differences-estimate" class="slide level2 smaller">
+<h2>The Difference-in-Differences Estimate</h2>
+<p>We need to <span class="kw">subtract out</span> the pre-existing difference:</p>
+<p><span class="math display">\[\hat{\delta}_1 = \underbrace{(-30{,}688)}_{\text{after gap}} - \underbrace{(-18{,}824)}_{\text{before gap}} = -11{,}864\]</span></p>
+<div class="fragment">
+<p>The incinerator reduced nearby prices by ~$12k — not $30k.</p>
+</div>
+<div class="fragment">
+<p>Equivalently:</p>
+<p><span class="math display">\[\hat{\delta}_1 = (\bar{y}_{after, near} - \bar{y}_{after, far}) - (\bar{y}_{before, near} - \bar{y}_{before, far})\]</span></p>
+<p>This is the <span class="kw">difference-in-differences</span> (DiD) estimator.</p>
+</div>
+</section>
+<section id="did-graphically" class="slide level2">
+<h2>DiD Graphically</h2>
+
+<img src="./ch10_figures/ch10_rprice_graph.png" style="width:55.0%" class=" quarto-figure-center"><p class="caption">The DiD estimate is the gap between actual and counterfactual</p><p>The dashed line shows where near-incinerator prices <span class="kw">would have been</span> if they followed the same trend as far-away prices.</p>
+</section>
+<section id="did-in-a-regression-framework" class="slide level2 smaller">
+<h2>DiD in a Regression Framework</h2>
+<p>We can capture all of this in a single regression:</p>
+<p><span class="math display">\[rprice_i = \beta_0 + \delta_0 \cdot after_i + \beta_1 \cdot nearinc_i + \delta_1 \cdot (after_i \times nearinc_i) + u_i\]</span></p>
+<div class="fragment">
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">Before (<span class="math inline">\(after = 0\)</span>)</th>
+<th style="text-align: center;">After (<span class="math inline">\(after = 1\)</span>)</th>
+<th style="text-align: center;">After <span class="math inline">\(-\)</span> Before</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Control</strong> (far)</td>
+<td style="text-align: center;"><span class="math inline">\(\beta_0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\beta_0 + \delta_0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\delta_0\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Treatment</strong> (near)</td>
+<td style="text-align: center;"><span class="math inline">\(\beta_0 + \beta_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\beta_0 + \delta_0 + \beta_1 + \delta_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\delta_0 + \delta_1\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Treat <span class="math inline">\(-\)</span> Control</strong></td>
+<td style="text-align: center;"><span class="math inline">\(\beta_1\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(\beta_1 + \delta_1\)</span></td>
+<td style="text-align: center;"><span class="alert"><span class="math inline">\(\delta_1\)</span></span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\delta_1\)</span> is the <span class="kw">DiD estimate</span> — the coefficient on the interaction term.</p>
+</div>
+</section>
+<section id="policy-evaluation-with-did" class="slide level2 smaller">
+<h2>Policy Evaluation with DiD</h2>
+<p>This logic applies broadly to any setting with:</p>
+<ul>
+<li>A <span class="kw">before/after</span> period</li>
+<li><span class="kw">Treatment/control</span> groups</li>
+</ul>
+<p><span class="math display">\[y_{it} = \beta_0 + \delta_0 \cdot after_t + \beta_1 \cdot treated_i + \delta_1 \cdot (after_t \times treated_i) + u_{it}\]</span></p>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Parallel Trends Assumption</strong></p>
+</div>
+<div class="callout-content">
+<p>DiD requires that in the <span class="alert">absence of treatment</span>, the gap between treatment and control groups would have stayed <span class="kw">parallel</span> over time.</p>
+<ul>
+<li>There <span class="kw">can</span> be unobserved factors at one point in time, if they affect both groups equally</li>
+<li>The two groups <span class="kw">can</span> be very different from each other, so long as they are on the same trajectories</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Knowledge Check</strong></p>
+</div>
+<div class="callout-content">
+<p>In the incinerator example, what would violate parallel trends?</p>
+<p>. . .</p>
+<p>If, say, a new highway was built near the incinerator site at the same time — affecting near-incinerator prices but not far-away prices — that would break parallel trends.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="two-period-panel-data-first-differencing" class="title-slide slide level1 center">
+<h1>Two-Period Panel Data: First Differencing</h1>
+
+</section>
+<section id="from-did-to-panel-data" class="slide level2 smaller">
+<h2>From DiD to Panel Data</h2>
+<p>Now assume we observe the <span class="kw">same entities</span> in two time periods.</p>
+<div class="fragment">
+<p><strong>Example:</strong> Unemployment and crime across cities in 1982 and 1987.</p>
+<ul>
+<li>Detroit has high unemployment and high crime</li>
+<li>Does high unemployment <span class="alert">cause</span> high crime, or is there another explanation?</li>
+<li>Explanatory variables might help — but what if we don’t have them?</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key Insight</strong></p>
+</div>
+<div class="callout-content">
+<p>If cities are observed in at least two periods and other factors affecting crime stay approximately constant, we can estimate causal effects <span class="alert">without additional controls</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-panel-data-model" class="slide level2 smaller">
+<h2>The Panel Data Model</h2>
+<p><span class="math display">\[crmrte_{it} = \beta_0 + \delta_0 \cdot d87_t + \beta_1 \cdot unemp_{it} + a_i + u_{it}\]</span></p>
+<p>where <span class="math inline">\(t = 1982, 1987\)</span></p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(d87_t\)</span>: time dummy for the second period</li>
+<li><span class="math inline">\(a_i\)</span>: <span class="alert">unobserved</span> time-constant factors (<span class="kw">entity fixed effects</span>)
+<ul>
+<li>Detroit’s culture, geography, historical factors, etc.</li>
+</ul></li>
+<li><span class="math inline">\(u_{it}\)</span>: other unobserved factors (<span class="kw">idiosyncratic error</span>)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>The problem:</strong> <span class="math inline">\(a_i\)</span> is likely correlated with <span class="math inline">\(unemp_{it}\)</span> — cities with certain unobserved characteristics have both high unemployment and high crime. This is <span class="alert">OVB</span>.</p>
+</div>
+</section>
+<section id="the-first-difference-trick" class="slide level2 smaller">
+<h2>The First-Difference Trick</h2>
+<p>Write the model for each period:</p>
+<p><span class="math display">\[crmrte_{i,1987} = \beta_0 + \delta_0 + \beta_1 \cdot unemp_{i,1987} + a_i + u_{i,1987}\]</span> <span class="math display">\[crmrte_{i,1982} = \beta_0 + \beta_1 \cdot unemp_{i,1982} + a_i + u_{i,1982}\]</span></p>
+<div class="fragment">
+<p>Subtract the second from the first:</p>
+<p><span class="math display">\[\Delta crmrte_i = \delta_0 + \beta_1 \cdot \Delta unemp_i + \Delta u_i\]</span></p>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Fixed Effect Drops Out!</strong></p>
+</div>
+<div class="callout-content">
+<p>Because <span class="math inline">\(a_i - a_i = 0\)</span>, <span class="alert">all time-invariant unobserved factors</span> are eliminated. We don’t need to measure or control for them.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="first-difference-estimate" class="slide level2">
+<h2>First-Difference Estimate</h2>
+<p>Estimate the first-differenced equation by OLS:</p>
+<p><span class="math display">\[\Delta \widehat{crmrte} = 15.4 + 2.22 \cdot \Delta unemp\]</span></p>
+<div class="fragment">
+<p><strong>Interpretation:</strong> A 1 percentage point increase in the unemployment rate is associated with 2.22 more crimes per 1,000 people.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>What First-Differencing Can and Cannot Do</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><span class="kw">Solves</span>: Time-invariant omitted variable bias (city culture, geography, etc.)</li>
+<li><span class="alert">Does not solve</span>: Time-varying endogeneity (factors that change across cities over time)</li>
+<li><span class="alert">Limitation</span>: Imprecise if <span class="math inline">\(X\)</span> varies little over time; impossible to estimate effects of time-invariant variables</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="fixed-effects-estimation" class="title-slide slide level1 center">
+<h1>Fixed Effects Estimation</h1>
+
+</section>
+<section id="the-idea-behind-fixed-effects" class="slide level2 smaller">
+<h2>The Idea Behind Fixed Effects</h2>
+<p>Instead of differencing, what if we <span class="kw">control for</span> each entity directly?</p>
+<div class="fragment">
+<p>Consider a panel of wages over time. There might be unobserved Bob-specific characteristics:</p>
+<ul>
+<li>Bob is hard-working (+)</li>
+<li>Bob is a competitive negotiator (+)</li>
+<li>Bob smells funny (−)</li>
+</ul>
+</div>
+<div class="fragment">
+<p>We can never control for all of Bob’s unique quirks.</p>
+</div>
+<div class="fragment">
+<p>But we can <span class="alert">“control for” Bob</span> — give Bob his very own <span class="kw">fixed effect</span>: the unique “stuff” that Bob brings to the table.</p>
+<p>This only covers things that <span class="alert">stay constant over time</span>.</p>
+</div>
+</section>
+<section id="fixed-effects-the-math" class="slide level2 smaller">
+<h2>Fixed Effects: The Math</h2>
+<p>Start with: <span class="math display">\[y_{it} = \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + a_i + u_{it}\]</span></p>
+<div class="fragment">
+<p>Average over time for each entity: <span class="math display">\[\bar{y}_i = \beta_1 \bar{x}_{i1} + \cdots + \beta_k \bar{x}_{ik} + a_i + \bar{u}_i\]</span></p>
+</div>
+<div class="fragment">
+<p>Subtract (time-demeaning): <span class="math display">\[[y_{it} - \bar{y}_i] = \beta_1 [x_{it1} - \bar{x}_{i1}] + \cdots + \beta_k [x_{itk} - \bar{x}_{ik}] + [u_{it} - \bar{u}_i]\]</span></p>
+</div>
+<div class="fragment">
+<p>Because <span class="math inline">\(a_i - a_i = 0\)</span>, the fixed effect drops out!</p>
+<ul>
+<li>Estimate the time-demeaned equation by OLS</li>
+<li>This uses <span class="kw">within-entity variation</span> only: how <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> move <span class="alert">within</span> the same entity over time</li>
+<li>This is called <span class="kw">within estimation</span></li>
+</ul>
+</div>
+</section>
+<section id="three-ways-to-estimate-fe-in-stata" class="slide level2 smaller">
+<h2>Three Ways to Estimate FE in Stata</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Option 1: Manual Demeaning</strong></p>
+</div>
+<div class="callout-content">
+<p>Demean your data by hand, then estimate OLS on demeaned data.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Option 2: Dummy Variables / <code>areg</code></strong></p>
+</div>
+<div class="callout-content">
+<p>Include entity dummies directly, or use <code>areg</code> which “absorbs” one set of fixed effects:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">areg</span> scrap grant d88 d89, <span class="kw">robust</span> absorb(fcode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Option 3: <code>xtreg</code> (Recommended)</strong></p>
+</div>
+<div class="callout-content">
+<p>Tell Stata you have panel data, then estimate with the fixed effects option:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>xtset fcode <span class="fu">year</span></span>
+<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtreg</span> scrap grant d88 d89, <span class="kw">fe</span> <span class="kw">vce</span>(<span class="kw">robust</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="entity-fixed-effects-what-they-control-for" class="slide level2">
+<h2>Entity Fixed Effects: What They Control For</h2>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key Principle</strong></p>
+</div>
+<div class="callout-content">
+<p>Entity fixed effects control for <span class="alert">all time-invariant factors</span> — observed or unobserved.</p>
+<p>You don’t need to include time-invariant covariates in a fixed-effects model — they are already accounted for!</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Practical notes:</strong></p>
+<ul>
+<li>We don’t usually interpret the fixed effect coefficients themselves</li>
+<li>Which entity is the “omitted” group (avoiding the dummy variable trap) doesn’t matter — we’re not interpreting them</li>
+<li>Fixed effects are typically not reported in regression output</li>
+</ul>
+</div>
+</section>
+<section id="time-fixed-effects" class="slide level2 smaller">
+<h2>Time Fixed Effects</h2>
+<p>What about shocks that affect <span class="kw">all entities equally</span> at a given time?</p>
+<div class="fragment">
+<ul>
+<li>A national recession hits all cities in 2008</li>
+<li>A federal policy change affects all states simultaneously</li>
+<li>Inflation affects all firms’ costs in the same year</li>
+</ul>
+</div>
+<div class="fragment">
+<p>Add <span class="kw">time fixed effects</span>: a dummy for each time period.</p>
+<p><span class="math display">\[y_{it} = \beta_1 x_{it} + a_i + \lambda_t + u_{it}\]</span></p>
+<ul>
+<li><span class="math inline">\(a_i\)</span>: entity fixed effect (absorbs entity-specific, time-invariant factors)</li>
+<li><span class="math inline">\(\lambda_t\)</span>: time fixed effect (absorbs time-specific, entity-invariant factors)</li>
+</ul>
+</div>
+</section>
+<section id="entity-time-fixed-effects-whats-left" class="slide level2 smaller">
+<h2>Entity + Time Fixed Effects: What’s Left?</h2>
+<p>With <span class="kw">both</span> entity and time fixed effects:</p>
+<p><span class="math display">\[y_{it} = \beta_1 x_{it} + a_i + \lambda_t + u_{it}\]</span></p>
+<div class="fragment">
+<p><strong>Controlled for:</strong></p>
+<ul>
+<li>All time-invariant entity characteristics (<span class="math inline">\(a_i\)</span>)</li>
+<li>All entity-invariant time shocks (<span class="math inline">\(\lambda_t\)</span>)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Not controlled for:</strong></p>
+<ul>
+<li>Factors that vary <span class="alert">across both entities and time</span></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Knowledge Check</strong></p>
+</div>
+<div class="callout-content">
+<p>You estimate the effect of a state-level minimum wage increase on employment, with state and year fixed effects. What kind of omitted variable could still bias your results?</p>
+<p>. . .</p>
+<p>A factor that varies across states <em>and</em> over time — e.g., state-specific economic booms that coincide with minimum wage increases.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="assumptions-and-inference" class="title-slide slide level1 center">
+<h1>Assumptions and Inference</h1>
+
+</section>
+<section id="least-squares-assumptions-for-panel-data" class="slide level2 smaller scrollable">
+<h2>Least Squares Assumptions for Panel Data</h2>
+<p>Consider a single <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[Y_{it} = \beta_1 X_{it} + \alpha_i + u_{it}, \quad i = 1, \ldots, n; \; t = 1, \ldots, T\]</span></p>
+<div class="fragment">
+<ol type="1">
+<li><span class="math inline">\(E[u_{it} | X_{i1}, \ldots, X_{iT}, \alpha_i] = 0\)</span>
+<ul>
+<li><span class="math inline">\(u_{it}\)</span> cannot be correlated with <span class="alert">any present, past, or future</span> values of <span class="math inline">\(X\)</span>!</li>
+</ul></li>
+<li><span class="math inline">\((X_{i1}, \ldots, X_{iT}, u_{i1}, \ldots, u_{iT})\)</span> are i.i.d. draws across entities
+<ul>
+<li>Only need independence <span class="kw">across</span> entities, not within</li>
+</ul></li>
+<li><span class="math inline">\((X_{it}, u_{it})\)</span> have finite fourth moments</li>
+<li>No perfect multicollinearity</li>
+</ol>
+</div>
+<div class="fragment">
+<p>If these hold, FE estimates are <span class="kw">consistent and normally distributed</span> for large <span class="math inline">\(n\)</span>.</p>
+</div>
+</section>
+<section id="the-problem-of-serial-correlation" class="slide level2 smaller">
+<h2>The Problem of Serial Correlation</h2>
+<p><span class="math display">\[Y_{it} = \alpha_i + \beta_1 X_{it} + \omega_{it}\]</span></p>
+<p>The time-varying error <span class="math inline">\(\omega_{it}\)</span> reflects factors that change over time but affect the outcome.</p>
+<div class="fragment">
+<p><strong>Example:</strong> If <span class="math inline">\(Y_{it}\)</span> is traffic fatalities, maybe <span class="math inline">\(\omega_{it}\)</span> includes road quality in state <span class="math inline">\(i\)</span>.</p>
+<ul>
+<li>Road quality last year <span class="math inline">\(\approx\)</span> road quality this year</li>
+<li><span class="math inline">\(\omega_{i,t}\)</span> and <span class="math inline">\(\omega_{i,t-1}\)</span> are <span class="alert">correlated</span></li>
+</ul>
+</div>
+<div class="fragment">
+<p>This is <span class="kw">autocorrelation</span> (or serial correlation) — observations on the same entity over time are not independent.</p>
+</div>
+</section>
+<section id="why-autocorrelation-matters" class="slide level2">
+<h2>Why Autocorrelation Matters</h2>
+<p>Previously, we assumed different observations were independent.</p>
+<div class="fragment">
+<ul>
+<li>Implausible for data on the same entity over time</li>
+<li>Without correction, we estimate <span class="alert">incorrect standard errors</span></li>
+<li>Confidence intervals will <span class="alert">not have 95% coverage</span></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Autocorrelation Does Not Bias <span class="math inline">\(\hat{\beta}\)</span></strong></p>
+</div>
+<div class="callout-content">
+<p>The coefficients are still consistent — but our <span class="alert">inference</span> (standard errors, <span class="math inline">\(p\)</span>-values, CIs) is wrong.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-solution-clustered-standard-errors" class="slide level2 smaller">
+<h2>The Solution: Clustered Standard Errors</h2>
+<p><span class="kw">Clustered standard errors</span> allow for autocorrelation within entities.</p>
+<div class="fragment">
+<p><strong>Idea:</strong> Allow the error terms <span class="math inline">\(\omega_{it}\)</span> for different time periods <span class="kw">within the same entity</span> to be correlated, while maintaining independence <span class="kw">across</span> entities.</p>
+</div>
+<div class="fragment">
+<p><strong>In Stata:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a>* With <span class="kw">regress</span> <span class="kw">or</span> <span class="kw">areg</span>:</span>
+<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> <span class="fu">y</span> x i.entity, <span class="kw">cluster</span>(entity)</span>
+<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">areg</span> <span class="fu">y</span> x, absorb(entity) <span class="kw">cluster</span>(entity)</span>
+<span id="cb3-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="" aria-hidden="true" tabindex="-1"></a>* With <span class="kw">xtreg</span>:</span>
+<span id="cb3-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtreg</span> <span class="fu">y</span> x, <span class="kw">fe</span> <span class="kw">vce</span>(<span class="kw">cluster</span> entity)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Always Cluster in Panel Data</strong></p>
+</div>
+<div class="callout-content">
+<p>If you’re using panel data, you should <span class="alert">almost always</span> cluster your standard errors at the entity level. Failing to do so overstates precision and leads to false rejections.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="recent-developments-in-did" class="title-slide slide level1 center">
+<h1>Recent Developments in DiD</h1>
+
+</section>
+<section id="the-staggered-adoption-problem" class="slide level2 smaller">
+<h2>The Staggered Adoption Problem</h2>
+<p>The classic DiD has two groups and two periods. In practice, policies are often adopted by <span class="alert">different units at different times</span> — <span class="kw">staggered adoption</span>.</p>
+<div class="fragment">
+<p><strong>Example:</strong> States adopt a job training program in different years.</p>
+<p>The natural approach: two-way fixed effects (TWFE).</p>
+<p><span class="math display">\[y_{it} = \beta_1 \cdot treated_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
+</div>
+<div class="fragment">
+<p>Recent research (roughly 2018–2024) has shown that this “obvious” approach can produce <span class="alert">severely misleading estimates</span> — including <span class="alert">wrong signs</span>.</p>
+<p>Let’s see exactly how this happens.</p>
+</div>
+</section>
+<section id="a-concrete-example-setup" class="slide level2 smaller">
+<h2>A Concrete Example: Setup</h2>
+<p>Suppose a job training program has a <span class="kw">true effect</span> that <span class="alert">grows over time</span>:</p>
+<ul>
+<li>Year 1 after adoption: productivity rises by <strong>+10</strong></li>
+<li>Year 2 after adoption: productivity rises by <strong>+30</strong> (the program compounds)</li>
+</ul>
+<div class="fragment">
+<p>Two states, three years. Without treatment, both would follow the same trend:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">2018</th>
+<th style="text-align: center;">2019</th>
+<th style="text-align: center;">2020</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>No-treatment baseline</strong> (both states)</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">105</td>
+<td style="text-align: center;">110</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="kw">State E (Early)</span>: adopts the program in <strong>2019</strong></li>
+<li><span class="kw">State L (Late)</span>: adopts the program in <strong>2020</strong></li>
+<li>No pure control group exists (both eventually get treated)</li>
+</ul>
+</div>
+</section>
+<section id="what-actually-happens" class="slide level2 smaller">
+<h2>What Actually Happens</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">2018</th>
+<th style="text-align: center;">2019</th>
+<th style="text-align: center;">2020</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>State E</strong> (treats in 2019)</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;"><span style="color: #008080;">115</span></td>
+<td style="text-align: center;"><span style="color: #008080;">140</span></td>
+</tr>
+<tr class="even">
+<td><strong>State L</strong> (treats in 2020)</td>
+<td style="text-align: center;">100</td>
+<td style="text-align: center;">105</td>
+<td style="text-align: center;"><span style="color: #008080;">120</span></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<ul>
+<li>State E in 2019: <span class="math inline">\(105 + 10 = 115\)</span> (year 1 effect)</li>
+<li>State E in 2020: <span class="math inline">\(110 + 30 = 140\)</span> (year 2 effect — program compounds)</li>
+<li>State L in 2020: <span class="math inline">\(110 + 10 = 120\)</span> (year 1 effect)</li>
+</ul>
+</div>
+<div class="fragment">
+<p>The true effect for State L in 2020 is <span class="kw">+10</span>. Can TWFE recover this?</p>
+</div>
+</section>
+<section id="what-twfe-does" class="slide level2 smaller">
+<h2>What TWFE Does</h2>
+<p>With no pure control group, TWFE uses <span class="alert">State E as the “control”</span> for State L’s treatment in 2020.</p>
+<div class="fragment">
+<p>The DiD comparison using State E as control:</p>
+<p><span class="math display">\[\hat{\delta}_1 = \underbrace{(120 - 105)}_{\Delta \text{State L}} - \underbrace{(140 - 115)}_{\Delta \text{State E}} = 15 - 25 = -10\]</span></p>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>TWFE Says the Effect is −10</strong></p>
+</div>
+<div class="callout-content">
+<p>The true effect is <span class="kw">+10</span>, but TWFE estimates <span class="alert">−10</span>. The sign flipped!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Why?</strong> State E’s outcome jumped by 25 (not because of a new trend, but because its <span class="alert">treatment effect grew</span> from +10 to +30). TWFE interprets this growing treatment effect in the “control” as a normal trend, making State L’s +15 gain look small by comparison.</p>
+</div>
+</section>
+<section id="the-core-problem" class="slide level2 smaller">
+<h2>The Core Problem</h2>
+<p>Goodman-Bacon (2021) showed this formally: the TWFE estimate is a <span class="kw">weighted average</span> of all possible 2×2 DiD comparisons.</p>
+<div class="fragment">
+<p>Some comparisons are fine:</p>
+<ul>
+<li><span class="kw">Newly treated vs.&nbsp;never treated</span> — exactly what we want</li>
+</ul>
+<p>Some are problematic:</p>
+<ul>
+<li><span class="alert">Newly treated vs.&nbsp;already treated</span> — uses treated units as “controls”</li>
+</ul>
+</div>
+<div class="fragment">
+<p>When treatment effects <span class="alert">change over time</span> (grow, fade, or vary across groups), the already-treated comparisons introduce bias — and can even get <span class="alert">negative weights</span>.</p>
+</div>
+<div class="fragment">
+<p>This is not a rare edge case. Dynamic treatment effects are the norm in applied economics: job training programs build skills gradually, minimum wage effects accumulate, policy impacts evolve.</p>
+</div>
+</section>
+<section id="new-estimators" class="slide level2 smaller">
+<h2>New Estimators</h2>
+<p>Several estimators have been developed to handle staggered adoption correctly:</p>
+<div class="fragment">
+<ul>
+<li><p><strong>Callaway and Sant’Anna (2021):</strong> Estimate group-time-specific effects, then aggregate. Only uses not-yet-treated or never-treated units as controls.</p></li>
+<li><p><strong>Sun and Abraham (2021):</strong> Interaction-weighted estimator that corrects for heterogeneous effects across adoption cohorts.</p></li>
+<li><p><strong>de Chaisemartin and D’Haultfoeuille (2020):</strong> Identifies which comparisons get negative weights and proposes robust alternatives.</p></li>
+</ul>
+</div>
+<div class="fragment">
+<p>All share one insight: <span class="alert">never use already-treated units as controls</span>.</p>
+</div>
+</section>
+<section id="what-this-means-for-practice" class="slide level2 smaller">
+<h2>What This Means for Practice</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Practical Guidance</strong></p>
+</div>
+<div class="callout-content">
+
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Classic 2×2 DiD</strong> (two groups, two periods): TWFE is <span class="kw">fine</span>. The new concerns don’t apply.</li>
+<li><strong>Staggered adoption</strong> with <span class="kw">constant treatment effects</span>: TWFE is usually okay.</li>
+<li><strong>Staggered adoption</strong> with <span class="alert">dynamic or heterogeneous effects</span>: Use a robust estimator.</li>
+</ul>
+<div class="fragment">
+<p><strong>How to check:</strong> Run both TWFE and a robust estimator. If results are similar, the standard approach is probably fine. If they diverge, trust the robust estimator.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Beyond ECON3500</strong></p>
+</div>
+<div class="callout-content">
+<p>You won’t need to implement these in this course. But if you do applied research with staggered DiD (very common in policy evaluation), you should be aware of these issues. Stata packages: <code>csdid</code>, <code>did_multiplegt</code>, <code>eventstudyinteract</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="putting-it-all-together" class="title-slide slide level1 center">
+<h1>Putting It All Together</h1>
+
+</section>
+<section id="comparison-of-panel-data-methods" class="slide level2 smaller scrollable">
+<h2>Comparison of Panel Data Methods</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 22%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Method</th>
+<th style="text-align: center;">Data Required</th>
+<th>What It Controls</th>
+<th>Key Assumption</th>
+<th>What Remains</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="kw">DiD</span></td>
+<td style="text-align: center;">2 groups, 2 periods</td>
+<td>Group-level differences; common time trends</td>
+<td><span class="alert">Parallel trends</span></td>
+<td>Group-specific time-varying shocks</td>
+</tr>
+<tr class="even">
+<td><span class="kw">First Difference</span></td>
+<td style="text-align: center;">Panel (same units, 2+ periods)</td>
+<td>All time-invariant entity factors</td>
+<td>No time-varying OVB</td>
+<td>Time-varying omitted variables</td>
+</tr>
+<tr class="odd">
+<td><span class="kw">Entity FE</span></td>
+<td style="text-align: center;">Panel (same units, 2+ periods)</td>
+<td>All time-invariant entity factors</td>
+<td>No time-varying OVB</td>
+<td>Time-varying omitted variables</td>
+</tr>
+<tr class="even">
+<td><span class="kw">Entity + Time FE</span></td>
+<td style="text-align: center;">Panel (same units, 2+ periods)</td>
+<td>Time-invariant entity factors + entity-invariant time shocks</td>
+<td>No entity-and-time-varying OVB</td>
+<td>Entity-time-specific shocks</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="when-to-use-what" class="slide level2 smaller">
+<h2>When to Use What</h2>
+<p><strong>Difference-in-Differences:</strong></p>
+<ul>
+<li>Repeated cross-sections or panel data</li>
+<li>Clear treatment/control groups and before/after periods</li>
+<li>Need parallel trends assumption</li>
+</ul>
+<div class="fragment">
+<p><strong>First Differencing:</strong></p>
+<ul>
+<li>Panel data with 2 periods</li>
+<li>Equivalent to entity FE with 2 periods</li>
+<li>Simple, transparent</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Fixed Effects:</strong></p>
+<ul>
+<li>Panel data with 2+ periods</li>
+<li>More efficient than first differencing with <span class="math inline">\(T &gt; 2\)</span></li>
+<li>Can include entity FE, time FE, or both</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Knowledge Check</strong></p>
+</div>
+<div class="callout-content">
+<p>A researcher has data on 50 states over 20 years and wants to estimate the effect of a policy that was adopted by some states at different times. Which method is most appropriate?</p>
+<p>. . .</p>
+<p>Entity + time fixed effects — controls for permanent state differences and common national trends. This is sometimes called a “generalized DiD” or “two-way fixed effects” design.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="common-pitfalls" class="slide level2 smaller">
+<h2>Common Pitfalls</h2>
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>1. Forgetting to Cluster</strong></p>
+</div>
+<div class="callout-content">
+<p>Panel data almost always requires clustered standard errors. Unclustered SEs will be <span class="alert">too small</span>.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>2. Trying to Estimate Time-Invariant Effects</strong></p>
+</div>
+<div class="callout-content">
+<p>With entity FE, you <span class="alert">cannot</span> estimate the effect of variables that don’t change over time (e.g., gender, race in a person-panel). The fixed effect already absorbs them.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>3. Assuming FE Solves All OVB</strong></p>
+</div>
+<div class="callout-content">
+<p>Fixed effects only eliminate <span class="alert">time-invariant</span> omitted variables. Time-varying confounders can still bias your estimates.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="key-takeaways" class="slide level2 scrollable">
+<h2>Key Takeaways</h2>
+<ol type="1">
+<li><p><span class="kw">Panel data</span> tracks the same entities over time — unlike pooled cross-sections</p></li>
+<li><p><span class="kw">DiD</span> compares changes over time across treatment and control groups; requires <span class="alert">parallel trends</span></p></li>
+<li><p><span class="kw">First differencing</span> and <span class="kw">fixed effects</span> eliminate all time-invariant omitted variables by exploiting <span class="kw">within-entity variation</span></p></li>
+<li><p>With entity + time FE, only <span class="alert">entity-and-time-varying</span> confounders remain a threat</p></li>
+<li><p>Always use <span class="kw">clustered standard errors</span> with panel data to account for autocorrelation</p></li>
+<li><p>Fixed effects <span class="alert">cannot estimate</span> effects of time-invariant variables — that’s the price of eliminating time-invariant OVB</p></li>
+</ol>
+
+</section></section>
+ </div>
+ <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+<p>ECON3500 | Chapter 10</p>
+</div>
+</div></div>
+
+ <script>window.backupDefine = window.define; window.define = undefined;</script>
+ <script src="ch10_panel_data_files/libs/revealjs/dist/reveal.js"></script>
+ <!-- reveal.js plugins -->
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+ 
+
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/notes/notes.js"></script>
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/search/search.js"></script>
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+ <script src="ch10_panel_data_files/libs/revealjs/plugin/math/math.js"></script>
+ <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+ <script>
+
+ // Full list of configuration options available at:
+ // https://revealjs.com/config/
+ Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'pdfMaxPagesPerSlide': 1,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+ // Display controls in the bottom right corner
+ controls: false,
+
+ // Help the user learn the controls by providing hints, for example by
+ // bouncing the down arrow when they first encounter a vertical slide
+ controlsTutorial: false,
+
+ // Determines where controls appear, "edges" or "bottom-right"
+ controlsLayout: 'edges',
+
+ // Visibility rule for backwards navigation arrows; "faded", "hidden"
+ // or "visible"
+ controlsBackArrows: 'faded',
+
+ // Display a presentation progress bar
+ progress: true,
+
+ // Display the page number of the current slide
+ slideNumber: 'c/t',
+
+ // 'all', 'print', or 'speaker'
+ showSlideNumber: 'all',
+
+ // Add the current slide number to the URL hash so that reloading the
+ // page/copying the URL will return you to the same slide
+ hash: true,
+
+ // Start with 1 for the hash rather than 0
+ hashOneBasedIndex: false,
+
+ // Flags if we should monitor the hash and change slides accordingly
+ respondToHashChanges: true,
+
+ // Push each slide change to the browser history
+ history: true,
+
+ // Enable keyboard shortcuts for navigation
+ keyboard: true,
+
+ // Enable the slide overview mode
+ overview: true,
+
+ // Disables the default reveal.js slide layout (scaling and centering)
+ // so that you can use custom CSS layout
+ disableLayout: false,
+
+ // Vertical centering of slides
+ center: false,
+
+ // Enables touch navigation on devices with touch input
+ touch: true,
+
+ // Loop the presentation
+ loop: false,
+
+ // Change the presentation direction to be RTL
+ rtl: false,
+
+ // see https://revealjs.com/vertical-slides/#navigation-mode
+ navigationMode: 'linear',
+
+ // Randomizes the order of slides each time the presentation loads
+ shuffle: false,
+
+ // Turns fragments on and off globally
+ fragments: true,
+
+ // Flags whether to include the current fragment in the URL,
+ // so that reloading brings you to the same fragment position
+ fragmentInURL: false,
+
+ // Flags if the presentation is running in an embedded mode,
+ // i.e. contained within a limited portion of the screen
+ embedded: false,
+
+ // Flags if we should show a help overlay when the questionmark
+ // key is pressed
+ help: true,
+
+ // Flags if it should be possible to pause the presentation (blackout)
+ pause: true,
+
+ // Flags if speaker notes should be visible to all viewers
+ showNotes: false,
+
+ // Global override for autoplaying embedded media (null/true/false)
+ autoPlayMedia: null,
+
+ // Global override for preloading lazy-loaded iframes (null/true/false)
+ preloadIframes: null,
+
+ // Number of milliseconds between automatically proceeding to the
+ // next slide, disabled when set to 0, this value can be overwritten
+ // by using a data-autoslide attribute on your slides
+ autoSlide: 0,
+
+ // Stop auto-sliding after user input
+ autoSlideStoppable: true,
+
+ // Use this method for navigation when auto-sliding
+ autoSlideMethod: null,
+
+ // Specify the average time in seconds that you think you will spend
+ // presenting each slide. This is used to show a pacing timer in the
+ // speaker view
+ defaultTiming: null,
+
+ // Enable slide navigation via mouse wheel
+ mouseWheel: false,
+
+ // The display mode that will be used to show slides
+ display: 'block',
+
+ // Hide cursor if inactive
+ hideInactiveCursor: true,
+
+ // Time before the cursor is hidden (in ms)
+ hideCursorTime: 5000,
+
+ // Opens links in an iframe preview overlay
+ previewLinks: false,
+
+ // Transition style (none/fade/slide/convex/concave/zoom)
+ transition: 'fade',
+
+ // Transition speed (default/fast/slow)
+ transitionSpeed: 'default',
+
+ // Transition style for full page slide backgrounds
+ // (none/fade/slide/convex/concave/zoom)
+ backgroundTransition: 'fade',
+
+ // Number of slides away from the current that are visible
+ viewDistance: 3,
+
+ // Number of slides away from the current that are visible on mobile
+ // devices. It is advisable to set this to a lower number than
+ // viewDistance in order to save resources.
+ mobileViewDistance: 2,
+
+ // The "normal" size of the presentation, aspect ratio will be preserved
+ // when the presentation is scaled to fit different resolutions. Can be
+ // specified using percentage units.
+ width: 1280,
+
+ height: 720,
+
+ // Factor of the display size that should remain empty around the content
+ margin: 0.1,
+
+ math: {
+ mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+ config: 'TeX-AMS_HTML-full',
+ tex2jax: {
+ inlineMath: [['\\(','\\)']],
+ displayMath: [['\\[','\\]']],
+ balanceBraces: true,
+ processEscapes: false,
+ processRefs: true,
+ processEnvironments: true,
+ preview: 'TeX',
+ skipTags: ['script','noscript','style','textarea','pre','code'],
+ ignoreClass: 'tex2jax_ignore',
+ processClass: 'tex2jax_process'
+ },
+ },
+
+ // reveal.js plugins
+ plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+
+ RevealMath,
+ RevealNotes,
+ RevealSearch,
+ RevealZoom
+ ]
+ });
+ </script>
+ <script>
+ (function () {
+ function ensureSrc() {
+ document.querySelectorAll("img[data-src]").forEach(function (img) {
+ if (!img.getAttribute("src")) {
+ img.setAttribute("src", img.getAttribute("data-src"));
+ }
+ });
+ document.querySelectorAll("source[data-src]").forEach(function (source) {
+ if (!source.getAttribute("src")) {
+ source.setAttribute("src", source.getAttribute("data-src"));
+ }
+ });
+ }
+
+ function relayout() {
+ if (window.Reveal && typeof window.Reveal.layout === "function") {
+ window.Reveal.layout();
+ }
+ }
+
+ function hookReveal() {
+ if (window.Reveal && typeof window.Reveal.on === "function") {
+ window.Reveal.on("ready", function () {
+ ensureSrc();
+ relayout();
+ });
+ window.Reveal.on("slidechanged", relayout);
+ window.Reveal.on("overviewshown", function () {
+ ensureSrc();
+ relayout();
+ });
+ window.Reveal.on("overviewhidden", relayout);
+ return true;
+ }
+ return false;
+ }
+
+ document.addEventListener("DOMContentLoaded", function () {
+ ensureSrc();
+ relayout();
+
+ var imgs = document.querySelectorAll(".reveal img");
+ var pending = 0;
+ imgs.forEach(function (img) {
+ if (!img.complete) {
+ pending += 1;
+ img.addEventListener(
+ "load",
+ function () {
+ pending -= 1;
+ if (pending === 0) {
+ relayout();
+ }
+ },
+ { once: true }
+ );
+ }
+ });
+ if (pending === 0) {
+ relayout();
+ }
+ });
+
+ window.addEventListener("load", relayout);
+
+ if (!hookReveal()) {
+ var tries = 0;
+ var t = window.setInterval(function () {
+ tries += 1;
+ if (hookReveal() || tries > 20) {
+ window.clearInterval(t);
+ }
+ }, 250);
+ }
+ })();
+ </script>
+ <script id="quarto-html-after-body" type="application/javascript">
+ window.document.addEventListener("DOMContentLoaded", function (event) {
+ const tabsets = window.document.querySelectorAll(".panel-tabset-tabby")
+ tabsets.forEach(function(tabset) {
+ const tabby = new Tabby('#' + tabset.id);
+ });
+ const isCodeAnnotation = (el) => {
+ for (const clz of el.classList) {
+ if (clz.startsWith('code-annotation-')) { 
+ return true;
+ }
+ }
+ return false;
+ }
+ const onCopySuccess = function(e) {
+ // button target
+ const button = e.trigger;
+ // don't keep focus
+ button.blur();
+ // flash "checked"
+ button.classList.add('code-copy-button-checked');
+ var currentTitle = button.getAttribute("title");
+ button.setAttribute("title", "Copied!");
+ let tooltip;
+ if (window.bootstrap) {
+ button.setAttribute("data-bs-toggle", "tooltip");
+ button.setAttribute("data-bs-placement", "left");
+ button.setAttribute("data-bs-title", "Copied!");
+ tooltip = new bootstrap.Tooltip(button, 
+ { trigger: "manual", 
+ customClass: "code-copy-button-tooltip",
+ offset: [0, -8]});
+ tooltip.show(); 
+ }
+ setTimeout(function() {
+ if (tooltip) {
+ tooltip.hide();
+ button.removeAttribute("data-bs-title");
+ button.removeAttribute("data-bs-toggle");
+ button.removeAttribute("data-bs-placement");
+ }
+ button.setAttribute("title", currentTitle);
+ button.classList.remove('code-copy-button-checked');
+ }, 1000);
+ // clear code selection
+ e.clearSelection();
+ }
+ const getTextToCopy = function(trigger) {
+ const outerScaffold = trigger.parentElement.cloneNode(true);
+ const codeEl = outerScaffold.querySelector('code');
+ for (const childEl of codeEl.children) {
+ if (isCodeAnnotation(childEl)) {
+ childEl.remove();
+ }
+ }
+ return codeEl.innerText;
+ }
+ const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+ text: getTextToCopy
+ });
+ clipboard.on('success', onCopySuccess);
+ if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+ const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+ text: getTextToCopy,
+ container: window.document.getElementById('quarto-embedded-source-code-modal')
+ });
+ clipboardModal.on('success', onCopySuccess);
+ }
+ var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+ var mailtoRegex = new RegExp(/^mailto:/);
+ var filterRegex = new RegExp('/' + window.location.host + '/');
+ var isInternal = (href) => {
+ return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+ }
+ // Inspect non-navigation links and adorn them if external
+ var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ for (var i=0; i<links.length; i++) {
+ const link = links[i];
+ if (!isInternal(link.href)) {
+ // undo the damage that might have been done by quarto-nav.js in the case of
+ // links that we want to consider external
+ if (link.dataset.originalHref !== undefined) {
+ link.href = link.dataset.originalHref;
+ }
+ }
+ }
+ function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+ const config = {
+ allowHTML: true,
+ maxWidth: 500,
+ delay: 100,
+ arrow: false,
+ appendTo: function(el) {
+ return el.closest('section.slide') || el.parentElement;
+ },
+ interactive: true,
+ interactiveBorder: 10,
+ theme: 'light-border',
+ placement: 'bottom-start',
+ };
+ if (contentFn) {
+ config.content = contentFn;
+ }
+ if (onTriggerFn) {
+ config.onTrigger = onTriggerFn;
+ }
+ if (onUntriggerFn) {
+ config.onUntrigger = onUntriggerFn;
+ }
+ config['offset'] = [0,0];
+ config['maxWidth'] = 700;
+ window.tippy(el, config); 
+ }
+ const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+ for (var i=0; i<noterefs.length; i++) {
+ const ref = noterefs[i];
+ tippyHover(ref, function() {
+ // use id or data attribute instead here
+ let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+ try { href = new URL(href).hash; } catch {}
+ const id = href.replace(/^#\/?/, "");
+ const note = window.document.getElementById(id);
+ if (note) {
+ return note.innerHTML;
+ } else {
+ return "";
+ }
+ });
+ }
+ const findCites = (el) => {
+ const parentEl = el.parentElement;
+ if (parentEl) {
+ const cites = parentEl.dataset.cites;
+ if (cites) {
+ return {
+ el,
+ cites: cites.split(' ')
+ };
+ } else {
+ return findCites(el.parentElement)
+ }
+ } else {
+ return undefined;
+ }
+ };
+ var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+ for (var i=0; i<bibliorefs.length; i++) {
+ const ref = bibliorefs[i];
+ const citeInfo = findCites(ref);
+ if (citeInfo) {
+ tippyHover(citeInfo.el, function() {
+ var popup = window.document.createElement('div');
+ citeInfo.cites.forEach(function(cite) {
+ var citeDiv = window.document.createElement('div');
+ citeDiv.classList.add('hanging-indent');
+ citeDiv.classList.add('csl-entry');
+ var biblioDiv = window.document.getElementById('ref-' + cite);
+ if (biblioDiv) {
+ citeDiv.innerHTML = biblioDiv.innerHTML;
+ }
+ popup.appendChild(citeDiv);
+ });
+ return popup.innerHTML;
+ });
+ }
+ }
+ });
+ </script>
+ 
+
+</body></html>
