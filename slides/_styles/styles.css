@@ -68,6 +68,32 @@ pre {
   background-color: transparent !important;
 }
 
+/* Ensure callout headers keep intended colors in PDF/print output */
+.reveal.print-pdf .callout.callout-note.callout-style-default .callout-title,
+.reveal.print-pdf .callout.callout-note.callout-style-default .callout-title p {
+  background-color: #cfe9e2 !important;
+}
+
+.reveal.print-pdf .callout.callout-important.callout-style-default .callout-title,
+.reveal.print-pdf .callout.callout-important.callout-style-default .callout-title p {
+  background-color: #f0d9a5 !important;
+}
+
+.reveal.print-pdf .callout.callout-tip.callout-style-default .callout-title,
+.reveal.print-pdf .callout.callout-tip.callout-style-default .callout-title p {
+  background-color: #cfe8d2 !important;
+}
+
+.reveal.print-pdf .callout.callout-warning.callout-style-default .callout-title,
+.reveal.print-pdf .callout.callout-warning.callout-style-default .callout-title p {
+  background-color: #f5d2a8 !important;
+}
+
+.reveal.print-pdf .callout.callout-caution.callout-style-default .callout-title,
+.reveal.print-pdf .callout.callout-caution.callout-style-default .callout-title p {
+  background-color: #f3d6b8 !important;
+}
+
 /* Larger callout text for projection readability */
 .reveal .callout {
   font-size: 26px !important;
