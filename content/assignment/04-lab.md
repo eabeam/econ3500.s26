@@ -16,16 +16,16 @@ type: docs
 
 ## Materials {#materials .unnumbered}
 
-- [`cps_2016.dta`](../materials/cps_2016.dta)
-- Do-file template [`labtemplate.do`](../materials/labtemplate_f21.do) 
+- [`acs2024_2pct.dta`](../materials/acs2024_2pct.dta)
+- Do-file template [`econ3500_lab_template.do`](../materials/econ3500_lab_template.do) 
 - Looping exercise [`loop_example.do`](../materials/loop_example.do) 
 <!-- - Sample from class [`lab4_sample.do`](../materials/lab4_sample.do) -->
 
 ## Objectives {#objectives .unnumbered}
 
 
-Today we're going to work with some new data, `cps_2016.dta`, which
-contains information from the [2016 Current Population Survey](https://cps.ipums.org/cps/).
+Today we're going to work with some new data, `acs2024_2pct.dta`, which
+contains information from the [2024 American Community Survey](https://www.census.gov/programs-surveys/acs).
 
 
 By the end of this lab, you should be able to complete the following
@@ -42,6 +42,23 @@ tasks in Stata:
 
 -  Use `xi` and `i.` prefix to include a lot of binary indicator variables at once.
 
+### Data context {#data-context .unnumbered}
+
+Each row in `acs2024_2pct.dta` is an individual from the 2024 ACS microdata. The file includes demographics, education, labor-force status, and earnings variables. We will focus on variables like `incwage`, `educ`, `labforce`, `statefip`, `race`, `hispan`, and `age`.
+
+Tip: use `describe` and `codebook` to check labels and coding for any variables you plan to use.
+
+### Variables we'll use {#variables .unnumbered}
+
+|variable|meaning|notes|
+| :------------- | :------------- | :------------- |
+|`incwage`|wage and salary income|check labels for topcodes or missing values|
+|`educ`|educational attainment|numeric categories; check labels|
+|`labforce`|labor force status|values like 0/1/2 (check labels)|
+|`race`|race code|use to build indicators|
+|`hispan`|Hispanic origin|use to build indicators|
+|`age`|age|used to construct year of birth|
+|`statefip`|state|use with `i.statefip`|
 
 ## Key commands  {#key-commands .unnumbered}
 
@@ -90,7 +107,7 @@ forvalues lname = range {
 What does each component mean?
 
   - `forvalues`: this is the command. You can abbreviate it as `forval`.
-  - `lname`: this is a variable you make up. Often, people will just use `i`, becuase we're just counting. It will take on the values in `range` as it increments through the loop. It is a **local** variable, meaning that you have to call it using `lname', and not as lname (need those punctuation marks!) and that it is only saved as long as your do-file is running.  
+  - `lname`: this is a variable you make up. Often, people will just use `i`, becuase we're just counting. It will take on the values in `range` as it increments through the loop. It is a **local** variable, meaning that you have to call it using <code>&#96;lname'</code> and not as lname (need those punctuation marks!), and that it is only saved as long as your do-file is running.  
   - `range`: this is the set of values that the local variable will iterate over
   - Brackets: Open bracket needs to be on same line as the `forval` command. Close bracket needs to be on its own line.
   
@@ -100,7 +117,17 @@ gen labfor`i' = labforce == `i'
 }
 ```
 
-What does this do? It creates a loop for which local variable ``i'` is first 0, then 1, then 2. Within the loop, it generates `labfor0`, which is equal to 1 if `labforce` equals 0 (not in universe), it generates `labfor1`, which is equal to 1 if `labforce` equals 1 (not in labor force), and it generates `labfor2`, which is equal to 1 if `labforce` equals 2 (in labor force).
+What does this do? It creates a loop for which local variable <code>&#96;i'</code> is first 0, then 1, then 2. Within the loop, it generates `labfor0`, which is equal to 1 if `labforce` equals 0 (not in universe), it generates `labfor1`, which is equal to 1 if `labforce` equals 1 (not in labor force), and it generates `labfor2`, which is equal to 1 if `labforce` equals 2 (in labor force).
+
+Applied ACS example: create race indicators in a loop.
+
+```
+foreach r in 100 200 300 651 {
+  gen race_`r' = race == `r'
+}
+```
+
+Use `tab race, nolabel` to see the codes you want to include.
 
 The choice of ranges can be done in other ways: 
 
@@ -156,9 +183,9 @@ When you are representing a categorical variable with a set of binary variables,
  - Slow way: generate the binary variables you want, and include them. This is good when you want to be precise about your omitted variable, or when you want to create complicated binary categories
  
  ```
- gen white_nh = race == 100 & hisp == 0 
- gen black_nh = race == 200 & hisp == 1
- gen hisp = hisp == 1
+ gen white_nh = race == 100 & hispan == 0 
+ gen black_nh = race == 200 & hispan == 0
+ gen hisp = hispan != 0
  gen other = white_nh == 0 & black_nh == 0 & hisp == 0 
  regress incwage black_nh hisp other
  ```
@@ -170,6 +197,8 @@ When you are representing a categorical variable with a set of binary variables,
  ```
  regress incwage i.statefip
  ``` 
+
+[^fe-note]
  
  Note that this will work only if your categorical variable is numeric. If it's a string you'll get an error. You can fix it by adding a `xi:` prefix, like so: 
  
@@ -179,10 +208,20 @@ When you are representing a categorical variable with a set of binary variables,
  
 When we include a dummy variable for every value of a categorical variable, like above, we call those "fixed effects." We'll talk about these more soon.  
 
+[^fe-note]: `i.statefip` adds a dummy for every state and estimates effects relative to the omitted category. Don’t manually include a full set of dummies with an intercept, or you’ll run into perfect multicollinearity (the “dummy variable trap”).
 
 
 ## Reading regression tables (reminder!) 
-<img src="../regression-label.png" alt="labeled Stata output">
+{{< figure src="../regression-label.png" title="Labeled Stata output" >}}
+
+## Workflow overview {#workflow .unnumbered}
+
+1. Load the dataset and start your log file.
+2. Inspect variables and coding (`describe`, `tab`, `tab ... , nolabel`).
+3. Create binary indicators needed for your analysis.
+4. Run baseline regressions with robust standard errors.
+5. Add controls or fixed effects and compare coefficients.
+6. Interpret results and answer the worksheet questions.
 
 
 
@@ -195,23 +234,29 @@ When we include a dummy variable for every value of a categorical variable, like
     
 ### Questions
 
- Download the do-file template and data files. Personalize the file paths so that you can run it and open your `cps_2016.dta` file. You can also work with a blank data file if you're more comfortable - just make sure you remember to include commands to start and close your log file. 
+ Download the do-file template and data files. Personalize the file paths so that you can run it and open your `acs2024_2pct.dta` file. You can also work with a blank data file if you're more comfortable - just make sure you remember to include commands to start and close your log file. 
  
 *Use robust standard errors in all regressions*
 
+Example:
+
+```
+regress incwage educ labforce, robust
+```
+
 1.  Let's practice with loops! Download [loop_example.do](../materials/loop_example.do) and paste the code into your sample. Run it and look at the output. In your do-file, write comments that describe what each loop is going. 
 
-2. Now, go back to your `cps_2016.dta` file and do-file template. Adjust your do-file template so that it loads `cps_2016.dta` and starts a log. 
+2. Now, go back to your `acs2024_2pct.dta` file and do-file template. Adjust your do-file template so that it loads `acs2024_2pct.dta` and starts a log. 
 
 3. Restrict your sample to individuals ages 25-54. 
 
-4. Create a new variable, `birthyr`, equal to each individual's year of birth. Is there any potential imprecision or error in this variable? 
+4. Create a new variable, `birthyr`, equal to each individual's year of birth: `gen birthyr = 2024 - age`. Is there any potential imprecision or error in this variable? 
 
 5. Then, write a loop to generate a dummy variable for each possible value of birth year.[^5]
 
 [^5]: There is a faster way to do this, using `xi i.birthyr`, but we're learning about loops, so just go with it.
 
-<!-- Write a loop to generate a dummy variable for each possible value of public housing, `pubhous`. That is, you would have `_pubhous0`, a binary variable for whether `pubhouse == 0`, `_pubhous1`, a binary variable for whether `pubhouse == 1`, etc. (There is a faster way to do this, using `xi i.pubhouse`, but we're learning about loops, so just go with it.) --> 
+<!-- Write a loop to generate a dummy variable for each possible value of employment status, `empstat`. That is, you would have `_empstat1`, a binary variable for whether `empstat == 1`, `_empstat2`, a binary variable for whether `empstat == 2`, etc. (There is a faster way to do this, using `xi i.empstat`, but we're learning about loops, so just go with it.) --> 
 
 6. Look through the available list of data (note, [IPUMS](https://cps.ipums.org/cps/) has full
     documentation of all variables). Based on this data, think of a
