@@ -255,7 +255,6 @@ ECON3500: Econometrics and Applications
 <li><strong>Bringing It All Together</strong>
 <ul>
 <li>Workflow, common pitfalls, formulas</li>
-<li>Looking ahead</li>
 </ul></li>
 </ol>
 </section>
@@ -689,19 +688,14 @@ wage &amp;= \beta_0 + \beta_1 \cdot educ + \color{#008080}{\beta_2}(\color{#0080
 <p>You’re studying the effect of police officers (<span class="math inline">\(X_1\)</span>) on crime (<span class="math inline">\(Y\)</span>).</p>
 <p>True model: <span class="math inline">\(crime = \beta_0 + \beta_1 \cdot police + \beta_2 \cdot poverty + u\)</span></p>
 <p>You omit poverty. What’s the likely direction of bias on <span class="math inline">\(\hat{\beta}_1\)</span>?</p>
-<p>. . .</p>
 <p>Hints:</p>
 <ul>
-<li>Does poverty increase crime? (sign of <span class="math inline">\(\beta_2\)</span>?)</li>
-</ul>
-<p>. . .</p>
-<ul>
-<li>Do high-poverty areas have more police? (sign of correlation?)</li>
+<li>Does poverty increase crime? (sign of <span class="math inline">\(\beta_2\)</span>?) {.fragment}</li>
+<li>Do high-poverty areas have more police? (sign of correlation?) {.fragment}</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="fragment">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -712,19 +706,11 @@ wage &amp;= \beta_0 + \beta_1 \cdot educ + \color{#008080}{\beta_2}(\color{#0080
 </div>
 <div class="callout-content">
 <ul>
-<li><span class="math inline">\(\beta_2 &gt; 0\)</span> (poverty increases crime)</li>
+<li><span class="math inline">\(\beta_2 &gt; 0\)</span> (poverty increases crime) {.fragment}</li>
+<li><span class="math inline">\(\text{Corr}(police, poverty) &gt; 0\)</span> (more police where poverty is high) {.fragment}</li>
+<li>Bias = <span class="math inline">\(\beta_2 \times \delta_1 &gt; 0\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="alert">Positive bias</span> {.fragment}</li>
 </ul>
-<p>. . .</p>
-<ul>
-<li><span class="math inline">\(\text{Corr}(police, poverty) &gt; 0\)</span> (more police where poverty is high)</li>
-</ul>
-<p>. . .</p>
-<ul>
-<li>Bias = <span class="math inline">\(\beta_2 \times \delta_1 &gt; 0\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="alert">Positive bias</span></li>
-</ul>
-<p>. . .</p>
-<p>Omitting poverty makes it look like police <em>cause</em> crime (reverse causality illusion)!</p>
-</div>
+<p>Omitting poverty makes it look like police <em>cause</em> crime (reverse causality illusion)! {.fragment}</p>
 </div>
 </div>
 </div>
@@ -1197,26 +1183,7 @@ Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence 
 </tr>
 </tbody>
 </table>
-</section>
-<section id="looking-ahead" class="slide level2">
-<h2>Looking Ahead</h2>
-<p><strong>What we’ve learned:</strong></p>
-<ul>
-<li>How to estimate effects while controlling for confounders</li>
-<li>How omitted variables create bias</li>
-<li>How to compare models with adjusted <span class="math inline">\(R^2\)</span></li>
-</ul>
-<div class="fragment">
-<p><strong>Next chapter: Nonlinear Relationships</strong></p>
-<ul>
-<li>Interactions between variables</li>
-<li>Polynomial terms</li>
-<li>Logarithmic specifications</li>
-</ul>
-</div>
-<div class="fragment">
 
-</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
