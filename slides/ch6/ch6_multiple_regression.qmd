@@ -326,7 +326,7 @@ Substitute into the true model:
 **Step 1:** Start with the true model:
 
 $$
-Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2 X_{2i}} + u_i
+Y_i = \beta_0 + \beta_1 X_{1i} + \color{#008080}{\beta_2 X_{2i}} + u_i
 $$
 
 . . .
@@ -334,15 +334,15 @@ $$
 **Step 2:** Replace $X_{2i}$ with its relationship to $X_1$:
 
 $$
-Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2}(\delta_0 + \delta_1 X_{1i} + v_i) + u_i
+Y_i = \beta_0 + \beta_1 X_{1i} + \color{#008080}{\beta_2}(\delta_0 + \delta_1 X_{1i} + v_i) + u_i
 $$
 
 . . .
 
-**Step 3:** Distribute $\textcolor{teal}{\beta_2}$:
+**Step 3:** Distribute $\color{#008080}{\beta_2}$:
 
 $$
-Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2}\delta_0 + \textcolor{teal}{\beta_2}\delta_1 X_{1i} + \textcolor{teal}{\beta_2}v_i + u_i
+Y_i = \beta_0 + \beta_1 X_{1i} + \color{#008080}{\beta_2}\delta_0 + \color{#008080}{\beta_2}\delta_1 X_{1i} + \color{#008080}{\beta_2}v_i + u_i
 $$
 
 . . .
@@ -351,7 +351,7 @@ $$
 
 $$
 \begin{aligned}
-Y_i &= (\beta_0 + \textcolor{teal}{\beta_2}\delta_0) + (\beta_1 + \textcolor{teal}{\beta_2}\delta_1) X_{1i} + (\textcolor{teal}{\beta_2}v_i + u_i)
+Y_i &= (\beta_0 + \color{#008080}{\beta_2}\delta_0) + (\beta_1 + \color{#008080}{\beta_2}\delta_1) X_{1i} + (\color{#008080}{\beta_2}v_i + u_i)
 \end{aligned}
 $$
 
@@ -400,7 +400,7 @@ $$
 **True model:**
 
 $$
-wage = \beta_0 + \beta_1 \cdot educ + \textcolor{teal}{\beta_2 \cdot abil} + u
+wage = \beta_0 + \beta_1 \cdot educ + \color{#008080}{\beta_2 \cdot abil} + u
 $$
 
 But ability is unobserved!
@@ -410,7 +410,7 @@ But ability is unobserved!
 **Relationship between ability and education:**
 
 $$
-\textcolor{teal}{abil} = \textcolor{teal}{\delta_0 + \delta_1 \cdot educ + v}
+\color{#008080}{abil} = \color{#008080}{\delta_0 + \delta_1 \cdot educ + v}
 $$
 
 . . .
@@ -419,8 +419,8 @@ $$
 
 $$
 \begin{aligned}
-wage &= \beta_0 + \beta_1 \cdot educ + \textcolor{teal}{\beta_2}(\textcolor{teal}{\delta_0 + \delta_1 \cdot educ + v}) + u \\
-     &= (\beta_0 + \textcolor{teal}{\beta_2\delta_0}) + (\beta_1 + \textcolor{teal}{\beta_2\delta_1}) \cdot educ + (\textcolor{teal}{\beta_2v} + u)
+wage &= \beta_0 + \beta_1 \cdot educ + \color{#008080}{\beta_2}(\color{#008080}{\delta_0 + \delta_1 \cdot educ + v}) + u \\
+     &= (\beta_0 + \color{#008080}{\beta_2\delta_0}) + (\beta_1 + \color{#008080}{\beta_2\delta_1}) \cdot educ + (\color{#008080}{\beta_2v} + u)
 \end{aligned}
 $$
 
@@ -429,8 +429,8 @@ $$
 **What's the bias?**
 
 - $\beta_2 > 0$ (higher ability $\Rightarrow$ higher wage)
-- $\delta_1 > 0$ (smarter people get more education) $\Rightarrow$ $\textcolor{teal}{\beta_2\delta_1 > 0}$
-- The return to education $\beta_1$ will be [overestimated]{.alert} because $\textcolor{teal}{\beta_2\delta_1 > 0}$
+- $\delta_1 > 0$ (smarter people get more education) $\Rightarrow$ $\color{#008080}{\beta_2\delta_1 > 0}$
+- The return to education $\beta_1$ will be [overestimated]{.alert} because $\color{#008080}{\beta_2\delta_1 > 0}$
 
 . . .
 
