@@ -46,7 +46,6 @@ format:
 
 9. **Bringing It All Together**
    - Workflow, common pitfalls, formulas
-   - Looking ahead
 
 
 ## Learning Objectives
@@ -446,35 +445,19 @@ True model: $crime = \beta_0 + \beta_1 \cdot police + \beta_2 \cdot poverty + u$
 
 You omit poverty. What's the likely direction of bias on $\hat{\beta}_1$?
 
-. . .
-
 Hints:
 
-- Does poverty increase crime? (sign of $\beta_2$?)
-
-. . .
-
-- Do high-poverty areas have more police? (sign of correlation?)
+- Does poverty increase crime? (sign of $\beta_2$?) {.fragment}
+- Do high-poverty areas have more police? (sign of correlation?) {.fragment}
 :::
-
-. . .
 
 ::: {.callout-important}
 ## Answer
-- $\beta_2 > 0$ (poverty increases crime)
+- $\beta_2 > 0$ (poverty increases crime) {.fragment}
+- $\text{Corr}(police, poverty) > 0$ (more police where poverty is high) {.fragment}
+- Bias = $\beta_2 \times \delta_1 > 0$ $\Rightarrow$ [Positive bias]{.alert} {.fragment}
 
-. . .
-
-- $\text{Corr}(police, poverty) > 0$ (more police where poverty is high)
-
-. . .
-
-- Bias = $\beta_2 \times \delta_1 > 0$ $\Rightarrow$ [Positive bias]{.alert}
-
-
-. . .
-
-Omitting poverty makes it look like police *cause* crime (reverse causality illusion)!
+Omitting poverty makes it look like police *cause* crime (reverse causality illusion)! {.fragment}
 :::
 
 ## OVB: More General Cases
@@ -894,22 +877,3 @@ Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence 
 | Partial effect | $\beta_j = \frac{\partial Y}{\partial X_j}$ (other $X$s fixed) |
 | OVB formula | $E[\tilde{\beta}_1] = \beta_1 + \beta_2 \delta_1$ |
 | Adjusted $R^2$ | $\bar{R}^2 = 1 - \frac{n-1}{n-k-1} \frac{SSR}{TSS}$ |
-
-## Looking Ahead
-
-**What we've learned:**
-
-- How to estimate effects while controlling for confounders
-- How omitted variables create bias
-- How to compare models with adjusted $R^2$
-
-. . .
-
-**Next chapter: Nonlinear Relationships**
-
-- Interactions between variables
-- Polynomial terms
-- Logarithmic specifications
-
-. . .
-
