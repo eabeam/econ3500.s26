@@ -17,6 +17,12 @@ fi
 ROOT_DIR="$(cd "$(dirname "$QMD")" && pwd)"
 BASE_NAME="$(basename "$QMD" .qmd)"
 HTML_FILE="$ROOT_DIR/${BASE_NAME}.html"
+URL_PATH="${BASE_NAME}.html"
+
+if [ ! -f "$HTML_FILE" ] && [ -f "$ROOT_DIR/index.html" ]; then
+  HTML_FILE="$ROOT_DIR/index.html"
+  URL_PATH="index.html"
+fi
 
 if [ -z "$OUT" ]; then
   OUT="$ROOT_DIR/${BASE_NAME}.pdf"
@@ -42,7 +48,7 @@ trap 'kill "$SERVER_PID" >/dev/null 2>&1 || true' EXIT
 
 sleep 1
 
-URL="http://localhost:$PORT/${BASE_NAME}.html?print-pdf"
+URL="http://localhost:$PORT/${URL_PATH}?print-pdf"
 
 echo "Printing to PDF: $OUT"
 "$CHROME" \

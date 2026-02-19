@@ -3,8 +3,6 @@
 
 project:
   type: default
-  post-render:
-    - ./post_render_fix.sh
 
 format:
   revealjs:

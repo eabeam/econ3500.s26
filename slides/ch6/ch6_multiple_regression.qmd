@@ -750,12 +750,14 @@ Two or more regressors are [highly]{.alert} (but not perfectly) correlated.
 - Correlation $\approx 0.85$ (high, but not 1.0)
 - Both can stay in the model
 - But estimates will be imprecise
+
 <!--
 ## Imperfect Multicollinearity
 
 ![](./ch6_figures/ch6_imperfect_multicollinearity.png){width=70%}
 
-High correlation (e.g., $\text{Corr}(X_1, X_2) \approx 0.9$) makes it hard to disentangle their separate effects -->
+High correlation (e.g., $\text{Corr}(X_1, X_2) \approx 0.9$) makes it hard to disentangle their separate effects ->
+-->
 
 ## Why Is Imperfect Multicollinearity a Problem?
 
@@ -828,6 +830,7 @@ correlate X1 X2 X3
 ```
 
 . . .
+
 <!--
 **Variance Inflation Factor (VIF):**
 
@@ -855,7 +858,8 @@ vif
 2. Regress $X_1$ on $X_2$, obtain residuals $\tilde{X}_1$ (part of $X_1$ not explained by $X_2$)
 3. Plot $\tilde{Y}$ vs $\tilde{X}_1$ — slope = $\hat{\beta}_1$ from full regression
 
-Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence of $X_2$ from both -->
+Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence of $X_2$ from both ->
+-->
 
 # Bringing It All Together
 
@@ -908,5 +912,4 @@ Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence 
 - Logarithmic specifications
 
 . . .
-
 

@@ -126,6 +126,10 @@ Use a **multi-agent** workflow: one agent builds and compiles; a second reviews 
    cp -r slides/chN/chN_topic_files static/slides/chN-quarto/
    cp -r slides/chN/chN_figures static/slides/chN-quarto/
    ```
+   Or use the single-step build + sync script:
+   ```bash
+   ./scripts/render_quarto_slides.sh /Users/ebeam/Dropbox/GitHub/econ3500.s26/slides/chN/chN_topic.qmd chN-quarto chN-slides.pdf
+   ```
 5. **PDF:** Run `slides/render_reveal_pdf.sh` for the chapter. Fix any overfull/underfull or layout issues.
 6. Recompile after fixes until the deck builds cleanly.
 

@@ -76,6 +76,12 @@ Not every chapter needs all of these. Conceptual chapters (e.g. Ch9) may have no
 quarto render ch6/ch6_topic.qmd
 ```
 
+Recommended (single-step) build + sync:
+
+```bash
+./scripts/render_quarto_slides.sh /Users/ebeam/Dropbox/GitHub/econ3500.s26/slides/ch6/ch6_topic.qmd ch6-quarto ch6-slides.pdf
+```
+
 ### 5. Copy to site
 
 Rendered output must be manually copied to `static/slides/` for the Hugo site:

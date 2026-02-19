@@ -241,7 +241,7 @@ ECON3500: Econometrics and Applications
 <li><a href="#/the-linear-regression-model">The linear regression model</a></li>
 <li><a href="#/estimating-coefficients-ordinary-least-squares">Estimating coefficients: ordinary least squares</a></li>
 <li><a href="#/measuring-how-well-the-model-fits">Measuring how well the model fits</a></li>
-<li><a href="#/assumptions-for-causal-interpretation">Assumptions for causal interpretation</a></li>
+<li><a href="#/assumptions-for-unbiased-estimates">Assumptions for unbiased estimates</a></li>
 <li><a href="#/sampling-distributions-and-uncertainty">Sampling distributions and uncertainty</a></li>
 <li><a href="#/common-misconceptions-and-clarifications">Common misconceptions and clarifications</a></li>
 <li><a href="#/implementing-ols-in-stata">Implementing OLS in Stata</a></li>
@@ -253,7 +253,7 @@ ECON3500: Econometrics and Applications
 <h1>The Linear Regression Model</h1>
 
 </section>
-<section id="motivating-question" class="slide level2 smaller">
+<section id="motivating-question" class="slide level2">
 <h2>Motivating Question</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -929,12 +929,12 @@ SER = \sqrt{\frac{SSR}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}\hat{u}_i^2}{n-2}}
 </div>
 </section></section>
 <section>
-<section id="assumptions-for-causal-interpretation" class="title-slide slide level1 center">
-<h1>Assumptions for Causal Interpretation</h1>
+<section id="assumptions-for-unbiased-estimates" class="title-slide slide level1 center">
+<h1>Assumptions for Unbiased Estimates</h1>
 
 </section>
-<section id="a-cautionary-tale-high-r²-neq-causality" class="slide level2 smaller">
-<h2>A Cautionary Tale: High R² <span class="math inline">\(\neq\)</span> Causality</h2>
+<section id="a-cautionary-tale-high-r²-neq-unbiasedness" class="slide level2 smaller">
+<h2>A Cautionary Tale: High R² <span class="math inline">\(\neq\)</span> Unbiasedness</h2>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -952,7 +952,7 @@ SER = \sqrt{\frac{SSR}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}\hat{u}_i^2}{n-2}}
 </div>
 </div>
 <div class="fragment">
-<p><strong>Does ice cream <em>cause</em> drowning?</strong></p>
+<p><strong>Is this relationship meaningful, or just confounded?</strong></p>
 </div>
 <div class="fragment">
 <p><strong><span class="math inline">\(\blacktriangleright\)</span> No!</strong> Both are caused by a third factor: <span style="color: #19375F;"><strong>summer weather</strong></span></p>
@@ -962,7 +962,7 @@ SER = \sqrt{\frac{SSR}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}\hat{u}_i^2}{n-2}}
 </ul>
 </div>
 <div class="fragment">
-<p><strong>The lesson:</strong> A model can fit the data well (high R²) but still fail to identify a causal effect. This is why we need <span class="alert">assumptions</span>.</p>
+<p><strong>The lesson:</strong> A model can fit the data well (high R²) but still yield biased estimates. This is why we need <span class="alert">assumptions</span>.</p>
 </div>
 </section>
 <section id="unbiasedness-getting-the-right-answer" class="slide level2 scrollable">
@@ -981,7 +981,7 @@ SER = \sqrt{\frac{SSR}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}\hat{u}_i^2}{n-2}}
 </div>
 </div>
 <div class="fragment">
-<p><strong>Three least squares assumption</strong></p>
+<p><strong>Three least squares assumptions</strong></p>
 </div>
 <div class="fragment">
 <p><strong>Three key assumptions for unbiased OLS:</strong></p>

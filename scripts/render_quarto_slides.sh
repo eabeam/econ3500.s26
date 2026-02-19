@@ -24,6 +24,44 @@ BASE="$(basename "$QMD" .qmd)"
 
 mkdir -p "$DEST_ROOT"
 
+get_yaml_field() {
+  local field="$1"
+  local file="$2"
+  awk -v field="$field" '
+    /^---[[:space:]]*$/ {in_yaml = !in_yaml; next}
+    in_yaml && $0 ~ "^" field ":" {
+      sub("^[^:]+:[[:space:]]*", "", $0)
+      gsub(/^["'\'']|["'\'']$/, "", $0)
+      print $0
+      exit
+    }
+  ' "$file"
+}
+
+resolve_path() {
+  local base_dir="$1"
+  local rel="$2"
+  if [ -z "$rel" ]; then
+    echo ""
+    return
+  fi
+  python3 - <<PY "$base_dir" "$rel"
+import os, sys
+base, rel = sys.argv[1], sys.argv[2]
+print(os.path.abspath(os.path.join(base, rel)))
+PY
+}
+
+OUTPUT_DIR_RAW="$(get_yaml_field "output-dir" "$QMD")"
+OUTPUT_FILE="$(get_yaml_field "output-file" "$QMD")"
+OUTPUT_DIR="$SRC_DIR"
+if [ -n "$OUTPUT_DIR_RAW" ]; then
+  OUTPUT_DIR="$(resolve_path "$SRC_DIR" "$OUTPUT_DIR_RAW")"
+fi
+if [ -z "$OUTPUT_FILE" ]; then
+  OUTPUT_FILE="${BASE}.html"
+fi
+
 STATA_RUN_ALL="$SRC_DIR/stata/run_all.do"
 if [ -f "$STATA_RUN_ALL" ] && [ "${SKIP_STATA:-0}" != "1" ]; then
   echo "Running Stata logs: $STATA_RUN_ALL"
@@ -35,21 +73,44 @@ pushd "$SRC_DIR" >/dev/null
 quarto render "$(basename "$QMD")"
 popd >/dev/null
 
-if [ ! -f "$SRC_DIR/$BASE.html" ]; then
-  echo "Expected HTML not found: $SRC_DIR/$BASE.html"
-  exit 1
+HTML_FILE="$OUTPUT_DIR/$OUTPUT_FILE"
+if [ ! -f "$HTML_FILE" ]; then
+  if [ -f "$SRC_DIR/$BASE.html" ]; then
+    HTML_FILE="$SRC_DIR/$BASE.html"
+    OUTPUT_DIR="$SRC_DIR"
+    OUTPUT_FILE="${BASE}.html"
+  elif [ -f "$SRC_DIR/index.html" ]; then
+    HTML_FILE="$SRC_DIR/index.html"
+    OUTPUT_DIR="$SRC_DIR"
+    OUTPUT_FILE="index.html"
+  else
+    echo "Expected HTML not found: $HTML_FILE"
+    exit 1
+  fi
 fi
 
 echo "Syncing HTML + assets to: $DEST_ROOT"
-cp "$SRC_DIR/$BASE.html" "$DEST_ROOT/index.html"
+if [ "$HTML_FILE" != "$DEST_ROOT/index.html" ]; then
+  cp "$HTML_FILE" "$DEST_ROOT/index.html"
+fi
 # Fix stylesheet path if Quarto wrote ../_styles/styles.css (so fragments and custom styles work)
 if grep -q '_styles/styles.css' "$DEST_ROOT/index.html" 2>/dev/null; then
   perl -i -pe 's|../_styles/styles\.css|styles.css|g' "$DEST_ROOT/index.html"
   echo "Fixed styles.css link in index.html"
 fi
 
-if [ -d "$SRC_DIR/${BASE}_files" ]; then
-  rsync -a --delete "$SRC_DIR/${BASE}_files/" "$DEST_ROOT/${BASE}_files/"
+FILES_DIR=""
+if [ -d "$OUTPUT_DIR/${BASE}_files" ]; then
+  FILES_DIR="$OUTPUT_DIR/${BASE}_files"
+elif [ -d "$SRC_DIR/${BASE}_files" ]; then
+  FILES_DIR="$SRC_DIR/${BASE}_files"
+fi
+
+if [ -n "$FILES_DIR" ]; then
+  DEST_FILES="$DEST_ROOT/$(basename "$FILES_DIR")"
+  if [ "$FILES_DIR" != "$DEST_FILES" ]; then
+    rsync -a --delete "$FILES_DIR/" "$DEST_FILES/"
+  fi
 fi
 
 if [ -d "$SRC_DIR/figures_temp" ]; then
@@ -66,6 +127,11 @@ for f in styles.css custom-econometria.scss lazyload-fix.html; do
   if [ -f "$SRC_DIR/$f" ]; then
     cp "$SRC_DIR/$f" "$DEST_ROOT/$f"
   fi
+done
+
+# Post-process HTML in destination for lazyload + r-stretch issues
+find "$DEST_ROOT" -maxdepth 2 -name "*.html" -print0 | while IFS= read -r -d '' f; do
+  perl -0pi -e 's/\bdata-src="/src="/g; s/\br-stretch\b//g; s/  +/ /g' "$f"
 done
 
 if [ -z "$PDF_NAME" ]; then

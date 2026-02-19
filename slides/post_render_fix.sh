@@ -14,9 +14,43 @@ fix_html() {
   done
 }
 
+sync_chapter() {
+  local chapter_dir="$1"
+  local dest_slug="$2"
+  local src_dir="$ROOT_DIR/$chapter_dir"
+  local dest_dir="$REPO_ROOT/static/slides/$dest_slug"
+  [ -d "$src_dir" ] || return 0
+
+  local html=""
+  if [ -f "$src_dir/index.html" ]; then
+    html="$src_dir/index.html"
+  elif compgen -G "$src_dir/*.html" >/dev/null; then
+    html="$(ls -t "$src_dir"/*.html | head -n1)"
+  fi
+
+  [ -n "$html" ] || return 0
+  mkdir -p "$dest_dir"
+  cp "$html" "$dest_dir/index.html"
+
+  for dir in "$src_dir"/*_files; do
+    [ -d "$dir" ] || continue
+    rsync -a --delete "$dir/" "$dest_dir/$(basename "$dir")/"
+  done
+
+  for figdir in "$src_dir"/ch*_figures; do
+    [ -d "$figdir" ] || continue
+    rsync -a --delete "$figdir/" "$dest_dir/$(basename "$figdir")/"
+  done
+}
+
 # Fix HTML in slides project and in static output
 fix_html "$ROOT_DIR"
 fix_html "$REPO_ROOT/static/slides"
+
+# Keep static copies in sync for chapters that use local render output
+sync_chapter ch4 ch4-quarto
+sync_chapter ch6 ch6-quarto
+sync_chapter ch8 ch8-quarto
 
 # If the ch4 Quarto output is newer than the PDF, refresh PDF + thumbnails
 CH4_HTML="$REPO_ROOT/static/slides/ch4-quarto/index.html"
