@@ -24,8 +24,8 @@ type: docs
 ## Objectives {#objectives .unnumbered}
 
 
-Today we're going to work with some new data, `acs2024_2pct.dta`, which
-contains information from the [2024 American Community Survey](https://www.census.gov/programs-surveys/acs).
+Today we're going to work with, `acs2024_2pct.dta`, which
+contains information from the [2024 American Community Survey](https://www.census.gov/programs-surveys/acs). We used this in Lab 02!
 
 
 By the end of this lab, you should be able to complete the following
@@ -60,6 +60,9 @@ Tip: use `describe` and `codebook` to check labels and coding for any variables 
 |`age`|age|used to construct year of birth|
 |`statefip`|state|use with `i.statefip`|
 
+:eye: Tip: `codebook race` is a quick way to check variable labels for `race`! :eye: 
+
+
 ## Key commands  {#key-commands .unnumbered}
 
 
@@ -74,25 +77,24 @@ variable(s)|
 ### Creating binary variables 
 Recall that there are two easy ways to make binary
 variables out of categorical or continuous variables. Consider the
-variable `race`, where 100 = White, 200 = Black, 300 = Native American,
-651 = Asian, etc. Suppose you want to generate a binary indicator for
-whether a person is White.
+variable `race`, where 1 = White, 2 = Black, 3 = Native American, etc.
+Suppose you want to generate a binary indicator for whether a person is White.
 
--   `gen white = race == 100`: generates a variable equal to 1 if `race`
-    is 100, and 0 otherwise
+-   `gen white = race == 1`: generates a variable equal to 1 if `race`
+    is 1, and 0 otherwise
 
--   `gen white = 1 if race == 100`: generates a variable equal to 1 if
-    `race` is 100, and **missing** otherwise. To complete this you need
+-   `gen white = 1 if race == 1`: generates a variable equal to 1 if
+    `race` is 1, and **missing** otherwise. To complete this you need
     two lines of code:\
-    `gen white = 1 if race == 100`\
-    `replace white = 0 if race != 100`
+    `gen white = 1 if race == 1`\
+    `replace white = 0 if race != 1`
     
     
 ### Working with loops 
 
 Loops can help us (1) avoid errors and (2) code super fast! 
 
-I've uploaded a sample from our class [`here, as lab4_sample.do`](../materials/lab4_sample.do)
+I've uploaded a sample as [`loop_example.do`](../materials/loop_example.do)
 
 Stata has two types of looping setups, using the `forval` or `foreach` command. The first is simpler, and the second is more versatile. Recall that you can always use `help forval` or `help foreach` if your code isn't working or if you have a vision you're not sure how to realize. 
 
@@ -122,7 +124,7 @@ What does this do? It creates a loop for which local variable <code>&#96;i'</cod
 Applied ACS example: create race indicators in a loop.
 
 ```
-foreach r in 100 200 300 651 {
+foreach r in 1 2 3 {
   gen race_`r' = race == `r'
 }
 ```
@@ -183,8 +185,8 @@ When you are representing a categorical variable with a set of binary variables,
  - Slow way: generate the binary variables you want, and include them. This is good when you want to be precise about your omitted variable, or when you want to create complicated binary categories
  
  ```
- gen white_nh = race == 100 & hispan == 0 
- gen black_nh = race == 200 & hispan == 0
+ gen white_nh = race == 1 & hispan == 0 
+ gen black_nh = race == 2 & hispan == 0
  gen hisp = hispan != 0
  gen other = white_nh == 0 & black_nh == 0 & hisp == 0 
  regress incwage black_nh hisp other
@@ -192,23 +194,23 @@ When you are representing a categorical variable with a set of binary variables,
  
  Here, white, non-Hispanic is the omitted "reference" category. 
  
- - Fast way: tell Stata to create a binary variable for each value of a categorical variable. This is good when you aren't trying to do anything complicated and when you want to be quick - very useful if you want something like state-level dummies. 
- 
+ - Fast way: tell Stata to create a binary variable for each value of a categorical variable.[^fe-note] This is good when you aren't trying to do anything complicated and when you want to be quick - very useful if you want something like state-level dummies. 
+  
  ```
- regress incwage i.statefip
+ regress incwage i.race
  ``` 
 
-[^fe-note]
- 
+
  Note that this will work only if your categorical variable is numeric. If it's a string you'll get an error. You can fix it by adding a `xi:` prefix, like so: 
  
+ 
  ```
- xi: regress incwage i.statefip
+ xi: regress incwage i.race
  ``` 
  
 When we include a dummy variable for every value of a categorical variable, like above, we call those "fixed effects." We'll talk about these more soon.  
 
-[^fe-note]: `i.statefip` adds a dummy for every state and estimates effects relative to the omitted category. Don’t manually include a full set of dummies with an intercept, or you’ll run into perfect multicollinearity (the “dummy variable trap”).
+[^fe-note]: `i.race` adds a dummy for every race category and estimates effects relative to the omitted category. Don’t manually include a full set of dummies with an intercept, or you’ll run into perfect multicollinearity (the “dummy variable trap”).
 
 
 ## Reading regression tables (reminder!) 
@@ -228,7 +230,7 @@ When we include a dummy variable for every value of a categorical variable, like
 ## Lab 4 Worksheet {#lab-4-worksheet .unnumbered}
 
 ### What do I submit? 
-- Your written up answers to exercise questions (1) - (13). This can be typed or written out then scanned (or photographed), in any reasonable format.
+- Your written up answers to exercise questions (1) - (17). This can be typed or written out then scanned (or photographed), in any reasonable format.
 - The do-file you’ve created that runs this analysis
 - A log file that contains the results from this exercise.
     
