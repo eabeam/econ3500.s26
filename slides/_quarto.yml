@@ -12,7 +12,7 @@ format:
     height: 720
     date-format: "Spring YYYY"
     pdf-separate-fragments: false
-    pdf-max-pages-per-slide: 1
+    pdf-max-pages-per-slide: 2
     
     # Global theme and styles (relative to slides/ root)
     theme: [default, _styles/custom-econometria.scss]

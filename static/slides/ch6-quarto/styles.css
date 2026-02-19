@@ -240,6 +240,20 @@ pre {
   height: auto !important;
 }
 
+@media print {
+  .reveal .slides section,
+  .reveal .slides section.scrollable {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+  }
+
+  .reveal .slides section.present {
+    display: block !important;
+    transform: none !important;
+  }
+}
+
 .reveal.overview .slides section.present {
   display: block !important;
 }
