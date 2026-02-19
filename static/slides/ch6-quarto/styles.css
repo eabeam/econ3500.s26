@@ -1,0 +1,384 @@
+/* Additional custom styles for Econometria Quarto presentation */
+
+/* Preserve spacing in code: HTML collapses spaces without this */
+pre, code {
+  font-family: Menlo, Consolas, "Liberation Mono", monospace;
+  white-space: pre;
+}
+
+pre {
+  overflow-x: auto;
+  line-height: 1.2;
+}
+
+/* Ensure good spacing */
+.reveal .slides section {
+  text-align: left;
+  padding: 20px;
+}
+
+/* Base font sizing */
+.reveal {
+  font-size: 26px;
+}
+
+/* Better spacing for fragments (tighter for lists) */
+.reveal .fragment {
+  margin-top: 0.15em;
+}
+
+/* Improve callout spacing */
+.callout {
+  margin: 1em 0;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+.callout-title {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+/* Match callout header to body color (slightly darker) */
+.reveal .callout.callout-note.callout-style-default .callout-title {
+  background-color: #cfe9e2 !important;
+}
+
+.reveal .callout.callout-important.callout-style-default .callout-title {
+  background-color: #f0d9a5 !important;
+}
+
+.reveal .callout.callout-important.callout-style-default .callout-title p {
+  background-color: transparent !important;
+}
+
+.reveal .callout.callout-tip.callout-style-default .callout-title {
+  background-color: #cfe8d2 !important;
+}
+
+.reveal .callout.callout-warning.callout-style-default .callout-title {
+  background-color: #f5d2a8 !important;
+}
+
+.reveal .callout.callout-caution.callout-style-default .callout-title {
+  background-color: #f3d6b8 !important;
+}
+
+.reveal .callout.callout-style-default .callout-title p {
+  background-color: transparent !important;
+}
+
+/* Larger callout text for projection readability */
+.reveal .callout {
+  font-size: 26px !important;
+  line-height: 1.2;
+  margin: 0.5em 0;
+  padding: 0.35em 0.6em;
+}
+
+/* Keep title slightly larger than callout body */
+.reveal .callout .callout-title {
+  font-size: 1.05em;
+  margin-bottom: 0.2em;
+}
+
+.reveal .callout p,
+.reveal .callout li {
+  line-height: 1.2;
+  margin: 0.2em 0;
+}
+
+/* Size helpers (relative to base 24px) */
+.reveal .small {
+  font-size: 0.9em;
+}
+
+.reveal .smaller {
+  font-size: 0.85em;
+}
+
+.reveal .tiny {
+  font-size: 0.75em;
+}
+
+.reveal .large {
+  font-size: 1.15em;
+}
+
+.reveal .larger {
+  font-size: 1.3em;
+}
+
+/* Code block improvements */
+.reveal pre code {
+  max-height: 500px;
+  overflow-y: auto;
+  white-space: pre;
+  tab-size: 4;
+  font-variant-ligatures: none;
+}
+
+/* Table styling enhancements */
+.reveal table {
+  font-size: 0.8em;
+}
+
+/* Math display improvements */
+.reveal .math.display {
+  margin: 1em 0;
+}
+
+/* Make display equations larger; keep inline math at normal size */
+.reveal .math.display,
+.reveal .katex-display,
+.reveal .MathJax_Display {
+  font-size: 36px !important;
+}
+
+.reveal .math:not(.display),
+.reveal .katex,
+.reveal .MathJax {
+  font-size: 1em !important;
+}
+
+/* Better list spacing */
+.reveal ul ul,
+.reveal ol ol {
+  margin-top: 0.3em;
+}
+
+/* Keep list bullets within slide bounds */
+.reveal ul,
+.reveal ol {
+  margin-left: 0;
+  padding-left: 1.4em;
+  list-style-position: outside;
+}
+
+/* Tighter list line spacing (especially for fragments) */
+.reveal ul,
+.reveal ol {
+  line-height: 1.2;
+}
+
+.reveal li {
+  margin-bottom: 0.2em;
+}
+
+.reveal li.fragment {
+  margin-top: 0.1em;
+}
+
+/* Prevent slides from overflowing - general solution (normal mode only) */
+.reveal:not(.overview) .slides section {
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  max-height: 100% !important;
+  height: 100% !important;
+  /* Allow flex child to shrink so overflow scroll works */
+  min-height: 0 !important;
+}
+
+/* Auto-adjust slide content if it's too tall (normal mode only) */
+.reveal:not(.overview) .slides section.present {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 0 !important;
+}
+
+/* Aggressive fallback: scale down oversized content (normal mode only) */
+.reveal:not(.overview) .slides section.present {
+  transform-origin: top center;
+}
+
+@media screen {
+  .reveal .slides section > * {
+    max-width: 100%;
+  }
+}
+
+/* Make callouts more compact when needed */
+.reveal .callout {
+  margin: 0.8em 0;
+  padding: 0.8em;
+}
+
+/* Ensure code blocks in slides don't cause overflow */
+.reveal pre {
+  max-height: 450px;
+  font-size: 0.85em;
+}
+
+.reveal pre code {
+  max-height: 450px;
+}
+
+/* Roadmap and other scrollable slides: ensure content is visible and scrolls (normal mode only) */
+.reveal:not(.overview) .slides section.scrollable {
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto !important;
+  min-height: 0 !important;
+}
+
+/* Disable scrolling on section header/title slides */
+.reveal:not(.overview) .slides section.level1,
+.reveal:not(.overview) .slides section.title-slide {
+  overflow: hidden !important;
+}
+
+/* Overview mode: avoid scroll/flex styles hiding thumbnails or blocking clicks */
+.reveal.overview .slides section {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+  min-height: initial !important;
+}
+
+.reveal.overview .slide {
+  overflow: visible !important;
+  height: auto !important;
+}
+
+.reveal.overview .slides section.present {
+  display: block !important;
+}
+
+/* Force all slides visible in overview (including past/future + vertical stacks) */
+.reveal.overview .slides > section,
+.reveal.overview .slides > section > section {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Make section/header slide text readable in overview thumbnails */
+.reveal.overview .slide.level1,
+.reveal.overview .title-slide {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.reveal.overview .slide.level1 h1,
+.reveal.overview .title-slide h1 {
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1.05 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.55);
+}
+
+/* Restore section backgrounds in overview thumbnails */
+.reveal.overview .slide.level1 {
+  background: linear-gradient(
+    135deg,
+    var(--quarto-scss-export-eco-navy, #19375f) 0%,
+    var(--quarto-scss-export-eco-teal, #008080) 100%
+  ) !important;
+  color: #fff !important;
+}
+
+/* Overview thumbnails should show fragment content */
+.reveal.overview .fragment {
+  opacity: 1 !important;
+  visibility: inherit !important;
+  transform: none !important;
+}
+
+.reveal.overview img {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure quarto figures still center when r-stretch is removed */
+.reveal .slide > img.quarto-figure-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reveal .slide > img.quarto-figure-left {
+  display: block;
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.reveal .slide > img.quarto-figure-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+/* Allow manual width/height control on images
+   Quarto converts {width=X%} to inline styles; ensure they're respected */
+.reveal .slides section img {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+/* Respect inline width specifications and auto-calculate height */
+.reveal .slides section img[width],
+.reveal .slides section img[style*="width"] {
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* For figure elements (Quarto wraps images in figures) */
+.reveal .slides section figure {
+  margin: 0 auto;
+}
+
+.reveal .slides section figure img {
+  display: block;
+  margin: 0 auto;
+}
+
+/* Utility classes for common figure sizes */
+.reveal .slides section img.fig-small {
+  width: 40% !important;
+  height: auto !important;
+}
+
+.reveal .slides section img.fig-medium {
+  width: 60% !important;
+  height: auto !important;
+}
+
+.reveal .slides section img.fig-large {
+  width: 80% !important;
+  height: auto !important;
+}
+
+.reveal .slides section img.fig-full {
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* Stata output: use raw HTML block so spaces are preserved (see slides README) */
+.reveal .sourceCode.stata-output pre,
+.reveal pre.stata-output {
+  font-family: Menlo, Consolas, "Liberation Mono", monospace !important;
+  white-space: pre !important;
+  overflow-x: auto;
+  line-height: 1.2;
+  font-size: 0.5em;
+  tab-size: 8;
+  -moz-tab-size: 8;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  padding: 0.75em 1em;
+  text-align: left;
+  margin: 0.5em 0;
+}
+
+.reveal .sourceCode.stata-output pre code,
+.reveal pre.stata-output code {
+  font-family: inherit !important;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre !important;
+  background: transparent;
+  padding: 0;
+  display: block;
+  color: #333;
+}
