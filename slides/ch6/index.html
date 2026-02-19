@@ -571,26 +571,26 @@ X_{2i} = \delta_0 + \delta_1 X_{1i} + v_i
 <p>Substitute into the true model:</p>
 <p><strong>Step 1:</strong> Start with the true model:</p>
 <p><span class="math display">\[
-Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2 X_{2i}} + u_i
+Y_i = \beta_0 + \beta_1 X_{1i} + \color{#008080}{\beta_2 X_{2i}} + u_i
 \]</span></p>
 </div>
 <div class="fragment">
 <p><strong>Step 2:</strong> Replace <span class="math inline">\(X_{2i}\)</span> with its relationship to <span class="math inline">\(X_1\)</span>:</p>
 <p><span class="math display">\[
-Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2}(\delta_0 + \delta_1 X_{1i} + v_i) + u_i
+Y_i = \beta_0 + \beta_1 X_{1i} + \color{#008080}{\beta_2}(\delta_0 + \delta_1 X_{1i} + v_i) + u_i
 \]</span></p>
 </div>
 <div class="fragment">
-<p><strong>Step 3:</strong> Distribute <span class="math inline">\(\textcolor{teal}{\beta_2}\)</span>:</p>
+<p><strong>Step 3:</strong> Distribute <span class="math inline">\(\color{#008080}{\beta_2}\)</span>:</p>
 <p><span class="math display">\[
-Y_i = \beta_0 + \beta_1 X_{1i} + \textcolor{teal}{\beta_2}\delta_0 + \textcolor{teal}{\beta_2}\delta_1 X_{1i} + \textcolor{teal}{\beta_2}v_i + u_i
+Y_i = \beta_0 + \beta_1 X_{1i} + \color{#008080}{\beta_2}\delta_0 + \color{#008080}{\beta_2}\delta_1 X_{1i} + \color{#008080}{\beta_2}v_i + u_i
 \]</span></p>
 </div>
 <div class="fragment">
 <p><strong>Step 4:</strong> Collect like terms:</p>
 <p><span class="math display">\[
 \begin{aligned}
-Y_i &amp;= (\beta_0 + \textcolor{teal}{\beta_2}\delta_0) + (\beta_1 + \textcolor{teal}{\beta_2}\delta_1) X_{1i} + (\textcolor{teal}{\beta_2}v_i + u_i)
+Y_i &amp;= (\beta_0 + \color{#008080}{\beta_2}\delta_0) + (\beta_1 + \color{#008080}{\beta_2}\delta_1) X_{1i} + (\color{#008080}{\beta_2}v_i + u_i)
 \end{aligned}
 \]</span></p>
 </div>
@@ -645,21 +645,21 @@ E[\tilde{\beta}_1] = \beta_1 + \beta_2 \delta_1
 <h2>Example: Returns to Education</h2>
 <p><strong>True model:</strong></p>
 <p><span class="math display">\[
-wage = \beta_0 + \beta_1 \cdot educ + \textcolor{teal}{\beta_2 \cdot abil} + u
+wage = \beta_0 + \beta_1 \cdot educ + \color{#008080}{\beta_2 \cdot abil} + u
 \]</span></p>
 <p>But ability is unobserved!</p>
 <div class="fragment">
 <p><strong>Relationship between ability and education:</strong></p>
 <p><span class="math display">\[
-\textcolor{teal}{abil} = \textcolor{teal}{\delta_0 + \delta_1 \cdot educ + v}
+\color{#008080}{abil} = \color{#008080}{\delta_0 + \delta_1 \cdot educ + v}
 \]</span></p>
 </div>
 <div class="fragment">
 <p><strong>Substitute into the true model:</strong></p>
 <p><span class="math display">\[
 \begin{aligned}
-wage &amp;= \beta_0 + \beta_1 \cdot educ + \textcolor{teal}{\beta_2}(\textcolor{teal}{\delta_0 + \delta_1 \cdot educ + v}) + u \\
-     &amp;= (\beta_0 + \textcolor{teal}{\beta_2\delta_0}) + (\beta_1 + \textcolor{teal}{\beta_2\delta_1}) \cdot educ + (\textcolor{teal}{\beta_2v} + u)
+wage &amp;= \beta_0 + \beta_1 \cdot educ + \color{#008080}{\beta_2}(\color{#008080}{\delta_0 + \delta_1 \cdot educ + v}) + u \\
+     &amp;= (\beta_0 + \color{#008080}{\beta_2\delta_0}) + (\beta_1 + \color{#008080}{\beta_2\delta_1}) \cdot educ + (\color{#008080}{\beta_2v} + u)
 \end{aligned}
 \]</span></p>
 </div>
@@ -667,8 +667,8 @@ wage &amp;= \beta_0 + \beta_1 \cdot educ + \textcolor{teal}{\beta_2}(\textcolor{
 <p><strong>What’s the bias?</strong></p>
 <ul>
 <li><span class="math inline">\(\beta_2 &gt; 0\)</span> (higher ability <span class="math inline">\(\Rightarrow\)</span> higher wage)</li>
-<li><span class="math inline">\(\delta_1 &gt; 0\)</span> (smarter people get more education) <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\textcolor{teal}{\beta_2\delta_1 &gt; 0}\)</span></li>
-<li>The return to education <span class="math inline">\(\beta_1\)</span> will be <span class="alert">overestimated</span> because <span class="math inline">\(\textcolor{teal}{\beta_2\delta_1 &gt; 0}\)</span></li>
+<li><span class="math inline">\(\delta_1 &gt; 0\)</span> (smarter people get more education) <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\color{#008080}{\beta_2\delta_1 &gt; 0}\)</span></li>
+<li>The return to education <span class="math inline">\(\beta_1\)</span> will be <span class="alert">overestimated</span> because <span class="math inline">\(\color{#008080}{\beta_2\delta_1 &gt; 0}\)</span></li>
 </ul>
 </div>
 <div class="fragment">

@@ -126,6 +126,8 @@ done
 for f in styles.css custom-econometria.scss lazyload-fix.html; do
   if [ -f "$SRC_DIR/$f" ]; then
     cp "$SRC_DIR/$f" "$DEST_ROOT/$f"
+  elif [ -f "$REPO_ROOT/slides/_styles/$f" ]; then
+    cp "$REPO_ROOT/slides/_styles/$f" "$DEST_ROOT/$f"
   fi
 done
 
