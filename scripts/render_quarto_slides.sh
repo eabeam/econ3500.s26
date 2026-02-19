@@ -74,18 +74,40 @@ quarto render "$(basename "$QMD")"
 popd >/dev/null
 
 HTML_FILE="$OUTPUT_DIR/$OUTPUT_FILE"
+SRC_HTML_BASE="$SRC_DIR/$BASE.html"
+SRC_HTML_INDEX="$SRC_DIR/index.html"
+
+prefer_src_html() {
+  local src="$1"
+  local dest="$2"
+  [ -f "$src" ] || return 1
+  [ -f "$dest" ] || return 0
+
+  if [ "$src" -nt "$dest" ]; then
+    return 0
+  fi
+
+  if rg -q "textcolor" "$dest" && rg -q "\\\\color\\{#008080\\}" "$src"; then
+    return 0
+  fi
+
+  return 1
+}
+
 if [ ! -f "$HTML_FILE" ]; then
-  if [ -f "$SRC_DIR/$BASE.html" ]; then
-    HTML_FILE="$SRC_DIR/$BASE.html"
-    OUTPUT_DIR="$SRC_DIR"
-    OUTPUT_FILE="${BASE}.html"
-  elif [ -f "$SRC_DIR/index.html" ]; then
-    HTML_FILE="$SRC_DIR/index.html"
-    OUTPUT_DIR="$SRC_DIR"
-    OUTPUT_FILE="index.html"
+  if [ -f "$SRC_HTML_BASE" ]; then
+    HTML_FILE="$SRC_HTML_BASE"
+  elif [ -f "$SRC_HTML_INDEX" ]; then
+    HTML_FILE="$SRC_HTML_INDEX"
   else
     echo "Expected HTML not found: $HTML_FILE"
     exit 1
+  fi
+else
+  if prefer_src_html "$SRC_HTML_BASE" "$HTML_FILE"; then
+    HTML_FILE="$SRC_HTML_BASE"
+  elif prefer_src_html "$SRC_HTML_INDEX" "$HTML_FILE"; then
+    HTML_FILE="$SRC_HTML_INDEX"
   fi
 fi
 
