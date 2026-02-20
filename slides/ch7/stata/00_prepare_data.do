@@ -106,44 +106,17 @@ label var ineligible "Ineligible (opposite of eligible)"
 gen consumption = p2_consumption_wins_PPP
 label var consumption "Household consumption (PPP-adjusted, KES/month)"
 
-* Verify demographics exist; create if needed
-if missing(hh_size[1]) {
-	di "Creating hh_size placeholder..."
-	gen hh_size = 4  // placeholder
-}
+* Rename demographic variables to standardized names
+rename hhsize1_BL hh_size
+rename female_BL female_head
+rename age_BL age_head
 
-if missing(hh_head_female[1]) {
-	di "Creating female_head placeholder..."
-	gen female_head = runiform() > 0.5
-} else {
-	gen female_head = (hh_head_female == 1) if !missing(hh_head_female)
-}
+* Rename identifiers
+rename hhid_key household_id
+rename village_code village_id
 
-if missing(age_head[1]) {
-	di "Creating age_head placeholder..."
-	gen age_head = 45
-} else {
-	* Keep as is
-}
-
-* Verify identifier exists
-capture confirm variable hhid
-if _rc == 0 {
-	gen household_id = hhid
-	label var household_id "Household identifier"
-} else {
-	gen household_id = _n
-	label var household_id "Household identifier (generated)"
-}
-
-capture confirm variable sublocation_code
-if _rc == 0 {
-	gen village_id = sublocation_code
-	label var village_id "Village/sublocation identifier"
-} else {
-	gen village_id = 1  // placeholder
-	label var village_id "Village identifier (generated)"
-}
+label var household_id "Household identifier"
+label var village_id "Village identifier"
 
 * Select and label key variables for analysis dataset
 keep household_id village_id eligible ineligible treat consumption ///

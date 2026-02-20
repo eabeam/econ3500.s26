@@ -56,7 +56,7 @@ di "DESCRIPTIVE STATISTICS"
 di "========================================="
 di ""
 
-summarize consumption eligible ineligible treat female_head hh_size age_head
+summarize consumption eligible ineligible treat female_BL hhsize1_BL age_BL
 
 di ""
 di "Treatment Assignment Crosstab:"
@@ -74,11 +74,11 @@ di ""
 * =============================================================================
 
 * Create log household size (better scaling in regression)
-gen ln_hh_size = ln(hh_size)
+gen ln_hh_size = ln(hhsize1_BL)
 label var ln_hh_size "Log household size"
 
 * Create age variable in decades (improves scaling)
-gen age_head_decades = age_head / 10
+gen age_head_decades = age_BL / 10
 label var age_head_decades "Age of head (decades)"
 
 * =============================================================================
@@ -133,7 +133,7 @@ di ""
 di "MODEL 1B: Direct Effect WITH Controls"
 di "Specification: consumption = β₀ + β_eligible + demographics + u"
 di ""
-regress consumption eligible female_head ln_hh_size age_head_decades, robust
+regress consumption eligible female_BL ln_hh_size age_head_decades, robust
 
 est store model1b
 
