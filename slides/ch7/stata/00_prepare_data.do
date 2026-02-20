@@ -76,12 +76,13 @@ if _rc == 0 {
 }
 
 * Check demographic variables
-foreach var in hh_size hh_head_female age_head {
+foreach var in hhsize1_BL female_BL age_BL {
 	capture confirm variable `var'
 	if _rc == 0 {
 		di "✓ `var' exists"
 	} else {
-		di "⚠ WARNING: `var' not found; will create substitute"
+		di "✗ ERROR: `var' not found"
+		exit 1
 	}
 }
 
