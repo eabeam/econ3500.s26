@@ -8,6 +8,41 @@ format:
     footer: "ECON3500 | Chapter 7"
 ---
 
+# Unconditional Cash Transfers: Context
+
+## Why Cash Transfers? {.smaller}
+
+**The Challenge:** 700+ million people live on less than $2/day
+
+**Traditional Approaches:**
+- In-kind aid (food, blankets, etc.)
+- Conditional cash transfers (CCTs): "We give you money IF you send your kids to school / get vaccinated"
+- Paternalistic: Government decides what the poor "need"
+
+**Unconditional Cash Transfers (UCTs):**
+- Direct, no strings attached
+- Trusts recipients to make their own decisions
+- Respects agency and autonomy
+
+## Why This Matters {.smaller}
+
+**Economic argument:**
+If markets work, cash is most efficient → recipients choose optimally
+
+**But markets often fail in poor areas:**
+- Limited local supply (firms don't invest)
+- Prices may spike if aggregate demand increases (inflation)
+- Spillovers: Money spent in one household affects neighbors via prices and employment
+
+**Key Question:** When we give cash to poor households, what actually happens?
+- Do recipients spend it effectively?
+- Do local economies benefit or adjust prices upward?
+- What are the **general equilibrium effects**?
+
+**This is where hypothesis testing comes in!** We test whether observed effects are statistically significant or just noise.
+
+---
+
 # The Study: GiveDirectly Kenya
 
 ## Egger, Haushofer, Miguel, Niehaus, Walker (2022) {.smaller}
