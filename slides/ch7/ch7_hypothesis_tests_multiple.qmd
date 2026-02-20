@@ -8,6 +8,49 @@ format:
     footer: "ECON3500 | Chapter 7"
 ---
 
+# The Study: GiveDirectly Kenya
+
+## Egger, Haushofer, Miguel, Niehaus, Walker (2022) {.smaller}
+
+**Paper:** "General Equilibrium Effects of Cash Transfers: Experimental Evidence from Kenya"
+Published in *Econometrica* 90(6):2603–2643 | **2024 Frisch Medal Winner** 🏅
+
+**Research Question:**
+What are the direct and general equilibrium effects of unconditional cash transfers?
+
+**Study Design:**
+- 653 villages in rural Kenya (Siaya County)
+- 10,500+ poor households
+- Cash transfer: ~$1,000 USD (~87,000 KES) per eligible household
+- **Fiscal shock:** 15% of local GDP
+
+**Key Innovation:**
+Randomized variation at TWO levels:
+1. **Village-level:** Treatment vs. control villages
+2. **Household-level:** Eligible vs. ineligible within treatment villages
+   - Eligible (thatched roof means test) → receive transfer
+   - Ineligible (better housing) → NO transfer, but exposed to spillovers
+
+## Main Findings {.smaller}
+
+**Direct Effects (on eligible recipients):**
+- ✓ Consumption increased by 1,200-1,800 KES/month (~$12-18/month)
+- ✓ Assets increased substantially
+- ✓ Income effects from local multipliers
+
+**Spillover Effects (on ineligible neighbors):**
+- ✓ Consumption increased by 500-1,200 KES/month (positive spillovers!)
+- ✓ Local firms benefited from increased demand
+- ✓ **Minimal price inflation** (no evidence of inflation eroding gains)
+
+**Local Fiscal Multiplier:** **2.4**
+- For every dollar transferred, local economic activity increased by $2.40
+- Suggests powerful local demand effects and limited import leakage
+
+**Bottom Line:** Cash transfers helped both direct recipients AND their neighbors through general equilibrium effects
+
+---
+
 ## Learning Objectives
 
 By the end of this chapter, you will be able to:
