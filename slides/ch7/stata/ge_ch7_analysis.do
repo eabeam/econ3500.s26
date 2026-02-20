@@ -208,7 +208,8 @@ di ""
 if `p_val_t2' < 0.05 {
 	di "CONCLUSION: Reject H₀ at 5% level."
 	di "  → Direct and spillover effects ARE significantly different"
-} else {
+}
+else {
 	di "CONCLUSION: Fail to reject H₀ at 5% level."
 	di "  → No significant evidence that direct and spillover effects differ"
 }
@@ -304,7 +305,8 @@ if `p_F' < 0.05 {
 	di "CONCLUSION: Reject H₀ at 5% level."
 	di "  → At least one treatment effect is significantly different from zero"
 	di "  → We CANNOT exclude all treatment variables"
-} else {
+}
+else {
 	di "CONCLUSION: Fail to reject H₀ at 5% level."
 	di "  → No evidence that any treatment effect differs from zero"
 	di "  → We COULD exclude all treatment variables"
@@ -394,7 +396,8 @@ di ""
 di "1. DIRECT EFFECT (Type 1 test):"
 if abs(`beta_1a') > 100 {
 	di "   Cash transfers had a substantial positive effect on consumption."
-} else {
+}
+else {
 	di "   Cash transfer effects on consumption are modest in magnitude."
 }
 di ""
@@ -403,7 +406,8 @@ di "2. SPILLOVERS vs. DIRECT (Type 2 test):"
 if abs(`beta_elig' - `beta_inelig') < 200 {
 	di "   Eligible and ineligible households benefited similarly."
 	di "   This suggests important general equilibrium (spillover) effects."
-} else {
+}
+else {
 	di "   Direct recipients benefited more than non-recipients."
 	di "   Spillover effects are smaller than direct effects."
 }
@@ -413,7 +417,8 @@ di "3. OVERALL SIGNIFICANCE (Type 3 test):"
 if `p_F' < 0.05 {
 	di "   Treatment effects are statistically significant."
 	di "   The cash transfer program mattered for household consumption."
-} else {
+}
+else {
 	di "   Treatment effects are not statistically significant."
 	di "   We cannot conclude the program changed consumption."
 }
