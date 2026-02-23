@@ -2,7 +2,7 @@
 
 ## Overview
 
-This folder contains Stata do-files and data for demonstrating three types of hypothesis tests in multiple regression, using data from Egger et al. (2022): *"General Equilibrium Effects of Cash Transfers: Experimental Evidence from Kenya"* (Econometrica 90(6):2603-2643).
+This folder contains Stata do-files and data for demonstrating hypothesis tests in multiple regression, using data from Egger et al. (2022): *"General Equilibrium Effects of Cash Transfers: Experimental Evidence from Kenya"* (Econometrica 90(6):2603-2643).
 
 **Study Context:**
 - Location: 653 villages in rural Kenya
@@ -25,15 +25,16 @@ This folder contains Stata do-files and data for demonstrating three types of hy
 ### Analysis Do-Files (RUN AFTER DATA PREP)
 - **`ge_ch7_analysis.do`** — Complete hypothesis testing demonstration
   - Instructor reference / Full analysis
-  - Demonstrates all three test types with detailed explanations
-  - Type 1: Single coefficient (β_eligible = 0?)
-  - Type 2: Equality test (β_eligible = β_ineligible?)
-  - Type 3: Joint F-test (all effects = 0?)
+  - Demonstrates the base, direct, indirect, and joint tests with detailed explanations
+  - Base: Overall ITT (β_treat = 0?)
+  - Direct: Eligible only (β_treat|eligible = 0?)
+  - Indirect: Ineligible only (β_treat|ineligible = 0?)
+  - Joint: Interaction model (β_treat = β_treat×eligible = 0?)
   - ~1,200 lines with interpretation
 
 - **`ge_ch7_student_working.do`** — Interactive student exercise
   - 18 fill-in-the-blank questions
-  - Students work through the three test types
+  - Students work through the base/direct/indirect/joint logic
   - Uses smaller `ge_ch7_student_data.dta`
   - ~300 lines, classroom-friendly
 
@@ -89,9 +90,9 @@ do ge_ch7_student_working.do
 ```
 
 They will answer questions (Q1-Q18) throughout the file, demonstrating understanding of:
-- Type 1 tests (single coefficient)
-- Type 2 tests (equality of coefficients)
-- Type 3 tests (joint F-tests)
+- Base ITT test (treat)
+- Direct vs. indirect effects (eligible vs. ineligible)
+- Joint test using an interaction model
 - Interpretation of results
 
 ---
@@ -112,42 +113,48 @@ They will answer questions (Q1-Q18) throughout the file, demonstrating understan
 
 ---
 
-## Three Types of Hypothesis Tests Demonstrated
+## Tests Demonstrated
 
-### Type 1: Single Coefficient Test (t-test)
+### Base: Overall ITT (t-test)
 ```
-H₀: β_eligible = 0
-Question: Is there a direct effect of eligibility on consumption?
+H₀: β_treat = 0
+Question: What is the overall impact of being assigned to treatment?
 Test: t = β̂ / SE(β̂)
-Stata: regress consumption eligible, robust
+Stata: regress consumption treat, robust
 ```
 
-### Type 2: Equality of Two Coefficients (t-test)
+### Direct: Eligible Households Only (t-test)
 ```
-H₀: β_eligible = β_ineligible
-Question: Are direct effects equal to spillover effects?
-Test: t-test (or equivalently, F-test with 1 restriction)
-Stata: test eligible = ineligible
-```
-
-### Type 3: Joint Significance F-test
-```
-H₀: β_eligible = β_ineligible = β_treat = 0
-Question: Can we exclude all treatment variables?
-Test: F = [(SSR_r - SSR_ur) / q] / [SSR_ur / (n - k - 1)]
-Stata: testparm eligible ineligible treat
+H₀: β_treat|eligible = 0
+Question: What is the effect among eligible households only?
+Test: t = β̂ / SE(β̂)
+Stata: regress consumption treat ... if eligible==1, robust
 ```
 
----
+### Indirect: Ineligible Households Only (t-test)
+```
+H₀: β_treat|ineligible = 0
+Question: What is the spillover effect among ineligible households?
+Test: t = β̂ / SE(β̂)
+Stata: regress consumption treat ... if ineligible==1, robust
+```
+
+### Joint: Interaction Model (F-test)
+```
+H₀: β_treat = β_treat×eligible = 0
+Question: Are there any treatment effects, and do they differ by eligibility?
+Test: F-test with 2 restrictions
+Stata: regress consumption treat eligible treatXeligible ..., robust
+       test treat treatXeligible
+```
 
 ## Expected Results
 
 ### Main Findings (Typical Output)
-- **Direct Effect (eligible):** +1,200 to +1,800 KES/month (p < 0.05)
-- **Spillover Effect (ineligible):** +500 to +1,200 KES/month (p < 0.05-0.10)
-- **Village Treatment Effect (treat):** -100 to +500 KES/month (p > 0.05)
-- **Type 2 Test (β_eligible = β_ineligible):** F ≈ 1-3, p ≈ 0.05-0.20
-- **Type 3 Test (joint significance):** F ≈ 15-25, p < 0.001
+- **Overall ITT (treat):** -100 to +500 KES/month (often p > 0.05)
+- **Direct Effect (eligible only):** +1,200 to +1,800 KES/month (p < 0.05)
+- **Indirect Effect (ineligible only):** +500 to +1,200 KES/month (p < 0.05–0.10)
+- **Joint Test (treat and interaction):** F ≈ 10–25, p < 0.001
 
 Note: Exact values depend on the sample drawn and controls included.
 
@@ -166,7 +173,7 @@ For pedagogical clarity, the student exercise focuses on:
 - **Outcome:** Consumption only (not income, assets, prices, or other outcomes)
 - **Robustness:** All analyses use heteroskedasticity-robust standard errors
 
-This simplified design maps directly to the three types of hypothesis tests without overwhelming complexity.
+This simplified design maps directly to the base/direct/indirect/joint tests without overwhelming complexity.
 
 ### Reproducibility
 - All do-files use **absolute paths** (adjust if needed on your system)
@@ -213,7 +220,7 @@ After running `ge_ch7_analysis.do`, capture Stata output:
 5. Link in Quarto QMD file
 
 ### Adaptations
-- **Shorter class period:** Use only Type 1 test, skip Type 2-3
+- **Shorter class period:** Use only the base ITT test, skip direct/indirect/joint
 - **Advanced class:** Add interaction terms, run spatial analysis (coordinates available with permission)
 - **Different outcome:** Substitute income, assets, or prices (all available in source data)
 

@@ -16,9 +16,10 @@
 * but exposed to spillovers.
 *
 * We use this natural treatment structure to test:
-*   (1) TYPE 1: Is there a direct effect? H₀: β_eligible = 0
-*   (2) TYPE 2: Do spillovers equal direct effects? H₀: β_eligible = β_ineligible
-*   (3) TYPE 3: Are all effects jointly zero? H₀: β_eligible = β_ineligible = β_treat = 0
+*   (1) BASE: Overall ITT impact of treatment assignment (treat)
+*   (2) DIRECT: Effect among eligible households (eligible == 1)
+*   (3) INDIRECT: Effect among ineligible households (ineligible == 1)
+*   (4) JOINT: Interaction model test of treatment effects
 *
 * Outcome: Household consumption (PPP-adjusted)
 * Sample: 10,500+ households across 653 villages
@@ -82,241 +83,176 @@ gen age_head_decades = age_head / 10
 label var age_head_decades "Age of head (decades)"
 
 * =============================================================================
-* TYPE 1 HYPOTHESIS TEST
+* BASE REGRESSION: OVERALL ITT (TREATMENT ASSIGNMENT)
 * =============================================================================
-* Question: Is there a direct effect of eligibility on consumption?
-* H₀: β_eligible = 0
-* H_a: β_eligible ≠ 0
+* Question: What is the overall impact of being assigned to a treated village?
+* H₀: β_treat = 0
+* H_a: β_treat ≠ 0
 * =============================================================================
 
 di ""
 di "========================================="
-di "TYPE 1 TEST: Direct Effect of Eligibility"
+di "BASE REGRESSION: Overall ITT (treat)"
 di "========================================="
-di "H₀: β_eligible = 0"
-di "H_a: β_eligible ≠ 0"
+di "H₀: β_treat = 0"
+di "H_a: β_treat ≠ 0"
 di ""
 
 * Model 1A: Bivariate (no controls)
-di "MODEL 1A: Direct Effect Without Controls"
-di "Specification: consumption = β₀ + β_eligible + u"
+di "MODEL 1A: Overall ITT Without Controls"
+di "Specification: consumption = β₀ + β_treat + u"
 di ""
-regress consumption eligible, robust
+regress consumption treat, robust
 
-est store model1a
+est store model_base
 
 * Extract key statistics for manual demonstration
-local beta_1a = _b[eligible]
-local se_1a = _se[eligible]
-local t_1a = _b[eligible] / _se[eligible]
-local p_1a = 2 * (1 - normal(abs(`t_1a')))
+local beta_base = _b[treat]
+local se_base = _se[treat]
+local t_base = _b[treat] / _se[treat]
+local p_base = 2 * (1 - normal(abs(`t_base')))
 
 di ""
 di "MANUAL CALCULATION:"
-di "  β̂_eligible = " %7.2f `beta_1a'
-di "  SE(β̂_eligible) = " %7.2f `se_1a'
-di "  t-statistic = β̂ / SE = " %7.3f `beta_1a' " / " %7.3f `se_1a' " = " %7.3f `t_1a'
-di "  p-value (two-sided) = 2×P(|t| > " %7.3f `t_1a' ") = " %7.4f `p_1a'
+di "  β̂_treat = " %7.2f `beta_base'
+di "  SE(β̂_treat) = " %7.2f `se_base'
+di "  t-statistic = β̂ / SE = " %7.3f `beta_base' " / " %7.3f `se_base' " = " %7.3f `t_base'
+di "  p-value (two-sided) = 2×P(|t| > " %7.3f `t_base' ") = " %7.4f `p_base'
 di ""
 
 * 95% Confidence Interval
-local ci_lower_1a = `beta_1a' - 1.96 * `se_1a'
-local ci_upper_1a = `beta_1a' + 1.96 * `se_1a'
+local ci_lower_base = `beta_base' - 1.96 * `se_base'
+local ci_upper_base = `beta_base' + 1.96 * `se_base'
 
 di "95% CONFIDENCE INTERVAL:"
-di "  β̂_eligible ± 1.96 × SE"
-di "  [" %7.2f `ci_lower_1a' ", " %7.2f `ci_upper_1a' "]"
+di "  β̂_treat ± 1.96 × SE"
+di "  [" %7.2f `ci_lower_base' ", " %7.2f `ci_upper_base' "]"
 di ""
 
 * Model 1B: With demographic controls
 di ""
-di "MODEL 1B: Direct Effect WITH Controls"
-di "Specification: consumption = β₀ + β_eligible + demographics + u"
+di "MODEL 1B: Overall ITT WITH Controls"
+di "Specification: consumption = β₀ + β_treat + demographics + u"
 di ""
-regress consumption eligible female_head ln_hh_size age_head_decades, robust
+regress consumption treat female_head ln_hh_size age_head_decades, robust
 
-est store model1b
+est store model_base_c
 
-local beta_1b = _b[eligible]
-local se_1b = _se[eligible]
+local beta_base_c = _b[treat]
+local se_base_c = _se[treat]
 
 di ""
-di "Comparison: Effect of eligible"
-di "  Model 1A (no controls): " %7.2f `beta_1a' " (SE: " %7.2f `se_1a' ")"
-di "  Model 1B (with controls): " %7.2f `beta_1b' " (SE: " %7.2f `se_1b' ")"
+di "Comparison: Effect of treat"
+di "  Model 1A (no controls): " %7.2f `beta_base' " (SE: " %7.2f `se_base' ")"
+di "  Model 1B (with controls): " %7.2f `beta_base_c' " (SE: " %7.2f `se_base_c' ")"
 di ""
 di "→ Did controlling for demographics change the effect?"
 di "→ Why or why not?"
 di ""
 
 * =============================================================================
-* TYPE 2 HYPOTHESIS TEST
+* DIRECT EFFECT: ELIGIBLE HOUSEHOLDS ONLY
 * =============================================================================
-* Question: Do spillovers equal direct effects?
-* i.e., Do ineligible households benefit as much as eligible ones?
-* H₀: β_eligible = β_ineligible
-* =============================================================================
-
-di ""
-di "========================================="
-di "TYPE 2 TEST: Equality of Direct & Spillover Effects"
-di "========================================="
-di "H₀: β_eligible = β_ineligible"
-di "H_a: β_eligible ≠ β_ineligible"
-di ""
-di "Interpretation: Do ineligible households (in treated villages) benefit"
-di "               as much as eligible households from the cash transfer?"
-di ""
-
-* Estimate both effects
-di "MODEL 2: Estimate Both Effects"
-di "Specification: consumption = β₀ + β_eligible + β_ineligible + demographics + u"
-di ""
-regress consumption eligible ineligible female_head ln_hh_size age_head_decades, robust
-
-est store model2
-
-local beta_elig = _b[eligible]
-local se_elig = _se[eligible]
-local beta_inelig = _b[ineligible]
-local se_inelig = _se[ineligible]
-
-di ""
-di "POINT ESTIMATES:"
-di "  β̂_eligible = " %7.2f `beta_elig' " (SE: " %7.2f `se_elig' ")"
-di "  β̂_ineligible = " %7.2f `beta_inelig' " (SE: " %7.2f `se_inelig' ")"
-di ""
-di "Difference: " %7.2f (`beta_elig' - `beta_inelig')
-di ""
-
-* Test equality using Stata's test command
-di ""
-di "TYPE 2 TEST: Are they equal?"
-di "Testing: H₀: eligible = ineligible"
-di ""
-test eligible = ineligible
-
-local F_stat_t2 = r(F)
-local p_val_t2 = r(p)
-
-di ""
-di "RESULT:"
-di "  F-statistic: " %7.3f `F_stat_t2'
-di "  p-value: " %7.4f `p_val_t2'
-di ""
-
-if `p_val_t2' < 0.05 {
-	di "CONCLUSION: Reject H₀ at 5% level."
-	di "  → Direct and spillover effects ARE significantly different"
-}
-else {
-	di "CONCLUSION: Fail to reject H₀ at 5% level."
-	di "  → No significant evidence that direct and spillover effects differ"
-}
-di ""
-
-est store model2_test
-
-* =============================================================================
-* TYPE 3 HYPOTHESIS TEST: JOINT F-TEST
-* =============================================================================
-* Question: Are all treatment effects jointly zero?
-* H₀: β_eligible = β_ineligible = β_treat = 0
+* Question: Among eligible households, what is the effect of assignment to treat?
+* H₀: β_treat|eligible = 0
 * =============================================================================
 
 di ""
 di "========================================="
-di "TYPE 3 TEST: Joint Significance F-test"
+di "DIRECT EFFECT: Eligible Households Only"
 di "========================================="
-di "H₀: β_eligible = β_ineligible = β_treat = 0"
-di "H_a: At least one treatment effect ≠ 0"
-di ""
-di "Interpretation: Can we exclude all treatment variables from the model?"
+di "H₀: β_treat|eligible = 0"
 di ""
 
-* UNRESTRICTED MODEL (all treatment variables)
-di "UNRESTRICTED MODEL: All treatment variables included"
-di "Specification: consumption = β₀ + β_eligible + β_ineligible + β_treat +"
-di "                            demographics + u"
-di ""
-regress consumption eligible ineligible treat female_head ln_hh_size ///
-        age_head_decades, robust
+regress consumption treat female_head ln_hh_size age_head_decades ///
+        if eligible == 1, robust
 
-est store model3_unres
+est store model_direct
 
-* Capture statistics for manual calculation
-qui regress consumption eligible ineligible treat female_head ln_hh_size ///
-        age_head_decades, robust
-local r2_unres = e(r2)
-local N = e(N)
-local K_unres = e(df_m)
-local df_denom = e(df_r)
-
-* RESTRICTED MODEL (treatment variables = 0, i.e., omitted)
-di ""
-di "RESTRICTED MODEL: Treatment variables omitted (set = 0)"
-di "Specification: consumption = β₀ + demographics + u"
-di ""
-regress consumption female_head ln_hh_size age_head_decades, robust
-
-est store model3_res
-
-qui regress consumption female_head ln_hh_size age_head_decades, robust
-local r2_res = e(r2)
-
-* Manual F-test using R² formula
-* F = [(R²_u - R²_r) / q] / [(1 - R²_u) / (N - k_u - 1)]
-local q = 3  /* number of restrictions (eligible, ineligible, treat) */
-local F_calc = ((`r2_unres' - `r2_res') / `q') / ((1 - `r2_unres') / (`N' - `K_unres' - 1))
+local beta_direct = _b[treat]
+local se_direct = _se[treat]
 
 di ""
-di "MANUAL F-TEST CALCULATION (using R² formula):"
-di "  R²_unrestricted = " %6.4f `r2_unres'
-di "  R²_restricted = " %6.4f `r2_res'
-di "  q (# restrictions) = " `q'
-di "  N (sample size) = " `N'
-di "  k_u (# regressors in unrestricted) = " `K_unres'
+di "POINT ESTIMATE (eligible only):"
+di "  β̂_treat = " %7.2f `beta_direct' " (SE: " %7.2f `se_direct' ")"
 di ""
-di "  F = [(R²_u - R²_r) / q] / [(1 - R²_u) / (N - k_u - 1)]"
-di "    = [(" %6.4f `r2_unres' " - " %6.4f `r2_res' ") / " `q' "] / "
-di "      [(1 - " %6.4f `r2_unres' ") / (" `N' " - " `K_unres' " - 1)]"
-di "    = [" %6.4f (`r2_unres' - `r2_res')/`q' "] / [" %6.4f (1-`r2_unres')/`df_denom' "]"
-di "    = " %7.3f `F_calc'
-di ""
-
-* Test jointly using testparm
-di ""
-di "STATA'S testparm COMMAND: Test joint significance"
-qui regress consumption eligible ineligible treat female_head ln_hh_size ///
-        age_head_decades, robust
-testparm eligible ineligible treat
-
-local F_stata = r(F)
-local p_F = r(p)
-
-di ""
-di "RESULT:"
-di "  F-statistic: " %7.3f `F_stata' " (manual calc: " %7.3f `F_calc' ")"
-di "  p-value: " %7.4f `p_F'
-di "  df1 = " r(df1) ", df2 = " r(df2)
-di ""
-
-if `p_F' < 0.05 {
-	di "CONCLUSION: Reject H₀ at 5% level."
-	di "  → At least one treatment effect is significantly different from zero"
-	di "  → We CANNOT exclude all treatment variables"
-}
-else {
-	di "CONCLUSION: Fail to reject H₀ at 5% level."
-	di "  → No evidence that any treatment effect differs from zero"
-	di "  → We COULD exclude all treatment variables"
-}
-di ""
-
-est store model3_test
 
 * =============================================================================
-* COMPARISON: OVERALL F-TEST vs. RESTRICTED TYPE 3 TEST
+* INDIRECT EFFECT: INELIGIBLE HOUSEHOLDS ONLY
+* =============================================================================
+* Question: Among ineligible households, what is the spillover effect?
+* H₀: β_treat|ineligible = 0
+* =============================================================================
+
+di ""
+di "========================================="
+di "INDIRECT EFFECT: Ineligible Households Only"
+di "========================================="
+di "H₀: β_treat|ineligible = 0"
+di ""
+
+regress consumption treat female_head ln_hh_size age_head_decades ///
+        if ineligible == 1, robust
+
+est store model_indirect
+
+local beta_indirect = _b[treat]
+local se_indirect = _se[treat]
+
+di ""
+di "POINT ESTIMATE (ineligible only):"
+di "  β̂_treat = " %7.2f `beta_indirect' " (SE: " %7.2f `se_indirect' ")"
+di ""
+
+* =============================================================================
+* JOINT TEST VIA INTERACTION MODEL
+* =============================================================================
+* We model direct vs. indirect effects with an interaction:
+*   consumption = β0 + β1*treat + β2*eligible + β3*(treat×eligible) + controls + u
+* - Spillover (ineligible) effect = β1
+* - Direct (eligible) effect = β1 + β3
+* - Difference (direct - indirect) = β3
+* =============================================================================
+
+di ""
+di "========================================="
+di "JOINT TEST: Interaction Model"
+di "========================================="
+di ""
+
+cap drop treatXeligible
+gen treatXeligible = treat * eligible
+label var treatXeligible "Treat × Eligible"
+
+regress consumption treat eligible treatXeligible ///
+        female_head ln_hh_size age_head_decades, robust
+
+est store model_joint
+
+local beta_treat = _b[treat]
+local beta_inter = _b[treatXeligible]
+
+di ""
+di "INTERACTION MODEL EFFECTS:"
+di "  Spillover (ineligible) effect = β̂_treat = " %7.2f `beta_treat'
+di "  Direct (eligible) effect = β̂_treat + β̂_interaction"
+lincom treat + treatXeligible
+di ""
+
+di "TEST 1: Direct = Indirect? (H₀: β_interaction = 0)"
+test treatXeligible = 0
+local p_diff = r(p)
+di "  p-value: " %7.4f `p_diff'
+di ""
+
+di "TEST 2: Any treatment effect? (H₀: β_treat = β_interaction = 0)"
+test treat treatXeligible
+local p_joint = r(p)
+di "  p-value: " %7.4f `p_joint'
+di ""
+
+* =============================================================================
+* COMPARISON: OVERALL F-TEST vs. RESTRICTED JOINT TEST
 * =============================================================================
 
 di ""
@@ -329,9 +265,9 @@ di "at the top. This tests: H₀: β_all = 0 (all regressors = 0)"
 di ""
 di "For the unrestricted model above, this tests whether ALL variables"
 di "(both treatment and controls) matter. That is different from our"
-di "TYPE 3 test, which tests ONLY the treatment variables."
+di "JOINT test, which targets the treatment assignment effect(s)."
 di ""
-di "Our test (testparm eligible ineligible treat) is more targeted."
+di "Our test (test treat treatXeligible) is more targeted."
 di ""
 
 * =============================================================================
@@ -348,12 +284,14 @@ di "This is safest in practice. Here we compare to homoskedastic for illustratio
 di ""
 
 di ""
-di "TYPE 3 TEST: Homoskedastic (assume constant variance)"
+di "JOINT TEST: Homoskedastic (assume constant variance)"
 di ""
-qui regress consumption eligible ineligible treat female_head ln_hh_size ///
+qui regress consumption treat eligible treatXeligible female_head ln_hh_size ///
         age_head_decades
 
-test eligible = ineligible = treat = 0
+test treat = 0
+test treatXeligible = 0
+test treat treatXeligible
 
 di ""
 di "Notice: Homoskedastic F-statistic often differs from robust version."
@@ -370,17 +308,18 @@ di "SUMMARY: Coefficient Estimates Across Models"
 di "========================================="
 di ""
 
-est table model1a model1b model2 model3_unres, ///
+est table model_base model_base_c model_direct model_indirect model_joint, ///
     b(%9.2f) se(%9.2f) ///
     title("Comparison of Models") ///
-    keep(eligible ineligible treat)
+    keep(treat eligible treatXeligible)
 
 di ""
 di "Notes:"
-di "  - Model 1A: Bivariate (no controls)"
-di "  - Model 1B: With demographic controls"
-di "  - Model 2: Both eligible and ineligible effects"
-di "  - Model 3U: Unrestricted (all treatment variables)"
+di "  - Model 1A: Overall ITT (no controls)"
+di "  - Model 1B: Overall ITT (with controls)"
+di "  - Model 2: Direct effect (eligible only)"
+di "  - Model 3: Indirect effect (ineligible only)"
+di "  - Model 4: Interaction model (joint test)"
 di ""
 
 * =============================================================================
@@ -393,8 +332,8 @@ di "INTERPRETATION & KEY INSIGHTS"
 di "========================================="
 di ""
 
-di "1. DIRECT EFFECT (Type 1 test):"
-if abs(`beta_1a') > 100 {
+di "1. OVERALL ITT (treat):"
+if abs(`beta_base') > 100 {
 	di "   Cash transfers had a substantial positive effect on consumption."
 }
 else {
@@ -402,10 +341,10 @@ else {
 }
 di ""
 
-di "2. SPILLOVERS vs. DIRECT (Type 2 test):"
-if abs(`beta_elig' - `beta_inelig') < 200 {
+di "2. DIRECT vs. INDIRECT:"
+if abs(`beta_direct' - `beta_indirect') < 200 {
 	di "   Eligible and ineligible households benefited similarly."
-	di "   This suggests important general equilibrium (spillover) effects."
+	di "   This suggests important spillover effects."
 }
 else {
 	di "   Direct recipients benefited more than non-recipients."
@@ -413,8 +352,8 @@ else {
 }
 di ""
 
-di "3. OVERALL SIGNIFICANCE (Type 3 test):"
-if `p_F' < 0.05 {
+di "3. JOINT TEST OF TREATMENT EFFECTS:"
+if `p_joint' < 0.05 {
 	di "   Treatment effects are statistically significant."
 	di "   The cash transfer program mattered for household consumption."
 }

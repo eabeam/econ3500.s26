@@ -4,9 +4,9 @@
 * =============================================================================
 
 clear all
-
+cap log close
 global replication_data "/Users/ebeam/Downloads/replication_materials/analysisdata"
-
+log using "$replication_data/log_ecma.log",replace
 use "$replication_data/GE_HHLevel_ECMA.dta", clear
 
 di ""
@@ -52,7 +52,7 @@ ds *consumption* *income* *expenditure*, has(type numeric)
 * Look for demographic variables
 di ""
 di "SEARCHING FOR DEMOGRAPHIC VARIABLES:"
-ds *female* *head* *size* *age*, has(type numeric)
+ds *female*  *size* *age*, has(type numeric)
 
 * Look for identifiers
 di ""
