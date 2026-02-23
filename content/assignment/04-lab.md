@@ -112,7 +112,7 @@ What does each component mean?
   - `lname`: this is a variable you make up. Often, people will just use `i`, becuase we're just counting. It will take on the values in `range` as it increments through the loop. It is a **local** variable, meaning that you have to call it using <code>&#96;lname'</code> and not as lname (need those punctuation marks!), and that it is only saved as long as your do-file is running.  
   - `range`: this is the set of values that the local variable will iterate over
   - Brackets: Open bracket needs to be on same line as the `forval` command. Close bracket needs to be on its own line.
-  
+
 ```
 forval i = 0/2{
 gen labfor`i' = labforce == `i'
@@ -154,15 +154,15 @@ foreach x in "rice wheat corn rye barley oats" {
           display "`x'"
         }
 ```
-        
+
   This will start with `x` equal to the string "rice". Then, it will run with `x` equal to "wheat", etc. 
-  
+
 ```
     foreach num of numlist 1 4/8 13(2)21 103 {
         display `num'
  }
 ```
-    
+
   This will loop over 1, 4, 5, 6, 7, 8, 13, 15, 17, ... 
     
   You can loop over variable names too! 
@@ -172,8 +172,8 @@ foreach x in "rice wheat corn rye barley oats" {
 foreach var of varlist inc* {
       summarize `var',d
         }
- ```  
-    
+```
+
   This summarizes (with detail) each variable that starts with `inc` 
     
     
@@ -181,9 +181,9 @@ foreach var of varlist inc* {
 ### Working with binary independent variables 
 
 When you are representing a categorical variable with a set of binary variables, there is a slow way and a fast way to integrate them. 
- 
+
  - Slow way: generate the binary variables you want, and include them. This is good when you want to be precise about your omitted variable, or when you want to create complicated binary categories
- 
+
  ```
  gen white_nh = race == 1 & hispan == 0 
  gen black_nh = race == 2 & hispan == 0
@@ -191,23 +191,23 @@ When you are representing a categorical variable with a set of binary variables,
  gen other = white_nh == 0 & black_nh == 0 & hisp == 0 
  regress incwage black_nh hisp other
  ```
- 
+
  Here, white, non-Hispanic is the omitted "reference" category. 
- 
+
  - Fast way: tell Stata to create a binary variable for each value of a categorical variable.[^fe-note] This is good when you aren't trying to do anything complicated and when you want to be quick - very useful if you want something like state-level dummies. 
-  
+
  ```
  regress incwage i.race
- ``` 
+ ```
 
 
  Note that this will work only if your categorical variable is numeric. If it's a string you'll get an error. You can fix it by adding a `xi:` prefix, like so: 
- 
- 
+
+
  ```
  xi: regress incwage i.race
- ``` 
- 
+ ```
+
 When we include a dummy variable for every value of a categorical variable, like above, we call those "fixed effects." We'll talk about these more soon.  
 
 [^fe-note]: `i.race` adds a dummy for every race category and estimates effects relative to the omitted category. Don’t manually include a full set of dummies with an intercept, or you’ll run into perfect multicollinearity (the “dummy variable trap”).
@@ -233,11 +233,11 @@ When we include a dummy variable for every value of a categorical variable, like
 - Your written up answers to exercise questions (1) - (17). This can be typed or written out then scanned (or photographed), in any reasonable format.
 - The do-file you’ve created that runs this analysis
 - A log file that contains the results from this exercise.
-    
+  
 ### Questions
 
  Download the do-file template and data files. Personalize the file paths so that you can run it and open your `acs2024_2pct.dta` file. You can also work with a blank data file if you're more comfortable - just make sure you remember to include commands to start and close your log file. 
- 
+
 *Use robust standard errors in all regressions*
 
 Example:
@@ -347,13 +347,14 @@ regress incwage educ labforce, robust
     do the inclusion of these factors affect your estimates of the
     relationship between $Y$ and $X$?
     
+
 <!-- 
 
 ## Video 
-    
 
-### [Video: Class Recording 06 October 2021](https://youtu.be/c8zSRqkS_SA)
-{{< youtube I06HBd1Urec >}}
+
+### 
+{{< youtube SFp6pBFAghY >}}
 
 
 
