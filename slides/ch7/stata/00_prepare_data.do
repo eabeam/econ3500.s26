@@ -51,7 +51,8 @@ capture confirm variable eligible
 if _rc == 0 {
 	di "✓ eligible variable exists"
 	summarize eligible
-} else {
+} 
+else {
 	di "✗ ERROR: eligible variable not found"
 	exit 1
 }
@@ -60,7 +61,8 @@ capture confirm variable treat
 if _rc == 0 {
 	di "✓ treat variable exists"
 	summarize treat
-} else {
+} 
+else {
 	di "✗ ERROR: treat variable not found"
 	exit 1
 }
@@ -70,7 +72,8 @@ capture confirm variable p2_consumption_wins_PPP
 if _rc == 0 {
 	di "✓ p2_consumption_wins_PPP variable exists"
 	summarize p2_consumption_wins_PPP
-} else {
+} 
+else {
 	di "✗ ERROR: consumption variable not found"
 	exit 1
 }
@@ -80,7 +83,8 @@ foreach var in hhsize1_BL female_BL age_BL {
 	capture confirm variable `var'
 	if _rc == 0 {
 		di "✓ `var' exists"
-	} else {
+	} 
+	else {
 		di "✗ ERROR: `var' not found"
 		exit 1
 	}
