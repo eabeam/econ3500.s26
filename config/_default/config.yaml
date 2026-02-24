@@ -49,6 +49,7 @@ footnotereturnlinkcontents: <sup>^</sup>
 
 defaultContentLanguage: en
 copyright: ''
+GoogleAnalytics: ''
 enableGitInfo: false
 hasCJKLanguage: false
 defaultContentLanguageInSubdir: false

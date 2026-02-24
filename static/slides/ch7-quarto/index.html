@@ -96,7 +96,7 @@
  code span.wa { color: #ff5555; } /* Warning */
  </style>
  <link rel="stylesheet" href="ch7_hypothesis_tests_multiple_files/libs/revealjs/dist/theme/quarto-f6ff266a00026af0db213e5461a2bde6.css">
- <link rel="stylesheet" href="../_styles/styles.css">
+ <link rel="stylesheet" href="styles.css">
  <link href="ch7_hypothesis_tests_multiple_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
  <link href="ch7_hypothesis_tests_multiple_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
  <link href="ch7_hypothesis_tests_multiple_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -212,7 +212,6 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="learning-objectives" class="slide level2 scrollable">
 <h2>Learning Objectives</h2>
-<p>By the end of this chapter, you will be able to:</p>
 <ol type="1">
 <li>Construct and interpret <span class="kw">confidence intervals</span> for individual coefficients in multiple regression</li>
 <li>Test hypotheses about <span class="kw">one coefficient</span> (review from Ch5)</li>
@@ -226,59 +225,45 @@ ECON3500: Econometrics and Applications
 <h1>Three Types of Hypothesis Tests</h1>
 
 </section>
-<section id="a-taxonomy-of-tests" class="slide level2 smaller">
+<section id="a-taxonomy-of-tests" class="slide level2">
 <h2>A Taxonomy of Tests</h2>
+<div style="font-size: 1.3em;">
 <table class="caption-top">
 <colgroup>
-<col style="width: 14%">
-<col style="width: 38%">
-<col style="width: 21%">
-<col style="width: 26%">
+<col style="width: 13%">
+<col style="width: 37%">
+<col style="width: 23%">
+<col style="width: 25%">
 </colgroup>
 <thead>
 <tr class="header">
 <th>Type</th>
-<th>Null Hypothesis</th>
-<th>Example</th>
-<th>Statistic</th>
+<th style="text-align: left;">Null Hypothesis</th>
+<th style="text-align: left;">Example</th>
+<th style="text-align: center;">Statistic</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>1. One restriction, one coefficient</td>
-<td><span class="math inline">\(H_0: \beta_j = \beta_{j,0}\)</span></td>
-<td><span class="math inline">\(H_0: \beta_1 = 0\)</span></td>
-<td><span class="math inline">\(t\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(H_0: \beta_j = \beta_{j,0}\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(H_0: \beta_1 = 0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(t\)</span></td>
 </tr>
 <tr class="even">
 <td>2. One restriction, multiple coefficients</td>
-<td><span class="math inline">\(H_0: \beta_j = \beta_m\)</span></td>
-<td><span class="math inline">\(H_0: \beta_1 = \beta_2\)</span></td>
-<td><span class="math inline">\(t\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(H_0: \beta_j = \beta_m\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(H_0: \beta_1 = \beta_2\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(t\)</span></td>
 </tr>
 <tr class="odd">
 <td>3. Multiple restrictions (joint test)</td>
-<td><span class="math inline">\(H_0: \beta_j = \beta_{j,0}, \; \beta_m = \beta_{m,0}, \ldots\)</span></td>
-<td><span class="math inline">\(H_0: \beta_1 = \beta_2 = 0\)</span></td>
-<td><span class="math inline">\(F\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(H_0: \beta_j = \beta_{j,0}, \; \beta_m = \beta_{m,0}, \ldots\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(H_0: \beta_1 = \beta_2 = 0\)</span></td>
+<td style="text-align: center;"><span class="math inline">\(F\)</span></td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Special Case of Type 3</strong></p>
-</div>
-<div class="callout-content">
-<p>Test of <span class="kw">overall significance</span>: <span class="math inline">\(H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0\)</span></p>
-<p>“Can we exclude <em>all</em> the regressors?”</p>
-</div>
-</div>
-</div>
 </div>
 </section></section>
 <section>
@@ -294,11 +279,12 @@ ECON3500: Econometrics and Applications
 \]</span></p>
 <div class="fragment">
 <p>where <span class="math inline">\(c_{\alpha/2}\)</span> is the critical value from the standard normal (large <span class="math inline">\(n\)</span>):</p>
+<div style="font-size: 1.4em;">
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th style="text-align: center;">Confidence Level</th>
-<th style="text-align: center;"><span class="math inline">\(c_{\alpha/2}\)</span></th>
+<th style="text-align: center;"><strong>Confidence Level</strong></th>
+<th style="text-align: center;"><strong><span class="math inline">\(c_{\alpha/2}\)</span></strong></th>
 </tr>
 </thead>
 <tbody>
@@ -317,6 +303,7 @@ ECON3500: Econometrics and Applications
 </tbody>
 </table>
 </div>
+</div>
 <div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -327,11 +314,32 @@ ECON3500: Econometrics and Applications
 <p><strong>Interpretation</strong></p>
 </div>
 <div class="callout-content">
-<p>“We are 95% confident that the true value of <span class="math inline">\(\beta_j\)</span>, <span class="alert">holding all other regressors constant</span>, lies in this interval.”</p>
+<p>In 95% of possible samples that might be drawn, the confidence interval will contain the true value of <span class="math inline">\(\beta_j\)</span>.”</p>
 </div>
 </div>
 </div>
 </div>
+</section>
+<section id="side-note-what-cis-are-and-are-not" class="slide level2">
+<h2>Side Note: What CIs Are and Are Not</h2>
+<div class="columns">
+<div class="column" style="width:”50%”;">
+<h3 id="cis-are-not">CIs are <strong>NOT:</strong></h3>
+<ul>
+<li>The probability that the parameter is in the interval</li>
+<li>Our confidence we have the right answer</li>
+<li>A statement about the parameter after we observe it</li>
+</ul>
+</div><div class="column" style="width:”50%”;">
+<h3 id="cis-are">CIs <strong>ARE:</strong></h3>
+<ul>
+<li>Constructed using a procedure that works 95% of the time</li>
+<li>Frequentist: the interval contains the true parameter in 95% of repeated samples</li>
+<li>Before sampling, our procedure has 95% coverage</li>
+</ul>
+</div></div>
+<p><strong>In sum:</strong> - <strong>Before sampling:</strong> Our procedure has 95% coverage probability - <strong>After sampling:</strong> The interval either contains the parameter or it doesn’t</p>
+<p><em>There’s a 95% chance that <strong>a</strong> CI contains the true parameter, but not that <strong>the</strong> estimated CI contains the true parameter.</em></p>
 </section>
 <section id="cis-in-multiple-regression-what-changes" class="slide level2">
 <h2>CIs in Multiple Regression: What Changes?</h2>
@@ -347,49 +355,56 @@ ECON3500: Econometrics and Applications
 <li>Increases SE if the added variable is correlated with <span class="math inline">\(X_j\)</span> (multicollinearity)</li>
 </ul>
 </div>
-</section></section>
-<section>
-<section id="type-1-one-restriction-one-coefficient" class="title-slide slide level1 center">
-<h1>Type 1: One Restriction, One Coefficient</h1>
-
 </section>
-<section id="review-testing-a-single-coefficient" class="slide level2 smaller scrollable">
-<h2>Review: Testing a Single Coefficient</h2>
-<p><span class="math display">\[H_0: \beta_j = \beta_{j,0} \quad \text{vs.} \quad H_a: \beta_j \neq \beta_{j,0}\]</span></p>
-<div class="fragment">
-<p><strong>Steps:</strong></p>
+<section id="one-restriction-one-coefficient-beta_j-beta_j0" class="slide level2 scrollable">
+<h2>1. One Restriction, One Coefficient: <span class="math inline">\(\beta_j = \beta_{j,0}\)</span></h2>
 <ol type="1">
-<li><p>Choose significance level (e.g., <span class="math inline">\(\alpha = 0.01\)</span>)</p></li>
-<li><p>Compute the <span class="math inline">\(t\)</span>-statistic: <span class="math display">\[t = \frac{\hat{\beta}_j - \beta_{j,0}}{SE(\hat{\beta}_j)}\]</span></p></li>
-<li><p>Compare <span class="math inline">\(|t|\)</span> to critical value and reject if <span class="math inline">\(|t| &gt; c\)</span></p></li>
-<li><p>(Optional) Construct CI: <span class="math inline">\(\left(\hat{\beta}_j - c \cdot SE(\hat{\beta}_j), \; \hat{\beta}_j + c \cdot SE(\hat{\beta}_j)\right)\)</span></p></li>
+<li><p>Select your significance level (<span class="math inline">\(\alpha = 0.01\)</span>)</p></li>
+<li><p>State your null hypothesis:</p>
+<ul>
+<li><span class="math inline">\(H_0: \beta_j = \beta_{j,0}\)</span></li>
+<li><span class="math inline">\(H_a: \beta_j \neq \beta_{j,0}\)</span></li>
+</ul></li>
+<li><p>Compute the t-statistic: <span class="math display">\[t = \frac{\hat{\beta_j}-\beta_{j,0}}{SE(\hat{\beta_j})}\]</span></p></li>
+<li><p>Compare the t-statistic to your critical value (2.58) and reject null if <span class="math inline">\(|t|&gt;c\)</span></p></li>
+<li><p>(Optional) Construct your confidence interval: <span class="math display">\[\left(\hat{\beta_j} - 2.58 \cdot SE(\hat{\beta_j}), \hat{\beta_j}+2.58 \cdot SE(\hat{\beta_j})\right)\]</span></p></li>
 </ol>
-</div>
-<div class="fragment">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Nothing New Here</strong></p>
-</div>
-<div class="callout-content">
-<p>This is exactly the same procedure as Ch5 — it works for any individual <span class="math inline">\(\beta_j\)</span> in a multiple regression.</p>
-</div>
-</div>
-</div>
-</div>
+</section>
+<section id="one-restriction-two-coefficients-beta_j-beta_m" class="slide level2 scrollable">
+<h2>2. One Restriction, Two Coefficients: <span class="math inline">\(\beta_j = \beta_m\)</span></h2>
+<ol type="1">
+<li><p>Select your significance level (<span class="math inline">\(\alpha = 0.01\)</span>)</p></li>
+<li><p>State your null hypothesis: <span class="math inline">\(H_0: \beta_1 = \beta_2\)</span> vs <span class="math inline">\(H_a: \beta_1 \neq \beta_2\)</span></p></li>
+<li><p>Transform your regression: <span class="math display">\[\begin{align}
+y_i &amp;= \beta_0 + \beta_1x_{1i} + \beta_2x_{2i} + u_i\\
+y_i &amp;= \beta_0 + \beta_1x_{1i} + \beta_2x_{1i} - \beta_2x_{1i}+ \beta_2x_{2i} + u_i\\
+y_i &amp;= \beta_0 + (\beta_1- \beta_2)x_{1i} + \beta_2(x_{1i} + x_{2i}) + u_i\\
+y_i &amp;= \beta_0 + \gamma_1x_{1i} + \beta_2w_{i}+ u_i
+\end{align}\]</span></p>
+<p>and instead test <span class="math inline">\(H_0: \gamma_1 = 0\)</span> vs.&nbsp;<span class="math inline">\(H_1: \gamma_1 \neq 0\)</span></p></li>
+<li><p>Repeat remaining steps</p></li>
+</ol>
+</section>
+<section id="multiple-restrictions-under-homoskedasticity" class="slide level2 scrollable">
+<h2>3. Multiple Restrictions (Under Homoskedasticity)</h2>
+<p>There are lots of variants, but this is the one we will compute by hand</p>
+<ol type="1">
+<li><p>Select your significance level (<span class="math inline">\(\alpha = 0.01\)</span>)</p></li>
+<li><p>State your null hypothesis: <span class="math inline">\(H_0: \beta_1 = \beta_2 = \beta_3\)</span> vs any part not true</p></li>
+<li><p>Estimate model with variables you are testing (unrestricted) and without (restricted)</p></li>
+<li><p>Calculate <span class="math inline">\(F\)</span>-statistic <span class="math display">\[F = \frac{(SSR_r - SSR_{ur})/q}{SSR_{ur}/(n-k_{ur}-1)} = \frac{(R^2_{ur} - R^2_{r})/q}{(1-R^2_{ur})/(n-k_{ur}-1)} \sim F_{q,n-k_{ur}-1}\]</span></p></li>
+<li><p>Compare the F-statistic to your critical value from a <span class="math inline">\(F_{q,n-k_{ur}-1}\)</span> distribution and reject null if <span class="math inline">\(F&gt;c\)</span> (usually from <span class="math inline">\(F_{q,\infty}\)</span> distribution)</p></li>
+</ol>
 </section></section>
 <section>
-<section id="our-running-example" class="title-slide slide level1 center">
-<h1>Our Running Example</h1>
+<section id="extendedxample-the-star-experiment" class="title-slide slide level1 center">
+<h1>Extendedxample: The STAR Experiment</h1>
 
 </section>
 <section id="angrist-lang-and-oreopoulos-2009" class="slide level2 smaller">
 <h2>Angrist, Lang, and Oreopoulos (2009)</h2>
 
-<img src="./ch7_figures/ch7_angrist_abstract.png" class="quarto-figure quarto-figure-center " style="width:75.0%"><p>We’ll use data from this study to explore hypothesis testing in multiple regression.</p>
+<img src="./ch7_figures/ch7_angrist_abstract.png" class="quarto-figure quarto-figure-center " style="width:75.0%"><p>We’re going to think about predictors of year 1 college GPA.</p>
 </section>
 <section id="the-star-experiment-context" class="slide level2 smaller">
 <h2>The STAR Experiment: Context</h2>
@@ -432,8 +447,6 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>If we included all three dummies plus an intercept, what would happen?</p>
-<p>. . .</p>
-<p>Perfect multicollinearity — Stata would drop one automatically.</p>
 </div>
 </div>
 </div>
@@ -441,102 +454,56 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="the-base-regression" class="slide level2 smaller">
 <h2>The Base Regression</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> GPA_year1 female mt_french mt_other hs_q2 hs_q3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> GPA_year1 female mt_french mt_other hs_q2 hs_q3, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 
-<img src="./ch7_figures/ch7_stata_regression_base.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><p>Controls for gender, mother tongue, and HS quartile (no top quartile — this is a satellite campus!)</p>
+<img src="./ch7_figures/ch7_stata_regression_base.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><p>Controls for gender, mother tongue, and HS quartile (no top quartile!)</p>
 </section>
-<section id="changing-the-excluded-group" class="slide level2 smaller">
-<h2>Changing the Excluded Group</h2>
-<p>What if we exclude “Other” mother tongue instead of English?</p>
-<div class="fragment">
-<p>English excluded: <span class="math display">\[\widehat{GPA} = 1.484 - 0.130 \cdot female - 0.466 \cdot mt_{french} - 0.076 \cdot mt_{other} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}\]</span></p>
-<p>“Other” excluded: <span class="math display">\[\widehat{GPA} = 1.409 - 0.130 \cdot female - 0.390 \cdot mt_{french} + 0.076 \cdot mt_{english} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}\]</span></p>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Same Predictions, Different Interpretation</strong></p>
-</div>
-<div class="callout-content">
-<p>The predicted values are identical. Only the <span class="kw">reference point</span> for interpretation changes.</p>
-</div>
-</div>
-</div>
-</div>
+<section id="choice-of-excluded-group-only-affects-interpretation" class="slide level2">
+<h2>Choice of Excluded Group Only Affects Interpretation</h2>
+<p><strong>English mother tongue excluded:</strong> <span class="math display">\[\widehat{GPAyear1}= 1.484 - 0.130 \cdot female - 0.466 \cdot mt_{french} - 0.076 \cdot mt_{other} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}\]</span></p>
+<p><strong>“Other” mother tongue excluded:</strong> <span class="math display">\[\widehat{GPAyear1}= 1.409 - 0.130 \cdot female - 0.076 \cdot mt_{english} - 0.390 \cdot mt_{french} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}\]</span></p>
 </section>
-<section id="same-predictions-the-math" class="slide level2 smaller">
-<h2>Same Predictions: The Math</h2>
-<p>Set <span class="math inline">\(female = 0\)</span>, <span class="math inline">\(hs_{q2} = 0\)</span>, <span class="math inline">\(hs_{q3} = 0\)</span> for simplicity:</p>
-<p><strong>English excluded:</strong></p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Group</th>
-<th style="text-align: center;">Predicted GPA</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>English (<span class="math inline">\(mt_{english} = 1\)</span>)</td>
-<td style="text-align: center;"><span class="math inline">\(1.484\)</span></td>
-</tr>
-<tr class="even">
-<td>French (<span class="math inline">\(mt_{french} = 1\)</span>)</td>
-<td style="text-align: center;"><span class="math inline">\(1.484 - 0.466 = 1.018\)</span></td>
-</tr>
-<tr class="odd">
-<td>Other (<span class="math inline">\(mt_{other} = 1\)</span>)</td>
-<td style="text-align: center;"><span class="math inline">\(1.484 - 0.076 = 1.409\)</span></td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
-<p><strong>“Other” excluded:</strong></p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>Group</th>
-<th style="text-align: center;">Predicted GPA</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>English (<span class="math inline">\(mt_{english} = 1\)</span>)</td>
-<td style="text-align: center;"><span class="math inline">\(1.409 + 0.076 = 1.484\)</span></td>
-</tr>
-<tr class="even">
-<td>French (<span class="math inline">\(mt_{french} = 1\)</span>)</td>
-<td style="text-align: center;"><span class="math inline">\(1.409 - 0.390 = 1.018\)</span></td>
-</tr>
-<tr class="odd">
-<td>Other (<span class="math inline">\(mt_{other} = 1\)</span>)</td>
-<td style="text-align: center;"><span class="math inline">\(1.409\)</span></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="fragment">
-<p>Same numbers, different baseline.</p>
-</div>
+<section id="choice-of-excluded-group-only-affects-interpretation-1" class="slide level2">
+<h2>Choice of Excluded Group Only Affects Interpretation</h2>
+<p>For simplicity, assume <span class="math inline">\(female = 0\)</span>, <span class="math inline">\(hs_{q2} = 0\)</span>, and <span class="math inline">\(hs_{q3} = 0\)</span></p>
+<p><strong>English mother tongue excluded:</strong> <span class="math display">\[\widehat{GPAyear1}= 1.484 - 0.130 \cdot female - 0.466 \cdot mt_{french} - 0.0755 \cdot mt_{other} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}\]</span></p>
+<p><span class="math display">\[\begin{align}
+E[GPAyear1 | mt_{english} = 1] &amp;= 1.484\\
+E[GPAyear1 | mt_{french} = 1] &amp;= 1.484 - 0.466 = 1.018\\
+E[GPAyear1 | mt_{other} = 1] &amp;= 1.4843 - 0.0755 = 1.409
+\end{align}\]</span></p>
 </section>
-<section id="questions-we-might-want-to-answer" class="slide level2 smaller">
-<h2>Questions We Might Want to Answer</h2>
+<section id="choice-of-excluded-group-only-affects-interpretation-cont." class="slide level2">
+<h2>Choice of Excluded Group Only Affects Interpretation (cont.)</h2>
+<p>For simplicity, assume <span class="math inline">\(female = 0\)</span>, <span class="math inline">\(hs_{q2} = 0\)</span>, and <span class="math inline">\(hs_{q3} = 0\)</span></p>
+<p><strong>“Other” mother tongue excluded:</strong> <span class="math display">\[\widehat{GPAyear1}= 1.409 - 0.130 \cdot female + 0.0755 \cdot mt_{english} - 0.390 \cdot mt_{french} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}\]</span></p>
+<p><span class="math display">\[\begin{align}
+E[GPAyear1 | mt_{english} = 1] &amp;= 1.4087 + 0.0755 = 1.484\\
+E[GPAyear1 | mt_{french} = 1] &amp;= 1.4087 - 0.3903 = 1.018\\
+E[GPAyear1 | mt_{other} = 1] &amp;= 1.4087 = 1.409
+\end{align}\]</span></p>
+</section>
+<section id="questions-we-could-want-to-answer" class="slide level2">
+<h2>Questions We Could Want to Answer</h2>
 
-<img src="./ch7_figures/ch7_stata_regression_base.png" class="quarto-figure quarto-figure-center " style="width:65.0%"><ul>
-<li>Do French speakers have the same GPA as English speakers? → <span class="kw">Type 1: test <span class="math inline">\(\beta_{french} = 0\)</span></span></li>
-<li>Do “Other” speakers have the same GPA as English speakers? → <span class="kw">Type 1: test <span class="math inline">\(\beta_{other} = 0\)</span></span></li>
+<img src="./ch7_figures/ch7_stata_regression_base.png" class="quarto-figure quarto-figure-center " style="width:35.0%"><ul>
+<li>Do French speakers have the same GPA as English speakers? → <span class="kw">Type 1</span>: test <span class="math inline">\(\beta_{french} = 0\)</span>]</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Do “Other” speakers have the same GPA as English speakers? → <span class="kw">Type 1</span>: test <span class="math inline">\(\beta_{other} = 0\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li><span style="color: #008080;">Do French speakers have the same GPA as “Other” speakers?</span> → <span class="kw">Type 2</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li><span style="color: #008080;">Are there <em>any</em> differences in GPA by mother tongue?</span> → <span class="kw">Type 3</span></li>
 </ul>
-</section></section>
-<section>
-<section id="type-2-one-restriction-multiple-coefficients" class="title-slide slide level1 center">
-<h1>Type 2: One Restriction, Multiple Coefficients</h1>
-
+</div>
 </section>
 <section id="testing-equality-of-two-coefficients" class="slide level2 smaller">
 <h2>Testing Equality of Two Coefficients</h2>
@@ -551,11 +518,11 @@ ECON3500: Econometrics and Applications
 <p><strong>Solution:</strong> <span class="alert">Transform the regression</span>.</p>
 </div>
 </section>
-<section id="the-transformation-trick" class="slide level2 smaller">
+<section id="the-transformation-trick" class="slide level2">
 <h2>The Transformation Trick</h2>
 <p>Start with: <span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + u_i\]</span></p>
 <div class="fragment">
-<p>Add and subtract <span class="math inline">\(\beta_2 x_{1i}\)</span>: <span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + {\color{teal}\beta_2 x_{1i} - \beta_2 x_{1i}} + \beta_2 x_{2i} + \cdots + u_i\]</span></p>
+<p>Add and subtract <span class="math inline">\(\beta_2 x_{1i}\)</span>: <span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} {\color{teal}{+ \beta_2 x_{1i} - \beta_2 x_{1i}}} + \beta_2 x_{2i} + \cdots + u_i\]</span></p>
 </div>
 <div class="fragment">
 <p>Rearrange: <span class="math display">\[y_i = \beta_0 + \underbrace{(\beta_1 - \beta_2)}_{\gamma_1} x_{1i} + \beta_2 \underbrace{(x_{1i} + x_{2i})}_{w_i} + \cdots + u_i\]</span></p>
@@ -589,13 +556,8 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
-</section></section>
-<section>
-<section id="type-3-joint-hypothesis-tests-the-f-test" class="title-slide slide level1 center">
-<h1>Type 3: Joint Hypothesis Tests (The F-Test)</h1>
-
 </section>
-<section id="why-not-just-test-one-at-a-time" class="slide level2 smaller">
+<section id="why-not-just-test-one-at-a-time" class="slide level2">
 <h2>Why Not Just Test One at a Time?</h2>
 <p><span style="color: #008080;">Are there <em>any</em> differences in GPA by mother tongue?</span></p>
 <div class="fragment">
@@ -625,7 +587,7 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </section>
-<section id="the-multiple-testing-problem" class="slide level2 smaller">
+<section id="the-multiple-testing-problem" class="slide level2">
 <h2>The Multiple Testing Problem</h2>
 <p>Suppose you test <span class="math inline">\(q\)</span> hypotheses, each at the 5% level, and all nulls are true.</p>
 <ul>
@@ -637,7 +599,7 @@ ECON3500: Econometrics and Applications
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th style="text-align: center;">Number of tests (<span class="math inline">\(q\)</span>)</th>
+<th style="text-align: center;">Number of tests</th>
 <th style="text-align: center;">P(at least one false rejection)</th>
 </tr>
 </thead>
@@ -658,10 +620,6 @@ ECON3500: Econometrics and Applications
 <td style="text-align: center;">10</td>
 <td style="text-align: center;">40.1%</td>
 </tr>
-<tr class="odd">
-<td style="text-align: center;">20</td>
-<td style="text-align: center;">64.2%</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -669,7 +627,7 @@ ECON3500: Econometrics and Applications
 <p>We need a test that evaluates <span class="kw">all restrictions simultaneously</span>: the <span class="alert">F-test</span>.</p>
 </div>
 </section>
-<section id="joint-hypothesis-test-setup" class="slide level2 smaller">
+<section id="joint-hypothesis-test-setup" class="slide level2">
 <h2>Joint Hypothesis Test: Setup</h2>
 <p>Population model: <span class="math display">\[GPA_i = \beta_0 + \beta_1 \cdot mt_{french} + \beta_2 \cdot mt_{other} + \beta_3 \cdot hs_{q2} + \beta_4 \cdot hs_{q3} + u_i\]</span></p>
 <div class="fragment">
@@ -708,20 +666,20 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 </section>
-<section id="the-unrestricted-model" class="slide level2 smaller">
+<section id="the-unrestricted-model" class="slide level2">
 <h2>The Unrestricted Model</h2>
 <p>The full model with all variables — including the ones we’re testing:</p>
 
-<img src="./ch7_figures/ch7_stata_unrestricted.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><p>Note the highlighted values: <span class="math inline">\(SSR_{ur} = 894.93\)</span> and the coefficients on <code>mt_french</code> and <code>mt_other</code>.</p>
+<img src="./ch7_figures/ch7_stata_unrestricted.png" class="quarto-figure quarto-figure-center " style="width:55.0%"><p>Note the highlighted values: <span class="math inline">\(SSR_{ur} = 894.93\)</span> and the coefficients on <code>mt_french</code> and <code>mt_other</code>.</p>
 </section>
-<section id="the-restricted-model" class="slide level2 smaller">
+<section id="the-restricted-model" class="slide level2">
 <h2>The Restricted Model</h2>
 <p>The model <span class="alert">without</span> mother tongue — imposing <span class="math inline">\(\beta_1 = \beta_2 = 0\)</span>:</p>
 
-<img src="./ch7_figures/ch7_stata_restricted.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><p><span class="math inline">\(SSR_r = 897.91\)</span> — the sum of squared residuals <span class="alert">necessarily increases</span> when we drop variables.</p>
+<img src="./ch7_figures/ch7_stata_restricted.png" class="quarto-figure quarto-figure-center " style="width:55.0%"><p><span class="math inline">\(SSR_r = 897.91\)</span> — the sum of squared residuals <span class="alert">necessarily increases</span> when we drop variables.</p>
 <p>But is that increase <span class="kw">statistically significant</span>?</p>
 </section>
-<section id="the-f-statistic-homoskedastic-version" class="slide level2 smaller">
+<section id="the-f-statistic-homoskedastic-version" class="slide level2">
 <h2>The F-Statistic (Homoskedastic Version)</h2>
 <p><span class="math display">\[F = \frac{(SSR_r - SSR_{ur})/q}{SSR_{ur}/(n - k_{ur} - 1)} \sim F_{q, \; n-k_{ur}-1}\]</span></p>
 <div class="fragment">
@@ -757,7 +715,7 @@ ECON3500: Econometrics and Applications
 <p>Choose the critical value <span class="math inline">\(c\)</span> so that the null is falsely rejected in <span class="math inline">\(\alpha\)</span>% of cases.</p>
 </div>
 </section>
-<section id="computing-the-f-test-by-hand" class="slide level2 smaller">
+<section id="computing-the-f-test-by-hand" class="slide level2">
 <h2>Computing the F-Test: By Hand</h2>
 <p>From the Stata output: <span class="math inline">\(SSR_{ur} = 894.93\)</span>, <span class="math inline">\(SSR_r = 897.91\)</span>, <span class="math inline">\(q = 2\)</span>, <span class="math inline">\(n = 1374\)</span>, <span class="math inline">\(k_{ur} = 5\)</span></p>
 <p><span class="math display">\[F = \frac{(897.91 - 894.93)/2}{894.93/(1374 - 5 - 1)} = \frac{2.98/2}{894.93/1368} = \frac{1.49}{0.654} = 2.28\]</span></p>
@@ -770,7 +728,7 @@ ECON3500: Econometrics and Applications
 <p>The mother tongue variables are not <span class="kw">jointly significant</span> — we cannot conclude that mother tongue predicts GPA.</p>
 </div>
 </section>
-<section id="in-stata-test-and-testparm" class="slide level2 smaller">
+<section id="in-stata-test-and-testparm" class="slide level2">
 <h2>In Stata: <code>test</code> and <code>testparm</code></h2>
 <p>After the unrestricted regression, Stata can compute the F-test directly:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a>* Test specific equality restrictions</span>
@@ -797,7 +755,7 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </section>
-<section id="dont-forget-heteroskedasticity" class="slide level2 smaller">
+<section id="dont-forget-heteroskedasticity" class="slide level2">
 <h2>Don’t Forget Heteroskedasticity!</h2>
 <p>The F-statistic formula using <span class="math inline">\(SSR\)</span> assumes <span class="alert">homoskedasticity</span>.</p>
 <p>In practice, always estimate with <span class="kw">robust standard errors</span>:</p>
@@ -823,31 +781,26 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
-</section></section>
-<section>
-<section id="the-overall-f-test" class="title-slide slide level1 center">
-<h1>The Overall F-Test</h1>
-
 </section>
-<section id="test-of-overall-significance" class="slide level2 smaller">
+<section id="test-of-overall-significance" class="slide level2">
 <h2>Test of Overall Significance</h2>
-<p><strong>Question:</strong> Can we exclude <span class="alert">all</span> the regressors?</p>
-<p>Unrestricted: <span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + u_i\]</span></p>
+<p><strong>Question:</strong> Do <em>any</em> of our explanatory variables predict <span class="math inline">\(y\)</span>?</p>
 <div class="fragment">
-<p><span class="math display">\[H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0\]</span></p>
+<p><strong>Null hypothesis:</strong> All slope coefficients are zero: <span class="math display">\[H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0\]</span></p>
+<p>Restricted model (under <span class="math inline">\(H_0\)</span>): <span class="math display">\[y_i = \beta_0 + u_i\]</span> (Just the sample mean — no predictors at all)</p>
 </div>
 <div class="fragment">
-<p>Restricted model (under <span class="math inline">\(H_0\)</span>): <span class="math display">\[y_i = \beta_0 + u_i\]</span></p>
+<p>Unrestricted model: <span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \cdots + \beta_k x_{ki} + u_i\]</span></p>
+<p>The F-statistic: <span class="math display">\[F = \frac{R^2/k}{(1 - R^2)/(n - k - 1)} \sim F_{k, \; n-k-1}\]</span></p>
 </div>
 <div class="fragment">
-<p>The F-statistic simplifies to:</p>
-<p><span class="math display">\[F = \frac{R^2/k}{(1 - R^2)/(n - k - 1)} \sim F_{k, \; n-k-1}\]</span></p>
+<p><strong>Why we care:</strong> If this F-test is not significant, your model explains essentially <em>none</em> of the variation in <span class="math inline">\(y\)</span> — a red flag!</p>
 </div>
 </section>
-<section id="youve-been-seeing-this-all-along" class="slide level2 smaller">
+<section id="youve-been-seeing-this-all-along" class="slide level2">
 <h2>You’ve Been Seeing This All Along</h2>
 
-<img src="./ch7_figures/ch7_stata_overall_ftest.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><div class="fragment">
+<img src="./ch7_figures/ch7_stata_overall_ftest.png" class="quarto-figure quarto-figure-center " style="width:55.0%"><div class="fragment">
 <p>The <span class="kw">F(5, 1368) = 57.06</span> and <span class="kw">Prob &gt; F = 0.0000</span> at the top of every Stata regression output is the test of overall significance!</p>
 </div>
 <div class="fragment">
@@ -860,7 +813,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Usually Overwhelmingly Rejected</strong></p>
 </div>
 <div class="callout-content">
-<p>If your overall F-test is <em>not</em> significant, something is likely wrong — your model has essentially no predictive power.</p>
+<p>If your overall F-test is <em>not</em> significant, your model has no predictive power — a red flag!</p>
 </div>
 </div>
 </div>
@@ -880,34 +833,36 @@ ECON3500: Econometrics and Applications
 <h1>When to Use Which Test?</h1>
 
 </section>
-<section id="t-test-vs.-f-test" class="slide level2 smaller">
+<section id="t-test-vs.-f-test" class="slide level2">
 <h2>t-Test vs.&nbsp;F-Test</h2>
+<div style="font-size: 1.3em;">
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th></th>
-<th><span class="math inline">\(t\)</span>-test</th>
-<th><span class="math inline">\(F\)</span>-test</th>
+<th style="text-align: center;"><strong>Aspect</strong></th>
+<th style="text-align: center;"><strong>t-test</strong></th>
+<th style="text-align: center;"><strong>F-test</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Number of restrictions</strong></td>
-<td>One</td>
-<td>One or more</td>
+<td style="text-align: center;"><strong># of restrictions</strong></td>
+<td style="text-align: center;">One</td>
+<td style="text-align: center;">One or more</td>
 </tr>
 <tr class="even">
-<td><strong>Sided</strong></td>
-<td>One-sided or two-sided</td>
-<td>Two-sided only</td>
+<td style="text-align: center;"><strong>Sided?</strong></td>
+<td style="text-align: center;">One or two-sided</td>
+<td style="text-align: center;">Two-sided only</td>
 </tr>
 <tr class="odd">
-<td><strong>Use for</strong></td>
-<td>Single coefficient</td>
-<td>Joint significance of a group</td>
+<td style="text-align: center;"><strong>Use for</strong></td>
+<td style="text-align: center;">Single coefficient</td>
+<td style="text-align: center;">Multiple coefficients</td>
 </tr>
 </tbody>
 </table>
+</div>
 <div class="fragment">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
@@ -973,10 +928,9 @@ ECON3500: Econometrics and Applications
 <div class="callout-content">
 <p><strong><span class="math inline">\(H_0: \beta_1 = 0, \; \beta_2 = 0, \; \ldots\)</span></strong></p>
 <ul>
-<li>Statistic: <span class="math inline">\(F = \frac{(SSR_r - SSR_{ur})/q}{SSR_{ur}/(n - k_{ur} - 1)}\)</span></li>
+<li>Statistic (under homoskedasticity): <span class="math inline">\(F = \frac{(SSR_r - SSR_{ur})/q}{SSR_{ur}/(n - k_{ur} - 1)}\)</span></li>
 <li>Distribution: <span class="math inline">\(F_{q, \; n-k_{ur}-1}\)</span></li>
 <li>Stata: <code>test</code> or <code>testparm</code></li>
-<li>Always use robust SEs!</li>
 </ul>
 </div>
 </div>
@@ -991,21 +945,91 @@ ECON3500: Econometrics and Applications
 <li><p>The <span class="kw">overall F-test</span> is reported at the top of every regression — it tests whether all regressors are jointly significant</p></li>
 <li><p>Always use <span class="kw">robust standard errors</span> for heteroskedasticity-robust inference</p></li>
 </ol>
+</section>
+<section id="knowledge-check" class="slide level2 smaller">
+<h2>Knowledge Check</h2>
+<p>If each of 5 individual <span class="math inline">\(t\)</span>-tests fails to reject at the 5% level, can you conclude the variables are jointly insignificant? Why or why not?</p>
+<div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Knowledge Check</strong></p>
+<p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
-<p>If each of 5 individual <span class="math inline">\(t\)</span>-tests fails to reject at the 5% level, can you conclude the variables are jointly insignificant? Why or why not?</p>
-<p>. . .</p>
-<p>No! The joint F-test could still reject. Individual insignificance does not imply joint insignificance — this is precisely why we need the F-test.</p>
+<p><strong>Answer:</strong> No! The joint F-test could still reject.</p>
+<p>Individual insignificance does not imply joint insignificance — this is precisely why we need the F-test.</p>
 </div>
 </div>
 </div>
+</div>
+</section>
+<section class="slide level2">
+
+</section></section>
+<section>
+<section id="appendix-givedirectly-kenya-study" class="title-slide slide level1 center">
+<h1>Appendix: GiveDirectly Kenya Study</h1>
+
+</section>
+<section id="givedirectly-context-why-cash-transfers" class="slide level2 smaller">
+<h2>GiveDirectly Context: Why Cash Transfers?</h2>
+<p><strong>The Challenge</strong></p>
+<p>700+ million people live on less than $2/day</p>
+<div class="fragment">
+<p><strong>Traditional Approaches</strong> - In-kind aid (food, blankets, etc.) - Conditional cash transfers (CCTs): “We give you money IF you send your kids to school / get vaccinated” - Paternalistic: Government decides what the poor “need”</p>
+</div>
+<div class="fragment">
+<p><strong>Unconditional Cash Transfers (UCTs)</strong> - Direct, no strings attached - Trusts recipients to make their own decisions - Respects agency and autonomy</p>
+</div>
+</section>
+<section id="why-this-matters" class="slide level2 smaller">
+<h2>Why This Matters</h2>
+<p><strong>Economic Argument</strong></p>
+<p>If markets work, cash is most efficient → recipients choose optimally</p>
+<div class="fragment">
+<p><strong>But markets often fail in poor areas:</strong> - Limited local supply (firms don’t invest) - Prices may spike if aggregate demand increases (inflation) - Spillovers: Money spent in one household affects neighbors</p>
+</div>
+</section>
+<section id="egger-haushofer-miguel-niehaus-walker-2022" class="slide level2 smaller">
+<h2>Egger, Haushofer, Miguel, Niehaus, Walker (2022)</h2>
+<p>An alternative application of hypothesis testing using field experimental data on unconditional cash transfers.</p>
+<p><strong>Paper:</strong> “General Equilibrium Effects of Cash Transfers: Experimental Evidence from Kenya”</p>
+<p>Published in <em>Econometrica</em> 90(6):2603–2643 | <strong>2024 Frisch Medal Winner</strong> 🏅</p>
+<p><strong>Research Question:</strong> What are the direct and general equilibrium effects of unconditional cash transfers?</p>
+</section>
+<section id="the-study-design" class="slide level2 smaller scrollable">
+<h2>The Study Design</h2>
+<p><strong>Study Context</strong></p>
+<ul>
+<li>653 villages in rural Kenya (Siaya County)</li>
+<li>10,500+ poor households</li>
+<li>Cash transfer: ~$1,000 USD (~87,000 KES) per eligible household</li>
+<li><strong>Fiscal shock:</strong> 15% of local GDP</li>
+</ul>
+<p><strong>Randomization Strategy</strong></p>
+<ol type="1">
+<li><strong>Village-level:</strong> Treatment vs.&nbsp;control villages</li>
+<li><strong>Household-level:</strong> Eligible vs.&nbsp;ineligible within treatment villages
+<ul>
+<li>Eligible (thatched roof means test) → receive transfer</li>
+<li>Ineligible (better housing) → NO transfer but exposed to spillovers</li>
+</ul></li>
+</ol>
+</section>
+<section id="main-findings" class="slide level2 smaller">
+<h2>Main Findings</h2>
+<p><strong>Direct Effects (on eligible recipients)</strong> - Consumption increased by 1,200-1,800 KES/month (~$12-18/month) - Assets increased substantially - Income effects from local multipliers</p>
+<p><strong>Spillover Effects (on ineligible neighbors)</strong> - Consumption increased by 500-1,200 KES/month (positive spillovers!) - Local firms benefited from increased demand - <strong>Minimal price inflation</strong> (no evidence of inflation eroding gains)</p>
+<p><strong>Local Fiscal Multiplier: 2.4</strong> - For every dollar transferred, local economic activity increased by $2.40 - Suggests powerful local demand effects and limited import leakage</p>
+<p><strong>Bottom Line:</strong> Cash transfers helped both direct recipients AND their neighbors through general equilibrium effects</p>
+</section>
+<section id="regression-framework" class="slide level2 smaller">
+<h2>Regression Framework</h2>
+<p><strong>Key Variables</strong> - <code>treatment</code> = 1 if household in treatment village (any status) - <code>eligible</code> = 1 if household eligible for transfer (means test) - <code>ineligible</code> = 1 if household in treatment village but ineligible - <strong>Outcome:</strong> Monthly household consumption (PPP-adjusted, KES) - <strong>Controls:</strong> Female household head, log household size, age of head (in decades)</p>
+<p><strong>Interaction Terms Used</strong> - <code>treatment × eligible</code> captures direct effect - <code>treatment × ineligible</code> captures spillover effect - Can test equality of these effects (Type 2 test)</p>
 
 </section></section>
  </div>
@@ -1044,7 +1068,7 @@ ECON3500: Econometrics and Applications
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'pdfMaxPagesPerSlide': 1,
+'pdfMaxPagesPerSlide': 2,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,
