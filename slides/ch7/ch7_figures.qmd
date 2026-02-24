@@ -1,0 +1,210 @@
+---
+title: "Chapter 7: Slide Figures — GiveDirectly Kenya Analysis"
+subtitle: "Regression Output for Slides"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-fold: false
+---
+
+# Overview
+
+This document shows the key regression outputs needed for Ch7 slides.
+
+**Data Source:** Egger et al. (2022) GiveDirectly Kenya Study
+**Outcome:** Household consumption (PPP-adjusted)
+**Sample:** 10,500+ households
+
+---
+
+# Figure 1: Base Regression (Type 1 Test)
+
+**Regression Command:**
+```stata
+regress consumption eligible female_head ln_hh_size age_head_decades, robust
+```
+
+**What to capture:**
+- Coefficient on `eligible` (direct effect)
+- Standard error and t-statistic
+- Sample size and R-squared
+- F-statistic at bottom
+
+**Expected output shows:**
+- Direct effect of eligibility on consumption
+- Controlled for demographics
+
+**Save as:** `ch7_figures/ch7_givedirectly_regression_base.png`
+
+---
+
+# Figure 2: Type 2 Test — Both Effects
+
+**Regression Command:**
+```stata
+regress consumption eligible ineligible female_head ln_hh_size age_head_decades, robust
+```
+
+**Test Command:**
+```stata
+test eligible = ineligible
+```
+
+**What to capture:**
+- Coefficients on `eligible` and `ineligible`
+- SEs, t-stats, p-values for both
+- The F-statistic from test command
+- p-value for equality test
+
+**Expected output shows:**
+- Direct effect vs. spillover effect
+- Whether they're significantly different
+
+**Save as:** `ch7_figures/ch7_givedirectly_type2_test.png`
+
+---
+
+# Figure 3: Type 3 Test — Unrestricted Model
+
+**Regression Command (Unrestricted):**
+```stata
+regress consumption eligible ineligible treat female_head ln_hh_size age_head_decades, robust
+```
+
+**What to capture:**
+- All three treatment variable coefficients
+- SEs, t-stats, p-values
+- Sample size
+- R-squared
+
+**Expected output shows:**
+- All treatment effects included
+- Coefficients on eligible, ineligible, treat
+
+**Save as:** `ch7_figures/ch7_givedirectly_unrestricted.png`
+
+---
+
+# Figure 4: Type 3 Test — Restricted Model
+
+**Regression Command (Restricted):**
+```stata
+regress consumption female_head ln_hh_size age_head_decades, robust
+```
+
+**What to capture:**
+- Only control variables
+- Sample size
+- R-squared (compare to unrestricted)
+
+**Expected output shows:**
+- Baseline model without treatment variables
+- Shows how SSR/R² changes when treatment is excluded
+
+**Save as:** `ch7_figures/ch7_givedirectly_restricted.png`
+
+---
+
+# Figure 5: Joint Significance Test
+
+**After unrestricted regression, run:**
+```stata
+testparm eligible ineligible treat
+```
+
+**What to capture:**
+- F-statistic
+- p-value
+- Degrees of freedom
+
+**Expected output shows:**
+- F-test for joint significance
+- Whether all treatment effects = 0
+
+**Save as:** `ch7_figures/ch7_givedirectly_ftest.png`
+
+---
+
+# Summary: All Regression Output
+
+Run this full sequence in Stata to get all outputs:
+
+```stata
+use "ge_ch7_analysis_data.dta", clear
+
+* Create scaled variables
+gen ln_hh_size = ln(hh_size)
+gen age_head_decades = age_head / 10
+
+* FIGURE 1: Base regression
+regress consumption eligible female_head ln_hh_size age_head_decades, robust
+
+* FIGURE 2: Both effects + test
+regress consumption eligible ineligible female_head ln_hh_size age_head_decades, robust
+test eligible = ineligible
+
+* FIGURE 3: Unrestricted model
+regress consumption eligible ineligible treat female_head ln_hh_size age_head_decades, robust
+
+* FIGURE 4: Restricted model
+regress consumption female_head ln_hh_size age_head_decades, robust
+
+* FIGURE 5: F-test
+qui regress consumption eligible ineligible treat female_head ln_hh_size age_head_decades, robust
+testparm eligible ineligible treat
+```
+
+---
+
+# How to Capture Figures
+
+## Option A: Screenshot Method
+1. Run each regression above
+2. Highlight the output in Stata Results window
+3. Copy → Paste into Preview/Paint
+4. Crop and export as PNG
+
+## Option B: Log File Method
+1. Start log: `log using analysis_output.log, replace`
+2. Run all regressions above
+3. Close log: `log close`
+4. Open log file, select sections, copy to image tool
+
+---
+
+# Figure Placement
+
+Save all PNGs to:
+```
+/Users/ebeam/Dropbox/GitHub/econ3500.s26/slides/ch7/ch7_figures/
+```
+
+**Filenames needed:**
+- `ch7_givedirectly_regression_base.png` — Figure 1
+- `ch7_givedirectly_type2_test.png` — Figure 2
+- `ch7_givedirectly_unrestricted.png` — Figure 3
+- `ch7_givedirectly_restricted.png` — Figure 4
+- `ch7_givedirectly_ftest.png` — Figure 5
+
+---
+
+# Expected Results Summary
+
+| Test | Statistic | Expected Interpretation |
+|------|-----------|------------------------|
+| **Type 1: β_eligible = 0?** | t-stat ≈ 5-8, p < 0.001 | Direct effect is significant |
+| **Type 2: β_eligible = β_ineligible?** | F ≈ 1-5, p ≈ 0.05-0.20 | Effects may differ (borderline) |
+| **Type 3: All effects = 0?** | F ≈ 15-30, p < 0.001 | All treatment effects jointly significant |
+| **Restricted R²** | Lower than unrestricted | Treatment variables improve fit |
+
+---
+
+# Next Steps
+
+1. ✅ Render this document to see the structure
+2. Run the Stata commands to generate outputs
+3. Capture each figure and save to `ch7_figures/`
+4. Update `ch7_hypothesis_tests_multiple.qmd` with the figure paths
+5. Render the main slides
+

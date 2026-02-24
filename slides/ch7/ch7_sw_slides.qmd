@@ -1,0 +1,277 @@
+---
+title: "Hypothesis Tests and Confidence Intervals in Multiple Regressions"
+subtitle: "SW Chapter 7"
+author: "ECON3500"
+format: revealjs
+---
+
+## Learning Objectives
+
+- Construct and interpret tests of joint hypotheses
+- Construct and test hypothesis test involving one restriction and multiple coefficients
+
+# Overview of Tests
+
+## Three Types of Tests
+
+1. **Hypothesis tests with one restriction, one coefficient**
+   - Example: $H_0: \beta_j = \beta_{j,0}$ vs. $H_a: \beta_j \neq \beta_{j,0}$
+
+2. **Hypothesis tests with one restriction, multiple coefficients**
+   - General: $H_0: \beta_j = \beta_m$
+   - Example: $H_0: \beta_1 = 0$
+
+3. **Hypothesis tests involving multiple tests at once (joint hypothesis tests)**
+   - General: $H_0: \beta_j = \beta_{j,0}, \beta_m = \beta_{m,0}, ...$
+   - Example: $H_0: \beta_1 = \beta_2 = \beta_3 = 0$
+   - Special case - test of *all* regressors
+
+## 1. One Restriction, One Coefficient: $\beta_j = \beta_{j,0}$
+
+1. Select your significance level ($\alpha = 0.01$)
+2. State your null hypothesis:
+   - $H_0: \beta_j = \beta_{j,0}$
+   - $H_a: \beta_j \neq \beta_{j,0}$
+
+3. Compute the t-statistic:
+   $$t = \frac{\hat{\beta_j}-\beta_{j,0}}{SE(\hat{\beta_j})}$$
+
+4. Compare the t-statistic to your critical value (2.58) and reject null if $|t|>c$
+
+5. (Optional) Construct your confidence interval:
+   $$\left(\hat{\beta_j} - 2.58 \cdot SE(\hat{\beta_j}), \hat{\beta_j}+2.58 \cdot SE(\hat{\beta_j})\right)$$
+
+## 2. One Restriction, Two Coefficients: $\beta_j = \beta_m$
+
+1. Select your significance level ($\alpha = 0.01$)
+2. State your null hypothesis: $H_0: \beta_1 = \beta_2$ vs $H_a: \beta_1 \neq \beta_2$
+
+3. Transform your regression:
+   $$\begin{align}
+   y_i &= \beta_0 + \beta_1x_{1i} + \beta_2x_{2i} + u_i\\
+   y_i &= \beta_0 + \beta_1x_{1i} + \beta_2x_{1i} - \beta_2x_{1i}+ \beta_2x_{2i} + u_i\\
+   y_i &= \beta_0 + (\beta_1- \beta_2)x_{1i} + \beta_2(x_{1i} + x_{2i}) + u_i\\
+   y_i &= \beta_0 + \gamma_1x_{1i} + \beta_2w_{i}+ u_i
+   \end{align}$$
+
+   and instead test $H_0: \gamma_1 = 0$ vs. $H_1: \gamma_1 \neq 0$
+
+4. Repeat remaining steps
+
+## 3. Multiple Restrictions (Under Homoskedasticity)
+
+There are lots of variants, but this is the one we will compute by hand
+
+1. Select your significance level ($\alpha = 0.01$)
+2. State your null hypothesis: $H_0: \beta_1 = \beta_2 = \beta_3$ vs any part not true
+
+3. Estimate model with variables you are testing (unrestricted) and without (restricted)
+
+4. Calculate $F$-statistic
+   $$F = \frac{(SSR_r - SSR_{ur})/q}{SSR_{ur}/(n-k_{ur}-1)} = \frac{(R^2_{ur} - R^2_{r})/q}{(1-R^2_{ur})/(n-k_{ur}-1)} \sim F_{q,n-k_{ur}-1}$$
+
+5. Compare the F-statistic to your critical value from a $F_{q,n-k_{ur}-1}$ distribution and reject null if $F>c$ (usually from $F_{q,\infty}$ distribution)
+
+# Extended Example: Angrist, Lang, and Oreopoulos (2009)
+
+## Angrist, Lang, and Oreopoulos (2009)
+
+![Paper abstract](angrist-abstract.png)
+
+We're going to think about predictors of year 1 college GPA.
+
+## A Satellite Campus of a "Large, Canadian University"
+
+```
+[See Stata output: inclass_ch7_homo_1.log.tex]
+```
+
+with controls for gender, mother tongue, and HS quartile (no top quartile!)
+
+## Avoid Dummy Variable Trap!
+
+```
+[See Stata output: inclass_ch7_altdummy_1.log.tex]
+```
+
+## Choice of Excluded Group Only Affects Interpretation
+
+**English mother tongue excluded:**
+$$\widehat{GPAyear1}= 1.484 - 0.130 \cdot female - 0.466 \cdot mt_{french} - 0.076 \cdot mt_{other} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}$$
+
+**"Other" mother tongue excluded:**
+$$\widehat{GPAyear1}= 1.409 - 0.130 \cdot female - 0.076 \cdot mt_{english} - 0.390 \cdot mt_{french} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}$$
+
+## Choice of Excluded Group Only Affects Interpretation
+
+For simplicity, assume $female = 0$, $hs_{q2} = 0$, and $hs_{q3} = 0$
+
+**English mother tongue excluded:**
+$$\widehat{GPAyear1}= 1.484 - 0.130 \cdot female - 0.466 \cdot mt_{french} - 0.0755 \cdot mt_{other} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}$$
+
+$$\begin{align}
+E[GPAyear1 | mt_{english} = 1] &= 1.484\\
+E[GPAyear1 | mt_{french} = 1] &= 1.484 - 0.466 = 1.018\\
+E[GPAyear1 | mt_{other} = 1] &= 1.4843 - 0.0755 = 1.409
+\end{align}$$
+
+## Choice of Excluded Group Only Affects Interpretation (cont.)
+
+For simplicity, assume $female = 0$, $hs_{q2} = 0$, and $hs_{q3} = 0$
+
+**"Other" mother tongue excluded:**
+$$\widehat{GPAyear1}= 1.409 - 0.130 \cdot female + 0.0755 \cdot mt_{english} - 0.390 \cdot mt_{french} + 0.374 \cdot hs_{q2} + 0.886 \cdot hs_{q3}$$
+
+$$\begin{align}
+E[GPAyear1 | mt_{english} = 1] &= 1.4087 + 0.0755 = 1.484\\
+E[GPAyear1 | mt_{french} = 1] &= 1.4087 - 0.3903 = 1.018\\
+E[GPAyear1 | mt_{other} = 1] &= 1.4087 = 1.409
+\end{align}$$
+
+## Questions We Could Want to Answer
+
+![](inclass_ch7_1.png)
+
+- Do French speakers have same GPA as English speakers?
+- Do non-English/French speakers have same GPA as English speakers?
+- **Do French speakers have same GPA as non-French/English speakers?**
+- **Are there differences in GPA by mother tongue?**
+
+## One Restriction, Multiple Coefficients
+
+**Do French speakers have same GPA as non-French/English speakers?**
+
+Population model:
+$$GPAyear1_i = \beta_0 + \beta_1 mt_{french} + \beta_2 mt_{other} + \beta_3 hs_{q2} + \beta_4 hs_{q3} + u$$
+
+Test whether $H_0: \beta_1 = \beta_2$ vs $H_a: \beta_1 \neq \beta_2$
+
+Equivalent to asking whether $\beta_1 - \beta_2 = 0$
+
+## One Restriction, Multiple Coefficients (Stata Output)
+
+**Do French speakers have same GPA as non-French/English speakers?**
+
+```
+[See Stata output: inclass_ch7_homo2_1.log.tex]
+```
+
+## Multiple Restrictions (Joint Test)
+
+**Are there differences in GPA by mother tongue?**
+
+Population model:
+$$GPAyear1_i = \beta_0 + \beta_1 mt_{french} + \beta_2 mt_{other} + \beta_3 hs_{q2} + \beta_4 hs_{q3} + u$$
+
+Test $H_0: \beta_1 = \beta_2 = 0$ vs. $H_a$ any one equality is not true (either $\beta_1 \neq 0$ or $\beta_2 \neq 0$)
+
+Equivalent to asking whether the coefficients are **jointly significant**
+
+## Testing Multiple Restrictions: Key Terms
+
+- **Exclusion restriction**: Test of whether certain covariates can be excluded from population model
+
+- **Restricted model**: The model with *fewer* covariates
+  - "Restricted" because we are imposing that coefficients of missing covariates are zero
+
+- **Unrestricted model**: The model with *more* covariates
+  - "Unrestricted" because coefficients on those covariates can be zero or anything else
+
+## Estimation of the Unrestricted Model
+
+Idea: How would the model fit be if these variables were dropped from the regression? We can consider how much variation is unexplained using $SSR$
+
+![](inclass_ch7_1_label.png)
+
+## Estimation of the Restricted Model
+
+The sum of squared residuals *necessarily* increases, but is that increase statistically significant?
+
+![](inclass_ch7_2_label.png)
+
+## Test of Joint Significance (Under Homoskedasticity)
+
+$$F = \frac{(SSR_r - SSR_{ur})/q}{SSR_{ur}/(n-k_{ur}-1)}\sim F_{q,n-k-1}$$
+
+- $q$ is the number of restrictions you're examining.
+- $n-k_{ur}-1$ is degrees of freedom in unrestricted model
+
+The relative increase of $SSR$ going from restricted to unrestricted follows an $F$-distribution if $H_0$ is true.
+
+## Rejection Rule: The $F$-Distribution
+
+- An $F$-distributed variable takes on positive values, reflects fact that $SS$ can only increase as we add more variables (move from restricted to unrestricted)
+- Choose critical value so that the null hypothesis is falsely rejected in $\alpha$% of cases (type I error)
+- For now, let $\alpha = 0.1$
+
+## Test of Joint Significance
+
+$$\begin{align}
+F &= \frac{(897.91 - 894.93)/2}{894.93/(1374-5-1)} = 2.28 \\
+F&\sim F_{2,1368} \rightarrow c_{0.1} = 2.30\\
+&P(F>2.28) = 0.1032
+\end{align}$$
+
+We cannot reject null at conventional levels.
+
+The relative increase of $SSR$ going from restricted to unrestricted follows an $F$-distribution if $H_0$ is true.
+
+## In Stata...
+
+![](inclass_ch7_1.png)
+
+```
+[See Stata output: inclass_ch7_homo3_1.log]
+```
+
+## Also a Good Idea to Adjust for Heteroskedasticity!
+
+```
+[See Stata output: inclass_ch7_hetero_1.log]
+```
+
+## Also a Good Idea to Adjust for Heteroskedasticity! (cont.)
+
+```
+[See Stata output: inclass_ch7_hetero3_1.log]
+```
+
+## Testing Overall Significance of a Regression
+
+- Can we exclude all the regressors?
+
+- General population model (unrestricted):
+$$y_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + ... + \beta_k x_{ik} + u_i$$
+
+- Test $H_0: \beta_1 = \beta_2 = ... \beta_k = 0$
+
+- Restricted model:
+$$y_i = \beta_0 + u_i$$
+
+$$F = \frac{(SSR_r - SSR_{ur})/q}{SSR_{ur}/(n-k-1)}\sim F_{q,n-k-1} = \frac{R^2/k}{(1-R^2)/(n-k-1)} \sim F_{k,n-k-1}$$
+
+The test of overall significance is reported in most regression packages. Usually, null hypothesis is overwhelmingly rejected.
+
+## Test of Overall Significance of a Regression
+
+![](inclass_ch7_3_label.png)
+
+## Test of Overall Significance of a Regression (Stata Output)
+
+```
+[See Stata output: inclass_ch7_homo4_1.log.tex]
+```
+
+## When to Use t-tests? F-tests?
+
+- **T-test**: test of just one regressor, one-sided or two-sided
+- **F-test**: test of just one regressor or multiple regressors, two-sided only
+
+When working with just one regressor, $F = t^2$, so results are functionally equivalent!
+
+## Conclusion
+
+- Hypothesis tests with one restriction, one coefficient
+- Hypothesis tests with one restriction, multiple coefficients
+- Multiple restriction null restrictions (joint hypothesis tests)
+- Testing overall significance of a regression
