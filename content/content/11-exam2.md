@@ -6,6 +6,8 @@ sitetitle: Exam 2 - Ch4-7
 summary: "ECON3500 - Exam 2 Prep (Ch4-7)"
 
 date: "2026-02-20"
+due_date: "2026-03-05"
+due_time: "1:15 PM"
 
 
   
@@ -93,6 +95,10 @@ Two things that may be useful to you:
 
 ## Past exam  {#practice-exam .unnumbered}
 
+
+[Spring 2018 Practice Exam](../PracticeExams/Unit1Quiz_spring2018.pdf)
+
+[Spring 2018 Practice Exam Solutions](../PracticeExams/Unit1Quiz_spring2018_soln.pdf)
 
 [Spring 2017 Practice Exam](../PracticeExams/Unit1Quiz_spring2017_v1.pdf) - note that this exam asks you to interpret log coefficients, which *we have not yet covered!*
 

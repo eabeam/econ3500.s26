@@ -2,7 +2,7 @@
 title: "Lab 4: Multivariate Regression"
 linktitle: "Lab 4"
 date: "2026-02-19"
-due_date: "2026-02-24"
+due_date: "2026-02-26"
 due_time: "1:15 PM"
 menu:
   assignment:
@@ -348,23 +348,17 @@ regress incwage educ labforce, robust
     relationship between $Y$ and $X$?
     
 
-<!-- 
+## Video
 
-## Video 
-
-
-### 
 {{< youtube SFp6pBFAghY >}}
 
 
+## A note on "well-behaved" residuals {#residuals .unnumbered}
 
-### A note on "well-behaved"" residuals {#residuals .unnumbered} 
+There are three characteristics of "well-behaved" residuals:
 
-There are three characteristics of "well-behaved" residuals: 
-    
 1. The residuals "bounce randomly" around the 0 line. This suggests that the assumption that the relationship is linear is reasonable.
 2. The residuals roughly form a "horizontal band" around the 0 line. This suggests that the variances of the error terms are equal.
 3. No one residual "stands out" from the basic random pattern of residuals. This suggests that there are no outliers.
 
 We don't want to overweight the importance of this, but it can be a helpful diagnostic to look for outliers, strange patterns. 
---> 

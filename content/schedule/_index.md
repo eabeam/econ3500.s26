@@ -47,12 +47,12 @@ What's the plan?
 |  | 19 Feb | Th|[Multiple linear regression](/content/06-content/)  |  | [<i class="fas fa-pencil-alt"></i> PS2 due](/assignment/02-ps) <br> [<i class="fas fa-dragon"></i> Idea proposal due](/assignment/rp-02-ideas) |
 | ||||  | |
 | 7||| **MLR: Hypothesis tests (CH7)**   | | |
-|  | 24 Feb | Tu | [MLR: Hypothesis tests](/content/07-content) |[Read CH7](/content/07-content/) |[<i class="fas fa-laptop-code"></i> Lab 4 due](/assignment/04-lab)|
-|  | 26 Feb | Th | [MLR: Hypothesis tests](/content/07-content)  ||[<i class="fas fa-pencil-alt"></i> PS3 due](/assignment/03-ps)|
+|  | 24 Feb | Tu | [MLR: Hypothesis tests](/content/07-content) |[Read CH7](/content/07-content/) ||
+|  | 26 Feb | Th | [MLR: Hypothesis tests](/content/07-content)  ||[<i class="fas fa-laptop-code"></i> Lab 4 due](/assignment/04-lab) <br> [<i class="fas fa-pencil-alt"></i> PS3 due](/assignment/03-ps)|
 | ||||  | |
 | 8||| **Exam 2 week**   | | |
 |  | 03 Mar | Tu | Town Hall Meeting Day |  ||
-|  | 05 Mar | Th |  [Exam 2: CH 4, 5, 6, 7](/content/11-exam1) |  ||
+|  | 05 Mar | Th |  [Exam 2: CH 4, 5, 6, 7](/content/11-exam2) |  ||
 | ||||  ||
 | |||**Spring Break March 09--13**   | | |
 | ||||||

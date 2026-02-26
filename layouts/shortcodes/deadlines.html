@@ -2,8 +2,17 @@
 {{- $today := now -}}
 {{- $assignments := slice -}}
 
-{{/* Collect all assignments with due dates */}}
+{{/* Collect all assignments and content with due dates */}}
 {{- range where .Site.RegularPages "Section" "assignment" -}}
+  {{- if .Params.due_date -}}
+    {{- $dueDate := time .Params.due_date -}}
+    {{- if ge $dueDate $today -}}
+      {{- $assignments = $assignments | append (dict "page" . "due" $dueDate "time" .Params.due_time) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- range where .Site.RegularPages "Section" "content" -}}
   {{- if .Params.due_date -}}
     {{- $dueDate := time .Params.due_date -}}
     {{- if ge $dueDate $today -}}
