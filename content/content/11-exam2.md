@@ -10,7 +10,7 @@ due_date: "2026-03-05"
 due_time: "1:15 PM"
 
 
-  
+
   # Academic page type (do not modify).
 type: docs
 menu:
@@ -32,6 +32,8 @@ See the specific chapter guides from [Week 4](../04-content), [Week 5](../05-con
 
 There will not be a Stata component to the exam. 
 
+You can find a more detailed set of guidelines [here](../Exam2-Chapters4_7Coverage).
+
 ### I need more practice!
 
 I recommend the following resources: 
@@ -47,7 +49,9 @@ The exam will be a lot like a math exam - solving some problems and showing your
 
 The exam is closed book with a calculator allowed. You are allowed a formula sheet that you created! 
 
-**I will provide the following F-distribution table (recreated from S&W): [F-table](../PracticeExams/f_distribution.pdf).**
+**I will provide the following F-distribution table (recreated from S&W): [F-table](../PracticeExams/f_distribution.pdf).** 
+
+You will not need a normal distribution table. However, you will want to know common critical values for t-tests.
 
 What is allowed?
 
@@ -55,7 +59,7 @@ What is allowed?
   - One page formula sheet (double sided)
   - Calculator (basic, scientific, graphing)
   - Drink and quiet snack
-  
+
 What is not allowed?
 
   - ~~Phone~~ 
@@ -80,9 +84,6 @@ We have several sets of in-class practice activities:
 
 ## Helpful materials {#helpful-materials}
 
-Two things that may be useful to you: 
-
-- [Standard Normal Distribution Table](../AppendixTable1_rev.pdf)
 
 - [Formula chart](../Formula-sheet_f20.pdf): Is this all the knowledge you need to know? Of course not! But, this should cover most of the formulas you might need. 
 --> 
