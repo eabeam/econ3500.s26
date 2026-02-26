@@ -669,6 +669,7 @@ Individual insignificance does not imply joint insignificance — this is precis
 . . .
 
 **Traditional Approaches**
+
 - In-kind aid (food, blankets, etc.)
 - Conditional cash transfers (CCTs): "We give you money IF you send your kids to school / get vaccinated"
 - Paternalistic: Government decides what the poor "need"
@@ -689,6 +690,7 @@ If markets work, cash is most efficient → recipients choose optimally
 . . .
 
 **But markets often fail in poor areas:**
+
 - Limited local supply (firms don't invest)
 - Prices may spike if aggregate demand increases (inflation)
 - Spillovers: Money spent in one household affects neighbors
