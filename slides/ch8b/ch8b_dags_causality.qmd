@@ -1,0 +1,380 @@
+---
+title: "Causal Diagrams and Identifying Causal Effects"
+subtitle: "Directed Acyclic Graphs (DAGs)"
+author: "ECON3500: Econometrics and Applications"
+date: "2026-01-01"
+format:
+  revealjs:
+    footer: "ECON3500 | Causal Diagrams"
+---
+
+## Learning Objectives
+
+By the end of this chapter, you will be able to:
+
+1. Draw and interpret [directed acyclic graphs (DAGs)]{.kw}
+2. Identify [causal paths]{.kw}, [backdoor paths]{.kw}, and [colliders]{.kw}
+3. Determine which variables to [control for]{.kw} to identify a causal effect
+4. Explain why controlling for the wrong variables can [bias]{.alert} your estimates
+5. Apply DAG logic to real research questions
+
+# What Is Causality?
+
+## Association vs. Causation
+
+::: {.callout-note}
+## Association
+Two variables move together (correlation). $X$ and $Y$ are related statistically.
+:::
+
+. . .
+
+::: {.callout-note}
+## Causation
+Changing $X$ causes $Y$ to change. $X$ has a **causal effect** on $Y$.
+:::
+
+. . .
+
+**Why does this matter?**
+
+- **Association:** Useful for prediction (forecasting), not necessarily for policy
+- **Causation:** Required for understanding policy impact, program evaluation, treatment effects
+
+. . .
+
+**The Problem:** From data alone, we cannot distinguish association from causation. We need a **framework**.
+
+## The Framework: Causal Diagrams (DAGs)
+
+A **directed acyclic graph (DAG)** visually represents:
+
+- **Variables** (nodes)
+- **Causal relationships** (arrows showing direction of causality)
+- **How variables influence each other** (temporal and causal ordering)
+
+. . .
+
+**Key insight:** Once we draw the DAG, we can **mechanically determine** which variables to control for to identify a causal effect.
+
+---
+
+# Drawing and Reading DAGs
+
+## DAG Basics: Nodes and Arrows
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Node:** A variable in the system.
+
+```
+  X    Y    Z
+```
+
+Each circle/node represents a variable.
+:::
+
+::: {.column width="50%"}
+**Arrow:** $X \rightarrow Y$ means "$X$ causes $Y$."
+
+- Direction matters (from cause to effect)
+- $X$ is an [ancestor]{.kw} of $Y$
+- $Y$ is a [descendant]{.kw} of $X$
+:::
+
+::::
+
+## Example: Class Size and Student Achievement
+
+```
+     Wealth
+       ↙ ↖
+      /   \
+     V     V
+  ClassSize → TestScores
+```
+
+. . .
+
+**Variables:**
+- $X$ = Class Size
+- $Y$ = Test Scores
+- $Z$ = Neighborhood Wealth
+
+**Causal arrows:**
+- Wealth → Class Size (wealthy areas have smaller classes)
+- Wealth → Test Scores (wealthier students score higher)
+- Class Size → Test Scores (smaller classes improve learning)
+
+## Path Types in DAGs
+
+A **path** is a sequence of arrows connecting variables. Three types matter:
+
+### 1. Causal Path
+$X \rightarrow Y$
+
+Direct effect of $X$ on $Y$. This is what we *want* to estimate.
+
+### 2. Backdoor Path
+$X \leftarrow Z \rightarrow Y$
+
+$X$ and $Y$ are related through a common cause $Z$. This creates **confounding**.
+
+### 3. Front Door Path (Advanced)
+$X \rightarrow Z \rightarrow Y$ where $Z$ is a mediator.
+
+---
+
+# Confounding and Backdoor Bias
+
+## The Confounding Problem
+
+::: {.callout-important}
+## Confounding
+When $X$ and $Y$ share a common cause $Z$, they are **confounded**. A regression of $Y$ on $X$ will pick up both the causal effect AND the confounding association.
+:::
+
+. . .
+
+**In the class size example:**
+
+$$\text{Association} = \underbrace{\text{Causal Effect}}_{\text{Class Size} \rightarrow \text{Scores}} + \underbrace{\text{Confounding}}_{\text{Wealth} \rightarrow \text{Class Size} \rightarrow \text{Scores}}$$
+
+. . .
+
+The confounding bias makes class size appear more beneficial than it actually is (or less beneficial, depending on direction).
+
+## Blocking Backdoor Paths
+
+::: {.callout-note}
+## Blocking a Backdoor Path
+Control for (include in regression) the confounder $Z$ to "block" the backdoor path $X \leftarrow Z \rightarrow Y$.
+:::
+
+. . .
+
+**In the class size example:**
+
+- **Without controlling for Wealth:** Regression picks up confounding bias
+- **With controlling for Wealth:** Regression isolates the causal effect of Class Size
+
+. . .
+
+::: {.callout-tip}
+## Knowledge Check
+If we regress Test Scores on Class Size *without* controlling for Wealth, will the class size coefficient be biased up or down?
+
+**Answer:** Biased *down* (overstates the negative effect), because wealthy areas have smaller classes AND higher scores.
+:::
+
+---
+
+# Which Variables to Control For?
+
+## The Golden Rule: The Backdoor Criterion
+
+To identify a causal effect of $X$ on $Y$:
+
+::: {.callout-important}
+## Backdoor Criterion
+Control for a set of variables $Z$ such that:
+1. No variable in $Z$ is a **descendant** of $X$
+2. Controlling for $Z$ **blocks all backdoor paths** from $X$ to $Y$
+:::
+
+. . .
+
+**In words:**
+
+- Don't control for variables that $X$ affects (that would block part of the causal effect)
+- Do control for variables that create confounding
+
+---
+
+## What NOT to Control For: Colliders
+
+::: {.callout-warning}
+## Collider Bias
+If you control for a variable $Z$ that is a **common effect** of $X$ and $Y$, you create bias by opening a spurious path.
+:::
+
+. . .
+
+**Example:**
+
+```
+  Talent → JobHiring
+           ↗
+    Connections
+```
+
+- Suppose Talent and Connections both cause Job Hiring
+- If we condition on people who got hired, we create a [collider bias]{.alert}
+- Among people who got hired, low Talent is correlated with high Connections (one compensates for the other)
+
+---
+
+# Application: Identifying Causal Effects
+
+## Example 1: Does Education Cause Earnings?
+
+```
+     Ability
+      ↙ ↖
+     /   \
+    V     V
+Education → Earnings
+```
+
+. . .
+
+**Questions:**
+
+1. Is there a causal path from Education to Earnings?
+   - Yes: Education → Earnings
+
+2. Are there backdoor paths?
+   - Yes: Education ← Ability → Earnings
+
+3. What should we control for?
+   - We need to control for Ability
+
+. . .
+
+**Challenge:** Ability is often unobservable!
+
+---
+
+## Example 2: Does a Program Treatment Cause Outcomes?
+
+```
+     Motivation
+      ↙ ↖
+     /   \
+    V     V
+Treatment → Outcome
+```
+
+. . .
+
+**From a randomized experiment:**
+
+- Random assignment of Treatment eliminates the backdoor path (Motivation no longer confounds)
+- We can estimate the causal effect without controlling for Motivation
+- This is why randomization is powerful!
+
+---
+
+# Knowledge Checks and Practice
+
+## Knowledge Check 1: Reading a DAG
+
+```
+  Income
+    ↓
+HealthInsurance
+    ↓
+  Health
+```
+
+Which paths are causal? Backdoor? Collider?
+
+::: {.callout-tip}
+- **Causal path:** Income → HealthInsurance → Health
+- **Backdoor:** None (no common causes)
+- **Collider:** None (no common effects)
+
+To estimate the effect of HealthInsurance on Health, should we control for Income?
+- **No.** Income is an ancestor of both, but there is no confounding (no backdoor path). Controlling for Income would not bias the estimate, but is unnecessary.
+:::
+
+## Knowledge Check 2: Identifying the Right Controls
+
+```
+   Education
+     ↙ ↖
+    /   \
+   V     V
+Socioeconomic
+Status → Earnings
+     ↖ ↗
+    /   \
+   /     \
+ Family
+Connections
+```
+
+. . .
+
+**Questions:**
+
+1. What are the backdoor paths from SES to Earnings?
+2. What minimal set of variables should we control for?
+
+::: {.callout-tip collapse="true"}
+## Answer
+
+1. **Backdoor paths:**
+   - SES ← Family Connections → Earnings
+   - Others depending on the full DAG structure
+
+2. **Controls:** Family Connections (and any other common causes)
+   - Do NOT control for Education (it is a descendant of SES and mediates the effect)
+:::
+
+---
+
+## Practice Problem: Causality in Your Research
+
+Think of a causal question from your own interest or research:
+
+- What is the treatment ($X$) and outcome ($Y$)?
+- What variables might confound this relationship?
+- What would a simple DAG look like?
+- What would you need to control for?
+
+. . .
+
+*Discuss with a partner or make notes on your own.*
+
+---
+
+# Summary
+
+## Key Takeaways
+
+1. **Association ≠ Causation.** DAGs help us think systematically about causality.
+
+2. **Confounding happens through backdoor paths.** Control for common causes, not descendants.
+
+3. **The Backdoor Criterion is mechanical.** Once you draw the DAG, you know which variables to control for.
+
+4. **Collider bias is real.** Controlling for the wrong variable can introduce bias.
+
+5. **Randomization is powerful.** Random assignment breaks backdoor paths without needing to control for confounders.
+
+---
+
+# Appendix: Technical Details
+
+## Formal Definition of a DAG
+
+A directed acyclic graph is a set of:
+
+- **Vertices** (nodes) representing variables
+- **Directed edges** (arrows) representing direct causal relationships
+- **No cycles:** You cannot follow arrows and return to the same node
+
+. . .
+
+**Why no cycles?** In most economic settings, causality flows forward in time. Cycles would imply effects that feed back on themselves, which complicates identification (and is uncommon in cross-sectional contexts).
+
+## d-Separation (Advanced)
+
+::: {.callout-note}
+## d-Separation
+Two variables are **d-separated** by a set $Z$ if all paths between them are blocked by $Z$. If $X$ and $Y$ are d-separated by $Z$, they are conditionally independent given $Z$.
+:::
+
+The Backdoor Criterion is an application of d-separation theory. If we control for $Z$ such that $X$ and $Y$ are d-separated, we have identified the causal effect.
