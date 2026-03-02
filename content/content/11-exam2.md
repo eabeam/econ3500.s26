@@ -32,7 +32,7 @@ See the specific chapter guides from [Week 4](../04-content), [Week 5](../05-con
 
 There will not be a Stata component to the exam. 
 
-You can find a more detailed set of guidelines [here](../Exam2-Chapters4_7Coverage).
+You can find a more detailed set of guidelines [here](/slides/Exam2-Chapters4_7Coverage.pdf).
 
 ### I need more practice!
 
