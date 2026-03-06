@@ -869,6 +869,30 @@ Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence 
 4. [Panicking about multicollinearity]{.alert}
    - Large SEs are honest! They reflect genuine uncertainty
 
+## Gauss-Markov in Multiple Regression
+
+In Chapter 5, we learned that OLS is [BLUE]{style="color: #19375F;"} (Best Linear Unbiased Estimator) under the Gauss-Markov conditions.
+
+The same result extends to multiple regression — we just need [one more assumption]{.alert}:
+
+. . .
+
+::: {.callout-note}
+## The Five Conditions for BLUE (Multiple Regression)
+
+1. **Zero conditional mean:** $E[u_i | X_{1i}, \ldots, X_{ki}] = 0$
+2. **i.i.d. sampling**
+3. **Large outliers rare** (finite fourth moments)
+4. **No perfect multicollinearity**
+5. **Homoskedasticity:** $\text{Var}(u_i | X_{1i}, \ldots, X_{ki}) = \sigma^2_u$
+:::
+
+. . .
+
+- Assumptions 1–4 → OLS is [unbiased]{.kw}
+- Add assumption 5 → OLS is [efficient]{.kw} (smallest variance among linear unbiased estimators)
+- If homoskedasticity fails, OLS is still unbiased — but no longer "Best"
+
 ## Key Formulas Summary
 
 | Concept | Formula |

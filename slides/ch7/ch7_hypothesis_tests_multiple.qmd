@@ -632,6 +632,30 @@ The results are functionally equivalent! The F-test is a [generalization]{.kw} o
 
 :::
 
+## Aside: Homoskedasticity, F-Tests, and BLUE
+
+We've seen homoskedasticity come up twice now:
+
+1. **Ch5:** Needed for Gauss-Markov (OLS is BLUE)
+2. **Ch7 (today):** The hand-computed $F$-statistic formula assumes it
+
+. . .
+
+::: {.callout-note}
+## Quick Recap: When Does Homoskedasticity Matter?
+
+| Context | Homoskedasticity needed? |
+|---|---|
+| OLS point estimates ($\hat{\beta}$) | No — unbiased either way |
+| OLS is BLUE (most efficient) | **Yes** — the "B" in BLUE |
+| Homoskedastic-only SEs / F-stats | **Yes** — wrong if violated |
+| Robust SEs / robust F-stats | No — valid either way |
+:::
+
+. . .
+
+**Bottom line:** Use robust SEs. Then the only thing you lose when homoskedasticity fails is the guarantee that OLS is the most efficient linear estimator — and that's usually a small price to pay.
+
 ## Key Takeaways
 
 1. [Confidence intervals]{.kw} in multiple regression use the same formula as simple regression, but SEs account for other regressors
