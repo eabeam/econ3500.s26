@@ -38,9 +38,7 @@ type: docs
         past 20 years. There's *some* variation in I vs. we, but *all*
         use active voice.
 
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1514958035856334848')
-```
+{{< tweet user="greg_kaplan" id="1514958035856334848" >}}
 
 
 

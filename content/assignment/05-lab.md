@@ -12,25 +12,20 @@ type: docs
 ---
 
 
-**[Print-friendly pdf](../05-lab.pdf)**
-
 ## Materials {#materials .unnumbered}
 
-- [`cps_2016.dta`](../materials/cps_2016.dta)
-- Do-file template [`labtemplate_f21.do`](../materials/labtemplate_f21.do) 
-
+- [`acs2024_4pct.dta`](../materials/acs2024_4pct.dta)
+- Do-file template [`econ3500_lab_template.do`](../materials/econ3500_lab_template.do)
+- BLS county unemployment data [`laucnty24.xlsx`](../materials/laucnty24.xlsx) *(or [download from BLS](https://www.bls.gov/lau/tables.htm))*
 
 ## Objectives {#objectives .unnumbered}
 
+Today we're going to work with [`acs2024_4pct.dta`](../materials/acs2024_4pct.dta), which
+contains information from the [2024 American Community Survey](https://www.census.gov/programs-surveys/acs). *Note that this is a different version from what we have been using! It has a few more variables and also a larger sample.*
 
-Today we're going to keep working with [`cps_2016.dta`](../materials/cps_2016.dta), which
-contains information from the [2016 Current Population Survey](https://cps.ipums.org/cps/). 
+We're going to merge county-level unemployment rates from the [Bureau of Labor Statistics](https://www.bls.gov/lau/tables.htm).
 
-We're going to merge in county-level unemployment rates from the [BLS](https://www.bls.gov/lau/tables.htm)
-
-
-By the end of this lab, you should be able to complete the following
-tasks in Stata:
+By the end of this lab, you should be able to complete the following tasks in Stata:
 
 -   Import data from Excel
 
@@ -41,45 +36,78 @@ tasks in Stata:
 -   Test the general significance of a regression
 
 
+### Data context {#data-context .unnumbered}
+
+Each row in `acs2024_4pct.dta` is an individual from the 2024 ACS microdata. The file includes demographics, education, labor-force status, earnings, and geographic identifiers at the state and county level. The BLS county unemployment file (`laucnty24.xlsx`) contains 2024 annual average labor force statistics for every U.S. county.
+
+We will merge the two datasets by county, matching on state and county FIPS codes.
+
+### Variables we'll use {#variables .unnumbered}
+
+**ACS data (`acs2024_4pct.dta`)**
+
+|variable|meaning|notes|
+| :--- | :--- | :--- |
+|`inctot`|total personal income|9999999 = N/A; replace before analysis|
+|`educ`|educational attainment|numeric categories; check labels with `tab educ, nolabel`|
+|`labforce`|labor force status|2 = in labor force (check with `tab labforce, nolabel`)|
+|`age`|age||
+|`statefip`|state FIPS code|used for merging|
+|`countyfip`|county FIPS code|0 = not identified; used for merging|
+
+**BLS data (`laucnty24.xlsx`)**
+
+|column|meaning|notes|
+| :--- | :--- | :--- |
+|State FIPS Code|2-digit state code|imported as string; needs `destring`|
+|County FIPS Code|3-digit county code|imported as string; needs `destring`|
+|County Name/State Abbreviation|county name||
+|Labor Force|total county labor force||
+|Employed|county employed count||
+|Unemployed|county unemployed count||
+|Unemployment Rate (%)|county unemployment rate||
+
+
 ## Key commands  {#key-commands .unnumbered}
 
 
 
 |command|description|
 | :------------- | ----------: |
-Importing data ||
-`import excel using “file1.xlsx”, firstrow clear` | Import the data set file1.xlsx from excel into Stata. The `firstrow` option tells Stata to use the first row as the variable name. The `clear` option tells Stata to erase any data already in the set 
-Identifying duplicates ||
-| ` duplicates list var1 var2` | List any observations that are duplicates on the listed variables, *var1* `var2`, etc.|
-| `duplicates tag var1 var2, gen(d1)` | Generate a new variable, `d1` that indicates which variables are duplicates for `var1` and `var2`|
-Merging datasets || 
-`merge 1:1 var1 var2 using file2`| Perform a one-to-one merge based on `var1` and `var2`. There cannot be any duplicates on the variables you are using to merge|
-`merge m:1 var1 var2 using file2`| Perform a many-to-one merge based on `var1` and `var2`. There can be duplicate identifiers in the master data set (like if merging state data to individuals), but there should be no duplicates in the using data set|
-Converting between string and numeric variables | 
-| `decode var1, gen(newvar)` | Take a numeric variable with labels and generate a new string variable that is equal to the values of those labels. (You can do the opposite with `encode`).|
-| `destring var1, replace` | Take a string variable, `var1` and convert it to a numeric variable, replacing the old variable | 
-|`tostring var2, gen(string_var)` | Take a numeric variable, `var2` and make it a string, but make that into a new variable called `string_var`|
-Statistical tests ||
-| `test var1 = var2` | Run after estimating a regression. Tests the null hypothesis that the coefficient on `var1` equals the coefficient on ` var2`, against the two-sided alternative.|
-| `testparm var1 var2 ... `| Run after estimating a regression. Tests the whether all listed variables, `var1` , ` var2`, etc., are jointly equal to zero, against the two-sided alternative.
+**Importing data** ||
+|`import excel using "file.xlsx", firstrow clear` | Import an Excel file. `firstrow` uses row 1 as variable names. `clear` erases existing data.|
+|`import excel using "file.xlsx", cellrange(A2) firstrow clear` | Same, but start reading from cell A2 (useful when row 1 is a title, not data).|
+**Identifying duplicates** ||
+| `duplicates list var1 var2` | List any observations that are duplicates on the listed variables.|
+| `duplicates tag var1 var2, gen(d1)` | Generate a new variable, `d1`, that indicates which observations are duplicates for `var1` and `var2`.|
+**Merging datasets** ||
+|`merge 1:1 var1 var2 using file2`| One-to-one merge on `var1` and `var2`. No duplicates allowed in either dataset.|
+|`merge m:1 var1 var2 using file2`| Many-to-one merge on `var1` and `var2`. Duplicates OK in master data (like merging county data into individual data) but not in using data.|
+**Converting between string and numeric variables** | |
+| `destring var1, gen(newvar)` | Convert a string variable to numeric, saving as `newvar`.|
+| `destring var1, replace` | Convert a string variable to numeric, replacing the original. |
+|`tostring var2, gen(string_var)` | Convert a numeric variable to string, saving as `string_var`.|
+**Statistical tests** ||
+| `test var1 = var2` | Run after a regression. Tests whether the coefficient on `var1` equals the coefficient on `var2`.|
+| `testparm var1 var2 ... `| Run after a regression. Tests whether all listed variables are jointly equal to zero.|
 
 ### A note on temporary files (optional)
 
-This exercise works by having two data sets stored on your hard drive, then running a `merge` command to unite them. You might notice that the workflow feels clunky and generates extra files - open a data set, save it, open another data set, then merge in the first data set. 
+This exercise works by having two data sets stored on your hard drive, then running a `merge` command to unite them. You might notice that the workflow feels clunky and generates extra files — open a data set, save it, open another data set, then merge in the first data set.
 
-You can use temporary files to speed things up! Basically, you can save files in your local memory, and call those files the same way we called local variables. Everything has to be run in the do-file for this to work. 
+You can use temporary files to speed things up! Basically, you can save files in your local memory, and call those files the same way we called local variables. Everything has to be run in the do-file for this to work.
 
-A short example (you can paste this in a do-file and run it, as it uses Stata files) : 
+A short example (you can paste this in a do-file and run it, as it uses built-in Stata files):
 
 ```
 
 tempfile tempauto       // Declare tempfile (needs to run before you try to save)
 
-webuse autosize,clear
+webuse autosize, clear
 
-save `tempauto', replace    // save to temp file t1
+save `tempauto', replace    // save to temp file
 
-webuse autoexpense, clear 
+webuse autoexpense, clear
 
 merge 1:1 make using `tempauto'   // call tempfile
 
@@ -87,87 +115,123 @@ tab _merge    // check out merge
 
 list
 ```
+
+## Workflow overview {#workflow .unnumbered}
+
+1. Import the BLS county unemployment data from Excel.
+2. Clean variables and save as a Stata data file.
+3. Open the ACS data and restrict the sample.
+4. Merge in county-level unemployment by state and county FIPS codes.
+5. Create education indicators and run regressions.
+6. Conduct hypothesis tests.
+
+
 <!--
-## Lab Video 
+## Lab Video
 -->
 
-{{< youtube 8yfXvk8QYy0 >}}
-
-## Lab 5 Worksheet 
+## Lab 5 Worksheet
 ### What do I submit?
 
    - Your written up answers to the exercise questions. This can be typed or written out then scanned (or photographed), in any reasonable format.
-   -  The do-file you’ve created that runs this analysis
+   -  The do-file you've created that runs this analysis
    -  A log file that contains the results from this exercise.
 
 ### Exercises
 
+**Part 1: Import and prepare unemployment data**
 
-1.  Visit <https://www.bls.gov/lau/tables.htm> to access 2016 annual **county-level** *annual* unemployment rates.
+1.  Visit <https://www.bls.gov/lau/tables.htm> to access 2024 annual **county-level** unemployment rates. Download the appropriate table as an Excel file.[^1]
 
-   a. Download the appropriate table.
+    a. Open the file in Excel or another spreadsheet program. Notice that the first row contains a title and the actual column headers start in the second row.
 
-   b. Rename variables as needed, and delete any unnecessary cells. If you want your life to be easier, make the first row include your variable names, and then have the data start in second row.[^1b]
+    b. You do not need to edit the file — we'll handle everything in Stata.
 
-   c. Save your revised file.
+[^1]: If you have trouble accessing the BLS website, you can use the file provided in the lab materials above.
 
-[^1b]: You can also sort this out w/ Stata commands if you'd rather work with the raw, unedited file.
+2.  Open Stata and start a new do-file using the [template](../materials/econ3500_lab_template.do). Update the file paths and add code to start (and end) a log.
 
-2.  Open Stata, start a new do-file (or bring in a template). Make sure
-    you add code to start (and end) a log.
+3.  Import your unemployment Excel file into Stata. Because the first row is a title (not column headers), use the `cellrange` option to start reading from row 2:
 
-3.  Import your unemployment excel into Stata and save it as a data file, `unemp.dta`.
+    ```
+    import excel using "laucnty24.xlsx", cellrange(A2) firstrow clear
+    ```
 
-4.  Open `cps_2016.dta` and restrict the sample to adults (age 18+).
+    Run `describe` to see the variable names Stata assigned. How many observations (counties) are there?
 
-6. Now, merge your unemployment data into `cps_2016.dta` by county. This may not be smooth. A few tips:
+4.  The FIPS code variables were imported as **strings** (text), not numbers. Convert them to numeric variables so they match the ACS data:
 
-   a. The FIPS codes are in different formats between the two data sets. A county code like this "55083" contins a state part (55) and a county part (083).
+    ```
+    destring StateFIPSCode, gen(statefip)
+    destring CountyFIPSCode, gen(countyfip)
+    ```
 
-   b. You can convert a variable to and from a string using the commands `destring var1,replace` and `tostring var2,replace`, respecitvely.
+    *(If Stata named your variables differently, check with `describe` and adjust accordingly.)*
 
-   c. You can concatenate string variables by adding them like this: `gen newvar = string1 + string2`
+5.  Check for duplicates on `statefip` and `countyfip`. Are there any? *(There shouldn't be — each county should appear exactly once.)*
 
-   d. Determine whether you need a one-to-one or many-to-one merge.
+6.  Save your unemployment data as a Stata file:
 
-   e. You may get errors, and you'll need to fix these to have a successful merge.
+    ```
+    save "unemp_2024.dta", replace
+    ```
 
+**Part 2: Merge with ACS data**
 
-7. You've done it! Tabulate the new variable `_merge`. What share of observations successfully merge?[^7]
+7.  Open `acs2024_4pct.dta` and restrict the sample to adults (age 18+).
 
-[^7]: To get a sense if you've done this right, about 40-45% of observations should match. This is because the CPS will withhold county-level identifiers for very small counties to protect confidentiality.
+8.  Before merging, take a look at the county identifier in the ACS data. Tabulate `countyfip`. What do you notice about the value 0?[^8]
 
-8.  Drop any unmatched observations (you can use `drop if`, as we'll retain this restriction for the rest of the exercise.) What is the average unemployment rate for the entire sample - why would this be different than taking the average of county-level unemployment rates in your excel file?
+[^8]: In IPUMS data, `countyfip = 0` means the county is **not identified** — the Census Bureau withholds county identifiers for small counties to protect confidentiality. These observations cannot be matched to BLS data.
 
-9.  Why can't we use education as a linear variable?
+9.  Now, merge your unemployment data into the ACS by county:
 
-10. Generate three dummy variables. These three variables should be    mutually exclusive, and they should not be missing for any people.
+    ```
+    merge m:1 statefip countyfip using "unemp_2024.dta"
+    ```
+
+    a. Why do we use `m:1` (many-to-one) instead of `1:1`?
+
+    b. Tabulate the `_merge` variable. What share of observations successfully merged?[^9]
+
+[^9]: Expect roughly 40–60% of observations to match. The main reason for non-matches is that many ACS respondents have `countyfip = 0` (county not identified).
+
+10. Drop any unmatched observations (you can use `drop if`) and drop the `_merge` variable. What is the average unemployment rate for the sample — why would this be different than taking an average of county unemployment rates from your Excel file?
+
+**Part 3: Education variables and regression**
+
+11. Why can't we use `educ` directly as a linear variable in a regression?
+
+12. Generate three dummy variables. These three variables should be mutually exclusive, and they should not be missing for any observations.
 
     -   `lesshs`, a variable equal to one if a person completed *less than* a high school diploma
 
-    -   `hsgrad`, a variable equal to one if a person completed at least  a high school but less than a Bachelor's degree
+    -   `hsgrad`, a variable equal to one if a person completed at least a high school diploma but less than a Bachelor's degree
 
     -   `colgrad`, a variable equal to one if a person completed a Bachelor's degree or higher
 
-    *Note:* Education is coded with **labels,** which means that it is numeric data with a description of what each number means on top.     These show up as blue in the Stata browser.  To view variables without the labels, add the no-label option:`tab educ, nolabel`.
+    *Note:* Education is coded with **labels,** which means that it is numeric data with a description of what each number means on top. These show up as blue in the Stata browser. To see the underlying codes: `tab educ, nolabel`.
 
-11. What is the mean of `lesshs`, `hsgrad`, and `colgrad`?
+13. What is the mean of `lesshs`, `hsgrad`, and `colgrad`?
 
-12. Estimate a regression of total personal income on education, usingthe binary variables you just created. Omit `lesshs`.
+14. Before running a regression, check `inctot` (total personal income) for N/A codes. Replace any N/A values as missing.[^14] Then estimate a regression of total personal income on education, using the binary variables you just created. Omit `lesshs`. Use robust standard errors.
 
-13. Set up a hypothesis test for whether both `hsgrad` and `colgrad` are jointly significant. Report the null hypothesis, alternative     hypothesis, test statistic, and conclusion.
+[^14]: Use `summarize inctot` to check for suspicious values. In IPUMS data, 9999999 typically means N/A.
 
-14. Set up a hypothesis test for whether the returns to being a high-school graduate are the same as the returns to being a college     graduate. Report the null hypothesis, alternative hypothesis, test     statistic, and conclusion.
+**Part 4: Hypothesis tests**
 
-15. Is this regression significant overall? Explain how you know.
+15. Set up a hypothesis test for whether both `hsgrad` and `colgrad` are jointly significant. Report the null hypothesis, alternative hypothesis, test statistic, and conclusion.
 
-16. Now add county-level unemployment rate to the previous equation. What is the interpretation of the coefficient on unemployment? Is it statistically significant?
+16. Set up a hypothesis test for whether the returns to being a high-school graduate are the same as the returns to being a college graduate. Report the null hypothesis, alternative hypothesis, test statistic, and conclusion.
 
-17. Estimate the same equation by regressing total personal income on     the education binary variables and county-level unemployment,     restricting to those who are currently in the labor force. How does     this change the coefficient on unemployment?
+17. Is this regression significant overall? Explain how you know.
 
-18. Identify three *state* or *county-level* variables that are likely to cause  omitted variable bias if you want to know whether unemployment    affects individual wages.
+**Part 5: Adding unemployment**
 
-19. For *one* of the variables you listed above, find the data online, import into Stata, and merge it in.
+18. Now add county-level unemployment rate to the previous equation. What is the interpretation of the coefficient on unemployment? Is it statistically significant?
 
-20. Regress total personal income on the education binary variables, county-level unemployment, and the new variable you found. Restrict     your sample to those who are currently in the labor force. How does    the inclusion of your new variable affect the coefficient on    unemployment?
+19. Estimate the same equation by regressing total personal income on the education binary variables and county-level unemployment, restricting to those who are currently in the labor force. How does this change the coefficient on unemployment?
 
+20. Identify three *state* or *county-level* variables that are likely to cause omitted variable bias if you want to know whether unemployment affects individual income.
+
+21. For *one* of the variables you listed above, find the data online, import into Stata, and merge it in. Regress total personal income on the education binary variables, county-level unemployment, and the new variable you found. Restrict your sample to those who are currently in the labor force. How does the inclusion of your new variable affect the coefficient on unemployment?
