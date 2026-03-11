@@ -149,7 +149,11 @@ I will drop your lowest assignment quiz.
 -   I will never curve quizzes down, but I may curve them up if the
     median grade is less than a B-.
     
-- Up to **two** flex points can be earned. Working sessions will provide “flex points” – up to two extra credit points on final grade. Other opportunities will be provided as well. For working sessions, our calculation is $min ((\# attended / (\# sessions – 2)) * 2, 1)$.
+- Up to **two** flex points can be earned and added to your final grade. There are three ways to earn them:
+    - **Working sessions**: Attend 8 sessions with Rae. Formula: $\min\left(\frac{\text{sessions attended}}{8} \times 2,\ 1\right)$.
+    - **LaTeX** (up to 1 point): Write your final paper and tables in LaTeX.
+    - **Push-button replication** (up to 1 point): One master do-file that produces all your tables with minimal effort on my end.
+    - See full details on the [extra credit page](/bonus/extra-credit/). The maximum across all activities is **2 points total**.
 
 
 # Quizzes {#quizzes .unnumbered}
