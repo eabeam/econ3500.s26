@@ -78,18 +78,18 @@ def main() -> int:
     # Remove print-friendly link line(s)
     text = re.sub(r"^.*print-friendly.*\n", "", text, flags=re.IGNORECASE | re.MULTILINE)
     # Remove common section header
-    text = re.sub(r"^##\\s+Lab Content\\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^##\s+Lab Content\s*$", "", text, flags=re.MULTILINE)
     # Remove emoji tokens like :eye:
     text = text.replace(":eye:", "")
 
     # Drop Hugo alert shortcodes, keep the content
-    text = re.sub(r"^\\s*{{[%<]\\s*alert\\b[^}]*}}\\s*$", "", text, flags=re.MULTILINE)
-    text = re.sub(r"^\\s*{{[%<]\\s*/alert\\b[^}]*}}\\s*$", "", text, flags=re.MULTILINE)
-    text = re.sub(r"{{[%<]\\s*/?alert\\b[^}]*}}\\s*", "", text)
+    text = re.sub(r"^\s*{{[%<]\s*alert\b[^}]*}}\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^\s*{{[%<]\s*/alert\b[^}]*}}\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"{{[%<]\s*/?alert\b[^}]*}}\s*", "", text)
 
     # Drop Quarto callout wrappers if present
-    text = re.sub(r"^\\s*:::\\s*\\{\\.callout[^}]*\\}\\s*$", "", text, flags=re.MULTILINE)
-    text = re.sub(r"^\\s*:::\\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^\s*:::\s*\{\s*\.callout[^}]*\}\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^\s*:::\s*$", "", text, flags=re.MULTILINE)
 
     front_matter_out = """---
 geometry: margin=1in

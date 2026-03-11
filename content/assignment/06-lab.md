@@ -85,8 +85,9 @@ The coefficient on `female` tells you the change in the **probability** (in deci
 For great slides on this (and a deeper dive), check out [this resource](https://nickch-k.github.io/EconometricsSlides/Week_08/Week_08_Limited_Dependent_Variables.html)!
 
 
-## Lab Video
+<!-- ## Lab Video
 {{< youtube tpYknYpmjRU >}}
+-->
 
 ## Workflow overview {#workflow .unnumbered}
 
@@ -179,7 +180,7 @@ replace uhrsNZ = 0 if missing(uhrsNZ)
 
 15. Using the cleaned variables, calculate hourly wages: `gen hourwage = incwage / (uhrswork * 50)`. We assume that people work 50 weeks in one year. What are mean hourly wages for men and women?
 
-16. Estimate the impact of gender on hourly wages for those with non-zero hourly wages, controlling for usual hours worked (`uhrswork`). Repeat to include all adults by replacing missing hourly wages with 0 for non-earners. How does the impact of gender on earnings compare between the two regressions?
+16. Estimate the impact of gender on hourly wages for those with positive hourly wages, controlling for usual hours worked (`uhrswork`). Then, replace missing hourly wages with 0 for those who worked but earned no wages, and re-estimate. How does the impact of gender on earnings compare between the two regressions? Why does the sample size change?
 
 17. Do outliers affect your results? Exclude observations that exceed the 99th percentile in wages based on `incwage`, and re-estimate both equations from the previous question. How do your results change?
 
