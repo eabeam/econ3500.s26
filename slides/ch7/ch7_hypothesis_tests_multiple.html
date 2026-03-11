@@ -6,8 +6,8 @@
 <script src="ch7_hypothesis_tests_multiple_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="ch7_hypothesis_tests_multiple_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ch7_hypothesis_tests_multiple_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="ch7_hypothesis_tests_multiple_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.26">
+<link href="ch7_hypothesis_tests_multiple_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="ECON3500: Econometrics and Applications">
   <title>Hypothesis Tests and Confidence Intervals in Multiple Regression</title>
@@ -930,6 +930,57 @@ E[GPAyear1 | mt_{other} = 1] &amp;= 1.4087 = 1.409
 </div>
 </div>
 </section>
+<section id="aside-homoskedasticity-f-tests-and-blue" class="slide level2 scrollable">
+<h2>Aside: Homoskedasticity, F-Tests, and BLUE</h2>
+<p>We’ve seen homoskedasticity come up twice now:</p>
+<ol type="1">
+<li><strong>Ch5:</strong> Needed for Gauss-Markov (OLS is BLUE)</li>
+<li><strong>Ch7 (today):</strong> The hand-computed <span class="math inline">\(F\)</span>-statistic formula assumes it</li>
+</ol>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Quick Recap: When Does Homoskedasticity Matter?</strong></p>
+</div>
+<div class="callout-content">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Context</th>
+<th>Homoskedasticity needed?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>OLS point estimates (<span class="math inline">\(\hat{\beta}\)</span>)</td>
+<td>No — unbiased either way</td>
+</tr>
+<tr class="even">
+<td>OLS is BLUE (most efficient)</td>
+<td><strong>Yes</strong> — the “B” in BLUE</td>
+</tr>
+<tr class="odd">
+<td>Homoskedastic-only SEs / F-stats</td>
+<td><strong>Yes</strong> — wrong if violated</td>
+</tr>
+<tr class="even">
+<td>Robust SEs / robust F-stats</td>
+<td>No — valid either way</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>Bottom line:</strong> Use robust SEs. Then the only thing you lose when homoskedasticity fails is the guarantee that OLS is the most efficient linear estimator — and that’s usually a small price to pay.</p>
+</div>
+</section>
 <section id="key-takeaways" class="slide level2 scrollable">
 <h2>Key Takeaways</h2>
 <ol type="1">
@@ -973,7 +1024,12 @@ E[GPAyear1 | mt_{other} = 1] &amp;= 1.4087 = 1.409
 <p><strong>The Challenge</strong></p>
 <p>700+ million people live on less than $2/day</p>
 <div class="fragment">
-<p><strong>Traditional Approaches</strong> - In-kind aid (food, blankets, etc.) - Conditional cash transfers (CCTs): “We give you money IF you send your kids to school / get vaccinated” - Paternalistic: Government decides what the poor “need”</p>
+<p><strong>Traditional Approaches</strong></p>
+<ul>
+<li>In-kind aid (food, blankets, etc.)</li>
+<li>Conditional cash transfers (CCTs): “We give you money IF you send your kids to school / get vaccinated”</li>
+<li>Paternalistic: Government decides what the poor “need”</li>
+</ul>
 </div>
 <div class="fragment">
 <p><strong>Unconditional Cash Transfers (UCTs)</strong> - Direct, no strings attached - Trusts recipients to make their own decisions - Respects agency and autonomy</p>
@@ -984,7 +1040,12 @@ E[GPAyear1 | mt_{other} = 1] &amp;= 1.4087 = 1.409
 <p><strong>Economic Argument</strong></p>
 <p>If markets work, cash is most efficient → recipients choose optimally</p>
 <div class="fragment">
-<p><strong>But markets often fail in poor areas:</strong> - Limited local supply (firms don’t invest) - Prices may spike if aggregate demand increases (inflation) - Spillovers: Money spent in one household affects neighbors</p>
+<p><strong>But markets often fail in poor areas:</strong></p>
+<ul>
+<li>Limited local supply (firms don’t invest)</li>
+<li>Prices may spike if aggregate demand increases (inflation)</li>
+<li>Spillovers: Money spent in one household affects neighbors</li>
+</ul>
 </div>
 </section>
 <section id="egger-haushofer-miguel-niehaus-walker-2022" class="slide level2 smaller">
