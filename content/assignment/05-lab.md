@@ -11,6 +11,7 @@ menu:
 type: docs
 ---
 
+**[Print-friendly pdf](../05-lab.pdf)**
 
 ## Materials {#materials .unnumbered}
 
