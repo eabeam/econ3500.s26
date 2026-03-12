@@ -14,8 +14,8 @@ design:
 ---
 
 {{< announcements >}}
+- **Week 9**: Welcome back! [Lab 5](/assignment/05-lab/) is posted (now due **Thursday 3/19**) and a video walkthrough is coming Wednesday. Reminder: [annotated bibliography](/assignment/rp-03-annotated/) also due Thursday 3/19. Check out the updated [extra credit opportunities](/bonus/extra-credit/).
 - **Updated**: The attendance requirement for working sessions has been reduced to **8 sessions**. There are also new [extra credit opportunities](/bonus/extra-credit/) for LaTeX and push-button replication. See the [full details](/bonus/extra-credit/).
-- **Week 1**: Welcome to ECON3500! Please review the [syllabus](/syllabus/) and install [Stata](https://www.uvm.edu/software/) before our first class.
 {{< /announcements >}}
 
 <!--

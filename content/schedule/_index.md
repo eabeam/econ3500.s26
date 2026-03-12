@@ -57,8 +57,8 @@ What's the plan?
 | |||**Spring Break March 09--13**   | | |
 | ||||||
 | 9|||**Non-linear regression (CH8)**   | | |
-|  | 17 Mar | Tu | [Non-linear regression](/content/08-content) | [Read CH8](/content/08-content/)  |[<i class="fas fa-laptop-code"></i> Lab 5 due](/assignment/05-lab) |
-|  | 19 Mar | Th | [<i class="fas fa-dragon"></i> RP: Writing a paper proposal](/assignment/rp-04-proposal)  |  | [<i class="fas fa-dragon"></i> Annotated bibliography due](/assignment/rp-03-annotated)|
+|  | 17 Mar | Tu | [Non-linear regression](/content/08-content) | [Read CH8](/content/08-content/)  | |
+|  | 19 Mar | Th | [<i class="fas fa-dragon"></i> RP: Writing a paper proposal](/assignment/rp-04-proposal)  |  | [<i class="fas fa-laptop-code"></i> Lab 5 due](/assignment/05-lab) <br> [<i class="fas fa-dragon"></i> Annotated bibliography due](/assignment/rp-03-annotated)|
 | ||||  ||
 | 10|||**Assessing regression validity (CH9)**   | | |
 |  | 24 Mar | Tu |[Assessing regression validity](/content/09-content/)  |[Read CH9](/content/09-content/) |  |

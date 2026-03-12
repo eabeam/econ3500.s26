@@ -2,7 +2,7 @@
 title: "Lab 5: Merging and hypothesis tests"
 linktitle: "Lab 5"
 date: "2026-03-09"
-due_date: "2026-03-17"
+due_date: "2026-03-19"
 due_time: "1:15 PM"
 menu:
   assignment:
