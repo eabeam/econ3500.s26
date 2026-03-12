@@ -127,9 +127,9 @@ list
 6. Conduct hypothesis tests.
 
 
-<!--
 ## Lab Video
--->
+
+{{< youtube umVrYbXrpoU >}}
 
 ## Lab 5 Worksheet
 ### What do I submit?
