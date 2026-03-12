@@ -133,7 +133,7 @@ list
 ## Lab 5 Worksheet
 ### What do I submit?
 
-   - Your written up answers to the exercise questions. This can be typed or written out then scanned (or photographed), in any reasonable format.
+   - Your written up answers to the exercise questions. This can be typed or written out then scanned (or photographed), in any reasonable format. *Note: Question 21 is optional.*
    -  The do-file you've created that runs this analysis
    -  A log file that contains the results from this exercise.
 
@@ -234,4 +234,4 @@ list
 
 20. Identify three *state* or *county-level* variables that are likely to cause omitted variable bias if you want to know whether unemployment affects individual income.
 
-21. For *one* of the variables you listed above, find the data online, import into Stata, and merge it in. Regress total personal income on the education binary variables, county-level unemployment, and the new variable you found. Restrict your sample to those who are currently in the labor force. How does the inclusion of your new variable affect the coefficient on unemployment?
+21. *(Optional)* For *one* of the variables you listed above, find the data online, import into Stata, and merge it in. Regress total personal income on the education binary variables, county-level unemployment, and the new variable you found. Restrict your sample to those who are currently in the labor force. How does the inclusion of your new variable affect the coefficient on unemployment?
