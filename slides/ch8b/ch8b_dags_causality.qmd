@@ -507,7 +507,7 @@ Start with your treatment and outcome. Then ask: "What are all the things that c
 
 # Summary
 
-## Key Takeaways {.smaller}
+## Key Takeaways
 
 1. **The DGP is what we're trying to understand.** A DAG is our best model of that process.
 
