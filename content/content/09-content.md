@@ -1,23 +1,24 @@
 ---
-title: Week 10 - Assessing Studies
+title: Week 10 - Causal Diagrams & Assessing Studies
 sitetitle: Week 10
-summary: "ECON3500 - Week 10 Assessing Studies Based on Multiple Regression (CH9)"
+summary: "ECON3500 - Week 10 Causal Diagrams (DAGs) and Assessing Studies Based on Multiple Regression (CH9)"
 
 date: "2026-03-15"
 start_date: "2026-03-23"
 end_date: "2026-03-27"
 
-  
+
   # Academic page type (do not modify).
 type: docs
 menu:
   content:
     parent: Course content
     weight: 10
-    
+
 
 pdf: /slides/ch9-slides.pdf
 thumb: /slides/ch9-slides.png
+slides_html: /slides/ch8b-quarto/
 
 
 
@@ -25,27 +26,41 @@ thumb: /slides/ch9-slides.png
 
 ## Overview
 
-Two big picture ideas: **internal validity** and **external validity**. Specifically, we're going to talk a little more about omitted variable bias, a lot about measurement error, and a little bit about simultaneity! 
+This week has two connected parts. **Tuesday**: we introduce **causal diagrams (DAGs)** — a visual framework for thinking about causality, confounding, and what to control for. **Thursday**: we apply that framework to **assessing regression validity** (internal and external validity, omitted variable bias, measurement error, simultaneity).
+
 ## Reading Guide
 
-#### **Chapter 9: Assessing Studies Based on Multiple Regression**
+### Tuesday: Causal Diagrams (DAGs)
 
-#### **SW 9.1** Internal and External Validity 
+Read the following chapters from Huntington-Klein, [*The Effect*](https://theeffectbook.net) (free online):
 
-Get those definitions, and threats to external validity 
+#### **The Effect, Chapter 6:** Causal Diagrams
+What are DAGs? Nodes, arrows, and how to represent a data generating process visually.
 
-#### **SW 9.2** Threats to Internal Validity of Multiple Regression Analysis 
+#### **The Effect, Chapter 7:** Drawing Causal Diagrams
+How to build a DAG for your own research question. Practical guidance on simplifying and avoiding common mistakes.
 
-Five big threats. And how to handle them. 
+#### **The Effect, Chapter 8:** Causal Paths and Closing Back Doors
+The key chapter: front door vs. back door paths, open vs. closed paths, confounders, colliders, and the backdoor criterion.
 
-#### **SW 9.3** Internal and External Validity When the Regression is Used for Forcasting
+### Thursday: Assessing Regression Validity (SW Chapter 9)
 
-Optional  - worth giving some thought 
+#### **SW 9.1** Internal and External Validity
+
+Get those definitions, and threats to external validity
+
+#### **SW 9.2** Threats to Internal Validity of Multiple Regression Analysis
+
+Five big threats. And how to handle them.
+
+#### **SW 9.3** Internal and External Validity When the Regression is Used for Forecasting
+
+Optional  - worth giving some thought
 
 
 #### **SW 9.4** Example: Test Score and Class Size
 
-No new content, but this is a really good walk-through of the 9.1 and 9.2 content. 
+No new content, but this is a really good walk-through of the 9.1 and 9.2 content.
 
 
 ## Slides

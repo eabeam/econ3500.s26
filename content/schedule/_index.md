@@ -60,9 +60,9 @@ What's the plan?
 |  | 17 Mar | Tu | [Non-linear regression](/content/08-content) | [Read CH8](/content/08-content/)  | |
 |  | 19 Mar | Th | [<i class="fas fa-dragon"></i> RP: Writing a paper proposal](/assignment/rp-04-proposal)  |  | [<i class="fas fa-laptop-code"></i> Lab 5 due](/assignment/05-lab) <br> [<i class="fas fa-dragon"></i> Annotated bibliography due](/assignment/rp-03-annotated)|
 | ||||  ||
-| 10|||**Assessing regression validity (CH9)**   | | |
-|  | 24 Mar | Tu |[Assessing regression validity](/content/09-content/)  |[Read CH9](/content/09-content/) |  |
-|  | 26 Mar | Th | [Assessing regression validity](/content/09-content/) | |[<i class="fas fa-pencil-alt"></i> PS4 due](/assignment/04-ps)|
+| 10|||**Causal diagrams & Assessing regression validity (CH9)**   | | |
+|  | 24 Mar | Tu |[Causal diagrams (DAGs)](/content/09-content/)  |[Read *The Effect* CH6-8](https://theeffectbook.net) |  |
+|  | 26 Mar | Th | [Assessing regression validity](/content/09-content/) |[Read CH9](/content/09-content/) |[<i class="fas fa-pencil-alt"></i> PS4 due](/assignment/04-ps)|
 | ||||  | |
 | 11|||**Panel data methods (CH10)**   | | |
 |  | 31 Mar | Tu | [Panel data methods](/content/10-content)  | [Read CH10)](/content/10-content/)  ||

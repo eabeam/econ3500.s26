@@ -1,5 +1,13 @@
 /* Additional custom styles for Econometria Quarto presentation */
 
+/* Global box-sizing: padding and borders stay inside declared widths */
+.reveal .slides section,
+.reveal .slides section *,
+.reveal .slides section *::before,
+.reveal .slides section *::after {
+  box-sizing: border-box;
+}
+
 /* Preserve spacing in code: HTML collapses spaces without this */
 pre, code {
   font-family: Menlo, Consolas, "Liberation Mono", monospace;
@@ -15,6 +23,7 @@ pre {
 .reveal .slides section {
   text-align: left;
   padding: 20px;
+  overflow-x: hidden;
 }
 
 /* Base font sizing */
@@ -27,11 +36,12 @@ pre {
   margin-top: 0.15em;
 }
 
-/* Improve callout spacing */
+/* Improve callout spacing and add visible borders */
 .callout {
   margin: 1em 0;
   padding: 1em;
   border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .callout-title {
@@ -228,6 +238,19 @@ pre {
 .reveal .callout {
   margin: 0.8em 0;
   padding: 0.8em;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Constrain callout internal elements to prevent overflow */
+.reveal .callout .callout-body-container,
+.reveal .callout .callout-body,
+.reveal .callout .callout-header {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
 }
 
 /* Ensure code blocks in slides don't cause overflow */
@@ -327,6 +350,33 @@ pre {
 .reveal.overview img {
   opacity: 1 !important;
   visibility: visible !important;
+}
+
+/* Fix column overflow: account for the inter-column gap */
+.reveal .columns {
+  max-width: 100%;
+  box-sizing: border-box;
+  gap: 1em;
+}
+
+.reveal .columns .column {
+  min-width: 0;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Constrain callouts inside column layouts so they don't overflow */
+.reveal .columns .column .callout {
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+.reveal .columns .column .callout p,
+.reveal .columns .column .callout li {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Ensure quarto figures still center when r-stretch is removed */

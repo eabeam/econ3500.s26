@@ -10,7 +10,7 @@ format:
 
 ## Learning Objectives
 
-By the end of this chapter, you will be able to:
+By the end of this lecture, you will be able to:
 
 1. Draw and interpret [directed acyclic graphs (DAGs)]{.kw}
 2. Identify [causal paths]{.kw}, [backdoor paths]{.kw}, and [colliders]{.kw}
@@ -18,7 +18,33 @@ By the end of this chapter, you will be able to:
 4. Explain why controlling for the wrong variables can [bias]{.alert} your estimates
 5. Apply DAG logic to real research questions
 
+. . .
+
+::: {.callout-tip}
+## Reading
+Huntington-Klein, *The Effect*: **Chapters 6, 7, and 8** (available free at [theeffectbook.net](https://theeffectbook.net))
+:::
+
 # What Is Causality?
+
+## The Data Generating Process
+
+Every dataset we observe is produced by a [data generating process (DGP)]{.kw} — the real-world laws, behaviors, and institutions that determine the values we see.
+
+. . .
+
+**Our challenge as econometricians:**
+
+- We observe the *data*, not the DGP
+- Multiple DGPs could produce the same data patterns
+- We need a framework for reasoning about *which variation* in our data answers our research question
+
+. . .
+
+::: {.callout-important}
+## Identification
+[Identification]{.kw} is the process of figuring out what part of the variation in your data answers your research question.
+:::
 
 ## Association vs. Causation
 
@@ -31,33 +57,33 @@ Two variables move together (correlation). $X$ and $Y$ are related statistically
 
 ::: {.callout-note}
 ## Causation
-Changing $X$ causes $Y$ to change. $X$ has a **causal effect** on $Y$.
+Changing $X$ **causes** $Y$ to change. Formally: if we could *intervene* to change $X$, the distribution of $Y$ would change as a result.
 :::
 
 . . .
 
-**Why does this matter?**
+- **Association:** Useful for prediction, not necessarily for policy
+- **Causation:** Required for policy impact, program evaluation, treatment effects
 
-- **Association:** Useful for prediction (forecasting), not necessarily for policy
-- **Causation:** Required for understanding policy impact, program evaluation, treatment effects
+## The Framework: Causal Diagrams (DAGs) {.smaller}
 
-. . .
+A **directed acyclic graph (DAG)** is a visual representation of a data generating process:
 
-**The Problem:** From data alone, we cannot distinguish association from causation. We need a **framework**.
-
-## The Framework: Causal Diagrams (DAGs)
-
-A **directed acyclic graph (DAG)** visually represents:
-
-- **Variables** (nodes)
-- **Causal relationships** (arrows showing direction of causality)
-- **How variables influence each other** (temporal and causal ordering)
+- **Variables** (nodes) — circles representing measured or unmeasured quantities
+- **Causal relationships** (arrows) — direction of causality
+- **No cycles** — causality flows forward (you can't follow arrows back to where you started)
 
 . . .
 
 **Key insight:** Once we draw the DAG, we can **mechanically determine** which variables to control for to identify a causal effect.
 
----
+. . .
+
+::: {.callout-warning}
+## Important assumption
+Every variable and arrow that is *not* on the diagram is an assumption we're making. Drawing a DAG forces you to be explicit about your identifying assumptions.
+:::
+
 
 # Drawing and Reading DAGs
 
@@ -68,65 +94,104 @@ A **directed acyclic graph (DAG)** visually represents:
 ::: {.column width="50%"}
 **Node:** A variable in the system.
 
-```
-  X    Y    Z
-```
+Each circle represents a variable — either observed or unobserved.
 
-Each circle/node represents a variable.
-:::
-
-::: {.column width="50%"}
 **Arrow:** $X \rightarrow Y$ means "$X$ causes $Y$."
 
 - Direction matters (from cause to effect)
-- $X$ is an [ancestor]{.kw} of $Y$
-- $Y$ is a [descendant]{.kw} of $X$
+- $X$ is a [parent]{.kw} (ancestor) of $Y$
+- $Y$ is a [child]{.kw} (descendant) of $X$
+:::
+
+::: {.column width="50%"}
+![](./ch8b_figures/ch8b_simple_causal.png){width=100% fig-align="center"}
 :::
 
 ::::
 
 ## Example: Class Size and Student Achievement
 
-```
-     Wealth
-       ↙ ↖
-      /   \
-     V     V
-  ClassSize → TestScores
-```
+:::: {.columns}
 
-. . .
+::: {.column width="45%"}
+![](./ch8b_figures/ch8b_confounding.png){width=100% fig-align="center"}
+:::
 
+::: {.column width="55%"}
 **Variables:**
-- $X$ = Class Size
-- $Y$ = Test Scores
-- $Z$ = Neighborhood Wealth
+
+- $X$ = Class Size, $Y$ = Test Scores, $Z$ = Wealth
 
 **Causal arrows:**
+
 - Wealth → Class Size (wealthy areas have smaller classes)
 - Wealth → Test Scores (wealthier students score higher)
 - Class Size → Test Scores (smaller classes improve learning)
+:::
 
-## Path Types in DAGs
+::::
 
-A **path** is a sequence of arrows connecting variables. Three types matter:
+## Causal (Front Door) Paths
 
-### 1. Causal Path
-$X \rightarrow Y$
+$X \rightarrow Y$ (or $X \rightarrow M \rightarrow Y$)
 
-Direct effect of $X$ on $Y$. This is what we *want* to estimate.
+Direct or indirect effect of $X$ on $Y$, with all arrows pointing *away from* $X$.
 
-### 2. Backdoor Path
+These are [good paths]{.kw} — they represent what we *want* to estimate.
+
+. . .
+
+**Example:** Class Size → Test Scores
+
+## Backdoor Paths
+
 $X \leftarrow Z \rightarrow Y$
 
-$X$ and $Y$ are related through a common cause $Z$. This creates **confounding**.
+$X$ and $Y$ are connected through a common cause $Z$. These are [bad paths]{.alert} — they create **confounding**.
 
-### 3. Front Door Path (Advanced)
-$X \rightarrow Z \rightarrow Y$ where $Z$ is a mediator.
+. . .
 
----
+**Example:** Class Size ← Wealth → Test Scores
 
-# Confounding and Backdoor Bias
+. . .
+
+::: {.callout-important}
+## Connection to OVB
+A backdoor path is exactly what creates [omitted variable bias]{.kw}. If $Z$ is a common cause of $X$ and $Y$ and you leave it out of the regression, you have an open backdoor path — and OVB.
+:::
+
+## Collider Paths
+
+$X \rightarrow Z \leftarrow Y$
+
+$X$ and $Y$ both cause $Z$. These paths are [closed by default]{.kw} — no confounding flows through them *unless* we make a mistake.
+
+. . .
+
+**Example:** Talent → Job Hiring ← Connections
+
+No spurious relationship between Talent and Connections... unless we condition on who got hired.
+
+## Open and Closed Paths {.smaller}
+
+::: {.callout-important}
+## Key Concept
+A path is [open]{.kw} if the relationship flows freely between variables along it. A path is [closed]{.kw} if something blocks that flow.
+:::
+
+. . .
+
+| Path Type | Default Status | What controls do |
+|-----------|---------------|-----------------|
+| Backdoor ($X \leftarrow Z \rightarrow Y$) | **Open** | Controlling for $Z$ **closes** it |
+| Collider ($X \rightarrow Z \leftarrow Y$) | **Closed** | Controlling for $Z$ **opens** it |
+
+. . .
+
+**Our goal:** Close all bad (backdoor) paths while keeping good (causal) paths open.
+
+
+# Confounding and the OVB Connection
 
 ## The Confounding Problem
 
@@ -139,242 +204,340 @@ When $X$ and $Y$ share a common cause $Z$, they are **confounded**. A regression
 
 **In the class size example:**
 
-$$\text{Association} = \underbrace{\text{Causal Effect}}_{\text{Class Size} \rightarrow \text{Scores}} + \underbrace{\text{Confounding}}_{\text{Wealth} \rightarrow \text{Class Size} \rightarrow \text{Scores}}$$
+$$\text{Association} = \underbrace{\text{Causal Effect}}_{\text{Class Size} \rightarrow \text{Scores}} + \underbrace{\text{Confounding Bias}}_{\text{via Wealth}}$$
+
+## OVB Is an Open Backdoor Path {.smaller}
+
+Remember [omitted variable bias]{.kw} from Chapter 6?
+
+OVB occurs when a variable that belongs in the regression is left out. In DAG language:
+
+- The omitted variable creates a [backdoor path]{.alert} between $X$ and $Y$
+- Leaving it out of the regression means the path stays **open**
+- The bias flows through that open path into your estimate of $\hat{\beta}_1$
 
 . . .
 
-The confounding bias makes class size appear more beneficial than it actually is (or less beneficial, depending on direction).
+::: {.callout-note}
+## OVB ↔ Backdoor Paths
+**Every case of OVB is an open backdoor path.** The DAG just gives you a visual way to see it — and to figure out what to control for.
+:::
 
 ## Blocking Backdoor Paths
 
-::: {.callout-note}
-## Blocking a Backdoor Path
-Control for (include in regression) the confounder $Z$ to "block" the backdoor path $X \leftarrow Z \rightarrow Y$.
+:::: {.columns}
+
+::: {.column width="35%"}
+![](./ch8b_figures/ch8b_backdoor_path.png){width=100% fig-align="center"}
 :::
 
-. . .
+::: {.column width="60%"}
+::: {.callout-note}
+## Blocking a Backdoor Path
+Control for (include in regression) the confounder $Z$ to "close" the backdoor path $X \leftarrow Z \rightarrow Y$.
+:::
 
 **In the class size example:**
 
-- **Without controlling for Wealth:** Regression picks up confounding bias
-- **With controlling for Wealth:** Regression isolates the causal effect of Class Size
+- **Without controlling for Wealth:** Regression picks up confounding bias (path is [open]{.alert})
+- **With controlling for Wealth:** Regression isolates the causal effect (path is [closed]{.kw})
+:::
+
+::::
+
+## Knowledge Check: Direction of Bias
+
+::: {.callout-tip}
+## Think About It
+If we regress Test Scores on Class Size *without* controlling for Wealth, will the class size coefficient be biased up or down?
+:::
 
 . . .
 
-::: {.callout-tip}
-## Knowledge Check
-If we regress Test Scores on Class Size *without* controlling for Wealth, will the class size coefficient be biased up or down?
+**Answer:** The coefficient on class size is biased *toward zero* (understates the negative effect).
 
-**Answer:** Biased *down* (overstates the negative effect), because wealthy areas have smaller classes AND higher scores.
-:::
+- Wealthy areas → smaller classes AND higher scores
+- This creates a *positive* confounding association between class size and scores
+- The positive confounding partially cancels the true negative causal effect
 
----
 
 # Which Variables to Control For?
 
-## The Golden Rule: The Backdoor Criterion
+## The Backdoor Criterion {.smaller}
 
-To identify a causal effect of $X$ on $Y$:
+To identify the causal effect of $X$ on $Y$:
 
 ::: {.callout-important}
 ## Backdoor Criterion
-Control for a set of variables $Z$ such that:
-1. No variable in $Z$ is a **descendant** of $X$
-2. Controlling for $Z$ **blocks all backdoor paths** from $X$ to $Y$
+Control for a set of variables $\mathbf{Z}$ such that:
+
+1. No variable in $\mathbf{Z}$ is a [descendant]{.alert} of $X$
+2. Controlling for $\mathbf{Z}$ [closes all backdoor paths]{.kw} from $X$ to $Y$
 :::
 
 . . .
 
-**In words:**
+**In plain language:**
 
-- Don't control for variables that $X$ affects (that would block part of the causal effect)
-- Do control for variables that create confounding
-
----
+- **Do** control for common causes (confounders) — they create open backdoor paths
+- **Don't** control for variables that $X$ affects — that would block part of the causal effect
+- **Don't** control for colliders — that would *open* a path that was safely closed
 
 ## What NOT to Control For: Colliders
 
+:::: {.columns}
+
+::: {.column width="35%"}
+![](./ch8b_figures/ch8b_collider.png){width=100% fig-align="center"}
+:::
+
+::: {.column width="60%"}
 ::: {.callout-warning}
 ## Collider Bias
-If you control for a variable $Z$ that is a **common effect** of $X$ and $Y$, you create bias by opening a spurious path.
+If you control for a [collider]{.alert} — a variable caused by *both* $X$ and $Y$ — you **open** a previously closed path and create bias.
+:::
+
+- Talent and Connections both cause Job Hiring
+- The path Talent → Job Hiring ← Connections is [closed by default]{.kw}
+- If we condition on people who were hired (control for the collider), the path **opens**
+- Among the hired: low Talent becomes correlated with high Connections
+:::
+
+::::
+
+## What NOT to Control For: Mediators
+
+::: {.callout-warning}
+## Bad Control: Mediator
+If $X \rightarrow M \rightarrow Y$, then $M$ is a [mediator]{.alert}. Controlling for $M$ blocks part of the causal effect of $X$ on $Y$.
 :::
 
 . . .
 
-**Example:**
+**Example:** Does education affect earnings?
 
-```
-  Talent → JobHiring
-           ↗
-    Connections
-```
+- Education → Job Type → Earnings
+- If we control for Job Type, we block the indirect effect of education that works *through* job placement
+- We'd only estimate the effect of education holding job type fixed — not the total causal effect
 
-- Suppose Talent and Connections both cause Job Hiring
-- If we condition on people who got hired, we create a [collider bias]{.alert}
-- Among people who got hired, low Talent is correlated with high Connections (one compensates for the other)
 
----
+# Applications: Identifying Causal Effects
 
-# Application: Identifying Causal Effects
+## Does Education Cause Earnings?
 
-## Example 1: Does Education Cause Earnings?
+:::: {.columns}
 
-```
-     Ability
-      ↙ ↖
-     /   \
-    V     V
-Education → Earnings
-```
+::: {.column width="35%"}
+![](./ch8b_figures/ch8b_unobserved_confounder.png){width=100% fig-align="center"}
 
-. . .
+::: {.smaller}
+[Gray node]{style="color: #708090; font-weight: bold;"} = unobserved variable
+:::
+:::
 
-**Questions:**
+::: {.column width="60%"}
+1. **Causal path?** Yes: Education → Earnings
+2. **Backdoor paths?** Yes: Education ← Ability → Earnings
+3. **What to control for?** Ability
+:::
 
-1. Is there a causal path from Education to Earnings?
-   - Yes: Education → Earnings
+::::
 
-2. Are there backdoor paths?
-   - Yes: Education ← Ability → Earnings
+## Does Education Cause Earnings? (cont.)
 
-3. What should we control for?
-   - We need to control for Ability
+**Challenge:** Ability is [unobserved]{.alert}! We can't directly control for it.
 
-. . .
+This is why economists turn to **identification strategies** — instruments, experiments, panel data — to close backdoor paths when confounders are unobservable.
 
-**Challenge:** Ability is often unobservable!
+## Does Job Training Improve Employment? {.smaller}
 
----
+:::: {.columns}
 
-## Example 2: Does a Program Treatment Cause Outcomes?
+::: {.column width="35%"}
+![](./ch8b_figures/ch8b_rct.png){width=100% fig-align="center"}
+:::
 
-```
-     Motivation
-      ↙ ↖
-     /   \
-    V     V
-Treatment → Outcome
-```
+::: {.column width="60%"}
+**The problem without randomization:**
+
+- Motivated workers are more likely to sign up for training
+- Motivated workers are also more likely to find jobs
+- Backdoor path: Training ← Motivation → Employment
 
 . . .
 
-**From a randomized experiment:**
+**With an RCT:**
 
-- Random assignment of Treatment eliminates the backdoor path (Motivation no longer confounds)
-- We can estimate the causal effect without controlling for Motivation
-- This is why randomization is powerful!
+- Randomly assign workers to training
+- Now Motivation does [not]{.alert} cause Training — that arrow is severed
+- All backdoor paths are closed *by design*
+:::
 
----
+::::
+
+. . .
+
+::: {.callout-important}
+This is why [randomized controlled trials (RCTs)]{.kw} are the gold standard for causal inference — they eliminate confounding mechanically.
+:::
+
+## Reverse Causation
+
+:::: {.columns}
+
+::: {.column width="55%"}
+![](./ch8b_figures/ch8b_reverse_causation.png){width=100% fig-align="center"}
+:::
+
+::: {.column width="45%"}
+::: {.callout-warning}
+## Reverse Causation
+Sometimes the arrow between $X$ and $Y$ runs in the **opposite direction** from what we assume.
+:::
+
+- We observe a positive correlation between police and crime
+- **Our hypothesis:** More police → less crime
+- **The problem:** Cities with more crime hire more police
+:::
+
+::::
+
+. . .
+
+In DAG terms: we've drawn the wrong DAG. The true DGP has the arrow reversed (or both arrows exist — [simultaneity]{.kw}).
+
+## Measurement Error
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](./ch8b_figures/ch8b_measurement_error.png){width=100% fig-align="center"}
+
+::: {.smaller}
+[Gray]{style="color: #708090; font-weight: bold;"} = unobserved
+:::
+:::
+
+::: {.column width="60%"}
+::: {.callout-warning}
+## Measurement Error
+When we can't perfectly measure a variable in our DAG, we introduce [measurement error]{.alert}.
+:::
+
+- We want to control for Ability to close a backdoor path
+- We can't measure Ability directly, so we use a proxy (Test Score)
+- But Test Score ≠ Ability (noisy measurement)
+- Controlling for the proxy only *partially* closes the backdoor path
+- Result: our estimate is still biased — [attenuation bias]{.kw}
+:::
+
+::::
+
 
 # Knowledge Checks and Practice
 
-## Knowledge Check 1: Reading a DAG
+## Knowledge Check 1: Health Insurance
 
-```
-  Income
-    ↓
-HealthInsurance
-    ↓
-  Health
-```
+:::: {.columns}
 
-Which paths are causal? Backdoor? Collider?
-
-::: {.callout-tip}
-- **Causal path:** Income → HealthInsurance → Health
-- **Backdoor:** None (no common causes)
-- **Collider:** None (no common effects)
-
-To estimate the effect of HealthInsurance on Health, should we control for Income?
-- **No.** Income is an ancestor of both, but there is no confounding (no backdoor path). Controlling for Income would not bias the estimate, but is unnecessary.
+::: {.column width="35%"}
+![](./ch8b_figures/ch8b_knowledge_check_1.png){width=100% fig-align="center"}
 :::
 
-## Knowledge Check 2: Identifying the Right Controls
+::: {.column width="60%"}
+Does Income confound the effect of Health Insurance on Health?
 
-```
-   Education
-     ↙ ↖
-    /   \
-   V     V
-Socioeconomic
-Status → Earnings
-     ↖ ↗
-    /   \
-   /     \
- Family
-Connections
-```
+To estimate the effect of Health Insurance on Health, should we control for Income?
+:::
 
-. . .
+::::
 
+## Knowledge Check 1: Answer
+
+::: {.callout-tip}
+## Answer
+- There is a backdoor path: Health Insurance ← Income → Health
+- Income is a common cause of both Health Insurance and Health
+- So yes, we **should** control for Income — it's a confounder
+:::
+
+## Knowledge Check 2: SES and Earnings
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](./ch8b_figures/ch8b_complex_dag.png){width=100% fig-align="center"}
+:::
+
+::: {.column width="60%"}
 **Questions:**
 
 1. What are the backdoor paths from SES to Earnings?
 2. What minimal set of variables should we control for?
-
-::: {.callout-tip collapse="true"}
-## Answer
-
-1. **Backdoor paths:**
-   - SES ← Family Connections → Earnings
-   - Others depending on the full DAG structure
-
-2. **Controls:** Family Connections (and any other common causes)
-   - Do NOT control for Education (it is a descendant of SES and mediates the effect)
 :::
 
----
+::::
 
-## Practice Problem: Causality in Your Research
+## Knowledge Check 2: Answer
 
-Think of a causal question from your own interest or research:
+::: {.callout-tip}
+## Answer
+1. **Backdoor path:** SES ← (shared causes) → Earnings via Family Connections
+2. **Controls:** Family Connections (to close the backdoor)
+   - Do [NOT]{.alert} control for Education — it is a *descendant* of SES (mediator)
+:::
 
-- What is the treatment ($X$) and outcome ($Y$)?
-- What variables might confound this relationship?
-- What would a simple DAG look like?
-- What would you need to control for?
+## Practice: Draw Your Own DAG
+
+Think of a causal question from your own interest or research paper:
+
+1. What is the treatment ($X$) and outcome ($Y$)?
+2. What variables might confound this relationship?
+3. Draw a simple DAG (3–5 variables)
+4. Identify the backdoor paths
+5. What would you need to control for?
 
 . . .
 
-*Discuss with a partner or make notes on your own.*
+::: {.callout-tip}
+## Tip from *The Effect*
+Start with your treatment and outcome. Then ask: "What are all the things that cause my treatment? What are all the things that cause my outcome? Do any of those overlap?" Those overlapping causes are your confounders.
+:::
 
----
 
 # Summary
 
-## Key Takeaways
+## Key Takeaways {.smaller}
 
-1. **Association ≠ Causation.** DAGs help us think systematically about causality.
+1. **The DGP is what we're trying to understand.** A DAG is our best model of that process.
 
-2. **Confounding happens through backdoor paths.** Control for common causes, not descendants.
+2. **Association ≠ Causation.** DAGs help us think systematically about *why*.
 
-3. **The Backdoor Criterion is mechanical.** Once you draw the DAG, you know which variables to control for.
+3. **OVB = an open backdoor path.** If a confounder is omitted, the path stays open and your estimate is biased.
 
-4. **Collider bias is real.** Controlling for the wrong variable can introduce bias.
+4. **The Backdoor Criterion is mechanical.** Once you draw the DAG, you can determine what to control for.
 
-5. **Randomization is powerful.** Random assignment breaks backdoor paths without needing to control for confounders.
+5. **Collider bias is real.** Controlling for the wrong variable can *introduce* bias by opening a closed path.
 
----
+6. **Randomization is powerful.** Random assignment closes backdoor paths by design.
 
-# Appendix: Technical Details
+## What's Next?
 
-## Formal Definition of a DAG
+These ideas connect directly to **Chapter 9: Assessing Regression Validity**:
 
-A directed acyclic graph is a set of:
-
-- **Vertices** (nodes) representing variables
-- **Directed edges** (arrows) representing direct causal relationships
-- **No cycles:** You cannot follow arrows and return to the same node
+- [Omitted variable bias]{.kw} = an open backdoor path you haven't closed
+- [Measurement error]{.kw} = your DAG nodes don't match what you actually measured
+- [Simultaneity / reverse causation]{.kw} = the arrows in your DAG might be wrong
 
 . . .
 
-**Why no cycles?** In most economic settings, causality flows forward in time. Cycles would imply effects that feed back on themselves, which complicates identification (and is uncommon in cross-sectional contexts).
+**The DAG framework gives you a visual language for diagnosing every threat to internal validity.**
 
-## d-Separation (Advanced)
+## For the Curious: d-Separation
 
-::: {.callout-note}
-## d-Separation
-Two variables are **d-separated** by a set $Z$ if all paths between them are blocked by $Z$. If $X$ and $Y$ are d-separated by $Z$, they are conditionally independent given $Z$.
-:::
+The backdoor criterion is actually a special case of a more general concept called [d-separation]{.kw}.
 
-The Backdoor Criterion is an application of d-separation theory. If we control for $Z$ such that $X$ and $Y$ are d-separated, we have identified the causal effect.
+- Two variables are **d-separated** by $\mathbf{Z}$ if every path between them is closed after conditioning on $\mathbf{Z}$
+- If d-separated, the variables are conditionally independent given $\mathbf{Z}$
+
+You don't need to know d-separation for this course — the backdoor criterion is the tool you'll use. But if you want to go deeper, see *The Effect* Chapter 8 or Pearl (2009).
