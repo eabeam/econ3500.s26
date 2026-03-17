@@ -89,23 +89,40 @@ ggsave(file.path(fig_dir, "ch8_interaction_continuous.png"), p3, width = 10, hei
 
 ################################################################################
 # FIGURE 4: INTERACTION BINARY
+# Use true population lines (geom_abline) so the "No Interaction" panel
+# shows genuinely parallel lines, not noisy OLS fits.
 ################################################################################
 n <- 200
 X_cont <- runif(n, 0, 10)
 D_binary <- rbinom(n, 1, 0.5)
-Y_no_int <- 30 + 2*X_cont + 10*D_binary + rnorm(n, 0, 5)
+Y_no_int   <- 30 + 2*X_cont + 10*D_binary              + rnorm(n, 0, 5)
 Y_with_int <- 30 + 2*X_cont + 10*D_binary + 1.5*X_cont*D_binary + rnorm(n, 0, 5)
-df_binary_no <- data.frame(X = X_cont, D = factor(D_binary), Y = Y_no_int, Model = "No Interaction")
-df_binary_with <- data.frame(X = X_cont, D = factor(D_binary), Y = Y_with_int, Model = "With Interaction")
+df_binary_no   <- data.frame(X = X_cont, D = factor(D_binary, labels = c("D = 0", "D = 1")), Y = Y_no_int,   Model = "No Interaction")
+df_binary_with <- data.frame(X = X_cont, D = factor(D_binary, labels = c("D = 0", "D = 1")), Y = Y_with_int, Model = "With Interaction")
 df_binary <- rbind(df_binary_no, df_binary_with)
-df_binary$D <- factor(df_binary$D, labels = c("D = 0", "D = 1"))
+
+# True population lines for each panel and group
+true_lines <- data.frame(
+  Model     = c("No Interaction", "No Interaction", "With Interaction", "With Interaction"),
+  D         = c("D = 0", "D = 1", "D = 0", "D = 1"),
+  intercept = c(30, 40, 30, 40),    # D=1 intercept shift = +10
+  slope     = c(2,  2,  2,  3.5)    # No interaction: equal slopes; with: D=1 steeper
+)
+
 p4 <- ggplot(df_binary, aes(x = X, y = Y, color = D)) +
   geom_point(alpha = 0.3, size = 1.5) +
-  geom_smooth(method = "lm", se = FALSE, linewidth = 1.2) +
+  geom_abline(data = true_lines, aes(intercept = intercept, slope = slope, color = D),
+              linewidth = 1.3) +
   facet_wrap(~ Model, ncol = 2) +
   scale_color_manual(values = c(eco_teal, eco_navy)) +
-  labs(title = "Interaction with Binary Variable", subtitle = "No interaction: parallel slopes  |  With interaction: different slopes", x = "X (continuous)", y = "Y", color = "Group") +
-  theme_minimal(base_size = 14) + theme(plot.title = element_text(face = "bold", hjust = 0.5), plot.subtitle = element_text(hjust = 0.5), legend.position = "bottom", strip.text = element_text(face = "bold", size = 12))
+  labs(title = "Interaction with Binary Variable",
+       subtitle = "No interaction: parallel slopes  |  With interaction: different slopes",
+       x = "X (continuous)", y = "Y", color = "Group") +
+  theme_minimal(base_size = 14) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5),
+        legend.position = "bottom",
+        strip.text = element_text(face = "bold", size = 12))
 ggsave(file.path(fig_dir, "ch8_interaction_binary.png"), p4, width = 12, height = 6, dpi = 300, bg = "white")
 
 ################################################################################
