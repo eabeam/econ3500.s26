@@ -6,8 +6,6 @@ date: "2026-01-01"
 format:
   revealjs:
     footer: "ECON3500 | Chapter 8"
-    embed-resources: true
-    chalkboard: false
 ---
 
 ## What You'll Learn Today

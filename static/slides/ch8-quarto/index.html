@@ -6,8 +6,8 @@
 <script src="ch8_nonlinear_relationships_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="ch8_nonlinear_relationships_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ch8_nonlinear_relationships_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="ch8_nonlinear_relationships_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
- <meta name="generator" content="quarto-1.8.26">
+<link href="ch8_nonlinear_relationships_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+ <meta name="generator" content="quarto-1.8.27">
 
  <meta name="author" content="ECON3500: Econometrics and Applications">
  <title>Nonlinear Relationships</title>
@@ -210,10 +210,6 @@ ECON3500: Econometrics and Applications
 
  <p class="date">Spring 2026</p>
 </section>
-<section id="roadmap" class="slide level2 scrollable">
-<h2>Roadmap</h2>
-<p>[TOC]</p>
-</section>
 <section id="what-youll-learn-today" class="slide level2 scrollable">
 <h2>What You’ll Learn Today</h2>
 <div class="callout callout-important callout-titled callout-style-default">
@@ -235,7 +231,6 @@ ECON3500: Econometrics and Applications
 <li>Compute and interpret <span class="kw">marginal effects</span></li>
 <li>Estimate <span class="kw">interaction effects</span> between variables</li>
 <li>Use <span class="kw">logarithmic transformations</span> effectively</li>
-<li><span class="kw">Test functional form</span> with Ramsey RESET</li>
 <li>Apply these tools in Stata</li>
 </ol>
 </section>
@@ -262,6 +257,10 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 </ul>
 </div>
 </section>
+<section id="the-dose-makes-the-poison" class="slide level2">
+<h2>The Dose Makes the Poison</h2>
+
+<img src="./ch8_figures/ch8_dose_poison.jpg" class="quarto-figure quarto-figure-center " style="width:65.0%"></section>
 <section id="real-world-examples-of-nonlinearity" class="slide level2">
 <h2>Real-World Examples of Nonlinearity</h2>
 <p><strong>Diminishing returns:</strong></p>
@@ -307,6 +306,47 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 </div>
 </div>
 </div>
+</section>
+<section id="the-general-nonlinear-regression-model" class="slide level2 scrollable">
+<h2>The General Nonlinear Regression Model</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>General Form</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math display">\[
+Y_i = f(X_{1i}, X_{2i}, \ldots, X_{ki}) + u_i
+\]</span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>The OLS assumptions carry over unchanged:</strong></p>
+<ol type="1">
+<li><span class="math inline">\(E[u_i \mid X_{1i}, \ldots, X_{ki}] = 0\)</span></li>
+<li><span class="math inline">\((X_{1i}, \ldots, X_{ki}, Y_i)\)</span> are i.i.d.</li>
+<li>Large outliers are rare</li>
+<li>No perfect multicollinearity</li>
+</ol>
+</div>
+</section>
+<section id="marginal-effects-in-nonlinear-models" class="slide level2">
+<h2>Marginal Effects in Nonlinear Models</h2>
+<p>The effect of a change in <span class="math inline">\(X_1\)</span>, holding <span class="math inline">\(X_2, \ldots, X_k\)</span> constant:</p>
+<p><span class="math display">\[
+\Delta Y = f(X_1 + \Delta X_1, X_2, \ldots, X_k) - f(X_1, X_2, \ldots, X_k)
+\]</span></p>
+<div class="fragment">
+<p><strong>Key difference from the linear model:</strong> the marginal effect <span class="alert">depends on the current value of <span class="math inline">\(X_1\)</span></span> (and possibly other variables).</p>
+</div>
+<div class="fragment">
+<p>In the linear model: <span class="math inline">\(\Delta Y = \beta_1 \Delta X_1\)</span> — constant everywhere.</p>
+<p>In a nonlinear model: <span class="math inline">\(\Delta Y\)</span> must be evaluated at a specific value of <span class="math inline">\(X_1\)</span>.</p>
+</div>
 </section></section>
 <section>
 <section id="polynomial-regression" class="title-slide slide level1 center">
@@ -345,7 +385,7 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i
 <section id="visualizing-quadratic-relationships" class="slide level2">
 <h2>Visualizing Quadratic Relationships</h2>
 
-<img src="./ch8_figures/ch8_quadratic_relationship.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">U-shaped (β₂ &gt; 0) or inverted-U (β₂ &lt; 0)</p></section>
+<img src="./ch8_figures/ch8_quadratic_relationship.png" style="width:80.0%" class=""></section>
 <section id="interpreting-quadratic-coefficients" class="slide level2">
 <h2>Interpreting Quadratic Coefficients</h2>
 <p><span class="math display">\[
@@ -388,8 +428,10 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i
 \log(wage) = \beta_0 + \beta_1 \cdot experience + \beta_2 \cdot experience^2 + u
 \]</span></p>
 <div class="fragment">
-<p><strong>Estimated coefficients:</strong></p>
-<pre><code>log(wage) = 1.5 + 0.08*experience - 0.0012*experience^2</code></pre>
+<p><strong>Estimated:</strong></p>
+<p><span class="math display">\[
+\widehat{\log(wage)} = 1.5 + 0.08 \cdot experience - 0.0012 \cdot experience^2
+\]</span></p>
 </div>
 <div class="fragment">
 <p><strong>Interpretation:</strong></p>
@@ -444,7 +486,7 @@ exper^* = -\frac{0.08}{2(-0.0012)} = \frac{0.08}{0.0024} \approx 33.3 \text{ yea
 <section id="visualizing-marginal-effects" class="slide level2">
 <h2>Visualizing Marginal Effects</h2>
 
-<img src="./ch8_figures/ch8_marginal_effect_quadratic.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">Marginal effect decreases linearly with <span class="math inline">\(X\)</span> when <span class="math inline">\(\beta_2 &lt; 0\)</span></p></section>
+<img src="./ch8_figures/ch8_marginal_effect_quadratic.png" style="width:80.0%" class=""></section>
 <section id="knowledge-check-quadratic-model" class="slide level2 smaller scrollable">
 <h2>Knowledge Check: Quadratic Model</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -497,22 +539,78 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \beta_3 X_i^3 + u_i
 <p><strong>When to use:</strong> Multiple turning points, S-shaped patterns.</p>
 </div>
 <div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Overfitting</strong></p>
+</div>
+<div class="callout-content">
+<p>A model <span class="alert">overfits</span> when it fits the sample data too closely — capturing noise rather than the true underlying relationship — and therefore predicts poorly on new data. Higher-order polynomials with too many terms are a classic example. <em>(S&amp;W Ch. 8)</em></p>
+</div>
+</div>
+</div>
 <p><strong>Warning:</strong> Higher-order polynomials can <span class="alert">overfit</span> and behave erratically at extremes. Use sparingly!</p>
 </div>
 </section>
 <section id="stata-implementation-polynomial-regression" class="slide level2 smaller">
 <h2>Stata Implementation: Polynomial Regression</h2>
 <p><strong>Create polynomial terms:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> experience2 = experience^2</span>
-<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> experience3 = experience^3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> experience2 = experience^2</span>
+<span id="cb1-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> experience3 = experience^3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Estimate model:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> log_wage education experience experience2, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> log_wage education experience experience2, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Compute marginal effect at mean experience:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span> experience</span>
-<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">scalar</span> exper_mean = <span class="fu">r</span>(<span class="kw">mean</span>)</span>
-<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> <span class="st">"Marginal effect = "</span> _b[experience] + 2*_b[experience2]*exper_mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">summarize</span> experience</span>
+<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">scalar</span> exper_mean = <span class="fu">r</span>(<span class="kw">mean</span>)</span>
+<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">display</span> <span class="st">"Marginal effect = "</span> _b[experience] + 2*_b[experience2]*exper_mean</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Shortcut using margins:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(experience) <span class="fu">at</span>(experience=10)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(experience) <span class="fu">at</span>(experience=10)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="testing-whether-the-quadratic-term-belongs" class="slide level2">
+<h2>Testing Whether the Quadratic Term Belongs</h2>
+<p><strong>Two key hypothesis tests:</strong></p>
+<div class="fragment">
+<p><strong>Test 1 — Is the quadratic term significant?</strong></p>
+<p><span class="math display">\[H_0: \beta_2 = 0 \quad \text{vs.} \quad H_1: \beta_2 \neq 0\]</span></p>
+<p>Use the <span class="math inline">\(t\)</span>-statistic on <span class="math inline">\(\hat{\beta}_2\)</span>. Reject → evidence of a nonlinear relationship.</p>
+</div>
+<div class="fragment">
+<p><strong>Test 2 — Does <span class="math inline">\(X\)</span> have any effect at all?</strong> (joint test)</p>
+<p><span class="math display">\[H_0: \beta_1 = \beta_2 = 0\]</span></p>
+<p>Use the <span class="math inline">\(F\)</span>-statistic. Reject → <span class="math inline">\(X\)</span> matters (linearly or nonlinearly).</p>
+</div>
+</section>
+<section id="stata-testing-polynomial-terms" class="slide level2 smaller">
+<h2>Stata: Testing Polynomial Terms</h2>
+<p><strong>Test if quadratic term is needed:</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> testscore income income2, <span class="kw">robust</span></span>
+<span id="cb5-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">test</span> income2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p><strong>Test if income matters at all (joint F-test):</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">test</span> income income2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Interpreting the Tests</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Reject <span class="math inline">\(H_0: \beta_2 = 0\)</span> → keep the quadratic term; relationship is nonlinear</li>
+<li>Fail to reject <span class="math inline">\(H_0: \beta_2 = 0\)</span> → can simplify back to linear model</li>
+<li>Reject <span class="math inline">\(H_0: \beta_1 = \beta_2 = 0\)</span> → income has some effect on test scores</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="interaction-effects" class="title-slide slide level1 center">
@@ -537,9 +635,9 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \beta_3 X_i^3 + u_i
 <div class="fragment">
 <p><strong>Examples:</strong></p>
 <ul>
-<li>Effect of education on wages may differ by gender</li>
-<li>Effect of advertising may depend on product quality</li>
-<li>Effect of fertilizer may depend on rainfall</li>
+<li>Does the effect of job training on employment depend on local unemployment conditions?</li>
+<li>Does the effect of class size on test scores differ by student income level?</li>
+<li>Does the price elasticity of demand differ for necessities vs.&nbsp;luxuries?</li>
 </ul>
 </div>
 <div class="fragment">
@@ -548,6 +646,90 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \beta_3 X_i^3 + u_i
 Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \times X_{2i}) + u_i
 \]</span></p>
 <p>The <span class="alert">interaction term</span> is <span class="math inline">\(X_1 \times X_2\)</span>.</p>
+</div>
+</section>
+<section id="three-types-of-interactions" class="slide level2 scrollable">
+<h2>Three Types of Interactions</h2>
+<ol type="1">
+<li><strong>Binary × Binary</strong> — Does the effect of one group membership vary by another?
+<ul>
+<li><em>Example: Does the gender wage gap differ by sector (public vs.&nbsp;private)?</em></li>
+</ul></li>
+<li><strong>Binary × Continuous</strong> — Does the slope differ across groups?
+<ul>
+<li><em>Example: Does the return to education differ by gender?</em></li>
+</ul></li>
+<li><strong>Continuous × Continuous</strong> — Does the effect of one variable depend on the level of another?
+<ul>
+<li><em>Example: Does the return to education grow with experience?</em></li>
+</ul></li>
+</ol>
+<div class="fragment">
+<p>All three are estimated the same way: include the product term plus both main effects.</p>
+</div>
+</section>
+<section id="binary-binary-interaction" class="slide level2">
+<h2>Binary × Binary Interaction</h2>
+<p><strong>Model:</strong></p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 (D_{1i} \cdot D_{2i}) + u_i
+\]</span></p>
+<p>where <span class="math inline">\(D_1\)</span> and <span class="math inline">\(D_2\)</span> are dummy variables.</p>
+<div class="fragment">
+<p><strong>Predicted values for each group:</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(D_2 = 0\)</span></th>
+<th><span class="math inline">\(D_2 = 1\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(D_1 = 0\)</span></td>
+<td><span class="math inline">\(\beta_0\)</span></td>
+<td><span class="math inline">\(\beta_0 + \beta_2\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(D_1 = 1\)</span></td>
+<td><span class="math inline">\(\beta_0 + \beta_1\)</span></td>
+<td><span class="math inline">\(\beta_0 + \beta_1 + \beta_2 + \beta_3\)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\beta_3\)</span> captures the <span class="alert">extra effect</span> of being in both groups simultaneously — beyond what you’d expect from the main effects alone.</p>
+</div>
+</section>
+<section id="example-gender-gap-by-sector" class="slide level2 smaller">
+<h2>Example: Gender Gap by Sector</h2>
+<p><strong>Question:</strong> Does the gender wage gap differ in the public sector?</p>
+<p><strong>Model:</strong></p>
+<p><span class="math display">\[
+wage = \beta_0 + \beta_1 \cdot female + \beta_2 \cdot public + \beta_3 (female \times public) + u
+\]</span></p>
+<p><strong>Estimated:</strong></p>
+<p><span class="math display">\[
+\hat{wage} = 25 - 4 \cdot female + 3 \cdot public + 2 \cdot (female \times public)
+\]</span></p>
+<div class="fragment">
+<p><strong>Interpretation:</strong></p>
+<ul>
+<li>Men in private sector: $25 (baseline)</li>
+<li>Men in public sector: <span class="math inline">\(25 + 3 = \$28\)</span></li>
+<li>Women in private sector: <span class="math inline">\(25 - 4 = \$21\)</span> (gap = $4)</li>
+<li>Women in public sector: <span class="math inline">\(25 - 4 + 3 + 2 = \$26\)</span> (gap = $2)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(\hat{\beta}_3 = 2\)</span>: the gender wage gap is $2 <span class="alert">smaller</span> in the public sector. Test <span class="math inline">\(H_0: \beta_3 = 0\)</span> to check if the gap differs significantly.</p>
 </div>
 </section>
 <section id="continuous-continuous-interaction" class="slide level2">
@@ -579,7 +761,9 @@ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \cdot X_{2i}) 
 wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot experience + \beta_3 (education \times experience) + u
 \]</span></p>
 <p><strong>Estimated:</strong></p>
-<pre><code>wage = 2.0 + 1.5*education + 0.3*experience + 0.05*(education*experience)</code></pre>
+<p><span class="math display">\[
+\hat{wage} = 2.0 + 1.5 \cdot education + 0.3 \cdot experience + 0.05 \cdot (education \times experience)
+\]</span></p>
 <div class="fragment">
 <p><strong>Interpretation:</strong></p>
 <ul>
@@ -592,7 +776,7 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot experience + \beta_3 (e
 <section id="visualizing-continuous-continuous-interactions" class="slide level2">
 <h2>Visualizing Continuous × Continuous Interactions</h2>
 
-<img src="./ch8_figures/ch8_interaction_continuous.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">Different slopes for different values of <span class="math inline">\(X_2\)</span></p></section>
+<img src="./ch8_figures/ch8_interaction_continuous.png" style="width:80.0%" class=""></section>
 <section id="binary-continuous-interaction" class="slide level2">
 <h2>Binary × Continuous Interaction</h2>
 <p><strong>Model:</strong></p>
@@ -616,7 +800,9 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 D_i + \beta_3 (X_i \cdot D_i) + u_i
 wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (education \times female) + u
 \]</span></p>
 <p><strong>Estimated:</strong></p>
-<pre><code>wage = 3.0 + 2.0*education - 1.5*female - 0.3*(education*female)</code></pre>
+<p><span class="math display">\[
+\hat{wage} = 3.0 + 2.0 \cdot education - 1.5 \cdot female - 0.3 \cdot (education \times female)
+\]</span></p>
 <div class="fragment">
 <p><strong>Interpretation:</strong></p>
 <ul>
@@ -629,7 +815,7 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 <section id="visualizing-binary-continuous-interactions" class="slide level2">
 <h2>Visualizing Binary × Continuous Interactions</h2>
 
-<img src="./ch8_figures/ch8_interaction_binary.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">Parallel lines ⇒ no interaction. Different slopes ⇒ interaction present!</p></section>
+<img src="./ch8_figures/ch8_interaction_binary.png" style="width:80.0%" class=""></section>
 <section id="knowledge-check-interaction-effects" class="slide level2 smaller scrollable">
 <h2>Knowledge Check: Interaction Effects</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -668,26 +854,78 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 </div>
 </div>
 </section>
-<section id="stata-implementation-interactions" class="slide level2">
+<section id="stata-implementation-interactions" class="slide level2 smaller">
 <h2>Stata Implementation: Interactions</h2>
 <p><strong>Method 1: Create interaction manually</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> educ_exper = education * experience</span>
-<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage education experience educ_exper, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Method 2: Factor variable notation</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##c.experience, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>For dummy × continuous:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##i.female, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> educ_exper = education * experience</span>
+<span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage education experience educ_exper, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Method 2: Factor variable notation (preferred)</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##c.experience, <span class="kw">robust</span> <span class="co">// continuous × continuous</span></span>
+<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##i.female, <span class="kw">robust</span> <span class="co">// continuous × dummy</span></span>
+<span id="cb8-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage i.female##i.<span class="kw">public</span>, <span class="kw">robust</span> <span class="co">// dummy × dummy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Compute marginal effects at different values:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(education) <span class="fu">at</span>(experience=(0 10 20 30))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(education) <span class="fu">at</span>(experience=(0 10 20 30))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Factor variable prefixes</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><code>c.varname</code> — tells Stata to treat the variable as <span class="kw">continuous</span></li>
+<li><code>i.varname</code> — tells Stata to treat the variable as <span class="kw">categorical/dummy</span></li>
+<li><code>##</code> — includes the interaction <em>and</em> both main effects automatically</li>
+</ul>
+<p><strong>String variables:</strong> Factor notation requires numeric variables. If your variable is a string, convert it first: <code>encode strvar, gen(numvar)</code>, then use <code>i.numvar</code>. Alternatively, use the older <code>xi:</code> prefix: <code>xi: regress wage i.female*education</code>.</p>
+</div>
+</div>
+</div>
 </section>
-<section id="common-mistakes-with-interactions" class="slide level2 scrollable">
+<section id="common-mistakes-with-interactions" class="slide level2 smaller">
 <h2>Common Mistakes with Interactions</h2>
+<p><span class="alert"><strong>Mistake 1: Including interaction but omitting main effects</strong></span></p>
+<p>Never include <span class="math inline">\(X_1 \times X_2\)</span> without also including <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> separately. Omitting a main effect forces a constraint (e.g., that the baseline group has a zero intercept) that is almost always wrong.</p>
+<div class="fragment">
+<p><span class="alert"><strong>Mistake 2: Interpreting <span class="math inline">\(\beta_1\)</span> as “the” effect of <span class="math inline">\(X_1\)</span></strong></span></p>
+<p>In <span class="math inline">\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2\)</span>, the effect of <span class="math inline">\(X_1\)</span> is <span class="math inline">\(\beta_1 + \beta_3 X_2\)</span> — it depends on <span class="math inline">\(X_2\)</span>. <span class="math inline">\(\beta_1\)</span> is only the effect of <span class="math inline">\(X_1\)</span> when <span class="math inline">\(X_2 = 0\)</span>, which may not be a meaningful value.</p>
+</div>
+<div class="fragment">
+<p><span class="alert"><strong>Mistake 3: Forgetting to center variables</strong></span></p>
+<p>If <span class="math inline">\(X_2 = 0\)</span> is not meaningful (e.g., zero years of experience), center <span class="math inline">\(X_2\)</span> around its mean before interacting. Then <span class="math inline">\(\beta_1\)</span> gives the effect of <span class="math inline">\(X_1\)</span> at the average value of <span class="math inline">\(X_2\)</span>, which is much more interpretable.</p>
+</div>
+<div class="fragment">
+<p><span class="alert"><strong>Mistake 4: Testing the wrong hypothesis</strong></span></p>
+<p>To test whether an interaction matters, test <span class="math inline">\(H_0: \beta_3 = 0\)</span> (not <span class="math inline">\(H_0: \beta_1 = 0\)</span>). In Stata: <code>test</code> after <code>regress</code>, or read the <span class="math inline">\(t\)</span>-statistic on the interaction term directly.</p>
+</div>
+</section>
+<section id="choosing-interaction-terms" class="slide level2 scrollable">
+<h2>Choosing Interaction Terms</h2>
+<p><strong>When should you include an interaction?</strong></p>
+<div class="fragment">
 <ol type="1">
-<li><p><span class="alert">Including interaction but not main effects</span> — Always include <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> when you include <span class="math inline">\(X_1 \times X_2\)</span>!</p></li>
-<li><p><span class="alert">Interpreting <span class="math inline">\(\beta_1\)</span> as “the” effect of <span class="math inline">\(X_1\)</span></span> — With interactions, the effect depends on other variables; <span class="math inline">\(\beta_1\)</span> is only the effect when <span class="math inline">\(X_2 = 0\)</span>.</p></li>
-<li><p><span class="alert">Forgetting to center variables</span> — Centering makes <span class="math inline">\(\beta_1\)</span> interpretable as effect at average <span class="math inline">\(X_2\)</span>.</p></li>
-<li><p><span class="alert">Testing wrong hypothesis</span> — Test <span class="math inline">\(H_0: \beta_3 = 0\)</span> to check if interaction is significant.</p></li>
+<li><p><strong>Theory first</strong> — Is there a compelling reason that the effect of <span class="math inline">\(X_1\)</span> depends on <span class="math inline">\(X_2\)</span>? If yes, include the interaction regardless of significance.</p></li>
+<li><p><strong>Statistical test</strong> — Test <span class="math inline">\(H_0: \beta_3 = 0\)</span>. If rejected, the interaction is statistically significant.</p></li>
+<li><p><strong>Model fit</strong> — The <span class="kw">adjusted <span class="math inline">\(R^2\)</span></span> (<span class="math inline">\(\bar{R}^2\)</span>) penalizes for added parameters. If <span class="math inline">\(\bar{R}^2\)</span> rises when you add the interaction term, that provides additional support for including it.</p></li>
 </ol>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Rule</strong></p>
+</div>
+<div class="callout-content">
+<p>Never include an interaction term without also including both main effects (<span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>) — even if the main effects are not individually significant.</p>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="logarithmic-specifications" class="title-slide slide level1 center">
@@ -704,6 +942,24 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 </ol>
 <div class="fragment">
 <p><strong>Important:</strong> Can only take log of <span class="alert">positive</span> variables!</p>
+</div>
+</section>
+<section id="advantages-and-caveats-of-logs" class="slide level2">
+<h2>Advantages and Caveats of Logs</h2>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Coefficients have convenient percentage/elasticity interpretations</li>
+<li>Slope coefficients are invariant to rescaling of the variable</li>
+<li>Often reduces the influence of outliers</li>
+<li>Can improve normality and homoskedasticity of residuals</li>
+</ul>
+<div class="fragment">
+<p><strong>Caveats:</strong></p>
+<ul>
+<li>Cannot log zero or negative values (income, price: fine; test scores starting at 0: not fine)</li>
+<li>Do not log variables measured in years or percentage points (e.g., age, interest rate)</li>
+<li>Harder to reverse the log transformation when constructing predictions</li>
+</ul>
 </div>
 </section>
 <section id="four-logarithmic-models" class="slide level2">
@@ -748,6 +1004,59 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 <p><strong>Key insight:</strong> Each log transforms a unit change into a percentage change!</p>
 </div>
 </section>
+<section id="the-log-approximation" class="slide level2">
+<h2>The Log Approximation</h2>
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key Fact</strong></p>
+</div>
+<div class="callout-content">
+<p>For <strong>small</strong> changes in <span class="math inline">\(X\)</span>:</p>
+<p><span class="math display">\[100 \cdot \Delta \log(X) \approx \%\Delta X\]</span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>Change in <span class="math inline">\(X\)</span></th>
+<th>Log approximation</th>
+<th>Exact % change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>50 → 51</td>
+<td>1.98%</td>
+<td>2.00%</td>
+</tr>
+<tr class="even">
+<td>50 → 50.5</td>
+<td>0.995%</td>
+<td>1.00%</td>
+</tr>
+<tr class="odd">
+<td>50 → 60</td>
+<td>18.2%</td>
+<td>20.0%</td>
+</tr>
+<tr class="even">
+<td>50 → 80</td>
+<td>47.0%</td>
+<td>60.0%</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<p><strong>Rule of thumb:</strong> Approximation works well for changes up to ~10%. For larger changes, use the exact formula: <span class="math inline">\(\%\Delta Y = 100(e^{\hat{\beta}} - 1)\)</span>.</p>
+</div>
+</section>
 <section id="level-level-baseline" class="slide level2">
 <h2>Level-Level (Baseline)</h2>
 <p><span class="math display">\[
@@ -775,6 +1084,11 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 </div>
 </div>
 <p><strong>Example:</strong> <span class="math inline">\(\log(wage) = 1.5 + 0.08 \cdot education\)</span> — Each additional year of education increases wages by 8%.</p>
+<div class="fragment">
+<p><strong>Large changes:</strong> When <span class="math inline">\(100\beta_1 &gt; 10\%\)</span>, use the exact formula:</p>
+<p><span class="math display">\[\%\Delta \hat{Y} = 100(e^{\hat{\beta}_1} - 1)\]</span></p>
+<p><em>Always preserve the sign of the coefficient!</em></p>
+</div>
 </section>
 <section id="level-log" class="slide level2">
 <h2>Level-Log</h2>
@@ -795,6 +1109,46 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 </div>
 </div>
 <p><strong>Example:</strong> <span class="math inline">\(wage = 2 + 5 \log(experience)\)</span> — A 1% increase in experience increases wages by $0.05/hour. Doubling experience (100% increase) raises wages by $5/hour.</p>
+</section>
+<section id="where-does-log-level-come-from" class="slide level2 smaller">
+<h2>Where Does Log-Level Come From?</h2>
+<p><strong>Model:</strong> <span class="math inline">\(\log(wage) = \beta_0 + \beta_1 \cdot educ + u\)</span></p>
+<p><strong>Goal:</strong> What happens to <span class="math inline">\(wage\)</span> when <span class="math inline">\(educ\)</span> increases by 1?</p>
+<div class="fragment">
+<p><strong>Step 1:</strong> Take the partial derivative of both sides with respect to <span class="math inline">\(educ\)</span>:</p>
+<p><span class="math display">\[\Delta \log(wage) = \beta_1 \cdot \Delta educ\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 2:</strong> Multiply both sides by 100:</p>
+<p><span class="math display">\[100 \cdot \Delta \log(wage) = 100\beta_1 \cdot \Delta educ\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 3:</strong> Apply the log approximation (<span class="math inline">\(100 \cdot \Delta \log(x) \approx \%\Delta x\)</span>):</p>
+<p><span class="math display">\[\%\Delta wage \approx 100\beta_1 \cdot \Delta educ\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Conclusion:</strong> A one-unit increase in <span class="math inline">\(educ\)</span> is associated with a <span class="math inline">\(100\beta_1\)</span>% change in <span class="math inline">\(wage\)</span>.</p>
+</div>
+</section>
+<section id="where-does-level-log-come-from" class="slide level2 smaller">
+<h2>Where Does Level-Log Come From?</h2>
+<p><strong>Model:</strong> <span class="math inline">\(wage = \beta_0 + \beta_1 \log(educ) + u\)</span></p>
+<p><strong>Goal:</strong> What happens to <span class="math inline">\(wage\)</span> when <span class="math inline">\(educ\)</span> increases by 1%?</p>
+<div class="fragment">
+<p><strong>Step 1:</strong> Take the partial derivative of both sides with respect to <span class="math inline">\(\log(educ)\)</span>:</p>
+<p><span class="math display">\[\Delta wage = \beta_1 \cdot \Delta \log(educ)\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 2:</strong> Multiply and divide the right side by 100:</p>
+<p><span class="math display">\[\Delta wage = \frac{\beta_1}{100} \cdot 100 \cdot \Delta \log(educ)\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Step 3:</strong> Apply the log approximation (<span class="math inline">\(100 \cdot \Delta \log(x) \approx \%\Delta x\)</span>):</p>
+<p><span class="math display">\[\Delta wage \approx \frac{\beta_1}{100} \cdot \%\Delta educ\]</span></p>
+</div>
+<div class="fragment">
+<p><strong>Conclusion:</strong> A 1% increase in <span class="math inline">\(educ\)</span> is associated with a <span class="math inline">\(\beta_1 / 100\)</span> unit change in <span class="math inline">\(wage\)</span>.</p>
+</div>
 </section>
 <section id="log-log-elasticity" class="slide level2">
 <h2>Log-Log (Elasticity)</h2>
@@ -819,12 +1173,12 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 <section id="visualizing-log-specifications" class="slide level2">
 <h2>Visualizing Log Specifications</h2>
 
-<img src="./ch8_figures/ch8_log_specifications.png" style="width:75.0%" class=" quarto-figure-center"><p class="caption"><span class="math inline">\(\log\)</span> transformations create natural curvature</p></section>
+<img src="./ch8_figures/ch8_log_specifications.png" style="width:75.0%" class=""></section>
 <section id="log-log-specification-in-detail" class="slide level2">
 <h2>Log-Log Specification in Detail</h2>
 
-<img src="./ch8_figures/ch8_loglog_specification.png" style="width:75.0%" class=" quarto-figure-center"><p class="caption">On log-log scale, relationship is linear with slope = elasticity</p></section>
-<section id="knowledge-check-log-specifications" class="slide level2 smaller scrollable">
+<img src="./ch8_figures/ch8_loglog_specification.png" style="width:75.0%" class=""></section>
+<section id="knowledge-check-log-specifications" class="slide level2 scrollable">
 <h2>Knowledge Check: Log Specifications</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -832,127 +1186,88 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Question</strong></p>
+<p><strong>What are the units? How do we interpret each coefficient?</strong></p>
 </div>
 <div class="callout-content">
-<p>Match each estimated model to its interpretation:</p>
 <ol type="a">
-<li><p><span class="math inline">\(wage = 5 + 0.3 \cdot experience\)</span><br>
-</p></li>
-<li><p><span class="math inline">\(\log(wage) = 1.2 + 0.04 \cdot experience\)</span><br>
-</p></li>
-<li><p><span class="math inline">\(wage = 8 + 2.5 \log(experience)\)</span><br>
-</p></li>
-<li><p><span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span></p></li>
-<li><p>Each year of experience raises wages by $0.30<br>
-</p></li>
-</ol>
-<ol start="2" type="i">
-<li>Each year of experience raises wages by 4%<br>
-</li>
-<li>A 1% increase in experience raises wages by 0.15%<br>
-</li>
-<li>Doubling experience raises wages by $2.50</li>
+<li><span class="math inline">\(wage = 5 + 0.3 \cdot experience\)</span></li>
+<li><span class="math inline">\(\log(wage) = 1.2 + 0.04 \cdot experience\)</span></li>
+<li><span class="math inline">\(wage = 8 + 2.5 \log(experience)\)</span></li>
+<li><span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span></li>
 </ol>
 </div>
 </div>
+</div>
+</section>
+<section id="knowledge-check-answers" class="slide level2 smaller scrollable">
+<h2>Knowledge Check: Answers</h2>
+<p><strong>a)</strong> <span class="math inline">\(wage = 5 + 0.3 \cdot experience\)</span> — <strong>level-level</strong> <span class="math inline">\(\Delta wage = 0.3 \cdot \Delta experience\)</span> → each additional year raises wages by <strong>$0.30</strong></p>
+<div class="fragment">
+<p><strong>b)</strong> <span class="math inline">\(\log(wage) = 1.2 + 0.04 \cdot experience\)</span> — <strong>log-level</strong> <span class="math inline">\(\Delta \log(wage) = 0.04 \cdot \Delta experience\)</span>, so <span class="math inline">\(\%\Delta wage \approx 100(0.04)(1)\)</span> → each additional year raises wages by <strong>4%</strong></p>
 </div>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p><strong>c)</strong> <span class="math inline">\(wage = 8 + 2.5 \log(experience)\)</span> — <strong>level-log</strong> <span class="math inline">\(\Delta wage = 2.5 \cdot \Delta \log(experience)\)</span>, so <span class="math inline">\(\Delta wage = (2.5/100) \cdot \%\Delta experience\)</span> → a 1% increase in experience raises wages by <strong>$0.025</strong></p>
 </div>
-<p><strong>Answer</strong></p>
-</div>
-<div class="callout-content">
-<ol type="a">
-<li>→ i) (level-level), b) → ii) (log-level), c) → iv) (level-log), d) → iii) (log-log)</li>
-</ol>
-</div>
-</div>
-</div>
+<div class="fragment">
+<p><strong>d)</strong> <span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span> — <strong>log-log (elasticity)</strong> <span class="math inline">\(\%\Delta wage = 0.15 \cdot \%\Delta experience\)</span> → a 1% increase in experience raises wages by <strong>0.15%</strong></p>
 </div>
 </section>
 <section id="interpretation-guide-summary" class="slide level2">
 <h2>Interpretation Guide Summary</h2>
 
-<img src="./ch8_figures/ch8_interpretation_guide.png" style="width:90.0%" class=" quarto-figure-center"><p class="caption">Summary of log model interpretations</p></section>
+<img src="./ch8_figures/ch8_interpretation_guide.png" style="width:90.0%" class=""></section>
 <section id="stata-implementation-logs" class="slide level2">
 <h2>Stata Implementation: Logs</h2>
 <p><strong>Generate log variables:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb12-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> log_wage = <span class="fu">log</span>(wage)</span>
-<span id="cb12-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> log_sales = <span class="fu">log</span>(sales)</span>
-<span id="cb12-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> log_price = <span class="fu">log</span>(price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> log_wage = <span class="fu">log</span>(wage)</span>
+<span id="cb10-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> log_sales = <span class="fu">log</span>(sales)</span>
+<span id="cb10-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> log_price = <span class="fu">log</span>(price)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Estimate different specifications:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb13-1"><a href="" aria-hidden="true" tabindex="-1"></a>* Log-<span class="dv">level</span></span>
-<span id="cb13-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> log_wage education experience, <span class="kw">robust</span></span>
-<span id="cb13-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="" aria-hidden="true" tabindex="-1"></a>* Level-<span class="fu">log</span></span>
-<span id="cb13-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage log_experience log_sales, <span class="kw">robust</span></span>
-<span id="cb13-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="" aria-hidden="true" tabindex="-1"></a>* Log-<span class="fu">log</span></span>
-<span id="cb13-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> log_quantity log_price log_income, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb11-1"><a href="" aria-hidden="true" tabindex="-1"></a>* Log-<span class="dv">level</span></span>
+<span id="cb11-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> log_wage education experience, <span class="kw">robust</span></span>
+<span id="cb11-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="" aria-hidden="true" tabindex="-1"></a>* Level-<span class="fu">log</span></span>
+<span id="cb11-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage log_experience log_sales, <span class="kw">robust</span></span>
+<span id="cb11-6"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="" aria-hidden="true" tabindex="-1"></a>* Log-<span class="fu">log</span></span>
+<span id="cb11-8"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> log_quantity log_price log_income, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Important:</strong> Always use natural log (<code>log</code> in Stata), not log10 or log2!</p>
-</section></section>
-<section>
-<section id="testing-functional-form" class="title-slide slide level1 center">
-<h1>Testing Functional Form</h1>
-
 </section>
-<section id="how-do-we-know-which-model-to-use" class="slide level2 scrollable">
-<h2>How Do We Know Which Model to Use?</h2>
-<p><strong>We have many choices:</strong> Linear vs quadratic vs cubic? Logs or levels? Interactions or no interactions?</p>
+<section id="when-to-use-logarithms" class="slide level2 scrollable">
+<h2>When to Use Logarithms?</h2>
+<p><strong>Ask: which is more meaningful for your variable?</strong></p>
 <div class="fragment">
-<p><strong>Three approaches:</strong></p>
 <ol type="1">
-<li><strong>Theory</strong> — What does economic theory suggest?</li>
-<li><strong>Visualization</strong> — Plot the data and residuals</li>
-<li><strong>Formal tests</strong> — Ramsey RESET test</li>
+<li><span class="kw">Absolute changes</span> → use <strong>levels</strong>
+<ul>
+<li>“An additional year of education raises wages by $3”</li>
+</ul></li>
+<li><span class="kw">Percent changes</span> → use <strong>logs</strong>
+<ul>
+<li>“An additional year of education raises wages by 8%”</li>
+</ul></li>
 </ol>
 </div>
-</section>
-<section id="the-ramsey-reset-test" class="slide level2 scrollable">
-<h2>The Ramsey RESET Test</h2>
-<div class="callout callout-note callout-titled callout-style-default">
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Ramsey RESET (Regression Specification Error Test)</strong></p>
+<p><strong>Practical Guidance</strong></p>
 </div>
 <div class="callout-content">
-<p>Tests whether nonlinear functions of fitted values help explain <span class="math inline">\(Y\)</span>. Detects <span class="alert">omitted variables</span> or <span class="alert">incorrect functional form</span>.</p>
+<ul>
+<li><strong>Wages, income, prices, GDP</strong> → usually log (wide range; percent interpretation natural)</li>
+<li><strong>Test scores, years of education, rates</strong> → usually levels (bounded; percentage interpretation less natural)</li>
+<li><strong>Variables that can be zero or negative</strong> → cannot log; use levels</li>
+<li>You do not need to transform all variables — mix levels and logs as theory dictates</li>
+</ul>
 </div>
 </div>
 </div>
-<p><strong>Procedure:</strong></p>
-<ol type="1">
-<li>Estimate original model, obtain fitted values <span class="math inline">\(\hat{Y}\)</span></li>
-<li>Estimate augmented model: <span class="math inline">\(Y = \beta_0 + \beta_1 X + \gamma_1 \hat{Y}^2 + \gamma_2 \hat{Y}^3 + u\)</span></li>
-<li>Test <span class="math inline">\(H_0: \gamma_1 = \gamma_2 = 0\)</span> (F-test)</li>
-<li>If reject <span class="math inline">\(H_0\)</span>: functional form is misspecified</li>
-</ol>
-</section>
-<section id="interpreting-reset-results" class="slide level2">
-<h2>Interpreting RESET Results</h2>
-<p><strong>If we reject <span class="math inline">\(H_0\)</span> (p-value &lt; 0.05):</strong> Current model is misspecified; try adding polynomial terms, logs, or interactions; re-run RESET after adjusting.</p>
-<p><strong>If we fail to reject <span class="math inline">\(H_0\)</span>:</strong> No strong evidence against current specification (but doesn’t prove it’s correct!).</p>
-</section>
-<section id="visualizing-functional-form-tests" class="slide level2">
-<h2>Visualizing Functional Form Tests</h2>
-
-<img src="./ch8_figures/ch8_testing_functional_form.png" style="width:80.0%" class=" quarto-figure-center"><p class="caption">Good fit: residuals randomly scattered. Bad fit: systematic pattern</p></section>
-<section id="stata-implementation-reset-test" class="slide level2">
-<h2>Stata Implementation: RESET Test</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb14-1"><a href="" aria-hidden="true" tabindex="-1"></a>* Estimate <span class="kw">model</span></span>
-<span id="cb14-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage education experience, <span class="kw">robust</span></span>
-<span id="cb14-3"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="" aria-hidden="true" tabindex="-1"></a>* Run RESET <span class="kw">test</span></span>
-<span id="cb14-5"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> <span class="kw">ovtest</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Example output:</strong> Ramsey RESET test using powers of fitted values; <span class="math inline">\(H_0\)</span>: Model has no omitted variables; if Prob &gt; F = 0.0000, we reject — try adding quadratic terms or logs!</p>
+</div>
 </section></section>
 <section>
 <section id="bringing-it-all-together" class="title-slide slide level1 center">
@@ -1033,17 +1348,7 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 </tbody>
 </table>
 <p><strong>Turning point:</strong> <span class="math inline">\(X^* = -\frac{\beta_1}{2\beta_2}\)</span> (quadratic model)</p>
-</section>
-<section id="looking-ahead" class="slide level2">
-<h2>Looking Ahead</h2>
-<p><strong>What we’ve learned:</strong> How to model curved relationships (polynomials), varying effects (interactions), and percentage/elasticity interpretation (logs); how to test and choose functional forms.</p>
-<div class="fragment">
-<p><strong>Next chapter:</strong> Hypothesis Testing and Confidence Intervals — formal inference, t-tests and F-tests, confidence intervals, joint hypothesis tests.</p>
-</div>
-<div class="fragment">
-<p><strong>The real world is nonlinear — now you can model it!</strong></p>
 
-</div>
 </section></section>
  </div>
  <div class="quarto-auto-generated-content" style="display: none;">
@@ -1081,7 +1386,7 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'pdfMaxPagesPerSlide': 1,
+'pdfMaxPagesPerSlide': 2,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,
