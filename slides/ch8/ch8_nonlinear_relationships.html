@@ -7,198 +7,198 @@
 <link href="ch8_nonlinear_relationships_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ch8_nonlinear_relationships_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="ch8_nonlinear_relationships_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
- <meta name="generator" content="quarto-1.8.27">
+  <meta name="generator" content="quarto-1.8.27">
 
- <meta name="author" content="ECON3500: Econometrics and Applications">
- <title>Nonlinear Relationships</title>
- <meta name="apple-mobile-web-app-capable" content="yes">
- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
- <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/reset.css">
- <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/reveal.css">
- <style>
- code{white-space: pre-wrap;}
- span.smallcaps{font-variant: small-caps;}
- div.columns{display: flex; gap: min(4vw, 1.5em);}
- div.column{flex: auto; overflow-x: auto;}
- div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
- ul.task-list{list-style: none;}
- ul.task-list li input[type="checkbox"] {
- width: 0.8em;
- margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
- vertical-align: middle;
- }
- /* CSS for syntax highlighting */
- html { -webkit-text-size-adjust: 100%; }
- pre > code.sourceCode { white-space: pre; position: relative; }
- pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
- pre > code.sourceCode > span:empty { height: 1.2em; }
- .sourceCode { overflow: visible; }
- code.sourceCode > span { color: inherit; text-decoration: inherit; }
- div.sourceCode { margin: 1em 0; }
- pre.sourceCode { margin: 0; }
- @media screen {
- div.sourceCode { overflow: auto; }
- }
- @media print {
- pre > code.sourceCode { white-space: pre-wrap; }
- pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
- }
- pre.numberSource code
- { counter-reset: source-line 0; }
- pre.numberSource code > span
- { position: relative; left: -4em; counter-increment: source-line; }
- pre.numberSource code > span > a:first-child::before
- { content: counter(source-line);
- position: relative; left: -1em; text-align: right; vertical-align: baseline;
- border: none; display: inline-block;
- -webkit-touch-callout: none; -webkit-user-select: none;
- -khtml-user-select: none; -moz-user-select: none;
- -ms-user-select: none; user-select: none;
- padding: 0 4px; width: 4em;
- }
- pre.numberSource { margin-left: 3em; padding-left: 4px; }
- div.sourceCode
- { color: #24292e; }
- @media screen {
- pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
- }
- code span { color: #24292e; } /* Normal */
- code span.al { color: #ff5555; font-weight: bold; } /* Alert */
- code span.an { color: #6a737d; } /* Annotation */
- code span.at { color: #d73a49; } /* Attribute */
- code span.bn { color: #005cc5; } /* BaseN */
- code span.bu { color: #d73a49; } /* BuiltIn */
- code span.cf { color: #d73a49; } /* ControlFlow */
- code span.ch { color: #032f62; } /* Char */
- code span.cn { color: #005cc5; } /* Constant */
- code span.co { color: #6a737d; } /* Comment */
- code span.cv { color: #6a737d; } /* CommentVar */
- code span.do { color: #6a737d; } /* Documentation */
- code span.dt { color: #d73a49; } /* DataType */
- code span.dv { color: #005cc5; } /* DecVal */
- code span.er { color: #ff5555; text-decoration: underline; } /* Error */
- code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
- code span.fl { color: #005cc5; } /* Float */
- code span.fu { color: #6f42c1; } /* Function */
- code span.im { color: #032f62; } /* Import */
- code span.in { color: #6a737d; } /* Information */
- code span.kw { color: #d73a49; } /* Keyword */
- code span.op { color: #24292e; } /* Operator */
- code span.ot { color: #6f42c1; } /* Other */
- code span.pp { color: #d73a49; } /* Preprocessor */
- code span.re { color: #6a737d; } /* RegionMarker */
- code span.sc { color: #005cc5; } /* SpecialChar */
- code span.ss { color: #032f62; } /* SpecialString */
- code span.st { color: #032f62; } /* String */
- code span.va { color: #e36209; } /* Variable */
- code span.vs { color: #032f62; } /* VerbatimString */
- code span.wa { color: #ff5555; } /* Warning */
- </style>
- <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/theme/quarto-f6ff266a00026af0db213e5461a2bde6.css">
- <link rel="stylesheet" href="../_styles/styles.css">
- <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
- <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
- <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
- <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
- <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
- <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
- <style type="text/css">
- .reveal div.sourceCode {
- margin: 0;
- overflow: auto;
- }
- .reveal div.hanging-indent {
- margin-left: 1em;
- text-indent: -1em;
- }
- .reveal .slide:not(.center) {
- height: 100%;
- overflow-y: auto;
- }
- .reveal .slide.scrollable {
- overflow-y: auto;
- }
- .reveal .footnotes {
- height: 100%;
- overflow-y: auto;
- }
- .reveal .slide .absolute {
- position: absolute;
- display: block;
- }
- .reveal .footnotes ol {
- counter-reset: ol;
- list-style-type: none; 
- margin-left: 0;
- }
- .reveal .footnotes ol li:before {
- counter-increment: ol;
- content: counter(ol) ". "; 
- }
- .reveal .footnotes ol li > p:first-child {
- display: inline-block;
- }
- .reveal .slide ul,
- .reveal .slide ol {
- margin-bottom: 0.5em;
- }
- .reveal .slide ul li,
- .reveal .slide ol li {
- margin-top: 0.4em;
- margin-bottom: 0.2em;
- }
- .reveal .slide ul[role="tablist"] li {
- margin-bottom: 0;
- }
- .reveal .slide ul li > *:first-child,
- .reveal .slide ol li > *:first-child {
- margin-block-start: 0;
- }
- .reveal .slide ul li > *:last-child,
- .reveal .slide ol li > *:last-child {
- margin-block-end: 0;
- }
- .reveal .slide .columns:nth-child(3) {
- margin-block-start: 0.8em;
- }
- .reveal blockquote {
- box-shadow: none;
- }
- .reveal .tippy-content>* {
- margin-top: 0.2em;
- margin-bottom: 0.7em;
- }
- .reveal .tippy-content>*:last-child {
- margin-bottom: 0.2em;
- }
- .reveal .slide > img.stretch.quarto-figure-center,
- .reveal .slide > img..quarto-figure-center {
- display: block;
- margin-left: auto;
- margin-right: auto; 
- }
- .reveal .slide > img.stretch.quarto-figure-left,
- .reveal .slide > img..quarto-figure-left {
- display: block;
- margin-left: 0;
- margin-right: auto; 
- }
- .reveal .slide > img.stretch.quarto-figure-right,
- .reveal .slide > img..quarto-figure-right {
- display: block;
- margin-left: auto;
- margin-right: 0; 
- }
- </style>
+  <meta name="author" content="ECON3500: Econometrics and Applications">
+  <title>Nonlinear Relationships</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/theme/quarto-f6ff266a00026af0db213e5461a2bde6.css">
+  <link rel="stylesheet" href="../_styles/styles.css">
+  <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
 </head>
 <body class="quarto-light">
- <div class="reveal">
- <div class="slides">
+  <div class="reveal">
+    <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
- <h1 class="title">Nonlinear Relationships</h1>
- <p class="subtitle">Beyond the Straight Line</p>
+  <h1 class="title">Nonlinear Relationships</h1>
+  <p class="subtitle">Beyond the Straight Line</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -208,7 +208,7 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 
- <p class="date">Spring 2026</p>
+  <p class="date">Spring 2026</p>
 </section>
 <section id="what-youll-learn-today" class="slide level2 scrollable">
 <h2>What You’ll Learn Today</h2>
@@ -260,7 +260,7 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 <section id="the-dose-makes-the-poison" class="slide level2">
 <h2>The Dose Makes the Poison</h2>
 
-<img src="./ch8_figures/ch8_dose_poison.jpg" class="quarto-figure quarto-figure-center " style="width:65.0%"></section>
+<img data-src="./ch8_figures/ch8_dose_poison.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:65.0%"></section>
 <section id="real-world-examples-of-nonlinearity" class="slide level2">
 <h2>Real-World Examples of Nonlinearity</h2>
 <p><strong>Diminishing returns:</strong></p>
@@ -301,7 +301,7 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 <p><strong>Key Insight</strong></p>
 </div>
 <div class="callout-content">
-<p>All three remain <span class="alert">linear in parameters</span> — we can still use OLS!</p>
+<p>All three remain <span class="alert">linear in parameters</span> — we can still use OLS! (A model like <span class="math inline">\(Y_i = \beta_0 e^{\beta_1 X_i} + u_i\)</span> is <em>not</em> linear in parameters and cannot be estimated by OLS directly.)</p>
 </div>
 </div>
 </div>
@@ -385,7 +385,7 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i
 <section id="visualizing-quadratic-relationships" class="slide level2">
 <h2>Visualizing Quadratic Relationships</h2>
 
-<img src="./ch8_figures/ch8_quadratic_relationship.png" style="width:80.0%" class=""></section>
+<img data-src="./ch8_figures/ch8_quadratic_relationship.png" style="width:80.0%" class="r-stretch"></section>
 <section id="interpreting-quadratic-coefficients" class="slide level2">
 <h2>Interpreting Quadratic Coefficients</h2>
 <p><span class="math display">\[
@@ -486,7 +486,7 @@ exper^* = -\frac{0.08}{2(-0.0012)} = \frac{0.08}{0.0024} \approx 33.3 \text{ yea
 <section id="visualizing-marginal-effects" class="slide level2">
 <h2>Visualizing Marginal Effects</h2>
 
-<img src="./ch8_figures/ch8_marginal_effect_quadratic.png" style="width:80.0%" class=""></section>
+<img data-src="./ch8_figures/ch8_marginal_effect_quadratic.png" style="width:80.0%" class="r-stretch"></section>
 <section id="knowledge-check-quadratic-model" class="slide level2 smaller scrollable">
 <h2>Knowledge Check: Quadratic Model</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -548,7 +548,7 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \beta_3 X_i^3 + u_i
 <p><strong>Overfitting</strong></p>
 </div>
 <div class="callout-content">
-<p>A model <span class="alert">overfits</span> when it fits the sample data too closely — capturing noise rather than the true underlying relationship — and therefore predicts poorly on new data. Higher-order polynomials with too many terms are a classic example. <em>(S&amp;W Ch. 8)</em></p>
+<p><span class="alert">Overfitting</span> occurs when we end up fitting the <span class="alert">noise</span> in the data rather than the underlying relationship. The model fits the sample well but performs poorly out of sample.</p>
 </div>
 </div>
 </div>
@@ -720,16 +720,7 @@ wage = \beta_0 + \beta_1 \cdot female + \beta_2 \cdot public + \beta_3 (female \
 \hat{wage} = 25 - 4 \cdot female + 3 \cdot public + 2 \cdot (female \times public)
 \]</span></p>
 <div class="fragment">
-<p><strong>Interpretation:</strong></p>
-<ul>
-<li>Men in private sector: $25 (baseline)</li>
-<li>Men in public sector: <span class="math inline">\(25 + 3 = \$28\)</span></li>
-<li>Women in private sector: <span class="math inline">\(25 - 4 = \$21\)</span> (gap = $4)</li>
-<li>Women in public sector: <span class="math inline">\(25 - 4 + 3 + 2 = \$26\)</span> (gap = $2)</li>
-</ul>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(\hat{\beta}_3 = 2\)</span>: the gender wage gap is $2 <span class="alert">smaller</span> in the public sector. Test <span class="math inline">\(H_0: \beta_3 = 0\)</span> to check if the gap differs significantly.</p>
+<p><strong>What is the predicted wage for each group? What does <span class="math inline">\(\hat{\beta}_3\)</span> tell us?</strong></p>
 </div>
 </section>
 <section id="continuous-continuous-interaction" class="slide level2">
@@ -776,7 +767,7 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot experience + \beta_3 (e
 <section id="visualizing-continuous-continuous-interactions" class="slide level2">
 <h2>Visualizing Continuous × Continuous Interactions</h2>
 
-<img src="./ch8_figures/ch8_interaction_continuous.png" style="width:80.0%" class=""></section>
+<img data-src="./ch8_figures/ch8_interaction_continuous.png" style="width:80.0%" class="r-stretch"></section>
 <section id="binary-continuous-interaction" class="slide level2">
 <h2>Binary × Continuous Interaction</h2>
 <p><strong>Model:</strong></p>
@@ -815,7 +806,7 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 <section id="visualizing-binary-continuous-interactions" class="slide level2">
 <h2>Visualizing Binary × Continuous Interactions</h2>
 
-<img src="./ch8_figures/ch8_interaction_binary.png" style="width:80.0%" class=""></section>
+<img data-src="./ch8_figures/ch8_interaction_binary.png" style="width:80.0%" class="r-stretch"></section>
 <section id="knowledge-check-interaction-effects" class="slide level2 smaller scrollable">
 <h2>Knowledge Check: Interaction Effects</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -860,9 +851,9 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">generate</span> educ_exper = education * experience</span>
 <span id="cb7-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage education experience educ_exper, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Method 2: Factor variable notation (preferred)</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##c.experience, <span class="kw">robust</span> <span class="co">// continuous × continuous</span></span>
-<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##i.female, <span class="kw">robust</span> <span class="co">// continuous × dummy</span></span>
-<span id="cb8-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage i.female##i.<span class="kw">public</span>, <span class="kw">robust</span> <span class="co">// dummy × dummy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##c.experience, <span class="kw">robust</span>  <span class="co">// continuous × continuous</span></span>
+<span id="cb8-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage c.education##i.female, <span class="kw">robust</span>       <span class="co">// continuous × dummy</span></span>
+<span id="cb8-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> wage i.female##i.<span class="kw">public</span>, <span class="kw">robust</span>          <span class="co">// dummy × dummy</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Compute marginal effects at different values:</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a>margins, <span class="kw">dydx</span>(education) <span class="fu">at</span>(experience=(0 10 20 30))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="callout callout-note callout-titled callout-style-default">
@@ -893,11 +884,7 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 <p>In <span class="math inline">\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2\)</span>, the effect of <span class="math inline">\(X_1\)</span> is <span class="math inline">\(\beta_1 + \beta_3 X_2\)</span> — it depends on <span class="math inline">\(X_2\)</span>. <span class="math inline">\(\beta_1\)</span> is only the effect of <span class="math inline">\(X_1\)</span> when <span class="math inline">\(X_2 = 0\)</span>, which may not be a meaningful value.</p>
 </div>
 <div class="fragment">
-<p><span class="alert"><strong>Mistake 3: Forgetting to center variables</strong></span></p>
-<p>If <span class="math inline">\(X_2 = 0\)</span> is not meaningful (e.g., zero years of experience), center <span class="math inline">\(X_2\)</span> around its mean before interacting. Then <span class="math inline">\(\beta_1\)</span> gives the effect of <span class="math inline">\(X_1\)</span> at the average value of <span class="math inline">\(X_2\)</span>, which is much more interpretable.</p>
-</div>
-<div class="fragment">
-<p><span class="alert"><strong>Mistake 4: Testing the wrong hypothesis</strong></span></p>
+<p><span class="alert"><strong>Mistake 3: Testing the wrong hypothesis</strong></span></p>
 <p>To test whether an interaction matters, test <span class="math inline">\(H_0: \beta_3 = 0\)</span> (not <span class="math inline">\(H_0: \beta_1 = 0\)</span>). In Stata: <code>test</code> after <code>regress</code>, or read the <span class="math inline">\(t\)</span>-statistic on the interaction term directly.</p>
 </div>
 </section>
@@ -906,31 +893,32 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 <p><strong>When should you include an interaction?</strong></p>
 <div class="fragment">
 <ol type="1">
-<li><p><strong>Theory first</strong> — Is there a compelling reason that the effect of <span class="math inline">\(X_1\)</span> depends on <span class="math inline">\(X_2\)</span>? If yes, include the interaction regardless of significance.</p></li>
-<li><p><strong>Statistical test</strong> — Test <span class="math inline">\(H_0: \beta_3 = 0\)</span>. If rejected, the interaction is statistically significant.</p></li>
-<li><p><strong>Model fit</strong> — The <span class="kw">adjusted <span class="math inline">\(R^2\)</span></span> (<span class="math inline">\(\bar{R}^2\)</span>) penalizes for added parameters. If <span class="math inline">\(\bar{R}^2\)</span> rises when you add the interaction term, that provides additional support for including it.</p></li>
+<li><strong>Theory first</strong> — Is there a compelling reason that the effect of <span class="math inline">\(X_1\)</span> depends on <span class="math inline">\(X_2\)</span>? If yes, include the interaction regardless of significance.</li>
 </ol>
 </div>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<ol start="2" type="1">
+<li><strong>Statistical test</strong> — Test <span class="math inline">\(H_0: \beta_3 = 0\)</span>. If rejected, the interaction is statistically significant.</li>
+</ol>
 </div>
-<p><strong>Rule</strong></p>
-</div>
-<div class="callout-content">
-<p>Never include an interaction term without also including both main effects (<span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>) — even if the main effects are not individually significant.</p>
-</div>
-</div>
-</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li><strong>Model fit</strong> — The <span class="kw">adjusted <span class="math inline">\(R^2\)</span></span> (<span class="math inline">\(\bar{R}^2\)</span>) penalizes for added parameters. If <span class="math inline">\(\bar{R}^2\)</span> rises when you add the interaction term, that provides additional support for including it.</li>
+</ol>
 </div>
 </section></section>
 <section>
 <section id="logarithmic-specifications" class="title-slide slide level1 center">
 <h1>Logarithmic Specifications</h1>
 
+</section>
+<section id="when-is-a-log-the-right-tool" class="slide level2">
+<h2>When Is a Log the Right Tool?</h2>
+<div class="r-stack">
+<p><img data-src="./ch8_figures/ch8_why_logs_1.png" style="width:90.0%"></p>
+<p><img data-src="./ch8_figures/ch8_why_logs_2.png" class="fragment" style="width:90.0%"></p>
+<p><img data-src="./ch8_figures/ch8_why_logs_3.png" class="fragment" style="width:90.0%"></p>
+</div>
 </section>
 <section id="why-logarithms" class="slide level2 scrollable">
 <h2>Why Logarithms?</h2>
@@ -1173,31 +1161,28 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 <section id="visualizing-log-specifications" class="slide level2">
 <h2>Visualizing Log Specifications</h2>
 
-<img src="./ch8_figures/ch8_log_specifications.png" style="width:75.0%" class=""></section>
+<img data-src="./ch8_figures/ch8_log_specifications.png" style="width:75.0%" class="r-stretch"></section>
 <section id="log-log-specification-in-detail" class="slide level2">
 <h2>Log-Log Specification in Detail</h2>
 
-<img src="./ch8_figures/ch8_loglog_specification.png" style="width:75.0%" class=""></section>
+<img data-src="./ch8_figures/ch8_loglog_specification.png" style="width:75.0%" class="r-stretch"></section>
 <section id="knowledge-check-log-specifications" class="slide level2 scrollable">
 <h2>Knowledge Check: Log Specifications</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
 <p><strong>What are the units? How do we interpret each coefficient?</strong></p>
-</div>
-<div class="callout-content">
-<ol type="a">
-<li><span class="math inline">\(wage = 5 + 0.3 \cdot experience\)</span></li>
-<li><span class="math inline">\(\log(wage) = 1.2 + 0.04 \cdot experience\)</span></li>
-<li><span class="math inline">\(wage = 8 + 2.5 \log(experience)\)</span></li>
-<li><span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span></li>
-</ol>
-</div>
-</div>
-</div>
+<ul>
+<li class="fragment"><ol type="a">
+<li class="fragment"><span class="math inline">\(wage = 5 + 0.3 \cdot experience\)</span></li>
+</ol></li>
+<li class="fragment"><ol start="2" type="a">
+<li class="fragment"><span class="math inline">\(\log(wage) = 1.2 + 0.04 \cdot experience\)</span></li>
+</ol></li>
+<li class="fragment"><ol start="3" type="a">
+<li class="fragment"><span class="math inline">\(wage = 8 + 2.5 \log(experience)\)</span></li>
+</ol></li>
+<li class="fragment"><ol start="4" type="a">
+<li class="fragment"><span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span></li>
+</ol></li>
+</ul>
 </section>
 <section id="knowledge-check-answers" class="slide level2 smaller scrollable">
 <h2>Knowledge Check: Answers</h2>
@@ -1212,10 +1197,64 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 <p><strong>d)</strong> <span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span> — <strong>log-log (elasticity)</strong> <span class="math inline">\(\%\Delta wage = 0.15 \cdot \%\Delta experience\)</span> → a 1% increase in experience raises wages by <strong>0.15%</strong></p>
 </div>
 </section>
-<section id="interpretation-guide-summary" class="slide level2">
+<section id="interpretation-guide-summary" class="slide level2 smaller">
 <h2>Interpretation Guide Summary</h2>
-
-<img src="./ch8_figures/ch8_interpretation_guide.png" style="width:90.0%" class=""></section>
+<table class="caption-top">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 26%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Specification</th>
+<th>Interpret <span class="math inline">\(\hat\beta_1\)</span> as…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Level–Level</strong></td>
+<td><span class="math inline">\(Y = \beta_0 + \beta_1 X\)</span></td>
+<td>+1 unit in <span class="math inline">\(X\)</span> → <span class="math inline">\(+\beta_1\)</span> units in <span class="math inline">\(Y\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Log–Level</strong></td>
+<td><span class="math inline">\(\log(Y) = \beta_0 + \beta_1 X\)</span></td>
+<td>+1 unit in <span class="math inline">\(X\)</span> → <span class="math inline">\(+(100\beta_1)\)</span>% in <span class="math inline">\(Y\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Level–Log</strong></td>
+<td><span class="math inline">\(Y = \beta_0 + \beta_1 \log(X)\)</span></td>
+<td>+1% in <span class="math inline">\(X\)</span> → <span class="math inline">\(+\beta_1/100\)</span> units in <span class="math inline">\(Y\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Log–Log</strong></td>
+<td><span class="math inline">\(\log(Y) = \beta_0 + \beta_1 \log(X)\)</span></td>
+<td>+1% in <span class="math inline">\(X\)</span> → <span class="math inline">\(+\beta_1\)</span>% in <span class="math inline">\(Y\)</span> (<strong>elasticity</strong>)</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Memory aid</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Is <span class="math inline">\(Y\)</span> logged? → interpret as % change in <span class="math inline">\(Y\)</span></li>
+<li>Is <span class="math inline">\(X\)</span> logged? → interpret as % change in <span class="math inline">\(X\)</span></li>
+<li>Both logged? → elasticity</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="stata-implementation-logs" class="slide level2">
 <h2>Stata Implementation: Logs</h2>
 <p><strong>Generate log variables:</strong></p>
@@ -1350,35 +1389,35 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 <p><strong>Turning point:</strong> <span class="math inline">\(X^* = -\frac{\beta_1}{2\beta_2}\)</span> (quadratic model)</p>
 
 </section></section>
- </div>
- <div class="quarto-auto-generated-content" style="display: none;">
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
 <p>ECON3500 | Chapter 8</p>
 </div>
 </div></div>
 
- <script>window.backupDefine = window.define; window.define = undefined;</script>
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/dist/reveal.js"></script>
- <!-- reveal.js plugins -->
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-support/support.js"></script>
- 
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
 
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/notes/notes.js"></script>
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/search/search.js"></script>
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/zoom/zoom.js"></script>
- <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/math/math.js"></script>
- <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="ch8_nonlinear_relationships_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
- <script>
+  <script>
 
- // Full list of configuration options available at:
- // https://revealjs.com/config/
- Reveal.initialize({
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
 'pdfSeparateFragments': false,
@@ -1391,428 +1430,428 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 'chalkboard': {"buttons":true},
 'smaller': false,
  
- // Display controls in the bottom right corner
- controls: false,
+        // Display controls in the bottom right corner
+        controls: false,
 
- // Help the user learn the controls by providing hints, for example by
- // bouncing the down arrow when they first encounter a vertical slide
- controlsTutorial: false,
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
 
- // Determines where controls appear, "edges" or "bottom-right"
- controlsLayout: 'edges',
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
 
- // Visibility rule for backwards navigation arrows; "faded", "hidden"
- // or "visible"
- controlsBackArrows: 'faded',
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
 
- // Display a presentation progress bar
- progress: true,
+        // Display a presentation progress bar
+        progress: true,
 
- // Display the page number of the current slide
- slideNumber: 'c/t',
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
 
- // 'all', 'print', or 'speaker'
- showSlideNumber: 'all',
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
 
- // Add the current slide number to the URL hash so that reloading the
- // page/copying the URL will return you to the same slide
- hash: true,
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
 
- // Start with 1 for the hash rather than 0
- hashOneBasedIndex: false,
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
 
- // Flags if we should monitor the hash and change slides accordingly
- respondToHashChanges: true,
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
 
- // Push each slide change to the browser history
- history: true,
+        // Push each slide change to the browser history
+        history: true,
 
- // Enable keyboard shortcuts for navigation
- keyboard: true,
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
 
- // Enable the slide overview mode
- overview: true,
+        // Enable the slide overview mode
+        overview: true,
 
- // Disables the default reveal.js slide layout (scaling and centering)
- // so that you can use custom CSS layout
- disableLayout: false,
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
 
- // Vertical centering of slides
- center: false,
+        // Vertical centering of slides
+        center: false,
 
- // Enables touch navigation on devices with touch input
- touch: true,
+        // Enables touch navigation on devices with touch input
+        touch: true,
 
- // Loop the presentation
- loop: false,
+        // Loop the presentation
+        loop: false,
 
- // Change the presentation direction to be RTL
- rtl: false,
+        // Change the presentation direction to be RTL
+        rtl: false,
 
- // see https://revealjs.com/vertical-slides/#navigation-mode
- navigationMode: 'linear',
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
 
- // Randomizes the order of slides each time the presentation loads
- shuffle: false,
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
 
- // Turns fragments on and off globally
- fragments: true,
+        // Turns fragments on and off globally
+        fragments: true,
 
- // Flags whether to include the current fragment in the URL,
- // so that reloading brings you to the same fragment position
- fragmentInURL: false,
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
 
- // Flags if the presentation is running in an embedded mode,
- // i.e. contained within a limited portion of the screen
- embedded: false,
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
 
- // Flags if we should show a help overlay when the questionmark
- // key is pressed
- help: true,
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
 
- // Flags if it should be possible to pause the presentation (blackout)
- pause: true,
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
 
- // Flags if speaker notes should be visible to all viewers
- showNotes: false,
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
 
- // Global override for autoplaying embedded media (null/true/false)
- autoPlayMedia: null,
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
 
- // Global override for preloading lazy-loaded iframes (null/true/false)
- preloadIframes: null,
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
 
- // Number of milliseconds between automatically proceeding to the
- // next slide, disabled when set to 0, this value can be overwritten
- // by using a data-autoslide attribute on your slides
- autoSlide: 0,
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
 
- // Stop auto-sliding after user input
- autoSlideStoppable: true,
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
 
- // Use this method for navigation when auto-sliding
- autoSlideMethod: null,
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
 
- // Specify the average time in seconds that you think you will spend
- // presenting each slide. This is used to show a pacing timer in the
- // speaker view
- defaultTiming: null,
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
 
- // Enable slide navigation via mouse wheel
- mouseWheel: false,
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
 
- // The display mode that will be used to show slides
- display: 'block',
+        // The display mode that will be used to show slides
+        display: 'block',
 
- // Hide cursor if inactive
- hideInactiveCursor: true,
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
 
- // Time before the cursor is hidden (in ms)
- hideCursorTime: 5000,
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
 
- // Opens links in an iframe preview overlay
- previewLinks: false,
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
 
- // Transition style (none/fade/slide/convex/concave/zoom)
- transition: 'fade',
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
 
- // Transition speed (default/fast/slow)
- transitionSpeed: 'default',
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
 
- // Transition style for full page slide backgrounds
- // (none/fade/slide/convex/concave/zoom)
- backgroundTransition: 'fade',
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'fade',
 
- // Number of slides away from the current that are visible
- viewDistance: 3,
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
 
- // Number of slides away from the current that are visible on mobile
- // devices. It is advisable to set this to a lower number than
- // viewDistance in order to save resources.
- mobileViewDistance: 2,
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
 
- // The "normal" size of the presentation, aspect ratio will be preserved
- // when the presentation is scaled to fit different resolutions. Can be
- // specified using percentage units.
- width: 1280,
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
 
- height: 720,
+        height: 720,
 
- // Factor of the display size that should remain empty around the content
- margin: 0.1,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
 
- math: {
- mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
- config: 'TeX-AMS_HTML-full',
- tex2jax: {
- inlineMath: [['\\(','\\)']],
- displayMath: [['\\[','\\]']],
- balanceBraces: true,
- processEscapes: false,
- processRefs: true,
- processEnvironments: true,
- preview: 'TeX',
- skipTags: ['script','noscript','style','textarea','pre','code'],
- ignoreClass: 'tex2jax_ignore',
- processClass: 'tex2jax_process'
- },
- },
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
 
- // reveal.js plugins
- plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, QuartoSupport,
 
- RevealMath,
- RevealNotes,
- RevealSearch,
- RevealZoom
- ]
- });
- </script>
- <script>
- (function () {
- function ensureSrc() {
- document.querySelectorAll("img[data-src]").forEach(function (img) {
- if (!img.getAttribute("src")) {
- img.setAttribute("src", img.getAttribute("data-src"));
- }
- });
- document.querySelectorAll("source[data-src]").forEach(function (source) {
- if (!source.getAttribute("src")) {
- source.setAttribute("src", source.getAttribute("data-src"));
- }
- });
- }
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script>
+     (function () {
+     function ensureSrc() {
+     document.querySelectorAll("img[data-src]").forEach(function (img) {
+     if (!img.getAttribute("src")) {
+     img.setAttribute("src", img.getAttribute("data-src"));
+     }
+     });
+     document.querySelectorAll("source[data-src]").forEach(function (source) {
+     if (!source.getAttribute("src")) {
+     source.setAttribute("src", source.getAttribute("data-src"));
+     }
+     });
+     }
 
- function relayout() {
- if (window.Reveal && typeof window.Reveal.layout === "function") {
- window.Reveal.layout();
- }
- }
+     function relayout() {
+     if (window.Reveal && typeof window.Reveal.layout === "function") {
+     window.Reveal.layout();
+     }
+     }
 
- function hookReveal() {
- if (window.Reveal && typeof window.Reveal.on === "function") {
- window.Reveal.on("ready", function () {
- ensureSrc();
- relayout();
- });
- window.Reveal.on("slidechanged", relayout);
- window.Reveal.on("overviewshown", function () {
- ensureSrc();
- relayout();
- });
- window.Reveal.on("overviewhidden", relayout);
- return true;
- }
- return false;
- }
+     function hookReveal() {
+     if (window.Reveal && typeof window.Reveal.on === "function") {
+     window.Reveal.on("ready", function () {
+     ensureSrc();
+     relayout();
+     });
+     window.Reveal.on("slidechanged", relayout);
+     window.Reveal.on("overviewshown", function () {
+     ensureSrc();
+     relayout();
+     });
+     window.Reveal.on("overviewhidden", relayout);
+     return true;
+     }
+     return false;
+     }
 
- document.addEventListener("DOMContentLoaded", function () {
- ensureSrc();
- relayout();
+     document.addEventListener("DOMContentLoaded", function () {
+     ensureSrc();
+     relayout();
 
- var imgs = document.querySelectorAll(".reveal img");
- var pending = 0;
- imgs.forEach(function (img) {
- if (!img.complete) {
- pending += 1;
- img.addEventListener(
- "load",
- function () {
- pending -= 1;
- if (pending === 0) {
- relayout();
- }
- },
- { once: true }
- );
- }
- });
- if (pending === 0) {
- relayout();
- }
- });
+     var imgs = document.querySelectorAll(".reveal img");
+     var pending = 0;
+     imgs.forEach(function (img) {
+     if (!img.complete) {
+     pending += 1;
+     img.addEventListener(
+     "load",
+     function () {
+     pending -= 1;
+     if (pending === 0) {
+     relayout();
+     }
+     },
+     { once: true }
+     );
+     }
+     });
+     if (pending === 0) {
+     relayout();
+     }
+     });
 
- window.addEventListener("load", relayout);
+     window.addEventListener("load", relayout);
 
- if (!hookReveal()) {
- var tries = 0;
- var t = window.setInterval(function () {
- tries += 1;
- if (hookReveal() || tries > 20) {
- window.clearInterval(t);
- }
- }, 250);
- }
- })();
- </script>
- <script id="quarto-html-after-body" type="application/javascript">
- window.document.addEventListener("DOMContentLoaded", function (event) {
- const tabsets = window.document.querySelectorAll(".panel-tabset-tabby")
- tabsets.forEach(function(tabset) {
- const tabby = new Tabby('#' + tabset.id);
- });
- const isCodeAnnotation = (el) => {
- for (const clz of el.classList) {
- if (clz.startsWith('code-annotation-')) { 
- return true;
- }
- }
- return false;
- }
- const onCopySuccess = function(e) {
- // button target
- const button = e.trigger;
- // don't keep focus
- button.blur();
- // flash "checked"
- button.classList.add('code-copy-button-checked');
- var currentTitle = button.getAttribute("title");
- button.setAttribute("title", "Copied!");
- let tooltip;
- if (window.bootstrap) {
- button.setAttribute("data-bs-toggle", "tooltip");
- button.setAttribute("data-bs-placement", "left");
- button.setAttribute("data-bs-title", "Copied!");
- tooltip = new bootstrap.Tooltip(button, 
- { trigger: "manual", 
- customClass: "code-copy-button-tooltip",
- offset: [0, -8]});
- tooltip.show(); 
- }
- setTimeout(function() {
- if (tooltip) {
- tooltip.hide();
- button.removeAttribute("data-bs-title");
- button.removeAttribute("data-bs-toggle");
- button.removeAttribute("data-bs-placement");
- }
- button.setAttribute("title", currentTitle);
- button.classList.remove('code-copy-button-checked');
- }, 1000);
- // clear code selection
- e.clearSelection();
- }
- const getTextToCopy = function(trigger) {
- const outerScaffold = trigger.parentElement.cloneNode(true);
- const codeEl = outerScaffold.querySelector('code');
- for (const childEl of codeEl.children) {
- if (isCodeAnnotation(childEl)) {
- childEl.remove();
- }
- }
- return codeEl.innerText;
- }
- const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
- text: getTextToCopy
- });
- clipboard.on('success', onCopySuccess);
- if (window.document.getElementById('quarto-embedded-source-code-modal')) {
- const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
- text: getTextToCopy,
- container: window.document.getElementById('quarto-embedded-source-code-modal')
- });
- clipboardModal.on('success', onCopySuccess);
- }
- var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
- var mailtoRegex = new RegExp(/^mailto:/);
- var filterRegex = new RegExp('/' + window.location.host + '/');
- var isInternal = (href) => {
- return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
- }
- // Inspect non-navigation links and adorn them if external
- var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
- for (var i=0; i<links.length; i++) {
- const link = links[i];
- if (!isInternal(link.href)) {
- // undo the damage that might have been done by quarto-nav.js in the case of
- // links that we want to consider external
- if (link.dataset.originalHref !== undefined) {
- link.href = link.dataset.originalHref;
- }
- }
- }
- function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
- const config = {
- allowHTML: true,
- maxWidth: 500,
- delay: 100,
- arrow: false,
- appendTo: function(el) {
- return el.closest('section.slide') || el.parentElement;
- },
- interactive: true,
- interactiveBorder: 10,
- theme: 'light-border',
- placement: 'bottom-start',
- };
- if (contentFn) {
- config.content = contentFn;
- }
- if (onTriggerFn) {
- config.onTrigger = onTriggerFn;
- }
- if (onUntriggerFn) {
- config.onUntrigger = onUntriggerFn;
- }
- config['offset'] = [0,0];
- config['maxWidth'] = 700;
- window.tippy(el, config); 
- }
- const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
- for (var i=0; i<noterefs.length; i++) {
- const ref = noterefs[i];
- tippyHover(ref, function() {
- // use id or data attribute instead here
- let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
- try { href = new URL(href).hash; } catch {}
- const id = href.replace(/^#\/?/, "");
- const note = window.document.getElementById(id);
- if (note) {
- return note.innerHTML;
- } else {
- return "";
- }
- });
- }
- const findCites = (el) => {
- const parentEl = el.parentElement;
- if (parentEl) {
- const cites = parentEl.dataset.cites;
- if (cites) {
- return {
- el,
- cites: cites.split(' ')
- };
- } else {
- return findCites(el.parentElement)
- }
- } else {
- return undefined;
- }
- };
- var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
- for (var i=0; i<bibliorefs.length; i++) {
- const ref = bibliorefs[i];
- const citeInfo = findCites(ref);
- if (citeInfo) {
- tippyHover(citeInfo.el, function() {
- var popup = window.document.createElement('div');
- citeInfo.cites.forEach(function(cite) {
- var citeDiv = window.document.createElement('div');
- citeDiv.classList.add('hanging-indent');
- citeDiv.classList.add('csl-entry');
- var biblioDiv = window.document.getElementById('ref-' + cite);
- if (biblioDiv) {
- citeDiv.innerHTML = biblioDiv.innerHTML;
- }
- popup.appendChild(citeDiv);
- });
- return popup.innerHTML;
- });
- }
- }
- });
- </script>
- 
+     if (!hookReveal()) {
+     var tries = 0;
+     var t = window.setInterval(function () {
+     tries += 1;
+     if (hookReveal() || tries > 20) {
+     window.clearInterval(t);
+     }
+     }, 250);
+     }
+     })();
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
 
 </body></html>

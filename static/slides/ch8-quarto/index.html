@@ -96,7 +96,7 @@
  code span.wa { color: #ff5555; } /* Warning */
  </style>
  <link rel="stylesheet" href="ch8_nonlinear_relationships_files/libs/revealjs/dist/theme/quarto-f6ff266a00026af0db213e5461a2bde6.css">
- <link rel="stylesheet" href="../_styles/styles.css">
+ <link rel="stylesheet" href="styles.css">
  <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
  <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
  <link href="ch8_nonlinear_relationships_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -301,7 +301,7 @@ Y_i = \beta_0 + \beta_1 X_i + u_i
 <p><strong>Key Insight</strong></p>
 </div>
 <div class="callout-content">
-<p>All three remain <span class="alert">linear in parameters</span> — we can still use OLS!</p>
+<p>All three remain <span class="alert">linear in parameters</span> — we can still use OLS! (A model like <span class="math inline">\(Y_i = \beta_0 e^{\beta_1 X_i} + u_i\)</span> is <em>not</em> linear in parameters and cannot be estimated by OLS directly.)</p>
 </div>
 </div>
 </div>
@@ -548,7 +548,7 @@ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \beta_3 X_i^3 + u_i
 <p><strong>Overfitting</strong></p>
 </div>
 <div class="callout-content">
-<p>A model <span class="alert">overfits</span> when it fits the sample data too closely — capturing noise rather than the true underlying relationship — and therefore predicts poorly on new data. Higher-order polynomials with too many terms are a classic example. <em>(S&amp;W Ch. 8)</em></p>
+<p><span class="alert">Overfitting</span> occurs when we end up fitting the <span class="alert">noise</span> in the data rather than the underlying relationship. The model fits the sample well but performs poorly out of sample.</p>
 </div>
 </div>
 </div>
@@ -720,16 +720,7 @@ wage = \beta_0 + \beta_1 \cdot female + \beta_2 \cdot public + \beta_3 (female \
 \hat{wage} = 25 - 4 \cdot female + 3 \cdot public + 2 \cdot (female \times public)
 \]</span></p>
 <div class="fragment">
-<p><strong>Interpretation:</strong></p>
-<ul>
-<li>Men in private sector: $25 (baseline)</li>
-<li>Men in public sector: <span class="math inline">\(25 + 3 = \$28\)</span></li>
-<li>Women in private sector: <span class="math inline">\(25 - 4 = \$21\)</span> (gap = $4)</li>
-<li>Women in public sector: <span class="math inline">\(25 - 4 + 3 + 2 = \$26\)</span> (gap = $2)</li>
-</ul>
-</div>
-<div class="fragment">
-<p><span class="math inline">\(\hat{\beta}_3 = 2\)</span>: the gender wage gap is $2 <span class="alert">smaller</span> in the public sector. Test <span class="math inline">\(H_0: \beta_3 = 0\)</span> to check if the gap differs significantly.</p>
+<p><strong>What is the predicted wage for each group? What does <span class="math inline">\(\hat{\beta}_3\)</span> tell us?</strong></p>
 </div>
 </section>
 <section id="continuous-continuous-interaction" class="slide level2">
@@ -893,11 +884,7 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 <p>In <span class="math inline">\(Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2\)</span>, the effect of <span class="math inline">\(X_1\)</span> is <span class="math inline">\(\beta_1 + \beta_3 X_2\)</span> — it depends on <span class="math inline">\(X_2\)</span>. <span class="math inline">\(\beta_1\)</span> is only the effect of <span class="math inline">\(X_1\)</span> when <span class="math inline">\(X_2 = 0\)</span>, which may not be a meaningful value.</p>
 </div>
 <div class="fragment">
-<p><span class="alert"><strong>Mistake 3: Forgetting to center variables</strong></span></p>
-<p>If <span class="math inline">\(X_2 = 0\)</span> is not meaningful (e.g., zero years of experience), center <span class="math inline">\(X_2\)</span> around its mean before interacting. Then <span class="math inline">\(\beta_1\)</span> gives the effect of <span class="math inline">\(X_1\)</span> at the average value of <span class="math inline">\(X_2\)</span>, which is much more interpretable.</p>
-</div>
-<div class="fragment">
-<p><span class="alert"><strong>Mistake 4: Testing the wrong hypothesis</strong></span></p>
+<p><span class="alert"><strong>Mistake 3: Testing the wrong hypothesis</strong></span></p>
 <p>To test whether an interaction matters, test <span class="math inline">\(H_0: \beta_3 = 0\)</span> (not <span class="math inline">\(H_0: \beta_1 = 0\)</span>). In Stata: <code>test</code> after <code>regress</code>, or read the <span class="math inline">\(t\)</span>-statistic on the interaction term directly.</p>
 </div>
 </section>
@@ -906,31 +893,32 @@ wage = \beta_0 + \beta_1 \cdot education + \beta_2 \cdot female + \beta_3 (educa
 <p><strong>When should you include an interaction?</strong></p>
 <div class="fragment">
 <ol type="1">
-<li><p><strong>Theory first</strong> — Is there a compelling reason that the effect of <span class="math inline">\(X_1\)</span> depends on <span class="math inline">\(X_2\)</span>? If yes, include the interaction regardless of significance.</p></li>
-<li><p><strong>Statistical test</strong> — Test <span class="math inline">\(H_0: \beta_3 = 0\)</span>. If rejected, the interaction is statistically significant.</p></li>
-<li><p><strong>Model fit</strong> — The <span class="kw">adjusted <span class="math inline">\(R^2\)</span></span> (<span class="math inline">\(\bar{R}^2\)</span>) penalizes for added parameters. If <span class="math inline">\(\bar{R}^2\)</span> rises when you add the interaction term, that provides additional support for including it.</p></li>
+<li><strong>Theory first</strong> — Is there a compelling reason that the effect of <span class="math inline">\(X_1\)</span> depends on <span class="math inline">\(X_2\)</span>? If yes, include the interaction regardless of significance.</li>
 </ol>
 </div>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<ol start="2" type="1">
+<li><strong>Statistical test</strong> — Test <span class="math inline">\(H_0: \beta_3 = 0\)</span>. If rejected, the interaction is statistically significant.</li>
+</ol>
 </div>
-<p><strong>Rule</strong></p>
-</div>
-<div class="callout-content">
-<p>Never include an interaction term without also including both main effects (<span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>) — even if the main effects are not individually significant.</p>
-</div>
-</div>
-</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li><strong>Model fit</strong> — The <span class="kw">adjusted <span class="math inline">\(R^2\)</span></span> (<span class="math inline">\(\bar{R}^2\)</span>) penalizes for added parameters. If <span class="math inline">\(\bar{R}^2\)</span> rises when you add the interaction term, that provides additional support for including it.</li>
+</ol>
 </div>
 </section></section>
 <section>
 <section id="logarithmic-specifications" class="title-slide slide level1 center">
 <h1>Logarithmic Specifications</h1>
 
+</section>
+<section id="when-is-a-log-the-right-tool" class="slide level2">
+<h2>When Is a Log the Right Tool?</h2>
+<div class="r-stack">
+<p><img src="./ch8_figures/ch8_why_logs_1.png" style="width:90.0%"></p>
+<p><img src="./ch8_figures/ch8_why_logs_2.png" class="fragment" style="width:90.0%"></p>
+<p><img src="./ch8_figures/ch8_why_logs_3.png" class="fragment" style="width:90.0%"></p>
+</div>
 </section>
 <section id="why-logarithms" class="slide level2 scrollable">
 <h2>Why Logarithms?</h2>
@@ -1180,24 +1168,21 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 <img src="./ch8_figures/ch8_loglog_specification.png" style="width:75.0%" class=""></section>
 <section id="knowledge-check-log-specifications" class="slide level2 scrollable">
 <h2>Knowledge Check: Log Specifications</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
 <p><strong>What are the units? How do we interpret each coefficient?</strong></p>
-</div>
-<div class="callout-content">
-<ol type="a">
-<li><span class="math inline">\(wage = 5 + 0.3 \cdot experience\)</span></li>
-<li><span class="math inline">\(\log(wage) = 1.2 + 0.04 \cdot experience\)</span></li>
-<li><span class="math inline">\(wage = 8 + 2.5 \log(experience)\)</span></li>
-<li><span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span></li>
-</ol>
-</div>
-</div>
-</div>
+<ul>
+<li class="fragment"><ol type="a">
+<li class="fragment"><span class="math inline">\(wage = 5 + 0.3 \cdot experience\)</span></li>
+</ol></li>
+<li class="fragment"><ol start="2" type="a">
+<li class="fragment"><span class="math inline">\(\log(wage) = 1.2 + 0.04 \cdot experience\)</span></li>
+</ol></li>
+<li class="fragment"><ol start="3" type="a">
+<li class="fragment"><span class="math inline">\(wage = 8 + 2.5 \log(experience)\)</span></li>
+</ol></li>
+<li class="fragment"><ol start="4" type="a">
+<li class="fragment"><span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span></li>
+</ol></li>
+</ul>
 </section>
 <section id="knowledge-check-answers" class="slide level2 smaller scrollable">
 <h2>Knowledge Check: Answers</h2>
@@ -1212,10 +1197,64 @@ Y_i = \beta_0 + \beta_1 \log(X_i) + u_i
 <p><strong>d)</strong> <span class="math inline">\(\log(wage) = 1.5 + 0.15 \log(experience)\)</span> — <strong>log-log (elasticity)</strong> <span class="math inline">\(\%\Delta wage = 0.15 \cdot \%\Delta experience\)</span> → a 1% increase in experience raises wages by <strong>0.15%</strong></p>
 </div>
 </section>
-<section id="interpretation-guide-summary" class="slide level2">
+<section id="interpretation-guide-summary" class="slide level2 smaller">
 <h2>Interpretation Guide Summary</h2>
-
-<img src="./ch8_figures/ch8_interpretation_guide.png" style="width:90.0%" class=""></section>
+<table class="caption-top">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 26%">
+<col style="width: 59%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>Specification</th>
+<th>Interpret <span class="math inline">\(\hat\beta_1\)</span> as…</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Level–Level</strong></td>
+<td><span class="math inline">\(Y = \beta_0 + \beta_1 X\)</span></td>
+<td>+1 unit in <span class="math inline">\(X\)</span> → <span class="math inline">\(+\beta_1\)</span> units in <span class="math inline">\(Y\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Log–Level</strong></td>
+<td><span class="math inline">\(\log(Y) = \beta_0 + \beta_1 X\)</span></td>
+<td>+1 unit in <span class="math inline">\(X\)</span> → <span class="math inline">\(+(100\beta_1)\)</span>% in <span class="math inline">\(Y\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Level–Log</strong></td>
+<td><span class="math inline">\(Y = \beta_0 + \beta_1 \log(X)\)</span></td>
+<td>+1% in <span class="math inline">\(X\)</span> → <span class="math inline">\(+\beta_1/100\)</span> units in <span class="math inline">\(Y\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Log–Log</strong></td>
+<td><span class="math inline">\(\log(Y) = \beta_0 + \beta_1 \log(X)\)</span></td>
+<td>+1% in <span class="math inline">\(X\)</span> → <span class="math inline">\(+\beta_1\)</span>% in <span class="math inline">\(Y\)</span> (<strong>elasticity</strong>)</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Memory aid</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Is <span class="math inline">\(Y\)</span> logged? → interpret as % change in <span class="math inline">\(Y\)</span></li>
+<li>Is <span class="math inline">\(X\)</span> logged? → interpret as % change in <span class="math inline">\(X\)</span></li>
+<li>Both logged? → elasticity</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="stata-implementation-logs" class="slide level2">
 <h2>Stata Implementation: Logs</h2>
 <p><strong>Generate log variables:</strong></p>

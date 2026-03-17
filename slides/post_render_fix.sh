@@ -10,7 +10,7 @@ fix_html() {
   local target_dir="$1"
   [ -d "$target_dir" ] || return 0
   find "$target_dir" -maxdepth 2 -name "*.html" -print0 | while IFS= read -r -d '' f; do
-    perl -0pi -e 's/\bdata-src="/src="/g; s/\br-stretch\b//g; s/  +/ /g' "$f"
+    perl -0pi -e 's|\.\./_styles/styles\.css|styles.css|g; s/\bdata-src="/src="/g; s/\br-stretch\b//g; s/  +/ /g' "$f"
   done
 }
 

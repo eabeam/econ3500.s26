@@ -52,21 +52,78 @@ p1 <- ggplot(df_quad, aes(x = X, y = Y)) +
 ggsave(file.path(fig_dir, "ch8_quadratic_relationship.png"), p1, width = 10, height = 6, dpi = 300, bg = "white")
 
 ################################################################################
-# FIGURE 2: MARGINAL EFFECT QUADRATIC
+# FIGURE 2: MARGINAL EFFECT QUADRATIC (two-panel)
+# Left:  data + quadratic fit + tangent lines at X=2, 5, 8
+# Right: marginal effect as linear function of X
 ################################################################################
 beta1_hat <- coef(model_quad)[2]
 beta2_hat <- coef(model_quad)[3]
+intercept_hat <- coef(model_quad)[1]
 marginal_effect <- beta1_hat + 2 * beta2_hat * X_pred
 turning_point <- -beta1_hat / (2 * beta2_hat)
 df_marginal <- data.frame(X = X_pred, ME = marginal_effect)
-p2 <- ggplot(df_marginal, aes(x = X, y = ME)) +
+
+# Tangent lines at three X values
+tangent_xs <- c(2, 5, 8)
+tangent_colors <- c(eco_teal, eco_gold, "#C0392B")
+tangent_labels <- sprintf("X = %d\nslope = %.2f", tangent_xs,
+                          beta1_hat + 2 * beta2_hat * tangent_xs)
+
+tangent_segments <- do.call(rbind, lapply(seq_along(tangent_xs), function(i) {
+  x0 <- tangent_xs[i]
+  y0 <- intercept_hat + beta1_hat * x0 + beta2_hat * x0^2
+  slope <- beta1_hat + 2 * beta2_hat * x0
+  dx <- 1.5
+  data.frame(
+    x    = x0 - dx, xend = x0 + dx,
+    y    = y0 - slope * dx, yend = y0 + slope * dx,
+    grp  = factor(i),
+    col  = tangent_colors[i]
+  )
+}))
+
+p2_left <- ggplot(df_quad, aes(x = X, y = Y)) +
+  geom_point(color = "grey60", alpha = 0.4, size = 1.8) +
+  geom_line(data = df_pred, aes(x = X, y = Quadratic),
+            color = eco_navy, linewidth = 1.3) +
+  geom_segment(data = tangent_segments,
+               aes(x = x, xend = xend, y = y, yend = yend, color = grp),
+               linewidth = 1.4, show.legend = FALSE) +
+  scale_color_manual(values = setNames(tangent_colors, as.character(1:3))) +
+  annotate("text", x = tangent_xs, y = intercept_hat + beta1_hat * tangent_xs +
+             beta2_hat * tangent_xs^2 + 5,
+           label = tangent_labels, color = tangent_colors,
+           fontface = "bold", size = 3.5, hjust = 0) +
+  labs(title = "Quadratic fit", subtitle = "Tangent slope decreases as X increases",
+       x = "X", y = "Y") +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+
+p2_right <- ggplot(df_marginal, aes(x = X, y = ME)) +
   geom_line(color = eco_navy, linewidth = 1.5) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "black") +
-  geom_vline(xintercept = turning_point, linetype = "dotted", color = eco_gold, linewidth = 1) +
-  annotate("text", x = turning_point + 1, y = max(marginal_effect) * 0.8, label = sprintf("Turning point\nX = %.2f", turning_point), color = eco_gold, fontface = "bold", size = 4) +
-  labs(title = "Marginal Effect in Quadratic Model", subtitle = "∂Y/∂X = β1 + 2β2·X", x = "X", y = "∂Y/∂X") +
-  theme_minimal(base_size = 14) + theme(plot.title = element_text(face = "bold", hjust = 0.5), plot.subtitle = element_text(hjust = 0.5))
-ggsave(file.path(fig_dir, "ch8_marginal_effect_quadratic.png"), p2, width = 10, height = 6, dpi = 300, bg = "white")
+  geom_vline(xintercept = turning_point, linetype = "dotted",
+             color = eco_gold, linewidth = 1) +
+  geom_point(data = data.frame(
+               X  = tangent_xs,
+               ME = beta1_hat + 2 * beta2_hat * tangent_xs),
+             aes(x = X, y = ME), color = tangent_colors,
+             size = 4, shape = 21, fill = tangent_colors, stroke = 1.2) +
+  annotate("text", x = turning_point + 0.8,
+           y = max(marginal_effect) * 0.5,
+           label = sprintf("Turning\npoint\nX = %.1f", turning_point),
+           color = eco_gold, fontface = "bold", size = 3.8) +
+  labs(title = "Marginal effect",
+       subtitle = "∂Y/∂X = β₁ + 2β₂·X  (linear in X)",
+       x = "X", y = "∂Y/∂X") +
+  theme_minimal(base_size = 13) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5),
+        plot.subtitle = element_text(hjust = 0.5))
+
+p2 <- gridExtra::grid.arrange(p2_left, p2_right, ncol = 2)
+ggsave(file.path(fig_dir, "ch8_marginal_effect_quadratic.png"),
+       p2, width = 12, height = 6, dpi = 300, bg = "white")
 
 ################################################################################
 # FIGURE 3: INTERACTION CONTINUOUS × CONTINUOUS
@@ -126,6 +183,100 @@ p4 <- ggplot(df_binary, aes(x = X, y = Y, color = D)) +
 ggsave(file.path(fig_dir, "ch8_interaction_binary.png"), p4, width = 12, height = 6, dpi = 300, bg = "white")
 
 ################################################################################
+# FIGURE 4b: WHY LOGS — three builds stepped via Reveal.js r-stack overlays
+# Build 1: linear only | Build 2: + quadratic | Build 3: + log + R² legend
+# True DGP: Y = 5 + 8*log(X) + noise, X in [1, 50].
+################################################################################
+n_log_why <- 200
+X_why <- runif(n_log_why, 1, 50)
+Y_why <- 5 + 8 * log(X_why) + rnorm(n_log_why, 0, 2)
+df_why <- data.frame(X = X_why, Y = Y_why)
+
+X_seq <- seq(1, 50, length.out = 300)
+
+m_lin  <- lm(Y ~ X,            data = df_why)
+m_quad <- lm(Y ~ X + I(X^2),   data = df_why)
+m_log  <- lm(Y ~ log(X),       data = df_why)
+
+r2_lin  <- round(summary(m_lin)$r.squared,  3)
+r2_quad <- round(summary(m_quad)$r.squared, 3)
+r2_log  <- round(summary(m_log)$r.squared,  3)
+
+df_fits <- data.frame(
+  X        = rep(X_seq, 3),
+  Y_fit    = c(predict(m_lin,  newdata = data.frame(X = X_seq)),
+               predict(m_quad, newdata = data.frame(X = X_seq)),
+               predict(m_log,  newdata = data.frame(X = X_seq))),
+  Model    = rep(c("Linear", "Quadratic", "Log"), each = 300)
+)
+df_fits$Model <- factor(df_fits$Model, levels = c("Linear", "Quadratic", "Log"))
+
+y_range <- range(df_why$Y)
+
+# Shared base: data + scales + theme (accepts a subset of df_fits)
+base_why <- function(df_fits_sub) {
+  ggplot(df_why, aes(x = X, y = Y)) +
+    geom_point(color = "grey60", alpha = 0.5, size = 1.8) +
+    geom_line(data = df_fits_sub,
+              aes(x = X, y = Y_fit, color = Model, linetype = Model),
+              linewidth = 1.3) +
+    scale_color_manual(values = c("Linear" = eco_gold,
+                                  "Quadratic" = "#C0392B",
+                                  "Log" = eco_navy)) +
+    scale_linetype_manual(values = c("Linear" = "dashed",
+                                     "Quadratic" = "dotdash",
+                                     "Log" = "solid")) +
+    coord_cartesian(ylim = y_range) +   # fixed scale across all 3 builds
+    labs(title = "Which functional form fits best?",
+         subtitle = "True relationship is logarithmic — diminishing returns, no turning point",
+         x = "X", y = "Y") +
+    theme_minimal(base_size = 14) +
+    theme(plot.title    = element_text(face = "bold", hjust = 0.5),
+          plot.subtitle = element_text(hjust = 0.5),
+          legend.position = "none")
+}
+
+# Build 1: linear only
+p_why_1 <- base_why(subset(df_fits, Model == "Linear")) +
+  annotate("text", x = 42, y = predict(m_lin, newdata = data.frame(X = 42)) + 1.5,
+           label = "Linear", color = eco_gold, fontface = "bold", size = 4)
+
+# Build 2: linear + quadratic
+p_why_2 <- base_why(subset(df_fits, Model %in% c("Linear", "Quadratic"))) +
+  annotate("text", x = 42, y = predict(m_lin,  newdata = data.frame(X = 42)) + 1.5,
+           label = "Linear", color = eco_gold, fontface = "bold", size = 4) +
+  annotate("text", x = 38, y = predict(m_quad, newdata = data.frame(X = 38)) - 2,
+           label = "Quadratic", color = "#C0392B", fontface = "bold", size = 4)
+
+# Build 3: all three + R² legend box in bottom-right (data is high-Y there, so low-Y is empty)
+r2_ybase <- y_range[1]
+p_why_3 <- base_why(df_fits) +
+  annotate("text", x = 42, y = predict(m_lin,  newdata = data.frame(X = 42)) + 1.5,
+           label = "Linear", color = eco_gold, fontface = "bold", size = 4) +
+  annotate("text", x = 38, y = predict(m_quad, newdata = data.frame(X = 38)) - 2,
+           label = "Quadratic", color = "#C0392B", fontface = "bold", size = 4) +
+  annotate("text", x = 42, y = predict(m_log,  newdata = data.frame(X = 42)) + 1.5,
+           label = "Log", color = eco_navy, fontface = "bold", size = 4) +
+  annotate("rect", xmin = 27, xmax = 50,
+           ymin = r2_ybase, ymax = r2_ybase + 16,
+           fill = "white", color = "grey70", linewidth = 0.5) +
+  annotate("text", x = 28.5, y = r2_ybase + 14.5, hjust = 0, fontface = "bold",
+           label = "Model fit (R²)", color = "grey20", size = 4) +
+  annotate("text", x = 28.5, y = r2_ybase + 11.5, hjust = 0, fontface = "bold",
+           label = sprintf("Linear:      R² = %.3f", r2_lin),
+           color = eco_gold, size = 4) +
+  annotate("text", x = 28.5, y = r2_ybase + 8.5, hjust = 0, fontface = "bold",
+           label = sprintf("Quadratic: R² = %.3f", r2_quad),
+           color = "#C0392B", size = 4) +
+  annotate("text", x = 28.5, y = r2_ybase + 5.5, hjust = 0, fontface = "bold",
+           label = sprintf("Log:           R² = %.3f", r2_log),
+           color = eco_navy, size = 4)
+
+ggsave(file.path(fig_dir, "ch8_why_logs_1.png"), p_why_1, width = 10, height = 6, dpi = 300, bg = "white")
+ggsave(file.path(fig_dir, "ch8_why_logs_2.png"), p_why_2, width = 10, height = 6, dpi = 300, bg = "white")
+ggsave(file.path(fig_dir, "ch8_why_logs_3.png"), p_why_3, width = 10, height = 6, dpi = 300, bg = "white")
+
+################################################################################
 # FIGURE 5: LOG-LOG
 ################################################################################
 n <- 150
@@ -134,11 +285,23 @@ Y_log <- 5 * X_log^0.8 * exp(rnorm(n, 0, 0.15))
 df_loglog <- data.frame(X = X_log, Y = Y_log, log_X = log(X_log), log_Y = log(Y_log))
 model_loglog <- lm(log_Y ~ log_X, data = df_loglog)
 elasticity <- coef(model_loglog)[2]
+# x positions for labels — place near right edge of X range
+x_label_pos <- max(df_loglog$X) * 0.82
 p5_levels <- ggplot(df_loglog, aes(x = X, y = Y)) +
   geom_point(color = eco_teal, alpha = 0.5, size = 2) +
   geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = eco_gold, linewidth = 1, linetype = "dashed") +
   stat_function(fun = function(x) exp(coef(model_loglog)[1]) * x^coef(model_loglog)[2], color = eco_navy, linewidth = 1.2) +
-  labs(title = "Level-Level (shows nonlinearity)", x = "X", y = "Y") + theme_minimal(base_size = 12) + theme(plot.title = element_text(face = "bold", hjust = 0.5))
+  annotate("text",
+           x = x_label_pos,
+           y = predict(lm(Y ~ X, data = df_loglog), newdata = data.frame(X = x_label_pos)) + diff(range(df_loglog$Y)) * 0.06,
+           label = "Linear fit", color = eco_gold, fontface = "bold", size = 3.5, hjust = 0) +
+  annotate("text",
+           x = x_label_pos,
+           y = exp(coef(model_loglog)[1]) * x_label_pos^coef(model_loglog)[2] - diff(range(df_loglog$Y)) * 0.06,
+           label = "Log-log fit", color = eco_navy, fontface = "bold", size = 3.5, hjust = 0) +
+  labs(title = "Level-Level (shows nonlinearity)", x = "X", y = "Y") +
+  theme_minimal(base_size = 12) +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5))
 p5_logs <- ggplot(df_loglog, aes(x = log_X, y = log_Y)) +
   geom_point(color = eco_teal, alpha = 0.5, size = 2) +
   geom_smooth(method = "lm", se = FALSE, color = eco_navy, linewidth = 1.2) +
@@ -148,33 +311,79 @@ p5 <- gridExtra::grid.arrange(p5_levels, p5_logs, ncol = 2, top = grid::textGrob
 ggsave(file.path(fig_dir, "ch8_loglog_specification.png"), p5, width = 12, height = 6, dpi = 300, bg = "white")
 
 ################################################################################
-# FIGURE 6: LOG SPECIFICATIONS
+# FIGURE 6: LOG SPECIFICATIONS — same wages/education data, four panels
+# True DGP: log(wage) = 1.5 + 0.08*educ + u  (log-level is the "truth")
+# X = years of education (6–20), Y = hourly wage in dollars
+# All four panels show the same 300 workers; only the axes change.
 ################################################################################
-X_loglevel <- runif(n, 0, 10)
-log_Y_loglevel <- 3 + 0.08*X_loglevel + rnorm(n, 0, 0.2)
-Y_loglevel <- exp(log_Y_loglevel)
-df_loglevel <- data.frame(X = X_loglevel, Y = Y_loglevel, log_Y = log_Y_loglevel)
-model_loglevel <- lm(log_Y ~ X, data = df_loglevel)
-beta_loglevel <- coef(model_loglevel)[2]
-p6a <- ggplot(df_loglevel, aes(x = X, y = log_Y)) +
-  geom_point(color = eco_teal, alpha = 0.5, size = 2) +
+n_log <- 300
+educ  <- runif(n_log, 0, 22)          # continuous 0–22 yrs: smooth scatter, wide range
+log_wage <- 1.8 + 0.10 * educ + rnorm(n_log, 0, 0.25)
+wage <- exp(log_wage)
+# wage range ~$6 (no educ) to ~$90 (22 yrs): clear curvature + heteroskedasticity in levels
+df_wages <- data.frame(
+  educ     = educ,
+  wage     = wage,
+  log_wage = log_wage,
+  log_educ = log(educ)
+)
+
+theme_log <- theme_minimal(base_size = 12) +
+  theme(plot.title    = element_text(face = "bold", hjust = 0.5, size = 12),
+        plot.subtitle = element_text(hjust = 0.5, size = 9, color = "grey40"),
+        axis.title    = element_text(size = 10))
+
+# Panel A: level-level
+m_ll  <- lm(wage ~ educ, data = df_wages)
+p6a <- ggplot(df_wages, aes(x = educ, y = wage)) +
+  geom_point(color = eco_teal, alpha = 0.4, size = 1.5) +
   geom_smooth(method = "lm", se = FALSE, color = eco_navy, linewidth = 1.2) +
-  annotate("text", x = 7, y = max(df_loglevel$log_Y) * 0.95, label = sprintf("β1 = %.3f\n→ 1-unit ↑ in X ≈ %.1f%% ↑ in Y", beta_loglevel, 100*beta_loglevel), color = eco_navy, fontface = "bold", size = 3.5) +
-  labs(title = "Log-Level: log(Y) = β0 + β1·X + u", subtitle = "Linear in X, percentage change in Y", x = "X", y = "log(Y)") +
-  theme_minimal(base_size = 12) + theme(plot.title = element_text(face = "bold", hjust = 0.5), plot.subtitle = element_text(hjust = 0.5, size = 10))
-X_levellog <- exp(runif(n, 0, 3))
-Y_levellog <- 50 + 20*log(X_levellog) + rnorm(n, 0, 5)
-df_levellog <- data.frame(X = X_levellog, Y = Y_levellog, log_X = log(X_levellog))
-model_levellog <- lm(Y ~ log_X, data = df_levellog)
-beta_levellog <- coef(model_levellog)[2]
-p6b <- ggplot(df_levellog, aes(x = log_X, y = Y)) +
-  geom_point(color = eco_teal, alpha = 0.5, size = 2) +
+  labs(title = "Level–Level",
+       subtitle = sprintf("wage = β₀ + β₁·educ   (β₁ = %.2f)", coef(m_ll)[2]),
+       x = "Years of education", y = "Hourly wage ($)") +
+  theme_log
+
+# Panel B: log-level
+m_logl <- lm(log_wage ~ educ, data = df_wages)
+p6b <- ggplot(df_wages, aes(x = educ, y = log_wage)) +
+  geom_point(color = eco_teal, alpha = 0.4, size = 1.5) +
   geom_smooth(method = "lm", se = FALSE, color = eco_navy, linewidth = 1.2) +
-  annotate("text", x = mean(df_levellog$log_X), y = max(df_levellog$Y) * 0.95, label = sprintf("β1 = %.2f\n→ 1%% ↑ in X ≈ %.2f ↑ in Y", beta_levellog, beta_levellog/100), color = eco_navy, fontface = "bold", size = 3.5) +
-  labs(title = "Level-Log: Y = β0 + β1·log(X) + u", subtitle = "Percentage change in X, linear change in Y", x = "log(X)", y = "Y") +
-  theme_minimal(base_size = 12) + theme(plot.title = element_text(face = "bold", hjust = 0.5), plot.subtitle = element_text(hjust = 0.5, size = 10))
-p6 <- gridExtra::grid.arrange(p6a, p6b, ncol = 2, top = grid::textGrob("Logarithmic Specifications Comparison", gp = grid::gpar(fontface = "bold", fontsize = 16)))
-ggsave(file.path(fig_dir, "ch8_log_specifications.png"), p6, width = 12, height = 6, dpi = 300, bg = "white")
+  labs(title = "Log–Level  ✓ best fit",
+       subtitle = sprintf("log(wage) = β₀ + β₁·educ   (β₁ = %.3f → +%.0f%% per year)",
+                          coef(m_logl)[2], 100*coef(m_logl)[2]),
+       x = "Years of education", y = "log(hourly wage)") +
+  theme_log +
+  theme(plot.title = element_text(face = "bold", hjust = 0.5, size = 12, color = eco_navy))
+
+# Panel C: level-log
+m_levlog <- lm(wage ~ log_educ, data = df_wages)
+p6c <- ggplot(df_wages, aes(x = log_educ, y = wage)) +
+  geom_point(color = eco_teal, alpha = 0.4, size = 1.5) +
+  geom_smooth(method = "lm", se = FALSE, color = eco_navy, linewidth = 1.2) +
+  labs(title = "Level–Log",
+       subtitle = sprintf("wage = β₀ + β₁·log(educ)   (β₁ = %.2f)", coef(m_levlog)[2]),
+       x = "log(years of education)", y = "Hourly wage ($)") +
+  theme_log
+
+# Panel D: log-log
+m_loglog2 <- lm(log_wage ~ log_educ, data = df_wages)
+p6d <- ggplot(df_wages, aes(x = log_educ, y = log_wage)) +
+  geom_point(color = eco_teal, alpha = 0.4, size = 1.5) +
+  geom_smooth(method = "lm", se = FALSE, color = eco_navy, linewidth = 1.2) +
+  labs(title = "Log–Log",
+       subtitle = sprintf("log(wage) = β₀ + β₁·log(educ)   (β₁ = %.2f, elasticity)", coef(m_loglog2)[2]),
+       x = "log(years of education)", y = "log(hourly wage)") +
+  theme_log
+
+p6 <- gridExtra::grid.arrange(
+  p6a, p6b, p6c, p6d, ncol = 2,
+  top = grid::textGrob(
+    "Same 300 workers, same data — only the axes change",
+    gp = grid::gpar(fontface = "bold", fontsize = 14)
+  )
+)
+ggsave(file.path(fig_dir, "ch8_log_specifications.png"),
+       p6, width = 12, height = 9, dpi = 300, bg = "white")
 
 ################################################################################
 # FIGURE 7: INTERPRETATION GUIDE

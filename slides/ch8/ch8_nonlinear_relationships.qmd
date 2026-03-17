@@ -84,6 +84,7 @@ $$
 ::: {.callout-important}
 ## Key Insight
 All three remain [linear in parameters]{.alert} — we can still use OLS!
+(A model like $Y_i = \beta_0 e^{\beta_1 X_i} + u_i$ is *not* linear in parameters and cannot be estimated by OLS directly.)
 :::
 
 ## The General Nonlinear Regression Model
@@ -303,7 +304,7 @@ $$
 
 ::: {.callout-note}
 ## Overfitting
-A model [overfits]{.alert} when it fits the sample data too closely — capturing noise rather than the true underlying relationship — and therefore predicts poorly on new data. Higher-order polynomials with too many terms are a classic example. *(S&W Ch. 8)*
+[Overfitting]{.alert} occurs when we end up fitting the [noise]{.alert} in the data rather than the underlying relationship. The model fits the sample well but performs poorly out of sample.
 :::
 
 **Warning:** Higher-order polynomials can [overfit]{.alert} and behave erratically at extremes. Use sparingly!
@@ -466,16 +467,7 @@ $$
 
 . . .
 
-**Interpretation:**
-
-- Men in private sector: \$25 (baseline)
-- Men in public sector: $25 + 3 = \$28$
-- Women in private sector: $25 - 4 = \$21$ (gap = \$4)
-- Women in public sector: $25 - 4 + 3 + 2 = \$26$ (gap = \$2)
-
-. . .
-
-$\hat{\beta}_3 = 2$: the gender wage gap is \$2 [smaller]{.alert} in the public sector. Test $H_0: \beta_3 = 0$ to check if the gap differs significantly.
+**What is the predicted wage for each group? What does $\hat{\beta}_3$ tell us?**
 
 ## Continuous × Continuous Interaction
 
@@ -642,13 +634,7 @@ In $Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \beta_3 X_1 X_2$, the effect of $X
 
 . . .
 
-[**Mistake 3: Forgetting to center variables**]{.alert}
-
-If $X_2 = 0$ is not meaningful (e.g., zero years of experience), center $X_2$ around its mean before interacting. Then $\beta_1$ gives the effect of $X_1$ at the average value of $X_2$, which is much more interpretable.
-
-. . .
-
-[**Mistake 4: Testing the wrong hypothesis**]{.alert}
+[**Mistake 3: Testing the wrong hypothesis**]{.alert}
 
 To test whether an interaction matters, test $H_0: \beta_3 = 0$ (not $H_0: \beta_1 = 0$). In Stata: `test` after `regress`, or read the $t$-statistic on the interaction term directly.
 
@@ -660,18 +646,25 @@ To test whether an interaction matters, test $H_0: \beta_3 = 0$ (not $H_0: \beta
 
 1. **Theory first** — Is there a compelling reason that the effect of $X_1$ depends on $X_2$? If yes, include the interaction regardless of significance.
 
-2. **Statistical test** — Test $H_0: \beta_3 = 0$. If rejected, the interaction is statistically significant.
+. . .
 
-3. **Model fit** — The [adjusted $R^2$]{.kw} ($\bar{R}^2$) penalizes for added parameters. If $\bar{R}^2$ rises when you add the interaction term, that provides additional support for including it.
+2. **Statistical test** — Test $H_0: \beta_3 = 0$. If rejected, the interaction is statistically significant.
 
 . . .
 
-::: {.callout-important}
-## Rule
-Never include an interaction term without also including both main effects ($X_1$ and $X_2$) — even if the main effects are not individually significant.
-:::
+3. **Model fit** — The [adjusted $R^2$]{.kw} ($\bar{R}^2$) penalizes for added parameters. If $\bar{R}^2$ rises when you add the interaction term, that provides additional support for including it.
 
 # Logarithmic Specifications
+
+## When Is a Log the Right Tool?
+
+::: {.r-stack}
+![](./ch8_figures/ch8_why_logs_1.png){width=90%}
+
+![](./ch8_figures/ch8_why_logs_2.png){width=90% .fragment}
+
+![](./ch8_figures/ch8_why_logs_3.png){width=90% .fragment}
+:::
 
 ## Why Logarithms?
 
@@ -860,13 +853,16 @@ $\beta_1$ is the [elasticity]{.alert} of $Y$ with respect to $X$. A 1% increase 
 
 ## Knowledge Check: Log Specifications
 
-::: {.callout-tip}
-## What are the units? How do we interpret each coefficient?
+**What are the units? How do we interpret each coefficient?**
 
-a) $wage = 5 + 0.3 \cdot experience$
-b) $\log(wage) = 1.2 + 0.04 \cdot experience$
-c) $wage = 8 + 2.5 \log(experience)$
-d) $\log(wage) = 1.5 + 0.15 \log(experience)$
+::: {.incremental}
+- a) $wage = 5 + 0.3 \cdot experience$
+
+- b) $\log(wage) = 1.2 + 0.04 \cdot experience$
+
+- c) $wage = 8 + 2.5 \log(experience)$
+
+- d) $\log(wage) = 1.5 + 0.15 \log(experience)$
 :::
 
 ## Knowledge Check: Answers {.smaller .scrollable}
@@ -889,9 +885,24 @@ $\Delta wage = 2.5 \cdot \Delta \log(experience)$, so $\Delta wage = (2.5/100) \
 **d)** $\log(wage) = 1.5 + 0.15 \log(experience)$ — **log-log (elasticity)**
 $\%\Delta wage = 0.15 \cdot \%\Delta experience$ → a 1% increase in experience raises wages by **0.15%**
 
-## Interpretation Guide Summary
+## Interpretation Guide Summary {.smaller}
 
-![](./ch8_figures/ch8_interpretation_guide.png){width=90%}
+| Model | Specification | Interpret $\hat\beta_1$ as... |
+|-------|--------------|-------------------------------|
+| **Level–Level** | $Y = \beta_0 + \beta_1 X$ | +1 unit in $X$ → $+\beta_1$ units in $Y$ |
+| **Log–Level** | $\log(Y) = \beta_0 + \beta_1 X$ | +1 unit in $X$ → $+(100\beta_1)$% in $Y$ |
+| **Level–Log** | $Y = \beta_0 + \beta_1 \log(X)$ | +1% in $X$ → $+\beta_1/100$ units in $Y$ |
+| **Log–Log** | $\log(Y) = \beta_0 + \beta_1 \log(X)$ | +1% in $X$ → $+\beta_1$% in $Y$ (**elasticity**) |
+
+. . .
+
+::: {.callout-tip}
+## Memory aid
+
+- Is $Y$ logged? → interpret as % change in $Y$
+- Is $X$ logged? → interpret as % change in $X$
+- Both logged? → elasticity
+:::
 
 ## Stata Implementation: Logs
 

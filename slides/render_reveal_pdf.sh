@@ -54,6 +54,10 @@ echo "Printing to PDF: $OUT"
 "$CHROME" \
   --headless \
   --disable-gpu \
+  --disable-dev-shm-usage \
+  --no-sandbox \
+  --disable-software-rasterizer \
+  --disable-features=VizDisplayCompositor \
   --print-to-pdf-no-header \
   --print-to-pdf="$OUT" \
   --virtual-time-budget=20000 \
