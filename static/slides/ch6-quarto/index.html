@@ -6,8 +6,8 @@
 <script src="ch6_multiple_regression_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="ch6_multiple_regression_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ch6_multiple_regression_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="ch6_multiple_regression_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
- <meta name="generator" content="quarto-1.8.26">
+<link href="ch6_multiple_regression_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+ <meta name="generator" content="quarto-1.8.27">
 
  <meta name="author" content="ECON3500: Econometrics and Applications">
  <title>Linear Regression with Multiple Regressors</title>
@@ -1150,6 +1150,39 @@ Shows relationship between $Y$ and $X_1$ [after removing]{.alert} the influence 
 <li>Large SEs are honest! They reflect genuine uncertainty</li>
 </ul></li>
 </ol>
+</section>
+<section id="gauss-markov-in-multiple-regression" class="slide level2 scrollable">
+<h2>Gauss-Markov in Multiple Regression</h2>
+<p>In Chapter 5, we learned that OLS is <span style="color: #19375F;">BLUE</span> (Best Linear Unbiased Estimator) under the Gauss-Markov conditions.</p>
+<p>The same result extends to multiple regression — we just need <span class="alert">one more assumption</span>:</p>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Five Conditions for BLUE (Multiple Regression)</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><strong>Zero conditional mean:</strong> <span class="math inline">\(E[u_i | X_{1i}, \ldots, X_{ki}] = 0\)</span></li>
+<li><strong>i.i.d. sampling</strong></li>
+<li><strong>Large outliers rare</strong> (finite fourth moments)</li>
+<li><strong>No perfect multicollinearity</strong></li>
+<li><strong>Homoskedasticity:</strong> <span class="math inline">\(\text{Var}(u_i | X_{1i}, \ldots, X_{ki}) = \sigma^2_u\)</span></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>Assumptions 1–4 → OLS is <span class="kw">unbiased</span></li>
+<li>Add assumption 5 → OLS is <span class="kw">efficient</span> (smallest variance among linear unbiased estimators)</li>
+<li>If homoskedasticity fails, OLS is still unbiased — but no longer “Best”</li>
+</ul>
+</div>
 </section>
 <section id="key-formulas-summary" class="slide level2">
 <h2>Key Formulas Summary</h2>
