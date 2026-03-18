@@ -6,8 +6,8 @@
 <script src="ch10_panel_data_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="ch10_panel_data_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ch10_panel_data_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="ch10_panel_data_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
- <meta name="generator" content="quarto-1.8.26">
+<link href="ch10_panel_data_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+ <meta name="generator" content="quarto-1.8.27">
 
  <meta name="author" content="ECON3500: Econometrics and Applications">
  <title>Regression with Panel Data</title>
@@ -299,7 +299,7 @@ ECON3500: Econometrics and Applications
 <div class="fragment">
 <p><strong>Panel data:</strong></p>
 <ul>
-<li>Track the <span class="alert">same</span> population over time</li>
+<li>Track the <span class="alert">same</span> observational units over time</li>
 <li>Population may be independent at first draw: Bob in 1990 is independent of Jane in 1990</li>
 <li>But <span class="alert">dependence over time</span>: Bob in 1990 is related to Bob in 1991</li>
 <li>Detroit will probably have high crime rates next year too</li>
@@ -415,13 +415,16 @@ ECON3500: Econometrics and Applications
 </ul>
 <p><span class="math display">\[y_{it} = \beta_0 + \delta_0 \cdot after_t + \beta_1 \cdot treated_i + \delta_1 \cdot (after_t \times treated_i) + u_{it}\]</span></p>
 <div class="fragment">
+<p><strong>Adding controls is fine:</strong> Additional covariates can be included without changing how <span class="math inline">\(\delta_1\)</span> is identified — they <span class="kw">reduce residual variance</span> and <span class="alert">improve precision</span> (tighter standard errors).</p>
+</div>
+<div class="fragment">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>The Parallel Trends Assumption</strong></p>
+<p><strong>The Parallel Trends Assumption <em>(common trends assumption in SW)</em></strong></p>
 </div>
 <div class="callout-content">
 <p>DiD requires that in the <span class="alert">absence of treatment</span>, the gap between treatment and control groups would have stayed <span class="kw">parallel</span> over time.</p>
@@ -475,7 +478,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Key Insight</strong></p>
 </div>
 <div class="callout-content">
-<p>If cities are observed in at least two periods and other factors affecting crime stay approximately constant, we can estimate causal effects <span class="alert">without additional controls</span>.</p>
+<p>By observing the same cities in two periods, we can control for <span class="alert">all time-invariant city-specific factors</span> — even unobserved ones — by examining how outcomes changed <em>within</em> each city over time.</p>
 </div>
 </div>
 </div>
@@ -483,12 +486,12 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="the-panel-data-model" class="slide level2 smaller">
 <h2>The Panel Data Model</h2>
-<p><span class="math display">\[crmrte_{it} = \beta_0 + \delta_0 \cdot d87_t + \beta_1 \cdot unemp_{it} + a_i + u_{it}\]</span></p>
+<p><span class="math display">\[crmrte_{it} = \beta_0 + \delta_0 \cdot d87_t + \beta_1 \cdot unemp_{it} + \alpha_i + u_{it}\]</span></p>
 <p>where <span class="math inline">\(t = 1982, 1987\)</span></p>
 <div class="fragment">
 <ul>
 <li><span class="math inline">\(d87_t\)</span>: time dummy for the second period</li>
-<li><span class="math inline">\(a_i\)</span>: <span class="alert">unobserved</span> time-constant factors (<span class="kw">entity fixed effects</span>)
+<li><span class="math inline">\(\alpha_i\)</span>: <span class="alert">unobserved</span> time-constant factors (<span class="kw">entity fixed effects</span>)
 <ul>
 <li>Detroit’s culture, geography, historical factors, etc.</li>
 </ul></li>
@@ -496,13 +499,13 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 <div class="fragment">
-<p><strong>The problem:</strong> <span class="math inline">\(a_i\)</span> is likely correlated with <span class="math inline">\(unemp_{it}\)</span> — cities with certain unobserved characteristics have both high unemployment and high crime. This is <span class="alert">OVB</span>.</p>
+<p><strong>The problem:</strong> <span class="math inline">\(\alpha_i\)</span> is likely correlated with <span class="math inline">\(unemp_{it}\)</span> — cities with certain unobserved characteristics have both high unemployment and high crime. This is <span class="alert">OVB</span>.</p>
 </div>
 </section>
 <section id="the-first-difference-trick" class="slide level2 smaller">
 <h2>The First-Difference Trick</h2>
 <p>Write the model for each period:</p>
-<p><span class="math display">\[crmrte_{i,1987} = \beta_0 + \delta_0 + \beta_1 \cdot unemp_{i,1987} + a_i + u_{i,1987}\]</span> <span class="math display">\[crmrte_{i,1982} = \beta_0 + \beta_1 \cdot unemp_{i,1982} + a_i + u_{i,1982}\]</span></p>
+<p><span class="math display">\[crmrte_{i,1987} = \beta_0 + \delta_0 + \beta_1 \cdot unemp_{i,1987} + \alpha_i + u_{i,1987}\]</span> <span class="math display">\[crmrte_{i,1982} = \beta_0 + \beta_1 \cdot unemp_{i,1982} + \alpha_i + u_{i,1982}\]</span></p>
 <div class="fragment">
 <p>Subtract the second from the first:</p>
 <p><span class="math display">\[\Delta crmrte_i = \delta_0 + \beta_1 \cdot \Delta unemp_i + \Delta u_i\]</span></p>
@@ -517,7 +520,7 @@ ECON3500: Econometrics and Applications
 <p><strong>The Fixed Effect Drops Out!</strong></p>
 </div>
 <div class="callout-content">
-<p>Because <span class="math inline">\(a_i - a_i = 0\)</span>, <span class="alert">all time-invariant unobserved factors</span> are eliminated. We don’t need to measure or control for them.</p>
+<p>Because <span class="math inline">\(\alpha_i - \alpha_i = 0\)</span>, <span class="alert">all time-invariant unobserved factors</span> are eliminated. We don’t need to measure or control for them.</p>
 </div>
 </div>
 </div>
@@ -576,15 +579,15 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="fixed-effects-the-math" class="slide level2 smaller">
 <h2>Fixed Effects: The Math</h2>
-<p>Start with: <span class="math display">\[y_{it} = \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + a_i + u_{it}\]</span></p>
+<p>Start with: <span class="math display">\[y_{it} = \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + \alpha_i + u_{it}\]</span></p>
 <div class="fragment">
-<p>Average over time for each entity: <span class="math display">\[\bar{y}_i = \beta_1 \bar{x}_{i1} + \cdots + \beta_k \bar{x}_{ik} + a_i + \bar{u}_i\]</span></p>
+<p>Average over time for each entity: <span class="math display">\[\bar{y}_i = \beta_1 \bar{x}_{i1} + \cdots + \beta_k \bar{x}_{ik} + \alpha_i + \bar{u}_i\]</span></p>
 </div>
 <div class="fragment">
 <p>Subtract (time-demeaning): <span class="math display">\[[y_{it} - \bar{y}_i] = \beta_1 [x_{it1} - \bar{x}_{i1}] + \cdots + \beta_k [x_{itk} - \bar{x}_{ik}] + [u_{it} - \bar{u}_i]\]</span></p>
 </div>
 <div class="fragment">
-<p>Because <span class="math inline">\(a_i - a_i = 0\)</span>, the fixed effect drops out!</p>
+<p>Because <span class="math inline">\(\alpha_i - \alpha_i = 0\)</span>, the fixed effect drops out!</p>
 <ul>
 <li>Estimate the time-demeaned equation by OLS</li>
 <li>This uses <span class="kw">within-entity variation</span> only: how <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> move <span class="alert">within</span> the same entity over time</li>
@@ -618,7 +621,7 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>Include entity dummies directly, or use <code>areg</code> which “absorbs” one set of fixed effects:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">areg</span> scrap grant d88 d89, <span class="kw">robust</span> absorb(fcode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">areg</span> scrap grant d88 d89, absorb(fcode) <span class="kw">cluster</span>(fcode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -635,7 +638,7 @@ ECON3500: Econometrics and Applications
 <div class="callout-content">
 <p>Tell Stata you have panel data, then estimate with the fixed effects option:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb2-1"><a href="" aria-hidden="true" tabindex="-1"></a>xtset fcode <span class="fu">year</span></span>
-<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtreg</span> scrap grant d88 d89, <span class="kw">fe</span> <span class="kw">vce</span>(<span class="kw">robust</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtreg</span> scrap grant d88 d89, <span class="kw">fe</span> <span class="kw">vce</span>(<span class="kw">cluster</span> fcode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -678,9 +681,9 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="fragment">
 <p>Add <span class="kw">time fixed effects</span>: a dummy for each time period.</p>
-<p><span class="math display">\[y_{it} = \beta_1 x_{it} + a_i + \lambda_t + u_{it}\]</span></p>
+<p><span class="math display">\[y_{it} = \beta_1 x_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
 <ul>
-<li><span class="math inline">\(a_i\)</span>: entity fixed effect (absorbs entity-specific, time-invariant factors)</li>
+<li><span class="math inline">\(\alpha_i\)</span>: entity fixed effect (absorbs entity-specific, time-invariant factors)</li>
 <li><span class="math inline">\(\lambda_t\)</span>: time fixed effect (absorbs time-specific, entity-invariant factors)</li>
 </ul>
 </div>
@@ -688,11 +691,11 @@ ECON3500: Econometrics and Applications
 <section id="entity-time-fixed-effects-whats-left" class="slide level2 smaller">
 <h2>Entity + Time Fixed Effects: What’s Left?</h2>
 <p>With <span class="kw">both</span> entity and time fixed effects:</p>
-<p><span class="math display">\[y_{it} = \beta_1 x_{it} + a_i + \lambda_t + u_{it}\]</span></p>
+<p><span class="math display">\[y_{it} = \beta_1 x_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
 <div class="fragment">
 <p><strong>Controlled for:</strong></p>
 <ul>
-<li>All time-invariant entity characteristics (<span class="math inline">\(a_i\)</span>)</li>
+<li>All time-invariant entity characteristics (<span class="math inline">\(\alpha_i\)</span>)</li>
 <li>All entity-invariant time shocks (<span class="math inline">\(\lambda_t\)</span>)</li>
 </ul>
 </div>
@@ -842,7 +845,7 @@ ECON3500: Econometrics and Applications
 <p>Suppose a job training program has a <span class="kw">true effect</span> that <span class="alert">grows over time</span>:</p>
 <ul>
 <li>Year 1 after adoption: productivity rises by <strong>+10</strong></li>
-<li>Year 2 after adoption: productivity rises by <strong>+30</strong> (the program compounds)</li>
+<li>Year 2 after adoption: productivity rises by <strong>+50</strong> (the program grows dramatically)</li>
 </ul>
 <div class="fragment">
 <p>Two states, three years. Without treatment, both would follow the same trend:</p>
@@ -895,7 +898,7 @@ ECON3500: Econometrics and Applications
 <td><strong>State E</strong> (treats in 2019)</td>
 <td style="text-align: center;">100</td>
 <td style="text-align: center;"><span style="color: #008080;">115</span></td>
-<td style="text-align: center;"><span style="color: #008080;">140</span></td>
+<td style="text-align: center;"><span style="color: #008080;">160</span></td>
 </tr>
 <tr class="even">
 <td><strong>State L</strong> (treats in 2020)</td>
@@ -908,7 +911,7 @@ ECON3500: Econometrics and Applications
 <div class="fragment">
 <ul>
 <li>State E in 2019: <span class="math inline">\(105 + 10 = 115\)</span> (year 1 effect)</li>
-<li>State E in 2020: <span class="math inline">\(110 + 30 = 140\)</span> (year 2 effect — program compounds)</li>
+<li>State E in 2020: <span class="math inline">\(110 + 50 = 160\)</span> (year 2 effect — program grows dramatically)</li>
 <li>State L in 2020: <span class="math inline">\(110 + 10 = 120\)</span> (year 1 effect)</li>
 </ul>
 </div>
@@ -918,12 +921,18 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="what-twfe-does" class="slide level2 smaller">
 <h2>What TWFE Does</h2>
-<p>With no pure control group, TWFE uses <span class="alert">State E as the “control”</span> for State L’s treatment in 2020.</p>
+<p>With no pure control group, TWFE takes a <span class="kw">weighted average</span> of all possible 2×2 DiD comparisons — including contaminated ones.</p>
 <div class="fragment">
-<p>The DiD comparison using State E as control:</p>
-<p><span class="math display">\[\hat{\delta}_1 = \underbrace{(120 - 105)}_{\Delta \text{State L}} - \underbrace{(140 - 115)}_{\Delta \text{State E}} = 15 - 25 = -10\]</span></p>
+<p><strong>Comparison 1 — valid:</strong> E treated vs.&nbsp;L as untreated control (2018→2019)</p>
+<p><span class="math display">\[\underbrace{(115 - 100)}_{\Delta \text{State E}} - \underbrace{(105 - 100)}_{\Delta \text{State L}} = 15 - 5 = [+10]{.kw}\]</span></p>
 </div>
 <div class="fragment">
+<p><strong>Comparison 2 — contaminated:</strong> L treated vs.&nbsp;E <span class="alert">already-treated</span> as “control” (2019→2020)</p>
+<p><span class="math display">\[\underbrace{(120 - 105)}_{\Delta \text{State L}} - \underbrace{(160 - 115)}_{\Delta \text{State E}} = 15 - 45 = [-30]{.alert}\]</span></p>
+</div>
+<div class="fragment">
+<p>With equal-sized groups, TWFE weights these comparisons equally:</p>
+<p><span class="math display">\[\hat{\beta}_{TWFE} = \tfrac{1}{2}(+10) + \tfrac{1}{2}(-30) = [-10]{.alert}\]</span></p>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -933,13 +942,13 @@ ECON3500: Econometrics and Applications
 <p><strong>TWFE Says the Effect is −10</strong></p>
 </div>
 <div class="callout-content">
-<p>The true effect is <span class="kw">+10</span>, but TWFE estimates <span class="alert">−10</span>. The sign flipped!</p>
+<p>All true effects are <span class="kw">positive</span> (+10 or +50), but TWFE estimates <span class="alert">−10</span>. The sign flipped!</p>
 </div>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p><strong>Why?</strong> State E’s outcome jumped by 25 (not because of a new trend, but because its <span class="alert">treatment effect grew</span> from +10 to +30). TWFE interprets this growing treatment effect in the “control” as a normal trend, making State L’s +15 gain look small by comparison.</p>
+<p><strong>Why?</strong> State E’s outcome rose by 45 from 2019→2020 — not from a trend, but because its <span class="alert">treatment effect grew</span> from +10 to +50. TWFE treats this jump as a “normal trend” in the control, making State L’s +15 gain look like a relative <span class="alert">decline</span>.</p>
 </div>
 </section>
 <section id="the-core-problem" class="slide level2 smaller">
@@ -987,15 +996,14 @@ ECON3500: Econometrics and Applications
 <p><strong>Practical Guidance</strong></p>
 </div>
 <div class="callout-content">
-
-</div>
-</div>
-</div>
 <ul>
 <li><strong>Classic 2×2 DiD</strong> (two groups, two periods): TWFE is <span class="kw">fine</span>. The new concerns don’t apply.</li>
 <li><strong>Staggered adoption</strong> with <span class="kw">constant treatment effects</span>: TWFE is usually okay.</li>
 <li><strong>Staggered adoption</strong> with <span class="alert">dynamic or heterogeneous effects</span>: Use a robust estimator.</li>
 </ul>
+</div>
+</div>
+</div>
 <div class="fragment">
 <p><strong>How to check:</strong> Run both TWFE and a robust estimator. If results are similar, the standard approach is probably fine. If they diverge, trust the robust estimator.</p>
 </div>
@@ -1091,7 +1099,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Fixed Effects:</strong></p>
 <ul>
 <li>Panel data with 2+ periods</li>
-<li>More efficient than first differencing with <span class="math inline">\(T &gt; 2\)</span></li>
+<li>More efficient than first differencing with <span class="math inline">\(T &gt; 2\)</span> (when errors are serially uncorrelated)</li>
 <li>Can include entity FE, time FE, or both</li>
 </ul>
 </div>
@@ -1207,7 +1215,7 @@ ECON3500: Econometrics and Applications
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'pdfMaxPagesPerSlide': 1,
+'pdfMaxPagesPerSlide': 2,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,

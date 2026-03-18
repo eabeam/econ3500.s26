@@ -85,7 +85,7 @@ A [pooled cross-section]{.kw} draws [different units]{.alert} each period (Bob i
 
 **Panel data:**
 
-- Track the [same]{.alert} population over time
+- Track the [same]{.alert} observational units over time
 - Population may be independent at first draw: Bob in 1990 is independent of Jane in 1990
 - But [dependence over time]{.alert}: Bob in 1990 is related to Bob in 1991
 - Detroit will probably have high crime rates next year too
@@ -181,8 +181,12 @@ $$y_{it} = \beta_0 + \delta_0 \cdot after_t + \beta_1 \cdot treated_i + \delta_1
 
 . . .
 
+**Adding controls is fine:** Additional covariates can be included without changing how $\delta_1$ is identified — they [reduce residual variance]{.kw} and [improve precision]{.alert} (tighter standard errors).
+
+. . .
+
 ::: {.callout-important}
-## The Parallel Trends Assumption
+## The Parallel Trends Assumption *(common trends assumption in SW)*
 DiD requires that in the [absence of treatment]{.alert}, the gap between treatment and control groups would have stayed [parallel]{.kw} over time.
 
 - There [can]{.kw} be unobserved factors at one point in time, if they affect both groups equally
@@ -216,32 +220,32 @@ Now assume we observe the [same entities]{.kw} in two time periods.
 
 ::: {.callout-note}
 ## Key Insight
-If cities are observed in at least two periods and other factors affecting crime stay approximately constant, we can estimate causal effects [without additional controls]{.alert}.
+By observing the same cities in two periods, we can control for [all time-invariant city-specific factors]{.alert} — even unobserved ones — by examining how outcomes changed *within* each city over time.
 :::
 
 ## The Panel Data Model {.smaller}
 
-$$crmrte_{it} = \beta_0 + \delta_0 \cdot d87_t + \beta_1 \cdot unemp_{it} + a_i + u_{it}$$
+$$crmrte_{it} = \beta_0 + \delta_0 \cdot d87_t + \beta_1 \cdot unemp_{it} + \alpha_i + u_{it}$$
 
 where $t = 1982, 1987$
 
 . . .
 
 - $d87_t$: time dummy for the second period
-- $a_i$: [unobserved]{.alert} time-constant factors ([entity fixed effects]{.kw})
+- $\alpha_i$: [unobserved]{.alert} time-constant factors ([entity fixed effects]{.kw})
     - Detroit's culture, geography, historical factors, etc.
 - $u_{it}$: other unobserved factors ([idiosyncratic error]{.kw})
 
 . . .
 
-**The problem:** $a_i$ is likely correlated with $unemp_{it}$ — cities with certain unobserved characteristics have both high unemployment and high crime. This is [OVB]{.alert}.
+**The problem:** $\alpha_i$ is likely correlated with $unemp_{it}$ — cities with certain unobserved characteristics have both high unemployment and high crime. This is [OVB]{.alert}.
 
 ## The First-Difference Trick {.smaller}
 
 Write the model for each period:
 
-$$crmrte_{i,1987} = \beta_0 + \delta_0 + \beta_1 \cdot unemp_{i,1987} + a_i + u_{i,1987}$$
-$$crmrte_{i,1982} = \beta_0 + \beta_1 \cdot unemp_{i,1982} + a_i + u_{i,1982}$$
+$$crmrte_{i,1987} = \beta_0 + \delta_0 + \beta_1 \cdot unemp_{i,1987} + \alpha_i + u_{i,1987}$$
+$$crmrte_{i,1982} = \beta_0 + \beta_1 \cdot unemp_{i,1982} + \alpha_i + u_{i,1982}$$
 
 . . .
 
@@ -253,7 +257,7 @@ $$\Delta crmrte_i = \delta_0 + \beta_1 \cdot \Delta unemp_i + \Delta u_i$$
 
 ::: {.callout-important}
 ## The Fixed Effect Drops Out!
-Because $a_i - a_i = 0$, [all time-invariant unobserved factors]{.alert} are eliminated. We don't need to measure or control for them.
+Because $\alpha_i - \alpha_i = 0$, [all time-invariant unobserved factors]{.alert} are eliminated. We don't need to measure or control for them.
 :::
 
 ## First-Difference Estimate
@@ -302,12 +306,12 @@ This only covers things that [stay constant over time]{.alert}.
 ## Fixed Effects: The Math {.smaller}
 
 Start with:
-$$y_{it} = \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + a_i + u_{it}$$
+$$y_{it} = \beta_1 x_{it1} + \cdots + \beta_k x_{itk} + \alpha_i + u_{it}$$
 
 . . .
 
 Average over time for each entity:
-$$\bar{y}_i = \beta_1 \bar{x}_{i1} + \cdots + \beta_k \bar{x}_{ik} + a_i + \bar{u}_i$$
+$$\bar{y}_i = \beta_1 \bar{x}_{i1} + \cdots + \beta_k \bar{x}_{ik} + \alpha_i + \bar{u}_i$$
 
 . . .
 
@@ -316,7 +320,7 @@ $$[y_{it} - \bar{y}_i] = \beta_1 [x_{it1} - \bar{x}_{i1}] + \cdots + \beta_k [x_
 
 . . .
 
-Because $a_i - a_i = 0$, the fixed effect drops out!
+Because $\alpha_i - \alpha_i = 0$, the fixed effect drops out!
 
 - Estimate the time-demeaned equation by OLS
 - This uses [within-entity variation]{.kw} only: how $X$ and $Y$ move [within]{.alert} the same entity over time
@@ -336,7 +340,7 @@ Demean your data by hand, then estimate OLS on demeaned data.
 Include entity dummies directly, or use `areg` which "absorbs" one set of fixed effects:
 
 ```stata
-areg scrap grant d88 d89, robust absorb(fcode)
+areg scrap grant d88 d89, absorb(fcode) cluster(fcode)
 ```
 :::
 
@@ -348,7 +352,7 @@ Tell Stata you have panel data, then estimate with the fixed effects option:
 
 ```stata
 xtset fcode year
-xtreg scrap grant d88 d89, fe vce(robust)
+xtreg scrap grant d88 d89, fe vce(cluster fcode)
 ```
 :::
 
@@ -383,22 +387,22 @@ What about shocks that affect [all entities equally]{.kw} at a given time?
 
 Add [time fixed effects]{.kw}: a dummy for each time period.
 
-$$y_{it} = \beta_1 x_{it} + a_i + \lambda_t + u_{it}$$
+$$y_{it} = \beta_1 x_{it} + \alpha_i + \lambda_t + u_{it}$$
 
-- $a_i$: entity fixed effect (absorbs entity-specific, time-invariant factors)
+- $\alpha_i$: entity fixed effect (absorbs entity-specific, time-invariant factors)
 - $\lambda_t$: time fixed effect (absorbs time-specific, entity-invariant factors)
 
 ## Entity + Time Fixed Effects: What's Left? {.smaller}
 
 With [both]{.kw} entity and time fixed effects:
 
-$$y_{it} = \beta_1 x_{it} + a_i + \lambda_t + u_{it}$$
+$$y_{it} = \beta_1 x_{it} + \alpha_i + \lambda_t + u_{it}$$
 
 . . .
 
 **Controlled for:**
 
-- All time-invariant entity characteristics ($a_i$)
+- All time-invariant entity characteristics ($\alpha_i$)
 - All entity-invariant time shocks ($\lambda_t$)
 
 . . .
@@ -526,7 +530,7 @@ Let's see exactly how this happens.
 Suppose a job training program has a [true effect]{.kw} that [grows over time]{.alert}:
 
 - Year 1 after adoption: productivity rises by **+10**
-- Year 2 after adoption: productivity rises by **+30** (the program compounds)
+- Year 2 after adoption: productivity rises by **+50** (the program grows dramatically)
 
 . . .
 
@@ -546,13 +550,13 @@ Two states, three years. Without treatment, both would follow the same trend:
 
 | | 2018 | 2019 | 2020 |
 |---|:---:|:---:|:---:|
-| **State E** (treats in 2019) | 100 | [115]{style="color: #008080;"} | [140]{style="color: #008080;"} |
+| **State E** (treats in 2019) | 100 | [115]{style="color: #008080;"} | [160]{style="color: #008080;"} |
 | **State L** (treats in 2020) | 100 | 105 | [120]{style="color: #008080;"} |
 
 . . .
 
 - State E in 2019: $105 + 10 = 115$ (year 1 effect)
-- State E in 2020: $110 + 30 = 140$ (year 2 effect — program compounds)
+- State E in 2020: $110 + 50 = 160$ (year 2 effect — program grows dramatically)
 - State L in 2020: $110 + 10 = 120$ (year 1 effect)
 
 . . .
@@ -561,24 +565,34 @@ The true effect for State L in 2020 is [+10]{.kw}. Can TWFE recover this?
 
 ## What TWFE Does {.smaller}
 
-With no pure control group, TWFE uses [State E as the "control"]{.alert} for State L's treatment in 2020.
+With no pure control group, TWFE takes a [weighted average]{.kw} of all possible 2×2 DiD comparisons — including contaminated ones.
 
 . . .
 
-The DiD comparison using State E as control:
+**Comparison 1 — valid:** E treated vs. L as untreated control (2018→2019)
 
-$$\hat{\delta}_1 = \underbrace{(120 - 105)}_{\Delta \text{State L}} - \underbrace{(140 - 115)}_{\Delta \text{State E}} = 15 - 25 = -10$$
+$$\underbrace{(115 - 100)}_{\Delta \text{State E}} - \underbrace{(105 - 100)}_{\Delta \text{State L}} = 15 - 5 = [+10]{.kw}$$
 
 . . .
+
+**Comparison 2 — contaminated:** L treated vs. E [already-treated]{.alert} as "control" (2019→2020)
+
+$$\underbrace{(120 - 105)}_{\Delta \text{State L}} - \underbrace{(160 - 115)}_{\Delta \text{State E}} = 15 - 45 = [-30]{.alert}$$
+
+. . .
+
+With equal-sized groups, TWFE weights these comparisons equally:
+
+$$\hat{\beta}_{TWFE} = \tfrac{1}{2}(+10) + \tfrac{1}{2}(-30) = [-10]{.alert}$$
 
 ::: {.callout-important}
 ## TWFE Says the Effect is −10
-The true effect is [+10]{.kw}, but TWFE estimates [−10]{.alert}. The sign flipped!
+All true effects are [positive]{.kw} (+10 or +50), but TWFE estimates [−10]{.alert}. The sign flipped!
 :::
 
 . . .
 
-**Why?** State E's outcome jumped by 25 (not because of a new trend, but because its [treatment effect grew]{.alert} from +10 to +30). TWFE interprets this growing treatment effect in the "control" as a normal trend, making State L's +15 gain look small by comparison.
+**Why?** State E's outcome rose by 45 from 2019→2020 — not from a trend, but because its [treatment effect grew]{.alert} from +10 to +50. TWFE treats this jump as a "normal trend" in the control, making State L's +15 gain look like a relative [decline]{.alert}.
 
 ## The Core Problem {.smaller}
 
@@ -622,11 +636,11 @@ All share one insight: [never use already-treated units as controls]{.alert}.
 
 ::: {.callout-tip}
 ## Practical Guidance
-:::
 
 - **Classic 2×2 DiD** (two groups, two periods): TWFE is [fine]{.kw}. The new concerns don't apply.
 - **Staggered adoption** with [constant treatment effects]{.kw}: TWFE is usually okay.
 - **Staggered adoption** with [dynamic or heterogeneous effects]{.alert}: Use a robust estimator.
+:::
 
 . . .
 
@@ -671,7 +685,7 @@ You won't need to implement these in this course. But if you do applied research
 **Fixed Effects:**
 
 - Panel data with 2+ periods
-- More efficient than first differencing with $T > 2$
+- More efficient than first differencing with $T > 2$ (when errors are serially uncorrelated)
 - Can include entity FE, time FE, or both
 
 . . .

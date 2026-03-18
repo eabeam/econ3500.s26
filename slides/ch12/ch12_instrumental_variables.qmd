@@ -144,10 +144,25 @@ When both supply and demand shift, equilibrium data points trace out **neither**
 **No** --- you just see a scatter of equilibrium points
 :::
 ::: {.column width="45%"}
-::: {.callout-tip}
-## Key Insight
-If you can hold demand fixed and only observe supply shifts, the equilibrium points trace out the **demand curve**. This is the intuition behind IV.
+![](images/equilibrium_scatter.png)
 :::
+:::
+
+## A Better Way
+
+::: {.columns}
+::: {.column width="55%"}
+If you can **hold demand fixed** and only observe supply shifting:
+
+- The equilibrium points trace out the [demand curve]{.kw}
+- This is the intuition behind IV
+
+. . .
+
+The [instrument]{.kw} holds demand fixed while shifting supply --- it moves $X$ without directly affecting $Y$
+:::
+::: {.column width="45%"}
+![](images/supply_shifts.png)
 :::
 :::
 
@@ -342,6 +357,47 @@ $$Y_i = \beta_0 + \beta_1 \hat{X}_i + u_i$$
 The instrument isolates the variation in $X$ that is exogenous. 2SLS uses only this "clean" variation to estimate $\beta_1$.
 :::
 
+## The Local Average Treatment Effect {.smaller}
+
+IV uses only the variation in $X$ driven by the instrument --- that's the whole point.
+
+. . .
+
+But this also means we can only observe the effect among people for whom the instrument [actually affects their treatment]{.kw}.
+
+. . .
+
+- Suppose a treatment improves *your* outcome by 2, but *my* outcome by only 1
+- And the instrument strongly affects whether *you* get treatment, but barely affects *me*
+- Then the IV estimate will be much closer to [2]{.kw} than to 1
+
+. . .
+
+::: {.callout-note}
+## Local Average Treatment Effect (LATE)
+The IV estimate is [local]{.alert} to the people whose treatment status is changed by the instrument, weighted by how much the instrument affects them. It is **not** the average effect for all units, or even for all treated units.
+:::
+
+## Better LATE Than Never? {.smaller}
+
+**Implication**: The IV estimate may not represent the average effect for everyone --- or even for those actually treated.
+
+. . .
+
+- Compared to a randomized experiment, IV may be **less informative** about what would happen if treatment were expanded to a broader population
+
+. . .
+
+- But IV still provides a [valid causal estimate]{.kw} for the subgroup whose behavior is changed by the instrument
+- When exogenous variation is limited, LATE may be the best causal estimate available
+
+. . .
+
+::: {.callout-tip}
+## Practical Implication
+When interpreting IV results, ask: *For whom does the instrument induce treatment?* The IV estimate applies to that group --- not necessarily to all units in the sample.
+:::
+
 # Cigarette Demand: IV in Practice
 
 ## The Instrument: Sales Tax
@@ -410,7 +466,7 @@ Instrumented:  avgprs
 Instruments:   tax
 ```
 
-A 1-unit increase in price is associated with a decrease of 0.42 packs per capita.
+2SLS estimates that a 1-unit increase in price [leads to]{.kw} a decrease of 0.42 packs per capita.
 
 ## Doing 2SLS Manually {.smaller}
 
@@ -717,7 +773,7 @@ Do you think $Z_i$ (whether a roommate brought a video game) is a valid instrume
 
 . . .
 
-**Results**: OLS coefficient on study = 0.038; IV coefficient = **0.36** (much larger). Why? Selection bias --- students who study more are not innately better students.
+**Results**: OLS coefficient on study = 0.038; IV coefficient = **0.36** (much larger). Why? [Selection bias]{.alert} --- students who study more tend to be [weaker]{.alert} students compensating with extra effort ([negative selection]{.kw}). This negative correlation between study time and ability biases OLS downward. IV corrects this by using only the variation in study time driven by the random video-game assignment.
 
 ## Example 2: Returns to Schooling {.smaller}
 
@@ -746,14 +802,45 @@ $$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
 
 ::: {.callout-tip}
 ## Check the Three Assumptions
-1. **Powerful?** Yes --- quarter of birth is correlated with schooling attainment through compulsory schooling laws
-2. **Exogenous?** Debatable --- is quarter of birth correlated with ability? (Known as the "weak instruments" concern with this study)
-3. **Excludable?** Is there a direct effect of birth quarter on wages? Possibly through age effects
+1. **Relevant?** Yes --- quarter of birth is correlated with schooling attainment through compulsory schooling laws
+2. **Exogenous?** Debatable --- is quarter of birth correlated with innate ability or other wage determinants? (Bound, Jaeger, and Baker, 1993)
+3. **Excludable?** Debatable --- does birth quarter directly affect wages, e.g., through age-at-hire effects?
 :::
 
 . . .
 
 This instrument has been extensively debated --- it illustrates how the assumptions can be **challenged** even when the research design seems clever.
+
+## Angrist and Krueger (1991): Estimates {.smaller}
+
+![](images/ak1991_table4.png){width=95% fig-align="center"}
+
+OLS and TSLS estimates of returns to education, men born 1920--1929 (1970 Census, $n = 247{,}199$). Instruments: quarter-of-birth × year-of-birth interactions.
+
+## Bound, Jaeger, and Baker (1993): Two Critiques {.smaller}
+
+Bound, Jaeger, and Baker (1993) raised two distinct problems with the quarter-of-birth instrument:
+
+. . .
+
+**Problem 1 — Instrument may not be exogenous:** Quarter of birth is empirically correlated with many outcomes beyond schooling:
+
+- School attendance, behavioral difficulties, mental health referrals
+- Performance in reading, writing, and arithmetic
+- IQ scores and family incomes
+
+If quarter of birth is correlated with ability or other determinants of wages, $\text{Cov}(Z, u) \neq 0$ --- the exogeneity assumption fails.
+
+. . .
+
+**Problem 2 — Weak instruments:** With proper age controls, the first-stage F-statistic falls to **1.6** --- far below the rule-of-thumb threshold of 10.
+
+. . .
+
+::: {.callout-important}
+## Combined Effect
+A [weak instrument]{.alert} combined with even a small $\text{Cov}(Z, u)$ can cause the IV estimate to look similar to [OLS]{.alert}. The bias "fix" may introduce new bias rather than eliminating the original one.
+:::
 
 # IV Recipe Card
 

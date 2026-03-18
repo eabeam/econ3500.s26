@@ -6,8 +6,8 @@
 <script src="ch12_instrumental_variables_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="ch12_instrumental_variables_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ch12_instrumental_variables_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="ch12_instrumental_variables_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
- <meta name="generator" content="quarto-1.8.26">
+<link href="ch12_instrumental_variables_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+ <meta name="generator" content="quarto-1.8.27">
 
  <meta name="author" content="ECON3500: Econometrics and Applications">
  <title>Instrumental Variables</title>
@@ -401,19 +401,22 @@ ECON3500: Econometrics and Applications
 <p>. . .</p>
 <p><strong>No</strong> — you just see a scatter of equilibrium points</p>
 </div><div class="column" style="width:45%;">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Key Insight</strong></p>
-</div>
-<div class="callout-content">
-<p>If you can hold demand fixed and only observe supply shifts, the equilibrium points trace out the <strong>demand curve</strong>. This is the intuition behind IV.</p>
-</div>
-</div>
-</div>
+<p><img src="images/equilibrium_scatter.png"></p>
+</div></div>
+</section>
+<section id="a-better-way" class="slide level2">
+<h2>A Better Way</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p>If you can <strong>hold demand fixed</strong> and only observe supply shifting:</p>
+<ul>
+<li>The equilibrium points trace out the <span class="kw">demand curve</span></li>
+<li>This is the intuition behind IV</li>
+</ul>
+<p>. . .</p>
+<p>The <span class="kw">instrument</span> holds demand fixed while shifting supply — it moves <span class="math inline">\(X\)</span> without directly affecting <span class="math inline">\(Y\)</span></p>
+</div><div class="column" style="width:45%;">
+<p><img src="images/supply_shifts.png"></p>
 </div></div>
 </section>
 <section id="demand-for-cigarettes" class="slide level2 smaller">
@@ -649,6 +652,65 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
+</section>
+<section id="the-local-average-treatment-effect" class="slide level2 smaller">
+<h2>The Local Average Treatment Effect</h2>
+<p>IV uses only the variation in <span class="math inline">\(X\)</span> driven by the instrument — that’s the whole point.</p>
+<div class="fragment">
+<p>But this also means we can only observe the effect among people for whom the instrument <span class="kw">actually affects their treatment</span>.</p>
+</div>
+<div class="fragment">
+<ul>
+<li>Suppose a treatment improves <em>your</em> outcome by 2, but <em>my</em> outcome by only 1</li>
+<li>And the instrument strongly affects whether <em>you</em> get treatment, but barely affects <em>me</em></li>
+<li>Then the IV estimate will be much closer to <span class="kw">2</span> than to 1</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Local Average Treatment Effect (LATE)</strong></p>
+</div>
+<div class="callout-content">
+<p>The IV estimate is <span class="alert">local</span> to the people whose treatment status is changed by the instrument, weighted by how much the instrument affects them. It is <strong>not</strong> the average effect for all units, or even for all treated units.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="better-late-than-never" class="slide level2 smaller">
+<h2>Better LATE Than Never?</h2>
+<p><strong>Implication</strong>: The IV estimate may not represent the average effect for everyone — or even for those actually treated.</p>
+<div class="fragment">
+<ul>
+<li>Compared to a randomized experiment, IV may be <strong>less informative</strong> about what would happen if treatment were expanded to a broader population</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>But IV still provides a <span class="kw">valid causal estimate</span> for the subgroup whose behavior is changed by the instrument</li>
+<li>When exogenous variation is limited, LATE may be the best causal estimate available</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Practical Implication</strong></p>
+</div>
+<div class="callout-content">
+<p>When interpreting IV results, ask: <em>For whom does the instrument induce treatment?</em> The IV estimate applies to that group — not necessarily to all units in the sample.</p>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="cigarette-demand-iv-in-practice" class="title-slide slide level1 center">
@@ -731,7 +793,7 @@ ECON3500: Econometrics and Applications
 <span id="cb2-15"><a href="" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------------</span>
 <span id="cb2-16"><a href="" aria-hidden="true" tabindex="-1"></a>Instrumented: avgprs</span>
 <span id="cb2-17"><a href="" aria-hidden="true" tabindex="-1"></a>Instruments: tax</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>A 1-unit increase in price is associated with a decrease of 0.42 packs per capita.</p>
+<p>2SLS estimates that a 1-unit increase in price <span class="kw">leads to</span> a decrease of 0.42 packs per capita.</p>
 </section>
 <section id="doing-2sls-manually" class="slide level2 smaller">
 <h2>Doing 2SLS Manually</h2>
@@ -1228,7 +1290,7 @@ ECON3500: Econometrics and Applications
 </ol>
 </div>
 <div class="fragment">
-<p><strong>Results</strong>: OLS coefficient on study = 0.038; IV coefficient = <strong>0.36</strong> (much larger). Why? Selection bias — students who study more are not innately better students.</p>
+<p><strong>Results</strong>: OLS coefficient on study = 0.038; IV coefficient = <strong>0.36</strong> (much larger). Why? <span class="alert">Selection bias</span> — students who study more tend to be <span class="alert">weaker</span> students compensating with extra effort (<span class="kw">negative selection</span>). This negative correlation between study time and ability biases OLS downward. IV corrects this by using only the variation in study time driven by the random video-game assignment.</p>
 </div>
 </section>
 <section id="example-2-returns-to-schooling" class="slide level2 smaller">
@@ -1271,9 +1333,9 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <ol type="1">
-<li><strong>Powerful?</strong> Yes — quarter of birth is correlated with schooling attainment through compulsory schooling laws</li>
-<li><strong>Exogenous?</strong> Debatable — is quarter of birth correlated with ability? (Known as the “weak instruments” concern with this study)</li>
-<li><strong>Excludable?</strong> Is there a direct effect of birth quarter on wages? Possibly through age effects</li>
+<li><strong>Relevant?</strong> Yes — quarter of birth is correlated with schooling attainment through compulsory schooling laws</li>
+<li><strong>Exogenous?</strong> Debatable — is quarter of birth correlated with innate ability or other wage determinants? (Bound, Jaeger, and Baker, 1993)</li>
+<li><strong>Excludable?</strong> Debatable — does birth quarter directly affect wages, e.g., through age-at-hire effects?</li>
 </ol>
 </div>
 </div>
@@ -1281,6 +1343,42 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="fragment">
 <p>This instrument has been extensively debated — it illustrates how the assumptions can be <strong>challenged</strong> even when the research design seems clever.</p>
+</div>
+</section>
+<section id="angrist-and-krueger-1991-estimates" class="slide level2 smaller">
+<h2>Angrist and Krueger (1991): Estimates</h2>
+
+<img src="images/ak1991_table4.png" class="quarto-figure quarto-figure-center " style="width:95.0%"><p>OLS and TSLS estimates of returns to education, men born 1920–1929 (1970 Census, <span class="math inline">\(n = 247{,}199\)</span>). Instruments: quarter-of-birth × year-of-birth interactions.</p>
+</section>
+<section id="bound-jaeger-and-baker-1993-two-critiques" class="slide level2 smaller">
+<h2>Bound, Jaeger, and Baker (1993): Two Critiques</h2>
+<p>Bound, Jaeger, and Baker (1993) raised two distinct problems with the quarter-of-birth instrument:</p>
+<div class="fragment">
+<p><strong>Problem 1 — Instrument may not be exogenous:</strong> Quarter of birth is empirically correlated with many outcomes beyond schooling:</p>
+<ul>
+<li>School attendance, behavioral difficulties, mental health referrals</li>
+<li>Performance in reading, writing, and arithmetic</li>
+<li>IQ scores and family incomes</li>
+</ul>
+<p>If quarter of birth is correlated with ability or other determinants of wages, <span class="math inline">\(\text{Cov}(Z, u) \neq 0\)</span> — the exogeneity assumption fails.</p>
+</div>
+<div class="fragment">
+<p><strong>Problem 2 — Weak instruments:</strong> With proper age controls, the first-stage F-statistic falls to <strong>1.6</strong> — far below the rule-of-thumb threshold of 10.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Combined Effect</strong></p>
+</div>
+<div class="callout-content">
+<p>A <span class="alert">weak instrument</span> combined with even a small <span class="math inline">\(\text{Cov}(Z, u)\)</span> can cause the IV estimate to look similar to <span class="alert">OLS</span>. The bias “fix” may introduce new bias rather than eliminating the original one.</p>
+</div>
+</div>
+</div>
 </div>
 </section></section>
 <section>
@@ -1431,7 +1529,7 @@ ECON3500: Econometrics and Applications
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'pdfMaxPagesPerSlide': 1,
+'pdfMaxPagesPerSlide': 2,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,
