@@ -6,8 +6,8 @@
 <script src="ch9_assessing_studies_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="ch9_assessing_studies_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="ch9_assessing_studies_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="ch9_assessing_studies_files/libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
- <meta name="generator" content="quarto-1.8.26">
+<link href="ch9_assessing_studies_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+ <meta name="generator" content="quarto-1.8.27">
 
  <meta name="author" content="ECON3500: Econometrics and Applications">
  <title>Assessing Studies Based on Multiple Regression</title>
@@ -747,6 +747,23 @@ ECON3500: Econometrics and Applications
 <p>This is called <span class="kw">survivorship bias</span>.</p>
 </div>
 </section>
+<section id="why-sample-selection-biases-ols" class="slide level2 smaller">
+<h2>Why Sample Selection Biases OLS</h2>
+<p>Sample selection creates a direct correlation between a regressor and the error term.</p>
+<p>Consider the mutual fund regression:</p>
+<p><span class="math display">\[\text{return}_i = \beta_0 + \beta_1 \, \text{managedfund}_i + u_i\]</span></p>
+<div class="fragment">
+<p><span class="math inline">\(\text{managedfund}_i = 1\)</span> for actively managed funds in our sample (i.e., the survivors).</p>
+</div>
+<div class="fragment">
+<p>Being managed <em>and in our sample</em> means the fund outperformed failed managed funds — which are not in the sample.</p>
+<p><span class="math display">\[\Rightarrow \text{Cov}(\text{managedfund}_i, \; u_i) \neq 0\]</span></p>
+</div>
+<div class="fragment">
+<p>The surviving managed funds are the “basketball players” of mutual funds — selected <span class="alert">because of</span> their returns.</p>
+<p><span class="math inline">\(\Rightarrow\)</span> Conditional mean independence fails <span class="math inline">\(\Rightarrow\)</span> <span class="alert">OLS is biased</span></p>
+</div>
+</section>
 <section id="example-returns-to-education" class="slide level2 smaller">
 <h2>Example: Returns to Education</h2>
 <p><strong>Question:</strong> What is the return to an additional year of education among college graduates?</p>
@@ -1080,7 +1097,7 @@ ECON3500: Econometrics and Applications
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
-'pdfMaxPagesPerSlide': 1,
+'pdfMaxPagesPerSlide': 2,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
 'chalkboard': {"buttons":true},
 'smaller': false,

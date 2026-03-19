@@ -467,6 +467,30 @@ The surviving funds are the "basketball players" of mutual funds.
 
 This is called [survivorship bias]{.kw}.
 
+## Why Sample Selection Biases OLS {.smaller}
+
+Sample selection creates a direct correlation between a regressor and the error term.
+
+Consider the mutual fund regression:
+
+$$\text{return}_i = \beta_0 + \beta_1 \, \text{managedfund}_i + u_i$$
+
+. . .
+
+$\text{managedfund}_i = 1$ for actively managed funds in our sample (i.e., the survivors).
+
+. . .
+
+Being managed *and in our sample* means the fund outperformed failed managed funds — which are not in the sample.
+
+$$\Rightarrow \text{Cov}(\text{managedfund}_i, \; u_i) \neq 0$$
+
+. . .
+
+The surviving managed funds are the "basketball players" of mutual funds — selected [because of]{.alert} their returns.
+
+$\Rightarrow$ Conditional mean independence fails $\Rightarrow$ [OLS is biased]{.alert}
+
 ## Example: Returns to Education {.smaller}
 
 **Question:** What is the return to an additional year of education among college graduates?

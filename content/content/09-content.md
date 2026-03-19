@@ -16,9 +16,15 @@ menu:
     weight: 10
 
 
-pdf: /slides/ch9-slides.pdf
-thumb: /slides/ch9-slides.png
+slides_label: "Tuesday: Causal Diagrams (DAGs)"
 slides_html: /slides/ch8b-quarto/
+pdf: /slides/ch8b-slides.pdf
+thumb: /slides/ch8b-slides.png
+
+slides_label2: "Thursday: Assessing Studies (SW Ch. 9)"
+slides_html2: /slides/ch9-quarto/
+pdf2: /slides/ch9-slides.pdf
+thumb2: /slides/ch9-slides.png
 
 
 

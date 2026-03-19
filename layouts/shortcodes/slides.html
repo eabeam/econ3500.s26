@@ -1,5 +1,6 @@
 {{ if .Page.Params.pdf}}
 <div class="slides-container">
+  {{ if .Page.Params.slides_label }}<h4>{{ .Page.Params.slides_label }}</h4>{{ end }}
   {{ if .Page.Params.slides_html }}
   <p>
     <a href="{{ .Page.Params.slides_html }}" target="_blank" class="btn btn-primary">📊 HTML</a>
@@ -14,6 +15,26 @@
       </a>
   </figure>
 </div>
+{{ if .Page.Params.pdf2 }}
+<div class="slides-container">
+  {{ if .Page.Params.slides_label2 }}<h4>{{ .Page.Params.slides_label2 }}</h4>{{ end }}
+  {{ if .Page.Params.slides_html2 }}
+  <p>
+    <a href="{{ .Page.Params.slides_html2 }}" target="_blank" class="btn btn-primary">📊 HTML</a>
+    <a href="{{ .Page.Params.pdf2 }}" class="btn btn-outline-primary">📥 Download PDF</a>
+  </p>
+  {{ else }}
+  <p><a href="{{ .Page.Params.pdf2 }}" class="btn btn-primary">📥 Download this week's slides</a></p>
+  {{ end }}
+  {{ if .Page.Params.thumb2 }}
+  <figure class="slide-thumb">
+      <a href="{{ if .Page.Params.slides_html2 }}{{ .Page.Params.slides_html2 }}{{ else }}{{ .Page.Params.pdf2 }}{{ end }}" target="_blank">
+        <img src="{{ .Page.Params.thumb2 }}" alt="First slide" />
+      </a>
+  </figure>
+  {{ end }}
+</div>
+{{ end }}
 {{ else }}
 <p>These slides should be posted by Friday night. If they're still missing, please message me!.</p>
 {{ end }}
