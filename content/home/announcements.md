@@ -14,7 +14,7 @@ design:
 ---
 
 {{< announcements >}}
-- **Week 9**: Welcome back! [Lab 5](/assignment/05-lab/) is posted (now due **Thursday 3/19**) and a video walkthrough is coming Wednesday. Reminder: [annotated bibliography](/assignment/rp-03-annotated/) also due Thursday 3/19. Check out the updated [extra credit opportunities](/bonus/extra-credit/).
+- **Week 10**: This week we're covering causal diagrams (DAGs) and assessing regression validity. [PS 4](/assignment/04-ps/) due **Thursday 3/26** at 1:15 PM. Annotated bibliography feedback coming soon.
 - **Updated**: The attendance requirement for working sessions has been reduced to **8 sessions**. There are also new [extra credit opportunities](/bonus/extra-credit/) for LaTeX and push-button replication. See the [full details](/bonus/extra-credit/).
 {{< /announcements >}}
 
