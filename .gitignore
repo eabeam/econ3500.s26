@@ -26,3 +26,4 @@ public/
 # Allow Reveal/Quarto slide assets under static/slides/
 !static/slides/**/**_files/
 !static/slides/**/**_files/**
+~$*

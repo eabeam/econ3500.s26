@@ -370,47 +370,32 @@ ECON3500: Econometrics and Applications
 <div class="fragment">
 <p><strong>Example:</strong> Class Size ← Wealth → Test Scores</p>
 </div>
-<div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Connection to OVB</strong></p>
-</div>
-<div class="callout-content">
-<p>A backdoor path is exactly what creates <span class="kw">omitted variable bias</span>. If <span class="math inline">\(Z\)</span> is a common cause of <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> and you leave it out of the regression, you have an open backdoor path — and OVB.</p>
-</div>
-</div>
-</div>
-</div>
 </section>
-<section id="collider-paths" class="slide level2">
+<section id="collider-paths" class="slide level2 smaller">
 <h2>Collider Paths</h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="./ch8b_figures/ch8b_collider.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:60%;">
 <p><span class="math inline">\(X \rightarrow Z \leftarrow Y\)</span></p>
-<p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> both cause <span class="math inline">\(Z\)</span>. These paths are <span class="kw">closed by default</span> — no confounding flows through them <em>unless</em> we make a mistake.</p>
-<div class="fragment">
-<p><strong>Example:</strong> Talent → Job Hiring ← Connections</p>
-<p>No spurious relationship between Talent and Connections… unless we condition on who got hired.</p>
-</div>
+<p><span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> both cause <span class="math inline">\(Z\)</span>. These paths are <span class="kw">closed by default</span> — no confounding flows through them <em>unless</em> we control for <span class="math inline">\(Z\)</span>.</p>
+<ul>
+<li>Talent and Connections both cause Job Hiring</li>
+<li>The path Talent → Job Hiring ← Connections is <span class="kw">closed by default</span></li>
+<li>If we condition on who was hired (control for the collider), the path <strong>opens</strong></li>
+<li>Among the hired: low Talent becomes correlated with high Connections</li>
+</ul>
+</div></div>
 </section>
-<section id="open-and-closed-paths" class="slide level2 smaller">
-<h2>Open and Closed Paths</h2>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Key Concept</strong></p>
-</div>
-<div class="callout-content">
-<p>A path is <span class="kw">open</span> if the relationship flows freely between variables along it. A path is <span class="kw">closed</span> if something blocks that flow.</p>
-</div>
-</div>
-</div>
+<section id="what-does-controlling-mean" class="slide level2 smaller">
+<h2>What Does “Controlling” Mean?</h2>
+<p>When we say “control for <span class="math inline">\(Z\)</span>” in a regression, we are <span class="kw">comparing units that have the same value of <span class="math inline">\(Z\)</span></span>. This removes the variation in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> that is driven by <span class="math inline">\(Z\)</span>.</p>
 <div class="fragment">
+<p><strong>In DAG terms:</strong> Controlling for a variable <span class="kw">blocks all paths</span> that pass through it. This can be good or bad:</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 25%">
@@ -421,61 +406,39 @@ ECON3500: Econometrics and Applications
 <tr class="header">
 <th>Path Type</th>
 <th>Default Status</th>
-<th>What controls do</th>
+<th>What controlling does</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>Backdoor (<span class="math inline">\(X \leftarrow Z \rightarrow Y\)</span>)</td>
 <td><strong>Open</strong></td>
-<td>Controlling for <span class="math inline">\(Z\)</span> <strong>closes</strong> it</td>
+<td><strong>Closes</strong> it → <span class="kw">removes bias</span></td>
 </tr>
 <tr class="even">
 <td>Collider (<span class="math inline">\(X \rightarrow Z \leftarrow Y\)</span>)</td>
 <td><strong>Closed</strong></td>
-<td>Controlling for <span class="math inline">\(Z\)</span> <strong>opens</strong> it</td>
+<td><strong>Opens</strong> it → <span class="alert">creates bias</span></td>
+</tr>
+<tr class="odd">
+<td>Mediator (<span class="math inline">\(X \rightarrow Z \rightarrow Y\)</span>)</td>
+<td><strong>Open</strong></td>
+<td><strong>Closes</strong> it → <span class="alert">blocks the causal effect</span></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="fragment">
-<p><strong>Our goal:</strong> Close all bad (backdoor) paths while keeping good (causal) paths open.</p>
-</div>
-</section>
-<section id="what-does-controlling-mean" class="slide level2 smaller">
-<h2>What Does “Controlling” Mean?</h2>
-<p>When we say “control for <span class="math inline">\(Z\)</span>” in a regression, we are <span class="kw">comparing units that have the same value of <span class="math inline">\(Z\)</span></span>.</p>
-<div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Intuition</strong></p>
-</div>
-<div class="callout-content">
-<p>Controlling for <span class="math inline">\(Z\)</span> removes the variation in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> that is driven by <span class="math inline">\(Z\)</span>. What’s left is the variation in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> that comes from <em>other</em> sources.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><strong>In DAG terms:</strong> Controlling for a variable <span class="kw">blocks all paths</span> that pass through it.</p>
-<ul>
-<li>If <span class="math inline">\(Z\)</span> is on a <strong>backdoor path</strong>: controlling closes it → <span class="kw">removes bias</span></li>
-<li>If <span class="math inline">\(Z\)</span> is a <strong>collider</strong>: controlling opens it → <span class="alert">creates bias</span></li>
-<li>If <span class="math inline">\(Z\)</span> is a <strong>mediator</strong>: controlling blocks part of the causal effect → <span class="alert">removes what you want</span></li>
-</ul>
+<p><strong>Our goal:</strong> Close all bad (backdoor) paths while keeping good (causal) paths open — and not accidentally opening closed ones.</p>
 </div>
 </section></section>
 <section>
-<section id="confounding-and-the-ovb-connection" class="title-slide slide level1 center">
-<h1>Confounding and the OVB Connection</h1>
+<section id="confounding-ovb-and-the-backdoor-criterion" class="title-slide slide level1 center">
+<h1>Confounding, OVB, and the Backdoor Criterion</h1>
 
 </section>
-<section id="the-confounding-problem" class="slide level2">
-<h2>The Confounding Problem</h2>
+<section id="confounding-ovb-open-backdoor-path" class="slide level2 smaller">
+<h2>Confounding = OVB = Open Backdoor Path</h2>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -489,65 +452,10 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
-<div class="fragment">
-<p><strong>In the class size example:</strong></p>
 <p><span class="math display">\[\text{Association} = \underbrace{\text{Causal Effect}}_{\text{Class Size} \rightarrow \text{Scores}} + \underbrace{\text{Confounding Bias}}_{\text{via Wealth}}\]</span></p>
-</div>
-</section>
-<section id="ovb-is-an-open-backdoor-path" class="slide level2 smaller">
-<h2>OVB Is an Open Backdoor Path</h2>
-<p>Remember <span class="kw">omitted variable bias</span> from Chapter 6?</p>
-<p>OVB occurs when a variable that belongs in the regression is left out. In DAG language:</p>
-<ul>
-<li>The omitted variable creates a <span class="alert">backdoor path</span> between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span></li>
-<li>Leaving it out of the regression means the path stays <strong>open</strong></li>
-<li>The bias flows through that open path into your estimate of <span class="math inline">\(\hat{\beta}_1\)</span></li>
-</ul>
 <div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>Remember <span class="kw">omitted variable bias</span> from Chapter 6? <strong>Every case of OVB is an open backdoor path.</strong> The omitted variable creates a backdoor path that stays open, and the bias flows through it into <span class="math inline">\(\hat{\beta}_1\)</span>.</p>
 </div>
-<p><strong>OVB ↔︎ Backdoor Paths</strong></p>
-</div>
-<div class="callout-content">
-<p><strong>Every case of OVB is an open backdoor path.</strong> The DAG just gives you a visual way to see it — and to figure out what to control for.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="blocking-backdoor-paths" class="slide level2">
-<h2>Blocking Backdoor Paths</h2>
-<div class="columns">
-<div class="column" style="width:35%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="./ch8b_figures/ch8b_backdoor_path.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div><div class="column" style="width:60%;">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Blocking a Backdoor Path</strong></p>
-</div>
-<div class="callout-content">
-<p>Control for (include in regression) the confounder <span class="math inline">\(Z\)</span> to “close” the backdoor path <span class="math inline">\(X \leftarrow Z \rightarrow Y\)</span>.</p>
-</div>
-</div>
-</div>
-<p><strong>In the class size example:</strong></p>
-<ul>
-<li><strong>Without controlling for Wealth:</strong> Regression picks up confounding bias (path is <span class="alert">open</span>)</li>
-<li><strong>With controlling for Wealth:</strong> Regression isolates the causal effect (path is <span class="kw">closed</span>)</li>
-</ul>
-</div></div>
 </section>
 <section id="knowledge-check-direction-of-bias" class="slide level2">
 <h2>Knowledge Check: Direction of Bias</h2>
@@ -572,11 +480,6 @@ ECON3500: Econometrics and Applications
 <li>The positive confounding partially cancels the true negative causal effect</li>
 </ul>
 </div>
-</section></section>
-<section>
-<section id="which-variables-to-control-for" class="title-slide slide level1 center">
-<h1>Which Variables to Control For?</h1>
-
 </section>
 <section id="the-backdoor-criterion" class="slide level2 smaller scrollable">
 <h2>The Backdoor Criterion</h2>
@@ -650,37 +553,6 @@ ECON3500: Econometrics and Applications
 </table>
 <p>After controlling for Wealth: the only remaining open path is causal. The effect is identified.</p>
 </div>
-</section>
-<section id="what-not-to-control-for-colliders" class="slide level2">
-<h2>What NOT to Control For: Colliders</h2>
-<div class="columns">
-<div class="column" style="width:35%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img src="./ch8b_figures/ch8b_collider.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div><div class="column" style="width:60%;">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Collider Bias</strong></p>
-</div>
-<div class="callout-content">
-<p>If you control for a <span class="alert">collider</span> — a variable caused by <em>both</em> <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> — you <strong>open</strong> a previously closed path and create bias.</p>
-</div>
-</div>
-</div>
-<ul>
-<li>Talent and Connections both cause Job Hiring</li>
-<li>The path Talent → Job Hiring ← Connections is <span class="kw">closed by default</span></li>
-<li>If we condition on people who were hired (control for the collider), the path <strong>opens</strong></li>
-<li>Among the hired: low Talent becomes correlated with high Connections</li>
-</ul>
-</div></div>
 </section>
 <section id="what-not-to-control-for-mediators" class="slide level2">
 <h2>What NOT to Control For: Mediators</h2>
@@ -1014,28 +886,15 @@ ECON3500: Econometrics and Applications
 <p>Even among “low-risk” drinkers, alcohol was associated with higher mortality when accounting for health and SES risk factors.</p>
 </div></div>
 </section>
-<section id="wine-and-health-your-turn" class="slide level2 scrollable">
-<h2>Wine and Health: Your Turn</h2>
-<p>Now it’s your turn to apply DAG thinking to this question.</p>
-<p><strong>Research question:</strong> Does wine consumption improve heart health?</p>
-<p>Use the worksheet handout to:</p>
+<section id="your-turn-wine-and-health-worksheet" class="slide level2 scrollable">
+<h2>Your Turn: Wine and Health Worksheet</h2>
+<p>Now apply DAG thinking to this question using the <strong>worksheet handout</strong>:</p>
 <ol type="1">
 <li>List all relevant variables</li>
 <li>Draw arrows between them</li>
 <li>Simplify your DAG</li>
 <li>List all paths from Wine to Heart Health</li>
 <li>Determine what to control for</li>
-</ol>
-</section>
-<section id="practice-draw-your-own-dag" class="slide level2 scrollable">
-<h2>Practice: Draw Your Own DAG</h2>
-<p>Think of a causal question from your own interest or research paper:</p>
-<ol type="1">
-<li>What is the treatment (<span class="math inline">\(X\)</span>) and outcome (<span class="math inline">\(Y\)</span>)?</li>
-<li>What variables might confound this relationship?</li>
-<li>Draw a simple DAG (3–5 variables)</li>
-<li>Identify the backdoor paths</li>
-<li>What would you need to control for?</li>
 </ol>
 <div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">

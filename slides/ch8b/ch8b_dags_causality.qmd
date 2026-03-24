@@ -196,116 +196,60 @@ $X$ and $Y$ are connected through a common cause $Z$. These are [bad paths]{.ale
 
 **Example:** Class Size ← Wealth → Test Scores
 
-. . .
+## Collider Paths {.smaller}
 
-::: {.callout-important}
-## Connection to OVB
-A backdoor path is exactly what creates [omitted variable bias]{.kw}. If $Z$ is a common cause of $X$ and $Y$ and you leave it out of the regression, you have an open backdoor path — and OVB.
+:::: {.columns}
+
+::: {.column width="35%"}
+![](./ch8b_figures/ch8b_collider.png){width=100% fig-align="center"}
 :::
 
-## Collider Paths
-
+::: {.column width="60%"}
 $X \rightarrow Z \leftarrow Y$
 
-$X$ and $Y$ both cause $Z$. These paths are [closed by default]{.kw} — no confounding flows through them *unless* we make a mistake.
+$X$ and $Y$ both cause $Z$. These paths are [closed by default]{.kw} — no confounding flows through them *unless* we control for $Z$.
 
-. . .
-
-**Example:** Talent → Job Hiring ← Connections
-
-No spurious relationship between Talent and Connections... unless we condition on who got hired.
-
-## Open and Closed Paths {.smaller}
-
-::: {.callout-important}
-## Key Concept
-A path is [open]{.kw} if the relationship flows freely between variables along it. A path is [closed]{.kw} if something blocks that flow.
+- Talent and Connections both cause Job Hiring
+- The path Talent → Job Hiring ← Connections is [closed by default]{.kw}
+- If we condition on who was hired (control for the collider), the path **opens**
+- Among the hired: low Talent becomes correlated with high Connections
 :::
 
-. . .
-
-| Path Type | Default Status | What controls do |
-|-----------|---------------|-----------------|
-| Backdoor ($X \leftarrow Z \rightarrow Y$) | **Open** | Controlling for $Z$ **closes** it |
-| Collider ($X \rightarrow Z \leftarrow Y$) | **Closed** | Controlling for $Z$ **opens** it |
-
-. . .
-
-**Our goal:** Close all bad (backdoor) paths while keeping good (causal) paths open.
+::::
 
 ## What Does "Controlling" Mean? {.smaller}
 
-When we say "control for $Z$" in a regression, we are [comparing units that have the same value of $Z$]{.kw}.
+When we say "control for $Z$" in a regression, we are [comparing units that have the same value of $Z$]{.kw}. This removes the variation in $X$ and $Y$ that is driven by $Z$.
 
 . . .
 
-::: {.callout-note}
-## Intuition
-Controlling for $Z$ removes the variation in $X$ and $Y$ that is driven by $Z$. What's left is the variation in $X$ and $Y$ that comes from *other* sources.
-:::
+**In DAG terms:** Controlling for a variable [blocks all paths]{.kw} that pass through it. This can be good or bad:
+
+| Path Type | Default Status | What controlling does |
+|-----------|---------------|-----------------|
+| Backdoor ($X \leftarrow Z \rightarrow Y$) | **Open** | **Closes** it → [removes bias]{.kw} |
+| Collider ($X \rightarrow Z \leftarrow Y$) | **Closed** | **Opens** it → [creates bias]{.alert} |
+| Mediator ($X \rightarrow Z \rightarrow Y$) | **Open** | **Closes** it → [blocks the causal effect]{.alert} |
 
 . . .
 
-**In DAG terms:** Controlling for a variable [blocks all paths]{.kw} that pass through it.
-
-- If $Z$ is on a **backdoor path**: controlling closes it → [removes bias]{.kw}
-- If $Z$ is a **collider**: controlling opens it → [creates bias]{.alert}
-- If $Z$ is a **mediator**: controlling blocks part of the causal effect → [removes what you want]{.alert}
+**Our goal:** Close all bad (backdoor) paths while keeping good (causal) paths open — and not accidentally opening closed ones.
 
 
-# Confounding and the OVB Connection
+# Confounding, OVB, and the Backdoor Criterion
 
-## The Confounding Problem
+## Confounding = OVB = Open Backdoor Path {.smaller}
 
 ::: {.callout-important}
 ## Confounding
 When $X$ and $Y$ share a common cause $Z$, they are **confounded**. A regression of $Y$ on $X$ will pick up both the causal effect AND the confounding association.
 :::
 
-. . .
-
-**In the class size example:**
-
 $$\text{Association} = \underbrace{\text{Causal Effect}}_{\text{Class Size} \rightarrow \text{Scores}} + \underbrace{\text{Confounding Bias}}_{\text{via Wealth}}$$
 
-## OVB Is an Open Backdoor Path {.smaller}
-
-Remember [omitted variable bias]{.kw} from Chapter 6?
-
-OVB occurs when a variable that belongs in the regression is left out. In DAG language:
-
-- The omitted variable creates a [backdoor path]{.alert} between $X$ and $Y$
-- Leaving it out of the regression means the path stays **open**
-- The bias flows through that open path into your estimate of $\hat{\beta}_1$
-
 . . .
 
-::: {.callout-note}
-## OVB ↔ Backdoor Paths
-**Every case of OVB is an open backdoor path.** The DAG just gives you a visual way to see it — and to figure out what to control for.
-:::
-
-## Blocking Backdoor Paths
-
-:::: {.columns}
-
-::: {.column width="35%"}
-![](./ch8b_figures/ch8b_backdoor_path.png){width=100% fig-align="center"}
-:::
-
-::: {.column width="60%"}
-::: {.callout-note}
-## Blocking a Backdoor Path
-Control for (include in regression) the confounder $Z$ to "close" the backdoor path $X \leftarrow Z \rightarrow Y$.
-:::
-
-**In the class size example:**
-
-- **Without controlling for Wealth:** Regression picks up confounding bias (path is [open]{.alert})
-- **With controlling for Wealth:** Regression isolates the causal effect (path is [closed]{.kw})
-:::
-
-::::
+Remember [omitted variable bias]{.kw} from Chapter 6? **Every case of OVB is an open backdoor path.** The omitted variable creates a backdoor path that stays open, and the bias flows through it into $\hat{\beta}_1$.
 
 ## Knowledge Check: Direction of Bias
 
@@ -322,8 +266,6 @@ If we regress Test Scores on Class Size *without* controlling for Wealth, will t
 - This creates a *positive* confounding association between class size and scores
 - The positive confounding partially cancels the true negative causal effect
 
-
-# Which Variables to Control For?
 
 ## The Backdoor Criterion {.smaller}
 
@@ -364,28 +306,6 @@ A systematic approach to finding your controls:
 | Class Size ← Wealth → Test Scores | Backdoor | Open | Control for Wealth |
 
 After controlling for Wealth: the only remaining open path is causal. The effect is identified.
-
-## What NOT to Control For: Colliders
-
-:::: {.columns}
-
-::: {.column width="35%"}
-![](./ch8b_figures/ch8b_collider.png){width=100% fig-align="center"}
-:::
-
-::: {.column width="60%"}
-::: {.callout-warning}
-## Collider Bias
-If you control for a [collider]{.alert} — a variable caused by *both* $X$ and $Y$ — you **open** a previously closed path and create bias.
-:::
-
-- Talent and Connections both cause Job Hiring
-- The path Talent → Job Hiring ← Connections is [closed by default]{.kw}
-- If we condition on people who were hired (control for the collider), the path **opens**
-- Among the hired: low Talent becomes correlated with high Connections
-:::
-
-::::
 
 ## What NOT to Control For: Mediators
 
@@ -643,29 +563,15 @@ Even among "low-risk" drinkers, alcohol was associated with higher mortality whe
 
 ::::
 
-## Wine and Health: Your Turn
+## Your Turn: Wine and Health Worksheet
 
-Now it's your turn to apply DAG thinking to this question.
-
-**Research question:** Does wine consumption improve heart health?
-
-Use the worksheet handout to:
+Now apply DAG thinking to this question using the **worksheet handout**:
 
 1. List all relevant variables
 2. Draw arrows between them
 3. Simplify your DAG
 4. List all paths from Wine to Heart Health
 5. Determine what to control for
-
-## Practice: Draw Your Own DAG
-
-Think of a causal question from your own interest or research paper:
-
-1. What is the treatment ($X$) and outcome ($Y$)?
-2. What variables might confound this relationship?
-3. Draw a simple DAG (3–5 variables)
-4. Identify the backdoor paths
-5. What would you need to control for?
 
 . . .
 
