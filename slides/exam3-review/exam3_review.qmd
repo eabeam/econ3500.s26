@@ -1,0 +1,875 @@
+---
+title: "Exam 3 Review"
+subtitle: "Chapters 8, 9, 10, 12"
+author: "ECON3500: Econometrics and Applications"
+date: "2026-04-20"
+format:
+  revealjs:
+    footer: "ECON3500 | Exam 3 Review"
+---
+
+## Roadmap
+
+| Chapter | Topic | Key Skills |
+|---------|-------|------------|
+| 8 | Nonlinear Relationships | Marginal effects, log interpretation, interactions |
+| 9 | Assessing Studies | Threats to internal validity |
+| 10 | Panel Data & DiD | Fixed effects, difference-in-differences |
+| 12 | Instrumental Variables | 2SLS, instrument validity, LATE |
+
+. . .
+
+::: {.callout-important}
+## Exam 3: April 23
+~3 multi-part questions, 75 minutes, closed book. One-page formula sheet (double-sided) + calculator allowed.
+:::
+
+# Chapter 8: Nonlinear Relationships
+
+## Ch 8 Big Picture
+
+We relax the assumption that the effect of $X$ on $Y$ is [constant]{.alert}.
+
+Three tools — all still [linear in parameters]{.kw}, so OLS still works:
+
+1. **Polynomial regression** — model curvature with $X^2$, $X^3$
+2. **Logarithmic transformations** — model percentage changes
+3. **Interaction terms** — allow the effect of $X_1$ to depend on $X_2$
+
+## Polynomial Regression {.smaller}
+
+::: {.callout-note}
+## Quadratic Model
+$$Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i$$
+:::
+
+. . .
+
+**Marginal effect of $X$:**
+
+$$\frac{\Delta Y}{\Delta X} \approx \beta_1 + 2\beta_2 X$$
+
+The effect of $X$ on $Y$ [depends on the current value of $X$]{.alert}.
+
+. . .
+
+**Turning point** (where the effect switches sign):
+
+$$X^* = -\frac{\beta_1}{2\beta_2}$$
+
+## Polynomial Regression: Example
+
+$$\widehat{TestScore} = 607.3 + 3.85 \times Income - 0.0423 \times Income^2$$
+
+. . .
+
+**What is the marginal effect of income at $Income = 10$ (thousand)?**
+
+$$\frac{\Delta TestScore}{\Delta Income} \approx 3.85 + 2(-0.0423)(10) = 3.85 - 0.846 = 3.00$$
+
+. . .
+
+**At $Income = 40$?**
+
+$$\frac{\Delta TestScore}{\Delta Income} \approx 3.85 + 2(-0.0423)(40) = 3.85 - 3.384 = 0.47$$
+
+. . .
+
+::: {.callout-important}
+## Takeaway
+You [cannot]{.alert} interpret $\beta_1$ or $\beta_2$ in isolation. Always compute the [marginal effect at a specific value of $X$]{.kw}.
+:::
+
+## Testing Nonlinearity
+
+To test whether the quadratic term matters:
+
+- $H_0$: $\beta_2 = 0$ (linear is sufficient)
+- $H_1$: $\beta_2 \neq 0$
+
+Use the $t$-statistic on $\hat{\beta}_2$.
+
+. . .
+
+For higher-order polynomials (e.g., cubic), use an [F-test]{.kw} for joint significance of the higher-order terms.
+
+::: {.callout-warning}
+## Common Mistake
+Don't include $X^2$ without $X$. If you include $X^2$, you [must]{.alert} include $X$ as well (otherwise the model is misspecified).
+:::
+
+## Logarithmic Transformations {.smaller}
+
+::: {.callout-note}
+## Why Logs?
+- Model [percentage changes]{.kw} instead of level changes
+- Reduce the influence of outliers
+- Natural for variables like wages, income, prices, GDP
+:::
+
+. . .
+
+**Key property:** For small changes,
+
+$$\Delta \ln(X) \approx \frac{\Delta X}{X} = \text{percentage change in } X$$
+
+## The Log Interpretation Table {.smaller}
+
+| Specification | Model | Interpretation of $\beta_1$ |
+|:---|:---|:---|
+| [Level-level]{.kw} | $Y = \beta_0 + \beta_1 X$ | A 1-unit $\uparrow$ in $X$ → $\beta_1$ unit $\uparrow$ in $Y$ |
+| [Log-level]{.kw} | $\ln(Y) = \beta_0 + \beta_1 X$ | A 1-unit $\uparrow$ in $X$ → $(100 \times \beta_1)$% $\uparrow$ in $Y$ |
+| [Level-log]{.kw} | $Y = \beta_0 + \beta_1 \ln(X)$ | A 1% $\uparrow$ in $X$ → $(\beta_1 / 100)$ unit $\uparrow$ in $Y$ |
+| [Log-log]{.kw} | $\ln(Y) = \beta_0 + \beta_1 \ln(X)$ | A 1% $\uparrow$ in $X$ → $\beta_1$% $\uparrow$ in $Y$ (elasticity) |
+
+. . .
+
+::: {.callout-important}
+## Must Know
+This table is one of the [highest-value things]{.alert} to have on your formula sheet. Know how to apply it.
+:::
+
+## Log Interpretation: Practice
+
+$$\ln(\widehat{Wage}) = 1.5 + 0.08 \times Educ$$
+
+. . .
+
+**This is log-level.** One additional year of education is associated with an approximately [8% increase]{.alert} in wages.
+
+. . .
+
+$$\widehat{Wage} = 12.5 + 3.2 \times \ln(Experience)$$
+
+. . .
+
+**This is level-log.** A 1% increase in experience is associated with a $3.2/100 = \$0.032$ increase in wages.
+
+## Interaction Terms: The Idea
+
+The effect of $X_1$ on $Y$ may [depend on the value of another variable]{.alert} $X_2$.
+
+. . .
+
+$$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \times X_{2i}) + u_i$$
+
+. . .
+
+**Marginal effect of $X_1$:**
+
+$$\frac{\Delta Y}{\Delta X_1} = \beta_1 + \beta_3 X_2$$
+
+The effect of $X_1$ [varies with]{.kw} $X_2$.
+
+## Three Types of Interactions {.smaller}
+
+**1. Binary $\times$ Binary** ($D_1 \times D_2$)
+
+$$Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 (D_{1i} \times D_{2i}) + u_i$$
+
+- $\beta_3$ = [additional]{.kw} effect of having *both* $D_1 = 1$ and $D_2 = 1$, beyond their separate effects
+
+. . .
+
+**2. Binary $\times$ Continuous** ($D \times X$)
+
+$$Y_i = \beta_0 + \beta_1 D_i + \beta_2 X_i + \beta_3 (D_i \times X_i) + u_i$$
+
+- Effect of $X$ when $D=0$: $\beta_2$
+- Effect of $X$ when $D=1$: $\beta_2 + \beta_3$
+- $\beta_3$ = how much the [slope]{.kw} changes when $D = 1$
+
+. . .
+
+**3. Continuous $\times$ Continuous** ($X_1 \times X_2$)
+
+$$Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \times X_{2i}) + u_i$$
+
+- Effect of $X_1$: $\beta_1 + \beta_3 X_2$ (depends on $X_2$)
+
+## Interaction Terms: Practice {.smaller}
+
+$$\widehat{TestScore} = 700 - 1.0 \times STR - 0.5 \times PctEL - 0.02 \times (STR \times PctEL)$$
+
+where $STR$ = student-teacher ratio and $PctEL$ = percent English learners.
+
+. . .
+
+**Q: What is the effect of reducing STR by 1 in a district where PctEL = 20%?**
+
+. . .
+
+$$\frac{\Delta TestScore}{\Delta STR} = -1.0 + (-0.02)(20) = -1.0 - 0.4 = -1.4$$
+
+Reducing STR by 1 raises test scores by [1.4 points]{.alert} in a district with 20% English learners.
+
+. . .
+
+**Q: What about in a district where PctEL = 0?**
+
+$$\frac{\Delta TestScore}{\Delta STR} = -1.0 + (-0.02)(0) = -1.0$$
+
+Reducing STR by 1 raises test scores by [1.0 point]{.alert}.
+
+::: {.callout-tip}
+## Knowledge Check
+Does the interaction term suggest a [larger]{.alert} or [smaller]{.alert} effect of reducing class size in districts with many English learners?
+:::
+
+## Ch 8 Summary
+
+| Tool | Use When... | Key Skill |
+|------|-------------|-----------|
+| Polynomial ($X^2$) | Effect of $X$ changes as $X$ increases | Marginal effect at specific $X$ |
+| Logs | Think in percentages; skewed data | Log interpretation table |
+| Interactions | Effect of $X_1$ depends on $X_2$ | Marginal effect at specific $X_2$ |
+
+::: {.callout-warning}
+## Common Mistakes
+1. Interpreting $\beta_1$ alone in a polynomial or interaction model
+2. Forgetting to multiply by 100 (or divide by 100) for log models
+3. Including the interaction but forgetting to include the [constituent terms]{.alert}
+:::
+
+# Chapter 9: Assessing Studies
+
+## Ch 9 Big Picture
+
+Chapter 9 gives a [framework]{.kw} for evaluating regression studies.
+
+Two dimensions:
+
+- [Internal validity]{.kw}: Are the statistical inferences correct *for the population studied*?
+- [External validity]{.kw}: Can the results be *generalized* to other populations and settings?
+
+## Internal vs. External Validity
+
+::: {.callout-note}
+## Internal Validity
+The statistical inferences about causal effects are valid [for the population being studied]{.alert}.
+:::
+
+::: {.callout-note}
+## External Validity
+The statistical inferences can be [generalized]{.alert} to other populations and settings.
+:::
+
+. . .
+
+- Internal validity is about [getting the right answer]{.kw} for your sample/population.
+- External validity is about [applying that answer elsewhere]{.kw}.
+- There is no mechanical test for external validity — it requires [judgment]{.alert}.
+
+## The Five Threats to Internal Validity {.smaller}
+
+When we estimate $Y_i = \beta_0 + \beta_1 X_i + u_i$, internal validity requires:
+
+1. $E(u_i | X_i) = 0$ — no bias
+2. Correct standard errors — valid inference
+
+. . .
+
+**Five threats that can violate these:**
+
+1. [Omitted variable bias]{.kw}
+2. [Wrong functional form]{.kw}
+3. [Measurement error]{.kw} (errors-in-variables)
+4. [Sample selection bias]{.kw}
+5. [Simultaneous causality]{.kw}
+
+## Threat 1: Omitted Variable Bias
+
+An omitted variable $Z$ causes bias if:
+
+1. $Z$ is a determinant of $Y$ (i.e., $Z$ is in the error term), **and**
+2. $Z$ is correlated with $X$
+
+. . .
+
+**Solution:** Include the omitted variable, use proxy variables, use panel data (Ch 10), or use instrumental variables (Ch 12).
+
+. . .
+
+::: {.callout-warning}
+## Watch Out
+Adding "kitchen sink" controls can introduce its own problems — only control for variables that satisfy the OVB conditions. Bad controls can [create]{.alert} bias rather than remove it.
+:::
+
+## Threat 2: Wrong Functional Form
+
+The true relationship is nonlinear, but you estimate a linear model.
+
+. . .
+
+**Example:** The effect of income on test scores is quadratic, but you fit a line.
+
+**Solution:** Use the tools from Chapter 8 — polynomials, logs, interactions. Test for nonlinearity.
+
+## Threat 3: Measurement Error {.smaller}
+
+The variable you observe ($\tilde{X}$) differs from the true variable ($X$):
+
+$$\tilde{X}_i = X_i + w_i$$
+
+where $w_i$ is the measurement error.
+
+. . .
+
+::: {.callout-important}
+## Attenuation Bias (Classical Measurement Error)
+If the measurement error is classical (uncorrelated with $X$), then OLS is biased [toward zero]{.alert}.
+
+$$\hat{\beta}_1 \xrightarrow{p} \beta_1 \times \frac{\sigma_X^2}{\sigma_X^2 + \sigma_w^2}$$
+
+The ratio $\frac{\sigma_X^2}{\sigma_X^2 + \sigma_w^2} < 1$, so $|\hat{\beta}_1|$ is too [small]{.alert}.
+:::
+
+. . .
+
+**Solution:** Get better data, use IV (Ch 12).
+
+## Threat 4: Sample Selection Bias
+
+The sample is not representative of the population due to a [selection process related to $Y$]{.alert}.
+
+. . .
+
+**Examples:**
+
+- Studying wages only for employed people (employed ≠ random)
+- Studying firm performance for surviving firms (survivorship bias)
+- Volunteers for a study differ from non-volunteers
+
+. . .
+
+**Solution:** Use a randomly selected sample, correct for selection (Heckman correction), or be cautious about generalization.
+
+## Threat 5: Simultaneous Causality
+
+$X$ causes $Y$, but $Y$ also causes $X$.
+
+. . .
+
+**Examples:**
+
+- Police and crime: More police → less crime, but more crime → more police
+- Class size and test scores: Low scores may prompt smaller classes
+
+. . .
+
+**Solution:** Instrumental variables (Ch 12), randomized experiments, natural experiments.
+
+## Summary Table: Threats to Internal Validity {.smaller}
+
+| Threat | Problem | Consequence | Solution |
+|:---|:---|:---|:---|
+| Omitted variable | Relevant variable left out | Bias in $\hat{\beta}_1$ | Add controls, panel data, IV |
+| Functional form | Wrong shape modeled | Bias in $\hat{\beta}_1$ | Polynomials, logs, interactions |
+| Measurement error | $X$ measured with error | Attenuation bias (toward 0) | Better data, IV |
+| Sample selection | Non-random sample | Bias in $\hat{\beta}_1$ | Random sampling, correction |
+| Simultaneous causality | $X \leftrightarrow Y$ | Bias in $\hat{\beta}_1$ | IV, experiments |
+
+::: {.callout-tip}
+## Knowledge Check
+A researcher studies the effect of hospital spending on patient outcomes, but only includes patients who survived. Which threat applies?
+
+. . .
+
+[Sample selection bias]{.alert} — the sample is conditioned on an outcome (survival) related to $Y$.
+:::
+
+## Ch 9: What to Focus On
+
+- Be able to [name and define]{.kw} each threat
+- Given a research scenario, [identify which threat(s)]{.kw} apply
+- Know the [direction of bias]{.kw} when possible (especially OVB and attenuation bias)
+- Know at least one [solution]{.kw} for each threat
+
+# Chapter 10: Panel Data & DiD
+
+## Ch 10 Big Picture
+
+[Panel data]{.kw} = same units observed over multiple time periods.
+
+. . .
+
+Two powerful tools:
+
+1. [Fixed effects]{.kw} — control for all time-invariant unobserved characteristics
+2. [Difference-in-differences]{.kw} — estimate causal effects by comparing changes over time between treatment and control groups
+
+## Types of Data
+
+| Type | Units | Time Periods | Example |
+|:---|:---|:---|:---|
+| [Cross-sectional]{.kw} | Many | One | Survey of 1000 workers in 2025 |
+| [Time series]{.kw} | One | Many | US GDP, 1950–2025 |
+| [Panel]{.kw} | Many | Many | 50 states, 2000–2025 |
+
+. . .
+
+::: {.callout-warning}
+## Panel vs. Pooled Cross-Sections
+A [panel]{.kw} tracks the [same units]{.alert} over time (Bob in 2020 and Bob in 2021).
+
+A [pooled cross-section]{.kw} draws [different samples]{.alert} each period (different people each year).
+:::
+
+## Why Panel Data?
+
+The key advantage: we can control for [unobserved, time-invariant]{.alert} characteristics.
+
+. . .
+
+$$Y_{it} = \beta_0 + \beta_1 X_{it} + \alpha_i + u_{it}$$
+
+- $\alpha_i$ = [entity fixed effect]{.kw} — captures everything about unit $i$ that doesn't change over time
+- Examples: ability, geography, institutional culture, baseline preferences
+
+. . .
+
+::: {.callout-important}
+## Key Insight
+Fixed effects eliminate OVB from [any]{.alert} time-invariant omitted variable — even ones you can't observe or measure.
+:::
+
+## Entity Fixed Effects: Mechanics {.smaller}
+
+**Approach 1: First-difference estimator**
+
+Take the difference between two periods:
+
+$$Y_{it} - Y_{i,t-1} = \beta_1(X_{it} - X_{i,t-1}) + (u_{it} - u_{i,t-1})$$
+
+. . .
+
+The fixed effect $\alpha_i$ [drops out]{.alert} because $\alpha_i - \alpha_i = 0$.
+
+. . .
+
+**Approach 2: Entity dummies (LSDV)**
+
+Include a dummy variable for each entity:
+
+$$Y_{it} = \beta_1 X_{it} + \gamma_1 D_{1i} + \gamma_2 D_{2i} + \cdots + u_{it}$$
+
+. . .
+
+**Approach 3: Demeaning**
+
+Subtract the entity mean: $\tilde{Y}_{it} = Y_{it} - \bar{Y}_i$, then regress $\tilde{Y}$ on $\tilde{X}$.
+
+All three approaches give the [same $\hat{\beta}_1$]{.alert}.
+
+## Time Fixed Effects
+
+$$Y_{it} = \beta_1 X_{it} + \alpha_i + \lambda_t + u_{it}$$
+
+- $\lambda_t$ = [time fixed effect]{.kw} — captures anything affecting all units in period $t$
+- Examples: macroeconomic shocks, federal policy changes, technological trends
+
+. . .
+
+**Entity FE + Time FE together** control for:
+
+- All time-invariant unit characteristics ($\alpha_i$)
+- All unit-invariant time shocks ($\lambda_t$)
+
+. . .
+
+::: {.callout-warning}
+## Limitation
+Fixed effects [cannot]{.alert} control for omitted variables that change over time *and* vary across units. For that, you may need IV (Ch 12) or DiD.
+:::
+
+## Difference-in-Differences: Setup {.smaller}
+
+[DiD]{.kw} estimates a causal effect by comparing [changes over time]{.alert} between a [treatment group]{.kw} and a [control group]{.kw}.
+
+. . .
+
+|  | Before | After | Change |
+|:---|:---|:---|:---|
+| [Treatment]{.kw} | $\bar{Y}_{T,before}$ | $\bar{Y}_{T,after}$ | $\Delta \bar{Y}_T$ |
+| [Control]{.kw} | $\bar{Y}_{C,before}$ | $\bar{Y}_{C,after}$ | $\Delta \bar{Y}_C$ |
+
+. . .
+
+**DiD estimate:**
+
+$$\hat{\delta}_{DiD} = (\bar{Y}_{T,after} - \bar{Y}_{T,before}) - (\bar{Y}_{C,after} - \bar{Y}_{C,before})$$
+
+$$= \Delta \bar{Y}_T - \Delta \bar{Y}_C$$
+
+## DiD as a Regression {.smaller}
+
+$$Y_{it} = \beta_0 + \beta_1 \text{Treat}_i + \beta_2 \text{After}_t + \beta_3 (\text{Treat}_i \times \text{After}_t) + u_{it}$$
+
+. . .
+
+| Coefficient | Meaning |
+|:---|:---|
+| $\beta_0$ | Control group mean, before |
+| $\beta_1$ | Difference between treatment and control, before |
+| $\beta_2$ | Change over time for control group |
+| [$\beta_3$]{.alert} | [DiD estimate]{.kw} = causal effect of treatment |
+
+. . .
+
+::: {.callout-important}
+## The DiD Coefficient
+$\beta_3$ is the coefficient on the [interaction term]{.alert} $\text{Treat} \times \text{After}$. This is the causal effect of interest.
+:::
+
+## The Parallel Trends Assumption
+
+::: {.callout-note}
+## Parallel Trends
+In the [absence of treatment]{.alert}, the treatment and control groups would have followed the [same trend]{.kw} over time.
+:::
+
+. . .
+
+- This is the [key identifying assumption]{.alert} of DiD.
+- It is [not directly testable]{.alert} — we never observe what would have happened to the treatment group without treatment.
+- We can check [pre-treatment trends]{.kw} — if they are parallel before treatment, it is more plausible they would have remained parallel.
+
+. . .
+
+::: {.callout-warning}
+## If Parallel Trends Fails
+The DiD estimate is [biased]{.alert}. Any pre-existing divergence between groups gets picked up as a "treatment effect."
+:::
+
+## DiD Calculation: Practice {.smaller}
+
+::: {.callout-tip}
+## Knowledge Check
+A state raises its minimum wage in 2020. You have average teen employment rates:
+
+|  | 2019 | 2021 |
+|:---|:---|:---|
+| Treatment state | 50% | 47% |
+| Control state | 53% | 52% |
+
+Calculate the DiD estimate of the minimum wage effect on teen employment.
+
+. . .
+
+**Step 1:** Change in treatment: $47 - 50 = -3$ pp
+
+**Step 2:** Change in control: $52 - 53 = -1$ pp
+
+**Step 3:** DiD = $(-3) - (-1) = -2$ pp
+
+The minimum wage increase is associated with a [2 percentage point decrease]{.alert} in teen employment.
+:::
+
+## Ch 10: What to Focus On
+
+- [Distinguish]{.kw} cross-sectional, time-series, and panel data
+- Explain what [entity fixed effects]{.kw} control for and what they [cannot]{.alert} control for
+- Know how the [first-difference estimator]{.kw} eliminates fixed effects (the algebra)
+- [Calculate a DiD estimate]{.kw} from a 2x2 table
+- State the [parallel trends assumption]{.kw} and explain why it matters
+- Know which coefficient in the regression is the DiD estimate ($\beta_3$, the interaction)
+
+# Chapter 12: Instrumental Variables
+
+## Ch 12 Big Picture
+
+When $E(u_i | X_i) \neq 0$ (endogeneity), OLS is [biased and inconsistent]{.alert}.
+
+. . .
+
+[Instrumental variables (IV)]{.kw} solve this by finding a variable $Z$ that:
+
+- Affects $X$ (so we can use it to predict $X$)
+- But has no direct relationship with $Y$ except through $X$
+
+. . .
+
+Think of IV as [isolating]{.kw} the "good" variation in $X$ — the part unrelated to the error term.
+
+## Why Do We Need IV?
+
+Three threats produce endogeneity ($E(u_i | X_i) \neq 0$):
+
+| Threat | Example |
+|:---|:---|
+| Omitted variable bias | Ability biases returns to schooling |
+| Simultaneous causality | Police ↔ crime |
+| Measurement error | Self-reported income |
+
+. . .
+
+When we cannot fix these with controls, panel data, or experiments, we turn to [instrumental variables]{.kw}.
+
+## The Three Conditions for a Valid Instrument {.smaller}
+
+An instrument $Z$ must satisfy:
+
+::: {.callout-note}
+## 1. Relevance
+$Z$ is correlated with $X$: $\text{corr}(Z_i, X_i) \neq 0$
+
+*$Z$ must actually affect $X$. Testable with the first-stage regression.*
+:::
+
+. . .
+
+::: {.callout-note}
+## 2. Exogeneity (Independence)
+$Z$ is uncorrelated with the error term: $\text{corr}(Z_i, u_i) = 0$
+
+*$Z$ must be "as good as randomly assigned." [Not directly testable]{.alert} — requires reasoning.*
+:::
+
+. . .
+
+::: {.callout-note}
+## 3. Exclusion Restriction
+$Z$ affects $Y$ [only through $X$]{.alert}, not directly.
+
+*There is no direct causal path from $Z$ to $Y$ that bypasses $X$. [Not directly testable]{.alert}.*
+:::
+
+## Classic Example: Returns to Education {.smaller}
+
+**Problem:** Estimate the causal effect of schooling on wages.
+
+$$\ln(wage_i) = \beta_0 + \beta_1 schooling_i + u_i$$
+
+OVB: Ability is in $u_i$ and correlated with schooling → $\hat{\beta}_1$ is biased upward.
+
+. . .
+
+**Proposed instrument:** Quarter of birth ($Z$)
+
+- [Relevance]{.kw}: Compulsory schooling laws mean people born earlier in the year can drop out sooner → less schooling. ✓
+- [Exogeneity]{.kw}: Quarter of birth is essentially random. ✓ (plausibly)
+- [Exclusion]{.kw}: Quarter of birth doesn't directly affect wages — only through schooling. ✓ (debatable)
+
+. . .
+
+::: {.callout-warning}
+## Caution
+Exclusion restriction is always [arguable]{.alert}, not provable. This is where most debates about IV studies focus.
+:::
+
+## Two-Stage Least Squares (2SLS) {.smaller}
+
+::: {.callout-note}
+## Stage 1: First-Stage Regression
+Regress $X$ on $Z$ (and any controls $W$):
+
+$$X_i = \pi_0 + \pi_1 Z_i + \pi_2 W_i + v_i$$
+
+Save the predicted values $\hat{X}_i$.
+:::
+
+. . .
+
+::: {.callout-note}
+## Stage 2: Second-Stage Regression
+Regress $Y$ on $\hat{X}$ (and any controls $W$):
+
+$$Y_i = \beta_0 + \beta_1 \hat{X}_i + \beta_2 W_i + u_i$$
+:::
+
+. . .
+
+**Why this works:** $\hat{X}_i$ contains only the variation in $X$ that comes from $Z$. Since $Z$ is exogenous, $\hat{X}_i$ is uncorrelated with $u_i$.
+
+. . .
+
+::: {.callout-warning}
+## Important
+Use a proper IV/2SLS command (e.g., `ivregress 2sls` in Stata). Running two separate regressions gives [wrong standard errors]{.alert}.
+:::
+
+## Weak Instruments {.smaller}
+
+If $Z$ is only [weakly correlated]{.alert} with $X$, the IV estimator has serious problems:
+
+- Large standard errors
+- Biased (toward OLS) in finite samples
+- Unreliable hypothesis tests
+
+. . .
+
+::: {.callout-important}
+## The F > 10 Rule of Thumb
+Test instrument relevance with the [first-stage F-statistic]{.kw}.
+
+- $F > 10$: Instrument is sufficiently strong ✓
+- $F < 10$: Weak instrument — IV estimates are unreliable ✗
+
+This is a [necessary condition]{.alert} you should always check.
+:::
+
+. . .
+
+**How to get the F-statistic:** Run the first-stage regression and look at the F-statistic on the excluded instrument(s).
+
+## LATE: What Does IV Actually Estimate? {.smaller}
+
+::: {.callout-note}
+## Local Average Treatment Effect (LATE)
+IV estimates the causal effect for [compliers]{.alert} — the subpopulation whose treatment status is changed by the instrument.
+:::
+
+. . .
+
+**Four types of individuals:**
+
+| Type | Behavior |
+|:---|:---|
+| [Compliers]{.kw} | Do what the instrument "tells" them (take treatment when $Z=1$, don't when $Z=0$) |
+| Always-takers | Take treatment regardless of $Z$ |
+| Never-takers | Never take treatment regardless of $Z$ |
+| Defiers | Do the opposite of what $Z$ "tells" them |
+
+. . .
+
+- IV estimates the effect [only for compliers]{.alert} — not for the whole population.
+- This is a [local]{.kw} estimate, not a global one.
+
+## LATE: Implications
+
+::: {.callout-warning}
+## Why LATE Matters
+The IV estimate may differ from the "true" average treatment effect (ATE) if compliers are not representative of the full population.
+:::
+
+. . .
+
+**Example:** Quarter-of-birth IV for returns to schooling
+
+- Compliers = people who would drop out if they could, but compulsory schooling laws force them to stay
+- Returns to education for this group may differ from returns for people who *choose* to go to college
+
+. . .
+
+This doesn't mean IV is wrong — it means you need to think carefully about [who the estimate applies to]{.alert}.
+
+## Evaluating Instruments: Practice {.smaller}
+
+::: {.callout-tip}
+## Knowledge Check
+A researcher wants to estimate the effect of smoking on health. She proposes using [cigarette taxes]{.kw} as an instrument.
+
+Evaluate each condition:
+
+. . .
+
+**1. Relevance:** Higher taxes → higher prices → less smoking. ✓ (testable)
+
+. . .
+
+**2. Exogeneity:** Are cigarette taxes correlated with unobserved determinants of health?
+Possibly — states with higher taxes may also have better health infrastructure. ⚠️
+
+. . .
+
+**3. Exclusion:** Do cigarette taxes affect health only through smoking?
+Maybe not — tax revenue could fund health programs. ⚠️
+
+. . .
+
+**Verdict:** Relevance is fine, but exogeneity and exclusion are [debatable]{.alert}. The researcher would need to argue carefully and possibly add controls.
+:::
+
+## Ch 12 Summary
+
+| Concept | Key Point |
+|:---|:---|
+| Endogeneity | $E(u_i \mid X_i) \neq 0$ → OLS is biased |
+| Valid instrument | Relevant + exogenous + exclusion restriction |
+| 2SLS | First stage predicts $X$; second stage uses $\hat{X}$ |
+| Weak instruments | $F < 10$ in first stage → unreliable |
+| LATE | IV estimates effect for compliers only |
+
+::: {.callout-warning}
+## Common Mistakes
+1. Claiming an instrument is valid without arguing exclusion restriction
+2. Running 2SLS as two separate regressions (wrong SEs)
+3. Ignoring the weak instrument problem
+4. Interpreting IV as the ATE instead of the LATE
+:::
+
+# Putting It All Together
+
+## Connections Across Chapters {.smaller}
+
+These chapters are deeply linked:
+
+. . .
+
+- **Ch 8 → Ch 9**: Wrong functional form (Ch 9) is solved by nonlinear models (Ch 8)
+
+. . .
+
+- **Ch 9 → Ch 10**: Omitted variable bias (Ch 9) can be addressed by fixed effects (Ch 10) when the omitted variable is time-invariant
+
+. . .
+
+- **Ch 9 → Ch 12**: OVB, simultaneous causality, and measurement error (Ch 9) are all forms of endogeneity addressed by IV (Ch 12)
+
+. . .
+
+- **Ch 10 + Ch 12**: IV can be combined with panel data/fixed effects when endogeneity remains after controlling for fixed effects
+
+## Decision Tree: Which Tool? {.smaller}
+
+**You suspect your OLS estimate is biased. What do you do?**
+
+| If the problem is... | Try... |
+|:---|:---|
+| Wrong functional form | Polynomials, logs, interactions (Ch 8) |
+| Time-invariant omitted variable + panel data available | Entity fixed effects (Ch 10) |
+| Common time shock | Time fixed effects (Ch 10) |
+| Clear before/after treatment with a control group | DiD (Ch 10) |
+| Endogeneity remains (OVB, simultaneity, meas. error) | Instrumental variables (Ch 12) |
+| Non-random sample | Address selection, or be cautious |
+
+## What to Bring to the Exam
+
+::: {.callout-important}
+## Formula Sheet Suggestions
+Your double-sided formula sheet should include:
+
+- [Log interpretation table]{.alert} (Ch 8) — you will almost certainly need this
+- Marginal effect formulas for polynomials and interactions (Ch 8)
+- Five threats to internal validity (Ch 9)
+- DiD formula and regression setup (Ch 10)
+- Three conditions for a valid instrument (Ch 12)
+- 2SLS steps (Ch 12)
+- $F > 10$ rule (Ch 12)
+:::
+
+# Exam Logistics
+
+## Exam 3 Details
+
+- **Date:** Wednesday, April 23
+- **Format:** ~3 multi-part questions, 75 minutes
+- **Closed book** — one-page formula sheet (double-sided), calculator allowed
+- **No Stata component**
+
+. . .
+
+**Practice resources:**
+
+- Problem Sets 4 and 5
+- Practice exam (linked from course website)
+- Lecture slides and knowledge checks
+
+. . .
+
+::: {.callout-tip}
+## Study Strategy
+1. Redo the knowledge checks from each chapter's slides
+2. Work through the practice exam under timed conditions
+3. Make your formula sheet *before* studying — the act of choosing what goes on it is studying
+:::

@@ -319,6 +319,36 @@ ggsave(file.path(fig_dir, "ch8b_measurement_error.png"),
        p10, width = 5, height = 4, dpi = 300, bg = fig_bg)
 
 # ============================================================================
+# Figure 11: Wine and Heart Health (Worksheet)
+# Multiple confounders: Income, Diet, Social Activity
+# ============================================================================
+
+dag11 <- dagify(
+  HeartHealth ~ Wine + Income + Diet + SocialAct,
+  Wine ~ Income + SocialAct,
+  Diet ~ Income,
+  labels = c("Wine" = "Wine",
+             "HeartHealth" = "Heart\nHealth",
+             "Income" = "Income",
+             "Diet" = "Diet",
+             "SocialAct" = "Social\nActivity"),
+  coords = tibble(name = c("Wine", "HeartHealth", "Income", "Diet", "SocialAct"),
+                  x = c(1, 4, 2.5, 3.5, 1),
+                  y = c(1, 1, 2.2, 2.2, 2.2))
+)
+
+p11 <- ggplot(tidy_dagitty(dag11), aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_dag_edges(edge_width = edge_w) +
+  geom_dag_node(color = node_color, size = node_sz) +
+  geom_dag_text(aes(label = label), color = node_text_color,
+                size = 3.2, lineheight = 0.85) +
+  theme_dag_clean() +
+  dag_expand()
+
+ggsave(file.path(fig_dir, "ch8b_wine_health.png"),
+       p11, width = 7, height = 4, dpi = 300, bg = fig_bg)
+
+# ============================================================================
 # Summary
 # ============================================================================
 
@@ -334,3 +364,4 @@ cat("  7. ch8b_complex_dag.png\n")
 cat("  8. ch8b_backdoor_path.png\n")
 cat("  9. ch8b_reverse_causation.png\n")
 cat(" 10. ch8b_measurement_error.png\n")
+cat(" 11. ch8b_wine_health.png\n")

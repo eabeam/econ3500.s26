@@ -241,12 +241,15 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="the-framework-causal-diagrams-dags" class="slide level2 smaller">
 <h2>The Framework: Causal Diagrams (DAGs)</h2>
-<p>A <strong>directed acyclic graph (DAG)</strong> is a visual representation of a data generating process:</p>
+<p>A <strong>directed acyclic graph (DAG)</strong> is a visual representation of a data generating process. Every word in the name matters:</p>
 <ul>
-<li><strong>Variables</strong> (nodes) — circles representing measured or unmeasured quantities</li>
-<li><strong>Causal relationships</strong> (arrows) — direction of causality</li>
-<li><strong>No cycles</strong> — causality flows forward (you can’t follow arrows back to where you started)</li>
+<li><strong>Directed</strong>: Arrows point in one direction — from cause to effect</li>
+<li><strong>Acyclic</strong>: No cycles — you can never follow arrows and end up back where you started</li>
+<li><strong>Graph</strong>: A diagram with nodes (variables) and edges (arrows)</li>
 </ul>
+<div class="fragment">
+<p>The <span class="alert">acyclic</span> part is a real constraint: DAGs assume causality flows forward. If <span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span> and <span class="math inline">\(Y\)</span> simultaneously causes <span class="math inline">\(X\)</span>, a DAG can’t represent that. (We’ll return to this when we discuss <span class="alert">simultaneity</span>.)</p>
+</div>
 <div class="fragment">
 <p><strong>Key insight:</strong> Once we draw the DAG, we can <strong>mechanically determine</strong> which variables to control for to identify a causal effect.</p>
 </div>
@@ -312,6 +315,44 @@ ECON3500: Econometrics and Applications
 <li>Class Size → Test Scores (smaller classes improve learning)</li>
 </ul>
 </div></div>
+</section></section>
+<section>
+<section id="how-to-build-a-dag" class="title-slide slide level1 center">
+<h1>How to Build a DAG</h1>
+
+</section>
+<section id="step-by-step-dag-construction" class="slide level2 smaller">
+<h2>Step-by-Step DAG Construction</h2>
+<p>Building a DAG is a structured process (HK, <em>The Effect</em>, Ch. 6):</p>
+<p><strong>Step 1: List all relevant variables.</strong> What might cause your treatment? What might cause your outcome? What affects both? Cast a wide net.</p>
+<div class="fragment">
+<p><strong>Step 2: For each pair of variables, ask “does one cause the other?”</strong> If yes, draw an arrow from cause to effect. If you draw no arrow, you’re assuming no direct causal link between those variables.</p>
+</div>
+<div class="fragment">
+<p><strong>Step 3: Simplify.</strong> Remove any variable that is not on <em>any</em> path between your treatment and outcome. If it doesn’t connect <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (directly or indirectly), it doesn’t affect your identification — so it can be dropped.</p>
+</div>
+<div class="fragment">
+<p><strong>Step 4: Determine what to control for.</strong> Apply the <span class="kw">backdoor criterion</span> to find the minimal set of controls that closes all backdoor paths. (We’ll get to this soon!)</p>
+</div>
+</section>
+<section id="building-dags-handling-correlated-variables" class="slide level2">
+<h2>Building DAGs: Handling Correlated Variables</h2>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>What if two variables are correlated but neither causes the other?</strong></p>
+</div>
+<div class="callout-content">
+<p>Sometimes you have two variables — say, Income and SES — that are clearly correlated, but you don’t think one directly causes the other.</p>
+<p><strong>Solution:</strong> Introduce a shared unobserved cause <span class="math inline">\(U\)</span> that drives both.</p>
+<p><span class="math display">\[U \rightarrow \text{Income} \quad \text{and} \quad U \rightarrow \text{SES}\]</span></p>
+<p>This is more honest than arbitrarily picking a direction for the arrow. You’re saying: “something generates both of these, but I don’t need to name it.” In a DAG, draw <span class="math inline">\(U\)</span> as a <span style="color: #708090; font-weight: bold;">gray (unobserved) node</span> with arrows pointing to both variables.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="causal-front-door-paths" class="slide level2">
 <h2>Causal (Front Door) Paths</h2>
@@ -399,6 +440,33 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="fragment">
 <p><strong>Our goal:</strong> Close all bad (backdoor) paths while keeping good (causal) paths open.</p>
+</div>
+</section>
+<section id="what-does-controlling-mean" class="slide level2 smaller">
+<h2>What Does “Controlling” Mean?</h2>
+<p>When we say “control for <span class="math inline">\(Z\)</span>” in a regression, we are <span class="kw">comparing units that have the same value of <span class="math inline">\(Z\)</span></span>.</p>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Intuition</strong></p>
+</div>
+<div class="callout-content">
+<p>Controlling for <span class="math inline">\(Z\)</span> removes the variation in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> that is driven by <span class="math inline">\(Z\)</span>. What’s left is the variation in <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> that comes from <em>other</em> sources.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><strong>In DAG terms:</strong> Controlling for a variable <span class="kw">blocks all paths</span> that pass through it.</p>
+<ul>
+<li>If <span class="math inline">\(Z\)</span> is on a <strong>backdoor path</strong>: controlling closes it → <span class="kw">removes bias</span></li>
+<li>If <span class="math inline">\(Z\)</span> is a <strong>collider</strong>: controlling opens it → <span class="alert">creates bias</span></li>
+<li>If <span class="math inline">\(Z\)</span> is a <strong>mediator</strong>: controlling blocks part of the causal effect → <span class="alert">removes what you want</span></li>
+</ul>
 </div>
 </section></section>
 <section>
@@ -537,6 +605,50 @@ ECON3500: Econometrics and Applications
 <li><strong>Don’t</strong> control for variables that <span class="math inline">\(X\)</span> affects — that would block part of the causal effect</li>
 <li><strong>Don’t</strong> control for colliders — that would <em>open</em> a path that was safely closed</li>
 </ul>
+</div>
+</section>
+<section id="applying-the-criterion-list-all-paths" class="slide level2 smaller scrollable">
+<h2>Applying the Criterion: List All Paths</h2>
+<p>A systematic approach to finding your controls:</p>
+<ol type="1">
+<li><strong>List every path</strong> connecting <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (follow arrows in <em>any</em> direction)</li>
+<li><strong>Classify each path</strong>: Is it a causal (front-door) path or a backdoor path?</li>
+<li><strong>Check each path’s status</strong>: Is it currently open or closed?</li>
+<li><strong>Choose controls</strong> to close all open backdoor paths — without opening any closed paths</li>
+</ol>
+<div class="fragment">
+<p><strong>Example: Class Size and Test Scores</strong></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 31%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Path</th>
+<th>Type</th>
+<th>Default</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Class Size → Test Scores</td>
+<td>Causal</td>
+<td>Open</td>
+<td>Leave open</td>
+</tr>
+<tr class="even">
+<td>Class Size ← Wealth → Test Scores</td>
+<td>Backdoor</td>
+<td>Open</td>
+<td>Control for Wealth</td>
+</tr>
+</tbody>
+</table>
+<p>After controlling for Wealth: the only remaining open path is causal. The effect is identified.</p>
 </div>
 </section>
 <section id="what-not-to-control-for-colliders" class="slide level2">
@@ -694,7 +806,42 @@ ECON3500: Econometrics and Applications
 </ul>
 </div></div>
 <div class="fragment">
-<p>In DAG terms: we’ve drawn the wrong DAG. The true DGP has the arrow reversed (or both arrows exist — <span class="kw">simultaneity</span>).</p>
+<p>In DAG terms: we’ve drawn the wrong DAG. The true DGP has the arrow reversed — or both arrows exist.</p>
+</div>
+</section>
+<section id="dags-and-simultaneity" class="slide level2 smaller">
+<h2>DAGs and Simultaneity</h2>
+<p>Remember: the “A” in DAG stands for <span class="alert">acyclic</span>. DAGs <strong>cannot represent simultaneity</strong> — when <span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span> and <span class="math inline">\(Y\)</span> simultaneously causes <span class="math inline">\(X\)</span>.</p>
+<div class="fragment">
+<p><strong>Two approaches when you suspect reverse causation or simultaneity:</strong></p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Approach 1: Use time subscripts</strong></p>
+</div>
+<div class="callout-content">
+<p>Separate variables by time period: <span class="math inline">\(X_t \rightarrow Y_{t+1}\)</span> and <span class="math inline">\(Y_t \rightarrow X_{t+1}\)</span>. This converts a cycle into an acyclic graph — causality flows forward through time. Works well when the feedback loop operates with a lag (e.g., crime this year → police budget next year).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Approach 2: Use instrumental variables</strong></p>
+</div>
+<div class="callout-content">
+<p>When the relationship is truly simultaneous (e.g., price and quantity in a market), the DAG framework alone can’t solve it. This is where <span class="kw">instrumental variables</span> and <span class="kw">2SLS</span> become the right tools — you need an external source of variation that shifts one variable without directly affecting the other. We’ll cover this in detail later in the course.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="measurement-error" class="slide level2">
@@ -809,6 +956,76 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
+</section>
+<section id="case-study-does-wine-improve-heart-health" class="slide level2">
+<h2>Case Study: Does Wine Improve Heart Health?</h2>
+
+<img data-src="./ch8b_figures/ch8b_wine_lancet_1979.png" style="width:70.0%" class="r-stretch quarto-figure-center"><p class="caption">St Leger, Cochrane, &amp; Moore (1979). <em>The Lancet.</em></p><p>In 1979, researchers found a strong negative association between wine consumption and heart disease across 18 developed countries.</p>
+</section>
+<section id="the-french-paradox-goes-mainstream" class="slide level2">
+<h2>The French Paradox Goes Mainstream</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./ch8b_figures/ch8b_wine_60minutes.png" style="width:100.0%"></p>
+<figcaption>60 Minutes, November 17, 1991</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./ch8b_figures/ch8b_wine_spectator.png" style="width:100.0%"></p>
+<figcaption>Wine Spectator, March 15, 1994</figcaption>
+</figure>
+</div>
+</div></div>
+<p>Red wine sales in the US jumped nearly 40% in 1992. The idea that wine was good for your heart became conventional wisdom.</p>
+</section>
+<section id="but-wait" class="slide level2 smaller">
+<h2>But Wait…</h2>
+
+<img data-src="./ch8b_figures/ch8b_wine_confounders_text.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>Moderate wine drinkers tend to be <strong>more educated, wealthier, more physically active</strong>, and more likely to have health insurance.</p>
+<div class="fragment">
+<p>And many “non-drinkers” were actually <strong>ex-drinkers who had quit because of health problems</strong>.</p>
+</div>
+<div class="fragment">
+<p><strong>In DAG terms:</strong> What kinds of bias are these?</p>
+</div>
+</section>
+<section id="better-methods-different-answers" class="slide level2 smaller">
+<h2>Better Methods, Different Answers</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./ch8b_figures/ch8b_wine_jama_biddinger.png" style="width:100.0%"></p>
+<figcaption>Biddinger et al.&nbsp;(2022)</figcaption>
+</figure>
+</div>
+<p>Using <span class="kw">Mendelian randomization</span> — genetic variants as instruments — alcohol at <em>all</em> levels was associated with <strong>increased</strong> cardiovascular risk.</p>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="./ch8b_figures/ch8b_wine_jama_ortola.png" style="width:100.0%"></p>
+<figcaption>Ortolá et al.&nbsp;(2024)</figcaption>
+</figure>
+</div>
+<p>Even among “low-risk” drinkers, alcohol was associated with higher mortality when accounting for health and SES risk factors.</p>
+</div></div>
+</section>
+<section id="wine-and-health-your-turn" class="slide level2 scrollable">
+<h2>Wine and Health: Your Turn</h2>
+<p>Now it’s your turn to apply DAG thinking to this question.</p>
+<p><strong>Research question:</strong> Does wine consumption improve heart health?</p>
+<p>Use the worksheet handout to:</p>
+<ol type="1">
+<li>List all relevant variables</li>
+<li>Draw arrows between them</li>
+<li>Simplify your DAG</li>
+<li>List all paths from Wine to Heart Health</li>
+<li>Determine what to control for</li>
+</ol>
 </section>
 <section id="practice-draw-your-own-dag" class="slide level2 scrollable">
 <h2>Practice: Draw Your Own DAG</h2>

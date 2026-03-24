@@ -67,11 +67,15 @@ Changing $X$ **causes** $Y$ to change. Formally: if we could *intervene* to chan
 
 ## The Framework: Causal Diagrams (DAGs) {.smaller}
 
-A **directed acyclic graph (DAG)** is a visual representation of a data generating process:
+A **directed acyclic graph (DAG)** is a visual representation of a data generating process. Every word in the name matters:
 
-- **Variables** (nodes) — circles representing measured or unmeasured quantities
-- **Causal relationships** (arrows) — direction of causality
-- **No cycles** — causality flows forward (you can't follow arrows back to where you started)
+- **Directed**: Arrows point in one direction — from cause to effect
+- **Acyclic**: No cycles — you can never follow arrows and end up back where you started
+- **Graph**: A diagram with nodes (variables) and edges (arrows)
+
+. . .
+
+The [acyclic]{.alert} part is a real constraint: DAGs assume causality flows forward. If $X$ causes $Y$ and $Y$ simultaneously causes $X$, a DAG can't represent that. (We'll return to this when we discuss [simultaneity]{.alert}.)
 
 . . .
 
@@ -131,6 +135,45 @@ Each circle represents a variable — either observed or unobserved.
 
 ::::
 
+
+# How to Build a DAG
+
+## Step-by-Step DAG Construction {.smaller}
+
+Building a DAG is a structured process (HK, *The Effect*, Ch. 6):
+
+**Step 1: List all relevant variables.**
+What might cause your treatment? What might cause your outcome? What affects both? Cast a wide net.
+
+. . .
+
+**Step 2: For each pair of variables, ask "does one cause the other?"**
+If yes, draw an arrow from cause to effect. If you draw no arrow, you're assuming no direct causal link between those variables.
+
+. . .
+
+**Step 3: Simplify.**
+Remove any variable that is not on *any* path between your treatment and outcome. If it doesn't connect $X$ and $Y$ (directly or indirectly), it doesn't affect your identification — so it can be dropped.
+
+. . .
+
+**Step 4: Determine what to control for.**
+Apply the [backdoor criterion]{.kw} to find the minimal set of controls that closes all backdoor paths. (We'll get to this soon!)
+
+## Building DAGs: Handling Correlated Variables
+
+::: {.callout-tip}
+## What if two variables are correlated but neither causes the other?
+Sometimes you have two variables — say, Income and SES — that are clearly correlated, but you don't think one directly causes the other.
+
+**Solution:** Introduce a shared unobserved cause $U$ that drives both.
+
+$$U \rightarrow \text{Income} \quad \text{and} \quad U \rightarrow \text{SES}$$
+
+This is more honest than arbitrarily picking a direction for the arrow. You're saying: "something generates both of these, but I don't need to name it." In a DAG, draw $U$ as a [gray (unobserved) node]{style="color: #708090; font-weight: bold;"} with arrows pointing to both variables.
+:::
+
+
 ## Causal (Front Door) Paths
 
 $X \rightarrow Y$ (or $X \rightarrow M \rightarrow Y$)
@@ -189,6 +232,25 @@ A path is [open]{.kw} if the relationship flows freely between variables along i
 . . .
 
 **Our goal:** Close all bad (backdoor) paths while keeping good (causal) paths open.
+
+## What Does "Controlling" Mean? {.smaller}
+
+When we say "control for $Z$" in a regression, we are [comparing units that have the same value of $Z$]{.kw}.
+
+. . .
+
+::: {.callout-note}
+## Intuition
+Controlling for $Z$ removes the variation in $X$ and $Y$ that is driven by $Z$. What's left is the variation in $X$ and $Y$ that comes from *other* sources.
+:::
+
+. . .
+
+**In DAG terms:** Controlling for a variable [blocks all paths]{.kw} that pass through it.
+
+- If $Z$ is on a **backdoor path**: controlling closes it → [removes bias]{.kw}
+- If $Z$ is a **collider**: controlling opens it → [creates bias]{.alert}
+- If $Z$ is a **mediator**: controlling blocks part of the causal effect → [removes what you want]{.alert}
 
 
 # Confounding and the OVB Connection
@@ -282,6 +344,26 @@ Control for a set of variables $\mathbf{Z}$ such that:
 - **Do** control for common causes (confounders) — they create open backdoor paths
 - **Don't** control for variables that $X$ affects — that would block part of the causal effect
 - **Don't** control for colliders — that would *open* a path that was safely closed
+
+## Applying the Criterion: List All Paths {.smaller}
+
+A systematic approach to finding your controls:
+
+1. **List every path** connecting $X$ and $Y$ (follow arrows in *any* direction)
+2. **Classify each path**: Is it a causal (front-door) path or a backdoor path?
+3. **Check each path's status**: Is it currently open or closed?
+4. **Choose controls** to close all open backdoor paths — without opening any closed paths
+
+. . .
+
+**Example: Class Size and Test Scores**
+
+| Path | Type | Default | Action |
+|------|------|---------|--------|
+| Class Size → Test Scores | Causal | Open | Leave open |
+| Class Size ← Wealth → Test Scores | Backdoor | Open | Control for Wealth |
+
+After controlling for Wealth: the only remaining open path is causal. The effect is identified.
 
 ## What NOT to Control For: Colliders
 
@@ -404,7 +486,27 @@ Sometimes the arrow between $X$ and $Y$ runs in the **opposite direction** from 
 
 . . .
 
-In DAG terms: we've drawn the wrong DAG. The true DGP has the arrow reversed (or both arrows exist — [simultaneity]{.kw}).
+In DAG terms: we've drawn the wrong DAG. The true DGP has the arrow reversed — or both arrows exist.
+
+## DAGs and Simultaneity {.smaller}
+
+Remember: the "A" in DAG stands for [acyclic]{.alert}. DAGs **cannot represent simultaneity** — when $X$ causes $Y$ and $Y$ simultaneously causes $X$.
+
+. . .
+
+**Two approaches when you suspect reverse causation or simultaneity:**
+
+::: {.callout-tip}
+## Approach 1: Use time subscripts
+Separate variables by time period: $X_t \rightarrow Y_{t+1}$ and $Y_t \rightarrow X_{t+1}$. This converts a cycle into an acyclic graph — causality flows forward through time. Works well when the feedback loop operates with a lag (e.g., crime this year → police budget next year).
+:::
+
+. . .
+
+::: {.callout-tip}
+## Approach 2: Use instrumental variables
+When the relationship is truly simultaneous (e.g., price and quantity in a market), the DAG framework alone can't solve it. This is where [instrumental variables]{.kw} and [2SLS]{.kw} become the right tools — you need an external source of variation that shifts one variable without directly affecting the other. We'll cover this in detail later in the course.
+:::
 
 ## Measurement Error
 
@@ -486,6 +588,74 @@ To estimate the effect of Health Insurance on Health, should we control for Inco
 2. **Controls:** Family Connections (to close the backdoor)
    - Do [NOT]{.alert} control for Education — it is a *descendant* of SES (mediator)
 :::
+
+## Case Study: Does Wine Improve Heart Health?
+
+![St Leger, Cochrane, & Moore (1979). *The Lancet.*](./ch8b_figures/ch8b_wine_lancet_1979.png){width=70% fig-align="center"}
+
+In 1979, researchers found a strong negative association between wine consumption and heart disease across 18 developed countries.
+
+## The French Paradox Goes Mainstream
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![60 Minutes, November 17, 1991](./ch8b_figures/ch8b_wine_60minutes.png){width=100% fig-align="center"}
+:::
+
+::: {.column width="50%"}
+![Wine Spectator, March 15, 1994](./ch8b_figures/ch8b_wine_spectator.png){width=100% fig-align="center"}
+:::
+
+::::
+
+Red wine sales in the US jumped nearly 40% in 1992. The idea that wine was good for your heart became conventional wisdom.
+
+## But Wait... {.smaller}
+
+![](./ch8b_figures/ch8b_wine_confounders_text.png){width=80% fig-align="center"}
+
+Moderate wine drinkers tend to be **more educated, wealthier, more physically active**, and more likely to have health insurance.
+
+. . .
+
+And many "non-drinkers" were actually **ex-drinkers who had quit because of health problems**.
+
+. . .
+
+**In DAG terms:** What kinds of bias are these?
+
+## Better Methods, Different Answers {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![Biddinger et al. (2022)](./ch8b_figures/ch8b_wine_jama_biddinger.png){width=100% fig-align="center"}
+
+Using [Mendelian randomization]{.kw} — genetic variants as instruments — alcohol at *all* levels was associated with **increased** cardiovascular risk.
+:::
+
+::: {.column width="50%"}
+![Ortolá et al. (2024)](./ch8b_figures/ch8b_wine_jama_ortola.png){width=100% fig-align="center"}
+
+Even among "low-risk" drinkers, alcohol was associated with higher mortality when accounting for health and SES risk factors.
+:::
+
+::::
+
+## Wine and Health: Your Turn
+
+Now it's your turn to apply DAG thinking to this question.
+
+**Research question:** Does wine consumption improve heart health?
+
+Use the worksheet handout to:
+
+1. List all relevant variables
+2. Draw arrows between them
+3. Simplify your DAG
+4. List all paths from Wine to Heart Health
+5. Determine what to control for
 
 ## Practice: Draw Your Own DAG
 
