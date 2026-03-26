@@ -55,7 +55,8 @@ The LPM is [less appropriate]{.alert} when:
 
 **Bottom line:** 
 - For [causal inference]{.kw} — which is our focus — the LPM is a perfectly good tool. 
-- Angrist & Pischke (*Mostly Harmless Econometrics*) argue it gives you the right average effects without the complexity of nonlinear models. - More formal alternatives (probit, logit) exist but are beyond ECON3500. 
+- Angrist & Pischke (*Mostly Harmless Econometrics*) argue it gives you the right average effects without the complexity of nonlinear models.
+- More formal alternatives (probit, logit) exist but are beyond ECON3500.
 - **You will use the LPM in Lab 6!**
 
 # Internal and External Validity
@@ -95,20 +96,32 @@ The statistical inferences can be [generalized]{.alert} from the population and 
 
 "Setting" = the legal, policy, and physical environment and related salient features.
 
-## Threats to External Validity
+## External Validity Example: Seattle Minimum Wage {.smaller}
+
+**Question:** A study finds Seattle's \$15 minimum wage [reduced hours]{.alert} for low-wage workers (Jardim et al. 2022, *AEJ: Economic Policy*). Would we expect the same result elsewhere?
+
+![Jardim et al. (2022), *AEJ: Economic Policy*](./ch9_figures/ch9_minimum_wage_seattle_paper.png){width=56% fig-align="center"}
+
+## Threats to External Validity {.smaller}
 
 Assessing external validity requires [detailed substantive knowledge]{.kw} and judgment on a case-by-case basis.
 
 . . .
 
-**Example:** A study finds Seattle's \$15 minimum wage [reduced hours]{.alert} for low-wage workers (Jardim et al. 2022, *AEJ: Economic Policy*). Does this generalize?
+**Same example:** Seattle's \$15 minimum wage and hours worked. What should we ask before generalizing?
 
 - [Differences in populations]{.kw}
     - Seattle's low-wage workforce: tech-adjacent, high cost of living
     - Rural Vermont? Mississippi? Workers face very different outside options
+
+. . .
+
 - [Differences in settings]{.kw}
     - Seattle's booming economy may have cushioned the shock
     - Different state labor laws, tipped wage rules, enforcement
+
+. . .
+
 - [Differences in labor markets]{.kw}
     - Urban labor markets are less concentrated — more employers competing for workers
     - Research shows more concentrated (rural) labor markets may respond [differently]{.alert} to minimum wage increases (Azar et al. 2023)
@@ -212,6 +225,18 @@ So far we've assumed $X$ is measured without error. In reality, economic data of
 - [Ambiguous questions]{.kw} ("What was your income last year?" — before or after tax?)
 - [Intentionally false responses]{.kw} ("What is the current value of your financial assets?" "How often do you drink and drive?")
 
+## Example: Survey Responses as Measurement Error {.smaller}
+
+What kind of measurement error might this create?
+
+![Example of potentially inaccurate self-reported survey responses](./ch9_figures/ch9_measurement_error_survey.png){width=68% fig-align="center"}
+
+. . .
+
+- Self-reported survey data can be wrong because respondents [misremember]{.kw}, [misunderstand]{.kw}, or [make things up]{.alert}
+- For sensitive questions, the error may be [systematic]{.alert}, not purely random
+- That means measurement error in survey data is often [not classical]{.kw}
+
 ## Where and What Kind? {.smaller}
 
 Measurement error can occur in the [dependent variable]{.kw} or [independent variables]{.kw}.
@@ -236,7 +261,7 @@ The measurement error is uncorrelated with the true value: $\text{Cov}(w_i, X^*_
 
 Suppose we observe $y_i$ but the true value is $y^*_i$:
 
-$$y_i = y^*_i + e_0$$
+$$y_i = y^*_i + e_i$$
 
 . . .
 
@@ -248,11 +273,11 @@ $$y^*_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k + u_i$$
 
 What we actually estimate:
 
-$$y_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k + \underbrace{(u_i + e_0)}_{\text{new error term}}$$
+$$y_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k + \underbrace{(u_i + e_i)}_{\text{new error term}}$$
 
 . . .
 
-If $e_0$ is uncorrelated with the $X$'s, the [coefficients are still unbiased]{.kw} — the error term just has more variance, so standard errors are larger.
+If $e_i$ is uncorrelated with the $X$'s, the [coefficients are still unbiased]{.kw} — the error term just has more variance, so standard errors are larger.
 
 **Measurement error in $Y$ under CEV: not a big deal.**
 
@@ -455,7 +480,11 @@ You collect data by standing outside the [basketball team's locker room]{.alert}
 
 . . .
 
-- Is this a good design?
+Is this a good design?
+
+. . .
+
+- No
 - You've sampled individuals in a way that is [related to the outcome $Y$]{.alert} (height)
 - This results in bias — your estimate will be too high
 

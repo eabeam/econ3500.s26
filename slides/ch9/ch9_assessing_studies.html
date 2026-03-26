@@ -241,22 +241,35 @@ ECON3500: Econometrics and Applications
 <p>“Setting” = the legal, policy, and physical environment and related salient features.</p>
 </div>
 </section>
-<section id="threats-to-external-validity" class="slide level2">
+<section id="external-validity-example-seattle-minimum-wage" class="slide level2 smaller">
+<h2>External Validity Example: Seattle Minimum Wage</h2>
+<p><strong>Question:</strong> A study finds Seattle’s $15 minimum wage <span class="alert">reduced hours</span> for low-wage workers (Jardim et al.&nbsp;2022, <em>AEJ: Economic Policy</em>). Would we expect the same result elsewhere?</p>
+
+<img data-src="./ch9_figures/ch9_minimum_wage_seattle_paper.png" style="width:56.0%" class="r-stretch quarto-figure-center"><p class="caption">Jardim et al.&nbsp;(2022), <em>AEJ: Economic Policy</em></p></section>
+<section id="threats-to-external-validity" class="slide level2 smaller">
 <h2>Threats to External Validity</h2>
 <p>Assessing external validity requires <span class="kw">detailed substantive knowledge</span> and judgment on a case-by-case basis.</p>
 <div class="fragment">
-<p><strong>Example:</strong> A study finds Seattle’s $15 minimum wage <span class="alert">reduced hours</span> for low-wage workers (Jardim et al.&nbsp;2022, <em>AEJ: Economic Policy</em>). Does this generalize?</p>
+<p><strong>Same example:</strong> Seattle’s $15 minimum wage and hours worked. What should we ask before generalizing?</p>
 <ul>
 <li><span class="kw">Differences in populations</span>
 <ul>
 <li>Seattle’s low-wage workforce: tech-adjacent, high cost of living</li>
 <li>Rural Vermont? Mississippi? Workers face very different outside options</li>
 </ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li><span class="kw">Differences in settings</span>
 <ul>
 <li>Seattle’s booming economy may have cushioned the shock</li>
 <li>Different state labor laws, tipped wage rules, enforcement</li>
 </ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li><span class="kw">Differences in labor markets</span>
 <ul>
 <li>Urban labor markets are less concentrated — more employers competing for workers</li>
@@ -411,6 +424,18 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 </section>
+<section id="example-survey-responses-as-measurement-error" class="slide level2 smaller">
+<h2>Example: Survey Responses as Measurement Error</h2>
+<p>What kind of measurement error might this create?</p>
+
+<img data-src="./ch9_figures/ch9_measurement_error_survey.png" style="width:68.0%" class="r-stretch quarto-figure-center"><p class="caption">Example of potentially inaccurate self-reported survey responses</p><div class="fragment">
+<ul>
+<li>Self-reported survey data can be wrong because respondents <span class="kw">misremember</span>, <span class="kw">misunderstand</span>, or <span class="alert">make things up</span></li>
+<li>For sensitive questions, the error may be <span class="alert">systematic</span>, not purely random</li>
+<li>That means measurement error in survey data is often <span class="kw">not classical</span></li>
+</ul>
+</div>
+</section>
 <section id="where-and-what-kind" class="slide level2 smaller">
 <h2>Where and What Kind?</h2>
 <p>Measurement error can occur in the <span class="kw">dependent variable</span> or <span class="kw">independent variables</span>.</p>
@@ -462,17 +487,17 @@ ECON3500: Econometrics and Applications
 <section id="measurement-error-in-y" class="slide level2 smaller">
 <h2>Measurement Error in <span class="math inline">\(Y\)</span></h2>
 <p>Suppose we observe <span class="math inline">\(y_i\)</span> but the true value is <span class="math inline">\(y^*_i\)</span>:</p>
-<p><span class="math display">\[y_i = y^*_i + e_0\]</span></p>
+<p><span class="math display">\[y_i = y^*_i + e_i\]</span></p>
 <div class="fragment">
 <p>The population regression is:</p>
 <p><span class="math display">\[y^*_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k + u_i\]</span></p>
 </div>
 <div class="fragment">
 <p>What we actually estimate:</p>
-<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k + \underbrace{(u_i + e_0)}_{\text{new error term}}\]</span></p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k + \underbrace{(u_i + e_i)}_{\text{new error term}}\]</span></p>
 </div>
 <div class="fragment">
-<p>If <span class="math inline">\(e_0\)</span> is uncorrelated with the <span class="math inline">\(X\)</span>’s, the <span class="kw">coefficients are still unbiased</span> — the error term just has more variance, so standard errors are larger.</p>
+<p>If <span class="math inline">\(e_i\)</span> is uncorrelated with the <span class="math inline">\(X\)</span>’s, the <span class="kw">coefficients are still unbiased</span> — the error term just has more variance, so standard errors are larger.</p>
 <p><strong>Measurement error in <span class="math inline">\(Y\)</span> under CEV: not a big deal.</strong></p>
 </div>
 </section>
@@ -714,8 +739,11 @@ ECON3500: Econometrics and Applications
 <p>You want to estimate the mean height of undergraduates.</p>
 <p>You collect data by standing outside the <span class="alert">basketball team’s locker room</span> and recording the height of undergraduates who enter.</p>
 <div class="fragment">
+<p>Is this a good design?</p>
+</div>
+<div class="fragment">
 <ul>
-<li>Is this a good design?</li>
+<li>No</li>
 <li>You’ve sampled individuals in a way that is <span class="alert">related to the outcome <span class="math inline">\(Y\)</span></span> (height)</li>
 <li>This results in bias — your estimate will be too high</li>
 </ul>
