@@ -225,9 +225,9 @@ So far we've assumed $X$ is measured without error. In reality, economic data of
 - [Ambiguous questions]{.kw} ("What was your income last year?" — before or after tax?)
 - [Intentionally false responses]{.kw} ("What is the current value of your financial assets?" "How often do you drink and drive?")
 
-## Example: Survey Responses as Measurement Error {.smaller}
+## Example {.smaller}
 
-What kind of measurement error might this create?
+What sort of problem does this create?
 
 ![Example of potentially inaccurate self-reported survey responses](./ch9_figures/ch9_measurement_error_survey.png){width=68% fig-align="center"}
 
@@ -236,6 +236,10 @@ What kind of measurement error might this create?
 - Self-reported survey data can be wrong because respondents [misremember]{.kw}, [misunderstand]{.kw}, or [make things up]{.alert}
 - For sensitive questions, the error may be [systematic]{.alert}, not purely random
 - That means measurement error in survey data is often [not classical]{.kw}
+
+\vfill
+
+*Source: Anya Kamenetz, "[Mischievous Responders' Confound Research On Teens](https://www.npr.org/sections/ed/2014/05/22/304363206/mischievous-responders-confound-research-on-teens)," NPR, May 22, 2014.*
 
 ## Where and What Kind? {.smaller}
 
