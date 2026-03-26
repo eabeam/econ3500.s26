@@ -73,7 +73,7 @@ $\beta_1$ means that a 1-year increase in age is associated with a 100*$\beta_1$
 {{% alert note %}}
 **LPM in Stata**
 
-A linear probability model looks exactly like a regular regression — you just use a binary (0/1) dependent variable:
+A linear probability model looks exactly like a typical OLS regression — but your dependent variable is **binary (0/1)**:
 
 ```
 regress lf female, robust
@@ -85,9 +85,10 @@ The coefficient on `female` tells you the change in the **probability** (in deci
 For great slides on this (and a deeper dive), check out [this resource](https://nickch-k.github.io/EconometricsSlides/Week_08/Week_08_Limited_Dependent_Variables.html)!
 
 
-<!-- ## Lab Video
+## Lab Video
+** Note that this video is from an earlier version of the lab that used 2016 data from the Current Population Survey. Details may vary, but the implelmentation is the same!** 
+
 {{< youtube tpYknYpmjRU >}}
--->
 
 ## Workflow overview {#workflow .unnumbered}
 
@@ -122,9 +123,6 @@ regress incwage female, robust
 
 2.  Open `acs2024_4pct.dta` and restrict the sample to adults (age 18+) who are married (spouse present or absent). Use `tab marst, nolabel` to identify the correct codes. Confirm that you have **59,039** observations.
 
-{{% alert note %}}
-**Hint:** "Married, spouse present" is `marst == 1` and "married, spouse absent" is `marst == 2`. Use `keep if` to restrict your sample.
-{{% /alert %}}
 
 3. Check work hours (`uhrswork`), weeks of work (`wkswork1`), and wage income (`incwage`) for any N/A codes. In this dataset, `uhrswork == 0` means "did not work last year" (N/A) — replace these with missing. Also check whether `incwage` has any topcode values (999999). Use the `codebook` command to help (e.g. `codebook uhrswork`). Ensure you have the correct means and number of observations:
 
@@ -162,21 +160,13 @@ regress incwage female, robust
 
 12. Generate a new variable `uhrsNZ` that recodes all missing work hours values as zeros. You can expedite this with the `clonevar` command, which retains variable labels. Re-estimate the impact of gender, labor force status and `uhrsNZ` on wage income (`incwage`). That is, you're replacing `uhrswork` with `uhrsNZ`. What is the interpretation on *each* coefficient? Why did it change?
 
-{{% alert note %}}
-**Hint:**
-```
-clonevar uhrsNZ = uhrswork
-replace uhrsNZ = 0 if missing(uhrsNZ)
-```
-{{% /alert %}}
+
 
 13. Now, re-estimate but exclude `lf`: $incwage = \beta_0 + \beta_1 female + \beta_3 uhrsNZ + u$. How do your results change? Conditional on including `female` and `uhrsNZ`, does it make sense to include `lf`?
 
 14. Create a new variable that estimates log wages: `gen l_incwage = log(incwage)`. Estimate the impact of gender on logged wage income, including a control for `uhrswork`. How does the sample size change, and why? What is the interpretation of each coefficient?
 
-{{% alert note %}}
-**Note:** `log(0)` is undefined in math and Stata will set it to missing. This means your log-wage regression automatically drops everyone with zero wage income — think about what that means for sample selection.
-{{% /alert %}}
+
 
 15. Using the cleaned variables, calculate hourly wages: `gen hourwage = incwage / (uhrswork * 50)`. We assume that people work 50 weeks in one year. What are mean hourly wages for men and women?
 
