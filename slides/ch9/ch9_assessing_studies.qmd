@@ -18,6 +18,46 @@ By the end of this chapter, you will be able to:
 4. Propose solutions to each threat
 5. Distinguish between [causal inference]{.kw} and [forecasting]{.kw} objectives
 
+## Aside: Linear Probability Models {.smaller}
+
+What if the [dependent variable]{.kw} is binary (0/1)?
+
+$$y_i = \beta_0 + \beta_1 x_{1i} + \cdots + \beta_k x_{ki} + u_i$$
+
+. . .
+
+If $y$ only takes values 0 and 1: $\; E(y|\mathbf{x}) = P(y = 1|\mathbf{x}) = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k$
+
+$\Rightarrow$ Coefficients measure the [change in probability]{.kw} that $y = 1$ for a one-unit change in $x_j$
+
+. . .
+
+**Limitations:** predicted probabilities can fall outside $[0, 1]$; necessarily heteroskedastic (always use `robust` SEs)
+
+**Advantages:** easy to estimate and interpret; works naturally with multiple regression tools (controls, IV, fixed effects)
+
+## When Is the LPM Appropriate?
+
+The LPM works well when:
+
+- Predicted probabilities are not very high or very low (no strict rule)
+- You care about [average marginal effects]{.kw}, not predicting exact probabilities
+- Your regressors are mostly [categorical]{.kw} (dummy variables, interactions)
+
+. . .
+
+The LPM is [less appropriate]{.alert} when:
+
+- Many predicted probabilities are near 0 or 1 (e.g., rare events)
+- You need the predicted probabilities themselves (e.g., for classification or risk scoring)
+
+. . .
+
+**Bottom line:** 
+- For [causal inference]{.kw} — which is our focus — the LPM is a perfectly good tool. 
+- Angrist & Pischke (*Mostly Harmless Econometrics*) argue it gives you the right average effects without the complexity of nonlinear models. - More formal alternatives (probit, logit) exist but are beyond ECON3500. 
+- **You will use the LPM in Lab 6!**
+
 # Internal and External Validity
 
 ## What Is Validity?
@@ -61,15 +101,17 @@ Assessing external validity requires [detailed substantive knowledge]{.kw} and j
 
 . . .
 
-**Example:** How far can we generalize class size results from California?
+**Example:** A study finds Seattle's \$15 minimum wage [reduced hours]{.alert} for low-wage workers (Jardim et al. 2022, *AEJ: Economic Policy*). Does this generalize?
 
 - [Differences in populations]{.kw}
-    - California in 2011? Massachusetts in 2011? Mexico in 2011?
+    - Seattle's low-wage workforce: tech-adjacent, high cost of living
+    - Rural Vermont? Mississippi? Workers face very different outside options
 - [Differences in settings]{.kw}
-    - Different legal requirements (e.g., special education)
-    - Different treatment of bilingual education
-- [Differences in inputs]{.kw}
-    - Teacher characteristics, school resources, curricula
+    - Seattle's booming economy may have cushioned the shock
+    - Different state labor laws, tipped wage rules, enforcement
+- [Differences in labor markets]{.kw}
+    - Urban labor markets are less concentrated — more employers competing for workers
+    - Research shows more concentrated (rural) labor markets may respond [differently]{.alert} to minimum wage increases (Azar et al. 2023)
 
 . . .
 
@@ -82,9 +124,7 @@ Estimates are internally valid if:
 1. The estimator is [consistent]{.kw} (or unbiased)
 2. Confidence intervals have [correct coverage]{.kw} — in at least 95% of samples, the 95% CI contains the true parameter
 
-. . .
-
-::: {.callout-important}
+::: {.callout-important .fragment}
 ## The Rest of This Chapter
 We focus on threats to [internal validity]{.alert}: things that can make our regression estimates misleading for the population we're studying.
 :::
@@ -109,6 +149,12 @@ $\Rightarrow$ Conditional mean independence fails
 
 $\Rightarrow$ OLS is [biased and inconsistent]{.alert}
 
+::: {.callout-note .fragment}
+## Quick Review
+- [Biased]{.kw}: $E[\hat{\beta}] \neq \beta$ — on average across samples, our estimator gets the wrong answer
+- [Consistent]{.kw}: as $n \rightarrow \infty$, $\hat{\beta}$ converges in probability to $\beta$ — more data gets you closer to the truth. When an estimator is [inconsistent]{.alert}, more data doesn't fix the problem.
+:::
+
 ## Three Categories of Threats {.smaller}
 
 When you encounter a potential threat, classify it:
@@ -124,70 +170,38 @@ When you encounter a potential threat, classify it:
 - Categories 1 and 2 are [actual threats]{.alert} to validity
 - Category 3 makes estimates imprecise but standard errors properly reflect that imprecision
 
-::: {.callout-tip}
-## Knowledge Check
-A researcher drops half the sample at random due to a data processing error. Which category is this?
 
-. . .
+## 1. Omitted Variable Bias {.smaller}
 
-Category 3 — smaller sample means larger SEs, but no bias. (This is like Case 1 of missing data, which we'll see shortly.)
-:::
+*We know this one!* OVB arises if an omitted variable is both (1) a [determinant of $Y$]{.kw}, and (2) [correlated with]{.kw} at least one included regressor.
 
-# Threat 1: Omitted Variable Bias
-
-## OVB: We Know This One!
-
-Omitted variable bias arises if an omitted variable is both:
-
-1. A [determinant of $Y$]{.kw}, and
-2. [Correlated with]{.kw} at least one included regressor
-
-. . .
-
-**The question to ask:**
-
-With control variables included, are there [still]{.alert} omitted factors that are:
-
-- Not adequately controlled for?
-- Correlated with the variable of interest?
-
-## Solutions to OVB
-
-1. If the omitted variable [can be measured]{.kw}: include it as an additional regressor
-2. If you have [adequate controls]{.kw} (conditional mean independence plausibly holds): include them
-3. Run a [randomized controlled experiment]{.kw}
-    - If $X$ is randomly assigned, then $X$ is distributed independently of $u$, so $E(u|X) = 0$
-
-. . .
-
-**Coming later in this course:**
-
-- Use [panel data]{.kw} where each entity is observed more than once
-- Use [instrumental variables]{.kw} regression
-
-# Threat 2: Wrong Functional Form
-
-## Functional Form Misspecification
-
-Arises if the functional form is incorrect — for example, an interaction term or quadratic is incorrectly omitted.
+With control variables included, are there still omitted factors that are not adequately controlled for? Is the error term correlated with the variable of interest even after we have included the control variables?
 
 . . .
 
 **Solutions:**
 
-- [Continuous $Y$]{.kw}: Use appropriate nonlinear specifications (logarithms, quadratics, interactions — Ch8)
-- [Discrete $Y$]{.kw} (e.g., binary): Use probit or logit (beyond ECON3500)
+1. If the omitted variable [can be measured]{.kw}: include it as an additional regressor
+2. If you have [adequate controls]{.kw} (conditional mean independence plausibly holds): include them
+3. Run a [randomized controlled experiment]{.kw} — if $X$ is randomly assigned, $E(u|X) = 0$
+4. Use [panel data]{.kw} (Ch10) or [instrumental variables]{.kw} (Ch12) — coming soon!
+
+## 2. Wrong Functional Form {.smaller}
+
+Arises if the functional form is incorrect — for example, an interaction term is incorrectly omitted; then inference on causal effects will be biased.
 
 . . .
 
-::: {.callout-tip}
-## Perspective
-Functional form misspecification is rarely the [biggest]{.alert} problem in regression analysis. It matters, but OVB and measurement error are usually more concerning.
-:::
+**Solutions to functional form misspecification:**
 
-# Threat 3: Errors-in-Variables Bias
+- [Continuous $Y$]{.kw}: use the appropriate nonlinear specifications in $X$ (logarithms, interactions, etc. — Ch8)
+- [Discrete $Y$]{.kw} (e.g., binary): use a [linear probability model]{.kw} (as in Lab 6), or more formally, probit or logit (beyond ECON3500)
 
-## Measurement Error in Economic Data
+. . .
+
+*Note: This issue is rarely our biggest problem in regression analysis.*
+
+## 3. Errors-in-Variables Bias
 
 So far we've assumed $X$ is measured without error. In reality, economic data often have measurement error:
 
@@ -278,9 +292,9 @@ $$= \text{Var}(w_i) = \sigma^2_w$$
 
 The observed regressor $X_i$ is correlated with the measurement error, which is part of the composite error term. This [violates conditional mean independence]{.alert}.
 
-## Derivation of Attenuation Bias {.smaller .scrollable}
+## Formal Derivation of Measurement Error (1/2) {.smaller}
 
-$$\hat{\beta}_1 \xrightarrow{p} \frac{\text{Cov}(X_i, Y_i)}{\text{Var}(X_i)}$$
+$$\hat{\beta}_1 = \frac{\text{Cov}(X_i, Y_i)}{\text{Var}(X_i)}$$
 
 . . .
 
@@ -292,7 +306,7 @@ Expanding the numerator:
 
 $$= \frac{\text{Cov}(X^*_i, \beta_0) + \text{Cov}(X^*_i, \beta_1 X^*_i) + \text{Cov}(w_i, \beta_0) + \text{Cov}(w_i, \beta_1 X^*) + \text{Cov}(w_i, u_i)}{\text{Var}(X^*_i) + \text{Var}(w_i) + 2\text{Cov}(X^*_i, w_i)}$$
 
-. . .
+## Formal Derivation of Measurement Error (2/2) {.smaller}
 
 Applying our assumptions ($\text{Cov}(w, X^*) = 0$, $\text{Cov}(w, u) = 0$):
 
@@ -304,7 +318,7 @@ $$= \beta_1 \cdot \frac{\text{Var}(X^*_i)}{\text{Var}(X^*_i) + \text{Var}(w_i)}$
 
 ## Attenuation Bias: The Result {.smaller}
 
-$$\hat{\beta}_1 \xrightarrow{p} \beta_1 \cdot \frac{\text{Var}(X^*_i)}{\text{Var}(X^*_i) + \text{Var}(w_i)}$$
+$$\hat{\beta}_1 = \beta_1 \cdot \frac{\text{Var}(X^*_i)}{\text{Var}(X^*_i) + \text{Var}(w_i)}$$
 
 . . .
 
@@ -351,26 +365,19 @@ When CEV fails:
 - The direction of bias is [ambiguous]{.alert} — no longer necessarily toward zero
 - Interpreting the impact is more complicated (beyond ECON3500)
 
-## Living with Measurement Error
+## Summary of Measurement Error {.smaller}
 
-::: {.callout-tip}
-## Practical Advice
-:::
-
-- **Dependent variable (classical):** Don't worry too much — estimates still unbiased
-- **Independent variable (classical):** We can still sign our magnitudes
-    - e.g., "Returns to education are [at least]{.kw} 10%"
-- **Non-classical:** More serious — consider better data or instrumental variables
+- **Dependent variable (classical):** Don't worry too much — OLS still BLUE, just larger variance
+- **Independent variable (classical):** OLS no longer BLUE — [attenuation bias]{.alert}
+    - We can still sign our magnitudes (e.g., "Returns to education are [at least]{.kw} 10%")
+- **Independent variable (non-classical):** OLS no longer BLUE — bias in ambiguous direction
 
 . . .
 
-**Better data always helps!**
+- **Better data always helps!** Use administrative records instead of survey self-reports when possible.
+- Use [instrumental variables]{.kw} (later)
 
-Use administrative records instead of survey self-reports when possible.
-
-# Threat 4: Sample Selection Bias
-
-## Missing Data: Three Cases {.smaller}
+## 4. Missing Data and Sample Selection Bias {.smaller}
 
 Data are often missing. Whether this introduces bias depends on [why]{.alert} the data are missing:
 
@@ -401,24 +408,24 @@ Your dog didn't introduce any bias!
 ## Knowledge Check
 A server crash deletes 30% of your dataset at random. Should you worry about bias?
 
-. . .
-
+::: {.fragment}
 No — this is Case 1. You lose precision (larger SEs) but no bias.
+:::
 :::
 
 ## Case 2: Missing Based on $X$
 
-In the test score application, suppose you restrict analysis to districts with $STR < 20$.
+Suppose you're studying the effect of education on wages, but you restrict your sample to [workers under age 30]{.kw}.
 
 . . .
 
-- You can't say anything about districts with large class sizes
-- But focusing on small-class districts [doesn't introduce bias]{.kw}
-- This is equivalent to having missing data where data are missing if $STR > 20$
+- You can't say anything about older workers
+- But restricting to younger workers [doesn't introduce bias]{.kw} for the under-30 population
+- This is equivalent to having missing data where data are missing based on $X$ (age)
 
 . . .
 
-More generally: if data are missing based [only on values of $X$]{.kw}, the missing data don't bias OLS.
+More generally: if data are missing based [only on values of $X$]{.kw}, the missing data don't bias OLS. (It does limit [external validity]{.alert} — you can't generalize beyond that subgroup.)
 
 ## Case 3: Missing Based on $Y$ or $u$ {.smaller}
 
@@ -430,6 +437,15 @@ Sample selection bias arises when a selection process:
 
 1. Influences the [availability of data]{.kw}, and
 2. Is [related to the dependent variable]{.alert}
+
+. . .
+
+**In DAG terms:** this is [collider bias]{.kw} — conditioning on a variable that is caused by both $X$ and $Y$ (recall [Ch 8b slides](/slides/ch8b-quarto/)).
+
+::: {.callout-tip .fragment}
+## The Key Question
+Ask yourself: "Would the [reason]{.alert} someone is missing from my data be correlated with the [outcome]{.alert} I'm trying to measure?" If yes $\rightarrow$ sample selection bias.
+:::
 
 ## Example: Height of Undergraduates
 
@@ -465,31 +481,11 @@ You collect data by standing outside the [basketball team's locker room]{.alert}
 
 The surviving funds are the "basketball players" of mutual funds.
 
-This is called [survivorship bias]{.kw}.
-
-## Why Sample Selection Biases OLS {.smaller}
-
-Sample selection creates a direct correlation between a regressor and the error term.
-
-Consider the mutual fund regression:
-
-$$\text{return}_i = \beta_0 + \beta_1 \, \text{managedfund}_i + u_i$$
+This is called [survivorship bias]{.kw} — the surviving funds are the "basketball players" of mutual funds.
 
 . . .
 
-$\text{managedfund}_i = 1$ for actively managed funds in our sample (i.e., the survivors).
-
-. . .
-
-Being managed *and in our sample* means the fund outperformed failed managed funds — which are not in the sample.
-
-$$\Rightarrow \text{Cov}(\text{managedfund}_i, \; u_i) \neq 0$$
-
-. . .
-
-The surviving managed funds are the "basketball players" of mutual funds — selected [because of]{.alert} their returns.
-
-$\Rightarrow$ Conditional mean independence fails $\Rightarrow$ [OLS is biased]{.alert}
+Being managed *and in our sample* means the fund outperformed failed managed funds $\Rightarrow \text{Cov}(\text{managedfund}_i, \; u_i) \neq 0$ $\Rightarrow$ [OLS is biased]{.alert}
 
 ## Example: Returns to Education {.smaller}
 
@@ -521,13 +517,11 @@ $\Rightarrow$ Conditional mean independence fails $\Rightarrow$ [OLS is biased]{
 
 3. Model the selection process and estimate it (advanced — not in ECON3500)
 
-# Threat 5: Simultaneous Causality Bias
-
-## When $Y$ Causes $X$ Too
+## 5. Simultaneous Causality Bias
 
 So far we've assumed $X$ causes $Y$. But what if [$Y$ also causes $X$]{.alert}?
 
-This is [simultaneous causality]{.kw} (or "reverse causality").
+This is [simultaneous causality]{.kw} (or "reverse causality"). Remember: the "A" in DAG stands for [acyclic]{.alert} — DAGs [cannot represent]{.kw} simultaneity ([Ch 8b slides](/slides/ch8b-quarto/)).
 
 . . .
 
@@ -550,8 +544,6 @@ The coefficient on STR reflects [both]{.alert} directions of causality — it's 
 
 3. [Instrumental variables]{.kw} regression — estimate the causal effect of $X$ on $Y$ while ignoring the feedback from $Y$ to $X$ (coming later!)
 
-# Putting It All Together
-
 ## Summary: Five Threats to Internal Validity {.smaller .scrollable}
 
 | Threat | What Happens | Consequence | Solutions |
@@ -562,44 +554,9 @@ The coefficient on STR reflects [both]{.alert} directions of causality — it's 
 | 4. [Sample selection]{.kw} | Data missing based on $Y$ or $u$ | Biased, inconsistent | Better sampling design, RCT |
 | 5. [Simultaneous causality]{.kw} | $Y$ causes $X$ and $X$ causes $Y$ | Biased, inconsistent | RCT, IV |
 
-. . .
-
-::: {.callout-important}
-## Common Thread
-All five threats cause $E(u_i | X_{1i}, \ldots, X_{ki}) \neq 0$ — conditional mean independence fails, and OLS is biased.
-:::
-
-## Decision Tree: Is Missing Data a Problem? {.smaller}
-
-**Step 1:** Why are the data missing?
-
-. . .
-
-- [Random chance]{.kw} (server crash, lost surveys, random attrition)
-    - $\rightarrow$ **No bias.** Smaller sample $\rightarrow$ larger SEs. Proceed.
-
-. . .
-
-- [Based on $X$ values]{.kw} (restricted sample, subgroup analysis)
-    - $\rightarrow$ **No bias** for the subpopulation. Can't generalize beyond it (external validity concern).
-
-. . .
-
-- [Based on $Y$ or $u$]{.alert} (survivorship, employment requirement, self-selection)
-    - $\rightarrow$ **Sample selection bias!** Redesign sampling or use specialized methods.
-
-. . .
-
-::: {.callout-tip}
-## The Key Question
-Ask yourself: "Would the [reason]{.alert} someone is missing from my data be correlated with the [outcome]{.alert} I'm trying to measure?"
-
-If yes $\rightarrow$ sample selection bias.
-:::
-
 # Forecasting vs. Causal Inference
 
-## Two Very Different Objectives {.smaller}
+## Forecasting vs. Causal Inference {.smaller}
 
 | | Causal Inference | Forecasting |
 |---|---|---|
@@ -609,21 +566,7 @@ If yes $\rightarrow$ sample selection bias.
 | **Coefficient interpretation** | Very important | Not important |
 | **External validity** | Important for generalization | [Paramount]{.alert} — model must hold in new data |
 
-## Forecasting: A Different Mindset
-
-When the goal is [forecasting]{.kw}:
-
-- $\bar{R}^2$ matters — a lot!
-- Omitted variable bias [isn't a problem]{.kw} — we don't care about the causal interpretation of individual coefficients
-- The important thing is a [good fit]{.kw} and a model you can "trust" in your application
-
-. . .
-
-But [external validity is paramount]{.alert}: the model estimated using historical data must hold into the (near) future.
-
-. . .
-
-::: {.callout-warning}
+::: {.callout-warning .fragment}
 ## Don't Confuse the Two
 A model with high $R^2$ and biased coefficients might be great for forecasting but useless for policy. A model with unbiased coefficients and low $R^2$ might be ideal for causal inference but poor for prediction.
 :::
@@ -658,19 +601,13 @@ $\rightarrow$ [Sample selection bias]{.kw} — employment status is related to t
 
 ## Key Takeaways
 
-1. [Internal validity]{.kw} = inferences are correct for the population studied; [external validity]{.kw} = results generalize to other settings
+1. [Measurement error in $X$]{.kw} (classical) causes attenuation bias — estimates are too small in magnitude
 
-2. Five threats all cause the same fundamental problem: $E(u|X) \neq 0$
+2. [Sample selection bias]{.kw} arises when data are missing because of $Y$, not because of $X$ or random chance
 
-3. [Measurement error in $X$]{.kw} (classical) causes attenuation bias — estimates are too small in magnitude
-
-4. [Sample selection bias]{.kw} arises when data are missing because of $Y$, not because of $X$ or random chance
-
-5. [Simultaneous causality]{.kw} is hard to solve without experiments or instrumental variables
-
-6. [Forecasting and causal inference]{.kw} have different validity concerns — don't confuse them
+3. [Simultaneous causality]{.kw} is hard to solve without experiments or instrumental variables
 
 ::: {.callout-tip}
 ## Looking Ahead
-Many of these threats will motivate the methods we learn next: [panel data]{.kw} (Ch10) and [instrumental variables]{.kw} (Ch12) are direct responses to OVB and simultaneous causality.
+[Panel data]{.kw} (Ch10) and [instrumental variables]{.kw} (Ch12) are direct responses to OVB and simultaneous causality.
 :::

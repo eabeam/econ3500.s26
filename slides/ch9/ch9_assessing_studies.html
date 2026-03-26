@@ -155,6 +155,38 @@ ECON3500: Econometrics and Applications
 <li>Distinguish between <span class="kw">causal inference</span> and <span class="kw">forecasting</span> objectives</li>
 </ol>
 </section>
+<section id="aside-linear-probability-models" class="slide level2 smaller">
+<h2>Aside: Linear Probability Models</h2>
+<p>What if the <span class="kw">dependent variable</span> is binary (0/1)?</p>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1 x_{1i} + \cdots + \beta_k x_{ki} + u_i\]</span></p>
+<div class="fragment">
+<p>If <span class="math inline">\(y\)</span> only takes values 0 and 1: <span class="math inline">\(\; E(y|\mathbf{x}) = P(y = 1|\mathbf{x}) = \beta_0 + \beta_1 x_1 + \cdots + \beta_k x_k\)</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Coefficients measure the <span class="kw">change in probability</span> that <span class="math inline">\(y = 1\)</span> for a one-unit change in <span class="math inline">\(x_j\)</span></p>
+</div>
+<div class="fragment">
+<p><strong>Limitations:</strong> predicted probabilities can fall outside <span class="math inline">\([0, 1]\)</span>; necessarily heteroskedastic (always use <code>robust</code> SEs)</p>
+<p><strong>Advantages:</strong> easy to estimate and interpret; works naturally with multiple regression tools (controls, IV, fixed effects)</p>
+</div>
+</section>
+<section id="when-is-the-lpm-appropriate" class="slide level2">
+<h2>When Is the LPM Appropriate?</h2>
+<p>The LPM works well when:</p>
+<ul>
+<li>Predicted probabilities are not very high or very low (no strict rule)</li>
+<li>You care about <span class="kw">average marginal effects</span>, not predicting exact probabilities</li>
+<li>Your regressors are mostly <span class="kw">categorical</span> (dummy variables, interactions)</li>
+</ul>
+<div class="fragment">
+<p>The LPM is <span class="alert">less appropriate</span> when:</p>
+<ul>
+<li>Many predicted probabilities are near 0 or 1 (e.g., rare events)</li>
+<li>You need the predicted probabilities themselves (e.g., for classification or risk scoring)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>Bottom line:</strong> - For <span class="kw">causal inference</span> — which is our focus — the LPM is a perfectly good tool. - Angrist &amp; Pischke (<em>Mostly Harmless Econometrics</em>) argue it gives you the right average effects without the complexity of nonlinear models. - More formal alternatives (probit, logit) exist but are beyond ECON3500. - <strong>You will use the LPM in Lab 6!</strong></p>
+</div>
+</section>
 <section>
 <section id="internal-and-external-validity" class="title-slide slide level1 center">
 <h1>Internal and External Validity</h1>
@@ -213,20 +245,22 @@ ECON3500: Econometrics and Applications
 <h2>Threats to External Validity</h2>
 <p>Assessing external validity requires <span class="kw">detailed substantive knowledge</span> and judgment on a case-by-case basis.</p>
 <div class="fragment">
-<p><strong>Example:</strong> How far can we generalize class size results from California?</p>
+<p><strong>Example:</strong> A study finds Seattle’s $15 minimum wage <span class="alert">reduced hours</span> for low-wage workers (Jardim et al.&nbsp;2022, <em>AEJ: Economic Policy</em>). Does this generalize?</p>
 <ul>
 <li><span class="kw">Differences in populations</span>
 <ul>
-<li>California in 2011? Massachusetts in 2011? Mexico in 2011?</li>
+<li>Seattle’s low-wage workforce: tech-adjacent, high cost of living</li>
+<li>Rural Vermont? Mississippi? Workers face very different outside options</li>
 </ul></li>
 <li><span class="kw">Differences in settings</span>
 <ul>
-<li>Different legal requirements (e.g., special education)</li>
-<li>Different treatment of bilingual education</li>
+<li>Seattle’s booming economy may have cushioned the shock</li>
+<li>Different state labor laws, tipped wage rules, enforcement</li>
 </ul></li>
-<li><span class="kw">Differences in inputs</span>
+<li><span class="kw">Differences in labor markets</span>
 <ul>
-<li>Teacher characteristics, school resources, curricula</li>
+<li>Urban labor markets are less concentrated — more employers competing for workers</li>
+<li>Research shows more concentrated (rural) labor markets may respond <span class="alert">differently</span> to minimum wage increases (Azar et al.&nbsp;2023)</li>
 </ul></li>
 </ul>
 </div>
@@ -276,6 +310,24 @@ ECON3500: Econometrics and Applications
 <p>All five imply that <span class="math inline">\(E(u_i | X_{1i}, \ldots, X_{ki}) \neq 0\)</span></p>
 <p><span class="math inline">\(\Rightarrow\)</span> Conditional mean independence fails</p>
 <p><span class="math inline">\(\Rightarrow\)</span> OLS is <span class="alert">biased and inconsistent</span></p>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Quick Review</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li><span class="kw">Biased</span>: <span class="math inline">\(E[\hat{\beta}] \neq \beta\)</span> — on average across samples, our estimator gets the wrong answer</li>
+<li><span class="kw">Consistent</span>: as <span class="math inline">\(n \rightarrow \infty\)</span>, <span class="math inline">\(\hat{\beta}\)</span> converges in probability to <span class="math inline">\(\beta\)</span> — more data gets you closer to the truth. When an estimator is <span class="alert">inconsistent</span>, more data doesn’t fix the problem.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="three-categories-of-threats" class="slide level2 smaller">
@@ -317,100 +369,38 @@ ECON3500: Econometrics and Applications
 <li>Categories 1 and 2 are <span class="alert">actual threats</span> to validity</li>
 <li>Category 3 makes estimates imprecise but standard errors properly reflect that imprecision</li>
 </ul>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<p><strong>Knowledge Check</strong></p>
-</div>
-<div class="callout-content">
-<p>A researcher drops half the sample at random due to a data processing error. Which category is this?</p>
-<p>. . .</p>
-<p>Category 3 — smaller sample means larger SEs, but no bias. (This is like Case 1 of missing data, which we’ll see shortly.)</p>
-</div>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="threat-1-omitted-variable-bias" class="title-slide slide level1 center">
-<h1>Threat 1: Omitted Variable Bias</h1>
-
 </section>
-<section id="ovb-we-know-this-one" class="slide level2 scrollable">
-<h2>OVB: We Know This One!</h2>
-<p>Omitted variable bias arises if an omitted variable is both:</p>
-<ol type="1">
-<li>A <span class="kw">determinant of <span class="math inline">\(Y\)</span></span>, and</li>
-<li><span class="kw">Correlated with</span> at least one included regressor</li>
-</ol>
+<section id="omitted-variable-bias" class="slide level2 smaller scrollable">
+<h2>1. Omitted Variable Bias</h2>
+<p><em>We know this one!</em> OVB arises if an omitted variable is both (1) a <span class="kw">determinant of <span class="math inline">\(Y\)</span></span>, and (2) <span class="kw">correlated with</span> at least one included regressor.</p>
+<p>With control variables included, are there still omitted factors that are not adequately controlled for? Is the error term correlated with the variable of interest even after we have included the control variables?</p>
 <div class="fragment">
-<p><strong>The question to ask:</strong></p>
-<p>With control variables included, are there <span class="alert">still</span> omitted factors that are:</p>
-<ul>
-<li>Not adequately controlled for?</li>
-<li>Correlated with the variable of interest?</li>
-</ul>
-</div>
-</section>
-<section id="solutions-to-ovb" class="slide level2 scrollable">
-<h2>Solutions to OVB</h2>
+<p><strong>Solutions:</strong></p>
 <ol type="1">
 <li>If the omitted variable <span class="kw">can be measured</span>: include it as an additional regressor</li>
 <li>If you have <span class="kw">adequate controls</span> (conditional mean independence plausibly holds): include them</li>
-<li>Run a <span class="kw">randomized controlled experiment</span>
-<ul>
-<li>If <span class="math inline">\(X\)</span> is randomly assigned, then <span class="math inline">\(X\)</span> is distributed independently of <span class="math inline">\(u\)</span>, so <span class="math inline">\(E(u|X) = 0\)</span></li>
-</ul></li>
+<li>Run a <span class="kw">randomized controlled experiment</span> — if <span class="math inline">\(X\)</span> is randomly assigned, <span class="math inline">\(E(u|X) = 0\)</span></li>
+<li>Use <span class="kw">panel data</span> (Ch10) or <span class="kw">instrumental variables</span> (Ch12) — coming soon!</li>
 </ol>
-<div class="fragment">
-<p><strong>Coming later in this course:</strong></p>
-<ul>
-<li>Use <span class="kw">panel data</span> where each entity is observed more than once</li>
-<li>Use <span class="kw">instrumental variables</span> regression</li>
-</ul>
 </div>
-</section></section>
-<section>
-<section id="threat-2-wrong-functional-form" class="title-slide slide level1 center">
-<h1>Threat 2: Wrong Functional Form</h1>
-
 </section>
-<section id="functional-form-misspecification" class="slide level2">
-<h2>Functional Form Misspecification</h2>
-<p>Arises if the functional form is incorrect — for example, an interaction term or quadratic is incorrectly omitted.</p>
+<section id="wrong-functional-form" class="slide level2 smaller">
+<h2>2. Wrong Functional Form</h2>
+<p>Arises if the functional form is incorrect — for example, an interaction term is incorrectly omitted; then inference on causal effects will be biased.</p>
 <div class="fragment">
-<p><strong>Solutions:</strong></p>
+<p><strong>Solutions to functional form misspecification:</strong></p>
 <ul>
-<li><span class="kw">Continuous <span class="math inline">\(Y\)</span></span>: Use appropriate nonlinear specifications (logarithms, quadratics, interactions — Ch8)</li>
-<li><span class="kw">Discrete <span class="math inline">\(Y\)</span></span> (e.g., binary): Use probit or logit (beyond ECON3500)</li>
+<li><span class="kw">Continuous <span class="math inline">\(Y\)</span></span>: use the appropriate nonlinear specifications in <span class="math inline">\(X\)</span> (logarithms, interactions, etc. — Ch8)</li>
+<li><span class="kw">Discrete <span class="math inline">\(Y\)</span></span> (e.g., binary): use a <span class="kw">linear probability model</span> (as in Lab 6), or more formally, probit or logit (beyond ECON3500)</li>
 </ul>
 </div>
 <div class="fragment">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p><em>Note: This issue is rarely our biggest problem in regression analysis.</em></p>
 </div>
-<p><strong>Perspective</strong></p>
-</div>
-<div class="callout-content">
-<p>Functional form misspecification is rarely the <span class="alert">biggest</span> problem in regression analysis. It matters, but OVB and measurement error are usually more concerning.</p>
-</div>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="threat-3-errors-in-variables-bias" class="title-slide slide level1 center">
-<h1>Threat 3: Errors-in-Variables Bias</h1>
-
 </section>
-<section id="measurement-error-in-economic-data" class="slide level2">
-<h2>Measurement Error in Economic Data</h2>
+<section id="errors-in-variables-bias" class="slide level2">
+<h2>3. Errors-in-Variables Bias</h2>
 <p>So far we’ve assumed <span class="math inline">\(X\)</span> is measured without error. In reality, economic data often have measurement error:</p>
 <div class="fragment">
 <ul>
@@ -516,9 +506,9 @@ ECON3500: Econometrics and Applications
 <p>The observed regressor <span class="math inline">\(X_i\)</span> is correlated with the measurement error, which is part of the composite error term. This <span class="alert">violates conditional mean independence</span>.</p>
 </div>
 </section>
-<section id="derivation-of-attenuation-bias" class="slide level2 smaller scrollable">
-<h2>Derivation of Attenuation Bias</h2>
-<p><span class="math display">\[\hat{\beta}_1 \xrightarrow{p} \frac{\text{Cov}(X_i, Y_i)}{\text{Var}(X_i)}\]</span></p>
+<section id="formal-derivation-of-measurement-error-12" class="slide level2 smaller">
+<h2>Formal Derivation of Measurement Error (1/2)</h2>
+<p><span class="math display">\[\hat{\beta}_1 = \frac{\text{Cov}(X_i, Y_i)}{\text{Var}(X_i)}\]</span></p>
 <div class="fragment">
 <p><span class="math display">\[= \frac{\text{Cov}(X^*_i + w_i, \; \beta_0 + \beta_1 X^* + u_i)}{\text{Var}(X^*_i + w_i)}\]</span></p>
 </div>
@@ -526,17 +516,18 @@ ECON3500: Econometrics and Applications
 <p>Expanding the numerator:</p>
 <p><span class="math display">\[= \frac{\text{Cov}(X^*_i, \beta_0) + \text{Cov}(X^*_i, \beta_1 X^*_i) + \text{Cov}(w_i, \beta_0) + \text{Cov}(w_i, \beta_1 X^*) + \text{Cov}(w_i, u_i)}{\text{Var}(X^*_i) + \text{Var}(w_i) + 2\text{Cov}(X^*_i, w_i)}\]</span></p>
 </div>
-<div class="fragment">
+</section>
+<section id="formal-derivation-of-measurement-error-22" class="slide level2 smaller">
+<h2>Formal Derivation of Measurement Error (2/2)</h2>
 <p>Applying our assumptions (<span class="math inline">\(\text{Cov}(w, X^*) = 0\)</span>, <span class="math inline">\(\text{Cov}(w, u) = 0\)</span>):</p>
 <p><span class="math display">\[= \frac{0 + \beta_1 \text{Var}(X^*_i) + 0 + 0 + 0}{\text{Var}(X^*_i) + \text{Var}(w_i) + 0}\]</span></p>
-</div>
 <div class="fragment">
 <p><span class="math display">\[= \beta_1 \cdot \frac{\text{Var}(X^*_i)}{\text{Var}(X^*_i) + \text{Var}(w_i)}\]</span></p>
 </div>
 </section>
 <section id="attenuation-bias-the-result" class="slide level2 smaller">
 <h2>Attenuation Bias: The Result</h2>
-<p><span class="math display">\[\hat{\beta}_1 \xrightarrow{p} \beta_1 \cdot \frac{\text{Var}(X^*_i)}{\text{Var}(X^*_i) + \text{Var}(w_i)}\]</span></p>
+<p><span class="math display">\[\hat{\beta}_1 = \beta_1 \cdot \frac{\text{Var}(X^*_i)}{\text{Var}(X^*_i) + \text{Var}(w_i)}\]</span></p>
 <div class="fragment">
 <p>The fraction on the right is <span class="alert">between 0 and 1</span>. So:</p>
 <ul>
@@ -596,41 +587,25 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 </section>
-<section id="living-with-measurement-error" class="slide level2">
-<h2>Living with Measurement Error</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Practical Advice</strong></p>
-</div>
-<div class="callout-content">
-
-</div>
-</div>
-</div>
+<section id="summary-of-measurement-error" class="slide level2 smaller">
+<h2>Summary of Measurement Error</h2>
 <ul>
-<li><strong>Dependent variable (classical):</strong> Don’t worry too much — estimates still unbiased</li>
-<li><strong>Independent variable (classical):</strong> We can still sign our magnitudes
+<li><strong>Dependent variable (classical):</strong> Don’t worry too much — OLS still BLUE, just larger variance</li>
+<li><strong>Independent variable (classical):</strong> OLS no longer BLUE — <span class="alert">attenuation bias</span>
 <ul>
-<li>e.g., “Returns to education are <span class="kw">at least</span> 10%”</li>
+<li>We can still sign our magnitudes (e.g., “Returns to education are <span class="kw">at least</span> 10%”)</li>
 </ul></li>
-<li><strong>Non-classical:</strong> More serious — consider better data or instrumental variables</li>
+<li><strong>Independent variable (non-classical):</strong> OLS no longer BLUE — bias in ambiguous direction</li>
 </ul>
 <div class="fragment">
-<p><strong>Better data always helps!</strong></p>
-<p>Use administrative records instead of survey self-reports when possible.</p>
+<ul>
+<li><strong>Better data always helps!</strong> Use administrative records instead of survey self-reports when possible.</li>
+<li>Use <span class="kw">instrumental variables</span> (later)</li>
+</ul>
 </div>
-</section></section>
-<section>
-<section id="threat-4-sample-selection-bias" class="title-slide slide level1 center">
-<h1>Threat 4: Sample Selection Bias</h1>
-
 </section>
-<section id="missing-data-three-cases" class="slide level2 smaller">
-<h2>Missing Data: Three Cases</h2>
+<section id="missing-data-and-sample-selection-bias" class="slide level2 smaller">
+<h2>4. Missing Data and Sample Selection Bias</h2>
 <p>Data are often missing. Whether this introduces bias depends on <span class="alert">why</span> the data are missing:</p>
 <table class="caption-top">
 <thead>
@@ -683,8 +658,9 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>A server crash deletes 30% of your dataset at random. Should you worry about bias?</p>
-<p>. . .</p>
+<div class="fragment">
 <p>No — this is Case 1. You lose precision (larger SEs) but no bias.</p>
+</div>
 </div>
 </div>
 </div>
@@ -692,16 +668,16 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="case-2-missing-based-on-x" class="slide level2">
 <h2>Case 2: Missing Based on <span class="math inline">\(X\)</span></h2>
-<p>In the test score application, suppose you restrict analysis to districts with <span class="math inline">\(STR &lt; 20\)</span>.</p>
+<p>Suppose you’re studying the effect of education on wages, but you restrict your sample to <span class="kw">workers under age 30</span>.</p>
 <div class="fragment">
 <ul>
-<li>You can’t say anything about districts with large class sizes</li>
-<li>But focusing on small-class districts <span class="kw">doesn’t introduce bias</span></li>
-<li>This is equivalent to having missing data where data are missing if <span class="math inline">\(STR &gt; 20\)</span></li>
+<li>You can’t say anything about older workers</li>
+<li>But restricting to younger workers <span class="kw">doesn’t introduce bias</span> for the under-30 population</li>
+<li>This is equivalent to having missing data where data are missing based on <span class="math inline">\(X\)</span> (age)</li>
 </ul>
 </div>
 <div class="fragment">
-<p>More generally: if data are missing based <span class="kw">only on values of <span class="math inline">\(X\)</span></span>, the missing data don’t bias OLS.</p>
+<p>More generally: if data are missing based <span class="kw">only on values of <span class="math inline">\(X\)</span></span>, the missing data don’t bias OLS. (It does limit <span class="alert">external validity</span> — you can’t generalize beyond that subgroup.)</p>
 </div>
 </section>
 <section id="case-3-missing-based-on-y-or-u" class="slide level2 smaller scrollable">
@@ -713,6 +689,24 @@ ECON3500: Econometrics and Applications
 <li>Influences the <span class="kw">availability of data</span>, and</li>
 <li>Is <span class="alert">related to the dependent variable</span></li>
 </ol>
+</div>
+<div class="fragment">
+<p><strong>In DAG terms:</strong> this is <span class="kw">collider bias</span> — conditioning on a variable that is caused by both <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> (recall <a href="../slides/ch8b-quarto/">Ch 8b slides</a>).</p>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Key Question</strong></p>
+</div>
+<div class="callout-content">
+<p>Ask yourself: “Would the <span class="alert">reason</span> someone is missing from my data be correlated with the <span class="alert">outcome</span> I’m trying to measure?” If yes <span class="math inline">\(\rightarrow\)</span> sample selection bias.</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="example-height-of-undergraduates" class="slide level2">
@@ -744,24 +738,10 @@ ECON3500: Econometrics and Applications
 <div class="fragment">
 <p><span class="alert">Yes</span> — funds that performed poorly <span class="kw">went out of business</span> and are not in today’s sample.</p>
 <p>The surviving funds are the “basketball players” of mutual funds.</p>
-<p>This is called <span class="kw">survivorship bias</span>.</p>
-</div>
-</section>
-<section id="why-sample-selection-biases-ols" class="slide level2 smaller">
-<h2>Why Sample Selection Biases OLS</h2>
-<p>Sample selection creates a direct correlation between a regressor and the error term.</p>
-<p>Consider the mutual fund regression:</p>
-<p><span class="math display">\[\text{return}_i = \beta_0 + \beta_1 \, \text{managedfund}_i + u_i\]</span></p>
-<div class="fragment">
-<p><span class="math inline">\(\text{managedfund}_i = 1\)</span> for actively managed funds in our sample (i.e., the survivors).</p>
+<p>This is called <span class="kw">survivorship bias</span> — the surviving funds are the “basketball players” of mutual funds.</p>
 </div>
 <div class="fragment">
-<p>Being managed <em>and in our sample</em> means the fund outperformed failed managed funds — which are not in the sample.</p>
-<p><span class="math display">\[\Rightarrow \text{Cov}(\text{managedfund}_i, \; u_i) \neq 0\]</span></p>
-</div>
-<div class="fragment">
-<p>The surviving managed funds are the “basketball players” of mutual funds — selected <span class="alert">because of</span> their returns.</p>
-<p><span class="math inline">\(\Rightarrow\)</span> Conditional mean independence fails <span class="math inline">\(\Rightarrow\)</span> <span class="alert">OLS is biased</span></p>
+<p>Being managed <em>and in our sample</em> means the fund outperformed failed managed funds <span class="math inline">\(\Rightarrow \text{Cov}(\text{managedfund}_i, \; u_i) \neq 0\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="alert">OLS is biased</span></p>
 </div>
 </section>
 <section id="example-returns-to-education" class="slide level2 smaller">
@@ -793,16 +773,11 @@ ECON3500: Econometrics and Applications
 <li><p><span class="kw">Randomized controlled experiment</span></p></li>
 <li><p>Model the selection process and estimate it (advanced — not in ECON3500)</p></li>
 </ol>
-</section></section>
-<section>
-<section id="threat-5-simultaneous-causality-bias" class="title-slide slide level1 center">
-<h1>Threat 5: Simultaneous Causality Bias</h1>
-
 </section>
-<section id="when-y-causes-x-too" class="slide level2">
-<h2>When <span class="math inline">\(Y\)</span> Causes <span class="math inline">\(X\)</span> Too</h2>
+<section id="simultaneous-causality-bias" class="slide level2">
+<h2>5. Simultaneous Causality Bias</h2>
 <p>So far we’ve assumed <span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span>. But what if <span class="alert"><span class="math inline">\(Y\)</span> also causes <span class="math inline">\(X\)</span></span>?</p>
-<p>This is <span class="kw">simultaneous causality</span> (or “reverse causality”).</p>
+<p>This is <span class="kw">simultaneous causality</span> (or “reverse causality”). Remember: the “A” in DAG stands for <span class="alert">acyclic</span> — DAGs <span class="kw">cannot represent</span> simultaneity (<a href="../slides/ch8b-quarto/">Ch 8b slides</a>).</p>
 <div class="fragment">
 <p><strong>Example: Class size effect</strong></p>
 <ul>
@@ -822,11 +797,6 @@ ECON3500: Econometrics and Applications
 <li><p><span class="kw">Develop a complete model</span> of both directions of causality — this is the approach behind large macroeconomic models (e.g., Federal Reserve). <span class="alert">Extremely difficult in practice.</span></p></li>
 <li><p><span class="kw">Instrumental variables</span> regression — estimate the causal effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> while ignoring the feedback from <span class="math inline">\(Y\)</span> to <span class="math inline">\(X\)</span> (coming later!)</p></li>
 </ol>
-</section></section>
-<section>
-<section id="putting-it-all-together" class="title-slide slide level1 center">
-<h1>Putting It All Together</h1>
-
 </section>
 <section id="summary-five-threats-to-internal-validity" class="slide level2 smaller scrollable">
 <h2>Summary: Five Threats to Internal Validity</h2>
@@ -878,73 +848,14 @@ ECON3500: Econometrics and Applications
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Common Thread</strong></p>
-</div>
-<div class="callout-content">
-<p>All five threats cause <span class="math inline">\(E(u_i | X_{1i}, \ldots, X_{ki}) \neq 0\)</span> — conditional mean independence fails, and OLS is biased.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="decision-tree-is-missing-data-a-problem" class="slide level2 smaller">
-<h2>Decision Tree: Is Missing Data a Problem?</h2>
-<p><strong>Step 1:</strong> Why are the data missing?</p>
-<div class="fragment">
-<ul>
-<li><span class="kw">Random chance</span> (server crash, lost surveys, random attrition)
-<ul>
-<li><span class="math inline">\(\rightarrow\)</span> <strong>No bias.</strong> Smaller sample <span class="math inline">\(\rightarrow\)</span> larger SEs. Proceed.</li>
-</ul></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li><span class="kw">Based on <span class="math inline">\(X\)</span> values</span> (restricted sample, subgroup analysis)
-<ul>
-<li><span class="math inline">\(\rightarrow\)</span> <strong>No bias</strong> for the subpopulation. Can’t generalize beyond it (external validity concern).</li>
-</ul></li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li><span class="alert">Based on <span class="math inline">\(Y\)</span> or <span class="math inline">\(u\)</span></span> (survivorship, employment requirement, self-selection)
-<ul>
-<li><span class="math inline">\(\rightarrow\)</span> <strong>Sample selection bias!</strong> Redesign sampling or use specialized methods.</li>
-</ul></li>
-</ul>
-</div>
-<div class="fragment">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>The Key Question</strong></p>
-</div>
-<div class="callout-content">
-<p>Ask yourself: “Would the <span class="alert">reason</span> someone is missing from my data be correlated with the <span class="alert">outcome</span> I’m trying to measure?”</p>
-<p>If yes <span class="math inline">\(\rightarrow\)</span> sample selection bias.</p>
-</div>
-</div>
-</div>
-</div>
 </section></section>
 <section>
 <section id="forecasting-vs.-causal-inference" class="title-slide slide level1 center">
 <h1>Forecasting vs.&nbsp;Causal Inference</h1>
 
 </section>
-<section id="two-very-different-objectives" class="slide level2 smaller">
-<h2>Two Very Different Objectives</h2>
+<section id="forecasting-vs.-causal-inference-1" class="slide level2 smaller">
+<h2>Forecasting vs.&nbsp;Causal Inference</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -986,18 +897,6 @@ ECON3500: Econometrics and Applications
 </tr>
 </tbody>
 </table>
-</section>
-<section id="forecasting-a-different-mindset" class="slide level2">
-<h2>Forecasting: A Different Mindset</h2>
-<p>When the goal is <span class="kw">forecasting</span>:</p>
-<ul>
-<li><span class="math inline">\(\bar{R}^2\)</span> matters — a lot!</li>
-<li>Omitted variable bias <span class="kw">isn’t a problem</span> — we don’t care about the causal interpretation of individual coefficients</li>
-<li>The important thing is a <span class="kw">good fit</span> and a model you can “trust” in your application</li>
-</ul>
-<div class="fragment">
-<p>But <span class="alert">external validity is paramount</span>: the model estimated using historical data must hold into the (near) future.</p>
-</div>
 <div class="fragment">
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
@@ -1039,12 +938,9 @@ ECON3500: Econometrics and Applications
 <section id="key-takeaways" class="slide level2 scrollable">
 <h2>Key Takeaways</h2>
 <ol type="1">
-<li><p><span class="kw">Internal validity</span> = inferences are correct for the population studied; <span class="kw">external validity</span> = results generalize to other settings</p></li>
-<li><p>Five threats all cause the same fundamental problem: <span class="math inline">\(E(u|X) \neq 0\)</span></p></li>
 <li><p><span class="kw">Measurement error in <span class="math inline">\(X\)</span></span> (classical) causes attenuation bias — estimates are too small in magnitude</p></li>
 <li><p><span class="kw">Sample selection bias</span> arises when data are missing because of <span class="math inline">\(Y\)</span>, not because of <span class="math inline">\(X\)</span> or random chance</p></li>
 <li><p><span class="kw">Simultaneous causality</span> is hard to solve without experiments or instrumental variables</p></li>
-<li><p><span class="kw">Forecasting and causal inference</span> have different validity concerns — don’t confuse them</p></li>
 </ol>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -1055,7 +951,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Looking Ahead</strong></p>
 </div>
 <div class="callout-content">
-<p>Many of these threats will motivate the methods we learn next: <span class="kw">panel data</span> (Ch10) and <span class="kw">instrumental variables</span> (Ch12) are direct responses to OVB and simultaneous causality.</p>
+<p><span class="kw">Panel data</span> (Ch10) and <span class="kw">instrumental variables</span> (Ch12) are direct responses to OVB and simultaneous causality.</p>
 </div>
 </div>
 </div>
