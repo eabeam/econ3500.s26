@@ -59,9 +59,9 @@ Get those definitions, and threats to external validity
 
 Five big threats. And how to handle them.
 
-#### **SW 9.3** Internal and External Validity When the Regression is Used for Forecasting
+#### **Bonus:** SW 11.1 Linear Probability Models
 
-Optional  - worth giving some thought
+Optional background if you want a bit more on [linear probability models]{.kw}. This is not part of Chapter 9, but it connects directly to Thursday's class and Lab 6.
 
 
 #### **SW 9.4** Example: Test Score and Class Size
@@ -79,5 +79,4 @@ No new content, but this is a really good walk-through of the 9.1 and 9.2 conten
 <!-- ### [Video: Assessing Studies](https://youtu.be/zIx8kyPZSC0 ) -->
 <!-- {{< youtube zIx8kyPZSC0 >}} -->
 <!-- https://youtu.be/  -->
-
 
