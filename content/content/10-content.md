@@ -16,8 +16,15 @@ menu:
     weight: 11
     
 
+slides_label: "Tuesday: Panel Data & Fixed Effects (SW Ch. 10)"
+slides_html: /slides/ch10-quarto/
 pdf: /slides/ch10-slides.pdf
 thumb: /slides/ch10-slides.png
+
+slides_label2: "Thursday: Difference-in-Differences"
+slides_html2: /slides/ch10b-quarto/
+pdf2: /slides/ch10b-slides.pdf
+thumb2: /slides/ch10b-slides.png
 
 
 
@@ -27,7 +34,9 @@ thumb: /slides/ch10-slides.png
 
 We've complained a lot about challenges to obtaining causal estimation. Now, let's *do* something about it! :strong:
 
-Note that this week we're covering difference-in-differences estimation - it's not actually in Chapter 10^[Check out SW13.4 if you want to be precise.], but it fits here nicely. 
+**Tuesday** covers panel data, first differencing, and fixed effects — the tools that let us eliminate time-invariant omitted variable bias.
+
+**Thursday** covers difference-in-differences (DiD) — a research design that uses these tools to estimate the causal effects of policies and events. DiD isn't actually in Chapter 10^[Check out SW13.4 if you want to be precise.], but it fits here nicely.
 
 ## Reading Guide
 
