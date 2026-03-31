@@ -35,6 +35,26 @@
   {{ end }}
 </div>
 {{ end }}
+{{ if .Page.Params.pdf3 }}
+<div class="slides-container">
+  {{ if .Page.Params.slides_label3 }}<h4>{{ .Page.Params.slides_label3 }}</h4>{{ end }}
+  {{ if .Page.Params.slides_html3 }}
+  <p>
+    <a href="{{ .Page.Params.slides_html3 }}" target="_blank" class="btn btn-primary">📊 HTML</a>
+    <a href="{{ .Page.Params.pdf3 }}" class="btn btn-outline-primary">📥 Download PDF</a>
+  </p>
+  {{ else }}
+  <p><a href="{{ .Page.Params.pdf3 }}" class="btn btn-primary">📥 Download this week's slides</a></p>
+  {{ end }}
+  {{ if .Page.Params.thumb3 }}
+  <figure class="slide-thumb">
+      <a href="{{ if .Page.Params.slides_html3 }}{{ .Page.Params.slides_html3 }}{{ else }}{{ .Page.Params.pdf3 }}{{ end }}" target="_blank">
+        <img src="{{ .Page.Params.thumb3 }}" alt="First slide" />
+      </a>
+  </figure>
+  {{ end }}
+</div>
+{{ end }}
 {{ else }}
 <p>These slides should be posted by Friday night. If they're still missing, please message me!.</p>
 {{ end }}

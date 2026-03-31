@@ -16,15 +16,19 @@ menu:
     weight: 11
     
 
-slides_label: "Tuesday: Panel Data & Fixed Effects (SW Ch. 10)"
-slides_html: /slides/ch10-quarto/
-pdf: /slides/ch10-slides.pdf
-thumb: /slides/ch10-slides.png
+slides_label: "Tuesday: Regression with Panel Data (SW Ch. 10)"
+pdf: /slides/ch10_slides_s26.pdf
+thumb: /slides/ch10_slides_s26.png
 
 slides_label2: "Thursday: Difference-in-Differences"
 slides_html2: /slides/ch10b-quarto/
 pdf2: /slides/ch10b-slides.pdf
 thumb2: /slides/ch10b-slides.png
+
+slides_label3: "Bonus Slides: Panel Data & Fixed Effects"
+slides_html3: /slides/ch10-quarto/
+pdf3: /slides/ch10-slides.pdf
+thumb3: /slides/ch10-slides.png
 
 
 
