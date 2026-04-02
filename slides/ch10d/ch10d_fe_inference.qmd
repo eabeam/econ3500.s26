@@ -70,6 +70,33 @@ $$y_{it} = \beta_1 x_{it} + \alpha_i + \lambda_t + u_{it}$$
 The $\delta_0 \cdot after_t$ term in the DiD regression *is* a (two-period) time fixed effect — it absorbs the common time trend affecting both groups.
 :::
 
+## What Time FEs Actually Do {.smaller}
+
+A national recession hits **all states** in 2008. Unemployment rises everywhere:
+
+| State | 2006 | 2008 | Change |
+|---|:---:|:---:|:---:|
+| Vermont | 5.2% | 7.8% | +2.6pp |
+| Ohio | 5.9% | 8.6% | +2.7pp |
+| Texas | 4.4% | 7.0% | +2.6pp |
+
+. . .
+
+This common jump of ~2.6pp reflects a [national shock]{.kw} — not the effect of any state policy. It's [not variation we want]{.alert} to exploit.
+
+. . .
+
+A **year dummy for 2008** absorbs this common shift exactly. After removing the year mean, only [within-year, across-state variation]{.kw} remains.
+
+. . .
+
+::: {.callout-note}
+## The Analogy to Entity FE
+**Entity FE removes:** "Detroit is always high-crime regardless of unemployment" — a unit-specific level
+
+**Time FE removes:** "2008 was a bad year for everyone" — a year-specific level
+:::
+
 ## Entity + Time Fixed Effects: What's Left? {.smaller}
 
 With [both]{.kw} entity and time fixed effects:
@@ -235,8 +262,8 @@ xtreg y x, fe vce(cluster entity)
 . . .
 
 ::: {.callout-warning}
-## Always Cluster in Panel Data
-If you're using panel data, [almost always]{.alert} cluster standard errors at the entity level. Failing to do so overstates precision and leads to false rejections.
+## Cluster in Panel Data
+In this course, if you are using panel data, [cluster standard errors at the entity level]{.alert} unless there is a strong reason not to. Failing to do so overstates precision and leads to false rejections.
 :::
 
 # Staggered Adoption and Recent Developments

@@ -287,6 +287,62 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </section>
+<section id="what-time-fes-actually-do" class="slide level2 smaller">
+<h2>What Time FEs Actually Do</h2>
+<p>A national recession hits <strong>all states</strong> in 2008. Unemployment rises everywhere:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>State</th>
+<th style="text-align: center;">2006</th>
+<th style="text-align: center;">2008</th>
+<th style="text-align: center;">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vermont</td>
+<td style="text-align: center;">5.2%</td>
+<td style="text-align: center;">7.8%</td>
+<td style="text-align: center;">+2.6pp</td>
+</tr>
+<tr class="even">
+<td>Ohio</td>
+<td style="text-align: center;">5.9%</td>
+<td style="text-align: center;">8.6%</td>
+<td style="text-align: center;">+2.7pp</td>
+</tr>
+<tr class="odd">
+<td>Texas</td>
+<td style="text-align: center;">4.4%</td>
+<td style="text-align: center;">7.0%</td>
+<td style="text-align: center;">+2.6pp</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>This common jump of ~2.6pp reflects a <span class="kw">national shock</span> — not the effect of any state policy. It’s <span class="alert">not variation we want</span> to exploit.</p>
+</div>
+<div class="fragment">
+<p>A <strong>year dummy for 2008</strong> absorbs this common shift exactly. After removing the year mean, only <span class="kw">within-year, across-state variation</span> remains.</p>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Analogy to Entity FE</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Entity FE removes:</strong> “Detroit is always high-crime regardless of unemployment” — a unit-specific level</p>
+<p><strong>Time FE removes:</strong> “2008 was a bad year for everyone” — a year-specific level</p>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="entity-time-fixed-effects-whats-left" class="slide level2 smaller">
 <h2>Entity + Time Fixed Effects: What’s Left?</h2>
 <p>With <span class="kw">both</span> entity and time fixed effects:</p>
@@ -507,10 +563,10 @@ ECON3500: Econometrics and Applications
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Always Cluster in Panel Data</strong></p>
+<p><strong>Cluster in Panel Data</strong></p>
 </div>
 <div class="callout-content">
-<p>If you’re using panel data, <span class="alert">almost always</span> cluster standard errors at the entity level. Failing to do so overstates precision and leads to false rejections.</p>
+<p>In this course, if you are using panel data, <span class="alert">cluster standard errors at the entity level</span> unless there is a strong reason not to. Failing to do so overstates precision and leads to false rejections.</p>
 </div>
 </div>
 </div>

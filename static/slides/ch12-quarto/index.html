@@ -365,6 +365,66 @@ ECON3500: Econometrics and Applications
 </div>
 </section></section>
 <section>
+<section id="intuition-first-a-simple-example" class="title-slide slide level1 center">
+<h1>Intuition First: A Simple Example</h1>
+
+</section>
+<section id="effect-of-studying-on-grades" class="slide level2 smaller">
+<h2>Effect of Studying on Grades</h2>
+<p>What is the effect on grades of studying an additional hour per day?</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> = GPA</li>
+<li><span class="math inline">\(X\)</span> = study time (hours per day)</li>
+</ul>
+<div class="fragment">
+<p><em>Would you expect the OLS estimator of <span class="math inline">\(\beta_1\)</span> to be unbiased? Why or why not?</em></p>
+</div>
+<div class="fragment">
+<p>Stinebrickner and Stinebrickner (2008), “The Causal Effect of Studying on Academic Performance,” <em>The B.E. Journal of Economic Analysis &amp; Policy</em></p>
+<ul>
+<li><span class="math inline">\(n = 210\)</span> freshmen at Berea College (Kentucky) in 2001</li>
+<li><span class="math inline">\(Y\)</span> = first-semester GPA</li>
+<li><span class="math inline">\(X\)</span> = average study hours per day (time use survey)</li>
+<li>Roommates were <strong>randomly assigned</strong></li>
+<li><span class="math inline">\(Z\)</span> = 1 if roommate brought a video game, = 0 otherwise</li>
+</ul>
+</div>
+</section>
+<section id="is-the-video-game-instrument-valid" class="slide level2 smaller scrollable">
+<h2>Is the Video Game Instrument Valid?</h2>
+<p>Do you think <span class="math inline">\(Z_i\)</span> (whether a roommate brought a video game) is a valid instrument?</p>
+<div class="fragment">
+<ol type="1">
+<li>Is the instrument <span class="kw">powerful</span>?
+<ul>
+<li>If your roommate brought a video game, you might study less</li>
+<li>First stage: video game treatment reduces study hours by 0.67 hours/day (significant)</li>
+</ul></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Is the instrument <span class="kw">exogenous</span>?
+<ul>
+<li>Roommates were <strong>randomly assigned</strong> — so <span class="math inline">\(Z\)</span> is uncorrelated with unobserved student ability</li>
+<li>Random assignment makes this a strong argument</li>
+</ul></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Is the instrument <span class="kw">excludable</span>?
+<ul>
+<li>Does having a roommate with a video game directly affect your GPA, other than through study time?</li>
+<li>Plausible: the video game mainly affects grades by reducing study hours</li>
+</ul></li>
+</ol>
+</div>
+<div class="fragment">
+<p><strong>Results</strong>: OLS coefficient on study = 0.038; IV coefficient = <strong>0.36</strong> (much larger). Why? <span class="alert">Selection bias</span> — students who study more tend to be <span class="alert">weaker</span> students compensating with extra effort (<span class="kw">negative selection</span>). This negative correlation between study time and ability biases OLS downward. IV corrects this by using only the variation in study time driven by the random video-game assignment.</p>
+</div>
+</section></section>
+<section>
 <section id="classic-examples" class="title-slide slide level1 center">
 <h1>Classic Examples</h1>
 
@@ -503,6 +563,49 @@ ECON3500: Econometrics and Applications
 <li><span class="math inline">\(Z_i\)</span> does not enter the equation <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_i + u_i\)</span></li>
 </ul></li>
 </ol>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Two vs.&nbsp;Three Assumptions</strong></p>
+</div>
+<div class="callout-content">
+<p>Some textbooks combine (2) and (3) into a single <span class="kw">validity</span> or <span class="kw">exogeneity</span> condition: <span class="math inline">\(\text{Corr}(Z, u) = 0\)</span>. Others (including SW) separate them: <span class="kw">exogeneity</span> (Z uncorrelated with <span class="math inline">\(u\)</span>) and <span class="kw">exclusion</span> (Z affects Y only through X). The practical question is the same either way: <em>can Z affect Y through any channel other than X?</em></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="the-wald-estimator" class="slide level2 smaller">
+<h2>The Wald Estimator</h2>
+<p>With a <span class="kw">binary instrument</span> <span class="math inline">\(Z_i \in \{0, 1\}\)</span>, there is a simple way to see how IV works:</p>
+<div class="fragment">
+<p><strong>First stage</strong>: How does <span class="math inline">\(Z\)</span> move <span class="math inline">\(X\)</span>?</p>
+<p><span class="math display">\[\text{First stage} = E[X_i \mid Z_i = 1] - E[X_i \mid Z_i = 0]\]</span></p>
+<p><strong>Reduced form</strong>: How does <span class="math inline">\(Z\)</span> move <span class="math inline">\(Y\)</span>?</p>
+<p><span class="math display">\[\text{Reduced form} = E[Y_i \mid Z_i = 1] - E[Y_i \mid Z_i = 0]\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\boxed{\hat{\beta}_1^{Wald} = \frac{\text{Reduced form}}{\text{First stage}}}\]</span></p>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Intuition</strong></p>
+</div>
+<div class="callout-content">
+<p>The reduced form tells us how the instrument changes the outcome. The first stage tells us how the instrument changes treatment. Their ratio tells us the effect of treatment <span class="kw">induced by the instrument</span>.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="identification" class="slide level2 smaller">
@@ -735,8 +838,8 @@ ECON3500: Econometrics and Applications
 <li><strong>Sales tax</strong> in state <span class="math inline">\(i\)</span>?
 <ul>
 <li><strong>Powerful</strong>: Sales tax should be positively correlated with price (price measured inclusive of taxes)</li>
-<li><strong>Exogenous</strong>: No obvious reason why sales tax should be correlated with omitted demand factors</li>
-<li><strong>Excluded</strong>: No obvious reason why sales tax would directly affect demand, other than through price</li>
+<li><strong>Exogenous</strong>: Plausible, but contestable: states with stronger anti-smoking preferences may both set higher taxes and have lower cigarette demand</li>
+<li><strong>Excluded</strong>: Plausible, but contestable: the tax affects demand primarily through price, not through other channels</li>
 </ul></li>
 </ul>
 </div>
@@ -866,7 +969,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Rule of Thumb: F &gt; 10</strong></p>
 </div>
 <div class="callout-content">
-<p>The first-stage F-statistic should be <strong>greater than 10</strong>. If so, the instruments are <span class="kw">powerful</span> (relevant).</p>
+<p>A common rule of thumb is that the first-stage F-statistic should be <strong>greater than 10</strong>. If so, instruments are likely <span class="kw">powerful</span> (relevant). This threshold is a guide, not a bright line.</p>
 </div>
 </div>
 </div>
@@ -926,7 +1029,7 @@ ECON3500: Econometrics and Applications
 <tr class="odd">
 <td><strong>Relevance</strong> (<span class="math inline">\(\text{Corr}(Z, X) \neq 0\)</span>)</td>
 <td>Yes</td>
-<td>First-stage F-test &gt; 10</td>
+<td>First-stage F-test (rule of thumb: &gt; 10)</td>
 </tr>
 <tr class="even">
 <td><strong>Exogeneity</strong> (<span class="math inline">\(\text{Corr}(Z, u) = 0\)</span>)</td>
@@ -1095,7 +1198,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Instrument for log(price) is log(sales tax)</strong></p>
 <div class="fragment">
 <ul>
-<li>Logarithms correct for inflation — a dollar is worth less over time</li>
+<li>Using logs lets us interpret coefficients as elasticities, and with year fixed effects it also helps compare proportional changes over time</li>
 <li>Coefficient on log(price) is the <strong>elasticity</strong> of sales w.r.t. price</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtivreg</span> lpackpc (lavgprs = ltaxs) lincomepop y1995, <span class="kw">vce</span>(<span class="kw">cluster</span> state) <span class="kw">fe</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1238,63 +1341,8 @@ ECON3500: Econometrics and Applications
 <h1>Applied Examples</h1>
 
 </section>
-<section id="example-1-effect-of-studying-on-grades" class="slide level2 smaller">
-<h2>Example 1: Effect of Studying on Grades</h2>
-<p>What is the effect on grades of studying an additional hour per day?</p>
-<ul>
-<li><span class="math inline">\(Y\)</span> = GPA</li>
-<li><span class="math inline">\(X\)</span> = study time (hours per day)</li>
-</ul>
-<div class="fragment">
-<p><em>Would you expect the OLS estimator of <span class="math inline">\(\beta_1\)</span> to be unbiased? Why or why not?</em></p>
-</div>
-<div class="fragment">
-<p>Stinebrickner and Stinebrickner (2008), “The Causal Effect of Studying on Academic Performance,” <em>The B.E. Journal of Economic Analysis &amp; Policy</em></p>
-<ul>
-<li><span class="math inline">\(n = 210\)</span> freshmen at Berea College (Kentucky) in 2001</li>
-<li><span class="math inline">\(Y\)</span> = first-semester GPA</li>
-<li><span class="math inline">\(X\)</span> = average study hours per day (time use survey)</li>
-<li>Roommates were <strong>randomly assigned</strong></li>
-<li><span class="math inline">\(Z\)</span> = 1 if roommate brought a video game, = 0 otherwise</li>
-</ul>
-</div>
-</section>
-<section id="is-the-video-game-instrument-valid" class="slide level2 smaller scrollable">
-<h2>Is the Video Game Instrument Valid?</h2>
-<p>Do you think <span class="math inline">\(Z_i\)</span> (whether a roommate brought a video game) is a valid instrument?</p>
-<div class="fragment">
-<ol type="1">
-<li>Is the instrument <span class="kw">powerful</span>?
-<ul>
-<li>If your roommate brought a video game, you might study less</li>
-<li>First stage: video game treatment reduces study hours by 0.67 hours/day (significant)</li>
-</ul></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li>Is the instrument <span class="kw">exogenous</span>?
-<ul>
-<li>Roommates were <strong>randomly assigned</strong> — so <span class="math inline">\(Z\)</span> is uncorrelated with unobserved student ability</li>
-<li>Random assignment makes this a strong argument</li>
-</ul></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li>Is the instrument <span class="kw">excludable</span>?
-<ul>
-<li>Does having a roommate with a video game directly affect your GPA, other than through study time?</li>
-<li>Plausible: the video game mainly affects grades by reducing study hours</li>
-</ul></li>
-</ol>
-</div>
-<div class="fragment">
-<p><strong>Results</strong>: OLS coefficient on study = 0.038; IV coefficient = <strong>0.36</strong> (much larger). Why? <span class="alert">Selection bias</span> — students who study more tend to be <span class="alert">weaker</span> students compensating with extra effort (<span class="kw">negative selection</span>). This negative correlation between study time and ability biases OLS downward. IV corrects this by using only the variation in study time driven by the random video-game assignment.</p>
-</div>
-</section>
-<section id="example-2-returns-to-schooling" class="slide level2 smaller">
-<h2>Example 2: Returns to Schooling</h2>
+<section id="example-1-returns-to-schooling" class="slide level2 smaller">
+<h2>Example 1: Returns to Schooling</h2>
 <p><span class="math display">\[\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i\]</span></p>
 <ul>
 <li>Data show that people who attend college earn high wages</li>
@@ -1414,7 +1462,7 @@ ECON3500: Econometrics and Applications
 </ul>
 <p><strong>4. Report and check</strong></p>
 <ul>
-<li>Report first-stage F-stat (must be &gt; 10)</li>
+<li>Report first-stage F-stat (rule of thumb: &gt; 10)</li>
 <li>Discuss threats to exogeneity and exclusion</li>
 <li>Compare IV estimates to OLS — if they differ, explain why</li>
 </ul>
@@ -1471,7 +1519,7 @@ ECON3500: Econometrics and Applications
 <li>Does not directly affect <span class="math inline">\(Y\)</span> (excluded)</li>
 </ul></li>
 <li><strong>2SLS</strong> isolates the exogenous variation in <span class="math inline">\(X\)</span> using <span class="math inline">\(Z\)</span></li>
-<li><strong>First-stage F &gt; 10</strong> is the key diagnostic for instrument strength</li>
+<li><strong>First-stage F &gt; 10</strong> is a common rule-of-thumb diagnostic for instrument strength</li>
 <li><strong>Exogeneity cannot be tested</strong> — it must be argued</li>
 <li>IV can be combined with <strong>panel data</strong> and fixed effects</li>
 <li>Always use <code>ivregress</code> or <code>xtivreg</code> — never manual two-step</li>

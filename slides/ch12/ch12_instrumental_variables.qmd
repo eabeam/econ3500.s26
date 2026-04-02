@@ -113,6 +113,55 @@ $$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
 Neither multiple regression nor panel data convincingly addresses the ability bias in estimating returns to schooling. We need a different approach.
 :::
 
+# Intuition First: A Simple Example
+
+## Effect of Studying on Grades {.smaller}
+
+What is the effect on grades of studying an additional hour per day?
+
+- $Y$ = GPA
+- $X$ = study time (hours per day)
+
+. . .
+
+*Would you expect the OLS estimator of $\beta_1$ to be unbiased? Why or why not?*
+
+. . .
+
+Stinebrickner and Stinebrickner (2008), "The Causal Effect of Studying on Academic Performance," *The B.E. Journal of Economic Analysis & Policy*
+
+- $n = 210$ freshmen at Berea College (Kentucky) in 2001
+- $Y$ = first-semester GPA
+- $X$ = average study hours per day (time use survey)
+- Roommates were **randomly assigned**
+- $Z$ = 1 if roommate brought a video game, = 0 otherwise
+
+## Is the Video Game Instrument Valid? {.smaller}
+
+Do you think $Z_i$ (whether a roommate brought a video game) is a valid instrument?
+
+. . .
+
+1. Is the instrument [powerful]{.kw}?
+   - If your roommate brought a video game, you might study less
+   - First stage: video game treatment reduces study hours by 0.67 hours/day (significant)
+
+. . .
+
+2. Is the instrument [exogenous]{.kw}?
+   - Roommates were **randomly assigned** --- so $Z$ is uncorrelated with unobserved student ability
+   - Random assignment makes this a strong argument
+
+. . .
+
+3. Is the instrument [excludable]{.kw}?
+   - Does having a roommate with a video game directly affect your GPA, other than through study time?
+   - Plausible: the video game mainly affects grades by reducing study hours
+
+. . .
+
+**Results**: OLS coefficient on study = 0.038; IV coefficient = **0.36** (much larger). Why? [Selection bias]{.alert} --- students who study more tend to be [weaker]{.alert} students compensating with extra effort ([negative selection]{.kw}). This negative correlation between study time and ability biases OLS downward. IV corrects this by using only the variation in study time driven by the random video-game assignment.
+
 # Classic Examples
 
 ## Philip Wright and the Demand for Butter (1928)
@@ -229,6 +278,38 @@ An [instrumental variable]{.kw} is an additional variable $Z_i$ that satisfies t
    - It can only affect $Y_i$ through its effect on $X_i$
    - $Z$ is an [excluded]{.kw} instrument
    - $Z_i$ does not enter the equation $Y_i = \beta_0 + \beta_1 X_i + u_i$
+
+. . .
+
+::: {.callout-note}
+## Two vs. Three Assumptions
+Some textbooks combine (2) and (3) into a single [validity]{.kw} or [exogeneity]{.kw} condition: $\text{Corr}(Z, u) = 0$. Others (including SW) separate them: [exogeneity]{.kw} (Z uncorrelated with $u$) and [exclusion]{.kw} (Z affects Y only through X). The practical question is the same either way: *can Z affect Y through any channel other than X?*
+:::
+
+## The Wald Estimator {.smaller}
+
+With a [binary instrument]{.kw} $Z_i \in \{0, 1\}$, there is a simple way to see how IV works:
+
+. . .
+
+**First stage**: How does $Z$ move $X$?
+
+$$\text{First stage} = E[X_i \mid Z_i = 1] - E[X_i \mid Z_i = 0]$$
+
+**Reduced form**: How does $Z$ move $Y$?
+
+$$\text{Reduced form} = E[Y_i \mid Z_i = 1] - E[Y_i \mid Z_i = 0]$$
+
+. . .
+
+$$\boxed{\hat{\beta}_1^{Wald} = \frac{\text{Reduced form}}{\text{First stage}}}$$
+
+. . .
+
+::: {.callout-note}
+## Intuition
+The reduced form tells us how the instrument changes the outcome. The first stage tells us how the instrument changes treatment. Their ratio tells us the effect of treatment [induced by the instrument]{.kw}.
+:::
 
 ## Identification {.smaller}
 
@@ -415,8 +496,8 @@ $$sales_i = \beta_0 + \beta_1 price_i + u_i$$
 
 - **Sales tax** in state $i$?
   - **Powerful**: Sales tax should be positively correlated with price (price measured inclusive of taxes)
-  - **Exogenous**: No obvious reason why sales tax should be correlated with omitted demand factors
-  - **Excluded**: No obvious reason why sales tax would directly affect demand, other than through price
+  - **Exogenous**: Plausible, but contestable: states with stronger anti-smoking preferences may both set higher taxes and have lower cigarette demand
+  - **Excluded**: Plausible, but contestable: the tax affects demand primarily through price, not through other channels
 
 ## 2SLS in Stata {.smaller}
 
@@ -527,7 +608,7 @@ The `first` option displays the first-stage regression alongside the second stag
 
 ::: {.callout-important}
 ## Rule of Thumb: F > 10
-The first-stage F-statistic should be **greater than 10**. If so, the instruments are [powerful]{.kw} (relevant).
+A common rule of thumb is that the first-stage F-statistic should be **greater than 10**. If so, instruments are likely [powerful]{.kw} (relevant). This threshold is a guide, not a bright line.
 :::
 
 # Checking Instrument Validity
@@ -557,7 +638,7 @@ If the first-stage F-statistic is less than 10, the 2SLS estimates may be biased
 
 | Assumption | Testable? | How? |
 |---|---|---|
-| **Relevance** ($\text{Corr}(Z, X) \neq 0$) | Yes | First-stage F-test > 10 |
+| **Relevance** ($\text{Corr}(Z, X) \neq 0$) | Yes | First-stage F-test (rule of thumb: > 10) |
 | **Exogeneity** ($\text{Corr}(Z, u) = 0$) | No | Must argue based on institutional knowledge |
 | **Exclusion** ($Z$ doesn't directly cause $Y$) | No | Must argue based on theory |
 
@@ -691,7 +772,7 @@ $$\log(sales_{it}) = \alpha_i + \lambda_t + \beta_1 \log(price_{it}) + \beta_2 \
 
 . . .
 
-- Logarithms correct for inflation --- a dollar is worth less over time
+- Using logs lets us interpret coefficients as elasticities, and with year fixed effects it also helps compare proportional changes over time
 - Coefficient on log(price) is the **elasticity** of sales w.r.t. price
 
 ```stata
@@ -728,54 +809,7 @@ Notice that the price coefficient changes as we add controls and instruments. Th
 
 # Applied Examples
 
-## Example 1: Effect of Studying on Grades {.smaller}
-
-What is the effect on grades of studying an additional hour per day?
-
-- $Y$ = GPA
-- $X$ = study time (hours per day)
-
-. . .
-
-*Would you expect the OLS estimator of $\beta_1$ to be unbiased? Why or why not?*
-
-. . .
-
-Stinebrickner and Stinebrickner (2008), "The Causal Effect of Studying on Academic Performance," *The B.E. Journal of Economic Analysis & Policy*
-
-- $n = 210$ freshmen at Berea College (Kentucky) in 2001
-- $Y$ = first-semester GPA
-- $X$ = average study hours per day (time use survey)
-- Roommates were **randomly assigned**
-- $Z$ = 1 if roommate brought a video game, = 0 otherwise
-
-## Is the Video Game Instrument Valid? {.smaller}
-
-Do you think $Z_i$ (whether a roommate brought a video game) is a valid instrument?
-
-. . .
-
-1. Is the instrument [powerful]{.kw}?
-   - If your roommate brought a video game, you might study less
-   - First stage: video game treatment reduces study hours by 0.67 hours/day (significant)
-
-. . .
-
-2. Is the instrument [exogenous]{.kw}?
-   - Roommates were **randomly assigned** --- so $Z$ is uncorrelated with unobserved student ability
-   - Random assignment makes this a strong argument
-
-. . .
-
-3. Is the instrument [excludable]{.kw}?
-   - Does having a roommate with a video game directly affect your GPA, other than through study time?
-   - Plausible: the video game mainly affects grades by reducing study hours
-
-. . .
-
-**Results**: OLS coefficient on study = 0.038; IV coefficient = **0.36** (much larger). Why? [Selection bias]{.alert} --- students who study more tend to be [weaker]{.alert} students compensating with extra effort ([negative selection]{.kw}). This negative correlation between study time and ability biases OLS downward. IV corrects this by using only the variation in study time driven by the random video-game assignment.
-
-## Example 2: Returns to Schooling {.smaller}
+## Example 1: Returns to Schooling {.smaller}
 
 $$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
 
@@ -866,7 +900,7 @@ A [weak instrument]{.alert} combined with even a small $\text{Cov}(Z, u)$ can ca
 
 **4. Report and check**
 
-- Report first-stage F-stat (must be > 10)
+- Report first-stage F-stat (rule of thumb: > 10)
 - Discuss threats to exogeneity and exclusion
 - Compare IV estimates to OLS --- if they differ, explain why
 :::
@@ -910,7 +944,7 @@ An IV estimate with a bad instrument can be **worse** than OLS. The whole approa
    - Is uncorrelated with $u$ (exogenous)
    - Does not directly affect $Y$ (excluded)
 3. **2SLS** isolates the exogenous variation in $X$ using $Z$
-4. **First-stage F > 10** is the key diagnostic for instrument strength
+4. **First-stage F > 10** is a common rule-of-thumb diagnostic for instrument strength
 5. **Exogeneity cannot be tested** --- it must be argued
 6. IV can be combined with **panel data** and fixed effects
 7. Always use `ivregress` or `xtivreg` --- never manual two-step

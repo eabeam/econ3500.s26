@@ -228,6 +228,8 @@ Unlike in an RCT (where controls are purely about precision), in DiD the paralle
 In the [absence of treatment]{.alert}, the difference between treatment and control groups would have remained [constant over time]{.kw}.
 
 Equivalently: both groups would have followed [parallel trajectories]{.kw}.
+
+**Key point:** Parallel trends is a statement about what [would have happened without treatment]{.alert} — it is about the untreated counterfactual, not about what we observe after treatment.
 :::
 
 . . .
@@ -355,7 +357,7 @@ Event study plots have become nearly [mandatory]{.alert} in applied DiD papers. 
 1. **Sharp treatment**: NJ raised the minimum wage on a specific date; PA didn't
 2. **Geographic neighbors**: NJ and PA share economic conditions → plausible parallel trends
 3. **Same industry**: Fast food in both states faces similar demand shocks
-4. **Pre-trends**: Employment was trending similarly before the increase
+4. **No obvious differential shocks**: No major PA-specific event in 1992 that would have changed fast-food employment independent of the wage increase
 :::
 
 . . .
