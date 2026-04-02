@@ -305,7 +305,10 @@ ECON3500: Econometrics and Applications
 </div>
 </div><div class="column" style="width:45%;">
 <p><strong>Subtract out the pre-existing difference:</strong></p>
-<p><span class="math display">\[\hat{\delta}_1 = \underbrace{(-30{,}688)}_{\text{after gap}} - \underbrace{(-18{,}824)}_{\text{before gap}} = -11{,}864\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+\hat{\delta}_1 &amp;= \underbrace{(-30{,}688)}_{\text{after gap}} - \underbrace{(-18{,}824)}_{\text{before gap}} \\
+&amp;= -11{,}864
+\end{aligned}\]</span></p>
 <p>The incinerator reduced nearby prices by ~$12k — not $30k.</p>
 </div></div>
 </section>
@@ -352,7 +355,10 @@ ECON3500: Econometrics and Applications
 </tr>
 </tbody>
 </table>
-<p><span class="math display">\[\underbrace{(70{,}619 - 63{,}693)}_{\Delta \text{ treatment}} - \underbrace{(101{,}308 - 82{,}517)}_{\Delta \text{ control}} = [-11{,}864]{.alert}\]</span></p>
+<p><span class="math display">\[\begin{aligned}
+&amp;\underbrace{(70{,}619 - 63{,}693)}_{\Delta \text{ treat}} - \underbrace{(101{,}308 - 82{,}517)}_{\Delta \text{ control}} \\
+&amp;\quad = {\color{red}-11{,}864}
+\end{aligned}\]</span></p>
 </div></div>
 </section>
 <section id="did-graphically" class="slide level2 smaller">
@@ -579,12 +585,14 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="what-would-violate-parallel-trends" class="slide level2 smaller scrollable">
 <h2>What Would Violate Parallel Trends?</h2>
-<p><strong>In the incinerator example:</strong></p>
+<p><strong>In the incinerator example</strong> — what could threaten parallel trends?</p>
+<div class="fragment">
 <ul>
 <li>A new highway built near the incinerator site at the same time</li>
 <li>A neighborhood revitalization program targeting the area</li>
 <li>Differential migration (people leaving <em>because</em> the incinerator was announced)</li>
 </ul>
+</div>
 <div class="fragment">
 <p><strong>More generally,</strong> any factor that:</p>
 <ol type="1">
@@ -638,7 +646,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Why Event Studies Matter</strong></p>
 </div>
 <div class="callout-content">
-<p>Event study plots have become nearly <span class="alert">mandatory</span> in applied DiD papers. They are the most credible way to support the parallel trends assumption.</p>
+<p>Event study plots have become nearly <span class="alert">mandatory</span> in applied DiD papers. They are the most credible way to support — though not necessarily prove — the parallel trends assumption.</p>
 </div>
 </div>
 </div>

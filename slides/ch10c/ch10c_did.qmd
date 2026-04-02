@@ -83,7 +83,10 @@ We need a method that handles [both]{.kw} problems simultaneously.
 ::: {.column width="45%"}
 **Subtract out the pre-existing difference:**
 
-$$\hat{\delta}_1 = \underbrace{(-30{,}688)}_{\text{after gap}} - \underbrace{(-18{,}824)}_{\text{before gap}} = -11{,}864$$
+$$\begin{aligned}
+\hat{\delta}_1 &= \underbrace{(-30{,}688)}_{\text{after gap}} - \underbrace{(-18{,}824)}_{\text{before gap}} \\
+&= -11{,}864
+\end{aligned}$$
 
 The incinerator reduced nearby prices by ~\$12k — not \$30k.
 :::
@@ -104,7 +107,10 @@ The [difference of differences]{.kw}:
 | **Treatment** (near) | \$63,693 | \$70,619 | [+\$6,927]{.kw} |
 | **Treat $-$ Control** | −\$18,824 | −\$30,688 | [**−\$11,864**]{.alert} |
 
-$$\underbrace{(70{,}619 - 63{,}693)}_{\Delta \text{ treatment}} - \underbrace{(101{,}308 - 82{,}517)}_{\Delta \text{ control}} = [-11{,}864]{.alert}$$
+$$\begin{aligned}
+&\underbrace{(70{,}619 - 63{,}693)}_{\Delta \text{ treat}} - \underbrace{(101{,}308 - 82{,}517)}_{\Delta \text{ control}} \\
+&\quad = {\color{red}-11{,}864}
+\end{aligned}$$
 :::
 :::
 
@@ -258,7 +264,9 @@ The gold dotted line = the [true counterfactual]{.kw} (continuing convergence). 
 
 ## What Would Violate Parallel Trends? {.smaller}
 
-**In the incinerator example:**
+**In the incinerator example** — what could threaten parallel trends?
+
+. . .
 
 - A new highway built near the incinerator site at the same time
 - A neighborhood revitalization program targeting the area
@@ -318,7 +326,7 @@ Think of it as DiD estimated separately for each time period — revealing *when
 
 ::: {.callout-tip}
 ## Why Event Studies Matter
-Event study plots have become nearly [mandatory]{.alert} in applied DiD papers. They are the most credible way to support the parallel trends assumption.
+Event study plots have become nearly [mandatory]{.alert} in applied DiD papers. They are the most credible way to support — though not necessarily prove — the parallel trends assumption.
 :::
 
 # Real-World Example
