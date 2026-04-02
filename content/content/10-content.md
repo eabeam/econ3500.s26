@@ -23,10 +23,12 @@ thumb: /slides/ch10_slides_s26.png
 slides_label2: "Thursday 4/4: Difference-in-Differences"
 slides_html2: /slides/ch10c-quarto/
 pdf2: /slides/ch10c-slides.pdf
+thumb2: /slides/ch10c-slides.png
 
 slides_label3: "Tuesday 4/8: Fixed Effects Extensions & Inference"
 slides_html3: /slides/ch10d-quarto/
 pdf3: /slides/ch10d-slides.pdf
+thumb3: /slides/ch10d-slides.png
 
 
 
