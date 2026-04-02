@@ -16,19 +16,17 @@ menu:
     weight: 11
     
 
-slides_label: "Tuesday: Regression with Panel Data (SW Ch. 10)"
+slides_label: "Tuesday 3/31: Panel Data, First Differencing & Fixed Effects (Rae)"
 pdf: /slides/ch10_slides_s26.pdf
 thumb: /slides/ch10_slides_s26.png
 
-slides_label2: "Thursday: Difference-in-Differences"
-slides_html2: /slides/ch10b-quarto/
-pdf2: /slides/ch10b-slides.pdf
-thumb2: /slides/ch10b-slides.png
+slides_label2: "Thursday 4/4: Difference-in-Differences"
+slides_html2: /slides/ch10c-quarto/
+pdf2: /slides/ch10c-slides.pdf
 
-slides_label3: "Bonus Slides: Panel Data & Fixed Effects"
-slides_html3: /slides/ch10-quarto/
-pdf3: /slides/ch10-slides.pdf
-thumb3: /slides/ch10-slides.png
+slides_label3: "Tuesday 4/8: Fixed Effects Extensions & Inference"
+slides_html3: /slides/ch10d-quarto/
+pdf3: /slides/ch10d-slides.pdf
 
 
 
