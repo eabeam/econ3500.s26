@@ -23,7 +23,7 @@ Today: extending fixed effects — [time FEs]{.kw}, [clustered inference]{.kw}, 
 
 ## Why Demeaning Works {.smaller}
 
-Recall from Rae: with [entity fixed effects]{.kw}, we give each unit its own intercept $\alpha_i$.
+Recall: with [entity fixed effects]{.kw}, we give each unit its own intercept $\alpha_i$.
 
 . . .
 
@@ -50,8 +50,16 @@ This is why FE is called the **within** estimator — we're using variation *wit
 
 Examples of entity-invariant time shocks:
 
+. . .
+
 - A national recession hits all cities in 2008
+
+. . .
+
 - A federal policy change affects all states simultaneously
+
+. . .
+
 - Inflation affects all firms' costs in the same year
 
 . . .
@@ -82,7 +90,7 @@ A national recession hits **all states** in 2008. Unemployment rises everywhere:
 
 . . .
 
-This common jump of ~2.6pp reflects a [national shock]{.kw} — not the effect of any state policy. It's [not variation we want]{.alert} to exploit.
+Vermont and Texas each rose 2.6pp; Ohio rose 2.7pp — an average of about 2.6pp across all three states. This [common shock]{.kw} reflects national conditions, not any state policy. The small variation around that average is noise; the common component is [not variation we want]{.alert} to exploit.
 
 . . .
 
@@ -121,11 +129,11 @@ $$y_{it} = \beta_1 x_{it} + \alpha_i + \lambda_t + u_{it}$$
 ::: {.callout-tip}
 ## Knowledge Check
 You estimate the effect of a state-level minimum wage increase on employment, with state and year fixed effects. What omitted variable could still bias your results?
+:::
 
 . . .
 
-A factor that varies across states *and* over time — e.g., a state-specific economic boom that coincides with the minimum wage increase.
-:::
+**Answer:** A factor that varies across states *and* over time — e.g., a state-specific economic boom that coincides with the minimum wage increase. *(Instructor: reveal verbally or advance slide.)*
 
 # Implementing FE in Stata
 
@@ -159,6 +167,13 @@ xtreg scrap grant d88 d89, fe vce(cluster fcode)
 ```
 :::
 
+. . .
+
+::: {.callout-note}
+## `areg` vs. `xtreg fe` — Are They the Same?
+For a single level of fixed effects, `areg` and `xtreg fe` give **identical point estimates and standard errors**. They differ in how they report R² (different denominators) and in small-sample degrees-of-freedom adjustments for clustered SEs. For this course, treat them as equivalent.
+:::
+
 ## What Entity FE Controls For
 
 ::: {.callout-important}
@@ -166,6 +181,13 @@ xtreg scrap grant d88 d89, fe vce(cluster fcode)
 Entity fixed effects control for [all time-invariant factors]{.alert} — observed or unobserved.
 
 You don't need to include time-invariant covariates in an FE model — they are already absorbed.
+:::
+
+. . .
+
+::: {.callout-note}
+## Connection to LS Assumptions
+This principle — FE absorbs all time-invariant factors — is what enables **consistent estimation** under the panel data LS assumptions (see the assumptions slide later in the deck). It is the panel analog of what makes OLS unbiased under Gauss-Markov: by removing the time-invariant component of omitted variable bias, FE satisfies the zero-conditional-mean assumption within entities.
 :::
 
 . . .
@@ -219,6 +241,13 @@ The time-varying error $\omega_{it}$ reflects factors that change over time but 
 
 This is [autocorrelation]{.kw} (serial correlation) — observations on the same entity over time are not independent.
 
+. . .
+
+::: {.callout-warning}
+## Which LS Assumption Is Violated?
+Autocorrelation does **not** violate Assumption 2 (which only requires independence *across* entities, not within). Instead, it violates the homoskedasticity/no-autocorrelation condition that standard OLS standard errors implicitly assume. The FE estimator remains **consistent**, but OLS SEs — which assume i.i.d. errors — are wrong when within-entity errors are correlated over time.
+:::
+
 ## Why Autocorrelation Matters
 
 Previously, we assumed observations were independent.
@@ -266,6 +295,22 @@ xtreg y x, fe vce(cluster entity)
 In this course, if you are using panel data, [cluster standard errors at the entity level]{.alert} unless there is a strong reason not to. Failing to do so overstates precision and leads to false rejections.
 :::
 
+## What Clustered SEs Allow (Optional) {.smaller}
+
+| | Regular OLS SEs | Clustered SEs |
+|---|---|---|
+| **Errors across observations** | Must be independent | Must be independent *across entities* |
+| **Errors within an entity over time** | Must be independent | Can be correlated freely |
+| **What is assumed** | i.i.d. errors everywhere | i.i.d. across entities; anything within |
+| **Appropriate for panel data?** | No — implausible | Yes — the standard approach |
+
+. . .
+
+::: {.callout-note}
+## Summary
+Clustered SEs do not change the point estimates — only the standard errors. They are more conservative (usually larger) than unclustered SEs when within-entity errors are positively correlated, which is typical in panel data.
+:::
+
 # Staggered Adoption and Recent Developments
 
 ## The Staggered Adoption Problem {.smaller}
@@ -291,26 +336,26 @@ A job training program with a [true effect that grows over time]{.alert}: +10 in
 | | 2018 | 2019 | 2020 |
 |---|:---:|:---:|:---:|
 | **No-treatment baseline** | 100 | 105 | 110 |
-| **State E** (treats in 2019) | 100 | [115]{style="color: #008080;"} | [160]{style="color: #008080;"} |
-| **State L** (treats in 2020) | 100 | 105 | [120]{style="color: #008080;"} |
+| **State E** (treats in 2019) | 100 | <span style="color:#008080">115</span> | <span style="color:#008080">160</span> |
+| **State L** (treats in 2020) | 100 | 105 | <span style="color:#008080">120</span> |
 
 . . .
 
 TWFE takes a [weighted average]{.kw} of all 2×2 DiD comparisons — including contaminated ones.
 
 **Valid comparison** (E treated vs. L as control, 2018→2019):
-$$\underbrace{(115 - 100)}_{\Delta E} - \underbrace{(105 - 100)}_{\Delta L} = [+10]{.kw}$$
+$$\underbrace{(115 - 100)}_{\Delta E} - \underbrace{(105 - 100)}_{\Delta L} = +10$$
 
 **Contaminated comparison** (L treated vs. already-treated E as "control," 2019→2020):
-$$\underbrace{(120 - 105)}_{\Delta L} - \underbrace{(160 - 115)}_{\Delta E} = [-30]{.alert}$$
+$$\underbrace{(120 - 105)}_{\Delta L} - \underbrace{(160 - 115)}_{\Delta E} = -30$$
 
-$$\hat{\beta}_{TWFE} = \tfrac{1}{2}(+10) + \tfrac{1}{2}(-30) = [-10]{.alert}$$
+$$\hat{\beta}_{TWFE} = \tfrac{1}{2}(+10) + \tfrac{1}{2}(-30) = \mathbf{-10}$$
 
 ## The Sign Flipped! {.smaller}
 
 ::: {.callout-important}
 ## TWFE Gives the Wrong Sign
-All true effects are [positive]{.kw} (+10 or +50), but TWFE estimates [−10]{.alert}.
+All true effects are [positive]{.kw} (+10 or +50), but TWFE estimates [−10]{.alert} — the wrong sign.
 
 **Why?** State E's outcome rose by 45 from 2019→2020 because its treatment effect *grew*. TWFE treats this as a normal trend, making State L's +15 gain look like a relative decline.
 :::
@@ -339,7 +384,9 @@ All share one insight: [never use already-treated units as controls]{.alert}.
 
 ::: {.callout-note}
 ## Beyond ECON3500
-You won't implement these in this course. But if you do applied research with staggered DiD — very common in policy evaluation — you should know about them. Stata packages: `csdid`, `did_multiplegt`, `eventstudyinteract`.
+You won't implement these in this course. **If you use DiD in your research paper**, I recommend using one of these methods if your design involves staggered adoption. However, if you use TWFE instead, you should discuss this limitation in your paper. Both approaches are acceptable for grading purposes.
+
+Current Stata packages (as of 2025): `csdid` (Callaway-Sant'Anna), `did_multiplegt` (de Chaisemartin-D'Haultfoeuille), `eventstudyinteract` (Sun-Abraham).
 :::
 
 # Putting It All Together
@@ -380,7 +427,7 @@ You won't implement these in this course. But if you do applied research with st
 
 ::: {.callout-warning}
 ## 1. Forgetting to Cluster
-Panel data almost always requires clustered standard errors. Unclustered SEs will be [too small]{.alert} — false precision.
+Panel data almost always requires clustered standard errors. Unclustered SEs will usually be [too small]{.alert} (though in some designs they can be too large) — leading to false precision or false rejection.
 :::
 
 . . .
@@ -401,10 +448,18 @@ Fixed effects only eliminate [time-invariant]{.alert} omitted variables. Time-va
 
 1. [Time fixed effects]{.kw} $\lambda_t$ absorb entity-invariant time shocks — the same demeaning logic applied across time
 
+. . .
+
 2. With entity + time FEs, only [entity-and-time-varying]{.alert} confounders remain a threat
+
+. . .
 
 3. Panel data creates [serial correlation]{.kw} — always use [clustered standard errors]{.kw} at the entity level
 
+. . .
+
 4. FE [cannot estimate]{.alert} effects of time-invariant variables — the price of eliminating time-invariant OVB
+
+. . .
 
 5. With [staggered adoption]{.kw}, standard TWFE can give misleading results — modern estimators (Callaway-Sant'Anna, Sun-Abraham) fix this by never using already-treated units as controls

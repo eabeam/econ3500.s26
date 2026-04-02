@@ -76,31 +76,37 @@ We need a method that handles [both]{.kw} problems simultaneously.
 
 ## The Core Logic {.smaller}
 
-![](../ch10/ch10_figures/ch10_rprice_beforeafter.png){width=50% fig-align="center"}
-
-. . .
-
+::: {.columns}
+::: {.column width="55%"}
+![](../ch10/ch10_figures/ch10_rprice_beforeafter.png){width=100% fig-align="center"}
+:::
+::: {.column width="45%"}
 **Subtract out the pre-existing difference:**
 
 $$\hat{\delta}_1 = \underbrace{(-30{,}688)}_{\text{after gap}} - \underbrace{(-18{,}824)}_{\text{before gap}} = -11{,}864$$
 
-. . .
-
 The incinerator reduced nearby prices by ~\$12k — not \$30k.
+:::
+:::
 
 ## The 2×2 Table {.smaller}
 
-The name says it all — it's the [difference]{.kw} of two [differences]{.kw}:
+::: {.columns}
+::: {.column width="32%"}
+![](../ch10/ch10_figures/ch10_rprice_beforeafter.png){width=100%}
+:::
+::: {.column width="68%"}
+The [difference of differences]{.kw}:
 
-| | Before | After | $\Delta$ (After $-$ Before) |
+| | Before | After | $\Delta$ |
 |---|:---:|:---:|:---:|
-| **Control** (far from incinerator) | \$82,517 | \$101,308 | [+\$18,790]{style="color: #008080;"} |
-| **Treatment** (near incinerator) | \$63,693 | \$70,619 | [+\$6,927]{style="color: #008080;"} |
-| $\Delta$ (Treatment $-$ Control) | $-$\$18,824 | $-$\$30,688 | [$-$\$11,864]{.alert} |
+| **Control** (far) | \$82,517 | \$101,308 | [+\$18,790]{.kw} |
+| **Treatment** (near) | \$63,693 | \$70,619 | [+\$6,927]{.kw} |
+| **Treat $-$ Control** | −\$18,824 | −\$30,688 | [**−\$11,864**]{.alert} |
 
-. . .
-
-$$\underbrace{(70{,}619 - 63{,}693)}_{\Delta \text{ treatment}} - \underbrace{(101{,}308 - 82{,}517)}_{\Delta \text{ control}} = 6{,}927 - 18{,}790 = [-11{,}864]{.alert}$$
+$$\underbrace{(70{,}619 - 63{,}693)}_{\Delta \text{ treatment}} - \underbrace{(101{,}308 - 82{,}517)}_{\Delta \text{ control}} = [-11{,}864]{.alert}$$
+:::
+:::
 
 ## DiD Graphically {.smaller}
 
@@ -113,7 +119,7 @@ The [DiD estimate]{.kw} is the vertical gap between:
 - What [actually happened]{.kw} to the treatment group
 - The [counterfactual]{.alert}: what would have happened without treatment
 
-## DiD Animated {.smaller}
+## DiD Animated
 
 ::: {.columns}
 ::: {.column width="55%"}
@@ -154,7 +160,7 @@ This is why DiD is so useful for [policy evaluation]{.kw}:
 
 # The Regression Framework
 
-## DiD as a Regression {.smaller}
+## DiD as a Regression
 
 We can capture the entire DiD logic in one regression:
 
@@ -162,7 +168,7 @@ $$rprice_i = \beta_0 + \delta_0 \cdot after_i + \beta_1 \cdot nearinc_i + \delta
 
 . . .
 
-| | Before ($after = 0$) | After ($after = 1$) | After $-$ Before |
+| | Before (${\color{white} after = 0}$) | After (${\color{white} after = 1}$) | Change |
 |---|:---:|:---:|:---:|
 | **Control** (far) | $\beta_0$ | $\beta_0 + \delta_0$ | $\delta_0$ |
 | **Treatment** (near) | $\beta_0 + \beta_1$ | $\beta_0 + \delta_0 + \beta_1 + \delta_1$ | $\delta_0 + \delta_1$ |
@@ -172,7 +178,7 @@ $$rprice_i = \beta_0 + \delta_0 \cdot after_i + \beta_1 \cdot nearinc_i + \delta
 
 $\delta_1$ — the coefficient on the [interaction term]{.kw} — is the DiD estimate.
 
-## Interpreting Each Piece {.smaller}
+## Interpreting Each Piece
 
 $$y_i = \underbrace{\beta_0}_{\text{baseline}} + \underbrace{\delta_0 \cdot after_i}_{\text{time trend}} + \underbrace{\beta_1 \cdot treated_i}_{\text{group difference}} + \underbrace{\delta_1 \cdot (after_i \times treated_i)}_{\text{treatment effect}} + u_i$$
 
@@ -185,38 +191,31 @@ $$y_i = \underbrace{\beta_0}_{\text{baseline}} + \underbrace{\delta_0 \cdot afte
 | $\beta_1$ | Pre-existing difference between groups |
 | [$\delta_1$]{.alert} | **The DiD estimate** — causal *if* parallel trends holds |
 
-. . .
-
-::: {.callout-tip}
-## Knowledge Check
-In the regression $rprice_i = 82{,}517 + 18{,}790 \cdot after_i - 18{,}824 \cdot nearinc_i - 11{,}864 \cdot (after_i \times nearinc_i) + u_i$, what does $18{,}790$ represent?
-
-. . .
-
-The increase in housing prices among far-away houses over time — the common time trend.
-:::
-
 ## Adding Control Variables {.smaller}
 
-DiD works fine with additional covariates:
+**Why add controls to a DiD regression?**
+
+. . .
+
+**1. Precision:** Controls [reduce residual variance]{.kw} → tighter standard errors, even if parallel trends holds unconditionally.
+
+. . .
+
+**2. Credibility:** Parallel trends may only hold [conditional on covariates]{.alert}. If treatment and control groups differ on observables that predict trends, controlling for those variables makes parallel trends more plausible.
+
+. . .
+
+Works fine — just add $\mathbf{X}_{it}$ to the regression:
 
 $$y_{it} = \beta_0 + \delta_0 \cdot after_t + \beta_1 \cdot treated_i + \delta_1 \cdot (after_t \times treated_i) + \gamma' \mathbf{X}_{it} + u_{it}$$
 
 . . .
 
-**Why add controls?** Two distinct reasons:
-
-1. **Precision:** Controls [reduce residual variance]{.kw} → tighter standard errors, even if parallel trends already holds unconditionally.
-
-2. **Credibility:** Parallel trends may only hold [conditional on covariates]{.alert}. If treatment and control groups differ on observables that predict trends, controlling for those variables makes parallel trends more plausible.
-
-. . .
-
 ::: {.callout-warning}
 ## Controls Can Matter for Identification
-Unlike in an RCT (where controls are purely about precision), in DiD the parallel trends assumption may only hold *after conditioning* on observables. Omitting those variables is [OVB]{.alert}.
+Unlike in an RCT, parallel trends may only hold *after conditioning* on observables. Omitting those variables is [OVB]{.alert}.
 
-**Example:** Controlling for house characteristics (square footage, lot size) when estimating the incinerator effect — if newer homes were built farther from the site during this period, controls aren't just precision, they're identification.
+**Example:** If newer homes were built farther from the incinerator site during this period, controlling for house characteristics isn't just about precision — it's about identification.
 :::
 
 # The Parallel Trends Assumption
@@ -253,31 +252,27 @@ The dashed line = the [counterfactual]{.kw}: where the treatment group would hav
 
 ## Parallel Trends Violated {.smaller}
 
-![Groups were converging before treatment. DiD attributes the continued convergence to the treatment — overstating the true effect.](../ch10b/ch10b_figures/ch10b_parallel_violated.png){width=65% fig-align="center"}
+![Groups were converging before treatment. DiD attributes the continued convergence to the treatment — overstating the true effect.](../ch10b/ch10b_figures/ch10b_parallel_violated.png){width=82% fig-align="center"}
 
 The gold dotted line = the [true counterfactual]{.kw} (continuing convergence). The dashed line = what DiD [incorrectly assumes]{.alert}. The difference between the two is the bias.
 
 ## What Would Violate Parallel Trends? {.smaller}
 
-::: {.callout-warning}
-## In the Incinerator Example
+**In the incinerator example:**
+
 - A new highway built near the incinerator site at the same time
 - A neighborhood revitalization program targeting the area
 - Differential migration (people leaving *because* the incinerator was announced)
-:::
 
 . . .
 
-::: {.callout-warning}
-## More Generally
-Any factor that:
+**More generally,** any factor that:
 
 1. [Changes over time]{.kw} (not absorbed by entity or time FE)
 2. Affects treatment and control groups [differently]{.alert}
 3. Coincides with the timing of treatment
-:::
 
-## Assessing Parallel Trends {.smaller}
+## Assessing Parallel Trends
 
 We can never [prove]{.alert} parallel trends — it's about what [would have happened]{.kw} without treatment.
 
@@ -311,13 +306,15 @@ where $D_{it}^k = 1$ if unit $i$ is $k$ periods from treatment at time $t$.
 
 . . .
 
-**What to look for:**
-
-- [Pre-treatment coefficients]{.kw} ($k < 0$): Should be close to zero and statistically insignificant → supports parallel trends
-- [Post-treatment coefficients]{.kw} ($k \geq 0$): Show the dynamic treatment effect over time
-- The reference period ($k = -1$) is normalized to zero
+Think of it as DiD estimated separately for each time period — revealing *when* effects emerge and whether they grow, fade, or were already present before treatment.
 
 . . .
+
+**What to look for:**
+
+- [Pre-treatment coefficients]{.kw} ($k < 0$): Should be close to zero → supports parallel trends
+- [Post-treatment coefficients]{.kw} ($k \geq 0$): Show the dynamic treatment effect over time
+- The reference period ($k = -1$) is normalized to zero
 
 ::: {.callout-tip}
 ## Why Event Studies Matter
@@ -340,11 +337,11 @@ Event study plots have become nearly [mandatory]{.alert} in applied DiD papers. 
 
 . . .
 
-| | Before | After | $\Delta$ |
+| | Before | After | Δ |
 |---|:---:|:---:|:---:|
-| **NJ** (treatment) | 20.44 FTE | 21.03 FTE | +0.59 |
-| **PA** (control) | 23.33 FTE | 21.17 FTE | $-$2.16 |
-| **NJ $-$ PA** | | | [+2.76]{.alert} |
+| **NJ** (treatment) | 20.44 FTE | 21.03 FTE | [+0.59]{.kw} |
+| **PA** (control) | 23.33 FTE | 21.17 FTE | [−2.16]{style="color: #e74c3c;"} |
+| **NJ − PA** | | | [**+2.76**]{.alert} |
 
 . . .
 
@@ -352,23 +349,25 @@ Event study plots have become nearly [mandatory]{.alert} in applied DiD papers. 
 
 ## Why Is Card & Krueger Compelling? {.smaller}
 
-::: {.callout-note}
-## Good DiD Design Features
-1. **Sharp treatment**: NJ raised the minimum wage on a specific date; PA didn't
-2. **Geographic neighbors**: NJ and PA share economic conditions → plausible parallel trends
-3. **Same industry**: Fast food in both states faces similar demand shocks
-4. **No obvious differential shocks**: No major PA-specific event in 1992 that would have changed fast-food employment independent of the wage increase
-:::
+What makes this a good DiD design?
 
 . . .
 
-::: {.callout-warning}
-## Potential Concerns
+1. **Sharp treatment**: NJ raised the minimum wage on a specific date; PA didn't
+2. **Geographic neighbors**: NJ and PA share economic conditions → plausible parallel trends
+3. **Same industry**: Fast food in both states faces similar demand shocks
+4. **No obvious differential shocks**: No major PA-specific event in 1992 that would have changed fast-food employment
+
+. . .
+
+What might you be concerned about?
+
+. . .
+
 - Were NJ restaurants [anticipating]{.alert} the wage increase? (announcement effects violate sharp timing)
 - Did PA have its own employment shocks unrelated to the minimum wage?
 - Are the two states similar *enough* for parallel trends?
 - [Measurement error]{.kw}: Employment data came from phone surveys of managers
-:::
 
 # DiD in Stata
 
@@ -447,7 +446,7 @@ Before you trust a DiD estimate, ask:
 - [ ] Is [parallel trends]{.alert} plausible? What evidence supports it?
 - [ ] Are there [pre-trend tests]{.kw} or an [event study plot]{.kw}?
 - [ ] Could any [time-varying confounder]{.alert} have changed differentially at the same time?
-- [ ] Are standard errors [clustered]{.kw} appropriately?
+- [ ] Are standard errors [clustered]{.kw} appropriately? *(we'll discuss why on Tuesday)*
 
 ## Key Takeaways
 

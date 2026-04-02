@@ -181,6 +181,46 @@ if [ -n "$PDF_NAME" ]; then
     else
       echo "Skipping slide thumbnails (set UPDATE_THUMBS=1 to enable)"
     fi
+
+    # Animated PDF: each fragment overlay gets its own page (for iPad presenter use).
+    # Saved to ANIMATED_PDF_DIR (default: ~/Desktop/econ3500-slides/). Not on the website.
+    # Set SKIP_ANIMATED_PDF=1 to skip.
+    if [ "${SKIP_ANIMATED_PDF:-0}" != "1" ]; then
+      ANIM_OUT_DIR="${ANIMATED_PDF_DIR:-$HOME/Desktop/econ3500-slides}"
+      mkdir -p "$ANIM_OUT_DIR"
+      ANIM_PDF="$ANIM_OUT_DIR/${PDF_NAME%.pdf}-animated.pdf"
+      TEMP_HTML="$DEST_ROOT/_temp_animated.html"
+
+      # Patch pdfSeparateFragments: false -> true in a temp copy of the rendered HTML
+      perl -pe 's/pdfSeparateFragments\s*:\s*false/pdfSeparateFragments: true/g' \
+        "$DEST_ROOT/index.html" > "$TEMP_HTML"
+
+      CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+      ANIM_PORT="${ANIM_PORT:-8001}"
+
+      if [ -x "$CHROME" ]; then
+        python3 -m http.server "$ANIM_PORT" --directory "$DEST_ROOT" \
+          >/tmp/reveal_anim_server.log 2>&1 &
+        ANIM_PID=$!
+        sleep 1
+
+        echo "Rendering animated PDF to: $ANIM_PDF"
+        "$CHROME" \
+          --headless --disable-gpu --disable-dev-shm-usage --no-sandbox \
+          --disable-software-rasterizer --disable-features=VizDisplayCompositor \
+          --print-to-pdf-no-header --print-to-pdf="$ANIM_PDF" \
+          --virtual-time-budget=20000 --run-all-compositor-stages-before-draw \
+          "http://localhost:${ANIM_PORT}/_temp_animated.html?print-pdf" 2>&1 \
+          | grep -v "^$" || true
+
+        kill "$ANIM_PID" 2>/dev/null || true
+        rm -f "$TEMP_HTML"
+        echo "Animated PDF done: $ANIM_PDF"
+      else
+        rm -f "$TEMP_HTML"
+        echo "Chrome not found; skipping animated PDF."
+      fi
+    fi
   else
     echo "PDF script not found/executable: $REVEAL_PDF_SCRIPT"
     echo "Skipped PDF and thumbnail generation."

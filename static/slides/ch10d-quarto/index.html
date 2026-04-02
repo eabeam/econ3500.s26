@@ -228,7 +228,7 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="why-demeaning-works" class="slide level2 smaller">
 <h2>Why Demeaning Works</h2>
-<p>Recall from Rae: with <span class="kw">entity fixed effects</span>, we give each unit its own intercept <span class="math inline">\(\alpha_i\)</span>.</p>
+<p>Recall: with <span class="kw">entity fixed effects</span>, we give each unit its own intercept <span class="math inline">\(\alpha_i\)</span>.</p>
 <div class="fragment">
 <p>Mathematically, this is <span class="kw">demeaning</span> — subtracting each entity’s time-average from its observations:</p>
 <p><span class="math display">\[[y_{it} - \bar{y}_i] = \beta_1[x_{it} - \bar{x}_i] + [u_{it} - \bar{u}_i]\]</span></p>
@@ -258,11 +258,21 @@ ECON3500: Econometrics and Applications
 <section id="time-fixed-effects" class="slide level2 smaller">
 <h2>Time Fixed Effects</h2>
 <p>Examples of entity-invariant time shocks:</p>
+<div class="fragment">
 <ul>
 <li>A national recession hits all cities in 2008</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>A federal policy change affects all states simultaneously</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Inflation affects all firms’ costs in the same year</li>
 </ul>
+</div>
 <div class="fragment">
 <p>Add <span class="kw">time fixed effects</span> <span class="math inline">\(\lambda_t\)</span>: a dummy for each time period.</p>
 <p><span class="math display">\[y_{it} = \beta_1 x_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
@@ -321,7 +331,7 @@ ECON3500: Econometrics and Applications
 </tbody>
 </table>
 <div class="fragment">
-<p>This common jump of ~2.6pp reflects a <span class="kw">national shock</span> — not the effect of any state policy. It’s <span class="alert">not variation we want</span> to exploit.</p>
+<p>Vermont and Texas each rose 2.6pp; Ohio rose 2.7pp — an average of about 2.6pp across all three states. This <span class="kw">common shock</span> reflects national conditions, not any state policy. The small variation around that average is noise; the common component is <span class="alert">not variation we want</span> to exploit.</p>
 </div>
 <div class="fragment">
 <p>A <strong>year dummy for 2008</strong> absorbs this common shift exactly. After removing the year mean, only <span class="kw">within-year, across-state variation</span> remains.</p>
@@ -371,11 +381,12 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>You estimate the effect of a state-level minimum wage increase on employment, with state and year fixed effects. What omitted variable could still bias your results?</p>
-<p>. . .</p>
-<p>A factor that varies across states <em>and</em> over time — e.g., a state-specific economic boom that coincides with the minimum wage increase.</p>
 </div>
 </div>
 </div>
+</div>
+<div class="fragment">
+<p><strong>Answer:</strong> A factor that varies across states <em>and</em> over time — e.g., a state-specific economic boom that coincides with the minimum wage increase. <em>(Instructor: reveal verbally or advance slide.)</em></p>
 </div>
 </section></section>
 <section>
@@ -431,6 +442,21 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong><code>areg</code> vs.&nbsp;<code>xtreg fe</code> — Are They the Same?</strong></p>
+</div>
+<div class="callout-content">
+<p>For a single level of fixed effects, <code>areg</code> and <code>xtreg fe</code> give <strong>identical point estimates and standard errors</strong>. They differ in how they report R² (different denominators) and in small-sample degrees-of-freedom adjustments for clustered SEs. For this course, treat them as equivalent.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="what-entity-fe-controls-for" class="slide level2">
 <h2>What Entity FE Controls For</h2>
@@ -445,6 +471,21 @@ ECON3500: Econometrics and Applications
 <div class="callout-content">
 <p>Entity fixed effects control for <span class="alert">all time-invariant factors</span> — observed or unobserved.</p>
 <p>You don’t need to include time-invariant covariates in an FE model — they are already absorbed.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Connection to LS Assumptions</strong></p>
+</div>
+<div class="callout-content">
+<p>This principle — FE absorbs all time-invariant factors — is what enables <strong>consistent estimation</strong> under the panel data LS assumptions (see the assumptions slide later in the deck). It is the panel analog of what makes OLS unbiased under Gauss-Markov: by removing the time-invariant component of omitted variable bias, FE satisfies the zero-conditional-mean assumption within entities.</p>
+</div>
 </div>
 </div>
 </div>
@@ -512,6 +553,21 @@ ECON3500: Econometrics and Applications
 <div class="fragment">
 <p>This is <span class="kw">autocorrelation</span> (serial correlation) — observations on the same entity over time are not independent.</p>
 </div>
+<div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Which LS Assumption Is Violated?</strong></p>
+</div>
+<div class="callout-content">
+<p>Autocorrelation does <strong>not</strong> violate Assumption 2 (which only requires independence <em>across</em> entities, not within). Instead, it violates the homoskedasticity/no-autocorrelation condition that standard OLS standard errors implicitly assume. The FE estimator remains <strong>consistent</strong>, but OLS SEs — which assume i.i.d. errors — are wrong when within-entity errors are correlated over time.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="why-autocorrelation-matters" class="slide level2">
 <h2>Why Autocorrelation Matters</h2>
@@ -571,6 +627,60 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
+</section>
+<section id="what-clustered-ses-allow-optional" class="slide level2 smaller">
+<h2>What Clustered SEs Allow (Optional)</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Regular OLS SEs</th>
+<th>Clustered SEs</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Errors across observations</strong></td>
+<td>Must be independent</td>
+<td>Must be independent <em>across entities</em></td>
+</tr>
+<tr class="even">
+<td><strong>Errors within an entity over time</strong></td>
+<td>Must be independent</td>
+<td>Can be correlated freely</td>
+</tr>
+<tr class="odd">
+<td><strong>What is assumed</strong></td>
+<td>i.i.d. errors everywhere</td>
+<td>i.i.d. across entities; anything within</td>
+</tr>
+<tr class="even">
+<td><strong>Appropriate for panel data?</strong></td>
+<td>No — implausible</td>
+<td>Yes — the standard approach</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Summary</strong></p>
+</div>
+<div class="callout-content">
+<p>Clustered SEs do not change the point estimates — only the standard errors. They are more conservative (usually larger) than unclustered SEs when within-entity errors are positively correlated, which is typical in panel data.</p>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="staggered-adoption-and-recent-developments" class="title-slide slide level1 center">
@@ -617,22 +727,22 @@ ECON3500: Econometrics and Applications
 <tr class="even">
 <td><strong>State E</strong> (treats in 2019)</td>
 <td style="text-align: center;">100</td>
-<td style="text-align: center;"><span style="color: #008080;">115</span></td>
-<td style="text-align: center;"><span style="color: #008080;">160</span></td>
+<td style="text-align: center;"><span style="color:#008080">115</span></td>
+<td style="text-align: center;"><span style="color:#008080">160</span></td>
 </tr>
 <tr class="odd">
 <td><strong>State L</strong> (treats in 2020)</td>
 <td style="text-align: center;">100</td>
 <td style="text-align: center;">105</td>
-<td style="text-align: center;"><span style="color: #008080;">120</span></td>
+<td style="text-align: center;"><span style="color:#008080">120</span></td>
 </tr>
 </tbody>
 </table>
 <div class="fragment">
 <p>TWFE takes a <span class="kw">weighted average</span> of all 2×2 DiD comparisons — including contaminated ones.</p>
-<p><strong>Valid comparison</strong> (E treated vs.&nbsp;L as control, 2018→2019): <span class="math display">\[\underbrace{(115 - 100)}_{\Delta E} - \underbrace{(105 - 100)}_{\Delta L} = [+10]{.kw}\]</span></p>
-<p><strong>Contaminated comparison</strong> (L treated vs.&nbsp;already-treated E as “control,” 2019→2020): <span class="math display">\[\underbrace{(120 - 105)}_{\Delta L} - \underbrace{(160 - 115)}_{\Delta E} = [-30]{.alert}\]</span></p>
-<p><span class="math display">\[\hat{\beta}_{TWFE} = \tfrac{1}{2}(+10) + \tfrac{1}{2}(-30) = [-10]{.alert}\]</span></p>
+<p><strong>Valid comparison</strong> (E treated vs.&nbsp;L as control, 2018→2019): <span class="math display">\[\underbrace{(115 - 100)}_{\Delta E} - \underbrace{(105 - 100)}_{\Delta L} = +10\]</span></p>
+<p><strong>Contaminated comparison</strong> (L treated vs.&nbsp;already-treated E as “control,” 2019→2020): <span class="math display">\[\underbrace{(120 - 105)}_{\Delta L} - \underbrace{(160 - 115)}_{\Delta E} = -30\]</span></p>
+<p><span class="math display">\[\hat{\beta}_{TWFE} = \tfrac{1}{2}(+10) + \tfrac{1}{2}(-30) = \mathbf{-10}\]</span></p>
 </div>
 </section>
 <section id="the-sign-flipped" class="slide level2 smaller">
@@ -646,7 +756,7 @@ ECON3500: Econometrics and Applications
 <p><strong>TWFE Gives the Wrong Sign</strong></p>
 </div>
 <div class="callout-content">
-<p>All true effects are <span class="kw">positive</span> (+10 or +50), but TWFE estimates <span class="alert">−10</span>.</p>
+<p>All true effects are <span class="kw">positive</span> (+10 or +50), but TWFE estimates <span class="alert">−10</span> — the wrong sign.</p>
 <p><strong>Why?</strong> State E’s outcome rose by 45 from 2019→2020 because its treatment effect <em>grew</em>. TWFE treats this as a normal trend, making State L’s +15 gain look like a relative decline.</p>
 </div>
 </div>
@@ -678,7 +788,8 @@ ECON3500: Econometrics and Applications
 <p><strong>Beyond ECON3500</strong></p>
 </div>
 <div class="callout-content">
-<p>You won’t implement these in this course. But if you do applied research with staggered DiD — very common in policy evaluation — you should know about them. Stata packages: <code>csdid</code>, <code>did_multiplegt</code>, <code>eventstudyinteract</code>.</p>
+<p>You won’t implement these in this course. <strong>If you use DiD in your research paper</strong>, I recommend using one of these methods if your design involves staggered adoption. However, if you use TWFE instead, you should discuss this limitation in your paper. Both approaches are acceptable for grading purposes.</p>
+<p>Current Stata packages (as of 2025): <code>csdid</code> (Callaway-Sant’Anna), <code>did_multiplegt</code> (de Chaisemartin-D’Haultfoeuille), <code>eventstudyinteract</code> (Sun-Abraham).</p>
 </div>
 </div>
 </div>
@@ -775,7 +886,7 @@ ECON3500: Econometrics and Applications
 <p><strong>1. Forgetting to Cluster</strong></p>
 </div>
 <div class="callout-content">
-<p>Panel data almost always requires clustered standard errors. Unclustered SEs will be <span class="alert">too small</span> — false precision.</p>
+<p>Panel data almost always requires clustered standard errors. Unclustered SEs will usually be <span class="alert">too small</span> (though in some designs they can be too large) — leading to false precision or false rejection.</p>
 </div>
 </div>
 </div>
@@ -813,13 +924,29 @@ ECON3500: Econometrics and Applications
 <section id="key-takeaways" class="slide level2 scrollable">
 <h2>Key Takeaways</h2>
 <ol type="1">
-<li><p><span class="kw">Time fixed effects</span> <span class="math inline">\(\lambda_t\)</span> absorb entity-invariant time shocks — the same demeaning logic applied across time</p></li>
-<li><p>With entity + time FEs, only <span class="alert">entity-and-time-varying</span> confounders remain a threat</p></li>
-<li><p>Panel data creates <span class="kw">serial correlation</span> — always use <span class="kw">clustered standard errors</span> at the entity level</p></li>
-<li><p>FE <span class="alert">cannot estimate</span> effects of time-invariant variables — the price of eliminating time-invariant OVB</p></li>
-<li><p>With <span class="kw">staggered adoption</span>, standard TWFE can give misleading results — modern estimators (Callaway-Sant’Anna, Sun-Abraham) fix this by never using already-treated units as controls</p></li>
+<li><span class="kw">Time fixed effects</span> <span class="math inline">\(\lambda_t\)</span> absorb entity-invariant time shocks — the same demeaning logic applied across time</li>
+</ol>
+<div class="fragment">
+<ol start="2" type="1">
+<li>With entity + time FEs, only <span class="alert">entity-and-time-varying</span> confounders remain a threat</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Panel data creates <span class="kw">serial correlation</span> — always use <span class="kw">clustered standard errors</span> at the entity level</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li>FE <span class="alert">cannot estimate</span> effects of time-invariant variables — the price of eliminating time-invariant OVB</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="5" type="1">
+<li>With <span class="kw">staggered adoption</span>, standard TWFE can give misleading results — modern estimators (Callaway-Sant’Anna, Sun-Abraham) fix this by never using already-treated units as controls</li>
 </ol>
 
+</div>
 </section></section>
  </div>
  <div class="quarto-auto-generated-content" style="display: none;">

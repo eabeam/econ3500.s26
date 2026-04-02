@@ -296,18 +296,26 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="the-core-logic" class="slide level2 smaller">
 <h2>The Core Logic</h2>
-
-<img src="ch10_figures/ch10_rprice_beforeafter.png" class="quarto-figure quarto-figure-center " style="width:50.0%"><div class="fragment">
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="ch10_figures/ch10_rprice_beforeafter.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:45%;">
 <p><strong>Subtract out the pre-existing difference:</strong></p>
 <p><span class="math display">\[\hat{\delta}_1 = \underbrace{(-30{,}688)}_{\text{after gap}} - \underbrace{(-18{,}824)}_{\text{before gap}} = -11{,}864\]</span></p>
-</div>
-<div class="fragment">
 <p>The incinerator reduced nearby prices by ~$12k — not $30k.</p>
-</div>
+</div></div>
 </section>
 <section id="the-22-table" class="slide level2 smaller">
 <h2>The 2×2 Table</h2>
-<p>The name says it all — it’s the <span class="kw">difference</span> of two <span class="kw">differences</span>:</p>
+<div class="columns">
+<div class="column" style="width:32%;">
+<p><img src="ch10_figures/ch10_rprice_beforeafter.png" style="width:100.0%"></p>
+</div><div class="column" style="width:68%;">
+<p>The <span class="kw">difference of differences</span>:</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 16%">
@@ -320,33 +328,32 @@ ECON3500: Econometrics and Applications
 <th></th>
 <th style="text-align: center;">Before</th>
 <th style="text-align: center;">After</th>
-<th style="text-align: center;"><span class="math inline">\(\Delta\)</span> (After <span class="math inline">\(-\)</span> Before)</th>
+<th style="text-align: center;"><span class="math inline">\(\Delta\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Control</strong> (far from incinerator)</td>
+<td><strong>Control</strong> (far)</td>
 <td style="text-align: center;">$82,517</td>
 <td style="text-align: center;">$101,308</td>
-<td style="text-align: center;"><span style="color: #008080;">+$18,790</span></td>
+<td style="text-align: center;"><span class="kw">+$18,790</span></td>
 </tr>
 <tr class="even">
-<td><strong>Treatment</strong> (near incinerator)</td>
+<td><strong>Treatment</strong> (near)</td>
 <td style="text-align: center;">$63,693</td>
 <td style="text-align: center;">$70,619</td>
-<td style="text-align: center;"><span style="color: #008080;">+$6,927</span></td>
+<td style="text-align: center;"><span class="kw">+$6,927</span></td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\(\Delta\)</span> (Treatment <span class="math inline">\(-\)</span> Control)</td>
-<td style="text-align: center;"><span class="math inline">\(-\)</span>$18,824</td>
-<td style="text-align: center;"><span class="math inline">\(-\)</span>$30,688</td>
-<td style="text-align: center;"><span class="alert"><span class="math inline">\(-\)</span>$11,864</span></td>
+<td><strong>Treat <span class="math inline">\(-\)</span> Control</strong></td>
+<td style="text-align: center;">−$18,824</td>
+<td style="text-align: center;">−$30,688</td>
+<td style="text-align: center;"><span class="alert"><strong>−$11,864</strong></span></td>
 </tr>
 </tbody>
 </table>
-<div class="fragment">
-<p><span class="math display">\[\underbrace{(70{,}619 - 63{,}693)}_{\Delta \text{ treatment}} - \underbrace{(101{,}308 - 82{,}517)}_{\Delta \text{ control}} = 6{,}927 - 18{,}790 = [-11{,}864]{.alert}\]</span></p>
-</div>
+<p><span class="math display">\[\underbrace{(70{,}619 - 63{,}693)}_{\Delta \text{ treatment}} - \underbrace{(101{,}308 - 82{,}517)}_{\Delta \text{ control}} = [-11{,}864]{.alert}\]</span></p>
+</div></div>
 </section>
 <section id="did-graphically" class="slide level2 smaller">
 <h2>DiD Graphically</h2>
@@ -359,7 +366,7 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 </section>
-<section id="did-animated" class="slide level2 smaller scrollable">
+<section id="did-animated" class="slide level2 scrollable">
 <h2>DiD Animated</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
@@ -412,7 +419,7 @@ ECON3500: Econometrics and Applications
 <h1>The Regression Framework</h1>
 
 </section>
-<section id="did-as-a-regression" class="slide level2 smaller">
+<section id="did-as-a-regression" class="slide level2">
 <h2>DiD as a Regression</h2>
 <p>We can capture the entire DiD logic in one regression:</p>
 <p><span class="math display">\[rprice_i = \beta_0 + \delta_0 \cdot after_i + \beta_1 \cdot nearinc_i + \delta_1 \cdot (after_i \times nearinc_i) + u_i\]</span></p>
@@ -427,9 +434,9 @@ ECON3500: Econometrics and Applications
 <thead>
 <tr class="header">
 <th></th>
-<th style="text-align: center;">Before (<span class="math inline">\(after = 0\)</span>)</th>
-<th style="text-align: center;">After (<span class="math inline">\(after = 1\)</span>)</th>
-<th style="text-align: center;">After <span class="math inline">\(-\)</span> Before</th>
+<th style="text-align: center;">Before (<span class="math inline">\({\color{white} after = 0}\)</span>)</th>
+<th style="text-align: center;">After (<span class="math inline">\({\color{white} after = 1}\)</span>)</th>
+<th style="text-align: center;">Change</th>
 </tr>
 </thead>
 <tbody>
@@ -458,7 +465,7 @@ ECON3500: Econometrics and Applications
 <p><span class="math inline">\(\delta_1\)</span> — the coefficient on the <span class="kw">interaction term</span> — is the DiD estimate.</p>
 </div>
 </section>
-<section id="interpreting-each-piece" class="slide level2 smaller">
+<section id="interpreting-each-piece" class="slide level2">
 <h2>Interpreting Each Piece</h2>
 <p><span class="math display">\[y_i = \underbrace{\beta_0}_{\text{baseline}} + \underbrace{\delta_0 \cdot after_i}_{\text{time trend}} + \underbrace{\beta_1 \cdot treated_i}_{\text{group difference}} + \underbrace{\delta_1 \cdot (after_i \times treated_i)}_{\text{treatment effect}} + u_i\]</span></p>
 <div class="fragment">
@@ -493,34 +500,19 @@ ECON3500: Econometrics and Applications
 </tbody>
 </table>
 </div>
-<div class="fragment">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Knowledge Check</strong></p>
-</div>
-<div class="callout-content">
-<p>In the regression <span class="math inline">\(rprice_i = 82{,}517 + 18{,}790 \cdot after_i - 18{,}824 \cdot nearinc_i - 11{,}864 \cdot (after_i \times nearinc_i) + u_i\)</span>, what does <span class="math inline">\(18{,}790\)</span> represent?</p>
-<p>. . .</p>
-<p>The increase in housing prices among far-away houses over time — the common time trend.</p>
-</div>
-</div>
-</div>
-</div>
 </section>
-<section id="adding-control-variables" class="slide level2 smaller scrollable">
+<section id="adding-control-variables" class="slide level2 smaller">
 <h2>Adding Control Variables</h2>
-<p>DiD works fine with additional covariates:</p>
-<p><span class="math display">\[y_{it} = \beta_0 + \delta_0 \cdot after_t + \beta_1 \cdot treated_i + \delta_1 \cdot (after_t \times treated_i) + \gamma' \mathbf{X}_{it} + u_{it}\]</span></p>
+<p><strong>Why add controls to a DiD regression?</strong></p>
 <div class="fragment">
-<p><strong>Why add controls?</strong> Two distinct reasons:</p>
-<ol type="1">
-<li><p><strong>Precision:</strong> Controls <span class="kw">reduce residual variance</span> → tighter standard errors, even if parallel trends already holds unconditionally.</p></li>
-<li><p><strong>Credibility:</strong> Parallel trends may only hold <span class="alert">conditional on covariates</span>. If treatment and control groups differ on observables that predict trends, controlling for those variables makes parallel trends more plausible.</p></li>
-</ol>
+<p><strong>1. Precision:</strong> Controls <span class="kw">reduce residual variance</span> → tighter standard errors, even if parallel trends holds unconditionally.</p>
+</div>
+<div class="fragment">
+<p><strong>2. Credibility:</strong> Parallel trends may only hold <span class="alert">conditional on covariates</span>. If treatment and control groups differ on observables that predict trends, controlling for those variables makes parallel trends more plausible.</p>
+</div>
+<div class="fragment">
+<p>Works fine — just add <span class="math inline">\(\mathbf{X}_{it}\)</span> to the regression:</p>
+<p><span class="math display">\[y_{it} = \beta_0 + \delta_0 \cdot after_t + \beta_1 \cdot treated_i + \delta_1 \cdot (after_t \times treated_i) + \gamma' \mathbf{X}_{it} + u_{it}\]</span></p>
 </div>
 <div class="fragment">
 <div class="callout callout-warning callout-titled callout-style-default">
@@ -532,8 +524,8 @@ ECON3500: Econometrics and Applications
 <p><strong>Controls Can Matter for Identification</strong></p>
 </div>
 <div class="callout-content">
-<p>Unlike in an RCT (where controls are purely about precision), in DiD the parallel trends assumption may only hold <em>after conditioning</em> on observables. Omitting those variables is <span class="alert">OVB</span>.</p>
-<p><strong>Example:</strong> Controlling for house characteristics (square footage, lot size) when estimating the incinerator effect — if newer homes were built farther from the site during this period, controls aren’t just precision, they’re identification.</p>
+<p>Unlike in an RCT, parallel trends may only hold <em>after conditioning</em> on observables. Omitting those variables is <span class="alert">OVB</span>.</p>
+<p><strong>Example:</strong> If newer homes were built farther from the incinerator site during this period, controlling for house characteristics isn’t just about precision — it’s about identification.</p>
 </div>
 </div>
 </div>
@@ -583,49 +575,26 @@ ECON3500: Econometrics and Applications
 <section id="parallel-trends-violated" class="slide level2 smaller">
 <h2>Parallel Trends Violated</h2>
 
-<img src="ch10b_figures/ch10b_parallel_violated.png" style="width:65.0%" class=" quarto-figure-center"><p class="caption">Groups were converging before treatment. DiD attributes the continued convergence to the treatment — overstating the true effect.</p><p>The gold dotted line = the <span class="kw">true counterfactual</span> (continuing convergence). The dashed line = what DiD <span class="alert">incorrectly assumes</span>. The difference between the two is the bias.</p>
+<img src="ch10b_figures/ch10b_parallel_violated.png" style="width:82.0%" class=" quarto-figure-center"><p class="caption">Groups were converging before treatment. DiD attributes the continued convergence to the treatment — overstating the true effect.</p><p>The gold dotted line = the <span class="kw">true counterfactual</span> (continuing convergence). The dashed line = what DiD <span class="alert">incorrectly assumes</span>. The difference between the two is the bias.</p>
 </section>
 <section id="what-would-violate-parallel-trends" class="slide level2 smaller scrollable">
 <h2>What Would Violate Parallel Trends?</h2>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>In the Incinerator Example</strong></p>
-</div>
-<div class="callout-content">
+<p><strong>In the incinerator example:</strong></p>
 <ul>
 <li>A new highway built near the incinerator site at the same time</li>
 <li>A neighborhood revitalization program targeting the area</li>
 <li>Differential migration (people leaving <em>because</em> the incinerator was announced)</li>
 </ul>
-</div>
-</div>
-</div>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>More Generally</strong></p>
-</div>
-<div class="callout-content">
-<p>Any factor that:</p>
+<p><strong>More generally,</strong> any factor that:</p>
 <ol type="1">
 <li><span class="kw">Changes over time</span> (not absorbed by entity or time FE)</li>
 <li>Affects treatment and control groups <span class="alert">differently</span></li>
 <li>Coincides with the timing of treatment</li>
 </ol>
 </div>
-</div>
-</div>
-</div>
 </section>
-<section id="assessing-parallel-trends" class="slide level2 smaller">
+<section id="assessing-parallel-trends" class="slide level2">
 <h2>Assessing Parallel Trends</h2>
 <p>We can never <span class="alert">prove</span> parallel trends — it’s about what <span class="kw">would have happened</span> without treatment.</p>
 <div class="fragment">
@@ -651,14 +620,15 @@ ECON3500: Econometrics and Applications
 <p><span class="math display">\[y_{it} = \alpha_i + \lambda_t + \sum_{k \neq -1} \delta_k \cdot D_{it}^k + u_{it}\]</span></p>
 <p>where <span class="math inline">\(D_{it}^k = 1\)</span> if unit <span class="math inline">\(i\)</span> is <span class="math inline">\(k\)</span> periods from treatment at time <span class="math inline">\(t\)</span>.</p>
 <div class="fragment">
+<p>Think of it as DiD estimated separately for each time period — revealing <em>when</em> effects emerge and whether they grow, fade, or were already present before treatment.</p>
+</div>
+<div class="fragment">
 <p><strong>What to look for:</strong></p>
 <ul>
-<li><span class="kw">Pre-treatment coefficients</span> (<span class="math inline">\(k &lt; 0\)</span>): Should be close to zero and statistically insignificant → supports parallel trends</li>
+<li><span class="kw">Pre-treatment coefficients</span> (<span class="math inline">\(k &lt; 0\)</span>): Should be close to zero → supports parallel trends</li>
 <li><span class="kw">Post-treatment coefficients</span> (<span class="math inline">\(k \geq 0\)</span>): Show the dynamic treatment effect over time</li>
 <li>The reference period (<span class="math inline">\(k = -1\)</span>) is normalized to zero</li>
 </ul>
-</div>
-<div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -692,12 +662,18 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="fragment">
 <table class="caption-top">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 27%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
 <thead>
 <tr class="header">
 <th></th>
 <th style="text-align: center;">Before</th>
 <th style="text-align: center;">After</th>
-<th style="text-align: center;"><span class="math inline">\(\Delta\)</span></th>
+<th style="text-align: center;">Δ</th>
 </tr>
 </thead>
 <tbody>
@@ -705,19 +681,19 @@ ECON3500: Econometrics and Applications
 <td><strong>NJ</strong> (treatment)</td>
 <td style="text-align: center;">20.44 FTE</td>
 <td style="text-align: center;">21.03 FTE</td>
-<td style="text-align: center;">+0.59</td>
+<td style="text-align: center;"><span class="kw">+0.59</span></td>
 </tr>
 <tr class="even">
 <td><strong>PA</strong> (control)</td>
 <td style="text-align: center;">23.33 FTE</td>
 <td style="text-align: center;">21.17 FTE</td>
-<td style="text-align: center;">$-$2.16</td>
+<td style="text-align: center;"><span style="color: #e74c3c;">−2.16</span></td>
 </tr>
 <tr class="odd">
-<td><strong>NJ <span class="math inline">\(-\)</span> PA</strong></td>
+<td><strong>NJ − PA</strong></td>
 <td style="text-align: center;"></td>
 <td style="text-align: center;"></td>
-<td style="text-align: center;"><span class="alert">+2.76</span></td>
+<td style="text-align: center;"><span class="alert"><strong>+2.76</strong></span></td>
 </tr>
 </tbody>
 </table>
@@ -728,43 +704,25 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="why-is-card-krueger-compelling" class="slide level2 smaller scrollable">
 <h2>Why Is Card &amp; Krueger Compelling?</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Good DiD Design Features</strong></p>
-</div>
-<div class="callout-content">
+<p>What makes this a good DiD design?</p>
+<div class="fragment">
 <ol type="1">
 <li><strong>Sharp treatment</strong>: NJ raised the minimum wage on a specific date; PA didn’t</li>
 <li><strong>Geographic neighbors</strong>: NJ and PA share economic conditions → plausible parallel trends</li>
 <li><strong>Same industry</strong>: Fast food in both states faces similar demand shocks</li>
-<li><strong>No obvious differential shocks</strong>: No major PA-specific event in 1992 that would have changed fast-food employment independent of the wage increase</li>
+<li><strong>No obvious differential shocks</strong>: No major PA-specific event in 1992 that would have changed fast-food employment</li>
 </ol>
 </div>
-</div>
+<div class="fragment">
+<p>What might you be concerned about?</p>
 </div>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Potential Concerns</strong></p>
-</div>
-<div class="callout-content">
 <ul>
 <li>Were NJ restaurants <span class="alert">anticipating</span> the wage increase? (announcement effects violate sharp timing)</li>
 <li>Did PA have its own employment shocks unrelated to the minimum wage?</li>
 <li>Are the two states similar <em>enough</em> for parallel trends?</li>
 <li><span class="kw">Measurement error</span>: Employment data came from phone surveys of managers</li>
 </ul>
-</div>
-</div>
-</div>
 </div>
 </section></section>
 <section>
@@ -876,7 +834,7 @@ ECON3500: Econometrics and Applications
 <li><label><input type="checkbox">Is <span class="alert">parallel trends</span> plausible? What evidence supports it?</label></li>
 <li><label><input type="checkbox">Are there <span class="kw">pre-trend tests</span> or an <span class="kw">event study plot</span>?</label></li>
 <li><label><input type="checkbox">Could any <span class="alert">time-varying confounder</span> have changed differentially at the same time?</label></li>
-<li><label><input type="checkbox">Are standard errors <span class="kw">clustered</span> appropriately?</label></li>
+<li><label><input type="checkbox">Are standard errors <span class="kw">clustered</span> appropriately? <em>(we’ll discuss why on Tuesday)</em></label></li>
 </ul>
 </div>
 </section>

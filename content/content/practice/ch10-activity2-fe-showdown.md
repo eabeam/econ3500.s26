@@ -4,7 +4,7 @@ Spring 2026
 # In-Class Activity: Fixed Effects Showdown
 
 **Chapter 10 — Panel Data and Fixed Effects**\
-Time: ~15-20 minutes
+Time: ~20-25 minutes
 
 ---
 
@@ -57,6 +57,10 @@ Significance: \*\*\* p<0.01, \*\* p<0.05, \* p<0.1
 
 \vspace{1.5cm}
 
+**1b.** What is one specific example of a *time shock* in this context — something that would affect all states' fatality rates in a given year equally? How does adding year fixed effects in specification (3) address it?
+
+\vspace{2.5cm}
+
 **2.** Look at the coefficient on **Income**. It flips sign between specification (1) and specification (2). Explain why this happens. What does this tell us about the pooled OLS estimate?
 
 \vspace{3cm}
@@ -65,11 +69,21 @@ Significance: \*\*\* p<0.01, \*\* p<0.05, \* p<0.1
 
 \vspace{3cm}
 
-**4.** Why does specification (2) use clustered standard errors (clustered by state) rather than the heteroskedasticity-robust standard errors used in specification (1)? Give two reasons why clustering is appropriate for panel data.
+**4.** Why does specification (2) use clustered standard errors (clustered by state) rather than the heteroskedasticity-robust standard errors used in specification (1)?
+
+(a) Which panel data least squares assumption is being addressed by clustering?
+
+\vspace{1.5cm}
+
+(b) What goes wrong with standard (unclustered) SEs when that assumption is violated?
+
+\vspace{1.5cm}
+
+**5.** Even with two-way fixed effects (specification 3), what threats to a causal interpretation remain? Identify at least two specific concerns.
 
 \vspace{3cm}
 
-**5.** Even with two-way fixed effects (specification 3), what threats to a causal interpretation remain? Identify at least two specific concerns.
+**6. (Optional/Discussion)** Suppose states adopted beer tax increases at different times — some in 2002, some in 2005, some in 2008. A researcher uses the two-way FE approach from specification (3) with a single indicator $treated_{it} = 1$ after the state's tax increase. Why might this estimate be misleading, even if two-way FE was appropriate in specification (3)?
 
 \vspace{3cm}
 
@@ -85,54 +99,57 @@ Significance: \*\*\* p<0.01, \*\* p<0.05, \* p<0.1
 
 - **(1) Pooled OLS:** Controls for nothing beyond the included regressors (beer tax, income). Does not account for any unobserved differences across states or over time. Treats all 480 observations as independent cross-sectional data.
 
-- **(2) Entity FE:** Controls for all time-invariant state characteristics (drinking culture, geography, road infrastructure, population density, state-level attitudes toward drunk driving, etc.). Does NOT control for factors that change over time and affect all states (national trends in vehicle safety, federal highway policy, changes in social norms around drunk driving).
+- **(2) Entity FE:** Controls for all time-invariant state characteristics (drinking culture, geography, road infrastructure, population density, state-level attitudes toward drunk driving). Does NOT control for factors that change over time and affect all states (national trends in vehicle safety, federal highway policy, changes in social norms around drunk driving).
 
 - **(3) Entity + Time FE:** Controls for both time-invariant state characteristics AND common time trends that affect all states equally (national economic cycles, improvements in vehicle safety technology, federal policies, nationwide public health campaigns). Does NOT control for time-varying, state-specific factors (state-level policy changes other than beer tax, state-specific economic shocks).
 
-- **(4) First Difference:** Like entity FE, removes time-invariant state characteristics by looking at year-over-year changes within each state. Conceptually similar to entity FE for T=2; for longer panels, FD and FE can differ. Does NOT control for common time trends (no year effects in this specification). Note N = 432 because first-differencing loses one year of data per state (48 states x 1 lost obs = 48 fewer observations: 480 - 48 = 432).
+- **(4) First Difference:** Like entity FE, removes time-invariant state characteristics by looking at year-over-year changes within each state. Does NOT control for common time trends. Note N = 432 because first-differencing loses one year per state (480 − 48 = 432).
+
+**1b.** Example: the 2008 financial crisis reduced driving, which could lower fatality rates in every state. Or: improvements in airbag/safety technology affecting all cars nationally in a given year. Year fixed effects address this by giving each year its own intercept — the common level in year $t$ is partialled out for all states, leaving only within-year, across-state variation in fatalities and beer taxes. Without year FEs, a national decline in fatalities would be partially attributed to beer taxes if beer taxes happened to be higher in that period.
 
 **2.** The sign flip on Income:
 
-In pooled OLS, Income has a *positive* coefficient (+0.062): richer states appear to have higher fatality rates. But this is driven by omitted variable bias — states with higher income may also be larger, more rural, have more driving, etc. These time-invariant state characteristics are confounded with income in the pooled regression.
+In pooled OLS, Income has a *positive* coefficient (+0.062): richer states appear to have higher fatality rates. This is driven by omitted variable bias — states with higher income may also be larger, more rural, have more driving, etc. These time-invariant state characteristics are confounded with income in pooled regression.
 
-Once we add entity FE, we are looking at changes in income *within* a state over time. Within a given state, when income rises, fatality rates actually fall slightly (-0.063). This makes more sense: higher income within a state may lead to better vehicles, more safety investment, or less risky behavior.
+Once we add entity FE, we are looking at changes in income *within* a state over time. Within a given state, when income rises, fatality rates fall slightly (−0.063). Higher within-state income may lead to better vehicles, more safety investment, or less risky behavior.
 
-The sign flip is strong evidence that pooled OLS suffers from omitted variable bias due to unobserved state characteristics.
+The sign flip is strong evidence that pooled OLS suffers from OVB due to unobserved state characteristics.
 
 **3.** The shrinking Beer Tax coefficient:
 
-The decline from -0.655 to -0.072 does not automatically mean beer taxes have no effect. It means:
+The decline from −0.655 to −0.072 does not mean beer taxes have no effect. It means:
 
-- Much of the pooled OLS association was driven by cross-state differences correlated with both beer taxes and fatality rates (OVB from time-invariant state characteristics)
-- After controlling for state and year FE, the remaining within-state, within-year variation in beer taxes may be too small to precisely estimate the effect (note the standard errors relative to the point estimates)
-- The first-difference estimate (-0.072) is small and imprecisely estimated, suggesting that year-to-year changes in beer taxes within a state are not strongly associated with year-to-year changes in fatality rates
-- Possible interpretations: (a) the true causal effect is small, (b) there is not enough within-state variation in beer taxes to detect the effect, or (c) beer taxes change slowly and their effects may take more than one year to materialize
+- Much of the pooled OLS association was driven by cross-state differences correlated with both beer taxes and fatality rates (time-invariant OVB)
+- After controlling for state and year FE, the remaining within-state, within-year variation in beer taxes may be too small to precisely estimate the effect
+- The FD estimate is small and imprecisely estimated, suggesting year-to-year changes in beer taxes are not strongly associated with year-to-year changes in fatality rates
+- Possible interpretations: (a) the true causal effect is small, (b) not enough within-state variation in beer taxes to detect it, or (c) effects may materialize with a lag
 
-Students should recognize: the shrinking coefficient is actually the *point* of fixed effects — we are stripping away confounding variation to isolate the causal effect, which may be smaller than the biased OLS estimate.
+**Key teaching point:** The shrinking coefficient is the *point* of fixed effects — we strip away confounding variation to isolate the causal estimate, which may be smaller than the biased OLS estimate.
 
 **4.** Why clustered standard errors:
 
-1. **Serial correlation (autocorrelation):** Within a state, fatality rates in year $t$ are likely correlated with fatality rates in year $t-1$. Observations within a state are not independent over time. Standard robust SEs assume independence across observations, which is violated.
+(a) **Assumption 2** requires observations to be i.i.d. draws *across entities*. The assumption only requires independence across entities, not within. However, standard OLS/robust SEs assume errors are independent across *all* observations. Within a state, fatality rates in year $t$ are correlated with year $t-1$ (serial correlation). Clustering at the state level allows arbitrary within-state, within-cluster correlation — correcting for this autocorrelation in the error term.
 
-2. **Within-cluster correlation of regressors:** Beer taxes are set at the state level and change infrequently. This means the treatment variable is highly correlated within clusters (states), creating a Moulton problem. Standard errors that ignore clustering will be artificially small, leading to over-rejection of the null.
-
-Additional points to discuss: The clustering should be at the level of treatment variation (state). With N=48 clusters, we are in a reasonable range for cluster-robust inference, though small-cluster corrections (e.g., wild bootstrap) might be warranted.
+(b) With positive serial correlation (typical in panel data), unclustered SEs are usually **too small**. This means confidence intervals are too narrow and $t$-statistics are too large → we over-reject the null (false positives). The point estimates are still consistent — only inference is wrong. Note: in some designs with negative within-cluster correlation, clustered SEs can be larger than unclustered, but this is less common.
 
 **5.** Remaining threats even with two-way FE:
 
-1. **Time-varying, state-specific confounders:** Other state policies that change at the same time as beer taxes (e.g., DUI enforcement, speed limits, seatbelt laws, Medicaid expansion affecting trauma care). Two-way FE only handles fixed state traits and common time shocks, not policies that vary across both states and time.
+1. **Time-varying, state-specific confounders:** Other state policies changing at the same time as beer taxes (DUI enforcement, speed limits, seatbelt laws). Two-way FE only handles fixed state traits and common time shocks — not policies varying across both states and time.
 
 2. **Reverse causality:** States with rising fatality rates might respond by raising beer taxes. The policy change may be endogenous to the outcome.
 
-3. **Measurement error:** Beer taxes may be a poor proxy for the actual price of alcohol (substitution to untaxed beverages, cross-border purchases, imprecise inflation adjustment).
+3. **Measurement error:** Beer taxes are a poor proxy for the actual price of alcohol (substitution to untaxed beverages, cross-border purchases).
 
-4. **Spillovers / SUTVA violations:** A tax increase in one state may push drinking/driving to neighboring states (cross-border effects).
+4. **Spillovers:** A tax increase in one state may push drinking across state lines (SUTVA violation).
 
-5. **Lagged effects:** Tax changes may not affect behavior immediately, but FE compares contemporaneous tax and fatality changes.
+5. **Lagged effects:** Tax changes may not affect behavior immediately; contemporaneous comparison may miss the effect.
+
+**6.** With staggered adoption, TWFE implicitly uses *already-treated* states as "controls" for later-adopting states. If treatment effects change over time (dynamic effects), the already-treated state's continuing effect looks like a "trend" — contaminating the comparison. TWFE is a weighted average of all possible 2×2 DiD comparisons, and when treatment effects are heterogeneous, some comparisons receive *negative* weights, potentially flipping the sign of the aggregate estimate even when all individual true effects are positive. Modern estimators (Callaway-Sant'Anna, Sun-Abraham) avoid this by only using not-yet-treated or never-treated units as controls.
 
 ### Teaching Notes
 
-- This scenario is adapted from the Stock & Watson textbook's running example of U.S. traffic fatalities (originally from Ruhm, 1996). Numbers are constructed for pedagogical clarity but reflect the realistic patterns.
-- The R-squared jump from 0.091 (pooled) to 0.905 (entity FE) is a great discussion point — most of the variation in fatality rates is across states, not within states over time.
-- The comparison of FE and FD estimates is worth highlighting: with T=10, FE is generally more efficient than FD (FE uses all within-state variation, FD only uses year-to-year changes), so the FD estimate is less precise.
-- The income sign-flip is one of the most memorable examples of OVB in panel data — emphasize that this is *exactly* what FE is designed to fix.
+- This scenario is adapted from the Stock & Watson textbook's running example of U.S. traffic fatalities (originally from Ruhm, 1996). Numbers are constructed for pedagogical clarity.
+- The R² jump from 0.091 (pooled) to 0.905 (entity FE) is a great discussion point — most variation in fatality rates is *between* states, not *within* states over time.
+- The income sign-flip is one of the most memorable examples of OVB in panel data — exactly what FE is designed to fix.
+- For Q4, connect explicitly to the "Problem of Serial Correlation" slide: stress that coefficients are still consistent, but inference (SEs, CIs, p-values) is wrong without clustering.
+- Q6 is optional — use if students are comfortable with basic DiD. It connects to the staggered adoption section of Tuesday's slides.

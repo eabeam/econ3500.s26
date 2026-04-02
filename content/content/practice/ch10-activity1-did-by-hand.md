@@ -4,7 +4,7 @@ Spring 2026
 # In-Class Activity: DiD by Hand
 
 **Chapter 10 — Difference-in-Differences**\
-Time: ~15-20 minutes
+Time: ~20 minutes
 
 ---
 
@@ -47,6 +47,10 @@ In January 2020, New Jersey increased its state minimum wage from $10.00 to $12.
 
 \vspace{2.5cm}
 
+**6b.** A researcher suggests adding restaurant-level characteristics — franchise type, seating capacity, and years in operation — as control variables to the DiD regression. Explain *two* reasons why this might be useful: one about **precision** and one about the **validity of the parallel trends assumption**.
+
+\vspace{2.5cm}
+
 **7. (Bonus)** Write the regression equation that would produce the DiD estimate from Question 3. Define your variables clearly and identify which coefficient gives the DiD estimate.
 
 \vspace{3cm}
@@ -63,7 +67,7 @@ In January 2020, New Jersey increased its state minimum wage from $10.00 to $12.
 
 $$\Delta_{NJ} = 21.0 - 20.4 = +0.6 \text{ FTE workers}$$
 
-**2.** The before-after comparison confounds the effect of the minimum wage increase with any other changes happening over the same time period that affect fast-food employment in NJ (macroeconomic trends, seasonal effects, changes in consumer demand, etc.). If employment was going to decline anyway due to broader trends, the +0.6 overstates the true effect; if employment was trending up for other reasons, it could understate or overstate it. This is a classic omitted variable / confounding problem — time-varying factors are not controlled for.
+**2.** The before-after comparison confounds the effect of the minimum wage increase with any other changes happening over the same time period. PA employment fell by 2.1 FTE — if NJ would have followed the same trend absent the policy, the simple comparison overstates the true effect. March 2020 also coincides with the onset of COVID-19, making this a particularly sharp example of why common time trends must be accounted for.
 
 **3.** DiD estimate (either approach):
 
@@ -79,7 +83,7 @@ Both give DiD = **+2.7 FTE workers per restaurant**.
 
 **4.** "The minimum wage increase in New Jersey is estimated to have increased average fast-food restaurant employment by 2.7 full-time equivalent workers per restaurant, relative to what would have occurred absent the policy change."
 
-**5.** The parallel trends assumption requires that, *in the absence of the minimum wage increase*, average fast-food employment in New Jersey would have changed by the same amount as in Pennsylvania between November 2019 and March 2020. In other words, any time trends affecting fast-food employment would have been the same in both states had New Jersey not raised its minimum wage.
+**5.** The parallel trends assumption requires that, *in the absence of the minimum wage increase*, average fast-food employment in New Jersey would have changed by the same amount as in Pennsylvania between November 2019 and March 2020. Any time trends affecting fast-food employment would have been the same in both states had NJ not raised its minimum wage.
 
 **6.**
 
@@ -87,14 +91,19 @@ Both give DiD = **+2.7 FTE workers per restaurant**.
 
 - NJ and PA are neighboring states with similar economies, labor markets, and demographics
 - Fast-food chains operate similarly across state lines (same companies, similar consumer bases)
-- Pre-treatment trends in fast-food employment might be similar (could verify with additional pre-period data)
+- Pre-treatment trends in fast-food employment might be similar
 
 *Reasons it might fail:*
 
-- March 2020 is the start of the COVID-19 pandemic — differential pandemic impacts across states could violate parallel trends
-- NJ and PA may have different industry compositions or population growth rates
+- March 2020 is the start of the COVID-19 pandemic — differential pandemic impacts across states could violate parallel trends (this is the key one to discuss!)
+- Anticipation effects: NJ employers might have adjusted employment before formal implementation
 - Other state-level policies may have changed at the same time
-- Anticipation effects: NJ employers might have adjusted employment before the formal implementation
+
+**6b.**
+
+*Precision:* Adding restaurant-level controls (franchise type, seating capacity, years in operation) reduces residual variance → tighter standard errors on the DiD estimate, even if parallel trends holds unconditionally.
+
+*Credibility:* Parallel trends may only hold *conditional* on these covariates. If, for example, newer franchises were disproportionately opening in NJ during this period (anticipating higher wages), or if NJ and PA had systematically different franchise compositions, then observable restaurant characteristics could predict differential outcome trends. Controlling for them makes parallel trends more plausible. Omitting relevant covariates when they predict differential trends is OVB — the parallel trends assumption may only hold after conditioning.
 
 **7.** Regression equation:
 
@@ -115,7 +124,8 @@ Interpretation of all coefficients:
 
 ### Teaching Notes
 
-- This activity is inspired by Card and Krueger (1994), "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania," *AER*. The numbers here are illustrative and close to (but not identical to) the original study.
+- This activity is inspired by Card and Krueger (1994). Numbers here are illustrative and close to (but not identical to) the original study.
 - The COVID timing issue in Q6 is intentional — it creates a natural discussion point about threats to identification and how real-world events can compromise research designs.
-- For the bonus question, emphasize that the interaction term is the key — students often struggle to see how a 2x2 table maps to a regression with an interaction.
+- Q6b connects to the "Adding Control Variables" section of the slides: stress the distinction between controls for precision vs. controls for identification (conditional parallel trends). This is different from RCTs where controls are only about precision.
+- For Q7, emphasize that the interaction term is the key — students often struggle to see how a 2×2 table maps to a regression with an interaction.
 - Common student error: confusing "parallel trends" with "equal levels." Stress that the assumption is about *changes* (trends), not *levels*.
