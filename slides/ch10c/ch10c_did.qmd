@@ -1,0 +1,460 @@
+---
+title: "Difference-in-Differences"
+subtitle: "SW Chapter 10 (Part 2)"
+author: "ECON3500: Econometrics and Applications"
+date: "April 4, 2026"
+format:
+  revealjs:
+    footer: "ECON3500 | Chapter 10: Difference-in-Differences"
+---
+
+## Quick Review: What We Covered Tuesday
+
+Last class (with Rae), we covered:
+
+- **Types of data:** cross-sectional, time-series, panel, repeated cross-sections
+- **First differencing:** $\Delta x_t = x_t - x_{t-1}$ — subtracting periods eliminates time-invariant $\alpha_i$
+- **Fixed effects:** give each entity its own intercept ($\alpha_i$)
+  - Equivalent to demeaning: estimating deviations from each unit's mean
+  - **Within** estimator (FE) vs. **between** estimator (pooled OLS)
+
+Today: a specific research design built on these tools — **difference-in-differences**.
+
+# The Problem with Simple Comparisons
+
+## Motivating Example: Garbage Incinerator {.smaller}
+
+**Question:** What is the effect of a garbage incinerator on nearby housing prices?
+
+. . .
+
+**After** the incinerator was built:
+
+![](../ch10/ch10_figures/ch10_rprice_after.png){width=50% fig-align="center"}
+
+$$\widehat{rprice} = 101{,}308 - 30{,}688 \cdot nearinc$$
+
+Houses near the incinerator sell for ~\$30k less. Did the incinerator cause this?
+
+## Not So Fast... {.smaller}
+
+Look at the relationship **before** the incinerator was built:
+
+![](../ch10/ch10_figures/ch10_rprice_before.png){width=50% fig-align="center"}
+
+$$\widehat{rprice} = 82{,}517 - 18{,}824 \cdot nearinc$$
+
+. . .
+
+The incinerator was built in a place where housing prices were [already depressed]{.alert}!
+
+The \$30k gap reflects both the incinerator effect [and]{.alert} pre-existing differences.
+
+## Two Flawed Comparisons {.smaller}
+
+::: {.callout-warning}
+## Cross-Sectional Comparison (After Only)
+Compare near vs. far houses **after** the incinerator: $-\$30{,}688$
+
+**Problem:** Near-incinerator houses were [already cheaper]{.alert}. Location characteristics are [confounders]{.kw} — they affect both proximity to the incinerator *and* housing prices.
+:::
+
+. . .
+
+::: {.callout-warning}
+## Before/After Comparison (Treatment Group Only)
+Compare near-incinerator houses before vs. after: $+\$18{,}790$
+
+**Problem:** Housing prices were [rising everywhere]{.alert}. We're mixing the treatment effect with a common time trend.
+:::
+
+. . .
+
+We need a method that handles [both]{.kw} problems simultaneously.
+
+# Difference-in-Differences
+
+## The Core Logic {.smaller}
+
+![](../ch10/ch10_figures/ch10_rprice_beforeafter.png){width=50% fig-align="center"}
+
+. . .
+
+**Subtract out the pre-existing difference:**
+
+$$\hat{\delta}_1 = \underbrace{(-30{,}688)}_{\text{after gap}} - \underbrace{(-18{,}824)}_{\text{before gap}} = -11{,}864$$
+
+. . .
+
+The incinerator reduced nearby prices by ~\$12k — not \$30k.
+
+## The 2×2 Table {.smaller}
+
+The name says it all — it's the [difference]{.kw} of two [differences]{.kw}:
+
+| | Before | After | $\Delta$ (After $-$ Before) |
+|---|:---:|:---:|:---:|
+| **Control** (far from incinerator) | \$82,517 | \$101,308 | [+\$18,790]{style="color: #008080;"} |
+| **Treatment** (near incinerator) | \$63,693 | \$70,619 | [+\$6,927]{style="color: #008080;"} |
+| $\Delta$ (Treatment $-$ Control) | $-$\$18,824 | $-$\$30,688 | [$-$\$11,864]{.alert} |
+
+. . .
+
+$$\underbrace{(70{,}619 - 63{,}693)}_{\Delta \text{ treatment}} - \underbrace{(101{,}308 - 82{,}517)}_{\Delta \text{ control}} = 6{,}927 - 18{,}790 = [-11{,}864]{.alert}$$
+
+## DiD Graphically {.smaller}
+
+![The dashed line shows where near-incinerator prices *would have been* if they followed the same trend as far-away prices.](../ch10/ch10_figures/ch10_rprice_graph.png){width=55% fig-align="center"}
+
+. . .
+
+The [DiD estimate]{.kw} is the vertical gap between:
+
+- What [actually happened]{.kw} to the treatment group
+- The [counterfactual]{.alert}: what would have happened without treatment
+
+## DiD Animated {.smaller}
+
+::: {.columns}
+::: {.column width="55%"}
+![Animation by Nick Huntington-Klein ([The Effect](https://theeffectbook.net))](https://nickchk.com/anim/Animation%20of%20DID.gif){fig-align="center"}
+:::
+
+::: {.column width="45%"}
+Watch the steps:
+
+1. Raw data: two groups over time
+2. Collapse to group means
+3. Measure the control group's time trend
+4. [Subtract]{.alert} that trend from the treatment group
+5. What remains = the [DiD estimate]{.kw}
+
+The key: use the control group's trajectory to build the [counterfactual]{.kw} for the treatment group.
+:::
+:::
+
+## The Counterfactual
+
+::: {.callout-important}
+## What DiD Really Estimates
+DiD doesn't compare treatment and control groups directly. It asks:
+
+*How much did the treatment group change [relative to what would have happened without treatment]{.alert}?*
+
+The control group's trajectory provides the counterfactual — but only if parallel trends holds.
+:::
+
+. . .
+
+This is why DiD is so useful for [policy evaluation]{.kw}:
+
+- Treatment and control groups can have [very different levels]{.kw}
+- They just need to be on [similar trajectories]{.alert} before the policy hits
+- The identifying assumption is about [trends]{.kw}, not [levels]{.kw}
+
+# The Regression Framework
+
+## DiD as a Regression {.smaller}
+
+We can capture the entire DiD logic in one regression:
+
+$$rprice_i = \beta_0 + \delta_0 \cdot after_i + \beta_1 \cdot nearinc_i + \delta_1 \cdot (after_i \times nearinc_i) + u_i$$
+
+. . .
+
+| | Before ($after = 0$) | After ($after = 1$) | After $-$ Before |
+|---|:---:|:---:|:---:|
+| **Control** (far) | $\beta_0$ | $\beta_0 + \delta_0$ | $\delta_0$ |
+| **Treatment** (near) | $\beta_0 + \beta_1$ | $\beta_0 + \delta_0 + \beta_1 + \delta_1$ | $\delta_0 + \delta_1$ |
+| **Treat $-$ Control** | $\beta_1$ | $\beta_1 + \delta_1$ | [$\delta_1$]{.alert} |
+
+. . .
+
+$\delta_1$ — the coefficient on the [interaction term]{.kw} — is the DiD estimate.
+
+## Interpreting Each Piece {.smaller}
+
+$$y_i = \underbrace{\beta_0}_{\text{baseline}} + \underbrace{\delta_0 \cdot after_i}_{\text{time trend}} + \underbrace{\beta_1 \cdot treated_i}_{\text{group difference}} + \underbrace{\delta_1 \cdot (after_i \times treated_i)}_{\text{treatment effect}} + u_i$$
+
+. . .
+
+| Coefficient | Meaning |
+|---|---|
+| $\beta_0$ | Average outcome for control group, before |
+| $\delta_0$ | How the control group changed over time (common time trend) |
+| $\beta_1$ | Pre-existing difference between groups |
+| [$\delta_1$]{.alert} | **The DiD estimate** — causal *if* parallel trends holds |
+
+. . .
+
+::: {.callout-tip}
+## Knowledge Check
+In the regression $rprice_i = 82{,}517 + 18{,}790 \cdot after_i - 18{,}824 \cdot nearinc_i - 11{,}864 \cdot (after_i \times nearinc_i) + u_i$, what does $18{,}790$ represent?
+
+. . .
+
+The increase in housing prices among far-away houses over time — the common time trend.
+:::
+
+## Adding Control Variables {.smaller}
+
+DiD works fine with additional covariates:
+
+$$y_{it} = \beta_0 + \delta_0 \cdot after_t + \beta_1 \cdot treated_i + \delta_1 \cdot (after_t \times treated_i) + \gamma' \mathbf{X}_{it} + u_{it}$$
+
+. . .
+
+**Why add controls?** Two distinct reasons:
+
+1. **Precision:** Controls [reduce residual variance]{.kw} → tighter standard errors, even if parallel trends already holds unconditionally.
+
+2. **Credibility:** Parallel trends may only hold [conditional on covariates]{.alert}. If treatment and control groups differ on observables that predict trends, controlling for those variables makes parallel trends more plausible.
+
+. . .
+
+::: {.callout-warning}
+## Controls Can Matter for Identification
+Unlike in an RCT (where controls are purely about precision), in DiD the parallel trends assumption may only hold *after conditioning* on observables. Omitting those variables is [OVB]{.alert}.
+
+**Example:** Controlling for house characteristics (square footage, lot size) when estimating the incinerator effect — if newer homes were built farther from the site during this period, controls aren't just precision, they're identification.
+:::
+
+# The Parallel Trends Assumption
+
+## The Key Assumption {.smaller}
+
+::: {.callout-important}
+## Parallel Trends Assumption *(common trends assumption in SW)*
+In the [absence of treatment]{.alert}, the difference between treatment and control groups would have remained [constant over time]{.kw}.
+
+Equivalently: both groups would have followed [parallel trajectories]{.kw}.
+:::
+
+. . .
+
+What this [allows]{.kw}:
+
+- Treatment and control groups can have [different levels]{.kw} of the outcome
+- There can be [time-invariant]{.kw} unobserved confounders — DiD differences them out
+
+. . .
+
+What this [requires]{.alert}:
+
+- No [time-varying confounders]{.alert} that differentially affect the two groups
+
+## Parallel Trends Holds {.smaller}
+
+![Groups follow the same trajectory before treatment. The treatment effect is the gap between the actual outcome and the counterfactual (dashed line).](../ch10b/ch10b_figures/ch10b_parallel_holds.png){width=65% fig-align="center"}
+
+The dashed line = the [counterfactual]{.kw}: where the treatment group would have been if it followed the control group's trend.
+
+## Parallel Trends Violated {.smaller}
+
+![Groups were converging before treatment. DiD attributes the continued convergence to the treatment — overstating the true effect.](../ch10b/ch10b_figures/ch10b_parallel_violated.png){width=65% fig-align="center"}
+
+The gold dotted line = the [true counterfactual]{.kw} (continuing convergence). The dashed line = what DiD [incorrectly assumes]{.alert}. The difference between the two is the bias.
+
+## What Would Violate Parallel Trends? {.smaller}
+
+::: {.callout-warning}
+## In the Incinerator Example
+- A new highway built near the incinerator site at the same time
+- A neighborhood revitalization program targeting the area
+- Differential migration (people leaving *because* the incinerator was announced)
+:::
+
+. . .
+
+::: {.callout-warning}
+## More Generally
+Any factor that:
+
+1. [Changes over time]{.kw} (not absorbed by entity or time FE)
+2. Affects treatment and control groups [differently]{.alert}
+3. Coincides with the timing of treatment
+:::
+
+## Assessing Parallel Trends {.smaller}
+
+We can never [prove]{.alert} parallel trends — it's about what [would have happened]{.kw} without treatment.
+
+. . .
+
+But we can look for [supporting evidence]{.kw}:
+
+. . .
+
+**1. Pre-treatment trend test:**
+Plot the outcome for both groups over time. Do they move in parallel *before* treatment?
+
+. . .
+
+**2. Placebo/falsification tests:**
+
+- Run DiD using a [fake treatment date]{.kw} (before the real one). A significant "effect" suggests something else is driving the result.
+- Run DiD on an outcome that [should not be affected]{.kw} by treatment.
+
+. . .
+
+**3. Event study plot:** Estimate treatment effects for each period relative to treatment. Pre-treatment coefficients should be [near zero and flat]{.alert}.
+
+## The Event Study Plot {.smaller}
+
+An [event study]{.kw} estimates separate effects for each period relative to treatment:
+
+$$y_{it} = \alpha_i + \lambda_t + \sum_{k \neq -1} \delta_k \cdot D_{it}^k + u_{it}$$
+
+where $D_{it}^k = 1$ if unit $i$ is $k$ periods from treatment at time $t$.
+
+. . .
+
+**What to look for:**
+
+- [Pre-treatment coefficients]{.kw} ($k < 0$): Should be close to zero and statistically insignificant → supports parallel trends
+- [Post-treatment coefficients]{.kw} ($k \geq 0$): Show the dynamic treatment effect over time
+- The reference period ($k = -1$) is normalized to zero
+
+. . .
+
+::: {.callout-tip}
+## Why Event Studies Matter
+Event study plots have become nearly [mandatory]{.alert} in applied DiD papers. They are the most credible way to support the parallel trends assumption.
+:::
+
+# Real-World Example
+
+## Card & Krueger (1994): Does the Minimum Wage Kill Jobs? {.smaller}
+
+**Question:** Does raising the minimum wage reduce employment?
+
+. . .
+
+**Setting:**
+
+- New Jersey raised its minimum wage from \$4.25 to \$5.05 in April 1992
+- Pennsylvania did not change its minimum wage
+- Surveyed fast-food restaurants in both states, before and after
+
+. . .
+
+| | Before | After | $\Delta$ |
+|---|:---:|:---:|:---:|
+| **NJ** (treatment) | 20.44 FTE | 21.03 FTE | +0.59 |
+| **PA** (control) | 23.33 FTE | 21.17 FTE | $-$2.16 |
+| **NJ $-$ PA** | | | [+2.76]{.alert} |
+
+. . .
+
+**Result:** Employment [increased]{.kw} in NJ relative to PA — the opposite of the standard prediction. One of the most influential papers in labor economics.
+
+## Why Is Card & Krueger Compelling? {.smaller}
+
+::: {.callout-note}
+## Good DiD Design Features
+1. **Sharp treatment**: NJ raised the minimum wage on a specific date; PA didn't
+2. **Geographic neighbors**: NJ and PA share economic conditions → plausible parallel trends
+3. **Same industry**: Fast food in both states faces similar demand shocks
+4. **Pre-trends**: Employment was trending similarly before the increase
+:::
+
+. . .
+
+::: {.callout-warning}
+## Potential Concerns
+- Were NJ restaurants [anticipating]{.alert} the wage increase? (announcement effects violate sharp timing)
+- Did PA have its own employment shocks unrelated to the minimum wage?
+- Are the two states similar *enough* for parallel trends?
+- [Measurement error]{.kw}: Employment data came from phone surveys of managers
+:::
+
+# DiD in Stata
+
+## Estimating DiD {.smaller}
+
+**Option 1: Interaction regression**
+
+```stata
+* Generate interaction term
+gen after_treat = after * treated
+
+* Estimate DiD
+reg y after treated after_treat, robust
+```
+
+. . .
+
+**Option 2: Factor variable notation (preferred)**
+
+```stata
+* Stata creates the interaction automatically
+reg y i.after##i.treated, robust
+```
+
+. . .
+
+The coefficient on `1.after#1.treated` is the DiD estimate $\hat{\delta}_1$.
+
+## DiD with Panel Data in Stata {.smaller}
+
+With true panel data (same entities over time), combine DiD with fixed effects:
+
+```stata
+* Set panel structure
+xtset entity_id year
+
+* Entity + time FE with DiD
+xtreg y treated_post i.year, fe vce(cluster entity_id)
+```
+
+. . .
+
+Or equivalently, using `reghdfe`:
+
+```stata
+reghdfe y treated_post, absorb(entity_id year) vce(cluster entity_id)
+```
+
+. . .
+
+::: {.callout-warning}
+## Don't Forget to Cluster!
+With panel data, [always]{.alert} cluster standard errors at the entity level — we'll cover exactly why on Tuesday.
+:::
+
+# Wrapping Up
+
+## DiD and Internal Validity {.smaller}
+
+| Ch 9 Threat | How DiD Helps | What DiD [Cannot]{.alert} Fix |
+|---|---|---|
+| [OVB]{.kw} | Eliminates [time-invariant]{.kw} confounders by differencing | [Time-varying]{.alert} confounders that differentially affect groups |
+| [Wrong functional form]{.kw} | Flexible — can add covariates, nonlinearities | Misspecified treatment timing or group definitions |
+| [Measurement error]{.kw} | Not addressed | Attenuation bias still applies |
+| [Sample selection]{.kw} | Not addressed | Differential attrition (people move *because* of treatment) |
+| [Simultaneous causality]{.kw} | Treatment timing helps | If treatment is *responsive* to anticipated outcomes |
+
+## DiD Checklist {.smaller}
+
+Before you trust a DiD estimate, ask:
+
+. . .
+
+- [ ] Is there a clear [treatment group]{.kw} and [control group]{.kw}?
+- [ ] Is there a clear [before]{.kw} and [after]{.kw} period?
+- [ ] Is [parallel trends]{.alert} plausible? What evidence supports it?
+- [ ] Are there [pre-trend tests]{.kw} or an [event study plot]{.kw}?
+- [ ] Could any [time-varying confounder]{.alert} have changed differentially at the same time?
+- [ ] Are standard errors [clustered]{.kw} appropriately?
+
+## Key Takeaways
+
+1. DiD combines a [cross-sectional]{.kw} comparison with a [time]{.kw} comparison — the causal interpretation requires [parallel trends]{.alert}
+
+2. The [interaction term]{.kw} captures the DiD estimate ($\hat{\delta}_1$)
+
+3. [Parallel trends]{.alert} is [untestable]{.alert} — it's about a counterfactual — but pre-trends and event studies provide supporting evidence
+
+4. DiD addresses [time-invariant OVB]{.kw} by differencing it out — but [time-varying confounders]{.alert} that differentially affect groups still threaten validity
+
+5. Always [cluster standard errors]{.kw} at the entity level with panel data — more on this Tuesday

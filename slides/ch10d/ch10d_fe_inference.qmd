@@ -1,0 +1,383 @@
+---
+title: "Fixed Effects: Extensions and Inference"
+subtitle: "SW Chapter 10 (Part 3)"
+author: "ECON3500: Econometrics and Applications"
+date: "April 8, 2026"
+format:
+  revealjs:
+    footer: "ECON3500 | Chapter 10: FE Extensions"
+---
+
+## Quick Review: What We Covered Thursday
+
+Last class, we covered **difference-in-differences (DiD)**:
+
+- Combines a [treatment/control]{.kw} comparison with a [before/after]{.kw} comparison
+- The interaction term $\hat{\delta}_1$ in $y = \beta_0 + \delta_0 \cdot after + \beta_1 \cdot treated + \delta_1 \cdot (after \times treated) + u$ is the DiD estimate
+- Requires [parallel trends]{.alert}: in the absence of treatment, both groups would have followed the same trajectory
+- Pre-trend tests and event study plots provide supporting evidence
+
+Today: extending fixed effects — [time FEs]{.kw}, [clustered inference]{.kw}, and where modern DiD is heading.
+
+# From Entity FE to Time FE
+
+## Why Demeaning Works {.smaller}
+
+Recall from Rae: with [entity fixed effects]{.kw}, we give each unit its own intercept $\alpha_i$.
+
+. . .
+
+Mathematically, this is [demeaning]{.kw} — subtracting each entity's time-average from its observations:
+
+$$[y_{it} - \bar{y}_i] = \beta_1[x_{it} - \bar{x}_i] + [u_{it} - \bar{u}_i]$$
+
+. . .
+
+Because $\alpha_i - \bar{\alpha}_i = 0$, the fixed effect drops out completely.
+
+. . .
+
+::: {.callout-note}
+## The Within Estimator
+This is why FE is called the **within** estimator — we're using variation *within* each entity over time, not variation *between* entities.
+:::
+
+. . .
+
+**Now:** What if we also want to control for shocks that hit [all entities equally]{.kw} in the same period?
+
+## Time Fixed Effects {.smaller}
+
+Examples of entity-invariant time shocks:
+
+- A national recession hits all cities in 2008
+- A federal policy change affects all states simultaneously
+- Inflation affects all firms' costs in the same year
+
+. . .
+
+Add [time fixed effects]{.kw} $\lambda_t$: a dummy for each time period.
+
+$$y_{it} = \beta_1 x_{it} + \alpha_i + \lambda_t + u_{it}$$
+
+- $\alpha_i$: entity fixed effect — absorbs entity-specific, time-invariant factors
+- $\lambda_t$: time fixed effect — absorbs time-specific, entity-invariant factors
+
+. . .
+
+::: {.callout-tip}
+## Connection to DiD
+The $\delta_0 \cdot after_t$ term in the DiD regression *is* a (two-period) time fixed effect — it absorbs the common time trend affecting both groups.
+:::
+
+## Entity + Time Fixed Effects: What's Left? {.smaller}
+
+With [both]{.kw} entity and time fixed effects:
+
+$$y_{it} = \beta_1 x_{it} + \alpha_i + \lambda_t + u_{it}$$
+
+. . .
+
+**Controlled for:**
+
+- All time-invariant entity characteristics ($\alpha_i$)
+- All entity-invariant time shocks ($\lambda_t$)
+
+. . .
+
+**Not controlled for:**
+
+- Factors that vary [across both entities and time]{.alert}
+
+. . .
+
+::: {.callout-tip}
+## Knowledge Check
+You estimate the effect of a state-level minimum wage increase on employment, with state and year fixed effects. What omitted variable could still bias your results?
+
+. . .
+
+A factor that varies across states *and* over time — e.g., a state-specific economic boom that coincides with the minimum wage increase.
+:::
+
+# Implementing FE in Stata
+
+## Three Ways to Estimate FE {.smaller}
+
+::: {.callout-note}
+## Option 1: Manual Demeaning
+Demean your data by hand (subtract entity means), then estimate OLS on the demeaned data.
+:::
+
+. . .
+
+::: {.callout-note}
+## Option 2: Dummy Variables / `areg`
+Include entity dummies directly, or use `areg` to "absorb" one set of fixed effects:
+
+```stata
+areg scrap grant d88 d89, absorb(fcode) cluster(fcode)
+```
+:::
+
+. . .
+
+::: {.callout-note}
+## Option 3: `xtreg` (Recommended)
+Declare your panel structure, then estimate with the `fe` option:
+
+```stata
+xtset fcode year
+xtreg scrap grant d88 d89, fe vce(cluster fcode)
+```
+:::
+
+## What Entity FE Controls For
+
+::: {.callout-important}
+## Key Principle
+Entity fixed effects control for [all time-invariant factors]{.alert} — observed or unobserved.
+
+You don't need to include time-invariant covariates in an FE model — they are already absorbed.
+:::
+
+. . .
+
+**Practical notes:**
+
+- We don't usually interpret the fixed effect coefficients themselves
+- Which entity is the "omitted" group (avoiding the dummy variable trap) doesn't matter
+- Fixed effects are typically not reported in regression output
+
+. . .
+
+::: {.callout-warning}
+## The Price of Entity FE
+You [cannot]{.alert} estimate the effect of variables that don't change over time — gender, race, state geography, etc. The fixed effect absorbs them completely.
+:::
+
+# Inference: Serial Correlation and Clustering
+
+## Least Squares Assumptions for Panel Data {.smaller}
+
+$$Y_{it} = \beta_1 X_{it} + \alpha_i + u_{it}, \quad i = 1, \ldots, n; \; t = 1, \ldots, T$$
+
+. . .
+
+1. $E[u_{it} | X_{i1}, \ldots, X_{iT}, \alpha_i] = 0$
+    - $u_{it}$ cannot be correlated with [any present, past, or future]{.alert} values of $X$
+2. $(X_{i1}, \ldots, X_{iT}, u_{i1}, \ldots, u_{iT})$ are i.i.d. draws [across entities]{.kw}
+    - Only need independence across entities, not within
+3. $(X_{it}, u_{it})$ have finite fourth moments
+4. No perfect multicollinearity
+
+. . .
+
+If these hold, FE estimates are [consistent and asymptotically normal]{.kw} for large $n$.
+
+## The Problem of Serial Correlation {.smaller}
+
+$$Y_{it} = \alpha_i + \beta_1 X_{it} + \omega_{it}$$
+
+The time-varying error $\omega_{it}$ reflects factors that change over time but affect the outcome.
+
+. . .
+
+**Example:** If $Y_{it}$ is traffic fatalities, maybe $\omega_{it}$ includes road quality in state $i$.
+
+- Road quality last year $\approx$ road quality this year
+- $\omega_{i,t}$ and $\omega_{i,t-1}$ are [correlated]{.alert}
+
+. . .
+
+This is [autocorrelation]{.kw} (serial correlation) — observations on the same entity over time are not independent.
+
+## Why Autocorrelation Matters
+
+Previously, we assumed observations were independent.
+
+. . .
+
+- Implausible for data on the [same entity over time]{.alert}
+- Without correction, we estimate [incorrect standard errors]{.alert}
+- Confidence intervals will [not have 95% coverage]{.alert}
+
+. . .
+
+::: {.callout-important}
+## Autocorrelation Does Not Bias $\hat{\beta}$
+The coefficients are still consistent — but our [inference]{.alert} (standard errors, $p$-values, confidence intervals) is wrong. Typically: SEs are [too small]{.alert}, so we reject too often.
+:::
+
+## The Solution: Clustered Standard Errors {.smaller}
+
+[Clustered standard errors]{.kw} allow for arbitrary correlation within entities.
+
+. . .
+
+**Idea:** Allow $\omega_{it}$ and $\omega_{is}$ (same entity, different times) to be correlated freely, while maintaining independence [across]{.kw} entities.
+
+. . .
+
+**In Stata:**
+
+```stata
+* With regress:
+regress y x i.entity, cluster(entity)
+
+* With areg:
+areg y x, absorb(entity) cluster(entity)
+
+* With xtreg (recommended):
+xtreg y x, fe vce(cluster entity)
+```
+
+. . .
+
+::: {.callout-warning}
+## Always Cluster in Panel Data
+If you're using panel data, [almost always]{.alert} cluster standard errors at the entity level. Failing to do so overstates precision and leads to false rejections.
+:::
+
+# Staggered Adoption and Recent Developments
+
+## The Staggered Adoption Problem {.smaller}
+
+The classic DiD has two groups and two periods. In practice, policies are often adopted by [different units at different times]{.alert} — [staggered adoption]{.kw}.
+
+. . .
+
+**Example:** States adopt a job training program in different years.
+
+The natural approach: two-way fixed effects (TWFE).
+
+$$y_{it} = \beta_1 \cdot treated_{it} + \alpha_i + \lambda_t + u_{it}$$
+
+. . .
+
+Recent research (roughly 2018–2024) has shown that this "obvious" approach can produce [severely misleading estimates]{.alert} — including [wrong signs]{.alert}.
+
+## A Concrete Example {.smaller}
+
+A job training program with a [true effect that grows over time]{.alert}: +10 in year 1, +50 in year 2.
+
+| | 2018 | 2019 | 2020 |
+|---|:---:|:---:|:---:|
+| **No-treatment baseline** | 100 | 105 | 110 |
+| **State E** (treats in 2019) | 100 | [115]{style="color: #008080;"} | [160]{style="color: #008080;"} |
+| **State L** (treats in 2020) | 100 | 105 | [120]{style="color: #008080;"} |
+
+. . .
+
+TWFE takes a [weighted average]{.kw} of all 2×2 DiD comparisons — including contaminated ones.
+
+**Valid comparison** (E treated vs. L as control, 2018→2019):
+$$\underbrace{(115 - 100)}_{\Delta E} - \underbrace{(105 - 100)}_{\Delta L} = [+10]{.kw}$$
+
+**Contaminated comparison** (L treated vs. already-treated E as "control," 2019→2020):
+$$\underbrace{(120 - 105)}_{\Delta L} - \underbrace{(160 - 115)}_{\Delta E} = [-30]{.alert}$$
+
+$$\hat{\beta}_{TWFE} = \tfrac{1}{2}(+10) + \tfrac{1}{2}(-30) = [-10]{.alert}$$
+
+## The Sign Flipped! {.smaller}
+
+::: {.callout-important}
+## TWFE Gives the Wrong Sign
+All true effects are [positive]{.kw} (+10 or +50), but TWFE estimates [−10]{.alert}.
+
+**Why?** State E's outcome rose by 45 from 2019→2020 because its treatment effect *grew*. TWFE treats this as a normal trend, making State L's +15 gain look like a relative decline.
+:::
+
+. . .
+
+Goodman-Bacon (2021) showed TWFE is a [weighted average]{.kw} of all possible 2×2 DiD comparisons. When treatment effects [change over time]{.alert}, already-treated units used as "controls" introduce bias — and can receive [negative weights]{.alert}.
+
+## New Estimators {.smaller}
+
+Several estimators have been developed to handle staggered adoption correctly:
+
+. . .
+
+- **Callaway and Sant'Anna (2021):** Group-time-specific effects, then aggregate. Only uses not-yet-treated or never-treated units as controls.
+
+- **Sun and Abraham (2021):** Interaction-weighted estimator correcting for heterogeneous effects across adoption cohorts.
+
+- **de Chaisemartin and D'Haultfoeuille (2020):** Identifies which comparisons get negative weights and proposes robust alternatives.
+
+. . .
+
+All share one insight: [never use already-treated units as controls]{.alert}.
+
+. . .
+
+::: {.callout-note}
+## Beyond ECON3500
+You won't implement these in this course. But if you do applied research with staggered DiD — very common in policy evaluation — you should know about them. Stata packages: `csdid`, `did_multiplegt`, `eventstudyinteract`.
+:::
+
+# Putting It All Together
+
+## Comparison of Panel Data Methods {.smaller .scrollable}
+
+| Method | Data Required | What It Controls | Key Assumption | What Remains |
+|--------|:---:|---|---|---|
+| [DiD]{.kw} | 2 groups, 2 periods | Group-level differences; common time trends | [Parallel trends]{.alert} | Group-specific time-varying shocks |
+| [First Difference]{.kw} | Panel, 2 periods | All time-invariant entity factors | No time-varying OVB | Time-varying omitted variables |
+| [Entity FE]{.kw} | Panel, 2+ periods | All time-invariant entity factors | No time-varying OVB | Time-varying omitted variables |
+| [Entity + Time FE]{.kw} | Panel, 2+ periods | Time-invariant entity factors + entity-invariant time shocks | No entity-and-time-varying OVB | Entity-time-specific shocks |
+
+## When to Use What {.smaller}
+
+**Difference-in-Differences:**
+
+- Repeated cross-sections or panel data
+- Clear treatment/control groups and before/after periods
+- Requires parallel trends assumption
+
+. . .
+
+**First Differencing:**
+
+- Panel data with 2 periods
+- Equivalent to entity FE with 2 periods; simple and transparent
+
+. . .
+
+**Fixed Effects:**
+
+- Panel data with 2+ periods
+- Include entity FE, time FE, or both depending on threats
+- More efficient than first differencing when $T > 2$ and errors are not serially correlated
+
+## Common Pitfalls {.smaller}
+
+::: {.callout-warning}
+## 1. Forgetting to Cluster
+Panel data almost always requires clustered standard errors. Unclustered SEs will be [too small]{.alert} — false precision.
+:::
+
+. . .
+
+::: {.callout-warning}
+## 2. Trying to Estimate Time-Invariant Effects
+With entity FE, you [cannot]{.alert} estimate the effect of variables that don't vary over time. The fixed effect absorbs them.
+:::
+
+. . .
+
+::: {.callout-warning}
+## 3. Assuming FE Solves All OVB
+Fixed effects only eliminate [time-invariant]{.alert} omitted variables. Time-varying confounders can still bias your estimates.
+:::
+
+## Key Takeaways
+
+1. [Time fixed effects]{.kw} $\lambda_t$ absorb entity-invariant time shocks — the same demeaning logic applied across time
+
+2. With entity + time FEs, only [entity-and-time-varying]{.alert} confounders remain a threat
+
+3. Panel data creates [serial correlation]{.kw} — always use [clustered standard errors]{.kw} at the entity level
+
+4. FE [cannot estimate]{.alert} effects of time-invariant variables — the price of eliminating time-invariant OVB
+
+5. With [staggered adoption]{.kw}, standard TWFE can give misleading results — modern estimators (Callaway-Sant'Anna, Sun-Abraham) fix this by never using already-treated units as controls
