@@ -40,7 +40,9 @@ We've complained a lot about challenges to obtaining causal estimation. Now, let
 
 **Tuesday** covers panel data, first differencing, and fixed effects — the tools that let us eliminate time-invariant omitted variable bias.
 
-**Thursday** covers difference-in-differences (DiD) — a research design that uses these tools to estimate the causal effects of policies and events. DiD isn't actually in Chapter 10^[Check out SW13.4 if you want to be precise.], but it fits here nicely.
+**Thursday** covers difference-in-differences (DiD) — a research design that uses these tools to estimate the causal effects of policies and events. DiD isn't actually in Chapter 10[^1], but it fits here nicely.
+
+[^1]: Check out SW13.4 if you want to be precise.
 
 ## Reading Guide
 
