@@ -14,6 +14,3 @@ type: docs
 
 This is **optional**! If you would like feedback on your rough draft, submit it to me and I'll get back to you within a few days. 
 
-```{r echo=FALSE}
-blogdown::shortcode('tweet', '1298213534640160769')
-```
