@@ -135,6 +135,10 @@ if [ -n "$FILES_DIR" ]; then
   fi
 fi
 
+if [ -d "$SRC_DIR/assets" ]; then
+  rsync -a --delete "$SRC_DIR/assets/" "$DEST_ROOT/assets/"
+fi
+
 if [ -d "$SRC_DIR/figures_temp" ]; then
   rsync -a --delete "$SRC_DIR/figures_temp/" "$DEST_ROOT/figures_temp/"
 fi
