@@ -487,8 +487,6 @@ Current Stata packages (checked April 7, 2026): `csdid` (Callaway-Sant'Anna), `e
 
 ## A Modern DiD Estimate for Castle Doctrine {.smaller}
 
-:::: {.columns}
-::: {.column width="44%"}
 Using Callaway and Sant'Anna's estimator in Stata:
 
 ```stata
@@ -497,12 +495,10 @@ replace gvar = 0 if missing(gvar)
 csdid l_homicide, ivar(sid) time(year) gvar(gvar) notyet
 estat simple
 ```
-:::
 
-::: {.column width="56%"}
-![](assets/castle/castle_csdid_att.png){width=100%}
-:::
-::::
+. . .
+
+![](assets/castle/castle_csdid_att.png){width=92%}
 
 . . .
 

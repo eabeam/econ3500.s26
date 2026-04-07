@@ -950,16 +950,14 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="a-modern-did-estimate-for-castle-doctrine" class="slide level2 smaller">
 <h2>A Modern DiD Estimate for Castle Doctrine</h2>
-<div class="columns">
-<div class="column" style="width:44%;">
 <p>Using Callaway and Sant’Anna’s estimator in Stata:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> gvar = treatment_date</span>
 <span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> gvar = 0 <span class="kw">if</span> <span class="fu">missing</span>(gvar)</span>
 <span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a>csdid l_homicide, ivar(sid) time(<span class="fu">year</span>) gvar(gvar) notyet</span>
 <span id="cb4-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> simple</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:56%;">
-<p><img data-src="assets/castle/castle_csdid_att.png" style="width:100.0%"></p>
-</div></div>
+<div class="fragment">
+<p><img data-src="assets/castle/castle_csdid_att.png" style="width:92.0%"></p>
+</div>
 <div class="fragment">
 <p>Interpretation: using <span class="kw">not-yet-treated states as controls</span>, the estimated effect of castle doctrine laws is about a <span class="alert">9.7% increase</span> in homicide.</p>
 </div>

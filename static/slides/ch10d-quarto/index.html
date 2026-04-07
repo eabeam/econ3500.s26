@@ -307,6 +307,8 @@ ECON3500: Econometrics and Applications
 <th style="text-align: center;">2006</th>
 <th style="text-align: center;">2008</th>
 <th style="text-align: center;">Change</th>
+<th style="text-align: center;">2008 Avg</th>
+<th style="text-align: center;">2008 State - Avg</th>
 </tr>
 </thead>
 <tbody>
@@ -315,18 +317,24 @@ ECON3500: Econometrics and Applications
 <td style="text-align: center;">5.2%</td>
 <td style="text-align: center;">7.8%</td>
 <td style="text-align: center;">+2.6pp</td>
+<td style="text-align: center;">7.8%</td>
+<td style="text-align: center;">0.0pp</td>
 </tr>
 <tr class="even">
 <td>Ohio</td>
 <td style="text-align: center;">5.9%</td>
 <td style="text-align: center;">8.6%</td>
 <td style="text-align: center;">+2.7pp</td>
+<td style="text-align: center;">7.8%</td>
+<td style="text-align: center;">+0.8pp</td>
 </tr>
 <tr class="odd">
 <td>Texas</td>
 <td style="text-align: center;">4.4%</td>
 <td style="text-align: center;">7.0%</td>
 <td style="text-align: center;">+2.6pp</td>
+<td style="text-align: center;">7.8%</td>
+<td style="text-align: center;">-0.8pp</td>
 </tr>
 </tbody>
 </table>
@@ -410,6 +418,24 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 <div class="fragment">
+<div class="callout callout-warning callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Why This Is Usually Not Recommended</strong></p>
+</div>
+<div class="callout-content">
+<p>It is easy to make mistakes, hard to extend cleanly once you add time fixed effects or clustered standard errors, and harder for someone else to read and audit later. It is useful for understanding the estimator, but not the default workflow for real applied work.</p>
+<p>Manual demeaning reproduces the FE coefficient, but naive OLS on demeaned data may also mishandle degrees of freedom and therefore inference unless you adjust things correctly.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="two-standard-commands-for-fe" class="slide level2 smaller">
+<h2>Two Standard Commands for FE</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -421,7 +447,6 @@ ECON3500: Econometrics and Applications
 <div class="callout-content">
 <p>Include entity dummies directly, or use <code>areg</code> to “absorb” one set of fixed effects:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">areg</span> scrap grant d88 d89, absorb(fcode) <span class="kw">cluster</span>(fcode)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 </div>
 </div>
 </div>
@@ -469,8 +494,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Key Principle</strong></p>
 </div>
 <div class="callout-content">
-<p>Entity fixed effects control for <span class="alert">all time-invariant factors</span> — observed or unobserved.</p>
-<p>You don’t need to include time-invariant covariates in an FE model — they are already absorbed.</p>
+<p>In an <span class="alert">entity fixed effects</span> model, you do <strong>not</strong> need to include time-invariant covariates. They are already absorbed by the fixed effects.</p>
 </div>
 </div>
 </div>
@@ -524,21 +548,6 @@ ECON3500: Econometrics and Applications
 <p>If these hold, FE estimates are <span class="kw">consistent and asymptotically normal</span> for large <span class="math inline">\(n\)</span>.</p>
 </div>
 </section>
-<section id="the-problem-of-serial-correlation" class="slide level2 smaller">
-<h2>The Problem of Serial Correlation</h2>
-<p><span class="math display">\[Y_{it} = \alpha_i + \beta_1 X_{it} + \omega_{it}\]</span></p>
-<p>The time-varying error <span class="math inline">\(\omega_{it}\)</span> reflects factors that change over time but affect the outcome.</p>
-<div class="fragment">
-<p><strong>Example:</strong> If <span class="math inline">\(Y_{it}\)</span> is traffic fatalities, maybe <span class="math inline">\(\omega_{it}\)</span> includes road quality in state <span class="math inline">\(i\)</span>.</p>
-<ul>
-<li>Road quality last year <span class="math inline">\(\approx\)</span> road quality this year</li>
-<li><span class="math inline">\(\omega_{i,t}\)</span> and <span class="math inline">\(\omega_{i,t-1}\)</span> are <span class="alert">correlated</span></li>
-</ul>
-</div>
-<div class="fragment">
-<p>This is <span class="kw">autocorrelation</span> (serial correlation) — observations on the same entity over time are not independent.</p>
-</div>
-</section>
 <section id="why-autocorrelation-matters" class="slide level2">
 <h2>Why Autocorrelation Matters</h2>
 <p>Previously, we assumed observations were independent.</p>
@@ -560,7 +569,7 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>The coefficients are still consistent — but our <span class="alert">inference</span> (standard errors, <span class="math inline">\(p\)</span>-values, confidence intervals) is wrong. Typically: SEs are <span class="alert">too small</span>, so we reject too often.</p>
-<p>Autocorrelation does not violate Assumption 2, which only requires independence across entities, not within.</p>
+<p>Autocorrelation does not violate LS Assumption 2, which only requires independence across entities, not within.</p>
 </div>
 </div>
 </div>
@@ -599,9 +608,9 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </section>
-<section id="what-clustered-ses-allow-optional" class="slide level2 smaller">
-<h2>What Clustered SEs Allow (Optional)</h2>
-<p><strong>Block-diagonal error structure</strong> (2 entities × 3 periods):</p>
+<section id="what-clustered-ses-allow" class="slide level2 smaller">
+<h2>What Clustered SEs Allow</h2>
+<p><strong>Clustered on entity:</strong> block-diagonal error structure (2 entities × 3 periods):</p>
 <table class="caption-top">
 <thead>
 <tr class="header">
@@ -711,67 +720,64 @@ ECON3500: Econometrics and Applications
 </table>
 </div>
 <div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p><em>Example:</em> State-clustered standard errors assume that, in a given year, errors across states are independent, but errors over time within a state can be correlated freely.</p>
 </div>
-<p><strong>Notes on Clustering</strong></p>
-</div>
-<div class="callout-content">
+</section>
+<section id="notes-on-clustering" class="slide level2">
+<h2>Notes on Clustering</h2>
 <ul>
 <li><strong>Standard practice:</strong> Cluster across entities — the natural unit of independence in panel data.</li>
 <li><strong>Direction matters:</strong> You could cluster across time periods instead (if worried about common period-level shocks), but this is less common.</li>
-<li><strong>Two-way clustering:</strong> Some settings cluster on <em>both</em> entities and time simultaneously (<code>vce(twoway cluster entity time)</code> in Stata). Use when you suspect both within-entity serial correlation <em>and</em> cross-sectional dependence within a period.</li>
-<li><strong>Minimum clusters:</strong> Clustered SEs perform poorly with <span class="alert">fewer than ~30–50 clusters</span>. With fewer, consider wild bootstrap (<code>boottest</code> in Stata).</li>
+<li><strong>Two-way clustering:</strong> Some settings cluster on both entities and time. Use when you suspect both within-entity serial correlation and correlation across units within the same period. Not needed in this class.</li>
+<li><strong>Minimum clusters:</strong> Clustered SEs perform poorly with <span class="alert">fewer than ~30–50 clusters</span>. With fewer, consider a wild bootstrap.</li>
 </ul>
-<p>Clustered SEs do not change the point estimates — only the standard errors. They are more conservative (usually larger) than unclustered SEs when within-entity errors are positively correlated.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Clustered SEs do not change the point estimates, only the standard errors. They are often larger than unclustered SEs when within-entity errors are positively correlated.</p>
+<p>Wild bootstrap is a resampling method that repeatedly re-creates the test statistic in a way that respects the clustered error structure, which can improve inference when the number of clusters is small.</p>
 </section></section>
 <section>
 <section id="staggered-adoption-and-recent-developments" class="title-slide slide level1 center">
 <h1>Staggered Adoption and Recent Developments</h1>
 
 </section>
-<section id="motivating-example-minimum-wage-increases" class="slide level2 smaller">
-<h2>Motivating Example: Minimum Wage Increases</h2>
-<p><strong>Research question:</strong> Do minimum wage increases reduce employment in low-wage industries?</p>
+<section id="castle-doctrine-laws-cheng-and-hoekstra-2013" class="slide level2">
+<h2>Castle Doctrine Laws (Cheng and Hoekstra 2013)</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<p><img src="assets/castle/castle_title.png" style="width:100.0%"></p>
+</div><div class="column" style="width:58%;">
+<p><strong>Research question:</strong> Do castle doctrine laws deter violent crime, or do they increase homicide?</p>
+<ul>
+<li class="fragment">State-by-year panel for all 50 states, 2000–2010</li>
+<li class="fragment">“Stand your ground” / castle doctrine laws make it easier to use lethal force in self-defense</li>
+<li class="fragment">Treatment: whether a castle doctrine law is in effect in a state-year</li>
+<li class="fragment">Adoption is <span class="kw">staggered across states</span></li>
+</ul>
+</div></div>
+</section>
+<section id="natural-approach-two-way-fe" class="slide level2">
+<h2>Natural Approach: Two-Way FE</h2>
+<p><strong>Natural approach:</strong> Two-way FE regression: <span class="math display">\[\log(\text{homicide rate}_{it}) = \beta_1 \cdot post_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
+<ul>
+<li><span class="math inline">\(\log(\text{homicide rate}_{it})\)</span>: log homicide rate in state <span class="math inline">\(i\)</span> and year <span class="math inline">\(t\)</span></li>
+<li><span class="math inline">\(post_{it}\)</span>: equals 1 once a castle doctrine law is in effect</li>
+<li><span class="math inline">\(\alpha_i\)</span>: state fixed effects</li>
+<li><span class="math inline">\(\lambda_t\)</span>: year fixed effects</li>
+<li><span class="math inline">\(u_{it}\)</span>: unobserved shocks not captured by the model</li>
+</ul>
 <div class="fragment">
-<p>Different states raise their minimum wages in <span class="kw">different years</span>:</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>State</th>
-<th>Change</th>
-<th style="text-align: center;">Year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Washington</td>
-<td>$8.55 → $9.47</td>
-<td style="text-align: center;">2014</td>
-</tr>
-<tr class="even">
-<td>California</td>
-<td>$9.00 → $10.00</td>
-<td style="text-align: center;">2016</td>
-</tr>
-<tr class="odd">
-<td>New York</td>
-<td>$9.00 → $11.10</td>
-<td style="text-align: center;">2017</td>
-</tr>
-</tbody>
-</table>
+<p>If treatment effects are <span class="kw">homogeneous</span> across states and stable over time, TWFE gives the right answer. But what if the effect in Florida looks different from the effect in Texas, or grows over time after adoption?</p>
 </div>
-<div class="fragment">
-<p><strong>Natural approach:</strong> Two-way FE regression: <span class="math display">\[emp_{it} = \beta_1 \cdot minwage_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
-<p>When treatment effects are <span class="kw">homogeneous</span> across states and stable over time, TWFE gives the right answer. But what if Washington’s employment responds differently than California’s — or if effects grow over time?</p>
+</section>
+<section id="the-treatment-timing-is-staggered" class="slide level2 smaller">
+<h2>The Treatment Timing Is Staggered</h2>
+
+<img src="assets/castle/castle_table1_rotated.png" style="width:78.0%" class=""><div class="fragment">
+<ul>
+<li>Florida adopts in 2005</li>
+<li>Many states adopt in 2006</li>
+<li>Others adopt in 2007, 2008, and 2009</li>
+<li>This is exactly the staggered-adoption setting that creates trouble for standard TWFE</li>
+</ul>
 </div>
 <div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
@@ -793,8 +799,8 @@ ECON3500: Econometrics and Applications
 <h2>The Staggered Adoption Problem</h2>
 <p>The classic DiD has two groups and two periods. In practice, policies are often adopted by <span class="alert">different units at different times</span> — <span class="kw">staggered adoption</span>.</p>
 <div class="fragment">
-<p><strong>Example:</strong> States adopt a job training program in different years.</p>
-<p>The natural approach: two-way fixed effects (TWFE).</p>
+<p><strong>Toy analogy:</strong> States adopt a job training program in different years.</p>
+<p>The natural approach is still two-way fixed effects (TWFE).</p>
 <p><span class="math display">\[y_{it} = \beta_1 \cdot treated_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
 </div>
 <div class="fragment">
@@ -843,7 +849,11 @@ ECON3500: Econometrics and Applications
 <div class="fragment">
 <p>TWFE takes a <span class="kw">weighted average</span> of all 2×2 DiD comparisons — including contaminated ones.</p>
 <p><strong>Valid comparison</strong> (E treated vs.&nbsp;L as control, 2018→2019): <span class="math display">\[\underbrace{(115 - 100)}_{\Delta E} - \underbrace{(105 - 100)}_{\Delta L} = +10\]</span></p>
+</div>
+<div class="fragment">
 <p><strong>Contaminated comparison</strong> (L treated vs.&nbsp;already-treated E as “control,” 2019→2020): <span class="math display">\[\underbrace{(120 - 105)}_{\Delta L} - \underbrace{(160 - 115)}_{\Delta E} = -30\]</span></p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[\hat{\beta}_{TWFE} = \tfrac{1}{2}(+10) + \tfrac{1}{2}(-30) = \mathbf{-10}\]</span></p>
 </div>
 </section>
@@ -865,6 +875,44 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="fragment">
 <p>Goodman-Bacon (2021) showed TWFE is a <span class="kw">weighted average</span> of all possible 2×2 DiD comparisons. When treatment effects <span class="alert">change over time</span>, already-treated units used as “controls” introduce bias — and can receive <span class="alert">negative weights</span>.</p>
+<ul>
+<li>TWFE automatically gives more influence to some comparisons than others.</li>
+<li>Roughly: comparisons with more useful treatment-timing variation get more weight in the final estimate.</li>
+</ul>
+</div>
+</section>
+<section id="castle-doctrine-through-the-bacon-lens" class="slide level2 smaller">
+<h2>Castle Doctrine Through the Bacon Lens</h2>
+<div class="columns">
+<div class="column" style="width:44%;">
+<p><strong>Regression output</strong></p>
+<p><img src="assets/castle/castle_bacon_status.png" style="width:100.0%"></p>
+</div><div class="column" style="width:56%;">
+<p><strong>Diagnostic plot</strong></p>
+<p><img src="assets/castle/castle_bacon_generated.png" style="width:100.0%"></p>
+</div></div>
+<div class="fragment">
+<ul>
+<li>In this application, the overall TWFE estimate is about <span class="kw">0.082 log points</span></li>
+<li>About <span class="kw">91% of the weight</span> comes from treated states compared with never-treated states</li>
+<li>About <span class="kw">9% of the weight</span> comes from comparisons across treatment-timing groups</li>
+<li>So this is a useful cautionary example: the estimator is still averaging many smaller DiD comparisons, even though the clean treated-vs-never-treated comparisons dominate here</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Contrast: Stevenson and Wolfers (2006)</strong></p>
+</div>
+<div class="callout-content">
+<p>When looking at the impact of unilateral divorce on <span class="kw">female suicide rates</span>, the Bacon decomposition is much messier. The problematic <span class="alert">timing-group comparisons</span> get <span class="alert">about 38% of the total weight</span>, and the other major 2×2 pieces point in different directions. That is the kind of setting where staggered-adoption TWFE can become seriously misleading.</p>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="new-estimators" class="slide level2 smaller">
@@ -894,10 +942,24 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>You won’t implement these in this course. <strong>If you use DiD in your research paper</strong> with staggered adoption, simply discussing the staggered adoption limitation is completely acceptable — you do not need to implement an alternative estimator. If you want to go further, the packages below are the standard options.</p>
-<p>Current Stata packages (as of 2025): <code>csdid</code> (Callaway-Sant’Anna), <code>did_multiplegt</code> (de Chaisemartin-D’Haultfoeuille), <code>eventstudyinteract</code> (Sun-Abraham).</p>
+<p>Current Stata packages (checked April 7, 2026): <code>csdid</code> (Callaway-Sant’Anna), <code>eventstudyinteract</code> (Sun-Abraham), <code>did_multiplegt_stat</code> / <code>did_multiplegt_dyn</code> (de Chaisemartin-D’Haultfoeuille).</p>
 </div>
 </div>
 </div>
+</div>
+</section>
+<section id="a-modern-did-estimate-for-castle-doctrine" class="slide level2 smaller">
+<h2>A Modern DiD Estimate for Castle Doctrine</h2>
+<p>Using Callaway and Sant’Anna’s estimator in Stata:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> gvar = treatment_date</span>
+<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> gvar = 0 <span class="kw">if</span> <span class="fu">missing</span>(gvar)</span>
+<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a>csdid l_homicide, ivar(sid) time(<span class="fu">year</span>) gvar(gvar) notyet</span>
+<span id="cb4-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> simple</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<p><img src="assets/castle/castle_csdid_att.png" style="width:92.0%"></p>
+</div>
+<div class="fragment">
+<p>Interpretation: using <span class="kw">not-yet-treated states as controls</span>, the estimated effect of castle doctrine laws is about a <span class="alert">9.7% increase</span> in homicide.</p>
 </div>
 </section></section>
 <section>
@@ -994,50 +1056,23 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 </section>
-<section id="common-pitfalls" class="slide level2 smaller">
+<section id="common-pitfalls" class="slide level2 smaller scrollable">
 <h2>Common Pitfalls</h2>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>1. Forgetting to Cluster</strong></p>
-</div>
-<div class="callout-content">
-<p>Panel data almost always requires clustered standard errors. Unclustered SEs will usually be <span class="alert">too small</span> (though in some designs they can be too large) — leading to false precision or false rejection.</p>
-</div>
-</div>
+<ol type="1">
+<li><span class="alert">Forgetting to cluster</span></li>
+</ol>
+<p>Panel data almost always requires clustered standard errors. Unclustered SEs will usually be <span class="alert">too small</span> (though in some designs they can be too large), leading to false precision or false rejection.</p>
+<div class="fragment">
+<ol start="2" type="1">
+<li><span class="alert">Trying to estimate time-invariant effects</span></li>
+</ol>
+<p>With entity FE, you <span class="alert">cannot</span> estimate the effect of variables that do not vary over time. The fixed effect absorbs them.</p>
 </div>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>2. Trying to Estimate Time-Invariant Effects</strong></p>
-</div>
-<div class="callout-content">
-<p>With entity FE, you <span class="alert">cannot</span> estimate the effect of variables that don’t vary over time. The fixed effect absorbs them.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>3. Assuming FE Solves All OVB</strong></p>
-</div>
-<div class="callout-content">
+<ol start="3" type="1">
+<li><span class="alert">Assuming FE solves all OVB</span></li>
+</ol>
 <p>Fixed effects only eliminate <span class="alert">time-invariant</span> omitted variables. Time-varying confounders can still bias your estimates.</p>
-</div>
-</div>
-</div>
 </div>
 </section>
 <section id="key-takeaways" class="slide level2 scrollable">
