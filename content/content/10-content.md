@@ -78,6 +78,13 @@ Set up and interpret difference-in-differences estimation. There's a decent disc
 
 {{< slides >}}
 
+## In-Class Activity
+
+From **Tuesday 4/7**, here are the fixed effects handout and solution set:
+
+- [Fixed Effects Showdown activity (PDF)](../practice/ch10-activity2-fe-showdown.pdf)
+- [Fixed Effects Showdown answer key (PDF)](../practice/ch10-activity2-fe-showdown-answerkey.pdf) *(try the activity first if you want the full practice effect)*
+
 <!-- ## Videos -->
 
 
@@ -90,4 +97,3 @@ Set up and interpret difference-in-differences estimation. There's a decent disc
 
 
 <!--  <iframe src="https://streaming.uvm.edu/media/embed/iM9eQzi/" width="640" height="480" frameborder="0" allowfullscreen></iframe> -->
-
