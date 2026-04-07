@@ -475,21 +475,6 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 <div class="fragment">
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Connection to LS Assumptions</strong></p>
-</div>
-<div class="callout-content">
-<p>This principle — FE absorbs all time-invariant factors — is what enables <strong>consistent estimation</strong> under the panel data LS assumptions (see the assumptions slide later in the deck). It is the panel analog of what makes OLS unbiased under Gauss-Markov: by removing the time-invariant component of omitted variable bias, FE satisfies the zero-conditional-mean assumption within entities.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
 <p><strong>Practical notes:</strong></p>
 <ul>
 <li>We don’t usually interpret the fixed effect coefficients themselves</li>
@@ -518,21 +503,21 @@ ECON3500: Econometrics and Applications
 <h1>Inference: Serial Correlation and Clustering</h1>
 
 </section>
-<section id="least-squares-assumptions-for-panel-data" class="slide level2 smaller scrollable">
+<section id="least-squares-assumptions-for-panel-data" class="slide level2 scrollable">
 <h2>Least Squares Assumptions for Panel Data</h2>
 <p><span class="math display">\[Y_{it} = \beta_1 X_{it} + \alpha_i + u_{it}, \quad i = 1, \ldots, n; \; t = 1, \ldots, T\]</span></p>
 <div class="fragment">
 <ol type="1">
-<li><span class="math inline">\(E[u_{it} | X_{i1}, \ldots, X_{iT}, \alpha_i] = 0\)</span>
+<li class="fragment"><span class="math inline">\(E[u_{it} | X_{i1}, \ldots, X_{iT}, \alpha_i] = 0\)</span>
 <ul>
-<li><span class="math inline">\(u_{it}\)</span> cannot be correlated with <span class="alert">any present, past, or future</span> values of <span class="math inline">\(X\)</span></li>
+<li class="fragment"><span class="math inline">\(u_{it}\)</span> cannot be correlated with <span class="alert">any present, past, or future</span> values of <span class="math inline">\(X\)</span></li>
 </ul></li>
-<li><span class="math inline">\((X_{i1}, \ldots, X_{iT}, u_{i1}, \ldots, u_{iT})\)</span> are i.i.d. draws <span class="kw">across entities</span>
+<li class="fragment"><span class="math inline">\((X_{i1}, \ldots, X_{iT}, u_{i1}, \ldots, u_{iT})\)</span> are i.i.d. draws <span class="kw">across entities</span>
 <ul>
-<li>Only need independence across entities, not within</li>
+<li class="fragment">Only need independence across entities, not within</li>
 </ul></li>
-<li><span class="math inline">\((X_{it}, u_{it})\)</span> have finite fourth moments</li>
-<li>No perfect multicollinearity</li>
+<li class="fragment"><span class="math inline">\((X_{it}, u_{it})\)</span> have finite fourth moments</li>
+<li class="fragment">No perfect multicollinearity</li>
 </ol>
 </div>
 <div class="fragment">
@@ -552,21 +537,6 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="fragment">
 <p>This is <span class="kw">autocorrelation</span> (serial correlation) — observations on the same entity over time are not independent.</p>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Which LS Assumption Is Violated?</strong></p>
-</div>
-<div class="callout-content">
-<p>Autocorrelation does <strong>not</strong> violate Assumption 2 (which only requires independence <em>across</em> entities, not within). Instead, it violates the homoskedasticity/no-autocorrelation condition that standard OLS standard errors implicitly assume. The FE estimator remains <strong>consistent</strong>, but OLS SEs — which assume i.i.d. errors — are wrong when within-entity errors are correlated over time.</p>
-</div>
-</div>
-</div>
 </div>
 </section>
 <section id="why-autocorrelation-matters" class="slide level2">
@@ -590,6 +560,7 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>The coefficients are still consistent — but our <span class="alert">inference</span> (standard errors, <span class="math inline">\(p\)</span>-values, confidence intervals) is wrong. Typically: SEs are <span class="alert">too small</span>, so we reject too often.</p>
+<p>Autocorrelation does not violate Assumption 2, which only requires independence across entities, not within.</p>
 </div>
 </div>
 </div>
@@ -630,6 +601,78 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="what-clustered-ses-allow-optional" class="slide level2 smaller">
 <h2>What Clustered SEs Allow (Optional)</h2>
+<p><strong>Block-diagonal error structure</strong> (2 entities × 3 periods):</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;">E1-t1</th>
+<th style="text-align: center;">E1-t2</th>
+<th style="text-align: center;">E1-t3</th>
+<th style="text-align: center;">E2-t1</th>
+<th style="text-align: center;">E2-t2</th>
+<th style="text-align: center;">E2-t3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>E1-t1</strong></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>E1-t2</strong></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>E1-t3</strong></td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>E2-t1</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>E2-t2</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>E2-t3</strong></td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+<td style="text-align: center;">✓</td>
+</tr>
+</tbody>
+</table>
+<p>✓ = arbitrary covariance allowed · 0 = assumed independent (across-entity blocks)</p>
+<div class="fragment">
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -666,6 +709,7 @@ ECON3500: Econometrics and Applications
 </tr>
 </tbody>
 </table>
+</div>
 <div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -673,10 +717,16 @@ ECON3500: Econometrics and Applications
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Summary</strong></p>
+<p><strong>Notes on Clustering</strong></p>
 </div>
 <div class="callout-content">
-<p>Clustered SEs do not change the point estimates — only the standard errors. They are more conservative (usually larger) than unclustered SEs when within-entity errors are positively correlated, which is typical in panel data.</p>
+<ul>
+<li><strong>Standard practice:</strong> Cluster across entities — the natural unit of independence in panel data.</li>
+<li><strong>Direction matters:</strong> You could cluster across time periods instead (if worried about common period-level shocks), but this is less common.</li>
+<li><strong>Two-way clustering:</strong> Some settings cluster on <em>both</em> entities and time simultaneously (<code>vce(twoway cluster entity time)</code> in Stata). Use when you suspect both within-entity serial correlation <em>and</em> cross-sectional dependence within a period.</li>
+<li><strong>Minimum clusters:</strong> Clustered SEs perform poorly with <span class="alert">fewer than ~30–50 clusters</span>. With fewer, consider wild bootstrap (<code>boottest</code> in Stata).</li>
+</ul>
+<p>Clustered SEs do not change the point estimates — only the standard errors. They are more conservative (usually larger) than unclustered SEs when within-entity errors are positively correlated.</p>
 </div>
 </div>
 </div>
@@ -686,6 +736,58 @@ ECON3500: Econometrics and Applications
 <section id="staggered-adoption-and-recent-developments" class="title-slide slide level1 center">
 <h1>Staggered Adoption and Recent Developments</h1>
 
+</section>
+<section id="motivating-example-minimum-wage-increases" class="slide level2 smaller">
+<h2>Motivating Example: Minimum Wage Increases</h2>
+<p><strong>Research question:</strong> Do minimum wage increases reduce employment in low-wage industries?</p>
+<div class="fragment">
+<p>Different states raise their minimum wages in <span class="kw">different years</span>:</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>State</th>
+<th>Change</th>
+<th style="text-align: center;">Year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Washington</td>
+<td>$8.55 → $9.47</td>
+<td style="text-align: center;">2014</td>
+</tr>
+<tr class="even">
+<td>California</td>
+<td>$9.00 → $10.00</td>
+<td style="text-align: center;">2016</td>
+</tr>
+<tr class="odd">
+<td>New York</td>
+<td>$9.00 → $11.10</td>
+<td style="text-align: center;">2017</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<p><strong>Natural approach:</strong> Two-way FE regression: <span class="math display">\[emp_{it} = \beta_1 \cdot minwage_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
+<p>When treatment effects are <span class="kw">homogeneous</span> across states and stable over time, TWFE gives the right answer. But what if Washington’s employment responds differently than California’s — or if effects grow over time?</p>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The Problem</strong></p>
+</div>
+<div class="callout-content">
+<p>This is <span class="kw">staggered adoption</span> with potentially <span class="kw">heterogeneous treatment effects</span>. What TWFE does under the hood — and when it fails — is the topic of this section.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
 <section id="the-staggered-adoption-problem" class="slide level2 smaller">
 <h2>The Staggered Adoption Problem</h2>
@@ -779,6 +881,9 @@ ECON3500: Econometrics and Applications
 <p>All share one insight: <span class="alert">never use already-treated units as controls</span>.</p>
 </div>
 <div class="fragment">
+<p>Some of these methods effectively implement TWFE with <span class="kw">restricted control groups</span> (never-treated or not-yet-treated only) — preserving the fixed-effects machinery while eliminating the contaminated comparisons.</p>
+</div>
+<div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -788,7 +893,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Beyond ECON3500</strong></p>
 </div>
 <div class="callout-content">
-<p>You won’t implement these in this course. <strong>If you use DiD in your research paper</strong>, I recommend using one of these methods if your design involves staggered adoption. However, if you use TWFE instead, you should discuss this limitation in your paper. Both approaches are acceptable for grading purposes.</p>
+<p>You won’t implement these in this course. <strong>If you use DiD in your research paper</strong> with staggered adoption, simply discussing the staggered adoption limitation is completely acceptable — you do not need to implement an alternative estimator. If you want to go further, the packages below are the standard options.</p>
 <p>Current Stata packages (as of 2025): <code>csdid</code> (Callaway-Sant’Anna), <code>did_multiplegt</code> (de Chaisemartin-D’Haultfoeuille), <code>eventstudyinteract</code> (Sun-Abraham).</p>
 </div>
 </div>
@@ -823,23 +928,37 @@ ECON3500: Econometrics and Applications
 <tr class="odd">
 <td><span class="kw">DiD</span></td>
 <td style="text-align: center;">2 groups, 2 periods</td>
-<td>Group-level differences; common time trends</td>
+<td>Group differences; common time trend</td>
 <td><span class="alert">Parallel trends</span></td>
 <td>Group-specific time-varying shocks</td>
 </tr>
 <tr class="even">
+<td><span class="kw">Staggered DiD</span></td>
+<td style="text-align: center;">Multiple groups, multiple adoption years</td>
+<td>Group differences; cohort-specific time trends</td>
+<td><span class="alert">Parallel trends</span> by adoption cohort</td>
+<td>Cohort-specific time-varying shocks</td>
+</tr>
+<tr class="odd">
 <td><span class="kw">First Difference</span></td>
 <td style="text-align: center;">Panel, 2 periods</td>
 <td>All time-invariant entity factors</td>
 <td>No time-varying OVB</td>
 <td>Time-varying omitted variables</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><span class="kw">Entity FE</span></td>
 <td style="text-align: center;">Panel, 2+ periods</td>
 <td>All time-invariant entity factors</td>
 <td>No time-varying OVB</td>
 <td>Time-varying omitted variables</td>
+</tr>
+<tr class="odd">
+<td><span class="kw">Time FE only</span></td>
+<td style="text-align: center;">Panel or repeated cross-sections</td>
+<td>Entity-invariant time shocks</td>
+<td>No entity-specific time trends</td>
+<td>Entity differences; time-varying confounders</td>
 </tr>
 <tr class="even">
 <td><span class="kw">Entity + Time FE</span></td>

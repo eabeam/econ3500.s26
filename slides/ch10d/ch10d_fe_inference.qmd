@@ -185,13 +185,6 @@ You don't need to include time-invariant covariates in an FE model — they are 
 
 . . .
 
-::: {.callout-note}
-## Connection to LS Assumptions
-This principle — FE absorbs all time-invariant factors — is what enables **consistent estimation** under the panel data LS assumptions (see the assumptions slide later in the deck). It is the panel analog of what makes OLS unbiased under Gauss-Markov: by removing the time-invariant component of omitted variable bias, FE satisfies the zero-conditional-mean assumption within entities.
-:::
-
-. . .
-
 **Practical notes:**
 
 - We don't usually interpret the fixed effect coefficients themselves
@@ -207,18 +200,20 @@ You [cannot]{.alert} estimate the effect of variables that don't change over tim
 
 # Inference: Serial Correlation and Clustering
 
-## Least Squares Assumptions for Panel Data {.smaller}
+## Least Squares Assumptions for Panel Data
 
 $$Y_{it} = \beta_1 X_{it} + \alpha_i + u_{it}, \quad i = 1, \ldots, n; \; t = 1, \ldots, T$$
 
 . . .
 
+::: {.incremental}
 1. $E[u_{it} | X_{i1}, \ldots, X_{iT}, \alpha_i] = 0$
     - $u_{it}$ cannot be correlated with [any present, past, or future]{.alert} values of $X$
 2. $(X_{i1}, \ldots, X_{iT}, u_{i1}, \ldots, u_{iT})$ are i.i.d. draws [across entities]{.kw}
     - Only need independence across entities, not within
 3. $(X_{it}, u_{it})$ have finite fourth moments
 4. No perfect multicollinearity
+:::
 
 . . .
 
@@ -241,12 +236,6 @@ The time-varying error $\omega_{it}$ reflects factors that change over time but 
 
 This is [autocorrelation]{.kw} (serial correlation) — observations on the same entity over time are not independent.
 
-. . .
-
-::: {.callout-warning}
-## Which LS Assumption Is Violated?
-Autocorrelation does **not** violate Assumption 2 (which only requires independence *across* entities, not within). Instead, it violates the homoskedasticity/no-autocorrelation condition that standard OLS standard errors implicitly assume. The FE estimator remains **consistent**, but OLS SEs — which assume i.i.d. errors — are wrong when within-entity errors are correlated over time.
-:::
 
 ## Why Autocorrelation Matters
 
@@ -263,6 +252,8 @@ Previously, we assumed observations were independent.
 ::: {.callout-important}
 ## Autocorrelation Does Not Bias $\hat{\beta}$
 The coefficients are still consistent — but our [inference]{.alert} (standard errors, $p$-values, confidence intervals) is wrong. Typically: SEs are [too small]{.alert}, so we reject too often.
+
+Autocorrelation does not violate Assumption 2, which only requires independence across entities, not within.
 :::
 
 ## The Solution: Clustered Standard Errors {.smaller}
@@ -297,6 +288,21 @@ In this course, if you are using panel data, [cluster standard errors at the ent
 
 ## What Clustered SEs Allow (Optional) {.smaller}
 
+**Block-diagonal error structure** (2 entities × 3 periods):
+
+| | E1-t1 | E1-t2 | E1-t3 | E2-t1 | E2-t2 | E2-t3 |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **E1-t1** | ✓ | ✓ | ✓ | 0 | 0 | 0 |
+| **E1-t2** | ✓ | ✓ | ✓ | 0 | 0 | 0 |
+| **E1-t3** | ✓ | ✓ | ✓ | 0 | 0 | 0 |
+| **E2-t1** | 0 | 0 | 0 | ✓ | ✓ | ✓ |
+| **E2-t2** | 0 | 0 | 0 | ✓ | ✓ | ✓ |
+| **E2-t3** | 0 | 0 | 0 | ✓ | ✓ | ✓ |
+
+✓ = arbitrary covariance allowed · 0 = assumed independent (across-entity blocks)
+
+. . .
+
 | | Regular OLS SEs | Clustered SEs |
 |---|---|---|
 | **Errors across observations** | Must be independent | Must be independent *across entities* |
@@ -307,11 +313,44 @@ In this course, if you are using panel data, [cluster standard errors at the ent
 . . .
 
 ::: {.callout-note}
-## Summary
-Clustered SEs do not change the point estimates — only the standard errors. They are more conservative (usually larger) than unclustered SEs when within-entity errors are positively correlated, which is typical in panel data.
+## Notes on Clustering
+- **Standard practice:** Cluster across entities — the natural unit of independence in panel data.
+- **Direction matters:** You could cluster across time periods instead (if worried about common period-level shocks), but this is less common.
+- **Two-way clustering:** Some settings cluster on *both* entities and time simultaneously (`vce(twoway cluster entity time)` in Stata). Use when you suspect both within-entity serial correlation *and* cross-sectional dependence within a period.
+- **Minimum clusters:** Clustered SEs perform poorly with [fewer than ~30–50 clusters]{.alert}. With fewer, consider wild bootstrap (`boottest` in Stata).
+
+Clustered SEs do not change the point estimates — only the standard errors. They are more conservative (usually larger) than unclustered SEs when within-entity errors are positively correlated.
 :::
 
 # Staggered Adoption and Recent Developments
+
+## Motivating Example: Minimum Wage Increases {.smaller}
+
+**Research question:** Do minimum wage increases reduce employment in low-wage industries?
+
+. . .
+
+Different states raise their minimum wages in [different years]{.kw}:
+
+| State | Change | Year |
+|---|---|:---:|
+| Washington | $8.55 → $9.47 | 2014 |
+| California | $9.00 → $10.00 | 2016 |
+| New York | $9.00 → $11.10 | 2017 |
+
+. . .
+
+**Natural approach:** Two-way FE regression:
+$$emp_{it} = \beta_1 \cdot minwage_{it} + \alpha_i + \lambda_t + u_{it}$$
+
+When treatment effects are [homogeneous]{.kw} across states and stable over time, TWFE gives the right answer. But what if Washington's employment responds differently than California's — or if effects grow over time?
+
+. . .
+
+::: {.callout-note}
+## The Problem
+This is [staggered adoption]{.kw} with potentially [heterogeneous treatment effects]{.kw}. What TWFE does under the hood — and when it fails — is the topic of this section.
+:::
 
 ## The Staggered Adoption Problem {.smaller}
 
@@ -382,9 +421,13 @@ All share one insight: [never use already-treated units as controls]{.alert}.
 
 . . .
 
+Some of these methods effectively implement TWFE with [restricted control groups]{.kw} (never-treated or not-yet-treated only) — preserving the fixed-effects machinery while eliminating the contaminated comparisons.
+
+. . .
+
 ::: {.callout-note}
 ## Beyond ECON3500
-You won't implement these in this course. **If you use DiD in your research paper**, I recommend using one of these methods if your design involves staggered adoption. However, if you use TWFE instead, you should discuss this limitation in your paper. Both approaches are acceptable for grading purposes.
+You won't implement these in this course. **If you use DiD in your research paper** with staggered adoption, simply discussing the staggered adoption limitation is completely acceptable — you do not need to implement an alternative estimator. If you want to go further, the packages below are the standard options.
 
 Current Stata packages (as of 2025): `csdid` (Callaway-Sant'Anna), `did_multiplegt` (de Chaisemartin-D'Haultfoeuille), `eventstudyinteract` (Sun-Abraham).
 :::
@@ -395,9 +438,11 @@ Current Stata packages (as of 2025): `csdid` (Callaway-Sant'Anna), `did_multiple
 
 | Method | Data Required | What It Controls | Key Assumption | What Remains |
 |--------|:---:|---|---|---|
-| [DiD]{.kw} | 2 groups, 2 periods | Group-level differences; common time trends | [Parallel trends]{.alert} | Group-specific time-varying shocks |
+| [DiD]{.kw} | 2 groups, 2 periods | Group differences; common time trend | [Parallel trends]{.alert} | Group-specific time-varying shocks |
+| [Staggered DiD]{.kw} | Multiple groups, multiple adoption years | Group differences; cohort-specific time trends | [Parallel trends]{.alert} by adoption cohort | Cohort-specific time-varying shocks |
 | [First Difference]{.kw} | Panel, 2 periods | All time-invariant entity factors | No time-varying OVB | Time-varying omitted variables |
 | [Entity FE]{.kw} | Panel, 2+ periods | All time-invariant entity factors | No time-varying OVB | Time-varying omitted variables |
+| [Time FE only]{.kw} | Panel or repeated cross-sections | Entity-invariant time shocks | No entity-specific time trends | Entity differences; time-varying confounders |
 | [Entity + Time FE]{.kw} | Panel, 2+ periods | Time-invariant entity factors + entity-invariant time shocks | No entity-and-time-varying OVB | Entity-time-specific shocks |
 
 ## When to Use What {.smaller}
