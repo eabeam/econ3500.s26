@@ -82,11 +82,11 @@ The $\delta_0 \cdot after_t$ term in the DiD regression *is* a (two-period) time
 
 A national recession hits **all states** in 2008. Unemployment rises everywhere:
 
-| State | 2006 | 2008 | Change |
-|---|:---:|:---:|:---:|
-| Vermont | 5.2% | 7.8% | +2.6pp |
-| Ohio | 5.9% | 8.6% | +2.7pp |
-| Texas | 4.4% | 7.0% | +2.6pp |
+| State | 2006 | 2008 | Change | 2008 Avg | 2008 State - Avg |
+|---|:---:|:---:|:---:|:---:|:---:|
+| Vermont | 5.2% | 7.8% | +2.6pp | 7.8% | 0.0pp |
+| Ohio | 5.9% | 8.6% | +2.7pp | 7.8% | +0.8pp |
+| Texas | 4.4% | 7.0% | +2.6pp | 7.8% | -0.8pp |
 
 . . .
 
@@ -146,6 +146,15 @@ Demean your data by hand (subtract entity means), then estimate OLS on the demea
 
 . . .
 
+::: {.callout-warning}
+## Why This Is Usually Not Recommended
+It is easy to make mistakes, hard to extend cleanly once you add time fixed effects or clustered standard errors, and harder for someone else to read and audit later. It is useful for understanding the estimator, but not the default workflow for real applied work.
+
+Manual demeaning reproduces the FE coefficient, but naive OLS on demeaned data may also mishandle degrees of freedom and therefore inference unless you adjust things correctly.
+:::
+
+## Two Standard Commands for FE {.smaller}
+
 ::: {.callout-note}
 ## Option 2: Dummy Variables / `areg`
 Include entity dummies directly, or use `areg` to "absorb" one set of fixed effects:
@@ -178,9 +187,7 @@ For a single level of fixed effects, `areg` and `xtreg fe` give **identical poin
 
 ::: {.callout-important}
 ## Key Principle
-Entity fixed effects control for [all time-invariant factors]{.alert} — observed or unobserved.
-
-You don't need to include time-invariant covariates in an FE model — they are already absorbed.
+In an [entity fixed effects]{.alert} model, you do **not** need to include time-invariant covariates. They are already absorbed by the fixed effects.
 :::
 
 . . .
@@ -219,24 +226,6 @@ $$Y_{it} = \beta_1 X_{it} + \alpha_i + u_{it}, \quad i = 1, \ldots, n; \; t = 1,
 
 If these hold, FE estimates are [consistent and asymptotically normal]{.kw} for large $n$.
 
-## The Problem of Serial Correlation {.smaller}
-
-$$Y_{it} = \alpha_i + \beta_1 X_{it} + \omega_{it}$$
-
-The time-varying error $\omega_{it}$ reflects factors that change over time but affect the outcome.
-
-. . .
-
-**Example:** If $Y_{it}$ is traffic fatalities, maybe $\omega_{it}$ includes road quality in state $i$.
-
-- Road quality last year $\approx$ road quality this year
-- $\omega_{i,t}$ and $\omega_{i,t-1}$ are [correlated]{.alert}
-
-. . .
-
-This is [autocorrelation]{.kw} (serial correlation) — observations on the same entity over time are not independent.
-
-
 ## Why Autocorrelation Matters
 
 Previously, we assumed observations were independent.
@@ -253,7 +242,7 @@ Previously, we assumed observations were independent.
 ## Autocorrelation Does Not Bias $\hat{\beta}$
 The coefficients are still consistent — but our [inference]{.alert} (standard errors, $p$-values, confidence intervals) is wrong. Typically: SEs are [too small]{.alert}, so we reject too often.
 
-Autocorrelation does not violate Assumption 2, which only requires independence across entities, not within.
+Autocorrelation does not violate LS Assumption 2, which only requires independence across entities, not within.
 :::
 
 ## The Solution: Clustered Standard Errors {.smaller}
@@ -286,9 +275,9 @@ xtreg y x, fe vce(cluster entity)
 In this course, if you are using panel data, [cluster standard errors at the entity level]{.alert} unless there is a strong reason not to. Failing to do so overstates precision and leads to false rejections.
 :::
 
-## What Clustered SEs Allow (Optional) {.smaller}
+## What Clustered SEs Allow {.smaller}
 
-**Block-diagonal error structure** (2 entities × 3 periods):
+**Clustered on entity:** block-diagonal error structure (2 entities × 3 periods):
 
 | | E1-t1 | E1-t2 | E1-t3 | E2-t1 | E2-t2 | E2-t3 |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -312,19 +301,22 @@ In this course, if you are using panel data, [cluster standard errors at the ent
 
 . . .
 
-::: {.callout-note}
+*Example:* State-clustered standard errors assume that, in a given year, errors across states are independent, but errors over time within a state can be correlated freely.
+
 ## Notes on Clustering
+
 - **Standard practice:** Cluster across entities — the natural unit of independence in panel data.
 - **Direction matters:** You could cluster across time periods instead (if worried about common period-level shocks), but this is less common.
-- **Two-way clustering:** Some settings cluster on *both* entities and time simultaneously (`vce(twoway cluster entity time)` in Stata). Use when you suspect both within-entity serial correlation *and* cross-sectional dependence within a period.
-- **Minimum clusters:** Clustered SEs perform poorly with [fewer than ~30–50 clusters]{.alert}. With fewer, consider wild bootstrap (`boottest` in Stata).
+- **Two-way clustering:** Some settings cluster on both entities and time. Use when you suspect both within-entity serial correlation and correlation across units within the same period. Not needed in this class.
+- **Minimum clusters:** Clustered SEs perform poorly with [fewer than ~30–50 clusters]{.alert}. With fewer, consider a wild bootstrap.
 
-Clustered SEs do not change the point estimates — only the standard errors. They are more conservative (usually larger) than unclustered SEs when within-entity errors are positively correlated.
-:::
+Clustered SEs do not change the point estimates, only the standard errors. They are often larger than unclustered SEs when within-entity errors are positively correlated.
+
+Wild bootstrap is a resampling method that repeatedly re-creates the test statistic in a way that respects the clustered error structure, which can improve inference when the number of clusters is small.
 
 # Staggered Adoption and Recent Developments
 
-## Motivating Example: Castle Doctrine Laws {.smaller}
+## Castle Doctrine Laws (Cheng and Hoekstra 2013)
 
 :::: {.columns}
 ::: {.column width="42%"}
@@ -334,34 +326,33 @@ Clustered SEs do not change the point estimates — only the standard errors. Th
 ::: {.column width="58%"}
 **Research question:** Do castle doctrine laws deter violent crime, or do they increase homicide?
 
-. . .
-
-- Cheng and Hoekstra (2013)
+::: {.incremental}
 - State-by-year panel for all 50 states, 2000--2010
-- Outcome: homicide rate
-- Treatment: castle doctrine law in effect
+- "Stand your ground" / castle doctrine laws make it easier to use lethal force in self-defense
+- Treatment: whether a castle doctrine law is in effect in a state-year
 - Adoption is [staggered across states]{.kw}
+:::
 :::
 ::::
 
-. . .
+## Natural Approach: Two-Way FE
 
 **Natural approach:** Two-way FE regression:
 $$\log(\text{homicide rate}_{it}) = \beta_1 \cdot post_{it} + \alpha_i + \lambda_t + u_{it}$$
 
-When treatment effects are [homogeneous]{.kw} across states and stable over time, TWFE gives the right answer. But what if the effect in Florida looks different from the effect in Texas — or if the effect grows over time after adoption?
+- $\log(\text{homicide rate}_{it})$: log homicide rate in state $i$ and year $t$
+- $post_{it}$: equals 1 once a castle doctrine law is in effect
+- $\alpha_i$: state fixed effects
+- $\lambda_t$: year fixed effects
+- $u_{it}$: unobserved shocks not captured by the model
+
+. . .
+
+If treatment effects are [homogeneous]{.kw} across states and stable over time, TWFE gives the right answer. But what if the effect in Florida looks different from the effect in Texas, or grows over time after adoption?
 
 ## The Treatment Timing Is Staggered {.smaller}
 
-:::: {.columns}
-::: {.column width="42%"}
-![](assets/castle/castle_table1.png){width=100%}
-:::
-
-::: {.column width="58%"}
-![](assets/castle/castle_data_desc.png){width=100%}
-:::
-::::
+![](assets/castle/castle_table1_rotated.png){width=78%}
 
 . . .
 
@@ -379,13 +370,17 @@ This is [staggered adoption]{.kw} with potentially [heterogeneous treatment effe
 
 ## The Staggered Adoption Problem {.smaller}
 
+Castle Doctrine is the kind of application where this issue arises: some states adopt early, others later, and TWFE starts reusing already-treated states as comparisons.
+
+. . .
+
 The classic DiD has two groups and two periods. In practice, policies are often adopted by [different units at different times]{.alert} — [staggered adoption]{.kw}.
 
 . . .
 
-**Example:** States adopt a job training program in different years.
+**Toy analogy:** States adopt a job training program in different years.
 
-The natural approach: two-way fixed effects (TWFE).
+The natural approach is still two-way fixed effects (TWFE).
 
 $$y_{it} = \beta_1 \cdot treated_{it} + \alpha_i + \lambda_t + u_{it}$$
 
@@ -410,8 +405,12 @@ TWFE takes a [weighted average]{.kw} of all 2×2 DiD comparisons — including c
 **Valid comparison** (E treated vs. L as control, 2018→2019):
 $$\underbrace{(115 - 100)}_{\Delta E} - \underbrace{(105 - 100)}_{\Delta L} = +10$$
 
+. . .
+
 **Contaminated comparison** (L treated vs. already-treated E as "control," 2019→2020):
 $$\underbrace{(120 - 105)}_{\Delta L} - \underbrace{(160 - 115)}_{\Delta E} = -30$$
+
+. . .
 
 $$\hat{\beta}_{TWFE} = \tfrac{1}{2}(+10) + \tfrac{1}{2}(-30) = \mathbf{-10}$$
 
@@ -428,16 +427,27 @@ All true effects are [positive]{.kw} (+10 or +50), but TWFE estimates [−10]{.a
 
 Goodman-Bacon (2021) showed TWFE is a [weighted average]{.kw} of all possible 2×2 DiD comparisons. When treatment effects [change over time]{.alert}, already-treated units used as "controls" introduce bias — and can receive [negative weights]{.alert}.
 
+- These are not weights the researcher chooses by hand.
+- TWFE automatically gives more influence to some comparisons than others.
+- Roughly: comparisons with more useful treatment-timing variation get more weight in the final estimate.
+
 ## Castle Doctrine Through the Bacon Lens {.smaller}
 
-![](assets/castle/castle_bacon.png){width=78%}
+![](assets/castle/castle_bacon_generated.png){width=88%}
 
 . . .
 
 - In this application, the overall TWFE estimate is about [0.082 log points]{.kw}
 - About [91\% of the weight]{.kw} comes from treated states compared with never-treated states
 - About [9\% of the weight]{.kw} comes from comparisons across treatment-timing groups
-- So this is a useful cautionary example: the estimator is still a weighted average of many 2x2 DiDs, even though the clean treated-vs-never-treated comparisons dominate here
+- So this is a useful cautionary example: the estimator is still averaging many smaller DiD comparisons, even though the clean treated-vs-never-treated comparisons dominate here
+
+. . .
+
+::: {.callout-note}
+## Contrast: Stevenson and Wolfers (2006)
+In Stevenson and Wolfers on unilateral divorce, the Bacon decomposition is much messier. The problematic [timing-group comparisons]{.alert} get [more than one-third of the total weight]{.alert}, so the overall TWFE/DD estimate is much more exposed to contaminated treated-vs-treated comparisons. That is the kind of setting where staggered-adoption TWFE can become seriously misleading.
+:::
 
 ## New Estimators {.smaller}
 
