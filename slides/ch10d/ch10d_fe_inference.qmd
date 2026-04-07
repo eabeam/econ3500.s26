@@ -324,26 +324,51 @@ Clustered SEs do not change the point estimates — only the standard errors. Th
 
 # Staggered Adoption and Recent Developments
 
-## Motivating Example: Minimum Wage Increases {.smaller}
+## Motivating Example: Castle Doctrine Laws {.smaller}
 
-**Research question:** Do minimum wage increases reduce employment in low-wage industries?
+:::: {.columns}
+::: {.column width="42%"}
+![](assets/castle/castle_title.png){width=100%}
+:::
+
+::: {.column width="58%"}
+**Research question:** Do castle doctrine laws deter violent crime, or do they increase homicide?
 
 . . .
 
-Different states raise their minimum wages in [different years]{.kw}:
-
-| State | Change | Year |
-|---|---|:---:|
-| Washington | $8.55 → $9.47 | 2014 |
-| California | $9.00 → $10.00 | 2016 |
-| New York | $9.00 → $11.10 | 2017 |
+- Cheng and Hoekstra (2013)
+- State-by-year panel for all 50 states, 2000--2010
+- Outcome: homicide rate
+- Treatment: castle doctrine law in effect
+- Adoption is [staggered across states]{.kw}
+:::
+::::
 
 . . .
 
 **Natural approach:** Two-way FE regression:
-$$emp_{it} = \beta_1 \cdot minwage_{it} + \alpha_i + \lambda_t + u_{it}$$
+$$\log(\text{homicide rate}_{it}) = \beta_1 \cdot post_{it} + \alpha_i + \lambda_t + u_{it}$$
 
-When treatment effects are [homogeneous]{.kw} across states and stable over time, TWFE gives the right answer. But what if Washington's employment responds differently than California's — or if effects grow over time?
+When treatment effects are [homogeneous]{.kw} across states and stable over time, TWFE gives the right answer. But what if the effect in Florida looks different from the effect in Texas — or if the effect grows over time after adoption?
+
+## The Treatment Timing Is Staggered {.smaller}
+
+:::: {.columns}
+::: {.column width="42%"}
+![](assets/castle/castle_table1.png){width=100%}
+:::
+
+::: {.column width="58%"}
+![](assets/castle/castle_data_desc.png){width=100%}
+:::
+::::
+
+. . .
+
+- Florida adopts in 2005
+- Many states adopt in 2006
+- Others adopt in 2007, 2008, and 2009
+- This is exactly the staggered-adoption setting that creates trouble for standard TWFE
 
 . . .
 
@@ -402,6 +427,17 @@ All true effects are [positive]{.kw} (+10 or +50), but TWFE estimates [−10]{.a
 . . .
 
 Goodman-Bacon (2021) showed TWFE is a [weighted average]{.kw} of all possible 2×2 DiD comparisons. When treatment effects [change over time]{.alert}, already-treated units used as "controls" introduce bias — and can receive [negative weights]{.alert}.
+
+## Castle Doctrine Through the Bacon Lens {.smaller}
+
+![](assets/castle/castle_bacon.png){width=78%}
+
+. . .
+
+- In this application, the overall TWFE estimate is about [0.082 log points]{.kw}
+- About [91\% of the weight]{.kw} comes from treated states compared with never-treated states
+- About [9\% of the weight]{.kw} comes from comparisons across treatment-timing groups
+- So this is a useful cautionary example: the estimator is still a weighted average of many 2x2 DiDs, even though the clean treated-vs-never-treated comparisons dominate here
 
 ## New Estimators {.smaller}
 

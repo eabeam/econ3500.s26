@@ -737,41 +737,42 @@ ECON3500: Econometrics and Applications
 <h1>Staggered Adoption and Recent Developments</h1>
 
 </section>
-<section id="motivating-example-minimum-wage-increases" class="slide level2 smaller">
-<h2>Motivating Example: Minimum Wage Increases</h2>
-<p><strong>Research question:</strong> Do minimum wage increases reduce employment in low-wage industries?</p>
+<section id="motivating-example-castle-doctrine-laws" class="slide level2 smaller">
+<h2>Motivating Example: Castle Doctrine Laws</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<p><img data-src="assets/castle/castle_title.png" style="width:100.0%"></p>
+</div><div class="column" style="width:58%;">
+<p><strong>Research question:</strong> Do castle doctrine laws deter violent crime, or do they increase homicide?</p>
+<p>. . .</p>
+<ul>
+<li>Cheng and Hoekstra (2013)</li>
+<li>State-by-year panel for all 50 states, 2000–2010</li>
+<li>Outcome: homicide rate</li>
+<li>Treatment: castle doctrine law in effect</li>
+<li>Adoption is <span class="kw">staggered across states</span></li>
+</ul>
+</div></div>
 <div class="fragment">
-<p>Different states raise their minimum wages in <span class="kw">different years</span>:</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th>State</th>
-<th>Change</th>
-<th style="text-align: center;">Year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Washington</td>
-<td>$8.55 → $9.47</td>
-<td style="text-align: center;">2014</td>
-</tr>
-<tr class="even">
-<td>California</td>
-<td>$9.00 → $10.00</td>
-<td style="text-align: center;">2016</td>
-</tr>
-<tr class="odd">
-<td>New York</td>
-<td>$9.00 → $11.10</td>
-<td style="text-align: center;">2017</td>
-</tr>
-</tbody>
-</table>
+<p><strong>Natural approach:</strong> Two-way FE regression: <span class="math display">\[\log(\text{homicide rate}_{it}) = \beta_1 \cdot post_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
+<p>When treatment effects are <span class="kw">homogeneous</span> across states and stable over time, TWFE gives the right answer. But what if the effect in Florida looks different from the effect in Texas — or if the effect grows over time after adoption?</p>
 </div>
+</section>
+<section id="the-treatment-timing-is-staggered" class="slide level2 smaller">
+<h2>The Treatment Timing Is Staggered</h2>
+<div class="columns">
+<div class="column" style="width:42%;">
+<p><img data-src="assets/castle/castle_table1.png" style="width:100.0%"></p>
+</div><div class="column" style="width:58%;">
+<p><img data-src="assets/castle/castle_data_desc.png" style="width:100.0%"></p>
+</div></div>
 <div class="fragment">
-<p><strong>Natural approach:</strong> Two-way FE regression: <span class="math display">\[emp_{it} = \beta_1 \cdot minwage_{it} + \alpha_i + \lambda_t + u_{it}\]</span></p>
-<p>When treatment effects are <span class="kw">homogeneous</span> across states and stable over time, TWFE gives the right answer. But what if Washington’s employment responds differently than California’s — or if effects grow over time?</p>
+<ul>
+<li>Florida adopts in 2005</li>
+<li>Many states adopt in 2006</li>
+<li>Others adopt in 2007, 2008, and 2009</li>
+<li>This is exactly the staggered-adoption setting that creates trouble for standard TWFE</li>
+</ul>
 </div>
 <div class="fragment">
 <div class="callout callout-note callout-titled callout-style-default">
@@ -865,6 +866,18 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="fragment">
 <p>Goodman-Bacon (2021) showed TWFE is a <span class="kw">weighted average</span> of all possible 2×2 DiD comparisons. When treatment effects <span class="alert">change over time</span>, already-treated units used as “controls” introduce bias — and can receive <span class="alert">negative weights</span>.</p>
+</div>
+</section>
+<section id="castle-doctrine-through-the-bacon-lens" class="slide level2 smaller">
+<h2>Castle Doctrine Through the Bacon Lens</h2>
+
+<img data-src="assets/castle/castle_bacon.png" style="width:78.0%" class="r-stretch"><div class="fragment">
+<ul>
+<li>In this application, the overall TWFE estimate is about <span class="kw">0.082 log points</span></li>
+<li>About <span class="kw">91% of the weight</span> comes from treated states compared with never-treated states</li>
+<li>About <span class="kw">9% of the weight</span> comes from comparisons across treatment-timing groups</li>
+<li>So this is a useful cautionary example: the estimator is still a weighted average of many 2x2 DiDs, even though the clean treated-vs-never-treated comparisons dominate here</li>
+</ul>
 </div>
 </section>
 <section id="new-estimators" class="slide level2 smaller">
