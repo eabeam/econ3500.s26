@@ -370,10 +370,6 @@ This is [staggered adoption]{.kw} with potentially [heterogeneous treatment effe
 
 ## The Staggered Adoption Problem {.smaller}
 
-Castle Doctrine is the kind of application where this issue arises: some states adopt early, others later, and TWFE starts reusing already-treated states as comparisons.
-
-. . .
-
 The classic DiD has two groups and two periods. In practice, policies are often adopted by [different units at different times]{.alert} — [staggered adoption]{.kw}.
 
 . . .
@@ -427,13 +423,24 @@ All true effects are [positive]{.kw} (+10 or +50), but TWFE estimates [−10]{.a
 
 Goodman-Bacon (2021) showed TWFE is a [weighted average]{.kw} of all possible 2×2 DiD comparisons. When treatment effects [change over time]{.alert}, already-treated units used as "controls" introduce bias — and can receive [negative weights]{.alert}.
 
-- These are not weights the researcher chooses by hand.
 - TWFE automatically gives more influence to some comparisons than others.
 - Roughly: comparisons with more useful treatment-timing variation get more weight in the final estimate.
 
 ## Castle Doctrine Through the Bacon Lens {.smaller}
 
-![](assets/castle/castle_bacon_generated.png){width=88%}
+:::: {.columns}
+::: {.column width="44%"}
+**Regression output**
+
+![](assets/castle/castle_bacon_status.png){width=100%}
+:::
+
+::: {.column width="56%"}
+**Diagnostic plot**
+
+![](assets/castle/castle_bacon_generated.png){width=100%}
+:::
+::::
 
 . . .
 
@@ -446,7 +453,7 @@ Goodman-Bacon (2021) showed TWFE is a [weighted average]{.kw} of all possible 2�
 
 ::: {.callout-note}
 ## Contrast: Stevenson and Wolfers (2006)
-In Stevenson and Wolfers on unilateral divorce, the Bacon decomposition is much messier. The problematic [timing-group comparisons]{.alert} get [more than one-third of the total weight]{.alert}, so the overall TWFE/DD estimate is much more exposed to contaminated treated-vs-treated comparisons. That is the kind of setting where staggered-adoption TWFE can become seriously misleading.
+When looking at the impact of unilateral divorce on [female suicide rates]{.kw}, the Bacon decomposition is much messier. The problematic [timing-group comparisons]{.alert} get [about 38\% of the total weight]{.alert}, and the other major 2×2 pieces point in different directions. That is the kind of setting where staggered-adoption TWFE can become seriously misleading.
 :::
 
 ## New Estimators {.smaller}
@@ -475,8 +482,31 @@ Some of these methods effectively implement TWFE with [restricted control groups
 ## Beyond ECON3500
 You won't implement these in this course. **If you use DiD in your research paper** with staggered adoption, simply discussing the staggered adoption limitation is completely acceptable — you do not need to implement an alternative estimator. If you want to go further, the packages below are the standard options.
 
-Current Stata packages (as of 2025): `csdid` (Callaway-Sant'Anna), `did_multiplegt` (de Chaisemartin-D'Haultfoeuille), `eventstudyinteract` (Sun-Abraham).
+Current Stata packages (checked April 7, 2026): `csdid` (Callaway-Sant'Anna), `eventstudyinteract` (Sun-Abraham), `did_multiplegt_stat` / `did_multiplegt_dyn` (de Chaisemartin-D'Haultfoeuille).
 :::
+
+## A Modern DiD Estimate for Castle Doctrine {.smaller}
+
+:::: {.columns}
+::: {.column width="44%"}
+Using Callaway and Sant'Anna's estimator in Stata:
+
+```stata
+gen gvar = treatment_date
+replace gvar = 0 if missing(gvar)
+csdid l_homicide, ivar(sid) time(year) gvar(gvar) notyet
+estat simple
+```
+:::
+
+::: {.column width="56%"}
+![](assets/castle/castle_csdid_att.png){width=100%}
+:::
+::::
+
+. . .
+
+Interpretation: using [not-yet-treated states as controls]{.kw}, the estimated effect of castle doctrine laws is about a [9.7\% increase]{.alert} in homicide.
 
 # Putting It All Together
 
@@ -516,24 +546,21 @@ Current Stata packages (as of 2025): `csdid` (Callaway-Sant'Anna), `did_multiple
 
 ## Common Pitfalls {.smaller}
 
-::: {.callout-warning}
-## 1. Forgetting to Cluster
-Panel data almost always requires clustered standard errors. Unclustered SEs will usually be [too small]{.alert} (though in some designs they can be too large) — leading to false precision or false rejection.
-:::
+1. [Forgetting to cluster]{.alert}
+
+Panel data almost always requires clustered standard errors. Unclustered SEs will usually be [too small]{.alert} (though in some designs they can be too large), leading to false precision or false rejection.
 
 . . .
 
-::: {.callout-warning}
-## 2. Trying to Estimate Time-Invariant Effects
-With entity FE, you [cannot]{.alert} estimate the effect of variables that don't vary over time. The fixed effect absorbs them.
-:::
+2. [Trying to estimate time-invariant effects]{.alert}
+
+With entity FE, you [cannot]{.alert} estimate the effect of variables that do not vary over time. The fixed effect absorbs them.
 
 . . .
 
-::: {.callout-warning}
-## 3. Assuming FE Solves All OVB
+3. [Assuming FE solves all OVB]{.alert}
+
 Fixed effects only eliminate [time-invariant]{.alert} omitted variables. Time-varying confounders can still bias your estimates.
-:::
 
 ## Key Takeaways
 

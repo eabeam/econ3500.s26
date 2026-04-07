@@ -797,10 +797,7 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="the-staggered-adoption-problem" class="slide level2 smaller">
 <h2>The Staggered Adoption Problem</h2>
-<p>Castle Doctrine is the kind of application where this issue arises: some states adopt early, others later, and TWFE starts reusing already-treated states as comparisons.</p>
-<div class="fragment">
 <p>The classic DiD has two groups and two periods. In practice, policies are often adopted by <span class="alert">different units at different times</span> — <span class="kw">staggered adoption</span>.</p>
-</div>
 <div class="fragment">
 <p><strong>Toy analogy:</strong> States adopt a job training program in different years.</p>
 <p>The natural approach is still two-way fixed effects (TWFE).</p>
@@ -879,7 +876,6 @@ ECON3500: Econometrics and Applications
 <div class="fragment">
 <p>Goodman-Bacon (2021) showed TWFE is a <span class="kw">weighted average</span> of all possible 2×2 DiD comparisons. When treatment effects <span class="alert">change over time</span>, already-treated units used as “controls” introduce bias — and can receive <span class="alert">negative weights</span>.</p>
 <ul>
-<li>These are not weights the researcher chooses by hand.</li>
 <li>TWFE automatically gives more influence to some comparisons than others.</li>
 <li>Roughly: comparisons with more useful treatment-timing variation get more weight in the final estimate.</li>
 </ul>
@@ -887,8 +883,15 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="castle-doctrine-through-the-bacon-lens" class="slide level2 smaller">
 <h2>Castle Doctrine Through the Bacon Lens</h2>
-
-<img data-src="assets/castle/castle_bacon_generated.png" style="width:88.0%" class="r-stretch"><div class="fragment">
+<div class="columns">
+<div class="column" style="width:44%;">
+<p><strong>Regression output</strong></p>
+<p><img data-src="assets/castle/castle_bacon_status.png" style="width:100.0%"></p>
+</div><div class="column" style="width:56%;">
+<p><strong>Diagnostic plot</strong></p>
+<p><img data-src="assets/castle/castle_bacon_generated.png" style="width:100.0%"></p>
+</div></div>
+<div class="fragment">
 <ul>
 <li>In this application, the overall TWFE estimate is about <span class="kw">0.082 log points</span></li>
 <li>About <span class="kw">91% of the weight</span> comes from treated states compared with never-treated states</li>
@@ -906,7 +909,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Contrast: Stevenson and Wolfers (2006)</strong></p>
 </div>
 <div class="callout-content">
-<p>In Stevenson and Wolfers on unilateral divorce, the Bacon decomposition is much messier. The problematic <span class="alert">timing-group comparisons</span> get <span class="alert">more than one-third of the total weight</span>, so the overall TWFE/DD estimate is much more exposed to contaminated treated-vs-treated comparisons. That is the kind of setting where staggered-adoption TWFE can become seriously misleading.</p>
+<p>When looking at the impact of unilateral divorce on <span class="kw">female suicide rates</span>, the Bacon decomposition is much messier. The problematic <span class="alert">timing-group comparisons</span> get <span class="alert">about 38% of the total weight</span>, and the other major 2×2 pieces point in different directions. That is the kind of setting where staggered-adoption TWFE can become seriously misleading.</p>
 </div>
 </div>
 </div>
@@ -939,10 +942,26 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>You won’t implement these in this course. <strong>If you use DiD in your research paper</strong> with staggered adoption, simply discussing the staggered adoption limitation is completely acceptable — you do not need to implement an alternative estimator. If you want to go further, the packages below are the standard options.</p>
-<p>Current Stata packages (as of 2025): <code>csdid</code> (Callaway-Sant’Anna), <code>did_multiplegt</code> (de Chaisemartin-D’Haultfoeuille), <code>eventstudyinteract</code> (Sun-Abraham).</p>
+<p>Current Stata packages (checked April 7, 2026): <code>csdid</code> (Callaway-Sant’Anna), <code>eventstudyinteract</code> (Sun-Abraham), <code>did_multiplegt_stat</code> / <code>did_multiplegt_dyn</code> (de Chaisemartin-D’Haultfoeuille).</p>
 </div>
 </div>
 </div>
+</div>
+</section>
+<section id="a-modern-did-estimate-for-castle-doctrine" class="slide level2 smaller">
+<h2>A Modern DiD Estimate for Castle Doctrine</h2>
+<div class="columns">
+<div class="column" style="width:44%;">
+<p>Using Callaway and Sant’Anna’s estimator in Stata:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">gen</span> gvar = treatment_date</span>
+<span id="cb4-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">replace</span> gvar = 0 <span class="kw">if</span> <span class="fu">missing</span>(gvar)</span>
+<span id="cb4-3"><a href="" aria-hidden="true" tabindex="-1"></a>csdid l_homicide, ivar(sid) time(<span class="fu">year</span>) gvar(gvar) notyet</span>
+<span id="cb4-4"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">estat</span> simple</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:56%;">
+<p><img data-src="assets/castle/castle_csdid_att.png" style="width:100.0%"></p>
+</div></div>
+<div class="fragment">
+<p>Interpretation: using <span class="kw">not-yet-treated states as controls</span>, the estimated effect of castle doctrine laws is about a <span class="alert">9.7% increase</span> in homicide.</p>
 </div>
 </section></section>
 <section>
@@ -1039,50 +1058,23 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 </section>
-<section id="common-pitfalls" class="slide level2 smaller">
+<section id="common-pitfalls" class="slide level2 smaller scrollable">
 <h2>Common Pitfalls</h2>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>1. Forgetting to Cluster</strong></p>
-</div>
-<div class="callout-content">
-<p>Panel data almost always requires clustered standard errors. Unclustered SEs will usually be <span class="alert">too small</span> (though in some designs they can be too large) — leading to false precision or false rejection.</p>
-</div>
-</div>
+<ol type="1">
+<li><span class="alert">Forgetting to cluster</span></li>
+</ol>
+<p>Panel data almost always requires clustered standard errors. Unclustered SEs will usually be <span class="alert">too small</span> (though in some designs they can be too large), leading to false precision or false rejection.</p>
+<div class="fragment">
+<ol start="2" type="1">
+<li><span class="alert">Trying to estimate time-invariant effects</span></li>
+</ol>
+<p>With entity FE, you <span class="alert">cannot</span> estimate the effect of variables that do not vary over time. The fixed effect absorbs them.</p>
 </div>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>2. Trying to Estimate Time-Invariant Effects</strong></p>
-</div>
-<div class="callout-content">
-<p>With entity FE, you <span class="alert">cannot</span> estimate the effect of variables that don’t vary over time. The fixed effect absorbs them.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>3. Assuming FE Solves All OVB</strong></p>
-</div>
-<div class="callout-content">
+<ol start="3" type="1">
+<li><span class="alert">Assuming FE solves all OVB</span></li>
+</ol>
 <p>Fixed effects only eliminate <span class="alert">time-invariant</span> omitted variables. Time-varying confounders can still bias your estimates.</p>
-</div>
-</div>
-</div>
 </div>
 </section>
 <section id="key-takeaways" class="slide level2 scrollable">
