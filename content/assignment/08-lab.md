@@ -7,7 +7,7 @@ due_time: "1:15 PM"
 menu:
   assignment:
     parent: Labs
-    weight: 7
+    weight: 8
 type: docs
 ---
 **[Print-friendly pdf](../08-lab.pdf)**
