@@ -3,7 +3,7 @@ title: "Research Paper: Referee Report"
 linktitle: "05 Referee Report"
 date: "2026-04-01"
 due_date: "2026-04-09"
-due_time: "1:15 PM"
+due_time: "11:59 PM"
 menu:
   assignment:
     parent: Research Paper
@@ -39,8 +39,8 @@ type: docs
   - 3 pages = overkill, < 1 page, dig in deeper! 
 - Written in collegial tone
 
-## Submission 
- - Upload on BB 
- - *And* send directly to your partner 
- 
+## Submission
+ - Submit your referee report as a Word or PDF document
+ - *And* send directly to your partner
+
  Note that I'm assigning referee partners at an individual level, not at a paper level. If you are working with a partner, each of you will complete a referee report, and your paper will receive two reviews.
