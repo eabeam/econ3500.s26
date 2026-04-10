@@ -1,7 +1,7 @@
 ---
 title: "Research Paper: Final Submission"
 linktitle: "08 Final"
-date: "2026-04-10"
+date: "2026-04-09"
 due_date: "2026-05-04"
 due_time: "11:59 PM"
 menu:
