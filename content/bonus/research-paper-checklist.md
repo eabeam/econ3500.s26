@@ -61,7 +61,7 @@ type: docs
 
 -   Describes what you find
 
--   Describe how it contributes
+-   Describes how it contributes
 
 -   Reader can infer all main points of paper just from introduction
 
@@ -94,13 +94,13 @@ type: docs
 
 -   Population model written out (you can use the Equation Editor in Word)
 
-    -   Use proper equation notation (betas, u, etc)
+    -   Use proper equation notation (betas, u, etc.)
 
-    -   Use appropriate subscripts (*i, t, y, etc)*
+    -   Use appropriate subscripts *(i, t, y, etc.)*
 
     -   All relevant variables explained/defined
 
-    -   Use "real names" to describe variables when possible (ie use
+    -   Use "real names" to describe variables when possible (i.e., use
         *female* for women, not *w1*)
         
     -   Don't forget the error term!
@@ -131,7 +131,7 @@ Please enjoy this [empirical specification handout!](../ec200_empirical_specific
 -   Tables should be properly formatted. That is, they should be made in
     Excel (or LaTeX) and NEVER copied and pasted out of Stata
 
--   Variables should be described using real words. Ie, "number of
+-   Variables should be described using real words. I.e., "number of
     children," not "numchld."
 
 -   Tables and figures should be numbered (Table 1, Table 2, etc...
@@ -151,8 +151,7 @@ Please enjoy this [empirical specification handout!](../ec200_empirical_specific
 
     -   Citation Owl or Google Scholar will do it for you
 
--   In-text, cite with author and year (Author, Year; Author, Year) or
-    (Author Year, Author Year)
+-   In-text, cite with author and year (Author, Year; Author, Year)
     
 
 
