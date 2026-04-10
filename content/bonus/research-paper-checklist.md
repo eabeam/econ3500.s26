@@ -46,7 +46,7 @@ type: docs
 
 -   Descriptive title included
 
--   200 words or less abstract
+-   250 words or less abstract
 
 ## Introduction 
 
@@ -138,6 +138,8 @@ Please enjoy this [empirical specification handout!](../ec200_empirical_specific
     Figure 1, Figure 2, etc.) and should also be given a title. Refer to
     tables by their numbers in the text.
 
+-   Tables should include standard errors and significance stars
+
 
 
 
@@ -147,7 +149,9 @@ Please enjoy this [empirical specification handout!](../ec200_empirical_specific
 
 -   At the end of your paper, include list of references cited
 
--   You can format using APA, MLA, or Chicago style
+-   Include a minimum of 5 academic sources (8 total)
+
+-   You can format using APA or Chicago style
 
     -   Citation Owl or Google Scholar will do it for you
 
