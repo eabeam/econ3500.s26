@@ -21,11 +21,11 @@ Research papers are fairly formulaic, and that's a good thing - it helps readers
 
 Your paper is due at **11:59pm May 04**. *I can accept extensions only up to May 05*, as there are external grading deadlines I need to meet. 
 
-You should submit the following: 
+You should submit the following (see rubric for details):
 
- - Final paper in pdf or docx format 
- - Stata do-file with all analysis you conducted 
- - Stata log file with results for analysis conducted in your do-file. 
+ - Final paper in pdf or docx format (must include an AI attribution statement — see rubric)
+ - Stata do-file with all analysis you conducted
+ - Stata log file with results for analysis conducted in your do-file.
  
 I will grade your papers following the rubric. If you would like me to share comments, you must *opt-in* by filling out the [feedback survey](https://forms.gle/kxGcNvFzzGtduGQ99). If you do not fill it out, you will not receive feedback! 
 
@@ -36,7 +36,7 @@ Review the [research paper checklist](../../bonus/research-paper-checklist) for 
 
 Download rubric [here](../materials/RP_Rubric_F20.pdf)
 
-| Total:   100 marks                      | 100 = Excellent                                                                                 | 80 = Adequate                                                                        | 60 = Marginal                                                                         | 40 = Poor                                                             |
+| Total:   102 marks                      | 100 = Excellent                                                                                 | 80 = Adequate                                                                        | 60 = Marginal                                                                         | 40 = Poor                                                             |
 |-----------------------------------------|-------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
 | Motivation/Literature (18   marks)      |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
 | Introduction                            | Introduction   provides complete overview of paper, motivates research question using   sources | Introduction   provides some overiew of paper, motivation clear with limited sources | Introduction   vague; motivation minimal                                              | Incomplete   introduction, no motivation                              |
@@ -62,3 +62,6 @@ Download rubric [here](../materials/RP_Rubric_F20.pdf)
 | Formatting                              | Meets   all formatting requirements                                                             | Minor   deviation from formatting requirements                                       | Exceeds   page limit/major deviation from formatting requirements                     | Formatting   requirements completely disregarded                      |
 | Replication   code (10 marks)           |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
 | Do-files and   log                      | Well-documented,   easy to read                                                                 | Detailed   documentation, somewhat confusing                                         | Unclear   documentation                                                               | Little   to no documentation                                          |
+|                                         |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
+| AI Attribution (2 marks)               |                                                                                                 |                                                                                      |                                                                                       |                                                                       |
+| AI use statement                        | Statement identifies all AI tools used and their specific purposes (or explicitly states no AI was used) | —                                                                   | —                                                                                     | No statement included, or statement does not identify tools and purposes |

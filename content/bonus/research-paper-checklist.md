@@ -155,7 +155,17 @@ Please enjoy this [empirical specification handout!](../ec200_empirical_specific
     
 
 
-# Working with data 
+## AI Attribution
+
+-   Include an AI attribution statement at the end of your paper
+
+    -   If you used AI tools (e.g., ChatGPT, Claude, Copilot), identify which tools you used and describe what you used them for (e.g., brainstorming, editing, coding assistance)
+
+    -   If you did not use any AI tools, state that explicitly
+
+    -   This is worth 2 points and is full credit or zero — don't skip it!
+
+# Working with data
 
 If you're working with people
 
