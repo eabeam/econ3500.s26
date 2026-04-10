@@ -12,5 +12,11 @@ type: docs
 ---
 
 
-This is **optional**! If you would like feedback on your rough draft, submit it to me and I'll get back to you within a few days. 
+This is **optional**! If you would like feedback on your rough draft, submit it to me and I'll get back to you within a few days.
+
+**I cannot accept extensions on the rough draft.** However, partial drafts are very welcome — submit whatever you have and I'll give you feedback on it.
+
+{{% alert note %}}
+Have Stata/coding questions? Struggling with framing? Rae is very available for email support — don't hesitate to reach out to them!
+{{% /alert %}}
 
