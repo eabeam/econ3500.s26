@@ -14,9 +14,9 @@ design:
 ---
 
 {{< announcements >}}
+- **Week 13**: Wrapping up instrumental variables — **PS 5** due Thursday 4/16. Next week: exam review Tuesday, **Exam 3** Thursday 4/23. Please fill out the [presentation day preference form](https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=WHcXHGtN3EOq6zucQlYpZ7E0bZNJakVDrgKDJtyBvw1UMzdCUDBaRFhDMEMxNEhFWkQ2VUFBTktYTS4u) for 4/28 and 4/30.
+- **Updated**: The optional [rough draft](/assignment/rp-06-roughdraft/) deadline is **Monday 4/21** at 11:59 PM.
 - **Updated**: The word count ceiling for the [research paper](/assignment/rp-01/) has been raised — solo papers now 2500–4500 words, pairs 3500–5500. Lower limits unchanged. AI attribution statements do not count toward the word limit.
-- **Lab 7**: [Lab 7: Difference in differences](/assignment/07-lab/) is now available — due **Tuesday 4/14** at 1:15 PM.
-- **Week 12**: The fixed effects in-class materials are now posted on the [panel data week page](/content/10-content/), including the [activity PDF](/content/practice/ch10-activity2-fe-showdown.pdf) and [answer key](/content/practice/ch10-activity2-fe-showdown-answerkey.pdf). [Research proposal](/assignment/rp-04-proposal/) and [peer review](/assignment/rp-05-referee/) both happen on **Thursday 4/9**.
 - **Updated**: The attendance requirement for working sessions has been reduced to **8 sessions**. There are also new [extra credit opportunities](/bonus/extra-credit/) for LaTeX and push-button replication. See the [full details](/bonus/extra-credit/).
 {{< /announcements >}}
 
