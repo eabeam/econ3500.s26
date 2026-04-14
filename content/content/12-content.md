@@ -18,6 +18,7 @@ menu:
     weight: 13
     
 
+slides_html: /slides/ch12-quarto/
 pdf: /slides/ch12-slides.pdf
 thumb: /slides/ch12-slides.png
 
