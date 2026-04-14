@@ -852,7 +852,7 @@ Your double-sided formula sheet should include:
 
 ## Exam 3 Details
 
-- **Date:** Wednesday, April 23
+- **Date:** Thursday, April 23
 - **Format:** ~3 multi-part questions, 75 minutes
 - **Closed book** — one-page formula sheet (double-sided), calculator allowed
 - **No Stata component**

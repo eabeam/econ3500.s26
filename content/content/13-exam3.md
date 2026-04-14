@@ -5,7 +5,7 @@ title: Exam 3 - CH 8-12
 sitetitle: Exam 3 - Ch8-12
 summary: "ECON3500 - Exam 3 Prep (Ch8-12)"
 
-date: "2026-04-20"
+date: "2026-04-14"
 
 
   
@@ -73,26 +73,26 @@ A few ideas, depending on where you're feeling least secure:
 - Watch videos/review slides when you have gaps. 
 
 
-<!--
 ## In-class practice {#inclass-practice .unnumbered}
 
-We have several sets of in-class practice activities: 
+We have several sets of in-class practice activities:
 
-- [CH4 Practice (Week 4) - Single Linear Regression](../practice/W4-02-in-class-exercise.pdf)
-- [CH5 Practice (Week 5) - Inference](../practice/W5-05-03-in-class_inference.pdf)
-- [CH6 Practice (Week 6) - Multiple Linear Regression](../practice/W6-01-in-class-exercise.pdf)
-- [CH7 Practice (Week 7) - Inference with Multiple Linear Regression](../practice/W7-02-in-class-exercise.pdf)
-
+- [CH9 Activity: Threat Detective](../practice/ch9-activity1-threat-detective) — Identify threats to internal validity
+- [CH9 Activity: Regression Audit](../practice/ch9-activity2-regression-audit) — Evaluate regression studies
+- [CH9 Activity: Study Doctor](../practice/ch9-activity3-study-doctor-student.pdf) — Diagnose and fix research designs
+- [CH10 Activity: DiD by Hand](../practice/ch10-activity1-did-by-hand) — Calculate difference-in-differences estimates
+- [CH10 Activity: FE Showdown](../practice/ch10-activity2-fe-showdown.pdf) — Fixed effects practice
+- [CH12 Activity: Is This a Good Instrument?](../practice/ch12-activity1-good-instrument) — Evaluate instrument validity
+- [CH12 Activity: 2SLS in Action](../practice/ch12-activity2-2sls-in-action) — Interpret IV regression output
 
 
 ## Helpful materials {#helpful-materials}
 
-Two things that may be useful to you: 
+Two things that may be useful to you:
 
 - [Standard Normal Distribution Table](../AppendixTable1_rev.pdf)
 
-- [Formula chart](../Formula-sheet_f20.pdf): Is this all the knowledge you need to know? Of course not! But, this should cover most of the formulas you might need. 
---> 
+- [Formula chart](../Formula-sheet_f20.pdf): Is this all the knowledge you need to know? Of course not! But, this should cover most of the formulas you might need.
 
 
 ## Slides

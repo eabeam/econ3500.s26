@@ -8,7 +8,7 @@ format:
     footer: "ECON3500 | Instrumental Variables"
 ---
 
-## Learning Objectives
+## Learning Objectives {.smaller}
 
 1. Understand **why** we need instrumental variables to address endogeneity
 2. Identify the three key characteristics of a valid instrument
@@ -21,35 +21,40 @@ format:
 ::: {.callout-note}
 ## Textbook Coverage
 - 12.1: IV estimator with single regressor and single instrument
+  - *We won't manually compute standard errors*
 - 12.2: General IV regression model
 - 12.3: Checking instrument validity
-- 12.4/12.5: Applied examples
+  - *Weak instruments and exogeneity* 
+  - **Exclude** *overidentifying restrictions test*
+- 12.4/12.5: Interesting examples!
 :::
 
 # Why Instrumental Variables?
 
 ## The Endogeneity Problem
 
-Three threats to internal validity all produce $E(u_i | X_i) \neq 0$:
+Three threats to internal validity all produce **endogeneity**---the regression $X_i$ is correlated with the error term. That is, $E(u_i | X_i) \neq 0$:
 
 . . .
 
 1. **Omitted variable bias**: An unobserved variable correlated with $X$ is left out
-2. **Simultaneous causality**: $X$ causes $Y$, but $Y$ also causes $X$
-3. **Errors-in-variables bias**: $X$ is measured with error
 
 . . .
 
-::: {.callout-important}
-## Endogeneity
-All three problems result in $E(u_i | X_i) \neq 0$ --- a violation of the zero conditional mean assumption. When this happens, OLS is [biased and inconsistent]{.alert}.
-:::
+2. **Simultaneous causality**: $X$ causes $Y$, but $Y$ also causes $X$
+
+. . .
+
+3. **Errors-in-variables bias**: $X$ is measured with error
+
+
+
 
 ## What We've Tried So Far
 
 Solutions to endogeneity considered previously:
 
-- **Difference-in-differences** (Ch. 10)
+- **Difference-in-differences**
   - Requires a clear before/after treatment
 - **Fixed effects** (Ch. 10)
   - Requires panel data
@@ -60,10 +65,10 @@ Solutions to endogeneity considered previously:
 
 Today: **Instrumental variables (IV)**
 
-- The most widely-used method for addressing endogeneity
-- IV can eliminate bias when $E(u_i | X_i) \neq 0$ using an [instrumental variable]{.kw} $Z$
+- Widely-used method for addressing endogeneity
+- IV can **eliminate bias** when $E(u_i | X_i) \neq 0$ if we have a valid [instrumental variable]{.kw} $Z$
 
-## Motivating Example: Wages and Schooling {.smaller}
+## Wages and Schooling {.smaller}
 
 $$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
 
@@ -83,28 +88,37 @@ $$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
 $$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
 
 - How do we measure innate ability?
+
+. . .
+
 - IQ tests may capture *some* part of ability; hard to get IQ data for large samples
+
+. . .
+
 - IQ is not a perfect measure of innate ability in the workplace
   - Example: IQ tests wouldn't measure social skills
-  - Note: you *should* include IQ if available
+  - Note: you *should* include IQ or equivalent if available
 
 . . .
 
 - Since IQ tests are imperfect, *schooling* likely remains correlated with the omitted part of innate ability
-- Multiple regression doesn't fully solve this problem
+
+. . .
+
+- Multiple regression doesn't fully solve this problem!
 
 ## Can We Fix This with Panel Data? {.smaller}
 
-$$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
+$$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + a_i + u_i$$
 
-- Innate ability might be reasonably constant over a career
+- Innate ability might be reasonably constant over a career, captured by $a_i$
 - But *schooling* is also typically constant for adult workers
 
 . . .
 
 - Adults who go back to school after working are a non-representative group
 - Panel data do not provide convincing variation in schooling over a worker's career
-- Fixed effects won't work here
+- Fixed effects won't work here! (and if they do, won't capture the type of variation we care about)
 
 . . .
 
@@ -113,130 +127,100 @@ $$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
 Neither multiple regression nor panel data convincingly addresses the ability bias in estimating returns to schooling. We need a different approach.
 :::
 
-# Intuition First: A Simple Example
+# Endogeneity as a DAG
 
-## Effect of Studying on Grades {.smaller}
+## The Problem in a DAG {.smaller}
 
-What is the effect on grades of studying an additional hour per day?
+To understand how IV solves this, let's visualize the problem using causal diagrams from Ch 8b.
 
-- $Y$ = GPA
-- $X$ = study time (hours per day)
-
-. . .
-
-*Would you expect the OLS estimator of $\beta_1$ to be unbiased? Why or why not?*
-
-. . .
-
-Stinebrickner and Stinebrickner (2008), "The Causal Effect of Studying on Academic Performance," *The B.E. Journal of Economic Analysis & Policy*
-
-- $n = 210$ freshmen at Berea College (Kentucky) in 2001
-- $Y$ = first-semester GPA
-- $X$ = average study hours per day (time use survey)
-- Roommates were **randomly assigned**
-- $Z$ = 1 if roommate brought a video game, = 0 otherwise
-
-## Is the Video Game Instrument Valid? {.smaller}
-
-Do you think $Z_i$ (whether a roommate brought a video game) is a valid instrument?
-
-. . .
-
-1. Is the instrument [powerful]{.kw}?
-   - If your roommate brought a video game, you might study less
-   - First stage: video game treatment reduces study hours by 0.67 hours/day (significant)
-
-. . .
-
-2. Is the instrument [exogenous]{.kw}?
-   - Roommates were **randomly assigned** --- so $Z$ is uncorrelated with unobserved student ability
-   - Random assignment makes this a strong argument
-
-. . .
-
-3. Is the instrument [excludable]{.kw}?
-   - Does having a roommate with a video game directly affect your GPA, other than through study time?
-   - Plausible: the video game mainly affects grades by reducing study hours
-
-. . .
-
-**Results**: OLS coefficient on study = 0.038; IV coefficient = **0.36** (much larger). Why? [Selection bias]{.alert} --- students who study more tend to be [weaker]{.alert} students compensating with extra effort ([negative selection]{.kw}). This negative correlation between study time and ability biases OLS downward. IV corrects this by using only the variation in study time driven by the random video-game assignment.
-
-# Classic Examples
-
-## Philip Wright and the Demand for Butter (1928)
-
-- Philip Wright, *The Tariff on Animals and Vegetable Oils*
-  - Appendix B: "The Method of Introducing External Factors"
-  - Estimated supply and demand elasticities for butter and flaxseed oil
-
-. . .
-
-- Data: total annual U.S. butter consumption and price, 1912--1922
-- Naive estimation: use OLS
-
-$$\ln(Q_i^{butter}) = \beta_0 + \beta_1 \ln(P_i^{butter}) + u_i$$
-
-- Problem: price and quantity are *jointly determined* by supply and demand
-
-## The Identification Problem
-
-::: {.columns}
-::: {.column width="55%"}
-When both supply and demand shift, equilibrium data points trace out **neither** curve
-
-- We observe equilibrium prices and quantities
-- Can you tell what the demand curve looks like from these data points?
-
-. . .
-
-**No** --- you just see a scatter of equilibrium points
-:::
+:::: {.columns}
 ::: {.column width="45%"}
-![](images/equilibrium_scatter.png)
+![](ch12_figures/ch12_endogeneity_dag.png){width=100% fig-align="center"}
+
+::: {.smaller}
+[Gray]{style="color: #708090; font-weight: bold;"} = unobserved
 :::
 :::
 
-## A Better Way
-
-::: {.columns}
 ::: {.column width="55%"}
-If you can **hold demand fixed** and only observe supply shifting:
+From Ch 8b, we know this DAG:
 
-- The equilibrium points trace out the [demand curve]{.kw}
-- This is the intuition behind IV
+- **Causal path**: Education → Earnings ✓
+- **Backdoor path**: Education ← [Ability]{style="color: #708090; font-weight: bold;"} → Earnings ✗
+
+The backdoor path is [open]{.alert} and Ability is [unobserved]{.alert}.
+
+- Can't control for it (Ch 6/7)
+- Can't difference it out (Ch 10)
+- **We need a new tool to close this path.**
+:::
+::::
+
+## The IV Solution in a DAG {.smaller}
+
+:::: {.columns}
+::: {.column width="55%"}
+![](ch12_figures/ch12_iv_dag.png){width=100% fig-align="center"}
+
+::: {.smaller}
+[Gold]{style="color: #B8860B; font-weight: bold;"} = instrument, [Gray]{style="color: #708090; font-weight: bold;"} = unobserved
+:::
+:::
+
+::: {.column width="45%"}
+Add an [instrument]{.kw} $Z$ to the DAG. A valid instrument must satisfy:
+
+1. [Z → Education]{.alert}: $Z$ affects $X$ ([relevance]{.kw})
+2. [No Z ← Ability]{.alert}: $Z$ is not connected to unobserved confounders ([exogeneity]{.kw})
+3. [No Z → Earnings]{.alert}: $Z$ does not directly affect $Y$ ([exclusion]{.kw})
+
+:::
+::::
 
 . . .
 
-The [instrument]{.kw} holds demand fixed while shifting supply --- it moves $X$ without directly affecting $Y$
+::: {.callout-important}
+## Key Insight
+IV works by isolating the variation in Education that comes **only from $Z$**. Since $Z$ has no connection to Ability and no direct effect on Earnings, this variation is "clean" --- free of confounding.
 :::
-::: {.column width="45%"}
-![](images/supply_shifts.png)
-:::
-:::
+
+# Cigarette Demand: A Running Example
 
 ## Demand for Cigarettes {.smaller}
 
 Broad public policy interest in reducing cigarette consumption.
 
-$$sales_i = 164.4 - 0.38 \cdot price_i + u_i$$
+$$sales_i = \beta_0 + \beta_1 price_i + u_i$$
+
+- Price may be correlated with omitted variables in $u$: firms set prices based on demand conditions
+- When state $i$ has unusually high demand ($u_i$ high), prices are higher too
+- This is [simultaneous causality]{.alert}: sales depend on prices, but prices also depend on sales
 
 . . .
 
-- But price may be correlated with omitted variables in $u$
-- Prices in each state determined by cigarette firms
-- Firms may adjust price based on demand conditions
+::: {.columns}
+::: {.column width="55%"}
+**The identification problem**: When both supply and demand shift, equilibrium data trace out **neither** curve --- just a scatter of equilibrium points.
 
-. . .
+We need something that shifts supply [without]{.alert} shifting demand.
+:::
+::: {.column width="45%"}
+![](ch12_figures/equilibrium_scatter.png)
+:::
+:::
 
-- When state $i$ has a high $u_i$, this state has unusually high demand
-- Therefore, $price_i$ may be positively correlated with $u_i$
+## The IV Intuition
 
-. . .
+::: {.columns}
+::: {.column width="55%"}
+If we can **hold demand fixed** and only observe supply shifting:
 
-::: {.callout-important}
-## Simultaneous Causality
-Sales depend on prices, but prices may also depend on sales. This creates $\text{Corr}(X, u) \neq 0$, making OLS inconsistent.
+- The equilibrium points trace out the [demand curve]{.kw}
+- The [instrument]{.kw} shifts supply without directly affecting demand --- it moves $X$ without directly affecting $Y$
+:::
+::: {.column width="45%"}
+![](ch12_figures/supply_shifts.png)
+:::
 :::
 
 ## Why Simultaneous Causality Is Especially Problematic
@@ -254,9 +238,11 @@ Simultaneous causality would *disappear* if we could **randomly assign** prices 
 - In that experiment, there would be no correlation between *price* and $u$
 - IV provides a way to mimic this
 
-# The IV Solution
+# The IV Solution: Formal Definitions
 
-## Instrumental Variables: Three Assumptions
+## Instrumental Variables: Three Assumptions {.smaller}
+
+We introduced these conditions visually using DAGs. Now let's state them formally.
 
 An [instrumental variable]{.kw} is an additional variable $Z_i$ that satisfies three assumptions:
 
@@ -361,27 +347,22 @@ $$\beta_1 = \frac{\text{Cov}(Y, Z)}{\text{Cov}(X, Z)}$$
 - $Z$ is exogenous: uncorrelated with $u$; $Z$ also does not affect $Y$ directly
 - If $Y$ and $X$ are both correlated with $Z$, the only explanation under our assumptions is that $X$ causes $Y$ according to $\beta_1$
 
-## Example Instrument: Distance to College {.smaller}
+## Applying the Formula: Distance to College {.smaller}
 
-$$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
-
-- Schooling and ability ($V$) are correlated --- need an instrument for *schooling*
-
-. . .
-
-- Distance from high school to nearest college:
-  - [Powerful]{.kw}: Positively correlated with schooling attainment
-  - [Exogenous]{.kw}: Uncorrelated with worker ability ($V$)
-  - [Excluded]{.kw}: Growing up near a college doesn't directly *cause* higher wages
-
-. . .
+Back to our wages/schooling example. Instrument: distance from childhood home to nearest college.
 
 $$\beta_1 = \frac{\text{Cov}(\log \text{wage}, \text{distance})}{\text{Cov}(\text{schooling}, \text{distance})}$$
 
 - Denominator is positive (closer to college → more schooling)
 - Numerator is positive if people near a college earn higher wages as adults
 - Note: *not* because the distance causes the higher wage
-- $\text{Cov}(X, Y)$ does not appear --- we do not compare someone's wage to their schooling
+
+. . .
+
+::: {.callout-tip}
+## Key Feature
+$\text{Cov}(X, Y)$ does not appear in the formula --- we never directly compare someone's wage to their schooling. Instead, we use [only the variation in schooling driven by distance]{.kw}.
+:::
 
 # Two-Stage Least Squares
 
@@ -514,11 +495,10 @@ ivregress 2sls packpc (avgprs=tax), robust
 - After `=`: instrument (`tax`)
 - `robust`: heteroskedasticity-robust standard errors
 
-. . .
+## Reading the Stata Syntax
 
 ::: {.callout-note}
-## Reading the Syntax
-`ivregress 2sls Y (X=Z), robust`
+## `ivregress 2sls Y (X=Z), robust`
 
 - $Y$ = dependent variable (first after `2sls`)
 - $X$ = endogenous regressor (before `=`)
@@ -553,23 +533,13 @@ Instruments:   tax
 
 To understand the two stages, we can do them by hand:
 
-```stata
-* Stage 1: Regress X on Z
-regress avgprs tax, robust
-predict avgprs_predict           // Save predicted values
+![](ch12_figures/ch12_stata_1.png){fig-align="center"}
 
-* Stage 2: Regress Y on predicted X
-regress packpc avgprs_predict, robust
-```
-
-. . .
+## Manual 2SLS: A Warning {.smaller}
 
 - The **point estimates** are identical to `ivregress`
 - But the **standard errors are wrong** in the manual approach!
-  - Manual first stage has sampling errors
   - Stata doesn't know the predicted prices are *generated* regressors
-
-. . .
 
 ::: {.callout-warning}
 ## Always Use `ivregress`
@@ -578,28 +548,13 @@ The `ivregress` command uses the correct standard error formula that accounts fo
 
 ## Viewing Both Stages with `first` {.smaller}
 
-```stata
-ivregress 2sls packpc (avgprs=tax), robust first
-```
+`ivregress 2sls packpc (avgprs=tax), robust first`
 
 The `first` option displays the first-stage regression alongside the second stage.
 
-. . .
+![](ch12_figures/ch12_stata_2.png){fig-align="center"}
 
-**First stage** (regress avgprs on tax):
-
-- Coefficient on `tax`: 2.45 (t = 19.78)
-- $F(1, 94) = 391.06$
-- This is a **strong** first stage
-
-. . .
-
-**Second stage** (regress packpc on $\hat{X}$):
-
-- Coefficient on avgprs: -0.421
-- Same as the 2SLS results
-
-## Reporting the First Stage
+## Reporting the First Stage {.smaller}
 
 - First stage shows how $X$ and $Z$ are related
 - It provides a **statistical test** of the relevance assumption: $\text{Corr}(X, Z) \neq 0$
@@ -642,15 +597,15 @@ If the first-stage F-statistic is less than 10, the 2SLS estimates may be biased
 | **Exogeneity** ($\text{Corr}(Z, u) = 0$) | No | Must argue based on institutional knowledge |
 | **Exclusion** ($Z$ doesn't directly cause $Y$) | No | Must argue based on theory |
 
-. . .
-
 ::: {.callout-important}
 ## Exogeneity Cannot Be Tested
 You lack data on the omitted variable, so you cannot test whether $Z$ is correlated with it. Exogeneity must be **defended with reasoning** about the instrument and the omitted variables in question.
 :::
 
+## Knowledge Check: Instrument Validity
+
 ::: {.callout-tip}
-## Knowledge Check
+## Think About It
 For the cigarette example, why might someone challenge the exogeneity of sales tax as an instrument? Could states with stronger anti-smoking attitudes set both higher taxes *and* have lower demand?
 :::
 
@@ -673,15 +628,11 @@ $$sales_i = \beta_0 + \beta_1 price_i + \beta_2 income_i + u_i$$
 
 . . .
 
-```stata
-ivregress 2sls packpc (avgprs=tax) incomepop, robust first
-```
+`ivregress 2sls packpc (avgprs=tax) incomepop, robust first`
 
-- `incomepop` appears **outside** the parentheses → exogenous control
-- `avgprs` is inside parentheses → endogenous regressor
-- `tax` is after `=` → excluded instrument
+![](ch12_figures/ch12_stata_3.png){fig-align="center"}
 
-## Need an *Excluded* Instrument
+## Need an *Excluded* Instrument {.smaller}
 
 - We need at least one instrument for **each** regressor treated as endogenous in the outcome equation
 - Even if we have income as a regressor, we still need `tax` as the excluded instrument
@@ -718,70 +669,43 @@ $$sales_{it} = \alpha_i + \lambda_t + \beta_1 price_{it} + \beta_2 income_{it} +
 xtivreg packpc (avgprs = taxs) incomepop y1995, fe vce(cluster state)
 ```
 
-## Building Up: No Instruments {.smaller}
+## Building Up: State FE Only {.smaller}
 
-**Step 1: State FE only**
+**Step 1**: `xtreg packpc avgprs incomepop, vce(cluster state) fe`
 
-```stata
-xtreg packpc avgprs incomepop, vce(cluster state) fe
-```
+![](ch12_figures/ch12_stata_4.png){fig-align="center"}
 
-- Price coefficient: -0.355
+Price coefficient: -0.355. Still suffers from simultaneous causality bias.
 
-. . .
+## Building Up: State + Year FE {.smaller}
 
-**Step 2: State + Year FE**
+**Step 2**: `xtreg packpc avgprs incomepop i.year, vce(cluster state) fe`
 
-```stata
-xtreg packpc avgprs incomepop i.year, vce(cluster state) fe
-```
+![](ch12_figures/ch12_stata_5.png){fig-align="center"}
 
-- Price coefficient: -0.416
+Price coefficient: -0.416. Still biased --- price responds to state and time demand shocks.
 
-. . .
+## Adding the Instrument: First Stage {.smaller}
 
-Both estimates still suffer from simultaneous causality bias --- price responds to state and time demand shocks.
+**Step 3**: `xtivreg packpc (avgprs = taxs) incomepop y1995, vce(cluster state) fe first`
 
-## Adding the Instrument {.smaller}
+![](ch12_figures/ch12_stata_6.png){fig-align="center"}
 
-**Step 3: State + Year FE with IV**
+$F(3, 47) = 3001.56$ --- **very strong** first stage.
 
-```stata
-xtivreg packpc (avgprs = taxs) incomepop y1995, vce(cluster state) fe first
-```
+## Adding the Instrument: Second Stage {.smaller}
 
-. . .
+![](ch12_figures/ch12_stata_7.png){fig-align="center"}
 
-**First stage** (predict avgprs using taxs, incomepop, y1995, state FE):
-
-- Coefficient on `taxs`: 1.17 (t = 19.04)
-- $F(3, 47) = 3001.56$ --- **very strong** first stage
-
-. . .
-
-**Second stage**:
-
-- Price coefficient: -0.409 (p < 0.001)
-- Income: -1.68 (p = 0.048)
+Price coefficient: -0.409 (p < 0.001). Income: -1.68 (p = 0.048).
 
 ## Using Logarithms for Elasticities {.smaller}
 
 $$\log(sales_{it}) = \alpha_i + \lambda_t + \beta_1 \log(price_{it}) + \beta_2 \log(income_{it}) + \delta V_i + \omega_{it}$$
 
-**Instrument for log(price) is log(sales tax)**
+Using logs lets us interpret $\beta_1$ as an **elasticity**. Instrument: log(sales tax).
 
-. . .
-
-- Using logs lets us interpret coefficients as elasticities, and with year fixed effects it also helps compare proportional changes over time
-- Coefficient on log(price) is the **elasticity** of sales w.r.t. price
-
-```stata
-xtivreg lpackpc (lavgprs = ltaxs) lincomepop y1995, vce(cluster state) fe
-```
-
-- Coefficient on `lavgprs`: **-1.27** (p < 0.001)
-
-. . .
+![](ch12_figures/ch12_stata_8.png){fig-align="center"}
 
 ::: {.callout-important}
 ## Best Elasticity Estimate
@@ -790,15 +714,7 @@ When price goes up by 1%, sales go down by **1.3%**. Demand is elastic, but not 
 
 ## Comparing All Specifications {.smaller}
 
-| | (1) OLS | (2) 2SLS | (3) 2SLS+controls | (4) State FE | (5) State+Year FE | (6) 2SLS Panel | (7) 2SLS Log |
-|---|---|---|---|---|---|---|---|
-| Price | -0.385*** | -0.421*** | -0.687*** | -0.355*** | -0.416*** | -0.409*** | |
-| log(price) | | | | | | | -1.269*** |
-| Income | | | 2.816*** | 0.232 | -1.642* | -1.681** | |
-| State FE | | | | Yes | Yes | Yes | Yes |
-| Year FE | | | | | Yes | Yes | Yes |
-| IV | | Yes | Yes | | | Yes | Yes |
-| N | 96 | 96 | 96 | 96 | 96 | 96 | 96 |
+![](ch12_figures/ch12_stata_9.png){width=95% fig-align="center"}
 
 . . .
 
@@ -807,20 +723,11 @@ When price goes up by 1%, sales go down by **1.3%**. Demand is elastic, but not 
 Notice that the price coefficient changes as we add controls and instruments. The preferred specification (column 7) combines all: fixed effects, IV, controls, and logarithms.
 :::
 
-# Applied Examples
+# Applied Example: Returns to Schooling Revisited
 
-## Example 1: Returns to Schooling {.smaller}
+## A Different Instrument for the Same Problem {.smaller}
 
-$$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
-
-- Data show that people who attend college earn high wages
-- We want to estimate the **causal** effect
-- OLS can't distinguish whether high wages are due to the causal benefit of schooling or because people who attend college would be able workers regardless
-  - Innate ability in $u$
-
-. . .
-
-- At the extreme: college might just be a way to **signal** to employers a student's innate ability --- credentials how innately smart you are
+We've been using wages/schooling throughout. We used *distance to college* as one instrument. Here's another famous approach to the same question:
 
 ## Instrument: Quarter of Birth (Angrist and Krueger, 1991) {.smaller}
 
@@ -845,9 +752,23 @@ $$\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i$$
 
 This instrument has been extensively debated --- it illustrates how the assumptions can be **challenged** even when the research design seems clever.
 
-## Angrist and Krueger (1991): Estimates {.smaller}
+## AK (1991): First Stage {.smaller}
 
-![](images/ak1991_table4.png){width=95% fig-align="center"}
+Does quarter of birth actually predict education?
+
+![](ch12_figures/ch12_stata_11.png){width=85% fig-align="center"}
+
+Born in Q1 → significantly **less** education. F-tests are strong for total years.
+
+## AK (1991): The Earnings Pattern {.smaller}
+
+![](ch12_figures/ch12_stata_12.png){width=70% fig-align="center"}
+
+Mean log weekly earnings by quarter of birth (1980 Census). The sawtooth pattern mirrors the education pattern --- Q1 births earn less.
+
+## AK (1991): OLS vs. TSLS Estimates {.smaller}
+
+![](ch12_figures/ch12_stata_13.png){width=95% fig-align="center"}
 
 OLS and TSLS estimates of returns to education, men born 1920--1929 (1970 Census, $n = 247{,}199$). Instruments: quarter-of-birth × year-of-birth interactions.
 
@@ -869,7 +790,9 @@ If quarter of birth is correlated with ability or other determinants of wages, $
 
 **Problem 2 — Weak instruments:** With proper age controls, the first-stage F-statistic falls to **1.6** --- far below the rule-of-thumb threshold of 10.
 
-. . .
+## Bound, Jaeger, and Baker (1995): The Evidence {.smaller}
+
+![](ch12_figures/ch12_stata_14.png){width=85% fig-align="center"}
 
 ::: {.callout-important}
 ## Combined Effect
@@ -929,7 +852,7 @@ A [weak instrument]{.alert} combined with even a small $\text{Cov}(Z, u)$ can ca
 :::
 :::
 
-. . .
+## The Bottom Line
 
 ::: {.callout-warning}
 ## IV Is Only as Good as the Instrument
@@ -949,9 +872,61 @@ An IV estimate with a bad instrument can be **worse** than OLS. The whole approa
 6. IV can be combined with **panel data** and fixed effects
 7. Always use `ivregress` or `xtivreg` --- never manual two-step
 
-. . .
+## Final Knowledge Check
 
 ::: {.callout-tip}
-## Final Knowledge Check
-Suppose a researcher wants to estimate the effect of class size on student test scores. They propose using school budget per pupil as an instrument for class size. Evaluate: Is this instrument likely to be powerful? Exogenous? Excludable? What might be wrong?
+Suppose a researcher wants to estimate the effect of class size on student test scores. They propose using **school budget per pupil** as an instrument for class size. Evaluate: Is this instrument likely to be powerful? Exogenous? Excludable? What might be wrong?
 :::
+
+# Appendix: Additional Examples
+
+## Effect of Studying on Grades {.smaller}
+
+What is the effect on grades of studying an additional hour per day?
+
+- $Y$ = GPA
+- $X$ = study time (hours per day)
+
+. . .
+
+*Would you expect the OLS estimator of $\beta_1$ to be unbiased? Why or why not?*
+
+. . .
+
+Stinebrickner and Stinebrickner (2008), "The Causal Effect of Studying on Academic Performance," *The B.E. Journal of Economic Analysis & Policy*
+
+- $n = 210$ freshmen at Berea College (Kentucky) in 2001
+- $Y$ = first-semester GPA
+- $X$ = average study hours per day (time use survey)
+- Roommates were **randomly assigned**
+- $Z$ = 1 if roommate brought a video game, = 0 otherwise
+
+## Is the Video Game Instrument Valid? {.smaller}
+
+Do you think $Z_i$ (whether a roommate brought a video game) is a valid instrument?
+
+. . .
+
+1. Is the instrument [powerful]{.kw}?
+   - If your roommate brought a video game, you might study less
+   - First stage: video game treatment reduces study hours by 0.67 hours/day (significant)
+
+. . .
+
+2. Is the instrument [exogenous]{.kw}?
+   - Roommates were **randomly assigned** --- so $Z$ is uncorrelated with unobserved student ability
+   - Random assignment makes this a strong argument
+
+. . .
+
+3. Is the instrument [excludable]{.kw}?
+   - Does having a roommate with a video game directly affect your GPA, other than through study time?
+   - Plausible: the video game mainly affects grades by reducing study hours
+
+. . .
+
+## Stinebrickner and Stinebrickner (2008): Results {.smaller}
+
+![](ch12_figures/ch12_stata_10.png){width=85% fig-align="center"}
+
+OLS coefficient on study = 0.038; IV coefficient = **0.36** (much larger). Why? [Selection bias]{.alert} --- students who study more tend to be [weaker]{.alert} students compensating with extra effort ([negative selection]{.kw}). IV corrects this by using only the variation in study time driven by the random video-game assignment.

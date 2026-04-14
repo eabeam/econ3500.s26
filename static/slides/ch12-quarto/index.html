@@ -210,7 +210,7 @@ ECON3500: Econometrics and Applications
 
  <p class="date">Spring 2026</p>
 </section>
-<section id="learning-objectives" class="slide level2 scrollable">
+<section id="learning-objectives" class="slide level2 smaller scrollable">
 <h2>Learning Objectives</h2>
 <ol type="1">
 <li>Understand <strong>why</strong> we need instrumental variables to address endogeneity</li>
@@ -230,10 +230,17 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <ul>
-<li>12.1: IV estimator with single regressor and single instrument</li>
+<li>12.1: IV estimator with single regressor and single instrument
+<ul>
+<li><em>We won’t manually compute standard errors</em></li>
+</ul></li>
 <li>12.2: General IV regression model</li>
-<li>12.3: Checking instrument validity</li>
-<li>12.4/12.5: Applied examples</li>
+<li>12.3: Checking instrument validity
+<ul>
+<li><em>Weak instruments and exogeneity</em></li>
+<li><strong>Exclude</strong> <em>overidentifying restrictions test</em></li>
+</ul></li>
+<li>12.4/12.5: Interesting examples!</li>
 </ul>
 </div>
 </div>
@@ -247,35 +254,28 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="the-endogeneity-problem" class="slide level2 scrollable">
 <h2>The Endogeneity Problem</h2>
-<p>Three threats to internal validity all produce <span class="math inline">\(E(u_i | X_i) \neq 0\)</span>:</p>
+<p>Three threats to internal validity all produce <strong>endogeneity</strong>—the regression <span class="math inline">\(X_i\)</span> is correlated with the error term. That is, <span class="math inline">\(E(u_i | X_i) \neq 0\)</span>:</p>
 <div class="fragment">
 <ol type="1">
 <li><strong>Omitted variable bias</strong>: An unobserved variable correlated with <span class="math inline">\(X\)</span> is left out</li>
-<li><strong>Simultaneous causality</strong>: <span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span>, but <span class="math inline">\(Y\)</span> also causes <span class="math inline">\(X\)</span></li>
-<li><strong>Errors-in-variables bias</strong>: <span class="math inline">\(X\)</span> is measured with error</li>
 </ol>
 </div>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<ol start="2" type="1">
+<li><strong>Simultaneous causality</strong>: <span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span>, but <span class="math inline">\(Y\)</span> also causes <span class="math inline">\(X\)</span></li>
+</ol>
 </div>
-<p><strong>Endogeneity</strong></p>
-</div>
-<div class="callout-content">
-<p>All three problems result in <span class="math inline">\(E(u_i | X_i) \neq 0\)</span> — a violation of the zero conditional mean assumption. When this happens, OLS is <span class="alert">biased and inconsistent</span>.</p>
-</div>
-</div>
-</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li><strong>Errors-in-variables bias</strong>: <span class="math inline">\(X\)</span> is measured with error</li>
+</ol>
 </div>
 </section>
 <section id="what-weve-tried-so-far" class="slide level2">
 <h2>What We’ve Tried So Far</h2>
 <p>Solutions to endogeneity considered previously:</p>
 <ul>
-<li><strong>Difference-in-differences</strong> (Ch. 10)
+<li><strong>Difference-in-differences</strong>
 <ul>
 <li>Requires a clear before/after treatment</li>
 </ul></li>
@@ -289,13 +289,13 @@ ECON3500: Econometrics and Applications
 <div class="fragment">
 <p>Today: <strong>Instrumental variables (IV)</strong></p>
 <ul>
-<li>The most widely-used method for addressing endogeneity</li>
-<li>IV can eliminate bias when <span class="math inline">\(E(u_i | X_i) \neq 0\)</span> using an <span class="kw">instrumental variable</span> <span class="math inline">\(Z\)</span></li>
+<li>Widely-used method for addressing endogeneity</li>
+<li>IV can <strong>eliminate bias</strong> when <span class="math inline">\(E(u_i | X_i) \neq 0\)</span> if we have a valid <span class="kw">instrumental variable</span> <span class="math inline">\(Z\)</span></li>
 </ul>
 </div>
 </section>
-<section id="motivating-example-wages-and-schooling" class="slide level2 smaller">
-<h2>Motivating Example: Wages and Schooling</h2>
+<section id="wages-and-schooling" class="slide level2 smaller">
+<h2>Wages and Schooling</h2>
 <p><span class="math display">\[\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i\]</span></p>
 <ul>
 <li><span class="math inline">\(\beta_1\)</span> measures the returns to schooling</li>
@@ -320,32 +320,44 @@ ECON3500: Econometrics and Applications
 <p><span class="math display">\[\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i\]</span></p>
 <ul>
 <li>How do we measure innate ability?</li>
-<li>IQ tests may capture <em>some</em> part of ability; hard to get IQ data for large samples</li>
-<li>IQ is not a perfect measure of innate ability in the workplace
-<ul>
-<li>Example: IQ tests wouldn’t measure social skills</li>
-<li>Note: you <em>should</em> include IQ if available</li>
-</ul></li>
 </ul>
 <div class="fragment">
 <ul>
+<li>IQ tests may capture <em>some</em> part of ability; hard to get IQ data for large samples</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>IQ is not a perfect measure of innate ability in the workplace
+<ul>
+<li>Example: IQ tests wouldn’t measure social skills</li>
+<li>Note: you <em>should</em> include IQ or equivalent if available</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
 <li>Since IQ tests are imperfect, <em>schooling</em> likely remains correlated with the omitted part of innate ability</li>
-<li>Multiple regression doesn’t fully solve this problem</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Multiple regression doesn’t fully solve this problem!</li>
 </ul>
 </div>
 </section>
 <section id="can-we-fix-this-with-panel-data" class="slide level2 smaller">
 <h2>Can We Fix This with Panel Data?</h2>
-<p><span class="math display">\[\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i\]</span></p>
+<p><span class="math display">\[\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + a_i + u_i\]</span></p>
 <ul>
-<li>Innate ability might be reasonably constant over a career</li>
+<li>Innate ability might be reasonably constant over a career, captured by <span class="math inline">\(a_i\)</span></li>
 <li>But <em>schooling</em> is also typically constant for adult workers</li>
 </ul>
 <div class="fragment">
 <ul>
 <li>Adults who go back to school after working are a non-representative group</li>
 <li>Panel data do not provide convincing variation in schooling over a worker’s career</li>
-<li>Fixed effects won’t work here</li>
+<li>Fixed effects won’t work here! (and if they do, won’t capture the type of variation we care about)</li>
 </ul>
 </div>
 <div class="fragment">
@@ -365,137 +377,57 @@ ECON3500: Econometrics and Applications
 </div>
 </section></section>
 <section>
-<section id="intuition-first-a-simple-example" class="title-slide slide level1 center">
-<h1>Intuition First: A Simple Example</h1>
+<section id="endogeneity-as-a-dag" class="title-slide slide level1 center">
+<h1>Endogeneity as a DAG</h1>
 
 </section>
-<section id="effect-of-studying-on-grades" class="slide level2 smaller">
-<h2>Effect of Studying on Grades</h2>
-<p>What is the effect on grades of studying an additional hour per day?</p>
-<ul>
-<li><span class="math inline">\(Y\)</span> = GPA</li>
-<li><span class="math inline">\(X\)</span> = study time (hours per day)</li>
-</ul>
-<div class="fragment">
-<p><em>Would you expect the OLS estimator of <span class="math inline">\(\beta_1\)</span> to be unbiased? Why or why not?</em></p>
+<section id="the-problem-in-a-dag" class="slide level2 smaller">
+<h2>The Problem in a DAG</h2>
+<p>To understand how IV solves this, let’s visualize the problem using causal diagrams from Ch 8b.</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="ch12_figures/ch12_endogeneity_dag.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
 </div>
-<div class="fragment">
-<p>Stinebrickner and Stinebrickner (2008), “The Causal Effect of Studying on Academic Performance,” <em>The B.E. Journal of Economic Analysis &amp; Policy</em></p>
-<ul>
-<li><span class="math inline">\(n = 210\)</span> freshmen at Berea College (Kentucky) in 2001</li>
-<li><span class="math inline">\(Y\)</span> = first-semester GPA</li>
-<li><span class="math inline">\(X\)</span> = average study hours per day (time use survey)</li>
-<li>Roommates were <strong>randomly assigned</strong></li>
-<li><span class="math inline">\(Z\)</span> = 1 if roommate brought a video game, = 0 otherwise</li>
-</ul>
+<div class="smaller">
+<p><span style="color: #708090; font-weight: bold;">Gray</span> = unobserved</p>
 </div>
+</div><div class="column" style="width:55%;">
+<p>From Ch 8b, we know this DAG:</p>
+<ul>
+<li><strong>Causal path</strong>: Education → Earnings ✓</li>
+<li><strong>Backdoor path</strong>: Education ← <span style="color: #708090; font-weight: bold;">Ability</span> → Earnings ✗</li>
+</ul>
+<p>The backdoor path is <span class="alert">open</span> and Ability is <span class="alert">unobserved</span>.</p>
+<ul>
+<li>Can’t control for it (Ch 6/7)</li>
+<li>Can’t difference it out (Ch 10)</li>
+<li><strong>We need a new tool to close this path.</strong></li>
+</ul>
+</div></div>
 </section>
-<section id="is-the-video-game-instrument-valid" class="slide level2 smaller scrollable">
-<h2>Is the Video Game Instrument Valid?</h2>
-<p>Do you think <span class="math inline">\(Z_i\)</span> (whether a roommate brought a video game) is a valid instrument?</p>
-<div class="fragment">
+<section id="the-iv-solution-in-a-dag" class="slide level2 smaller scrollable">
+<h2>The IV Solution in a DAG</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="ch12_figures/ch12_iv_dag.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+<div class="smaller">
+<p><span style="color: #B8860B; font-weight: bold;">Gold</span> = instrument, <span style="color: #708090; font-weight: bold;">Gray</span> = unobserved</p>
+</div>
+</div><div class="column" style="width:45%;">
+<p>Add an <span class="kw">instrument</span> <span class="math inline">\(Z\)</span> to the DAG. A valid instrument must satisfy:</p>
 <ol type="1">
-<li>Is the instrument <span class="kw">powerful</span>?
-<ul>
-<li>If your roommate brought a video game, you might study less</li>
-<li>First stage: video game treatment reduces study hours by 0.67 hours/day (significant)</li>
-</ul></li>
+<li><span class="alert">Z → Education</span>: <span class="math inline">\(Z\)</span> affects <span class="math inline">\(X\)</span> (<span class="kw">relevance</span>)</li>
+<li><span class="alert">No Z ← Ability</span>: <span class="math inline">\(Z\)</span> is not connected to unobserved confounders (<span class="kw">exogeneity</span>)</li>
+<li><span class="alert">No Z → Earnings</span>: <span class="math inline">\(Z\)</span> does not directly affect <span class="math inline">\(Y\)</span> (<span class="kw">exclusion</span>)</li>
 </ol>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li>Is the instrument <span class="kw">exogenous</span>?
-<ul>
-<li>Roommates were <strong>randomly assigned</strong> — so <span class="math inline">\(Z\)</span> is uncorrelated with unobserved student ability</li>
-<li>Random assignment makes this a strong argument</li>
-</ul></li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li>Is the instrument <span class="kw">excludable</span>?
-<ul>
-<li>Does having a roommate with a video game directly affect your GPA, other than through study time?</li>
-<li>Plausible: the video game mainly affects grades by reducing study hours</li>
-</ul></li>
-</ol>
-</div>
-<div class="fragment">
-<p><strong>Results</strong>: OLS coefficient on study = 0.038; IV coefficient = <strong>0.36</strong> (much larger). Why? <span class="alert">Selection bias</span> — students who study more tend to be <span class="alert">weaker</span> students compensating with extra effort (<span class="kw">negative selection</span>). This negative correlation between study time and ability biases OLS downward. IV corrects this by using only the variation in study time driven by the random video-game assignment.</p>
-</div>
-</section></section>
-<section>
-<section id="classic-examples" class="title-slide slide level1 center">
-<h1>Classic Examples</h1>
-
-</section>
-<section id="philip-wright-and-the-demand-for-butter-1928" class="slide level2">
-<h2>Philip Wright and the Demand for Butter (1928)</h2>
-<ul>
-<li>Philip Wright, <em>The Tariff on Animals and Vegetable Oils</em>
-<ul>
-<li>Appendix B: “The Method of Introducing External Factors”</li>
-<li>Estimated supply and demand elasticities for butter and flaxseed oil</li>
-</ul></li>
-</ul>
-<div class="fragment">
-<ul>
-<li>Data: total annual U.S. butter consumption and price, 1912–1922</li>
-<li>Naive estimation: use OLS</li>
-</ul>
-<p><span class="math display">\[\ln(Q_i^{butter}) = \beta_0 + \beta_1 \ln(P_i^{butter}) + u_i\]</span></p>
-<ul>
-<li>Problem: price and quantity are <em>jointly determined</em> by supply and demand</li>
-</ul>
-</div>
-</section>
-<section id="the-identification-problem" class="slide level2">
-<h2>The Identification Problem</h2>
-<div class="columns">
-<div class="column" style="width:55%;">
-<p>When both supply and demand shift, equilibrium data points trace out <strong>neither</strong> curve</p>
-<ul>
-<li>We observe equilibrium prices and quantities</li>
-<li>Can you tell what the demand curve looks like from these data points?</li>
-</ul>
-<p>. . .</p>
-<p><strong>No</strong> — you just see a scatter of equilibrium points</p>
-</div><div class="column" style="width:45%;">
-<p><img src="images/equilibrium_scatter.png"></p>
 </div></div>
-</section>
-<section id="a-better-way" class="slide level2">
-<h2>A Better Way</h2>
-<div class="columns">
-<div class="column" style="width:55%;">
-<p>If you can <strong>hold demand fixed</strong> and only observe supply shifting:</p>
-<ul>
-<li>The equilibrium points trace out the <span class="kw">demand curve</span></li>
-<li>This is the intuition behind IV</li>
-</ul>
-<p>. . .</p>
-<p>The <span class="kw">instrument</span> holds demand fixed while shifting supply — it moves <span class="math inline">\(X\)</span> without directly affecting <span class="math inline">\(Y\)</span></p>
-</div><div class="column" style="width:45%;">
-<p><img src="images/supply_shifts.png"></p>
-</div></div>
-</section>
-<section id="demand-for-cigarettes" class="slide level2 smaller">
-<h2>Demand for Cigarettes</h2>
-<p>Broad public policy interest in reducing cigarette consumption.</p>
-<p><span class="math display">\[sales_i = 164.4 - 0.38 \cdot price_i + u_i\]</span></p>
-<div class="fragment">
-<ul>
-<li>But price may be correlated with omitted variables in <span class="math inline">\(u\)</span></li>
-<li>Prices in each state determined by cigarette firms</li>
-<li>Firms may adjust price based on demand conditions</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>When state <span class="math inline">\(i\)</span> has a high <span class="math inline">\(u_i\)</span>, this state has unusually high demand</li>
-<li>Therefore, <span class="math inline">\(price_i\)</span> may be positively correlated with <span class="math inline">\(u_i\)</span></li>
-</ul>
-</div>
 <div class="fragment">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
@@ -503,14 +435,51 @@ ECON3500: Econometrics and Applications
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Simultaneous Causality</strong></p>
+<p><strong>Key Insight</strong></p>
 </div>
 <div class="callout-content">
-<p>Sales depend on prices, but prices may also depend on sales. This creates <span class="math inline">\(\text{Corr}(X, u) \neq 0\)</span>, making OLS inconsistent.</p>
+<p>IV works by isolating the variation in Education that comes <strong>only from <span class="math inline">\(Z\)</span></strong>. Since <span class="math inline">\(Z\)</span> has no connection to Ability and no direct effect on Earnings, this variation is “clean” — free of confounding.</p>
 </div>
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="cigarette-demand-a-running-example" class="title-slide slide level1 center">
+<h1>Cigarette Demand: A Running Example</h1>
+
+</section>
+<section id="demand-for-cigarettes" class="slide level2 smaller">
+<h2>Demand for Cigarettes</h2>
+<p>Broad public policy interest in reducing cigarette consumption.</p>
+<p><span class="math display">\[sales_i = \beta_0 + \beta_1 price_i + u_i\]</span></p>
+<ul>
+<li>Price may be correlated with omitted variables in <span class="math inline">\(u\)</span>: firms set prices based on demand conditions</li>
+<li>When state <span class="math inline">\(i\)</span> has unusually high demand (<span class="math inline">\(u_i\)</span> high), prices are higher too</li>
+<li>This is <span class="alert">simultaneous causality</span>: sales depend on prices, but prices also depend on sales</li>
+</ul>
+<div class="fragment">
+<div class="columns">
+<div class="column" style="width:55%;">
+<p><strong>The identification problem</strong>: When both supply and demand shift, equilibrium data trace out <strong>neither</strong> curve — just a scatter of equilibrium points.</p>
+<p>We need something that shifts supply <span class="alert">without</span> shifting demand.</p>
+</div><div class="column" style="width:45%;">
+<p><img src="ch12_figures/equilibrium_scatter.png"></p>
+</div></div>
+</div>
+</section>
+<section id="the-iv-intuition" class="slide level2">
+<h2>The IV Intuition</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p>If we can <strong>hold demand fixed</strong> and only observe supply shifting:</p>
+<ul>
+<li>The equilibrium points trace out the <span class="kw">demand curve</span></li>
+<li>The <span class="kw">instrument</span> shifts supply without directly affecting demand — it moves <span class="math inline">\(X\)</span> without directly affecting <span class="math inline">\(Y\)</span></li>
+</ul>
+</div><div class="column" style="width:45%;">
+<p><img src="ch12_figures/supply_shifts.png"></p>
+</div></div>
 </section>
 <section id="why-simultaneous-causality-is-especially-problematic" class="slide level2">
 <h2>Why Simultaneous Causality Is Especially Problematic</h2>
@@ -529,12 +498,13 @@ ECON3500: Econometrics and Applications
 </div>
 </section></section>
 <section>
-<section id="the-iv-solution" class="title-slide slide level1 center">
-<h1>The IV Solution</h1>
+<section id="the-iv-solution-formal-definitions" class="title-slide slide level1 center">
+<h1>The IV Solution: Formal Definitions</h1>
 
 </section>
-<section id="instrumental-variables-three-assumptions" class="slide level2 scrollable">
+<section id="instrumental-variables-three-assumptions" class="slide level2 smaller scrollable">
 <h2>Instrumental Variables: Three Assumptions</h2>
+<p>We introduced these conditions visually using DAGs. Now let’s state them formally.</p>
 <p>An <span class="kw">instrumental variable</span> is an additional variable <span class="math inline">\(Z_i\)</span> that satisfies three assumptions:</p>
 <div class="fragment">
 <ol type="1">
@@ -664,30 +634,29 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 </section>
-<section id="example-instrument-distance-to-college" class="slide level2 smaller">
-<h2>Example Instrument: Distance to College</h2>
-<p><span class="math display">\[\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i\]</span></p>
-<ul>
-<li>Schooling and ability (<span class="math inline">\(V\)</span>) are correlated — need an instrument for <em>schooling</em></li>
-</ul>
-<div class="fragment">
-<ul>
-<li>Distance from high school to nearest college:
-<ul>
-<li><span class="kw">Powerful</span>: Positively correlated with schooling attainment</li>
-<li><span class="kw">Exogenous</span>: Uncorrelated with worker ability (<span class="math inline">\(V\)</span>)</li>
-<li><span class="kw">Excluded</span>: Growing up near a college doesn’t directly <em>cause</em> higher wages</li>
-</ul></li>
-</ul>
-</div>
-<div class="fragment">
+<section id="applying-the-formula-distance-to-college" class="slide level2 smaller">
+<h2>Applying the Formula: Distance to College</h2>
+<p>Back to our wages/schooling example. Instrument: distance from childhood home to nearest college.</p>
 <p><span class="math display">\[\beta_1 = \frac{\text{Cov}(\log \text{wage}, \text{distance})}{\text{Cov}(\text{schooling}, \text{distance})}\]</span></p>
 <ul>
 <li>Denominator is positive (closer to college → more schooling)</li>
 <li>Numerator is positive if people near a college earn higher wages as adults</li>
 <li>Note: <em>not</em> because the distance causes the higher wage</li>
-<li><span class="math inline">\(\text{Cov}(X, Y)\)</span> does not appear — we do not compare someone’s wage to their schooling</li>
 </ul>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Key Feature</strong></p>
+</div>
+<div class="callout-content">
+<p><span class="math inline">\(\text{Cov}(X, Y)\)</span> does not appear in the formula — we never directly compare someone’s wage to their schooling. Instead, we use <span class="kw">only the variation in schooling driven by distance</span>.</p>
+</div>
+</div>
+</div>
 </div>
 </section></section>
 <section>
@@ -856,23 +825,23 @@ ECON3500: Econometrics and Applications
 <li><code>robust</code>: heteroskedasticity-robust standard errors</li>
 </ul>
 </div>
-<div class="fragment">
+</section>
+<section id="reading-the-stata-syntax" class="slide level2">
+<h2>Reading the Stata Syntax</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Reading the Syntax</strong></p>
+<p><strong><code>ivregress 2sls Y (X=Z), robust</code></strong></p>
 </div>
 <div class="callout-content">
-<p><code>ivregress 2sls Y (X=Z), robust</code></p>
 <ul>
 <li><span class="math inline">\(Y\)</span> = dependent variable (first after <code>2sls</code>)</li>
 <li><span class="math inline">\(X\)</span> = endogenous regressor (before <code>=</code>)</li>
 <li><span class="math inline">\(Z\)</span> = excluded instrument (after <code>=</code>)</li>
 </ul>
-</div>
 </div>
 </div>
 </div>
@@ -901,23 +870,17 @@ ECON3500: Econometrics and Applications
 <section id="doing-2sls-manually" class="slide level2 smaller">
 <h2>Doing 2SLS Manually</h2>
 <p>To understand the two stages, we can do them by hand:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a>* Stage 1: Regress X <span class="kw">on</span> Z</span>
-<span id="cb3-2"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> avgprs tax, <span class="kw">robust</span></span>
-<span id="cb3-3"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">predict</span> avgprs_predict <span class="co">// Save predicted values</span></span>
-<span id="cb3-4"><a href="" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="" aria-hidden="true" tabindex="-1"></a>* Stage 2: Regress Y <span class="kw">on</span> predicted X</span>
-<span id="cb3-6"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">regress</span> packpc avgprs_predict, <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
+
+<img src="ch12_figures/ch12_stata_1.png" class="quarto-figure quarto-figure-center "></section>
+<section id="manual-2sls-a-warning" class="slide level2 smaller">
+<h2>Manual 2SLS: A Warning</h2>
 <ul>
 <li>The <strong>point estimates</strong> are identical to <code>ivregress</code></li>
 <li>But the <strong>standard errors are wrong</strong> in the manual approach!
 <ul>
-<li>Manual first stage has sampling errors</li>
 <li>Stata doesn’t know the predicted prices are <em>generated</em> regressors</li>
 </ul></li>
 </ul>
-</div>
-<div class="fragment">
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -931,29 +894,14 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
-</div>
 </section>
 <section id="viewing-both-stages-with-first" class="slide level2 smaller">
 <h2>Viewing Both Stages with <code>first</code></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb4-1"><a href="" aria-hidden="true" tabindex="-1"></a>ivregress 2sls packpc (avgprs=tax), <span class="kw">robust</span> first</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>ivregress 2sls packpc (avgprs=tax), robust first</code></p>
 <p>The <code>first</code> option displays the first-stage regression alongside the second stage.</p>
-<div class="fragment">
-<p><strong>First stage</strong> (regress avgprs on tax):</p>
-<ul>
-<li>Coefficient on <code>tax</code>: 2.45 (t = 19.78)</li>
-<li><span class="math inline">\(F(1, 94) = 391.06\)</span></li>
-<li>This is a <strong>strong</strong> first stage</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Second stage</strong> (regress packpc on <span class="math inline">\(\hat{X}\)</span>):</p>
-<ul>
-<li>Coefficient on avgprs: -0.421</li>
-<li>Same as the 2SLS results</li>
-</ul>
-</div>
-</section>
-<section id="reporting-the-first-stage" class="slide level2">
+
+<img src="ch12_figures/ch12_stata_2.png" class="quarto-figure quarto-figure-center "></section>
+<section id="reporting-the-first-stage" class="slide level2 smaller">
 <h2>Reporting the First Stage</h2>
 <ul>
 <li>First stage shows how <span class="math inline">\(X\)</span> and <span class="math inline">\(Z\)</span> are related</li>
@@ -1043,7 +991,6 @@ ECON3500: Econometrics and Applications
 </tr>
 </tbody>
 </table>
-<div class="fragment">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1057,17 +1004,19 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
+</section>
+<section id="knowledge-check-instrument-validity" class="slide level2">
+<h2>Knowledge Check: Instrument Validity</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Knowledge Check</strong></p>
+<p><strong>Think About It</strong></p>
 </div>
 <div class="callout-content">
 <p>For the cigarette example, why might someone challenge the exogeneity of sales tax as an instrument? Could states with stronger anti-smoking attitudes set both higher taxes <em>and</em> have lower demand?</p>
-</div>
 </div>
 </div>
 </div>
@@ -1098,15 +1047,15 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb5-1"><a href="" aria-hidden="true" tabindex="-1"></a>ivregress 2sls packpc (avgprs=tax) incomepop, <span class="kw">robust</span> first</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><code>incomepop</code> appears <strong>outside</strong> the parentheses → exogenous control</li>
-<li><code>avgprs</code> is inside parentheses → endogenous regressor</li>
-<li><code>tax</code> is after <code>=</code> → excluded instrument</li>
-</ul>
+<p><code>ivregress 2sls packpc (avgprs=tax) incomepop, robust first</code></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="ch12_figures/ch12_stata_3.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
 </div>
 </section>
-<section id="need-an-excluded-instrument" class="slide level2">
+<section id="need-an-excluded-instrument" class="slide level2 smaller">
 <h2>Need an <em>Excluded</em> Instrument</h2>
 <ul>
 <li>We need at least one instrument for <strong>each</strong> regressor treated as endogenous in the outcome equation</li>
@@ -1152,62 +1101,38 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 <div class="fragment">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb6-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtivreg</span> packpc (avgprs = taxs) incomepop y1995, <span class="kw">fe</span> <span class="kw">vce</span>(<span class="kw">cluster</span> state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtivreg</span> packpc (avgprs = taxs) incomepop y1995, <span class="kw">fe</span> <span class="kw">vce</span>(<span class="kw">cluster</span> state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="building-up-no-instruments" class="slide level2 smaller">
-<h2>Building Up: No Instruments</h2>
-<p><strong>Step 1: State FE only</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb7-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtreg</span> packpc avgprs incomepop, <span class="kw">vce</span>(<span class="kw">cluster</span> state) <span class="kw">fe</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Price coefficient: -0.355</li>
-</ul>
-<div class="fragment">
-<p><strong>Step 2: State + Year FE</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb8-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtreg</span> packpc avgprs incomepop i.<span class="fu">year</span>, <span class="kw">vce</span>(<span class="kw">cluster</span> state) <span class="kw">fe</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Price coefficient: -0.416</li>
-</ul>
-</div>
-<div class="fragment">
-<p>Both estimates still suffer from simultaneous causality bias — price responds to state and time demand shocks.</p>
-</div>
+<section id="building-up-state-fe-only" class="slide level2 smaller">
+<h2>Building Up: State FE Only</h2>
+<p><strong>Step 1</strong>: <code>xtreg packpc avgprs incomepop, vce(cluster state) fe</code></p>
+
+<img src="ch12_figures/ch12_stata_4.png" class="quarto-figure quarto-figure-center "><p>Price coefficient: -0.355. Still suffers from simultaneous causality bias.</p>
 </section>
-<section id="adding-the-instrument" class="slide level2 smaller">
-<h2>Adding the Instrument</h2>
-<p><strong>Step 3: State + Year FE with IV</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb9-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtivreg</span> packpc (avgprs = taxs) incomepop y1995, <span class="kw">vce</span>(<span class="kw">cluster</span> state) <span class="kw">fe</span> first</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="fragment">
-<p><strong>First stage</strong> (predict avgprs using taxs, incomepop, y1995, state FE):</p>
-<ul>
-<li>Coefficient on <code>taxs</code>: 1.17 (t = 19.04)</li>
-<li><span class="math inline">\(F(3, 47) = 3001.56\)</span> — <strong>very strong</strong> first stage</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Second stage</strong>:</p>
-<ul>
-<li>Price coefficient: -0.409 (p &lt; 0.001)</li>
-<li>Income: -1.68 (p = 0.048)</li>
-</ul>
-</div>
+<section id="building-up-state-year-fe" class="slide level2 smaller">
+<h2>Building Up: State + Year FE</h2>
+<p><strong>Step 2</strong>: <code>xtreg packpc avgprs incomepop i.year, vce(cluster state) fe</code></p>
+
+<img src="ch12_figures/ch12_stata_5.png" class="quarto-figure quarto-figure-center "><p>Price coefficient: -0.416. Still biased — price responds to state and time demand shocks.</p>
+</section>
+<section id="adding-the-instrument-first-stage" class="slide level2 smaller">
+<h2>Adding the Instrument: First Stage</h2>
+<p><strong>Step 3</strong>: <code>xtivreg packpc (avgprs = taxs) incomepop y1995, vce(cluster state) fe first</code></p>
+
+<img src="ch12_figures/ch12_stata_6.png" class="quarto-figure quarto-figure-center "><p><span class="math inline">\(F(3, 47) = 3001.56\)</span> — <strong>very strong</strong> first stage.</p>
+</section>
+<section id="adding-the-instrument-second-stage" class="slide level2 smaller">
+<h2>Adding the Instrument: Second Stage</h2>
+
+<img src="ch12_figures/ch12_stata_7.png" class="quarto-figure quarto-figure-center "><p>Price coefficient: -0.409 (p &lt; 0.001). Income: -1.68 (p = 0.048).</p>
 </section>
 <section id="using-logarithms-for-elasticities" class="slide level2 smaller">
 <h2>Using Logarithms for Elasticities</h2>
 <p><span class="math display">\[\log(sales_{it}) = \alpha_i + \lambda_t + \beta_1 \log(price_{it}) + \beta_2 \log(income_{it}) + \delta V_i + \omega_{it}\]</span></p>
-<p><strong>Instrument for log(price) is log(sales tax)</strong></p>
-<div class="fragment">
-<ul>
-<li>Using logs lets us interpret coefficients as elasticities, and with year fixed effects it also helps compare proportional changes over time</li>
-<li>Coefficient on log(price) is the <strong>elasticity</strong> of sales w.r.t. price</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb10-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtivreg</span> lpackpc (lavgprs = ltaxs) lincomepop y1995, <span class="kw">vce</span>(<span class="kw">cluster</span> state) <span class="kw">fe</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li>Coefficient on <code>lavgprs</code>: <strong>-1.27</strong> (p &lt; 0.001)</li>
-</ul>
-</div>
-<div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
+<p>Using logs lets us interpret <span class="math inline">\(\beta_1\)</span> as an <strong>elasticity</strong>. Instrument: log(sales tax).</p>
+
+<img src="ch12_figures/ch12_stata_8.png" class="quarto-figure quarto-figure-center "><div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -1220,107 +1145,11 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
-</div>
 </section>
 <section id="comparing-all-specifications" class="slide level2 smaller">
 <h2>Comparing All Specifications</h2>
-<table class="caption-top">
-<colgroup>
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th></th>
-<th>(1) OLS</th>
-<th>(2) 2SLS</th>
-<th>(3) 2SLS+controls</th>
-<th>(4) State FE</th>
-<th>(5) State+Year FE</th>
-<th>(6) 2SLS Panel</th>
-<th>(7) 2SLS Log</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Price</td>
-<td>-0.385***</td>
-<td>-0.421***</td>
-<td>-0.687***</td>
-<td>-0.355***</td>
-<td>-0.416***</td>
-<td>-0.409***</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>log(price)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>-1.269***</td>
-</tr>
-<tr class="odd">
-<td>Income</td>
-<td></td>
-<td></td>
-<td>2.816***</td>
-<td>0.232</td>
-<td>-1.642*</td>
-<td>-1.681**</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>State FE</td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr class="odd">
-<td>Year FE</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<td>IV</td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-<td></td>
-<td></td>
-<td>Yes</td>
-<td>Yes</td>
-</tr>
-<tr class="odd">
-<td>N</td>
-<td>96</td>
-<td>96</td>
-<td>96</td>
-<td>96</td>
-<td>96</td>
-<td>96</td>
-<td>96</td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
+
+<img src="ch12_figures/ch12_stata_9.png" class="quarto-figure quarto-figure-center " style="width:95.0%"><div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1337,26 +1166,13 @@ ECON3500: Econometrics and Applications
 </div>
 </section></section>
 <section>
-<section id="applied-examples" class="title-slide slide level1 center">
-<h1>Applied Examples</h1>
+<section id="applied-example-returns-to-schooling-revisited" class="title-slide slide level1 center">
+<h1>Applied Example: Returns to Schooling Revisited</h1>
 
 </section>
-<section id="example-1-returns-to-schooling" class="slide level2 smaller">
-<h2>Example 1: Returns to Schooling</h2>
-<p><span class="math display">\[\log(wage_i) = \beta_0 + \beta_1 schooling_i + \delta V_i + u_i\]</span></p>
-<ul>
-<li>Data show that people who attend college earn high wages</li>
-<li>We want to estimate the <strong>causal</strong> effect</li>
-<li>OLS can’t distinguish whether high wages are due to the causal benefit of schooling or because people who attend college would be able workers regardless
-<ul>
-<li>Innate ability in <span class="math inline">\(u\)</span></li>
-</ul></li>
-</ul>
-<div class="fragment">
-<ul>
-<li>At the extreme: college might just be a way to <strong>signal</strong> to employers a student’s innate ability — credentials how innately smart you are</li>
-</ul>
-</div>
+<section id="a-different-instrument-for-the-same-problem" class="slide level2 smaller">
+<h2>A Different Instrument for the Same Problem</h2>
+<p>We’ve been using wages/schooling throughout. We used <em>distance to college</em> as one instrument. Here’s another famous approach to the same question:</p>
 </section>
 <section id="instrument-quarter-of-birth-angrist-and-krueger-1991" class="slide level2 smaller scrollable">
 <h2>Instrument: Quarter of Birth (Angrist and Krueger, 1991)</h2>
@@ -1393,10 +1209,21 @@ ECON3500: Econometrics and Applications
 <p>This instrument has been extensively debated — it illustrates how the assumptions can be <strong>challenged</strong> even when the research design seems clever.</p>
 </div>
 </section>
-<section id="angrist-and-krueger-1991-estimates" class="slide level2 smaller">
-<h2>Angrist and Krueger (1991): Estimates</h2>
+<section id="ak-1991-first-stage" class="slide level2 smaller">
+<h2>AK (1991): First Stage</h2>
+<p>Does quarter of birth actually predict education?</p>
 
-<img src="images/ak1991_table4.png" class="quarto-figure quarto-figure-center " style="width:95.0%"><p>OLS and TSLS estimates of returns to education, men born 1920–1929 (1970 Census, <span class="math inline">\(n = 247{,}199\)</span>). Instruments: quarter-of-birth × year-of-birth interactions.</p>
+<img src="ch12_figures/ch12_stata_11.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><p>Born in Q1 → significantly <strong>less</strong> education. F-tests are strong for total years.</p>
+</section>
+<section id="ak-1991-the-earnings-pattern" class="slide level2 smaller">
+<h2>AK (1991): The Earnings Pattern</h2>
+
+<img src="ch12_figures/ch12_stata_12.png" class="quarto-figure quarto-figure-center " style="width:70.0%"><p>Mean log weekly earnings by quarter of birth (1980 Census). The sawtooth pattern mirrors the education pattern — Q1 births earn less.</p>
+</section>
+<section id="ak-1991-ols-vs.-tsls-estimates" class="slide level2 smaller">
+<h2>AK (1991): OLS vs.&nbsp;TSLS Estimates</h2>
+
+<img src="ch12_figures/ch12_stata_13.png" class="quarto-figure quarto-figure-center " style="width:95.0%"><p>OLS and TSLS estimates of returns to education, men born 1920–1929 (1970 Census, <span class="math inline">\(n = 247{,}199\)</span>). Instruments: quarter-of-birth × year-of-birth interactions.</p>
 </section>
 <section id="bound-jaeger-and-baker-1993-two-critiques" class="slide level2 smaller">
 <h2>Bound, Jaeger, and Baker (1993): Two Critiques</h2>
@@ -1413,8 +1240,11 @@ ECON3500: Econometrics and Applications
 <div class="fragment">
 <p><strong>Problem 2 — Weak instruments:</strong> With proper age controls, the first-stage F-statistic falls to <strong>1.6</strong> — far below the rule-of-thumb threshold of 10.</p>
 </div>
-<div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
+</section>
+<section id="bound-jaeger-and-baker-1995-the-evidence" class="slide level2 smaller">
+<h2>Bound, Jaeger, and Baker (1995): The Evidence</h2>
+
+<img src="ch12_figures/ch12_stata_14.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -1424,7 +1254,6 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>A <span class="alert">weak instrument</span> combined with even a small <span class="math inline">\(\text{Cov}(Z, u)\)</span> can cause the IV estimate to look similar to <span class="alert">OLS</span>. The bias “fix” may introduce new bias rather than eliminating the original one.</p>
-</div>
 </div>
 </div>
 </div>
@@ -1492,7 +1321,9 @@ ECON3500: Econometrics and Applications
 <li>Compare IV to OLS and explain differences</li>
 </ul>
 </div></div>
-<div class="fragment">
+</section>
+<section id="the-bottom-line" class="slide level2">
+<h2>The Bottom Line</h2>
 <div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1503,7 +1334,6 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="callout-content">
 <p>An IV estimate with a bad instrument can be <strong>worse</strong> than OLS. The whole approach depends on finding a convincing instrument — which is why IV papers spend so much time justifying their instruments.</p>
-</div>
 </div>
 </div>
 </div>
@@ -1524,22 +1354,85 @@ ECON3500: Econometrics and Applications
 <li>IV can be combined with <strong>panel data</strong> and fixed effects</li>
 <li>Always use <code>ivregress</code> or <code>xtivreg</code> — never manual two-step</li>
 </ol>
-<div class="fragment">
+</section>
+<section id="final-knowledge-check" class="slide level2">
+<h2>Final Knowledge Check</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Final Knowledge Check</strong></p>
+<p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
-<p>Suppose a researcher wants to estimate the effect of class size on student test scores. They propose using school budget per pupil as an instrument for class size. Evaluate: Is this instrument likely to be powerful? Exogenous? Excludable? What might be wrong?</p>
+<p>Suppose a researcher wants to estimate the effect of class size on student test scores. They propose using <strong>school budget per pupil</strong> as an instrument for class size. Evaluate: Is this instrument likely to be powerful? Exogenous? Excludable? What might be wrong?</p>
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="appendix-additional-examples" class="title-slide slide level1 center">
+<h1>Appendix: Additional Examples</h1>
 
+</section>
+<section id="effect-of-studying-on-grades" class="slide level2 smaller">
+<h2>Effect of Studying on Grades</h2>
+<p>What is the effect on grades of studying an additional hour per day?</p>
+<ul>
+<li><span class="math inline">\(Y\)</span> = GPA</li>
+<li><span class="math inline">\(X\)</span> = study time (hours per day)</li>
+</ul>
+<div class="fragment">
+<p><em>Would you expect the OLS estimator of <span class="math inline">\(\beta_1\)</span> to be unbiased? Why or why not?</em></p>
 </div>
+<div class="fragment">
+<p>Stinebrickner and Stinebrickner (2008), “The Causal Effect of Studying on Academic Performance,” <em>The B.E. Journal of Economic Analysis &amp; Policy</em></p>
+<ul>
+<li><span class="math inline">\(n = 210\)</span> freshmen at Berea College (Kentucky) in 2001</li>
+<li><span class="math inline">\(Y\)</span> = first-semester GPA</li>
+<li><span class="math inline">\(X\)</span> = average study hours per day (time use survey)</li>
+<li>Roommates were <strong>randomly assigned</strong></li>
+<li><span class="math inline">\(Z\)</span> = 1 if roommate brought a video game, = 0 otherwise</li>
+</ul>
+</div>
+</section>
+<section id="is-the-video-game-instrument-valid" class="slide level2 smaller scrollable">
+<h2>Is the Video Game Instrument Valid?</h2>
+<p>Do you think <span class="math inline">\(Z_i\)</span> (whether a roommate brought a video game) is a valid instrument?</p>
+<div class="fragment">
+<ol type="1">
+<li>Is the instrument <span class="kw">powerful</span>?
+<ul>
+<li>If your roommate brought a video game, you might study less</li>
+<li>First stage: video game treatment reduces study hours by 0.67 hours/day (significant)</li>
+</ul></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Is the instrument <span class="kw">exogenous</span>?
+<ul>
+<li>Roommates were <strong>randomly assigned</strong> — so <span class="math inline">\(Z\)</span> is uncorrelated with unobserved student ability</li>
+<li>Random assignment makes this a strong argument</li>
+</ul></li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Is the instrument <span class="kw">excludable</span>?
+<ul>
+<li>Does having a roommate with a video game directly affect your GPA, other than through study time?</li>
+<li>Plausible: the video game mainly affects grades by reducing study hours</li>
+</ul></li>
+</ol>
+</div>
+</section>
+<section id="stinebrickner-and-stinebrickner-2008-results" class="slide level2 smaller">
+<h2>Stinebrickner and Stinebrickner (2008): Results</h2>
+
+<img src="ch12_figures/ch12_stata_10.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><p>OLS coefficient on study = 0.038; IV coefficient = <strong>0.36</strong> (much larger). Why? <span class="alert">Selection bias</span> — students who study more tend to be <span class="alert">weaker</span> students compensating with extra effort (<span class="kw">negative selection</span>). IV corrects this by using only the variation in study time driven by the random video-game assignment.</p>
+
 </section></section>
  </div>
  <div class="quarto-auto-generated-content" style="display: none;">

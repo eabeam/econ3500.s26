@@ -74,10 +74,10 @@ What's the plan?
 | ||||  | |
 |13 |||**Instrumental variables (CH12)**   | | |
 || 14 Apr | Tu | [Instrumental variables](/content/12-content) |  [Read CH12](/content/12-content)| [<i class="fas fa-laptop-code"></i>Lab 7 due](/assignment/07-lab) |
-|  | 16 Apr | Th | [Lab 8: Instrumental variables](/assignment/08-lab) | |[<i class="fas fa-pencil-alt"></i> PS5 due](/assignment/05-ps) <br> [<i class="fas fa-dragon"></i> (Optional) Rough draft due](/assignment/rp-06-roughdraft)|
+|  | 16 Apr | Th | [Lab 8: Instrumental variables](/assignment/08-lab) | |[<i class="fas fa-pencil-alt"></i> PS5 due](/assignment/05-ps)|
 | ||||  | |
 |14 |||**Research Week**   | | |
-|  | 21 Apr | Tu |  [RP: Presenting and discussing results](/content/11-content)|   |[<i class="fas fa-laptop-code"></i>Lab 8 due](/assignment/08-lab)|
+|  | 21 Apr | Tu |  [RP: Presenting and discussing results](/content/11-content)|   |[<i class="fas fa-laptop-code"></i>Lab 8 due](/assignment/08-lab) <br> [<i class="fas fa-dragon"></i> (Optional) Rough draft due](/assignment/rp-06-roughdraft)|
 |  | 23 Apr | Th | [Exam 3: Chapters 8, 9, 10, 12] |||
 | ||||  | |
 | 15|||**Paper presentations**   | | |
