@@ -490,19 +490,13 @@ ivregress 2sls packpc (avgprs=tax), robust
 
 . . .
 
-- Dependent variable: `packpc` (packs per capita)
-- Parentheses before `=`: endogenous regressor (`avgprs`)
-- After `=`: instrument (`tax`)
-- `robust`: heteroskedasticity-robust standard errors
-
-## Reading the Stata Syntax
-
 ::: {.callout-note}
 ## `ivregress 2sls Y (X=Z), robust`
 
 - $Y$ = dependent variable (first after `2sls`)
-- $X$ = endogenous regressor (before `=`)
+- $X$ = endogenous regressor (in parentheses before `=`)
 - $Z$ = excluded instrument (after `=`)
+- `robust` = heteroskedasticity-robust standard errors
 :::
 
 ## Stata: 2SLS Results {.smaller}
@@ -528,23 +522,6 @@ Instruments:   tax
 ```
 
 2SLS estimates that a 1-unit increase in price [leads to]{.kw} a decrease of 0.42 packs per capita.
-
-## Doing 2SLS Manually {.smaller}
-
-To understand the two stages, we can do them by hand:
-
-![](ch12_figures/ch12_stata_1.png){fig-align="center"}
-
-## Manual 2SLS: A Warning {.smaller}
-
-- The **point estimates** are identical to `ivregress`
-- But the **standard errors are wrong** in the manual approach!
-  - Stata doesn't know the predicted prices are *generated* regressors
-
-::: {.callout-warning}
-## Always Use `ivregress`
-The `ivregress` command uses the correct standard error formula that accounts for first-stage estimation. Never report standard errors from manual 2SLS.
-:::
 
 ## Viewing Both Stages with `first` {.smaller}
 
@@ -598,8 +575,8 @@ If the first-stage F-statistic is less than 10, the 2SLS estimates may be biased
 | **Exclusion** ($Z$ doesn't directly cause $Y$) | No | Must argue based on theory |
 
 ::: {.callout-important}
-## Exogeneity Cannot Be Tested
-You lack data on the omitted variable, so you cannot test whether $Z$ is correlated with it. Exogeneity must be **defended with reasoning** about the instrument and the omitted variables in question.
+## Exogeneity and Exclusion Cannot Be Tested
+You lack data on the omitted variable, so you cannot test whether $Z$ is correlated with it. **Both** exogeneity *and* exclusion must be **defended with reasoning** --- relevance is the only one with a formal test.
 :::
 
 ## Knowledge Check: Instrument Validity
@@ -653,7 +630,7 @@ $$sales_i = \beta_0 + \beta_1 price_i + \beta_2 income_i + u_i$$
 
 $$sales_{it} = \alpha_i + \lambda_t + \beta_1 price_{it} + \beta_2 income_{it} + \delta V_i + \omega_{it}$$
 
-**Instrument for *price* is *sales tax***
+**Instrument for *price* is *sales tax* (`taxs`)** --- the panel-data sales-tax variable; distinct from the per-pack excise `tax` used earlier.
 
 . . .
 
@@ -669,58 +646,22 @@ $$sales_{it} = \alpha_i + \lambda_t + \beta_1 price_{it} + \beta_2 income_{it} +
 xtivreg packpc (avgprs = taxs) incomepop y1995, fe vce(cluster state)
 ```
 
-## Building Up: State FE Only {.smaller}
-
-**Step 1**: `xtreg packpc avgprs incomepop, vce(cluster state) fe`
-
-![](ch12_figures/ch12_stata_4.png){fig-align="center"}
-
-Price coefficient: -0.355. Still suffers from simultaneous causality bias.
-
-## Building Up: State + Year FE {.smaller}
-
-**Step 2**: `xtreg packpc avgprs incomepop i.year, vce(cluster state) fe`
-
-![](ch12_figures/ch12_stata_5.png){fig-align="center"}
-
-Price coefficient: -0.416. Still biased --- price responds to state and time demand shocks.
-
-## Adding the Instrument: First Stage {.smaller}
-
-**Step 3**: `xtivreg packpc (avgprs = taxs) incomepop y1995, vce(cluster state) fe first`
-
-![](ch12_figures/ch12_stata_6.png){fig-align="center"}
-
-$F(3, 47) = 3001.56$ --- **very strong** first stage.
-
-## Adding the Instrument: Second Stage {.smaller}
-
-![](ch12_figures/ch12_stata_7.png){fig-align="center"}
-
-Price coefficient: -0.409 (p < 0.001). Income: -1.68 (p = 0.048).
-
-## Using Logarithms for Elasticities {.smaller}
-
-$$\log(sales_{it}) = \alpha_i + \lambda_t + \beta_1 \log(price_{it}) + \beta_2 \log(income_{it}) + \delta V_i + \omega_{it}$$
-
-Using logs lets us interpret $\beta_1$ as an **elasticity**. Instrument: log(sales tax).
-
-![](ch12_figures/ch12_stata_8.png){fig-align="center"}
-
-::: {.callout-important}
-## Best Elasticity Estimate
-When price goes up by 1%, sales go down by **1.3%**. Demand is elastic, but not terribly so. The CI of (-1.53, -1.00) barely excludes -1, so we can statistically reject that demand is *inelastic*.
-:::
-
 ## Comparing All Specifications {.smaller}
 
 ![](ch12_figures/ch12_stata_9.png){width=95% fig-align="center"}
 
 . . .
 
+::: {.callout-important}
+## Best Elasticity Estimate
+Column 7 adds logs so $\beta_1$ is an **elasticity**: when price rises 1%, sales fall **1.3%**. The CI of $(-1.53, -1.00)$ lies entirely below $-1$, so we can reject that demand is inelastic.
+:::
+
+. . .
+
 ::: {.callout-tip}
 ## What Changes Across Specifications?
-Notice that the price coefficient changes as we add controls and instruments. The preferred specification (column 7) combines all: fixed effects, IV, controls, and logarithms.
+Adding state + year FEs and an IV for price (sales tax) moves the coefficient from OLS's biased estimate toward a credible causal effect.
 :::
 
 # Applied Example: Returns to Schooling Revisited
@@ -744,7 +685,7 @@ We've been using wages/schooling throughout. We used *distance to college* as on
 ::: {.callout-tip}
 ## Check the Three Assumptions
 1. **Relevant?** Yes --- quarter of birth is correlated with schooling attainment through compulsory schooling laws
-2. **Exogenous?** Debatable --- is quarter of birth correlated with innate ability or other wage determinants? (Bound, Jaeger, and Baker, 1993)
+2. **Exogenous?** Debatable --- is quarter of birth correlated with innate ability or other wage determinants? (Bound, Jaeger, and Baker, 1995)
 3. **Excludable?** Debatable --- does birth quarter directly affect wages, e.g., through age-at-hire effects?
 :::
 
@@ -768,13 +709,25 @@ Mean log weekly earnings by quarter of birth (1980 Census). The sawtooth pattern
 
 ## AK (1991): OLS vs. TSLS Estimates {.smaller}
 
-![](ch12_figures/ch12_stata_13.png){width=95% fig-align="center"}
+![](ch12_figures/ch12_stata_13.png){width=85% fig-align="center"}
 
 OLS and TSLS estimates of returns to education, men born 1920--1929 (1970 Census, $n = 247{,}199$). Instruments: quarter-of-birth × year-of-birth interactions.
 
-## Bound, Jaeger, and Baker (1993): Two Critiques {.smaller}
+. . .
 
-Bound, Jaeger, and Baker (1993) raised two distinct problems with the quarter-of-birth instrument:
+::: {.callout-note}
+## Puzzle: IV > OLS?
+If ability bias is the main problem, we'd expect OLS to *over*estimate the return to schooling --- so IV should be *smaller* than OLS. But here IV is **larger**. Two possible reasons:
+
+- **Measurement error** in self-reported years of education attenuates OLS toward zero; IV corrects it
+- **LATE $\neq$ ATE**: compliers here are marginal dropouts, who may have *higher* returns to each extra year than the average student
+
+Also note: IV standard errors are much larger than OLS --- we're using less variation, so estimates are noisier.
+:::
+
+## Bound, Jaeger, and Baker (1995): Two Critiques {.smaller}
+
+Bound, Jaeger, and Baker (1995) raised two distinct problems with the quarter-of-birth instrument:
 
 . . .
 
@@ -850,13 +803,6 @@ A [weak instrument]{.alert} combined with even a small $\text{Cov}(Z, u)$ can ca
 - Discuss threats to exclusion
 - Compare IV to OLS and explain differences
 :::
-:::
-
-## The Bottom Line
-
-::: {.callout-warning}
-## IV Is Only as Good as the Instrument
-An IV estimate with a bad instrument can be **worse** than OLS. The whole approach depends on finding a convincing instrument --- which is why IV papers spend so much time justifying their instruments.
 :::
 
 ## Key Takeaways {.smaller}

@@ -818,16 +818,6 @@ ECON3500: Econometrics and Applications
 <p>Stata’s <code>ivregress</code> command handles both stages automatically:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb1-1"><a href="" aria-hidden="true" tabindex="-1"></a>ivregress 2sls packpc (avgprs=tax), <span class="kw">robust</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="fragment">
-<ul>
-<li>Dependent variable: <code>packpc</code> (packs per capita)</li>
-<li>Parentheses before <code>=</code>: endogenous regressor (<code>avgprs</code>)</li>
-<li>After <code>=</code>: instrument (<code>tax</code>)</li>
-<li><code>robust</code>: heteroskedasticity-robust standard errors</li>
-</ul>
-</div>
-</section>
-<section id="reading-the-stata-syntax" class="slide level2">
-<h2>Reading the Stata Syntax</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -839,9 +829,11 @@ ECON3500: Econometrics and Applications
 <div class="callout-content">
 <ul>
 <li><span class="math inline">\(Y\)</span> = dependent variable (first after <code>2sls</code>)</li>
-<li><span class="math inline">\(X\)</span> = endogenous regressor (before <code>=</code>)</li>
+<li><span class="math inline">\(X\)</span> = endogenous regressor (in parentheses before <code>=</code>)</li>
 <li><span class="math inline">\(Z\)</span> = excluded instrument (after <code>=</code>)</li>
+<li><code>robust</code> = heteroskedasticity-robust standard errors</li>
 </ul>
+</div>
 </div>
 </div>
 </div>
@@ -866,34 +858,6 @@ ECON3500: Econometrics and Applications
 <span id="cb2-16"><a href="" aria-hidden="true" tabindex="-1"></a>Instrumented:  avgprs</span>
 <span id="cb2-17"><a href="" aria-hidden="true" tabindex="-1"></a>Instruments:   tax</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>2SLS estimates that a 1-unit increase in price <span class="kw">leads to</span> a decrease of 0.42 packs per capita.</p>
-</section>
-<section id="doing-2sls-manually" class="slide level2 smaller">
-<h2>Doing 2SLS Manually</h2>
-<p>To understand the two stages, we can do them by hand:</p>
-
-<img data-src="ch12_figures/ch12_stata_1.png" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="manual-2sls-a-warning" class="slide level2 smaller">
-<h2>Manual 2SLS: A Warning</h2>
-<ul>
-<li>The <strong>point estimates</strong> are identical to <code>ivregress</code></li>
-<li>But the <strong>standard errors are wrong</strong> in the manual approach!
-<ul>
-<li>Stata doesn’t know the predicted prices are <em>generated</em> regressors</li>
-</ul></li>
-</ul>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Always Use <code>ivregress</code></strong></p>
-</div>
-<div class="callout-content">
-<p>The <code>ivregress</code> command uses the correct standard error formula that accounts for first-stage estimation. Never report standard errors from manual 2SLS.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="viewing-both-stages-with-first" class="slide level2 smaller">
 <h2>Viewing Both Stages with <code>first</code></h2>
@@ -997,10 +961,10 @@ ECON3500: Econometrics and Applications
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Exogeneity Cannot Be Tested</strong></p>
+<p><strong>Exogeneity and Exclusion Cannot Be Tested</strong></p>
 </div>
 <div class="callout-content">
-<p>You lack data on the omitted variable, so you cannot test whether <span class="math inline">\(Z\)</span> is correlated with it. Exogeneity must be <strong>defended with reasoning</strong> about the instrument and the omitted variables in question.</p>
+<p>You lack data on the omitted variable, so you cannot test whether <span class="math inline">\(Z\)</span> is correlated with it. <strong>Both</strong> exogeneity <em>and</em> exclusion must be <strong>defended with reasoning</strong> — relevance is the only one with a formal test.</p>
 </div>
 </div>
 </div>
@@ -1090,7 +1054,7 @@ ECON3500: Econometrics and Applications
 <section id="combining-iv-with-panel-data" class="slide level2 smaller">
 <h2>Combining IV with Panel Data</h2>
 <p><span class="math display">\[sales_{it} = \alpha_i + \lambda_t + \beta_1 price_{it} + \beta_2 income_{it} + \delta V_i + \omega_{it}\]</span></p>
-<p><strong>Instrument for <em>price</em> is <em>sales tax</em></strong></p>
+<p><strong>Instrument for <em>price</em> is <em>sales tax</em> (<code>taxs</code>)</strong> — the panel-data sales-tax variable; distinct from the per-pack excise <code>tax</code> used earlier.</p>
 <div class="fragment">
 <ul>
 <li>Panel data with fixed effects <strong>and</strong> instrumental variables; data from 1985 &amp; 1995</li>
@@ -1104,35 +1068,11 @@ ECON3500: Econometrics and Applications
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode stata code-with-copy"><code class="sourceCode stata"><span id="cb3-1"><a href="" aria-hidden="true" tabindex="-1"></a><span class="kw">xtivreg</span> packpc (avgprs = taxs) incomepop y1995, <span class="kw">fe</span> <span class="kw">vce</span>(<span class="kw">cluster</span> state)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="building-up-state-fe-only" class="slide level2 smaller">
-<h2>Building Up: State FE Only</h2>
-<p><strong>Step 1</strong>: <code>xtreg packpc avgprs incomepop, vce(cluster state) fe</code></p>
+<section id="comparing-all-specifications" class="slide level2 smaller">
+<h2>Comparing All Specifications</h2>
 
-<img data-src="ch12_figures/ch12_stata_4.png" class="quarto-figure quarto-figure-center r-stretch"><p>Price coefficient: -0.355. Still suffers from simultaneous causality bias.</p>
-</section>
-<section id="building-up-state-year-fe" class="slide level2 smaller">
-<h2>Building Up: State + Year FE</h2>
-<p><strong>Step 2</strong>: <code>xtreg packpc avgprs incomepop i.year, vce(cluster state) fe</code></p>
-
-<img data-src="ch12_figures/ch12_stata_5.png" class="quarto-figure quarto-figure-center r-stretch"><p>Price coefficient: -0.416. Still biased — price responds to state and time demand shocks.</p>
-</section>
-<section id="adding-the-instrument-first-stage" class="slide level2 smaller">
-<h2>Adding the Instrument: First Stage</h2>
-<p><strong>Step 3</strong>: <code>xtivreg packpc (avgprs = taxs) incomepop y1995, vce(cluster state) fe first</code></p>
-
-<img data-src="ch12_figures/ch12_stata_6.png" class="quarto-figure quarto-figure-center r-stretch"><p><span class="math inline">\(F(3, 47) = 3001.56\)</span> — <strong>very strong</strong> first stage.</p>
-</section>
-<section id="adding-the-instrument-second-stage" class="slide level2 smaller">
-<h2>Adding the Instrument: Second Stage</h2>
-
-<img data-src="ch12_figures/ch12_stata_7.png" class="quarto-figure quarto-figure-center r-stretch"><p>Price coefficient: -0.409 (p &lt; 0.001). Income: -1.68 (p = 0.048).</p>
-</section>
-<section id="using-logarithms-for-elasticities" class="slide level2 smaller">
-<h2>Using Logarithms for Elasticities</h2>
-<p><span class="math display">\[\log(sales_{it}) = \alpha_i + \lambda_t + \beta_1 \log(price_{it}) + \beta_2 \log(income_{it}) + \delta V_i + \omega_{it}\]</span></p>
-<p>Using logs lets us interpret <span class="math inline">\(\beta_1\)</span> as an <strong>elasticity</strong>. Instrument: log(sales tax).</p>
-
-<img data-src="ch12_figures/ch12_stata_8.png" class="quarto-figure quarto-figure-center r-stretch"><div class="callout callout-important callout-titled callout-style-default">
+<img data-src="ch12_figures/ch12_stata_9.png" class="quarto-figure quarto-figure-center r-stretch" style="width:95.0%"><div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
@@ -1141,15 +1081,12 @@ ECON3500: Econometrics and Applications
 <p><strong>Best Elasticity Estimate</strong></p>
 </div>
 <div class="callout-content">
-<p>When price goes up by 1%, sales go down by <strong>1.3%</strong>. Demand is elastic, but not terribly so. The CI of (-1.53, -1.00) barely excludes -1, so we can statistically reject that demand is <em>inelastic</em>.</p>
+<p>Column 7 adds logs so <span class="math inline">\(\beta_1\)</span> is an <strong>elasticity</strong>: when price rises 1%, sales fall <strong>1.3%</strong>. The CI of <span class="math inline">\((-1.53, -1.00)\)</span> lies entirely below <span class="math inline">\(-1\)</span>, so we can reject that demand is inelastic.</p>
 </div>
 </div>
 </div>
-</section>
-<section id="comparing-all-specifications" class="slide level2 smaller">
-<h2>Comparing All Specifications</h2>
-
-<img data-src="ch12_figures/ch12_stata_9.png" class="quarto-figure quarto-figure-center r-stretch" style="width:95.0%"><div class="fragment">
+</div>
+<div class="fragment">
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1159,7 +1096,7 @@ ECON3500: Econometrics and Applications
 <p><strong>What Changes Across Specifications?</strong></p>
 </div>
 <div class="callout-content">
-<p>Notice that the price coefficient changes as we add controls and instruments. The preferred specification (column 7) combines all: fixed effects, IV, controls, and logarithms.</p>
+<p>Adding state + year FEs and an IV for price (sales tax) moves the coefficient from OLS’s biased estimate toward a credible causal effect.</p>
 </div>
 </div>
 </div>
@@ -1198,7 +1135,7 @@ ECON3500: Econometrics and Applications
 <div class="callout-content">
 <ol type="1">
 <li><strong>Relevant?</strong> Yes — quarter of birth is correlated with schooling attainment through compulsory schooling laws</li>
-<li><strong>Exogenous?</strong> Debatable — is quarter of birth correlated with innate ability or other wage determinants? (Bound, Jaeger, and Baker, 1993)</li>
+<li><strong>Exogenous?</strong> Debatable — is quarter of birth correlated with innate ability or other wage determinants? (Bound, Jaeger, and Baker, 1995)</li>
 <li><strong>Excludable?</strong> Debatable — does birth quarter directly affect wages, e.g., through age-at-hire effects?</li>
 </ol>
 </div>
@@ -1223,11 +1160,31 @@ ECON3500: Econometrics and Applications
 <section id="ak-1991-ols-vs.-tsls-estimates" class="slide level2 smaller">
 <h2>AK (1991): OLS vs.&nbsp;TSLS Estimates</h2>
 
-<img data-src="ch12_figures/ch12_stata_13.png" class="quarto-figure quarto-figure-center r-stretch" style="width:95.0%"><p>OLS and TSLS estimates of returns to education, men born 1920–1929 (1970 Census, <span class="math inline">\(n = 247{,}199\)</span>). Instruments: quarter-of-birth × year-of-birth interactions.</p>
+<img data-src="ch12_figures/ch12_stata_13.png" class="quarto-figure quarto-figure-center r-stretch" style="width:85.0%"><p>OLS and TSLS estimates of returns to education, men born 1920–1929 (1970 Census, <span class="math inline">\(n = 247{,}199\)</span>). Instruments: quarter-of-birth × year-of-birth interactions.</p>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Puzzle: IV &gt; OLS?</strong></p>
+</div>
+<div class="callout-content">
+<p>If ability bias is the main problem, we’d expect OLS to <em>over</em>estimate the return to schooling — so IV should be <em>smaller</em> than OLS. But here IV is <strong>larger</strong>. Two possible reasons:</p>
+<ul>
+<li><strong>Measurement error</strong> in self-reported years of education attenuates OLS toward zero; IV corrects it</li>
+<li><strong>LATE <span class="math inline">\(\neq\)</span> ATE</strong>: compliers here are marginal dropouts, who may have <em>higher</em> returns to each extra year than the average student</li>
+</ul>
+<p>Also note: IV standard errors are much larger than OLS — we’re using less variation, so estimates are noisier.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="bound-jaeger-and-baker-1993-two-critiques" class="slide level2 smaller">
-<h2>Bound, Jaeger, and Baker (1993): Two Critiques</h2>
-<p>Bound, Jaeger, and Baker (1993) raised two distinct problems with the quarter-of-birth instrument:</p>
+<section id="bound-jaeger-and-baker-1995-two-critiques" class="slide level2 smaller">
+<h2>Bound, Jaeger, and Baker (1995): Two Critiques</h2>
+<p>Bound, Jaeger, and Baker (1995) raised two distinct problems with the quarter-of-birth instrument:</p>
 <div class="fragment">
 <p><strong>Problem 1 — Instrument may not be exogenous:</strong> Quarter of birth is empirically correlated with many outcomes beyond schooling:</p>
 <ul>
@@ -1321,22 +1278,6 @@ ECON3500: Econometrics and Applications
 <li>Compare IV to OLS and explain differences</li>
 </ul>
 </div></div>
-</section>
-<section id="the-bottom-line" class="slide level2">
-<h2>The Bottom Line</h2>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>IV Is Only as Good as the Instrument</strong></p>
-</div>
-<div class="callout-content">
-<p>An IV estimate with a bad instrument can be <strong>worse</strong> than OLS. The whole approach depends on finding a convincing instrument — which is why IV papers spend so much time justifying their instruments.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="key-takeaways" class="slide level2 smaller scrollable">
 <h2>Key Takeaways</h2>
