@@ -48,11 +48,11 @@ ECON3500 Econometrics and Applications \hfill Spring 2026
 
 \vspace{0.5em}
 
-A labor economist wants to estimate the \textbf{causal effect of years of education on log hourly wages}. She uses data on 3{,}010 U.S.\ men born between 1930 and 1939 from the 1980 Census. She is worried that OLS estimates are biased because \textbf{ability} is unobserved.
+A labor economist wants to estimate the \textbf{causal effect of years of education on log hourly wages}. She uses data on 3{,}010 U.S.\ men born between 1930 and 1939 from the 1980 Census. After hanging out with the ECON3500 crowd for too long, she is appropriately worried that OLS estimates are biased because \textbf{ability} is unobserved: more able individuals get more education \textit{and} earn higher wages, even holding education constant.
 
-Proposed instrument: \textbf{quarter of birth}. Compulsory schooling laws require students to stay in school until age 16; students born earlier in the year reach 16 earlier in the school year and can legally drop out with less total schooling.
+Her proposed instrument: \textbf{quarter of birth}. U.S. compulsory schooling laws require students to stay in school until age 16. But students' age when they first enter school is staggered because of age cut-offs. Hence, students born earlier in the year reach age 16 earlier in the school year, so they can legally drop out with less total education. The idea is that quarter of birth thus affects years of education completed but should not directly affect wages.
 
-\textit{(Stylized example in the spirit of Angrist and Krueger, 1991 --- numbers constructed to prove specific pedagogical points.)}
+\textit{(Stylized example in the spirit of Angrist and Krueger, 1991 --- numbers constructed to prove my specific pedagogical points.)}
 
 \section*{Regression Output}
 
@@ -113,13 +113,19 @@ First-stage $F$    & ---              & 5.15              & ---               & 
 
 \ans{The 2SLS estimate implies that an additional year of education \textit{causes} approximately a 14.2\% increase in hourly wages --- \textbf{twice as large} as the OLS estimate of 7.0\%. Standard errors are also much larger (0.061 vs.\ 0.0035), which is typical of IV: we use less variation (only the part driven by the instrument), so estimates are noisier.}
 
-\item With a single instrument and the same controls in all regressions, the 2SLS coefficient equals the ratio of the reduced-form coefficient on Born Q1 (column 3) to the first-stage coefficient on Born Q1 (column 2). Verify this numerically, then explain why a weak first stage is dangerous.
+\item With a single instrument and the same controls in all regressions, the 2SLS coefficient equals the ratio of the \textbf{reduced-form} coefficient on Born Q1 (column 3) to the \textbf{first-stage} coefficient on Born Q1 (column 2):
+\[
+\hat{\beta}_1^{\text{2SLS}} \;\approx\; \frac{\hat{\gamma}_{Q1}^{\text{RF}}}{\hat{\pi}_{Q1}^{\text{FS}}}.
+\]
+Verify this numerically using the table. Then explain why, when the first-stage coefficient (the denominator) is small, the IV estimate gets amplified --- and why a weak first stage is so dangerous.
 
 \ans{Numerical check: $\hat{\gamma}_{Q1}^{\text{RF}} / \hat{\pi}_{Q1}^{\text{FS}} = (-0.0216)/(-0.152) \approx 0.142$, exactly the 2SLS coefficient in column (4). So 2SLS isolates the slice of education variation that tracks with the instrument, then asks: how big is the $Y$-response per unit of that variation?
 
 Intuition for weak-instrument danger: the denominator is small (Q1 births only shift education by 0.15 years), so any wage gap induced by Q1 gets \textit{divided by a small number}, amplifying both the point estimate \textbf{and} the noise. That's why a small first stage (low $F$) makes IV estimates large AND unreliable.}
 
-\item Given that the OLS estimate (0.070) is \textit{smaller} than the 2SLS estimate (0.142), what does this imply about the direction of bias in OLS? Is this surprising? Why or why not?
+\item  Given that the OLS estimate (0.070) is \textit{smaller} than the 2SLS estimate (0.142), what does this imply about the direction of bias in OLS? Is this surprising? Why or why not?
+
+\textit{Hint: Think about what you would expect if ability bias drives OLS upward. What else could be going on?}
 
 \ans{\textbf{Surprising} if ability bias is the main problem, because ability bias should push OLS \textit{up}, not down. Three possible explanations:
 \begin{enumerate}
@@ -129,7 +135,7 @@ Intuition for weak-instrument danger: the denominator is small (Q1 births only s
 \item \textbf{Weak-instrument bias.} With $F = 5.15$, the 2SLS estimate is itself biased toward OLS in finite samples; the true IV (with a strong instrument) might be even larger, or the current estimate is simply unreliable.
 \end{enumerate}}
 
-\item The IV estimate is a \textbf{Local Average Treatment Effect (LATE)}. In this context, who are the \textit{compliers}?
+\item The IV estimate is a \textbf{Local Average Treatment Effect (LATE)}. In this context, who are the \textit{compliers} --- the group whose behavior is actually affected by the instrument?
 
 \ans{Individuals whose total years of education were affected by compulsory schooling laws --- those who \textit{would have dropped out earlier} if they could have (i.e., if they had reached 16 before the end of the school year). These are people at the margin of the dropout decision. The IV estimate does \textbf{not} apply to always-takers (college-bound students who would have stayed regardless) or never-takers (students who dropped out before 16 regardless).}
 
