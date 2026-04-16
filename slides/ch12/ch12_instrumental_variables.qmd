@@ -739,7 +739,7 @@ Does QOB have a direct effect on wages? BJB's quantitative argument:
 Differences in family income at birth *"would seem to account for virtually all of the association between quarter of birth and wages."*
 :::
 
-Plus other QOB correlates (school attendance, behavioral problems, reading/writing/math, IQ, schizophrenia) --- any could open a direct $Z \to Y$ channel.
+Plus other QOB correlates (school attendance, behavioral problems, reading/writing/math, IQ) --- any could open a direct $Z \to Y$ channel.
 
 ## BJB (1995) Problem 2: Finite-Sample Bias {.smaller}
 
