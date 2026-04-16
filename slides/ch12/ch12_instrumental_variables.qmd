@@ -579,13 +579,6 @@ If the first-stage F-statistic is less than 10, the 2SLS estimates may be biased
 You lack data on the omitted variable, so you cannot test whether $Z$ is correlated with it. **Both** exogeneity *and* exclusion must be **defended with reasoning** --- relevance is the only one with a formal test.
 :::
 
-## Knowledge Check: Instrument Validity
-
-::: {.callout-tip}
-## Think About It
-For the cigarette example, why might someone challenge the exogeneity of sales tax as an instrument? Could states with stronger anti-smoking attitudes set both higher taxes *and* have lower demand?
-:::
-
 # IV with Multiple Regressors
 
 ## Adding Exogenous Controls {.smaller}
@@ -817,12 +810,6 @@ A [weak instrument]{.alert} combined with even a small $\text{Cov}(Z, u)$ can ca
 5. **Exogeneity cannot be tested** --- it must be argued
 6. IV can be combined with **panel data** and fixed effects
 7. Always use `ivregress` or `xtivreg` --- never manual two-step
-
-## Final Knowledge Check
-
-::: {.callout-tip}
-Suppose a researcher wants to estimate the effect of class size on student test scores. They propose using **school budget per pupil** as an instrument for class size. Evaluate: Is this instrument likely to be powerful? Exogenous? Excludable? What might be wrong?
-:::
 
 # Appendix: Additional Examples
 

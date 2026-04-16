@@ -80,7 +80,7 @@ In-class practice activities:
 
 - CH9 Activity: [Activity](../practice/ch9-activity3-study-doctor-student.pdf) · [Solutions](../practice/ch9-activity3-study-doctor-solutions.pdf) <!-- TODO: add solutions PDF -->
 - CH10 Activity: [Activity](../practice/ch10-activity2-fe-showdown.pdf) · [Solutions](../practice/ch10-activity2-fe-showdown-answerkey.pdf)
-- CH12 Activity: [Activity](../practice/ch12-activity2-2sls-in-action-student.pdf) · [Solutions](../practice/ch12-activity2-2sls-in-action-instructor.pdf)
+- CH12 Activity: [Activity](../practice/ch12-activity2-2sls-in-action-student.pdf) · [Solutions](../practice/ch12-activity2-2sls-in-action-solutions.pdf)
 
 
 

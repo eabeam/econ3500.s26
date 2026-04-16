@@ -27,7 +27,7 @@
 \titlespacing{\subsection}{0pt}{6pt}{0pt}
 
 \lhead{ECON3500 -- Econometrics and Applications}
-\rhead{In-Class Activity: Instrumenting Education \textit{(Instructor)}}
+\rhead{In-Class Activity: Instrumenting Education \textit{(Solutions)}}
 
 \newcommand{\ans}[1]{%
   \vspace{2pt}%
@@ -40,14 +40,10 @@
 \thispagestyle{plain}
 \singlespacing
 
-\begin{center}
-{\color{BrickRed}\textbf{\Large INSTRUCTOR COPY --- DO NOT DISTRIBUTE}}
-\end{center}
-
 ECON3500 Econometrics and Applications \hfill Spring 2026
 
 \begin{center}
-\Large{\textbf{In-Class Activity: Instrumenting Education}}\\[2pt]
+\Large{\textbf{In-Class Activity: Instrumenting Education --- Solutions}}\\[2pt]
 \end{center}
 
 \vspace{0.5em}
@@ -119,18 +115,16 @@ First-stage $F$    & ---              & 5.15              & ---               & 
 
 \item With a single instrument and the same controls in all regressions, the 2SLS coefficient equals the ratio of the reduced-form coefficient on Born Q1 (column 3) to the first-stage coefficient on Born Q1 (column 2). Verify this numerically, then explain why a weak first stage is dangerous.
 
-\ans{Numerical check: $\hat{\gamma}_{Q1}^{\text{RF}} / \hat{\pi}_{Q1}^{\text{FS}} = (-0.0216)/(-0.152) \approx 0.142$, exactly the 2SLS coefficient in column (4). So 2SLS isolates the slice of education variation that tracks with the instrument, then asks: how big is the Y-response per unit of that variation?
+\ans{Numerical check: $\hat{\gamma}_{Q1}^{\text{RF}} / \hat{\pi}_{Q1}^{\text{FS}} = (-0.0216)/(-0.152) \approx 0.142$, exactly the 2SLS coefficient in column (4). So 2SLS isolates the slice of education variation that tracks with the instrument, then asks: how big is the $Y$-response per unit of that variation?
 
-Intuition for weak-instrument danger: the denominator is small (Q1 births only shift education by 0.15 years), so any wage gap induced by Q1 gets \textit{divided by a small number}, amplifying both the point estimate \textbf{and} the noise. That's why a small first stage (low $F$) makes IV estimates large AND unreliable.
-
-Caveat for yourself: with covariates, the ratio $\hat{\gamma}/\hat{\pi}$ uses reduced-form and first-stage coefficients that share the same controls (equivalently, partial covariances). The raw Wald formula $\text{Cov}(Y,Z)/\text{Cov}(X,Z)$ only holds without controls.}
+Intuition for weak-instrument danger: the denominator is small (Q1 births only shift education by 0.15 years), so any wage gap induced by Q1 gets \textit{divided by a small number}, amplifying both the point estimate \textbf{and} the noise. That's why a small first stage (low $F$) makes IV estimates large AND unreliable.}
 
 \item Given that the OLS estimate (0.070) is \textit{smaller} than the 2SLS estimate (0.142), what does this imply about the direction of bias in OLS? Is this surprising? Why or why not?
 
 \ans{\textbf{Surprising} if ability bias is the main problem, because ability bias should push OLS \textit{up}, not down. Three possible explanations:
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\item \textbf{Measurement error in education.} If education is measured with error (self-reported years), OLS is attenuated toward zero. IV corrects for classical measurement error because the instrument is correlated with \textit{true} education, not the noise. Attenuation can dominate the upward ability bias. \textbf{(Leading explanation in the returns-to-schooling literature.)}
+\item \textbf{Measurement error in education.} If education is measured with error (self-reported years), OLS is attenuated toward zero. IV corrects for classical measurement error because the instrument is correlated with \textit{true} education, not the noise. Attenuation can dominate the upward ability bias. (Leading explanation in the returns-to-schooling literature.)
 \item \textbf{LATE $\neq$ ATE.} The IV estimate applies to \textit{compliers} --- marginal dropouts. Returns to schooling may be \textit{higher} for this group than the population average (heterogeneous treatment effects). So IV~$>$~OLS could reflect higher returns for compliers, not a downward OLS bias.
 \item \textbf{Weak-instrument bias.} With $F = 5.15$, the 2SLS estimate is itself biased toward OLS in finite samples; the true IV (with a strong instrument) might be even larger, or the current estimate is simply unreliable.
 \end{enumerate}}
@@ -140,16 +134,5 @@ Caveat for yourself: with covariates, the ratio $\hat{\gamma}/\hat{\pi}$ uses re
 \ans{Individuals whose total years of education were affected by compulsory schooling laws --- those who \textit{would have dropped out earlier} if they could have (i.e., if they had reached 16 before the end of the school year). These are people at the margin of the dropout decision. The IV estimate does \textbf{not} apply to always-takers (college-bound students who would have stayed regardless) or never-takers (students who dropped out before 16 regardless).}
 
 \end{enumerate}
-
-\section*{Teaching Notes}
-
-\begin{itemize}
-  \item Emphasize: \textbf{exogeneity and exclusion are not testable}. They require economic reasoning, not statistics. Relevance is the only testable assumption (first-stage $F$).
-  \item Item 3 ($F = 5.15$) is the natural discussion anchor: ``If you were the referee, would you trust this estimate?''
-  \item Item 5 (the RF/FS ratio) is the payoff for weak-instrument intuition. Let students compute $-0.0216/-0.152$ themselves --- the 10-second arithmetic makes the mechanics tangible.
-  \item Item 6 (OLS $<$ IV) is the biggest pedagogical payoff --- one of the most-discussed findings in the returns-to-education literature. Highlights that multiple sources of bias can operate simultaneously (ability up, measurement error down), and that LATE may differ from ATE.
-  \item Item 7 (compliers) ties directly back to the LATE slide (Section 5 of the deck). Good reinforcement if LATE felt rushed on Tuesday.
-  \item Time permitting: AK's original paper used 3 QOB dummies $\times$ 10 year-of-birth dummies (30 instruments) --- which created its own problems (many weak instruments, overfitting in the first stage).
-\end{itemize}
 
 \end{document}

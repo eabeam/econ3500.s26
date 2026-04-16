@@ -26,7 +26,7 @@
 \titlespacing{\subsection}{0pt}{6pt}{0pt}
 
 \lhead{ECON3500 -- Econometrics and Applications}
-\rhead{In-Class Activity: 2SLS in Action}
+\rhead{In-Class Activity: Instrumenting Education}
 
 \setlength\parskip{0.10in}
 
@@ -47,47 +47,47 @@ ECON3500 Econometrics and Applications \hfill Spring 2026
 
 A labor economist wants to estimate the \textbf{causal effect of years of education on log hourly wages}. She uses data on 3{,}010 U.S.\ men born between 1930 and 1939 from the 1980 Census. After hanging out with the ECON3500 crowd for too long, she is appropriately worried that OLS estimates are biased because \textbf{ability} is unobserved: more able individuals get more education \textit{and} earn higher wages, even holding education constant.
 
-Her proposed instrument: \textbf{quarter of birth}. U.S. compulsory schooling laws require students to stay in school until age 16. But student's age when they first enter school is staggered becuase of age cut-offs. Hence, students born earlier in the year reach age 16 earlier in the school year, so they can legally drop out with less total education. The idea is that quarter of birth thus affects years of education completed but should not directly affect wages.
+Her proposed instrument: \textbf{quarter of birth}. U.S. compulsory schooling laws require students to stay in school until age 16. But students' age when they first enter school is staggered because of age cut-offs. Hence, students born earlier in the year reach age 16 earlier in the school year, so they can legally drop out with less total education. The idea is that quarter of birth thus affects years of education completed but should not directly affect wages.
 
 \textit{(Stylized example in the spirit of Angrist and Krueger, 1991 --- numbers constructed to prove my specific pedagogical points.)}
 
 \section*{Regression Output}
 
 \begin{center}
-\renewcommand{\arraystretch}{1.05}
-\begin{tabular}{lccc}
+{\setlength{\tabcolsep}{6pt}\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{lcccc}
 \toprule
-                   & (1)           & (2)               & (3) \\
-Dep.\ variable:    & log(wage)     & educ              & log(wage) \\
-Method:            & OLS           & First stage       & 2SLS \\
+                   & (1)              & (2)               & (3)               & (4) \\
+Dep.\ variable:    & log(wage)        & educ              & log(wage)         & log(wage) \\
+Method:            & OLS              & First stage       & Reduced form      & 2SLS \\
 \midrule
-Years of education & 0.0700$^{***}$ &                   & 0.142$^{**}$ \\
-                   & (0.0035)       &                   & (0.061) \\
+Years of education & 0.0700$^{***}$   &                   &                   & 0.142$^{**}$ \\
+                   & (0.0035)         &                   &                   & (0.061) \\
 \addlinespace
-Born Q1 (Jan--Mar) &                & $-$0.152$^{**}$   & \\
-                   &                & (0.067)           & \\
+Born Q1 (Jan--Mar) &                  & $-$0.152$^{**}$   & $-$0.0216$^{**}$  & \\
+                   &                  & (0.067)           & (0.0093)          & \\
 \addlinespace
-Black              & $-$0.236$^{***}$ & $-$1.47$^{***}$ & $-$0.133$^{*}$ \\
-                   & (0.018)          & (0.12)          & (0.075) \\
+Black              & $-$0.236$^{***}$ & $-$1.47$^{***}$   & $-$0.342$^{***}$  & $-$0.133$^{*}$ \\
+                   & (0.018)          & (0.12)            & (0.022)           & (0.075) \\
 \addlinespace
-Married            & 0.121$^{***}$   & 0.38$^{***}$     & 0.075$^{*}$ \\
-                   & (0.016)         & (0.11)           & (0.043) \\
+Married            & 0.121$^{***}$    & 0.38$^{***}$      & 0.129$^{***}$     & 0.075$^{*}$ \\
+                   & (0.016)          & (0.11)            & (0.020)           & (0.043) \\
 \addlinespace
-Region (South)     & $-$0.098$^{***}$ & $-$0.54$^{***}$ & $-$0.060 \\
-                   & (0.015)          & (0.10)          & (0.038) \\
+Region (South)     & $-$0.098$^{***}$ & $-$0.54$^{***}$   & $-$0.137$^{***}$  & $-$0.060 \\
+                   & (0.015)          & (0.10)            & (0.018)           & (0.038) \\
 \addlinespace
-Constant           & 5.02$^{***}$    & 12.84$^{***}$    & 4.11$^{***}$ \\
-                   & (0.052)         & (0.078)          & (0.78) \\
+Constant           & 5.02$^{***}$     & 12.84$^{***}$     & 5.93$^{***}$      & 4.11$^{***}$ \\
+                   & (0.052)          & (0.078)           & (0.062)           & (0.78) \\
 \midrule
-$N$                & 3{,}010         & 3{,}010          & 3{,}010 \\
-$R^{2}$            & 0.132           & 0.087            & --- \\
-First-stage $F$    & ---             & 5.15             & --- \\
+$N$                & 3{,}010          & 3{,}010           & 3{,}010           & 3{,}010 \\
+$R^{2}$            & 0.132            & 0.087             & 0.041             & --- \\
+First-stage $F$    & ---              & 5.15              & ---               & --- \\
 \bottomrule
 \addlinespace
-\multicolumn{4}{l}{\footnotesize Standard errors in parentheses.} \\
-\multicolumn{4}{l}{\footnotesize $^{*}\,p<0.10$, $^{**}\,p<0.05$, $^{***}\,p<0.01$.} \\
-\multicolumn{4}{l}{\footnotesize Column (3) instruments for years of education using Born Q1.} \\
-\end{tabular}
+\multicolumn{5}{l}{\footnotesize Standard errors in parentheses. $^{*}\,p<0.10$, $^{**}\,p<0.05$, $^{***}\,p<0.01$.} \\
+\multicolumn{5}{l}{\footnotesize Column (3) is OLS of log(wage) on Born Q1 and controls. Column (4) instruments for years of education using Born Q1.} \\
+\end{tabular}%
+}
 \end{center}
 
 \newpage
@@ -114,11 +114,11 @@ First-stage $F$    & ---             & 5.15             & --- \\
 
 \vspace{2.2cm}
 
-\item Using the simple IV formula below,explain intuitively why the IV estimate is larger than the OLS estimate.
-
+\item With a single instrument and the same controls in all regressions, the 2SLS coefficient equals the ratio of the \textbf{reduced-form} coefficient on Born Q1 (column 3) to the \textbf{first-stage} coefficient on Born Q1 (column 2):
 \[
-\hat{\beta}_1^{IV} = \frac{\text{Cov}(\text{log wage},\, \text{Born Q1})}{\text{Cov}(\text{educ},\, \text{Born Q1})},
+\hat{\beta}_1^{\text{2SLS}} \;\approx\; \frac{\hat{\gamma}_{Q1}^{\text{RF}}}{\hat{\pi}_{Q1}^{\text{FS}}}.
 \]
+Verify this numerically using the table. Then explain why, when the first-stage coefficient (the denominator) is small, the IV estimate gets amplified --- and why a weak first stage is so dangerous.
 
 \vspace{3cm}
 
@@ -130,10 +130,6 @@ First-stage $F$    & ---             & 5.15             & --- \\
 
 
 \item The IV estimate is a \textbf{Local Average Treatment Effect (LATE)}. In this context, who are the \textit{compliers} --- the group whose behavior is actually affected by the instrument?
-
-\vspace{2.2cm}
-
-\item Name one threat to the validity of quarter of birth as an instrument for education. That is, give a reason why the exogeneity or exclusion restriction might fail.
 
 \vspace{2.2cm}
 
