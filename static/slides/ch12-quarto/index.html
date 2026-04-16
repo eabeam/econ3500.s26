@@ -1166,35 +1166,85 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </section>
-<section id="bound-jaeger-and-baker-1995-two-critiques" class="slide level2 smaller">
-<h2>Bound, Jaeger, and Baker (1995): Two Critiques</h2>
-<p>Bound, Jaeger, and Baker (1995) raised two distinct problems with the quarter-of-birth instrument:</p>
+<section id="bjb-1995-problem-1-inconsistency-when-the-first-stage-is-weak" class="slide level2 smaller">
+<h2>BJB (1995) Problem 1: Inconsistency When the First Stage is Weak</h2>
+<p><strong>Core insight:</strong> When the first stage is weak, even a <em>tiny</em> direct effect of <span class="math inline">\(Z\)</span> on <span class="math inline">\(Y\)</span> biases IV <em>more</em> than OLS.</p>
+<p><span class="math display">\[\frac{\text{plim}\,\hat\beta_{IV} - \beta}{\text{plim}\,\hat\beta_{OLS} - \beta} \;=\; \frac{\rho_{Z,\varepsilon}/\rho_{X,\varepsilon}}{\rho_{X,Z}}\]</span></p>
 <div class="fragment">
-<p><strong>Problem 1 — Instrument may not be exogenous:</strong> Quarter of birth is empirically correlated with many outcomes beyond schooling:</p>
+<p>Does QOB have a direct effect on wages? BJB’s quantitative argument:</p>
 <ul>
-<li>School attendance, behavioral difficulties, mental health referrals</li>
-<li>Performance in reading, writing, and arithmetic</li>
-<li>IQ scores and family incomes</li>
+<li>Kids born Q1 come from families with <strong>0.024 lower mean log family income</strong> (1980 Census)</li>
+<li>Intergenerational income correlation <span class="math inline">\(\approx 0.4\)</span> <span class="math inline">\(\Rightarrow\)</span> predicts Q1 wage gap of <span class="math inline">\(\approx 0.95\%\)</span> from family background alone</li>
+<li>Actual Q1-vs-rest wage gap in AK’s sample: <span class="math inline">\(\approx 1.1\%\)</span></li>
 </ul>
-<p>If quarter of birth is correlated with ability or other determinants of wages, <span class="math inline">\(\text{Cov}(Z, u) \neq 0\)</span> — the exogeneity assumption fails.</p>
 </div>
 <div class="fragment">
-<p><strong>Problem 2 — Weak instruments:</strong> With proper age controls, the first-stage F-statistic falls to <strong>1.6</strong> — far below the rule-of-thumb threshold of 10.</p>
-</div>
-</section>
-<section id="bound-jaeger-and-baker-1995-the-evidence" class="slide level2 smaller">
-<h2>Bound, Jaeger, and Baker (1995): The Evidence</h2>
-
-<img src="ch12_figures/ch12_stata_14.png" class="quarto-figure quarto-figure-center " style="width:85.0%"><div class="callout callout-important callout-titled callout-style-default">
+<div class="callout callout-warning callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Combined Effect</strong></p>
+<p><strong>BJB’s conclusion</strong></p>
 </div>
 <div class="callout-content">
-<p>A <span class="alert">weak instrument</span> combined with even a small <span class="math inline">\(\text{Cov}(Z, u)\)</span> can cause the IV estimate to look similar to <span class="alert">OLS</span>. The bias “fix” may introduce new bias rather than eliminating the original one.</p>
+<p>Differences in family income at birth <em>“would seem to account for virtually all of the association between quarter of birth and wages.”</em></p>
+</div>
+</div>
+</div>
+<p>Plus other QOB correlates (school attendance, behavioral problems, reading/writing/math, IQ, schizophrenia) — any could open a direct <span class="math inline">\(Z \to Y\)</span> channel.</p>
+</div>
+</section>
+<section id="bjb-1995-problem-2-finite-sample-bias" class="slide level2 smaller">
+<h2>BJB (1995) Problem 2: Finite-Sample Bias</h2>
+<p>Even a <em>legitimate</em> IV is biased toward OLS in finite samples. The magnitude is approximately <span class="math inline">\(1/F\)</span> — proportional to the first-stage F-stat on the excluded instruments.</p>
+<p>For AK’s Q1 <span class="math inline">\(\times\)</span> year-of-birth specification with within-year age controls (28 excluded instruments): <span class="math inline">\(F = 1.6\)</span>, partial <span class="math inline">\(R^2 = 0.014\%\)</span>. Quantitatively important bias <em>despite</em> <span class="math inline">\(n = 329{,}509\)</span>.</p>
+<div class="fragment">
+<p><strong>BJB’s smoking gun:</strong> replaced AK’s real QOB with <strong>randomly-generated</strong> “QOB” and re-ran the 2SLS.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th>Real QOB</th>
+<th>Random noise</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mean 2SLS coef.&nbsp;on educ</td>
+<td>0.060</td>
+<td>0.061</td>
+</tr>
+<tr class="even">
+<td>Mean SE</td>
+<td>0.029</td>
+<td>0.039</td>
+</tr>
+<tr class="odd">
+<td>First-stage <span class="math inline">\(F\)</span></td>
+<td>1.61</td>
+<td><span class="math inline">\(\approx 1\)</span></td>
+</tr>
+<tr class="even">
+<td>OLS coef (for reference)</td>
+<td>0.063</td>
+<td>0.063</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>The lesson</strong></p>
+</div>
+<div class="callout-content">
+<p>Even with <em>purely random</em> “instruments,” the 2SLS output looks reasonable — point estimate near OLS, plausible SEs. <strong>You cannot detect the problem from second-stage coefficients and standard errors alone.</strong> Only the first-stage <span class="math inline">\(F\)</span> reveals it. Always report it.</p>
+</div>
 </div>
 </div>
 </div>

@@ -718,31 +718,51 @@ If ability bias is the main problem, we'd expect OLS to *over*estimate the retur
 Also note: IV standard errors are much larger than OLS --- we're using less variation, so estimates are noisier.
 :::
 
-## Bound, Jaeger, and Baker (1995): Two Critiques {.smaller}
+## BJB (1995) Problem 1: Inconsistency When the First Stage is Weak {.smaller}
 
-Bound, Jaeger, and Baker (1995) raised two distinct problems with the quarter-of-birth instrument:
+**Core insight:** When the first stage is weak, even a *tiny* direct effect of $Z$ on $Y$ biases IV *more* than OLS.
 
-. . .
-
-**Problem 1 — Instrument may not be exogenous:** Quarter of birth is empirically correlated with many outcomes beyond schooling:
-
-- School attendance, behavioral difficulties, mental health referrals
-- Performance in reading, writing, and arithmetic
-- IQ scores and family incomes
-
-If quarter of birth is correlated with ability or other determinants of wages, $\text{Cov}(Z, u) \neq 0$ --- the exogeneity assumption fails.
+$$\frac{\text{plim}\,\hat\beta_{IV} - \beta}{\text{plim}\,\hat\beta_{OLS} - \beta} \;=\; \frac{\rho_{Z,\varepsilon}/\rho_{X,\varepsilon}}{\rho_{X,Z}}$$
 
 . . .
 
-**Problem 2 — Weak instruments:** With proper age controls, the first-stage F-statistic falls to **1.6** --- far below the rule-of-thumb threshold of 10.
+Does QOB have a direct effect on wages? BJB's quantitative argument:
 
-## Bound, Jaeger, and Baker (1995): The Evidence {.smaller}
+- Kids born Q1 come from families with **0.024 lower mean log family income** (1980 Census)
+- Intergenerational income correlation $\approx 0.4$ $\Rightarrow$ predicts Q1 wage gap of $\approx 0.95\%$ from family background alone
+- Actual Q1-vs-rest wage gap in AK's sample: $\approx 1.1\%$
 
-![](ch12_figures/ch12_stata_14.png){width=85% fig-align="center"}
+. . .
+
+::: {.callout-warning}
+## BJB's conclusion
+Differences in family income at birth *"would seem to account for virtually all of the association between quarter of birth and wages."*
+:::
+
+Plus other QOB correlates (school attendance, behavioral problems, reading/writing/math, IQ, schizophrenia) --- any could open a direct $Z \to Y$ channel.
+
+## BJB (1995) Problem 2: Finite-Sample Bias {.smaller}
+
+Even a *legitimate* IV is biased toward OLS in finite samples. The magnitude is approximately $1/F$ --- proportional to the first-stage F-stat on the excluded instruments.
+
+For AK's Q1 $\times$ year-of-birth specification with within-year age controls (28 excluded instruments): $F = 1.6$, partial $R^2 = 0.014\%$. Quantitatively important bias *despite* $n = 329{,}509$.
+
+. . .
+
+**BJB's smoking gun:** replaced AK's real QOB with **randomly-generated** "QOB" and re-ran the 2SLS.
+
+|  | Real QOB | Random noise |
+|---|---|---|
+| Mean 2SLS coef.\ on educ | 0.060 | 0.061 |
+| Mean SE | 0.029 | 0.039 |
+| First-stage $F$ | 1.61 | $\approx 1$ |
+| OLS coef (for reference) | 0.063 | 0.063 |
+
+. . .
 
 ::: {.callout-important}
-## Combined Effect
-A [weak instrument]{.alert} combined with even a small $\text{Cov}(Z, u)$ can cause the IV estimate to look similar to [OLS]{.alert}. The bias "fix" may introduce new bias rather than eliminating the original one.
+## The lesson
+Even with *purely random* "instruments," the 2SLS output looks reasonable --- point estimate near OLS, plausible SEs. **You cannot detect the problem from second-stage coefficients and standard errors alone.** Only the first-stage $F$ reveals it. Always report it.
 :::
 
 # IV Recipe Card
