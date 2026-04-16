@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+
+\usepackage[sfdefault]{FiraSans}
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+\usepackage[dvipsnames]{xcolor}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+\titlespacing{\subsection}{0pt}{6pt}{0pt}
+
+\lhead{ECON3500 -- Econometrics and Applications}
+\rhead{In-Class Activity: 2SLS in Action \textit{(Instructor)}}
+
+\newcommand{\ans}[1]{%
+  \vspace{2pt}%
+  {\color{BrickRed}\textsc{\textbf{Answer.}}} \textit{#1}\par\vspace{4pt}%
+}
+
+\setlength\parskip{0.10in}
+
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+\begin{center}
+{\color{BrickRed}\textbf{\Large INSTRUCTOR COPY --- DO NOT DISTRIBUTE}}
+\end{center}
+
+ECON3500 Econometrics and Applications \hfill Spring 2026
+
+\begin{center}
+\Large{\textbf{In-Class Activity: 2SLS in Action}}\\[2pt]
+\textit{Chapter 12 --- Instrumental Variables Regression}
+\end{center}
+
+\vspace{0.5em}
+
+A labor economist wants to estimate the \textbf{causal effect of years of education on log hourly wages}. She uses data on 3{,}010 U.S.\ men born between 1930 and 1939 from the 1980 Census. She is worried that OLS estimates are biased because \textbf{ability} is unobserved.
+
+Proposed instrument: \textbf{quarter of birth}. Compulsory schooling laws require students to stay in school until age 16. Students born earlier in the year reach age 16 earlier in the school year, so they can legally drop out with less total education.
+
+\textit{(Stylized example in the spirit of Angrist and Krueger, 1991 --- numbers constructed for pedagogy.)}
+
+\section*{Regression Output}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{lccc}
+\toprule
+                   & (1)           & (2)               & (3) \\
+Dep.\ variable:    & log(wage)     & educ              & log(wage) \\
+Method:            & OLS           & First stage       & 2SLS \\
+\midrule
+Years of education & 0.0700$^{***}$ &                   & 0.142$^{**}$ \\
+                   & (0.0035)       &                   & (0.061) \\
+\addlinespace
+Born Q1 (Jan--Mar) &                & $-$0.152$^{**}$   & \\
+                   &                & (0.067)           & \\
+\addlinespace
+Black              & $-$0.236$^{***}$ & $-$1.47$^{***}$ & $-$0.133$^{*}$ \\
+                   & (0.018)          & (0.12)          & (0.075) \\
+\addlinespace
+Married            & 0.121$^{***}$   & 0.38$^{***}$     & 0.075$^{*}$ \\
+                   & (0.016)         & (0.11)           & (0.043) \\
+\addlinespace
+Region (South)     & $-$0.098$^{***}$ & $-$0.54$^{***}$ & $-$0.060 \\
+                   & (0.015)          & (0.10)          & (0.038) \\
+\addlinespace
+Constant           & 5.02$^{***}$    & 12.84$^{***}$    & 4.11$^{***}$ \\
+                   & (0.052)         & (0.078)          & (0.78) \\
+\midrule
+$N$                & 3{,}010         & 3{,}010          & 3{,}010 \\
+$R^{2}$            & 0.132           & 0.087            & --- \\
+First-stage $F$    & ---             & 5.15             & --- \\
+\bottomrule
+\addlinespace
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses.} \\
+\multicolumn{4}{l}{\footnotesize $^{*}\,p<0.10$, $^{**}\,p<0.05$, $^{***}\,p<0.01$.} \\
+\multicolumn{4}{l}{\footnotesize Column (3) instruments for years of education using Born Q1.} \\
+\end{tabular}
+\end{center}
+
+\section*{Questions + Answers}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+
+\item \textbf{OLS interpretation.}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+
+\item Interpret the OLS coefficient on years of education. Be precise about units and magnitude.
+
+\ans{One additional year of education is associated with approximately 7.0\% higher hourly wages, controlling for race, marital status, and region. (Technically: a one-year increase in education is associated with a 0.070 increase in log wages, or about 7.0\% higher wages.)}
+
+\item Why might this coefficient be a \textit{biased} estimate of the causal effect of education on wages? What is the likely direction of the bias?
+
+\ans{Omitted variable bias from ability. $\text{Bias} = \beta_{\text{ability}} \times \frac{\text{Cov}(\text{educ},\,\text{ability})}{\text{Var}(\text{educ})}$. Since $\beta_{\text{ability}} > 0$ (ability raises wages) and $\text{Cov}(\text{educ},\,\text{ability}) > 0$ (more able people get more education), bias is \textbf{positive} --- OLS \textit{overestimates} the causal effect.}
+
+\end{enumerate}
+
+\item \textbf{First stage.}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+
+\item Interpret the coefficient on ``Born Q1'' in the first-stage regression.
+
+\ans{Being born in Q1 (January--March) is associated with \textbf{0.152 fewer years of education} than being born in Q2--Q4, controlling for race, marital status, and region. Consistent with compulsory schooling laws: Q1 students reach the legal dropout age earlier and can exit with less total schooling.}
+
+\item The first-stage $F$-statistic on the excluded instrument is $F = 5.15$. What does this tell us?
+
+\ans{$F = 5.15$ is \textbf{below the conventional threshold of 10} for strong instruments --- a \textbf{weak instrument} concern. Consequences: (1)~2SLS estimates are biased toward OLS in finite samples; (2)~standard errors are unreliable (CIs have incorrect coverage); (3)~the 2SLS estimate may not be trustworthy. This is a well-known limitation of the Angrist-Krueger design with a single QOB indicator. BJB (1995) formalized the critique.}
+
+\end{enumerate}
+
+\item \textbf{IV/2SLS interpretation.}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+
+\item Interpret the 2SLS coefficient on years of education. How does it compare to the OLS estimate?
+
+\ans{The 2SLS estimate implies that an additional year of education \textit{causes} approximately a 14.2\% increase in hourly wages --- \textbf{twice as large} as the OLS estimate of 7.0\%. Standard errors are also much larger (0.061 vs.\ 0.0035), typical of IV: we use less variation (only the part driven by the instrument), so estimates are noisier.}
+
+\item The 2SLS estimator has the structure of a \textit{ratio}: how much the instrument shifts $Y$, divided by how much the instrument shifts $X$ (the first stage). Given that the first-stage coefficient on Born Q1 is only $-0.152$, explain intuitively how this ratio structure produces an IV estimate larger than OLS --- and why a weak first stage is dangerous.
+
+\ans{With a single instrument and the same set of controls in both equations, 2SLS is equivalent to the ratio of two regression coefficients: the ``reduced-form'' effect of $Z$ on $Y$, divided by the ``first-stage'' effect of $Z$ on $X$. Here the first stage is small --- Q1 births have only 0.15 fewer years of education --- so any wage gap induced by Q1 gets divided by a small number, amplifying the IV estimate. Crucially, a small first stage amplifies \textit{both} the point estimate \textit{and} the noise, which is why a weak first stage ($F < 10$) is dangerous: the estimate becomes large \textbf{and} unreliable.
+
+Caveat: the simple Wald formula $\text{Cov}(Y,Z)/\text{Cov}(X,Z)$ holds in the no-controls case. With covariates, the correct ratio uses the reduced-form and first-stage coefficients from regressions that include the same controls (equivalently, partial covariances).}
+
+\end{enumerate}
+
+\item \textbf{Bias direction.} Given that OLS (0.070) is \textit{smaller} than 2SLS (0.142), what does this imply about the direction of bias in OLS? Is this surprising?
+
+\ans{\textbf{Surprising} if ability bias is the main problem, because ability bias should push OLS \textit{up}, not down. Three possible explanations:
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item \textbf{Measurement error in education.} If education is measured with error (self-reported years), OLS is attenuated toward zero. IV corrects for classical measurement error because the instrument is correlated with \textit{true} education, not the noise. This attenuation can dominate the upward ability bias. \textbf{(Leading explanation in the literature.)}
+\item \textbf{LATE $\neq$ ATE.} The IV estimate applies to \textit{compliers} --- marginal dropouts. Returns to schooling may be \textit{higher} for this group than the population average (heterogeneous treatment effects). So IV~$>$~OLS could reflect higher returns for compliers, not a downward OLS bias.
+\item \textbf{Weak-instrument bias.} With $F = 5.15$, the IV estimate is biased toward OLS; the true IV (with a strong instrument) might be even larger, or the current estimate is simply unreliable.
+\end{enumerate}}
+
+\item \textbf{LATE and validity.}
+
+\begin{enumerate}
+\def\labelenumi{(\alph{enumi})}
+
+\item Who are the \textit{compliers}?
+
+\ans{Individuals whose total years of education were affected by compulsory schooling laws --- those who \textit{would have dropped out earlier} if they could have (i.e., if they had reached 16 before the end of the school year). These are people at the margin of the dropout decision. The IV estimate does \textbf{not} apply to always-takers (college-bound) or never-takers (dropped out before 16 regardless).}
+
+\item Name one threat to the validity of quarter of birth as an instrument.
+
+\ans{Several options:
+\begin{itemize}
+\item \textbf{Season-of-birth and family background.} If families with different characteristics have children at different times of year (e.g., higher-SES families more likely to have spring babies), QOB is correlated with background $\to$ exogeneity fails. Evidence in Buckles and Hungerman (2013).
+\item \textbf{Age-at-test effects.} Students born earlier in the year are older when they take any given test or enter the labor market at a given date. If age itself affects productivity, QOB has a direct effect on wages $\to$ exclusion fails.
+\item \textbf{School-entry age effects.} QOB affects the age at which a child starts school. If starting younger/older affects learning or development, this is a channel from $Z$ to $Y$ that does \textit{not} operate through total years of education.
+\end{itemize}}
+
+\end{enumerate}
+
+\end{enumerate}
+
+\section*{Teaching Notes}
+
+\begin{itemize}
+  \item Emphasize: \textbf{exogeneity and exclusion are not testable}. They require economic reasoning, not statistics. Relevance is the only testable assumption (first-stage $F$).
+  \item Q2b ($F = 5.15$) is the discussion anchor: ``If you were the referee, would you trust this estimate?''
+  \item Q4 is the key pedagogical payoff --- the OLS < IV result is one of the most important findings in the returns-to-education literature. Highlights that multiple sources of bias can operate simultaneously (ability up, measurement error down), and that LATE may differ from ATE.
+  \item Q5a: the compliers concept ties directly back to the LATE slide (Section 5 of the deck). Good reinforcement if LATE felt rushed on Tuesday.
+  \item Time permitting: AK's original paper used 3 QOB dummies $\times$ 10 year-of-birth dummies (30 instruments) --- which created its own problems (many weak instruments, overfitting in the first stage).
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,144 @@
+\documentclass[11pt]{article}
+
+\usepackage[sfdefault]{FiraSans}
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+\usepackage[english]{babel}
+\usepackage{fancyhdr}
+\usepackage{booktabs}
+\usepackage{hyperref}\hypersetup{colorlinks=true}
+
+\usepackage{amsmath,amssymb,amsfonts,textcomp}
+\setlength{\tabcolsep}{8pt}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage[margin=1in]{geometry}
+\setlength{\parindent}{0pt}
+\pagestyle{fancy}
+
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\Large\scshape\bfseries}{\thesection}{1em}{}
+\titlespacing{\section}{0pt}{10pt}{0pt}
+\titleformat{\subsection}
+  {\normalfont\bfseries}{\thesection}{1em}{}
+\titlespacing{\subsection}{0pt}{6pt}{0pt}
+
+\lhead{ECON3500 -- Econometrics and Applications}
+\rhead{In-Class Activity: 2SLS in Action}
+
+\setlength\parskip{0.10in}
+
+\begin{document}
+\thispagestyle{plain}
+\singlespacing
+
+ECON3500 Econometrics and Applications \hfill Spring 2026
+
+\begin{center}
+\Large{\textbf{In-Class Activity: Instrumenting Education}}\\[2pt]
+\end{center}
+
+
+
+
+\vspace{0.6em}
+
+A labor economist wants to estimate the \textbf{causal effect of years of education on log hourly wages}. She uses data on 3{,}010 U.S.\ men born between 1930 and 1939 from the 1980 Census. After hanging out with the ECON3500 crowd for too long, she is appropriately worried that OLS estimates are biased because \textbf{ability} is unobserved: more able individuals get more education \textit{and} earn higher wages, even holding education constant.
+
+Her proposed instrument: \textbf{quarter of birth}. U.S. compulsory schooling laws require students to stay in school until age 16. But student's age when they first enter school is staggered becuase of age cut-offs. Hence, students born earlier in the year reach age 16 earlier in the school year, so they can legally drop out with less total education. The idea is that quarter of birth thus affects years of education completed but should not directly affect wages.
+
+\textit{(Stylized example in the spirit of Angrist and Krueger, 1991 --- numbers constructed to prove my specific pedagogical points.)}
+
+\section*{Regression Output}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{lccc}
+\toprule
+                   & (1)           & (2)               & (3) \\
+Dep.\ variable:    & log(wage)     & educ              & log(wage) \\
+Method:            & OLS           & First stage       & 2SLS \\
+\midrule
+Years of education & 0.0700$^{***}$ &                   & 0.142$^{**}$ \\
+                   & (0.0035)       &                   & (0.061) \\
+\addlinespace
+Born Q1 (Jan--Mar) &                & $-$0.152$^{**}$   & \\
+                   &                & (0.067)           & \\
+\addlinespace
+Black              & $-$0.236$^{***}$ & $-$1.47$^{***}$ & $-$0.133$^{*}$ \\
+                   & (0.018)          & (0.12)          & (0.075) \\
+\addlinespace
+Married            & 0.121$^{***}$   & 0.38$^{***}$     & 0.075$^{*}$ \\
+                   & (0.016)         & (0.11)           & (0.043) \\
+\addlinespace
+Region (South)     & $-$0.098$^{***}$ & $-$0.54$^{***}$ & $-$0.060 \\
+                   & (0.015)          & (0.10)          & (0.038) \\
+\addlinespace
+Constant           & 5.02$^{***}$    & 12.84$^{***}$    & 4.11$^{***}$ \\
+                   & (0.052)         & (0.078)          & (0.78) \\
+\midrule
+$N$                & 3{,}010         & 3{,}010          & 3{,}010 \\
+$R^{2}$            & 0.132           & 0.087            & --- \\
+First-stage $F$    & ---             & 5.15             & --- \\
+\bottomrule
+\addlinespace
+\multicolumn{4}{l}{\footnotesize Standard errors in parentheses.} \\
+\multicolumn{4}{l}{\footnotesize $^{*}\,p<0.10$, $^{**}\,p<0.05$, $^{***}\,p<0.01$.} \\
+\multicolumn{4}{l}{\footnotesize Column (3) instruments for years of education using Born Q1.} \\
+\end{tabular}
+\end{center}
+
+\newpage
+
+\section*{Questions}
+
+\begin{enumerate}
+
+\item Interpret the OLS coefficient on years of education. Be precise about units and magnitude.
+\vspace{1.5cm}
+
+
+\item Interpret the coefficient on ``Born Q1'' in the first-stage regression. What does it tell us about the relationship between quarter of birth and years of education?
+\vspace{2.2cm}
+
+
+\item The first-stage $F$-statistic on the excluded instrument is $F = 5.15$. What does this tell us? Should we be concerned? Why or why not?
+
+\vspace{2.2cm}
+
+
+
+\item Interpret the 2SLS coefficient on years of education. How does it compare to the OLS estimate?
+
+\vspace{2.2cm}
+
+\item Using the simple IV formula below,explain intuitively why the IV estimate is larger than the OLS estimate.
+
+\[
+\hat{\beta}_1^{IV} = \frac{\text{Cov}(\text{log wage},\, \text{Born Q1})}{\text{Cov}(\text{educ},\, \text{Born Q1})},
+\]
+
+\vspace{3cm}
+
+\item  Given that the OLS estimate (0.070) is \textit{smaller} than the 2SLS estimate (0.142), what does this imply about the direction of bias in OLS? Is this surprising? Why or why not?
+
+\textit{Hint: Think about what you would expect if ability bias drives OLS upward. What else could be going on?}
+
+\vspace{3cm}
+
+
+\item The IV estimate is a \textbf{Local Average Treatment Effect (LATE)}. In this context, who are the \textit{compliers} --- the group whose behavior is actually affected by the instrument?
+
+\vspace{2.2cm}
+
+\item Name one threat to the validity of quarter of birth as an instrument for education. That is, give a reason why the exogeneity or exclusion restriction might fail.
+
+\vspace{2.2cm}
+
+\end{enumerate}
+
+
+
+\end{document}

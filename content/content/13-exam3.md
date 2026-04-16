@@ -35,7 +35,8 @@ There will not be a Stata component to the exam.
 I recommend the following resources: 
 
  - Odd-numbered problems from Stock and Watson - solutions are available [here](../../bonus/general-resources)
- - [Practice exam](#practice-exam)
+ - [In-class practice](#inclass-practice)
+<!-- - [Practice exam](#practice-exam) -->
 
 
 ## What is the structure of the exam? 
@@ -75,15 +76,12 @@ A few ideas, depending on where you're feeling least secure:
 
 ## In-class practice {#inclass-practice .unnumbered}
 
-We have several sets of in-class practice activities:
+In-class practice activities:
 
-- [CH9 Activity: Threat Detective](../practice/ch9-activity1-threat-detective) — Identify threats to internal validity
-- [CH9 Activity: Regression Audit](../practice/ch9-activity2-regression-audit) — Evaluate regression studies
-- [CH9 Activity: Study Doctor](../practice/ch9-activity3-study-doctor-student.pdf) — Diagnose and fix research designs
-- [CH10 Activity: DiD by Hand](../practice/ch10-activity1-did-by-hand) — Calculate difference-in-differences estimates
-- [CH10 Activity: FE Showdown](../practice/ch10-activity2-fe-showdown.pdf) — Fixed effects practice
-- [CH12 Activity: Is This a Good Instrument?](../practice/ch12-activity1-good-instrument) — Evaluate instrument validity
-- [CH12 Activity: 2SLS in Action](../practice/ch12-activity2-2sls-in-action) — Interpret IV regression output
+- CH9 Activity: [Activity](../practice/ch9-activity3-study-doctor-student.pdf) · [Solutions](../practice/ch9-activity3-study-doctor-solutions.pdf) <!-- TODO: add solutions PDF -->
+- CH10 Activity: [Activity](../practice/ch10-activity2-fe-showdown.pdf) · [Solutions](../practice/ch10-activity2-fe-showdown-answerkey.pdf)
+- CH12 Activity: [Activity](../practice/ch12-activity2-2sls-in-action-student.pdf) · [Solutions](../practice/ch12-activity2-2sls-in-action-instructor.pdf)
+
 
 
 ## Helpful materials {#helpful-materials}
@@ -106,9 +104,14 @@ Two things that may be useful to you:
 
 <!-- <iframe src="https://streaming.uvm.edu/media/embed/ypKTzfH/" width="640" height="480" frameborder="0" allowfullscreen></iframe> -->
 
+<!--
 ## Past exams  {#practice-exam .unnumbered}
 
-Use these for additional practice and to get a sense of the level of questions. 
+Use these for additional practice and to get a sense of the level of questions.
 
 - [Fall 2016 Practice Exam](../PracticeExams/unitquiz2-practicequestions-f16.pdf)
 - [Fall 2016 Practice Exam Solutions](../PracticeExams/unitquiz2-practicequestions-f16-soln.pdf) (*I strongly recommend doing the practice exam in its entirety before reviewing the solutions*)
+-->
+
+<!-- TODO: restore Past exams section once suitable Exam 3 practice materials are identified. -->
+
