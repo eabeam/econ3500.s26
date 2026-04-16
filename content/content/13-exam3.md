@@ -84,15 +84,6 @@ In-class practice activities:
 
 
 
-## Helpful materials {#helpful-materials}
-
-Two things that may be useful to you:
-
-- [Standard Normal Distribution Table](../AppendixTable1_rev.pdf)
-
-- [Formula chart](../Formula-sheet_f20.pdf): Is this all the knowledge you need to know? Of course not! But, this should cover most of the formulas you might need.
-
-
 ## Slides
 
 {{< slides >}}
