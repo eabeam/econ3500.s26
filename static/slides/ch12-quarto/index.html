@@ -1248,6 +1248,34 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
+</section>
+<section id="why-did-ak-use-so-many-instruments" class="slide level2 smaller">
+<h2>Why Did AK Use So Many Instruments?</h2>
+<p>AK’s preferred specification used up to <strong>180 excluded instruments</strong>: QOB (3) <span class="math inline">\(\times\)</span> year of birth (10) <span class="math inline">\(\times\)</span> state of birth (50) interactions.</p>
+<p><strong>The logic (reasonable):</strong> Compulsory-attendance laws vary across states (different age cutoffs, different enforcement). So QOB <span class="math inline">\(\times\)</span> state interactions capture <em>real institutional variation</em> that plain QOB misses — and should also tighten the standard errors.</p>
+<div class="fragment">
+<p><strong>Why it backfires (BJB’s critique):</strong></p>
+<ul>
+<li>Going from 30 to 178 instruments barely lifts the first-stage <span class="math inline">\(F\)</span> (4.7 <span class="math inline">\(\to\)</span> 1.9) and partial <span class="math inline">\(R^2\)</span> hardly moves — most of the new instruments are <em>weak</em></li>
+<li>Finite-sample bias scales with <span class="math inline">\(K/\tau^2 \approx 1/F\)</span> — <strong>more weak instruments make the bias worse</strong>, not better</li>
+<li>So the extra interactions buy precision without buying identification</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Moral</strong></p>
+</div>
+<div class="callout-content">
+<p>You can’t instrument your way out of a weak first stage by piling on interactions. <em>Quality</em> of instrument variation matters more than <em>quantity</em> of instruments.</p>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section>
 <section id="iv-recipe-card" class="title-slide slide level1 center">

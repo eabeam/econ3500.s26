@@ -765,6 +765,27 @@ For AK's Q1 $\times$ year-of-birth specification with within-year age controls (
 Even with *purely random* "instruments," the 2SLS output looks reasonable --- point estimate near OLS, plausible SEs. **You cannot detect the problem from second-stage coefficients and standard errors alone.** Only the first-stage $F$ reveals it. Always report it.
 :::
 
+## Why Did AK Use So Many Instruments? {.smaller}
+
+AK's preferred specification used up to **180 excluded instruments**: QOB (3) $\times$ year of birth (10) $\times$ state of birth (50) interactions.
+
+**The logic (reasonable):** Compulsory-attendance laws vary across states (different age cutoffs, different enforcement). So QOB $\times$ state interactions capture *real institutional variation* that plain QOB misses --- and should also tighten the standard errors.
+
+. . .
+
+**Why it backfires (BJB's critique):**
+
+- Going from 30 to 178 instruments barely lifts the first-stage $F$ (4.7 $\to$ 1.9) and partial $R^2$ hardly moves --- most of the new instruments are *weak*
+- Finite-sample bias scales with $K/\tau^2 \approx 1/F$ --- **more weak instruments make the bias worse**, not better
+- So the extra interactions buy precision without buying identification
+
+. . .
+
+::: {.callout-tip}
+## Moral
+You can't instrument your way out of a weak first stage by piling on interactions. *Quality* of instrument variation matters more than *quantity* of instruments.
+:::
+
 # IV Recipe Card
 
 ## IV Estimation: Step by Step {.smaller}
