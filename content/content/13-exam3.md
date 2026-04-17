@@ -36,7 +36,7 @@ I recommend the following resources:
 
  - Odd-numbered problems from Stock and Watson - solutions are available [here](../../bonus/general-resources)
  - [In-class practice](#inclass-practice)
-<!-- - [Practice exam](#practice-exam) -->
+ - [Practice exam](#practice-exam)
 
 
 ## What is the structure of the exam? 
@@ -95,14 +95,10 @@ In-class practice activities:
 
 <!-- <iframe src="https://streaming.uvm.edu/media/embed/ypKTzfH/" width="640" height="480" frameborder="0" allowfullscreen></iframe> -->
 
-<!--
-## Past exams  {#practice-exam .unnumbered}
+## Practice exam {#practice-exam .unnumbered}
 
-Use these for additional practice and to get a sense of the level of questions.
+Use this for additional practice and to get a sense of the format and difficulty of questions. It covers the same topics as this exam (panel data/fixed effects, instrumental variables, difference-in-differences).
 
-- [Fall 2016 Practice Exam](../PracticeExams/unitquiz2-practicequestions-f16.pdf)
-- [Fall 2016 Practice Exam Solutions](../PracticeExams/unitquiz2-practicequestions-f16-soln.pdf) (*I strongly recommend doing the practice exam in its entirety before reviewing the solutions*)
--->
-
-<!-- TODO: restore Past exams section once suitable Exam 3 practice materials are identified. -->
+- [Practice Exam](../practice/exam3-practice.pdf)
+- [Practice Exam Solutions](../practice/exam3-practice-solutions.pdf) (*I strongly recommend completing the practice exam before reviewing the solutions*)
 
