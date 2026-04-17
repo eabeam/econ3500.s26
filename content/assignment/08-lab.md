@@ -67,7 +67,7 @@ The lottery creates a natural instrument: being *selected* for a voucher (which 
 ## Key commands  {#key-commands .unnumbered}
 
 |command|description|
-| :------------- | ----------: |
+| :------------- | :------------- |
 |`ivregress 2sls y (x = z) controls, robust`| IV regression using two-stage least squares|
 |`ivregress 2sls y (x = z) controls, robust first`| Same, reporting first-stage results|
 |`predict yhat, xb`| Generate predicted values from the previous regression|
@@ -198,9 +198,9 @@ What sort of things?
     voucher? How many had a voucher for all four years? How many
     actually attended a choice school for four years?
 
-    {{% alert note %}}
+{{% alert note %}}
 **Hint:** `tab selectyrs` and `tab choiceyrs` will show you the distribution.
-    {{% /alert %}}
+{{% /alert %}}
 
 3.  Predict the relationship between choice school attendance and math
     scores by regressing math scores `mnce` (dependent variable) on
@@ -216,9 +216,9 @@ What sort of things?
     gender controls. Why is this a reasonable choice of an instrument?
     What is the F-statistic on `selectyrs`?
 
-    {{% alert note %}}
+{{% alert note %}}
 **Hint:** Use `testparm selectyrs` after the regression to get the F-statistic. A rule of thumb is that the F-statistic should be at least 10 for the instrument to be considered strong enough.
-    {{% /alert %}}
+{{% /alert %}}
 
 6.  Based on the previous regression, use the `predict` command to
     generate a predicted $\widehat{choiceyrs}$. Estimate the regression
@@ -226,34 +226,34 @@ What sort of things?
     gender controls. Write the estimated equation. How does your result
     compare to your OLS estimate?
 
-    {{% alert note %}}
+{{% alert note %}}
 **Reminder:** The `predict` command generates fitted values from the most recently estimated regression. Run it immediately after the Q5 regression — before running anything else:
 ```
 predict choiceyrs_hat, xb
 ```
 Then use `choiceyrs_hat` as your independent variable in the second-stage regression.
-    {{% /alert %}}
+{{% /alert %}}
 
 7. Re-estimate a regression of `mnce` (dependent variable) on
     `choiceyrs` (independent variable) using `selectyrs` as an
     instrument for `choiceyrs`. This time, estimate the equation in one command line using `ivregress 2sls`. How do your
     results change, if at all?
 
-    {{% alert note %}}
+{{% alert note %}}
 **Example syntax:**
 ```
 ivregress 2sls mnce (choiceyrs = selectyrs) black hispanic female, robust
 ```
 **Important:** The *coefficients* from Q6 and Q7 should be the same, but the *standard errors* will differ. That's because the manual approach (Q6) doesn't correctly account for the fact that $\widehat{choiceyrs}$ is a generated regressor. `ivregress` adjusts the standard errors automatically — always use it in practice.
-    {{% /alert %}}
+{{% /alert %}}
 
 8. Repeat your IV analysis, but this time include a control for
     baseline achievement by adding `mnce90`. Write the results in
     equation form below. Do you find these results convincing? Explain.
 
-    {{% alert note %}}
+{{% alert note %}}
 **Heads up:** `mnce90` is missing for many students — your sample will drop from 990 to about 328 observations. This is expected. Think about what it means for your results.
-    {{% /alert %}}
+{{% /alert %}}
 
 9. We can also use multiple instruments for multiple endogenous
     variables. The variables `choiceyrs1`, `choiceyrs2`, etc. are dummy
@@ -269,12 +269,15 @@ ivregress 2sls mnce (choiceyrs = selectyrs) black hispanic female, robust
     &  \beta_5 black + \beta_6 hispanic + \beta_7 female + \beta_8 mnce90 + u
     \end{split}$$
 
-    {{% alert note %}}
+{{% alert note %}}
 **Hint:** Put all the endogenous variables on the left of the `=` and all the instruments on the right:
 ```
-ivregress 2sls mnce (choiceyrs1 choiceyrs2 choiceyrs3 choiceyrs4 = selectyrs1 selectyrs2 selectyrs3 selectyrs4) black hispanic female mnce90, robust
+ivregress 2sls mnce ///
+    (choiceyrs1 choiceyrs2 choiceyrs3 choiceyrs4 = ///
+     selectyrs1 selectyrs2 selectyrs3 selectyrs4) ///
+    black hispanic female mnce90, robust
 ```
-    {{% /alert %}}
+{{% /alert %}}
 
 10. Finally, go back through your regressions in your do-file. After
     each regression (there should be six: OLS without controls, OLS with
@@ -285,7 +288,7 @@ ivregress 2sls mnce (choiceyrs1 choiceyrs2 choiceyrs3 choiceyrs4 = selectyrs1 se
     **Include a table with your results with your submission** — there
     should be six columns in one table.
 
-    {{% alert note %}}
+{{% alert note %}}
 **Hint:** Use `replace` for the first regression and `append` for each subsequent one:
 ```
 regress mnce choiceyrs, robust
@@ -296,7 +299,7 @@ outreg2 using lab8_results.xls, append
 
 // ... continue for remaining regressions
 ```
-    {{% /alert %}}
+{{% /alert %}}
 
 
 {{% alert note %}}
