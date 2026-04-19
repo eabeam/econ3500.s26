@@ -80,39 +80,6 @@ $$\frac{\Delta TestScore}{\Delta Income} \approx 3.85 + 2(-0.0423)(40) = 3.85 - 
 You [cannot]{.alert} interpret $\beta_1$ or $\beta_2$ in isolation. Always compute the [marginal effect at a specific value of $X$]{.kw}.
 :::
 
-## Testing Nonlinearity
-
-To test whether the quadratic term matters:
-
-- $H_0$: $\beta_2 = 0$ (linear is sufficient)
-- $H_1$: $\beta_2 \neq 0$
-
-Use the $t$-statistic on $\hat{\beta}_2$.
-
-. . .
-
-For higher-order polynomials (e.g., cubic), use an [F-test]{.kw} for joint significance of the higher-order terms.
-
-::: {.callout-warning}
-## Common Mistake
-Don't include $X^2$ without $X$. If you include $X^2$, you [must]{.alert} include $X$ as well (otherwise the model is misspecified).
-:::
-
-## Logarithmic Transformations {.smaller}
-
-::: {.callout-note}
-## Why Logs?
-- Model [percentage changes]{.kw} instead of level changes
-- Reduce the influence of outliers
-- Natural for variables like wages, income, prices, GDP
-:::
-
-. . .
-
-**Key property:** For small changes,
-
-$$\Delta \ln(X) \approx \frac{\Delta X}{X} = \text{percentage change in } X$$
-
 ## The Log Interpretation Table {.smaller}
 
 | Specification | Model | Interpretation of $\beta_1$ |
@@ -378,12 +345,177 @@ A researcher studies the effect of hospital spending on patient outcomes, but on
 [Sample selection bias]{.alert} — the sample is conditioned on an outcome (survival) related to $Y$.
 :::
 
+## Causal Diagrams (DAGs): Review
+
+A [directed acyclic graph (DAG)]{.kw} maps out the causal relationships between variables.
+
+- **Directed**: Arrows point from cause → effect
+- **Acyclic**: No loops — causality flows forward
+- **Graph**: Nodes (variables) and edges (arrows)
+
+. . .
+
+::: {.callout-important}
+## Why DAGs Matter for This Exam
+DAGs give a [visual framework]{.alert} for diagnosing the five threats — especially OVB, simultaneous causality, and measurement error.
+:::
+
+## Three Types of Paths {.smaller}
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+| Path Type | Structure | Default | Example |
+|:---|:---|:---|:---|
+| [Causal]{.kw} (front-door) | $X \rightarrow M \rightarrow Y$ | Open | Education → Job → Earnings |
+| [Backdoor]{.alert} | $X \leftarrow Z \rightarrow Y$ | Open | Class Size ← Wealth → Scores |
+| [Collider]{.kw} | $X \rightarrow Z \leftarrow Y$ | Closed | Talent → Hiring ← Connections |
+
+:::
+
+::: {.column width="45%"}
+![](../ch8b/ch8b_figures/ch8b_confounding.png){width=100% fig-align="center"}
+:::
+
+::::
+
+. . .
+
+- [Causal paths]{.kw} = what we want to estimate. Leave them open.
+- [Backdoor paths]{.alert} = confounding. Must close them.
+- [Collider paths]{.kw} = safely closed. Don't open them!
+
+## Confounding = OVB = Open Backdoor Path
+
+:::: {.columns}
+
+::: {.column width="40%"}
+![](../ch8b/ch8b_figures/ch8b_unobserved_confounder.png){width=100% fig-align="center"}
+
+::: {.smaller}
+[Gray node]{style="color: #708090; font-weight: bold;"} = unobserved
+:::
+:::
+
+::: {.column width="55%"}
+Every case of [omitted variable bias]{.kw} is an open backdoor path:
+
+- Education ← Ability → Earnings
+- Ability is unobserved → can't control for it
+- OLS picks up causal effect **+** confounding bias
+
+. . .
+
+$$\text{Association} = \underbrace{\text{Causal Effect}}_{\text{front-door}} + \underbrace{\text{Bias}}_{\text{open backdoor}}$$
+:::
+
+::::
+
+## What "Controlling For" Does {.smaller}
+
+Controlling for a variable [blocks all paths]{.kw} through it. This can be good or bad:
+
+| Path Type | Default | Controlling... | Result |
+|:---|:---|:---|:---|
+| Backdoor ($X \leftarrow Z \rightarrow Y$) | Open | [Closes]{.kw} it | Removes bias ✓ |
+| Collider ($X \rightarrow Z \leftarrow Y$) | Closed | [Opens]{.alert} it | Creates bias ✗ |
+| Mediator ($X \rightarrow Z \rightarrow Y$) | Open | [Closes]{.alert} it | Blocks causal effect ✗ |
+
+. . .
+
+::: {.callout-warning}
+## Bad Controls
+- **Don't control for mediators** — you'll block the effect you're trying to measure
+- **Don't control for colliders** — you'll introduce bias where there was none
+- **Do control for confounders** — they create open backdoor paths (= OVB)
+:::
+
+## DAG Practice {.smaller}
+
+:::: {.columns}
+
+::: {.column width="35%"}
+![](../ch8b/ch8b_figures/ch8b_knowledge_check_1.png){width=100% fig-align="center"}
+:::
+
+::: {.column width="60%"}
+::: {.callout-tip}
+## Knowledge Check
+You want to estimate the causal effect of Health Insurance on Health. Income affects both.
+
+1. List all paths from Insurance to Health
+2. Classify each as causal or backdoor
+3. What should you control for?
+:::
+:::
+
+::::
+
+. . .
+
+**Paths:**
+
+- Insurance → Health (causal — leave open)
+- Insurance ← Income → Health (backdoor — [control for Income]{.alert})
+
+After controlling for Income, the only open path is causal. Effect is identified.
+
+## Collider Bias: Practice {.smaller}
+
+:::: {.columns}
+
+::: {.column width="35%"}
+![](../ch8b/ch8b_figures/ch8b_collider.png){width=100% fig-align="center"}
+:::
+
+::: {.column width="60%"}
+::: {.callout-tip}
+## Knowledge Check
+You want to know if Talent affects Connections. Both cause Job Hiring.
+
+Should you study this relationship [among hired workers only]{.alert}?
+:::
+:::
+
+::::
+
+. . .
+
+**No!** Conditioning on Job Hiring (the collider) [opens]{.alert} the path between Talent and Connections.
+
+Among the hired, low Talent becomes correlated with high Connections — a spurious association.
+
+This is [collider bias]{.kw} (a.k.a. selection bias).
+
+## DAGs and Our Econometric Toolkit {.smaller}
+
+DAGs help us see **why** each method works:
+
+| Problem (in DAG terms) | Method | How it helps |
+|:---|:---|:---|
+| Open backdoor via [observed]{.kw} confounder | Add control variable | Closes the backdoor path |
+| Open backdoor via [time-invariant unobserved]{.kw} confounder | Fixed effects (Ch 10) | Absorbs all $\alpha_i$ variables |
+| Open backdoor via [any unobserved]{.kw} confounder | IV / 2SLS (Ch 12) | Isolates exogenous variation in $X$ |
+| Open backdoor; treatment + control available | DiD (Ch 10) | Parallel trends closes the path |
+| No backdoor paths (by design) | RCT | Randomization severs arrows into $X$ |
+
+. . .
+
+::: {.callout-important}
+## Cross-Chapter Connection
+When a problem asks "which method would address this threat?" — draw the DAG first. The answer becomes visual.
+:::
+
 ## Ch 9: What to Focus On
 
-- Be able to [name and define]{.kw} each threat
+- Be able to [name and define]{.kw} each of the five threats
 - Given a research scenario, [identify which threat(s)]{.kw} apply
 - Know the [direction of bias]{.kw} when possible (especially OVB and attenuation bias)
 - Know at least one [solution]{.kw} for each threat
+- [Draw and interpret]{.kw} simple DAGs — identify causal vs. backdoor vs. collider paths
+- Know what to [control for]{.kw} and what [not to control for]{.alert} (mediators, colliders)
+- Explain why confounding = OVB = open backdoor path
 
 # Chapter 10: Panel Data & DiD
 
@@ -574,6 +706,11 @@ The minimum wage increase is associated with a [2 percentage point decrease]{.al
 - State the [parallel trends assumption]{.kw} and explain why it matters
 - Know which coefficient in the regression is the DiD estimate ($\beta_3$, the interaction)
 
+::: {.callout-warning}
+## Standard Errors in Panel Data
+With panel data, observations within the same entity are likely correlated over time. Use [clustered standard errors]{.alert} (cluster at the entity level) — otherwise SEs are too small and you over-reject.
+:::
+
 # Chapter 12: Instrumental Variables
 
 ## Ch 12 Big Picture
@@ -688,6 +825,27 @@ $$Y_i = \beta_0 + \beta_1 \hat{X}_i + \beta_2 W_i + u_i$$
 Use a proper IV/2SLS command (e.g., `ivregress 2sls` in Stata). Running two separate regressions gives [wrong standard errors]{.alert}.
 :::
 
+## The Wald Estimator (Binary Instrument) {.smaller}
+
+When the instrument $Z$ is [binary]{.kw} (0 or 1), the IV estimate simplifies:
+
+$$\hat{\beta}_1^{IV} = \frac{\bar{Y}_{Z=1} - \bar{Y}_{Z=0}}{\bar{X}_{Z=1} - \bar{X}_{Z=0}} = \frac{\text{Reduced form}}{\text{First stage}}$$
+
+. . .
+
+| Piece | Regression | Meaning |
+|:---|:---|:---|
+| [Reduced form]{.kw} | $Y$ on $Z$ | Total effect of $Z$ on $Y$ (includes the path through $X$) |
+| [First stage]{.kw} | $X$ on $Z$ | Effect of $Z$ on $X$ |
+| [IV estimate]{.kw} | Ratio | Causal effect of $X$ on $Y$, scaled by how much $Z$ moves $X$ |
+
+. . .
+
+::: {.callout-tip}
+## Intuition
+The reduced form tells you how much $Z$ moves $Y$. The first stage tells you how much $Z$ moves $X$. Dividing gives you how much $X$ moves $Y$.
+:::
+
 ## Weak Instruments {.smaller}
 
 If $Z$ is only [weakly correlated]{.alert} with $X$, the IV estimator has serious problems:
@@ -734,24 +892,7 @@ IV estimates the causal effect for [compliers]{.alert} — the subpopulation who
 
 - IV estimates the effect [only for compliers]{.alert} — not for the whole population.
 - This is a [local]{.kw} estimate, not a global one.
-
-## LATE: Implications
-
-::: {.callout-warning}
-## Why LATE Matters
-The IV estimate may differ from the "true" average treatment effect (ATE) if compliers are not representative of the full population.
-:::
-
-. . .
-
-**Example:** Quarter-of-birth IV for returns to schooling
-
-- Compliers = people who would drop out if they could, but compulsory schooling laws force them to stay
-- Returns to education for this group may differ from returns for people who *choose* to go to college
-
-. . .
-
-This doesn't mean IV is wrong — it means you need to think carefully about [who the estimate applies to]{.alert}.
+- The IV estimate may differ from the ATE if compliers are not representative — think carefully about [who the estimate applies to]{.alert}.
 
 ## Evaluating Instruments: Practice {.smaller}
 

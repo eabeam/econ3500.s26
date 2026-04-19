@@ -20,6 +20,7 @@ menu:
 
 pdf: /slides/exam3-review.pdf
 thumb: /slides/exam3-review.png
+slides_html: /slides/exam3-review-quarto/
 
 
 ---
