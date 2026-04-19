@@ -1,9 +1,9 @@
 
 
 ---
-title: Exam 3 - CH 8-12
-sitetitle: Exam 3 - Ch8-12
-summary: "ECON3500 - Exam 3 Prep (Ch8-12)"
+title: Exam 3 - Ch 8-10, 12
+sitetitle: Exam 3 - Ch 8-10, 12
+summary: "ECON3500 - Exam 3 Prep (Ch 8-10, 12)"
 
 date: "2026-04-14"
 
@@ -24,9 +24,15 @@ thumb: /slides/exam3-review.png
 
 ---
 
+**Quick links:** [What to know](#what-should-i-know) · [Coverage guide](#coverage-guide) · [Exam structure](#what-is-the-structure-of-the-exam) · [How to prepare](#how-can-i-prepare) · [In-class practice](#inclass-practice) · [Slides](#slides) · [Practice exam](#practice-exam)
+
+## Coverage guide
+
+The [Exam 3 Coverage Guide](/slides/Exam3-Chapters8_9_10_12Coverage.pdf) summarizes everything you need to know for the exam — calculations, interpretations, and key concepts by chapter.
+
 ## What should I know? 
 
-See the specific chapter guides from [Week 8](../08-content), [Week 9](../09-content), [Week 10](../10-content), and [Week 12](../12-content). You should understand all terms and definitions (be able to define and also apply them). You should also be comfortable interpreting regression output either written out in equation form or as Stata output. The level of PS4/PS5 problems is about right in terms of difficulty. 
+See the specific chapter guides from [Chapter 8](../08-content), [Chapter 9](../09-content), [Chapter 10](../10-content), and [Chapter 12](../12-content). You should understand all terms and definitions (be able to define and also apply them). You should also be comfortable interpreting regression output either written out in equation form or as Stata output. The level of PS4/PS5 problems is about right in terms of difficulty. 
 
 There will not be a Stata component to the exam. 
 
@@ -78,7 +84,7 @@ A few ideas, depending on where you're feeling least secure:
 
 In-class practice activities:
 
-- CH9 Activity: [Activity](../practice/ch9-activity3-study-doctor-student.pdf) · [Solutions](../practice/ch9-activity3-study-doctor-solutions.pdf) <!-- TODO: add solutions PDF -->
+- CH9 Activity: [Activity](../practice/ch9-activity3-study-doctor-student.pdf) · [Solutions](../practice/ch9-activity3-study-doctor-solutions.pdf)
 - CH10 Activity: [Activity](../practice/ch10-activity2-fe-showdown.pdf) · [Solutions](../practice/ch10-activity2-fe-showdown-answerkey.pdf)
 - CH12 Activity: [Activity](../practice/ch12-activity2-2sls-in-action-student.pdf) · [Solutions](../practice/ch12-activity2-2sls-in-action-solutions.pdf)
 
@@ -101,4 +107,6 @@ Use this for additional practice and to get a sense of the format and difficulty
 
 - [Practice Exam](../practice/exam3-practice.pdf)
 - [Practice Exam Solutions](../practice/exam3-practice-solutions.pdf) (*I strongly recommend completing the practice exam before reviewing the solutions*)
+
+**Note:** The practice exam does not cover DAGs (causal diagrams). See the [coverage guide](#coverage-guide) and [Chapter 9](../09-content) materials for DAG practice.
 
