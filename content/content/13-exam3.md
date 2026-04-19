@@ -105,8 +105,10 @@ In-class practice activities:
 
 Use this for additional practice and to get a sense of the format and difficulty of questions. It covers the same topics as this exam (panel data/fixed effects, instrumental variables, difference-in-differences).
 
-- [Practice Exam](../practice/exam3-practice.pdf)
-- [Practice Exam Solutions](../practice/exam3-practice-solutions.pdf) (*I strongly recommend completing the practice exam before reviewing the solutions*)
+- [Practice Exam 1](../practice/exam3-practice.pdf)
+- [Practice Exam 1 Solutions](../practice/exam3-practice-solutions.pdf)
+- [Practice Exam 2](../practice/exam3-practice2.pdf)
+- [Practice Exam 2 Solutions](../practice/exam3-practice2-solutions.pdf)
 
-**Note:** The practice exam does not cover DAGs (causal diagrams). See the [coverage guide](#coverage-guide) and [Chapter 9](../09-content) materials for DAG practice.
+(*I strongly recommend completing the practice exams before reviewing the solutions*)
 
