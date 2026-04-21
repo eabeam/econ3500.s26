@@ -231,7 +231,7 @@ ECON3500: Econometrics and Applications
 <p><span class="math display">\[\frac{\Delta TestScore}{\Delta Income} \approx 3.85 + 2(-0.0423)(40) = 3.85 - 3.384 = 0.47\]</span></p>
 </div>
 <div class="fragment">
-<p><strong>Takeaway:</strong> You <span class="alert">cannot</span> interpret <span class="math inline">\(\beta_1\)</span> or <span class="math inline">\(\beta_2\)</span> in isolation. Always compute the <span class="kw">marginal effect at a specific value of <span class="math inline">\(X\)</span></span>.</p>
+<p><strong>Takeaway:</strong> You <span class="alert">cannot</span> interpret <span class="math inline">\(\beta_1\)</span> or <span class="math inline">\(\beta_2\)</span> in isolation. Always compute the <span class="kw">marginal effect at a specific value of <span class="math inline">\(X\)</span></span>. You should also know how to find the <span class="alert">turning point</span>: <span class="math inline">\(X^* = -\beta_1 / 2\beta_2\)</span>.</p>
 </div>
 </section>
 <section id="the-log-interpretation-table" class="slide level2 smaller">
@@ -299,6 +299,30 @@ ECON3500: Econometrics and Applications
 <p><strong>Marginal effect of <span class="math inline">\(X_1\)</span>:</strong></p>
 <p><span class="math display">\[\frac{\Delta Y}{\Delta X_1} = \beta_1 + \beta_3 X_2\]</span></p>
 <p>The effect of <span class="math inline">\(X_1\)</span> <span class="kw">varies with</span> <span class="math inline">\(X_2\)</span>.</p>
+</div>
+</section>
+<section id="three-types-of-interactions" class="slide level2 smaller">
+<h2>Three Types of Interactions</h2>
+<p><strong>1. Binary <span class="math inline">\(\times\)</span> Binary</strong> (<span class="math inline">\(D_1 \times D_2\)</span>)</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 (D_{1i} \times D_{2i}) + u_i\]</span></p>
+<ul>
+<li><span class="math inline">\(\beta_3\)</span> = <span class="kw">additional</span> effect of having <em>both</em> <span class="math inline">\(D_1 = 1\)</span> and <span class="math inline">\(D_2 = 1\)</span>, beyond their separate effects</li>
+</ul>
+<div class="fragment">
+<p><strong>2. Binary <span class="math inline">\(\times\)</span> Continuous</strong> (<span class="math inline">\(D \times X\)</span>)</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1 D_i + \beta_2 X_i + \beta_3 (D_i \times X_i) + u_i\]</span></p>
+<ul>
+<li>Effect of <span class="math inline">\(X\)</span> when <span class="math inline">\(D=0\)</span>: <span class="math inline">\(\beta_2\)</span></li>
+<li>Effect of <span class="math inline">\(X\)</span> when <span class="math inline">\(D=1\)</span>: <span class="math inline">\(\beta_2 + \beta_3\)</span></li>
+<li><span class="math inline">\(\beta_3\)</span> = how much the <span class="kw">slope</span> changes when <span class="math inline">\(D = 1\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<p><strong>3. Continuous <span class="math inline">\(\times\)</span> Continuous</strong> (<span class="math inline">\(X_1 \times X_2\)</span>)</p>
+<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \times X_{2i}) + u_i\]</span></p>
+<ul>
+<li>Effect of <span class="math inline">\(X_1\)</span>: <span class="math inline">\(\beta_1 + \beta_3 X_2\)</span> (depends on <span class="math inline">\(X_2\)</span>)</li>
+</ul>
 </div>
 </section>
 <section id="interaction-terms-practice" class="slide level2 smaller">
@@ -823,6 +847,44 @@ ECON3500: Econometrics and Applications
 </div>
 <div class="fragment">
 <p><strong>The DiD Coefficient:</strong> <span class="math inline">\(\beta_3\)</span> is the coefficient on the <span class="alert">interaction term</span> <span class="math inline">\(\text{Treat} \times \text{After}\)</span>. This is the causal effect of interest.</p>
+</div>
+</section>
+<section id="did-calculating-group-means" class="slide level2 smaller">
+<h2>DiD: Calculating Group Means</h2>
+<p>You should be able to recover each cell of the 2×2 table from the regression coefficients:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Before (<span class="math inline">\(\text{After}=0\)</span>)</th>
+<th style="text-align: left;">After (<span class="math inline">\(\text{After}=1\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="kw">Control</span> (<span class="math inline">\(\text{Treat}=0\)</span>)</td>
+<td style="text-align: left;"><span class="math inline">\(\beta_0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\beta_0 + \beta_2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="kw">Treatment</span> (<span class="math inline">\(\text{Treat}=1\)</span>)</td>
+<td style="text-align: left;"><span class="math inline">\(\beta_0 + \beta_1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\beta_0 + \beta_1 + \beta_2 + \beta_3\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p><strong>Practice:</strong> If <span class="math inline">\(\hat{\beta}_0 = 53\)</span>, <span class="math inline">\(\hat{\beta}_1 = -3\)</span>, <span class="math inline">\(\hat{\beta}_2 = -1\)</span>, <span class="math inline">\(\hat{\beta}_3 = -2\)</span>:</p>
+</div>
+<div class="fragment">
+<ul>
+<li>Treatment group, after period = <span class="math inline">\(53 + (-3) + (-1) + (-2) = 47\)</span> ✓</li>
+</ul>
 </div>
 </section>
 <section id="the-parallel-trends-assumption" class="slide level2">
