@@ -192,7 +192,7 @@ ECON3500: Econometrics and Applications
 <p><strong>Exam 3: April 23</strong></p>
 </div>
 <div class="callout-content">
-<p>~3 multi-part questions, 75 minutes, closed book. One-page formula sheet (double-sided) + calculator allowed.</p>
+<p>Closed book. One-page formula sheet (double-sided) + calculator allowed. No Stata.</p>
 </div>
 </div>
 </div>
@@ -206,63 +206,32 @@ ECON3500: Econometrics and Applications
 <section id="ch-8-big-picture" class="slide level2 scrollable">
 <h2>Ch 8 Big Picture</h2>
 <p>We relax the assumption that the effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> is <span class="alert">constant</span>.</p>
+<div class="fragment">
 <p>Three tools — all still <span class="kw">linear in parameters</span>, so OLS still works:</p>
 <ol type="1">
 <li><strong>Polynomial regression</strong> — model curvature with <span class="math inline">\(X^2\)</span>, <span class="math inline">\(X^3\)</span></li>
 <li><strong>Logarithmic transformations</strong> — model percentage changes</li>
 <li><strong>Interaction terms</strong> — allow the effect of <span class="math inline">\(X_1\)</span> to depend on <span class="math inline">\(X_2\)</span></li>
 </ol>
-</section>
-<section id="polynomial-regression" class="slide level2 smaller">
-<h2>Polynomial Regression</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Quadratic Model</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i\]</span></p>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><strong>Marginal effect of <span class="math inline">\(X\)</span>:</strong></p>
-<p><span class="math display">\[\frac{\Delta Y}{\Delta X} \approx \beta_1 + 2\beta_2 X\]</span></p>
-<p>The effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> <span class="alert">depends on the current value of <span class="math inline">\(X\)</span></span>.</p>
-</div>
-<div class="fragment">
-<p><strong>Turning point</strong> (where the effect switches sign):</p>
-<p><span class="math display">\[X^* = -\frac{\beta_1}{2\beta_2}\]</span></p>
 </div>
 </section>
-<section id="polynomial-regression-example" class="slide level2">
+<section id="polynomial-regression-example" class="slide level2 smaller">
 <h2>Polynomial Regression: Example</h2>
 <p><span class="math display">\[\widehat{TestScore} = 607.3 + 3.85 \times Income - 0.0423 \times Income^2\]</span></p>
 <div class="fragment">
 <p><strong>What is the marginal effect of income at <span class="math inline">\(Income = 10\)</span> (thousand)?</strong></p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[\frac{\Delta TestScore}{\Delta Income} \approx 3.85 + 2(-0.0423)(10) = 3.85 - 0.846 = 3.00\]</span></p>
 </div>
 <div class="fragment">
 <p><strong>At <span class="math inline">\(Income = 40\)</span>?</strong></p>
+</div>
+<div class="fragment">
 <p><span class="math display">\[\frac{\Delta TestScore}{\Delta Income} \approx 3.85 + 2(-0.0423)(40) = 3.85 - 3.384 = 0.47\]</span></p>
 </div>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Takeaway</strong></p>
-</div>
-<div class="callout-content">
-<p>You <span class="alert">cannot</span> interpret <span class="math inline">\(\beta_1\)</span> or <span class="math inline">\(\beta_2\)</span> in isolation. Always compute the <span class="kw">marginal effect at a specific value of <span class="math inline">\(X\)</span></span>.</p>
-</div>
-</div>
-</div>
+<p><strong>Takeaway:</strong> You <span class="alert">cannot</span> interpret <span class="math inline">\(\beta_1\)</span> or <span class="math inline">\(\beta_2\)</span> in isolation. Always compute the <span class="kw">marginal effect at a specific value of <span class="math inline">\(X\)</span></span>.</p>
 </div>
 </section>
 <section id="the-log-interpretation-table" class="slide level2 smaller">
@@ -304,19 +273,7 @@ ECON3500: Econometrics and Applications
 </tbody>
 </table>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Must Know</strong></p>
-</div>
-<div class="callout-content">
-<p>This table is one of the <span class="alert">highest-value things</span> to have on your formula sheet. Know how to apply it.</p>
-</div>
-</div>
-</div>
+<p><strong>Must Know:</strong> This table is one of the <span class="alert">highest-value things</span> to have on your formula sheet. Know how to apply it.</p>
 </div>
 </section>
 <section id="log-interpretation-practice" class="slide level2">
@@ -344,34 +301,10 @@ ECON3500: Econometrics and Applications
 <p>The effect of <span class="math inline">\(X_1\)</span> <span class="kw">varies with</span> <span class="math inline">\(X_2\)</span>.</p>
 </div>
 </section>
-<section id="three-types-of-interactions" class="slide level2 smaller">
-<h2>Three Types of Interactions</h2>
-<p><strong>1. Binary <span class="math inline">\(\times\)</span> Binary</strong> (<span class="math inline">\(D_1 \times D_2\)</span>)</p>
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 D_{1i} + \beta_2 D_{2i} + \beta_3 (D_{1i} \times D_{2i}) + u_i\]</span></p>
-<ul>
-<li><span class="math inline">\(\beta_3\)</span> = <span class="kw">additional</span> effect of having <em>both</em> <span class="math inline">\(D_1 = 1\)</span> and <span class="math inline">\(D_2 = 1\)</span>, beyond their separate effects</li>
-</ul>
-<div class="fragment">
-<p><strong>2. Binary <span class="math inline">\(\times\)</span> Continuous</strong> (<span class="math inline">\(D \times X\)</span>)</p>
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 D_i + \beta_2 X_i + \beta_3 (D_i \times X_i) + u_i\]</span></p>
-<ul>
-<li>Effect of <span class="math inline">\(X\)</span> when <span class="math inline">\(D=0\)</span>: <span class="math inline">\(\beta_2\)</span></li>
-<li>Effect of <span class="math inline">\(X\)</span> when <span class="math inline">\(D=1\)</span>: <span class="math inline">\(\beta_2 + \beta_3\)</span></li>
-<li><span class="math inline">\(\beta_3\)</span> = how much the <span class="kw">slope</span> changes when <span class="math inline">\(D = 1\)</span></li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>3. Continuous <span class="math inline">\(\times\)</span> Continuous</strong> (<span class="math inline">\(X_1 \times X_2\)</span>)</p>
-<p><span class="math display">\[Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 (X_{1i} \times X_{2i}) + u_i\]</span></p>
-<ul>
-<li>Effect of <span class="math inline">\(X_1\)</span>: <span class="math inline">\(\beta_1 + \beta_3 X_2\)</span> (depends on <span class="math inline">\(X_2\)</span>)</li>
-</ul>
-</div>
-</section>
 <section id="interaction-terms-practice" class="slide level2 smaller">
 <h2>Interaction Terms: Practice</h2>
 <p><span class="math display">\[\widehat{TestScore} = 700 - 1.0 \times STR - 0.5 \times PctEL - 0.02 \times (STR \times PctEL)\]</span></p>
-<p>where <span class="math inline">\(STR\)</span> = student-teacher ratio and <span class="math inline">\(PctEL\)</span> = percent English learners.</p>
+<p>where <span class="math inline">\(STR\)</span> = student-teacher ratio (students per teacher), <span class="math inline">\(PctEL\)</span> = percent English learners (percentage, 0 to 100), and <span class="math inline">\(TestScore\)</span> = points on a standardized test.</p>
 <div class="fragment">
 <p><strong>Q: What is the effect of reducing STR by 1 in a district where PctEL = 20%?</strong></p>
 </div>
@@ -379,23 +312,19 @@ ECON3500: Econometrics and Applications
 <p><span class="math display">\[\frac{\Delta TestScore}{\Delta STR} = -1.0 + (-0.02)(20) = -1.0 - 0.4 = -1.4\]</span></p>
 <p>Reducing STR by 1 raises test scores by <span class="alert">1.4 points</span> in a district with 20% English learners.</p>
 </div>
-<div class="fragment">
+</section>
+<section id="interaction-terms-practice-cont." class="slide level2 smaller">
+<h2>Interaction Terms: Practice (cont.)</h2>
 <p><strong>Q: What about in a district where PctEL = 0?</strong></p>
+<div class="fragment">
 <p><span class="math display">\[\frac{\Delta TestScore}{\Delta STR} = -1.0 + (-0.02)(0) = -1.0\]</span></p>
 <p>Reducing STR by 1 raises test scores by <span class="alert">1.0 point</span>.</p>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
 </div>
-<p><strong>Knowledge Check</strong></p>
+<div class="fragment">
+<p><strong>Knowledge Check:</strong> Does the interaction term suggest a <span class="alert">larger</span> or <span class="alert">smaller</span> effect of reducing class size in districts with many English learners?</p>
 </div>
-<div class="callout-content">
-<p>Does the interaction term suggest a <span class="alert">larger</span> or <span class="alert">smaller</span> effect of reducing class size in districts with many English learners?</p>
-</div>
-</div>
-</div>
+<div class="fragment">
+<p><span class="alert">Larger</span> — the negative effect of STR is amplified when PctEL is high.</p>
 </div>
 </section>
 <section id="ch-8-summary" class="slide level2 scrollable">
@@ -431,22 +360,13 @@ ECON3500: Econometrics and Applications
 </tr>
 </tbody>
 </table>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Common Mistakes</strong></p>
-</div>
-<div class="callout-content">
+<div class="fragment">
+<p><strong>Common Mistakes:</strong></p>
 <ol type="1">
 <li>Interpreting <span class="math inline">\(\beta_1\)</span> alone in a polynomial or interaction model</li>
 <li>Forgetting to multiply by 100 (or divide by 100) for log models</li>
 <li>Including the interaction but forgetting to include the <span class="alert">constituent terms</span></li>
 </ol>
-</div>
-</div>
 </div>
 </section></section>
 <section>
@@ -457,46 +377,14 @@ ECON3500: Econometrics and Applications
 <section id="ch-9-big-picture" class="slide level2">
 <h2>Ch 9 Big Picture</h2>
 <p>Chapter 9 gives a <span class="kw">framework</span> for evaluating regression studies.</p>
-<p>Two dimensions:</p>
-<ul>
-<li><span class="kw">Internal validity</span>: Are the statistical inferences correct <em>for the population studied</em>?</li>
-<li><span class="kw">External validity</span>: Can the results be <em>generalized</em> to other populations and settings?</li>
-</ul>
-</section>
-<section id="internal-vs.-external-validity" class="slide level2">
-<h2>Internal vs.&nbsp;External Validity</h2>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Internal Validity</strong></p>
-</div>
-<div class="callout-content">
-<p>The statistical inferences about causal effects are valid <span class="alert">for the population being studied</span>.</p>
-</div>
-</div>
-</div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>External Validity</strong></p>
-</div>
-<div class="callout-content">
-<p>The statistical inferences can be <span class="alert">generalized</span> to other populations and settings.</p>
-</div>
-</div>
-</div>
 <div class="fragment">
 <ul>
-<li>Internal validity is about <span class="kw">getting the right answer</span> for your sample/population.</li>
-<li>External validity is about <span class="kw">applying that answer elsewhere</span>.</li>
-<li>There is no mechanical test for external validity — it requires <span class="alert">judgment</span>.</li>
+<li><span class="kw">Internal validity</span>: Are the statistical inferences correct <em>for the population studied</em>? (Getting the right answer)</li>
+<li><span class="kw">External validity</span>: Can the results be <em>generalized</em> to other populations and settings? (Applying it elsewhere)</li>
 </ul>
+</div>
+<div class="fragment">
+<p>Internal validity is what we can <span class="alert">test and address</span> with econometric tools. External validity requires <span class="alert">judgment</span> — no mechanical test.</p>
 </div>
 </section>
 <section id="the-five-threats-to-internal-validity" class="slide level2 smaller scrollable">
@@ -525,89 +413,64 @@ ECON3500: Econometrics and Applications
 <li><span class="math inline">\(Z\)</span> is correlated with <span class="math inline">\(X\)</span></li>
 </ol>
 <div class="fragment">
-<p><strong>Solution:</strong> Include the omitted variable, use proxy variables, use panel data (Ch 10), or use instrumental variables (Ch 12).</p>
+<p><strong>ECON 3500 solutions:</strong> Include the omitted variable, use proxy variables, use panel data — difference-in-differences and fixed effects methods (Ch 10) — or use instrumental variables (Ch 12).</p>
 </div>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Watch Out</strong></p>
-</div>
-<div class="callout-content">
-<p>Adding “kitchen sink” controls can introduce its own problems — only control for variables that satisfy the OVB conditions. Bad controls can <span class="alert">create</span> bias rather than remove it.</p>
-</div>
-</div>
-</div>
+<p><strong>Watch Out:</strong> Adding “kitchen sink” controls can introduce its own problems — only control for variables that satisfy the OVB conditions. Bad controls can <span class="alert">create</span> bias rather than remove it.</p>
 </div>
 </section>
-<section id="threat-2-wrong-functional-form" class="slide level2">
-<h2>Threat 2: Wrong Functional Form</h2>
-<p>The true relationship is nonlinear, but you estimate a linear model.</p>
-<div class="fragment">
-<p><strong>Example:</strong> The effect of income on test scores is quadratic, but you fit a line.</p>
-<p><strong>Solution:</strong> Use the tools from Chapter 8 — polynomials, logs, interactions. Test for nonlinearity.</p>
-</div>
-</section>
-<section id="threat-3-measurement-error" class="slide level2 smaller">
+<section id="threat-3-measurement-error" class="slide level2">
 <h2>Threat 3: Measurement Error</h2>
 <p>The variable you observe (<span class="math inline">\(\tilde{X}\)</span>) differs from the true variable (<span class="math inline">\(X\)</span>):</p>
 <p><span class="math display">\[\tilde{X}_i = X_i + w_i\]</span></p>
 <p>where <span class="math inline">\(w_i\)</span> is the measurement error.</p>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Where</th>
+<th style="text-align: left;">Bias Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Classical ME in <span class="math inline">\(X\)</span></td>
+<td style="text-align: left;">Independent variable</td>
+<td style="text-align: left;">Attenuation bias (toward zero)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ME in <span class="math inline">\(Y\)</span></td>
+<td style="text-align: left;">Dependent variable</td>
+<td style="text-align: left;">No bias in <span class="math inline">\(\hat{\beta}_1\)</span>; larger SEs</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Non-classical ME in <span class="math inline">\(X\)</span></td>
+<td style="text-align: left;">Correlated with <span class="math inline">\(X\)</span> or <span class="math inline">\(u\)</span></td>
+<td style="text-align: left;">Bias direction uncertain</td>
+</tr>
+</tbody>
+</table>
 </div>
-<p><strong>Attenuation Bias (Classical Measurement Error)</strong></p>
-</div>
-<div class="callout-content">
-<p>If the measurement error is classical (uncorrelated with <span class="math inline">\(X\)</span>), then OLS is biased <span class="alert">toward zero</span>.</p>
+</section>
+<section id="attenuation-bias-classical-me-in-x" class="slide level2">
+<h2>Attenuation Bias (Classical ME in <span class="math inline">\(X\)</span>)</h2>
 <p><span class="math display">\[\hat{\beta}_1 \xrightarrow{p} \beta_1 \times \frac{\sigma_X^2}{\sigma_X^2 + \sigma_w^2}\]</span></p>
+<div class="fragment">
 <p>The ratio <span class="math inline">\(\frac{\sigma_X^2}{\sigma_X^2 + \sigma_w^2} &lt; 1\)</span>, so <span class="math inline">\(|\hat{\beta}_1|\)</span> is too <span class="alert">small</span>.</p>
-</div>
-</div>
-</div>
+<p>OLS is biased <span class="alert">toward zero</span> — you underestimate the true effect.</p>
 </div>
 <div class="fragment">
 <p><strong>Solution:</strong> Get better data, use IV (Ch 12).</p>
 </div>
 </section>
-<section id="threat-4-sample-selection-bias" class="slide level2">
-<h2>Threat 4: Sample Selection Bias</h2>
-<p>The sample is not representative of the population due to a <span class="alert">selection process related to <span class="math inline">\(Y\)</span></span>.</p>
-<div class="fragment">
-<p><strong>Examples:</strong></p>
-<ul>
-<li>Studying wages only for employed people (employed ≠ random)</li>
-<li>Studying firm performance for surviving firms (survivorship bias)</li>
-<li>Volunteers for a study differ from non-volunteers</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Solution:</strong> Use a randomly selected sample, correct for selection (Heckman correction), or be cautious about generalization.</p>
-</div>
-</section>
-<section id="threat-5-simultaneous-causality" class="slide level2">
-<h2>Threat 5: Simultaneous Causality</h2>
-<p><span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span>, but <span class="math inline">\(Y\)</span> also causes <span class="math inline">\(X\)</span>.</p>
-<div class="fragment">
-<p><strong>Examples:</strong></p>
-<ul>
-<li>Police and crime: More police → less crime, but more crime → more police</li>
-<li>Class size and test scores: Low scores may prompt smaller classes</li>
-</ul>
-</div>
-<div class="fragment">
-<p><strong>Solution:</strong> Instrumental variables (Ch 12), randomized experiments, natural experiments.</p>
-</div>
-</section>
-<section id="summary-table-threats-to-internal-validity" class="slide level2 smaller">
-<h2>Summary Table: Threats to Internal Validity</h2>
+<section id="other-threats-at-a-glance" class="slide level2">
+<h2>Other Threats at a Glance</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 25%">
@@ -619,85 +482,34 @@ ECON3500: Econometrics and Applications
 <tr class="header">
 <th style="text-align: left;">Threat</th>
 <th style="text-align: left;">Problem</th>
-<th style="text-align: left;">Consequence</th>
+<th style="text-align: left;">Example</th>
 <th style="text-align: left;">Solution</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Omitted variable</td>
-<td style="text-align: left;">Relevant variable left out</td>
-<td style="text-align: left;">Bias in <span class="math inline">\(\hat{\beta}_1\)</span></td>
-<td style="text-align: left;">Add controls, panel data, IV</td>
+<td style="text-align: left;"><span class="kw">Wrong functional form</span></td>
+<td style="text-align: left;">True relationship is nonlinear</td>
+<td style="text-align: left;">Income → test scores is quadratic, you fit a line</td>
+<td style="text-align: left;">Ch 8 tools (polynomials, logs, interactions)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Functional form</td>
-<td style="text-align: left;">Wrong shape modeled</td>
-<td style="text-align: left;">Bias in <span class="math inline">\(\hat{\beta}_1\)</span></td>
-<td style="text-align: left;">Polynomials, logs, interactions</td>
+<td style="text-align: left;"><span class="kw">Sample selection</span></td>
+<td style="text-align: left;">Sample not representative due to selection on <span class="math inline">\(Y\)</span></td>
+<td style="text-align: left;">Studying wages for employed only (survivorship bias)</td>
+<td style="text-align: left;">Random sampling, Heckman correction</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Measurement error</td>
-<td style="text-align: left;"><span class="math inline">\(X\)</span> measured with error</td>
-<td style="text-align: left;">Attenuation bias (toward 0)</td>
-<td style="text-align: left;">Better data, IV</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Sample selection</td>
-<td style="text-align: left;">Non-random sample</td>
-<td style="text-align: left;">Bias in <span class="math inline">\(\hat{\beta}_1\)</span></td>
-<td style="text-align: left;">Random sampling, correction</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Simultaneous causality</td>
-<td style="text-align: left;"><span class="math inline">\(X \leftrightarrow Y\)</span></td>
-<td style="text-align: left;">Bias in <span class="math inline">\(\hat{\beta}_1\)</span></td>
-<td style="text-align: left;">IV, experiments</td>
+<td style="text-align: left;"><span class="kw">Simultaneous causality</span></td>
+<td style="text-align: left;"><span class="math inline">\(X\)</span> causes <span class="math inline">\(Y\)</span> <strong>and</strong> <span class="math inline">\(Y\)</span> causes <span class="math inline">\(X\)</span></td>
+<td style="text-align: left;">More police → less crime, but more crime → more police</td>
+<td style="text-align: left;">IV (Ch 12), experiments</td>
 </tr>
 </tbody>
 </table>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Knowledge Check</strong></p>
-</div>
-<div class="callout-content">
-<p>A researcher studies the effect of hospital spending on patient outcomes, but only includes patients who survived. Which threat applies?</p>
-<p>. . .</p>
-<p><span class="alert">Sample selection bias</span> — the sample is conditioned on an outcome (survival) related to <span class="math inline">\(Y\)</span>.</p>
-</div>
-</div>
-</div>
 </section>
-<section id="causal-diagrams-dags-review" class="slide level2">
-<h2>Causal Diagrams (DAGs): Review</h2>
-<p>A <span class="kw">directed acyclic graph (DAG)</span> maps out the causal relationships between variables.</p>
-<ul>
-<li><strong>Directed</strong>: Arrows point from cause → effect</li>
-<li><strong>Acyclic</strong>: No loops — causality flows forward</li>
-<li><strong>Graph</strong>: Nodes (variables) and edges (arrows)</li>
-</ul>
-<div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Why DAGs Matter for This Exam</strong></p>
-</div>
-<div class="callout-content">
-<p>DAGs give a <span class="alert">visual framework</span> for diagnosing the five threats — especially OVB, simultaneous causality, and measurement error.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="three-types-of-paths" class="slide level2 smaller">
-<h2>Three Types of Paths</h2>
+<section id="dags-three-types-of-paths" class="slide level2 smaller">
+<h2>DAGs: Three Types of Paths</h2>
 <div class="columns">
 <div class="column" style="width:55%;">
 <table class="caption-top">
@@ -751,32 +563,10 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 </section>
-<section id="confounding-ovb-open-backdoor-path" class="slide level2">
-<h2>Confounding = OVB = Open Backdoor Path</h2>
-<div class="columns">
-<div class="column" style="width:40%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../ch8b/ch8b_figures/ch8b_unobserved_confounder.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-<div class="smaller">
-<p><span style="color: #708090; font-weight: bold;">Gray node</span> = unobserved</p>
-</div>
-</div><div class="column" style="width:55%;">
-<p>Every case of <span class="kw">omitted variable bias</span> is an open backdoor path:</p>
-<ul>
-<li>Education ← Ability → Earnings</li>
-<li>Ability is unobserved → can’t control for it</li>
-<li>OLS picks up causal effect <strong>+</strong> confounding bias</li>
-</ul>
-<p>. . .</p>
-<p><span class="math display">\[\text{Association} = \underbrace{\text{Causal Effect}}_{\text{front-door}} + \underbrace{\text{Bias}}_{\text{open backdoor}}\]</span></p>
-</div></div>
-</section>
 <section id="what-controlling-for-does" class="slide level2 smaller">
 <h2>What “Controlling For” Does</h2>
-<p>Controlling for a variable <span class="kw">blocks all paths</span> through it. This can be good or bad:</p>
+<p><strong>Key identity:</strong> <span class="math inline">\(\text{Association} = \underbrace{\text{Causal Effect}}_{\text{front-door}} + \underbrace{\text{Bias}}_{\text{open backdoor}}\)</span></p>
+<p>Confounding = OVB = an <span class="alert">open backdoor path</span>. Controlling for a variable <span class="kw">blocks all paths</span> through it — but this can be good or bad:</p>
 <table class="caption-top">
 <colgroup>
 <col style="width: 25%">
@@ -814,152 +604,63 @@ ECON3500: Econometrics and Applications
 </tbody>
 </table>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Bad Controls</strong></p>
-</div>
-<div class="callout-content">
+<p><strong>Bad Controls:</strong></p>
 <ul>
 <li><strong>Don’t control for mediators</strong> — you’ll block the effect you’re trying to measure</li>
 <li><strong>Don’t control for colliders</strong> — you’ll introduce bias where there was none</li>
 <li><strong>Do control for confounders</strong> — they create open backdoor paths (= OVB)</li>
 </ul>
 </div>
-</div>
-</div>
-</div>
 </section>
 <section id="dag-practice" class="slide level2 smaller scrollable">
 <h2>DAG Practice</h2>
-<div class="columns">
-<div class="column" style="width:35%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../ch8b/ch8b_figures/ch8b_knowledge_check_1.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
+<p><strong>You want to estimate the causal effect of Fertilizer on Crop Yield.</strong></p>
+<p>You believe that Soil Quality affects both Fertilizer use (farmers apply more fertilizer to poor soil) and Crop Yield (better soil → higher yields). Rainfall also independently affects Crop Yield but does <em>not</em> affect how much fertilizer farmers apply.</p>
+<div class="fragment">
+<p>The DAG:</p>
+<ul>
+<li>Fertilizer → Crop Yield</li>
+<li>Soil Quality → Fertilizer</li>
+<li>Soil Quality → Crop Yield</li>
+<li>Rainfall → Crop Yield</li>
+</ul>
 </div>
-</div><div class="column" style="width:60%;">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Knowledge Check</strong></p>
-</div>
-<div class="callout-content">
-<p>You want to estimate the causal effect of Health Insurance on Health. Income affects both.</p>
+<div class="fragment">
+<p><strong>Knowledge Check:</strong></p>
 <ol type="1">
-<li>List all paths from Insurance to Health</li>
+<li>List all paths from Fertilizer to Crop Yield</li>
 <li>Classify each as causal or backdoor</li>
 <li>What should you control for?</li>
 </ol>
 </div>
-</div>
-</div>
-</div></div>
 <div class="fragment">
 <p><strong>Paths:</strong></p>
 <ul>
-<li>Insurance → Health (causal — leave open)</li>
-<li>Insurance ← Income → Health (backdoor — <span class="alert">control for Income</span>)</li>
+<li>Fertilizer → Crop Yield (causal — leave open)</li>
+<li>Fertilizer ← Soil Quality → Crop Yield (backdoor — <span class="alert">control for Soil Quality</span>)</li>
 </ul>
-<p>After controlling for Income, the only open path is causal. Effect is identified.</p>
+</div>
+<div class="fragment">
+<p>Rainfall has no path connecting Fertilizer and Crop Yield, so it does not need to be controlled for (though including it may reduce noise).</p>
+<p>After controlling for Soil Quality, the only open path is causal. Effect is identified.</p>
 </div>
 </section>
 <section id="collider-bias-practice" class="slide level2 smaller">
 <h2>Collider Bias: Practice</h2>
-<div class="columns">
-<div class="column" style="width:35%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="../ch8b/ch8b_figures/ch8b_collider.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
-</figure>
-</div>
-</div><div class="column" style="width:60%;">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Knowledge Check</strong></p>
-</div>
-<div class="callout-content">
-<p>You want to know if Talent affects Connections. Both cause Job Hiring.</p>
-<p>Should you study this relationship <span class="alert">among hired workers only</span>?</p>
-</div>
-</div>
-</div>
-</div></div>
+<p><strong>You want to know whether Academic Ability affects Athletic Ability.</strong></p>
+<p>Both cause College Admission:</p>
+<ul>
+<li>Academic Ability → College Admission</li>
+<li>Athletic Ability → College Admission</li>
+</ul>
+<p>There is <span class="alert">no direct causal link</span> between Academic Ability and Athletic Ability.</p>
 <div class="fragment">
-<p><strong>No!</strong> Conditioning on Job Hiring (the collider) <span class="alert">opens</span> the path between Talent and Connections.</p>
-<p>Among the hired, low Talent becomes correlated with high Connections — a spurious association.</p>
-<p>This is <span class="kw">collider bias</span> (a.k.a. selection bias).</p>
+<p><strong>Knowledge Check:</strong> Should you study this relationship <span class="alert">among admitted students only</span>?</p>
 </div>
-</section>
-<section id="dags-and-our-econometric-toolkit" class="slide level2 smaller">
-<h2>DAGs and Our Econometric Toolkit</h2>
-<p>DAGs help us see <strong>why</strong> each method works:</p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Problem (in DAG terms)</th>
-<th style="text-align: left;">Method</th>
-<th style="text-align: left;">How it helps</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Open backdoor via <span class="kw">observed</span> confounder</td>
-<td style="text-align: left;">Add control variable</td>
-<td style="text-align: left;">Closes the backdoor path</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Open backdoor via <span class="kw">time-invariant unobserved</span> confounder</td>
-<td style="text-align: left;">Fixed effects (Ch 10)</td>
-<td style="text-align: left;">Absorbs all <span class="math inline">\(\alpha_i\)</span> variables</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Open backdoor via <span class="kw">any unobserved</span> confounder</td>
-<td style="text-align: left;">IV / 2SLS (Ch 12)</td>
-<td style="text-align: left;">Isolates exogenous variation in <span class="math inline">\(X\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Open backdoor; treatment + control available</td>
-<td style="text-align: left;">DiD (Ch 10)</td>
-<td style="text-align: left;">Parallel trends closes the path</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">No backdoor paths (by design)</td>
-<td style="text-align: left;">RCT</td>
-<td style="text-align: left;">Randomization severs arrows into <span class="math inline">\(X\)</span></td>
-</tr>
-</tbody>
-</table>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Cross-Chapter Connection</strong></p>
-</div>
-<div class="callout-content">
-<p>When a problem asks “which method would address this threat?” — draw the DAG first. The answer becomes visual.</p>
-</div>
-</div>
-</div>
+<p><strong>No!</strong> Conditioning on College Admission (the collider) <span class="alert">opens</span> a spurious path between Academic Ability and Athletic Ability.</p>
+<p>Among admitted students, low Academic Ability becomes correlated with high Athletic Ability — because students who got in despite weak academics likely got in on athletic merit, and vice versa.</p>
+<p>This is <span class="kw">collider bias</span> (a.k.a. selection bias). The two abilities are independent in the full population, but conditioning on the collider creates a spurious negative association.</p>
 </div>
 </section>
 <section id="ch-9-what-to-focus-on" class="slide level2">
@@ -990,58 +691,12 @@ ECON3500: Econometrics and Applications
 </ol>
 </div>
 </section>
-<section id="types-of-data" class="slide level2">
-<h2>Types of Data</h2>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Units</th>
-<th style="text-align: left;">Time Periods</th>
-<th style="text-align: left;">Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="kw">Cross-sectional</span></td>
-<td style="text-align: left;">Many</td>
-<td style="text-align: left;">One</td>
-<td style="text-align: left;">Survey of 1000 workers in 2025</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="kw">Time series</span></td>
-<td style="text-align: left;">One</td>
-<td style="text-align: left;">Many</td>
-<td style="text-align: left;">US GDP, 1950–2025</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="kw">Panel</span></td>
-<td style="text-align: left;">Many</td>
-<td style="text-align: left;">Many</td>
-<td style="text-align: left;">50 states, 2000–2025</td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Panel vs.&nbsp;Pooled Cross-Sections</strong></p>
-</div>
-<div class="callout-content">
-<p>A <span class="kw">panel</span> tracks the <span class="alert">same units</span> over time (Bob in 2020 and Bob in 2021).</p>
-<p>A <span class="kw">pooled cross-section</span> draws <span class="alert">different samples</span> each period (different people each year).</p>
-</div>
-</div>
-</div>
-</div>
-</section>
 <section id="why-panel-data" class="slide level2">
 <h2>Why Panel Data?</h2>
+<p><span class="kw">Panel data</span> = the <span class="alert">same units</span> observed over multiple time periods (not pooled cross-sections, which draw different samples each period).</p>
+<div class="fragment">
 <p>The key advantage: we can control for <span class="alert">unobserved, time-invariant</span> characteristics.</p>
+</div>
 <div class="fragment">
 <p><span class="math display">\[Y_{it} = \beta_0 + \beta_1 X_{it} + \alpha_i + u_{it}\]</span></p>
 <ul>
@@ -1050,19 +705,7 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Key Insight</strong></p>
-</div>
-<div class="callout-content">
-<p>Fixed effects eliminate OVB from <span class="alert">any</span> time-invariant omitted variable — even ones you can’t observe or measure.</p>
-</div>
-</div>
-</div>
+<p><strong>Key Insight:</strong> Fixed effects eliminate OVB from <span class="alert">any</span> time-invariant omitted variable — even ones you can’t observe or measure.</p>
 </div>
 </section>
 <section id="entity-fixed-effects-mechanics" class="slide level2 smaller">
@@ -1074,7 +717,7 @@ ECON3500: Econometrics and Applications
 <p>The fixed effect <span class="math inline">\(\alpha_i\)</span> <span class="alert">drops out</span> because <span class="math inline">\(\alpha_i - \alpha_i = 0\)</span>.</p>
 </div>
 <div class="fragment">
-<p><strong>Approach 2: Entity dummies (LSDV)</strong></p>
+<p><strong>Approach 2: Entity dummies</strong></p>
 <p>Include a dummy variable for each entity:</p>
 <p><span class="math display">\[Y_{it} = \beta_1 X_{it} + \gamma_1 D_{1i} + \gamma_2 D_{2i} + \cdots + u_{it}\]</span></p>
 </div>
@@ -1099,19 +742,7 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Limitation</strong></p>
-</div>
-<div class="callout-content">
-<p>Fixed effects <span class="alert">cannot</span> control for omitted variables that change over time <em>and</em> vary across units. For that, you may need IV (Ch 12) or DiD.</p>
-</div>
-</div>
-</div>
+<p><strong>Limitation:</strong> Fixed effects <span class="alert">cannot</span> control for omitted variables that change over time <em>and</em> vary across units. For that, you may need other methods such as IV (Ch 12) or DiD.</p>
 </div>
 </section>
 <section id="difference-in-differences-setup" class="slide level2 smaller">
@@ -1191,19 +822,7 @@ ECON3500: Econometrics and Applications
 </table>
 </div>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>The DiD Coefficient</strong></p>
-</div>
-<div class="callout-content">
-<p><span class="math inline">\(\beta_3\)</span> is the coefficient on the <span class="alert">interaction term</span> <span class="math inline">\(\text{Treat} \times \text{After}\)</span>. This is the causal effect of interest.</p>
-</div>
-</div>
-</div>
+<p><strong>The DiD Coefficient:</strong> <span class="math inline">\(\beta_3\)</span> is the coefficient on the <span class="alert">interaction term</span> <span class="math inline">\(\text{Treat} \times \text{After}\)</span>. This is the causal effect of interest.</p>
 </div>
 </section>
 <section id="the-parallel-trends-assumption" class="slide level2">
@@ -1229,32 +848,11 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>If Parallel Trends Fails</strong></p>
-</div>
-<div class="callout-content">
-<p>The DiD estimate is <span class="alert">biased</span>. Any pre-existing divergence between groups gets picked up as a “treatment effect.”</p>
-</div>
-</div>
-</div>
+<p><strong>If Parallel Trends Fails:</strong> The DiD estimate is <span class="alert">biased</span>. Any pre-existing divergence between groups gets picked up as a “treatment effect.”</p>
 </div>
 </section>
 <section id="did-calculation-practice" class="slide level2 smaller">
 <h2>DiD Calculation: Practice</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Knowledge Check</strong></p>
-</div>
-<div class="callout-content">
 <p>A state raises its minimum wage in 2020. You have average teen employment rates:</p>
 <table class="caption-top">
 <thead>
@@ -1277,14 +875,20 @@ ECON3500: Econometrics and Applications
 </tr>
 </tbody>
 </table>
+<div class="fragment">
 <p>Calculate the DiD estimate of the minimum wage effect on teen employment.</p>
-<p>. . .</p>
+</div>
+<div class="fragment">
 <p><strong>Step 1:</strong> Change in treatment: <span class="math inline">\(47 - 50 = -3\)</span> pp</p>
+</div>
+<div class="fragment">
 <p><strong>Step 2:</strong> Change in control: <span class="math inline">\(52 - 53 = -1\)</span> pp</p>
+</div>
+<div class="fragment">
 <p><strong>Step 3:</strong> DiD = <span class="math inline">\((-3) - (-1) = -2\)</span> pp</p>
+</div>
+<div class="fragment">
 <p>The minimum wage increase is associated with a <span class="alert">2 percentage point decrease</span> in teen employment.</p>
-</div>
-</div>
 </div>
 </section>
 <section id="ch-10-what-to-focus-on" class="slide level2">
@@ -1297,18 +901,8 @@ ECON3500: Econometrics and Applications
 <li>State the <span class="kw">parallel trends assumption</span> and explain why it matters</li>
 <li>Know which coefficient in the regression is the DiD estimate (<span class="math inline">\(\beta_3\)</span>, the interaction)</li>
 </ul>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Standard Errors in Panel Data</strong></p>
-</div>
-<div class="callout-content">
-<p>With panel data, observations within the same entity are likely correlated over time. Use <span class="alert">clustered standard errors</span> (cluster at the entity level) — otherwise SEs are too small and you over-reject.</p>
-</div>
-</div>
+<div class="fragment">
+<p><strong>Standard Errors in Panel Data:</strong> With panel data, observations within the same entity are likely correlated over time. Use <span class="alert">clustered standard errors</span> (cluster at the entity level) — otherwise SEs are too small and you over-reject.</p>
 </div>
 </section></section>
 <section>
@@ -1359,7 +953,7 @@ ECON3500: Econometrics and Applications
 <p>When we cannot fix these with controls, panel data, or experiments, we turn to <span class="kw">instrumental variables</span>.</p>
 </div>
 </section>
-<section id="the-three-conditions-for-a-valid-instrument" class="slide level2 smaller">
+<section id="the-three-conditions-for-a-valid-instrument" class="slide level2">
 <h2>The Three Conditions for a Valid Instrument</h2>
 <p>An instrument <span class="math inline">\(Z\)</span> must satisfy:</p>
 <div class="callout callout-note callout-titled callout-style-default">
@@ -1376,7 +970,9 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 </div>
-<div class="fragment">
+</section>
+<section id="instrument-validity-cont." class="slide level2">
+<h2>Instrument Validity (cont.)</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1388,7 +984,6 @@ ECON3500: Econometrics and Applications
 <div class="callout-content">
 <p><span class="math inline">\(Z\)</span> is uncorrelated with the error term: <span class="math inline">\(\text{corr}(Z_i, u_i) = 0\)</span></p>
 <p><em><span class="math inline">\(Z\)</span> must be “as good as randomly assigned.” <span class="alert">Not directly testable</span> — requires reasoning.</em></p>
-</div>
 </div>
 </div>
 </div>
@@ -1423,19 +1018,7 @@ ECON3500: Econometrics and Applications
 </ul>
 </div>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Caution</strong></p>
-</div>
-<div class="callout-content">
-<p>Exclusion restriction is always <span class="alert">arguable</span>, not provable. This is where most debates about IV studies focus.</p>
-</div>
-</div>
-</div>
+<p><strong>Caution:</strong> Exclusion restriction is always <span class="alert">arguable</span>, not provable. This is where most debates about IV studies focus.</p>
 </div>
 </section>
 <section id="two-stage-least-squares-2sls" class="slide level2 smaller">
@@ -1475,72 +1058,22 @@ ECON3500: Econometrics and Applications
 <p><strong>Why this works:</strong> <span class="math inline">\(\hat{X}_i\)</span> contains only the variation in <span class="math inline">\(X\)</span> that comes from <span class="math inline">\(Z\)</span>. Since <span class="math inline">\(Z\)</span> is exogenous, <span class="math inline">\(\hat{X}_i\)</span> is uncorrelated with <span class="math inline">\(u_i\)</span>.</p>
 </div>
 <div class="fragment">
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Important</strong></p>
-</div>
-<div class="callout-content">
-<p>Use a proper IV/2SLS command (e.g., <code>ivregress 2sls</code> in Stata). Running two separate regressions gives <span class="alert">wrong standard errors</span>.</p>
-</div>
-</div>
-</div>
+<p><strong>Important:</strong> Use a proper IV/2SLS command (e.g., <code>ivregress 2sls</code> in Stata). Running two separate regressions gives <span class="alert">wrong standard errors</span>.</p>
 </div>
 </section>
-<section id="the-wald-estimator-binary-instrument" class="slide level2 smaller">
+<section id="the-wald-estimator-binary-instrument" class="slide level2">
 <h2>The Wald Estimator (Binary Instrument)</h2>
 <p>When the instrument <span class="math inline">\(Z\)</span> is <span class="kw">binary</span> (0 or 1), the IV estimate simplifies:</p>
-<p><span class="math display">\[\hat{\beta}_1^{IV} = \frac{\bar{Y}_{Z=1} - \bar{Y}_{Z=0}}{\bar{X}_{Z=1} - \bar{X}_{Z=0}} = \frac{\text{Reduced form}}{\text{First stage}}\]</span></p>
+<p><span class="math display">\[\hat{\beta}_1^{Wald} = \frac{\text{Reduced form}}{\text{First stage}}\]</span></p>
 <div class="fragment">
-<table class="caption-top">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Piece</th>
-<th style="text-align: left;">Regression</th>
-<th style="text-align: left;">Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="kw">Reduced form</span></td>
-<td style="text-align: left;"><span class="math inline">\(Y\)</span> on <span class="math inline">\(Z\)</span></td>
-<td style="text-align: left;">Total effect of <span class="math inline">\(Z\)</span> on <span class="math inline">\(Y\)</span> (includes the path through <span class="math inline">\(X\)</span>)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><span class="kw">First stage</span></td>
-<td style="text-align: left;"><span class="math inline">\(X\)</span> on <span class="math inline">\(Z\)</span></td>
-<td style="text-align: left;">Effect of <span class="math inline">\(Z\)</span> on <span class="math inline">\(X\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="kw">IV estimate</span></td>
-<td style="text-align: left;">Ratio</td>
-<td style="text-align: left;">Causal effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>, scaled by how much <span class="math inline">\(Z\)</span> moves <span class="math inline">\(X\)</span></td>
-</tr>
-</tbody>
-</table>
+<ul>
+<li><span class="kw">Reduced form</span>: regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(Z\)</span> — total effect of <span class="math inline">\(Z\)</span> on <span class="math inline">\(Y\)</span></li>
+<li><span class="kw">First stage</span>: regress <span class="math inline">\(X\)</span> on <span class="math inline">\(Z\)</span> — effect of <span class="math inline">\(Z\)</span> on <span class="math inline">\(X\)</span></li>
+<li><span class="kw">Wald estimate</span>: the ratio — causal effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>, scaled by how much <span class="math inline">\(Z\)</span> moves <span class="math inline">\(X\)</span></li>
+</ul>
 </div>
 <div class="fragment">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Intuition</strong></p>
-</div>
-<div class="callout-content">
-<p>The reduced form tells you how much <span class="math inline">\(Z\)</span> moves <span class="math inline">\(Y\)</span>. The first stage tells you how much <span class="math inline">\(Z\)</span> moves <span class="math inline">\(X\)</span>. Dividing gives you how much <span class="math inline">\(X\)</span> moves <span class="math inline">\(Y\)</span>.</p>
-</div>
-</div>
-</div>
+<p><strong>Intuition:</strong> The reduced form tells you how much <span class="math inline">\(Z\)</span> moves <span class="math inline">\(Y\)</span>. The first stage tells you how much <span class="math inline">\(Z\)</span> moves <span class="math inline">\(X\)</span>. Dividing gives you how much <span class="math inline">\(X\)</span> moves <span class="math inline">\(Y\)</span>.</p>
 </div>
 </section>
 <section id="weak-instruments" class="slide level2 smaller">
@@ -1552,30 +1085,18 @@ ECON3500: Econometrics and Applications
 <li>Unreliable hypothesis tests</li>
 </ul>
 <div class="fragment">
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>The F &gt; 10 Rule of Thumb</strong></p>
-</div>
-<div class="callout-content">
-<p>Test instrument relevance with the <span class="kw">first-stage F-statistic</span>.</p>
+<p><strong>The F &gt; 10 Rule of Thumb:</strong> Test instrument relevance with the <span class="kw">first-stage F-statistic</span>.</p>
 <ul>
 <li><span class="math inline">\(F &gt; 10\)</span>: Instrument is sufficiently strong ✓</li>
 <li><span class="math inline">\(F &lt; 10\)</span>: Weak instrument — IV estimates are unreliable ✗</li>
 </ul>
 <p>This is a <span class="alert">necessary condition</span> you should always check.</p>
 </div>
-</div>
-</div>
-</div>
 <div class="fragment">
 <p><strong>How to get the F-statistic:</strong> Run the first-stage regression and look at the F-statistic on the excluded instrument(s).</p>
 </div>
 </section>
-<section id="late-what-does-iv-actually-estimate" class="slide level2 smaller">
+<section id="late-what-does-iv-actually-estimate" class="slide level2">
 <h2>LATE: What Does IV Actually Estimate?</h2>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
@@ -1591,39 +1112,6 @@ ECON3500: Econometrics and Applications
 </div>
 </div>
 <div class="fragment">
-<p><strong>Four types of individuals:</strong></p>
-<table class="caption-top">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Behavior</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><span class="kw">Compliers</span></td>
-<td style="text-align: left;">Do what the instrument “tells” them (take treatment when <span class="math inline">\(Z=1\)</span>, don’t when <span class="math inline">\(Z=0\)</span>)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Always-takers</td>
-<td style="text-align: left;">Take treatment regardless of <span class="math inline">\(Z\)</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Never-takers</td>
-<td style="text-align: left;">Never take treatment regardless of <span class="math inline">\(Z\)</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Defiers</td>
-<td style="text-align: left;">Do the opposite of what <span class="math inline">\(Z\)</span> “tells” them</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="fragment">
 <ul>
 <li>IV estimates the effect <span class="alert">only for compliers</span> — not for the whole population.</li>
 <li>This is a <span class="kw">local</span> estimate, not a global one.</li>
@@ -1633,27 +1121,21 @@ ECON3500: Econometrics and Applications
 </section>
 <section id="evaluating-instruments-practice" class="slide level2 smaller">
 <h2>Evaluating Instruments: Practice</h2>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Knowledge Check</strong></p>
-</div>
-<div class="callout-content">
-<p>A researcher wants to estimate the effect of smoking on health. She proposes using <span class="kw">cigarette taxes</span> as an instrument.</p>
+<p>A researcher wants to estimate the effect of <span class="kw">years of education</span> on earnings. She proposes using <span class="kw">distance from the nearest college</span> (where the person grew up) as an instrument.</p>
+<div class="fragment">
 <p>Evaluate each condition:</p>
-<p>. . .</p>
-<p><strong>1. Relevance:</strong> Higher taxes → higher prices → less smoking. ✓ (testable)</p>
-<p>. . .</p>
-<p><strong>2. Exogeneity:</strong> Are cigarette taxes correlated with unobserved determinants of health? Possibly — states with higher taxes may also have better health infrastructure. ⚠️</p>
-<p>. . .</p>
-<p><strong>3. Exclusion:</strong> Do cigarette taxes affect health only through smoking? Maybe not — tax revenue could fund health programs. ⚠️</p>
-<p>. . .</p>
-<p><strong>Verdict:</strong> Relevance is fine, but exogeneity and exclusion are <span class="alert">debatable</span>. The researcher would need to argue carefully and possibly add controls.</p>
 </div>
+<div class="fragment">
+<p><strong>1. Relevance:</strong> Living closer to a college lowers the cost of attending → more schooling. ✓ (testable)</p>
 </div>
+<div class="fragment">
+<p><strong>2. Exogeneity:</strong> Is distance from college correlated with unobserved determinants of earnings? Growing up near a college often means growing up in an urban area — urban/rural differences in family income, school quality, and job markets could violate this. ⚠️</p>
+</div>
+<div class="fragment">
+<p><strong>3. Exclusion:</strong> Does distance affect earnings <span class="alert">only through</span> education? Possibly not — proximity to a college town may independently affect local labor markets and earnings. ⚠️</p>
+</div>
+<div class="fragment">
+<p><strong>Verdict:</strong> Relevance is plausible, but exogeneity and exclusion are <span class="alert">debatable</span> — the researcher would need to add controls for urban/rural, family background, and local labor market conditions.</p>
 </div>
 </section>
 <section id="ch-12-summary" class="slide level2 scrollable">
@@ -1688,23 +1170,14 @@ ECON3500: Econometrics and Applications
 </tr>
 </tbody>
 </table>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Common Mistakes</strong></p>
-</div>
-<div class="callout-content">
+<div class="fragment">
+<p><strong>Common Mistakes:</strong></p>
 <ol type="1">
 <li>Claiming an instrument is valid without arguing exclusion restriction</li>
 <li>Running 2SLS as two separate regressions (wrong SEs)</li>
 <li>Ignoring the weak instrument problem</li>
 <li>Interpreting IV as the ATE instead of the LATE</li>
 </ol>
-</div>
-</div>
 </div>
 </section></section>
 <section>
@@ -1778,17 +1251,8 @@ ECON3500: Econometrics and Applications
 </tbody>
 </table>
 </section>
-<section id="what-to-bring-to-the-exam" class="slide level2">
-<h2>What to Bring to the Exam</h2>
-<div class="callout callout-important callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Formula Sheet Suggestions</strong></p>
-</div>
-<div class="callout-content">
+<section id="formula-sheet-suggestions" class="slide level2">
+<h2>Formula Sheet Suggestions</h2>
 <p>Your double-sided formula sheet should include:</p>
 <ul>
 <li><span class="alert">Log interpretation table</span> (Ch 8) — you will almost certainly need this</li>
@@ -1799,51 +1263,7 @@ ECON3500: Econometrics and Applications
 <li>2SLS steps (Ch 12)</li>
 <li><span class="math inline">\(F &gt; 10\)</span> rule (Ch 12)</li>
 </ul>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="exam-logistics" class="title-slide slide level1 center">
-<h1>Exam Logistics</h1>
 
-</section>
-<section id="exam-3-details" class="slide level2 scrollable">
-<h2>Exam 3 Details</h2>
-<ul>
-<li><strong>Date:</strong> Thursday, April 23</li>
-<li><strong>Format:</strong> ~3 multi-part questions, 75 minutes</li>
-<li><strong>Closed book</strong> — one-page formula sheet (double-sided), calculator allowed</li>
-<li><strong>No Stata component</strong></li>
-</ul>
-<div class="fragment">
-<p><strong>Practice resources:</strong></p>
-<ul>
-<li>Problem Sets 4 and 5</li>
-<li>Practice exam (linked from course website)</li>
-<li>Lecture slides and knowledge checks</li>
-</ul>
-</div>
-<div class="fragment">
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Study Strategy</strong></p>
-</div>
-<div class="callout-content">
-<ol type="1">
-<li>Redo the knowledge checks from each chapter’s slides</li>
-<li>Work through the practice exam under timed conditions</li>
-<li>Make your formula sheet <em>before</em> studying — the act of choosing what goes on it is studying</li>
-</ol>
-</div>
-</div>
-</div>
-
-</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
