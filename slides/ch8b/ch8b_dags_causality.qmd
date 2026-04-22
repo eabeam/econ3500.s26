@@ -260,11 +260,11 @@ If we regress Test Scores on Class Size *without* controlling for Wealth, will t
 
 . . .
 
-**Answer:** The coefficient on class size is biased *toward zero* (understates the negative effect).
+**Answer:** The coefficient on class size is biased *away from zero* (overstates the negative effect).
 
 - Wealthy areas → smaller classes AND higher scores
-- This creates a *positive* confounding association between class size and scores
-- The positive confounding partially cancels the true negative causal effect
+- This creates a *negative* confounding association between class size and scores
+- The negative confounding reinforces the true negative causal effect, making OLS more negative than the true $\beta_1$
 
 
 ## The Backdoor Criterion {.smaller}
