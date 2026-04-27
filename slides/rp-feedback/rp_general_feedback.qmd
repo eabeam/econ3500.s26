@@ -1,0 +1,236 @@
+---
+title: "Research Proposal Feedback"
+subtitle: "Tips for Your Final Paper"
+author: "ECON3500: Econometrics and Applications"
+date: "2026-04-15"
+format:
+  revealjs:
+    footer: "ECON3500 | Research Proposal Feedback"
+---
+
+## Overview
+
+These are common issues across proposals — not targeted at anyone in particular.
+
+Use this as a **checklist** before submitting your final paper.
+
+. . .
+
+1. Tables & presentation
+2. Sample definition
+3. Causal language
+4. Writing style
+5. Other recurring issues
+
+
+# Tables & Presentation
+
+## Avoid unnecessary precision
+
+Help us (me) read your tables! 
+
+. . .
+
+- Avoid unnecessary precision: **2--3 decimal places** for most variables
+- Use real human words rather than variable names 
+- A good table should stand alone. It doesn't need the text to share its story
+
+. . .
+
+
+
+## Summary stats must cover your regression variables
+
+Every variable that appears in your regression equation should appear in your summary statistics table.
+
+. . .
+
+- If your equation has 8 regressors but your table shows 5 variables, something is missing
+- Controls matter too — show the mean and SD of your control variables
+- The reader should be able to look at your table and your equation side by side
+
+. . .
+
+
+
+# Sample Definition
+
+## Be clear about your sample size
+
+A single *N* is often not enough. Tell me what/who is in your sample. 
+
+Don't be afraid to cut those you don't want - retirees in your labor supply equation? children in your marriage market?
+
+. . .
+
+If you have **panel data** or **geographic units over time**, describe:
+
+- Number of units (states, tracts, individuals)
+- Number of time periods (and which years)
+- Total observations (units × time) (and sometimes not if unbalanced!)
+
+. . .
+
+**Example**: "Our sample includes 50 states observed annually from 2010–2020, yielding 550 state-year observations."
+
+## Watch for jumping sample sizes
+
+If your *N* changes across specifications, the reader needs to know why.
+
+. . .
+
+- **Define your sample restrictions** clearly and apply them throughout
+- If *N* drops in one specification (e.g., additional covariates with missing data), **explain it**
+
+
+. . .
+
+
+
+
+# Causal Language
+
+## Calibrate your claims
+
+Your design determines what you can say.
+
+. . .
+
+| Design | What you can claim |
+|---|---|
+| Cross-sectional OLS | Conditional associations |
+| Fixed effects / DiD | Causal effect *under identifying assumptions* |
+| IV / RCT | Stronger causal claims (if valid) |
+
+. . .
+
+**Avoid**: "proves," "the true effect," "causal impact" (unless your design supports it)
+
+**Use**: "is associated with," "the estimated coefficient suggests," "under the assumption of parallel trends"
+
+## Be specific about your assumptions
+
+Don't just say "there might be confounders."
+
+. . .
+
+- **Name** specific omitted variables that could bias your results
+- **State** the direction of bias (upward? downward?)
+- **Explain** why your design mitigates (or fails to mitigate) each threat
+
+. . .
+
+
+
+# Writing Style
+
+## Economists are active !
+
+We can use active voice. It's okay. Passive voice obscures who is doing what.
+
+. . .
+
+| Instead of... | Write... |
+|---|---|
+| "A regression was run..." | "We estimate..." |
+| "It was found that..." | "We find that..." / "The results show..." |
+| "The data was collected..." | "We use data from..." |
+
+## First person: singular or plural
+
+Match your authorship.
+
+. . .
+
+- **Solo paper**: "I estimate," "I use," "I find"
+- **Co-authored paper**: "We estimate," "We use," "We find"
+
+. . .
+
+Pick one and be consistent throughout.
+
+
+## Other writing tips
+
+- **Avoid colloquial language**: "a ton of data," "we felt like," "pretty strong results"
+- **Be precise**: "a large effect" → "a 12 percentage point increase"
+- **Cut filler**: "It is important to note that..." → just say the thing
+- **Number your tables and figures** and reference them by number in the text ("Table 1 shows..." not "the table below shows...")
+
+
+# Other Recurring Issues
+
+## Use real words for variable names
+
+In your tables, equations, and text — use **descriptive names**, not Stata variable names.
+
+. . .
+
+| Don't write | Write |
+|---|---|
+| `lnhhinc` | Log household income |
+| `educ_yrs` | Years of education |
+| `treat_post` | Legalization × Post |
+| `i.statefip` | State fixed effects |
+
+. . .
+
+Your reader should never have to guess what a variable means. This applies to your **summary statistics tables**, your **regression tables**, and your **equation notation**.
+
+<!-- ## Format tables for your reader -->
+
+<!-- Your final paper tables should not look like raw Stata output. -->
+
+<!-- . . . -->
+
+<!-- - Use **real variable labels** (see previous slide) -->
+<!-- - Include **column headers** for each specification -->
+<!-- - Report **standard errors** in parentheses -->
+<!-- - Note the **number of observations** and **R²** -->
+<!-- - Give each table a **title** and a **number** -->
+
+## DV/IV discipline
+
+Know what goes on each side of your equation.
+
+. . .
+
+- **Left-hand side** (dependent variable): the outcome you're trying to explain
+- **Right-hand side** (independent variables): the explanatory variables and controls
+
+. . .
+
+::: {.callout-important}
+## Check yourself
+Read your equation and ask: "Am I regressing the right thing on the right thing?" Errors here are surprisingly easy to make and change your entire interpretation.
+:::
+
+## Bad controls
+
+Is your variable a control or a *mediator* (gasp!)
+. . .
+
+A variable is a **bad control** if it is *itself an outcome* of your treatment variable.
+
+. . .
+
+**Example**: If you are studying the effect of educational attainment on income, do not control for work hours — income are partly *determined by* work hours (it's a mediator!)
+
+. . .
+
+
+
+## What's next
+
+- **RP-06** (optional rough draft): a chance to get feedback before the final
+- **RP-07** (presentation): present your findings
+- **RP-08** (final paper, due May 4): polished, complete paper with:
+  - Title and abstract
+  - Formatted tables and figures
+  - Replication code and documentation
+
+. . .
+
+Use your **peer review feedback** alongside this general feedback.
+
+
